@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sitemap Rationale — Fullsteam</title>
+<style>
+  /* ============================================================
+     LOW-FIDELITY WIREFRAME STYLES (grayscale, boxy, placeholder)
+     Companion to sitemap.html — documents WHY the tree is shaped
+     the way it is. Not final design.
+     ============================================================ */
+  :root{
+    --line:#b9c6cc;
+    --line-solid:#7f969f;
+    --bg:#f4f6f7;
+    --panel:#ffffff;
+    --text:#1c2b31;
+    --muted:#5f7076;
+
+    /* FULLSTEAM BRAND PALETTE (V.1 - 06/2018) */
+    --blue:#00587C;
+    --gold:#FFC600;
+    --green:#84BD00;
+    --dark:#10171a;
+
+    --blue-tint:#E7F1F6;
+    --gold-tint:#FFF6DB;
+    --green-tint:#EFF7E2;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    background:var(--bg); color:var(--text); padding-bottom:80px;
+    line-height:1.55;
+  }
+
+  .notice{
+    background:#222; color:#fff; font-size:12px; letter-spacing:.02em;
+    padding:8px 24px; font-weight:500;
+  }
+  .notice b{ font-weight:700; }
+  .notice span{ opacity:.7; margin-left:8px; font-weight:400; }
+
+  .page-head{ max-width:860px; margin:36px auto 0; padding:0 24px; }
+  .page-head h1{ font-size:26px; color:var(--blue); }
+  .page-head p{ font-size:14px; color:var(--muted); margin-top:6px; }
+
+  nav.crosslinks{
+    max-width:860px; margin:16px auto 0; padding:0 24px;
+    display:flex; gap:12px; flex-wrap:wrap;
+  }
+  nav.crosslinks a{
+    font-size:12px; font-weight:600; text-decoration:none;
+    color:var(--blue); border:1.5px dashed var(--line-solid);
+    background:var(--panel); padding:7px 12px;
+  }
+  nav.crosslinks a:hover{ background:var(--blue-tint); }
+
+  main{ max-width:860px; margin:28px auto 0; padding:0 24px; }
+
+  section{
+    background:var(--panel);
+    border:1.5px dashed var(--line-solid);
+    padding:22px 26px; margin-bottom:24px;
+  }
+  section h2{
+    font-size:17px; color:var(--blue); margin-bottom:10px;
+    display:flex; align-items:center; gap:10px;
+  }
+  section h2 .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; flex-shrink:0;
+    background:var(--blue); color:#fff;
+    font-size:13px; font-weight:700;
+  }
+  section p, section li{ font-size:14px; }
+  section ul{ margin:8px 0 0 20px; }
+  section li{ margin-bottom:6px; }
+
+  .tag{
+    display:inline-block; font-size:9px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--muted);
+    border:1px solid var(--line); padding:2px 6px;
+    vertical-align:middle; margin-left:8px; font-weight:600;
+  }
+  .tag.stories{ background:var(--gold-tint); border-color:var(--gold); color:var(--dark); }
+  .tag.audience{ background:var(--blue-tint); border-color:var(--blue); color:var(--blue); }
+  .tag.cta{ background:var(--green-tint); border-color:var(--green); color:var(--dark); }
+
+  .callout{
+    margin-top:12px; padding:12px 14px; font-size:13px;
+  }
+  .callout.map{
+    background:var(--blue-tint);
+    border-left:3px solid var(--blue);
+  }
+  .callout.quote{
+    background:var(--gold-tint);
+    border-left:3px solid var(--gold);
+    font-style:italic;
+  }
+  .callout b{ display:block; font-size:10px; letter-spacing:.08em;
+    text-transform:uppercase; margin-bottom:4px; color:var(--muted); font-style:normal; }
+
+  table.why{ width:100%; border-collapse:collapse; margin-top:10px; font-size:13px; }
+  table.why th, table.why td{
+    border:1px dashed var(--line-solid);
+    padding:8px 10px; text-align:left; vertical-align:top;
+  }
+  table.why th{
+    background:var(--blue-tint); color:var(--blue);
+    font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  }
+
+  .legend{
+    max-width:860px; margin:40px auto 0; padding:12px 24px;
+    display:flex; flex-wrap:wrap; gap:14px 24px;
+    border-top:1px dashed var(--line);
+    font-size:11px; color:var(--muted);
+  }
+  .legend span{ white-space:nowrap; }
+  .legend i{
+    display:inline-block; width:22px; height:0;
+    border-top:1.5px dashed var(--line-solid);
+    vertical-align:middle; margin-right:6px;
+  }
+</style>
+</head>
+<body>
+  <div class="notice">
+    <b>Sitemap Rationale v0.1</b>
+    <span>Why the page tree is shaped this way · companion to sitemap.html · grounded in PROJECT_KNOWLEDGE_BASE.md (client brief)</span>
+  </div>
+
+  <div class="page-head">
+    <h1>Why This Sitemap</h1>
+    <p>The rationale behind every structural choice in <em>sitemap.html</em>. Each decision traces back to the client brief: reposition Fullsteam.com from a corporate brochure into a bold storytelling experience — without touching the brand identity.</p>
+  </div>
+
+  <nav class="crosslinks">
+    <a href="./sitemap.html">← Sitemap diagram</a>
+    <a href="./header-wireframe.html">Header wireframe →</a>
+  </nav>
+
+  <main>
+
+    <!-- 1 -->
+    <section>
+      <h2><span class="num">1</span> From brochure to story — organize, don't redesign the brand</h2>
+      <p>The brief is explicit: the brand identity stays unchanged. What changes is how content and navigation are organized so visitors quickly understand Fullsteam through its portfolio of market-leading vertical software companies and embedded products.</p>
+      <ul>
+        <li><b>Keep:</b> logo, palette (Bio Blue / Gold / Green), voice.</li>
+        <li><b>Change:</b> information architecture — the sitemap is a reorganization tool, not a rebrand artifact.</li>
+        <li><b>Feel:</b> more exploratory than corporate — visitors should understand the company by moving through its solutions, not by reading an "About" wall first.</li>
+      </ul>
+      <div class="callout map"><b>Mapped to sitemap</b>All nodes are dashed wireframe blocks with the brand palette applied only as accents — structure carries the meaning, not surface styling.</div>
+    </section>
+
+    <!-- 2 -->
+    <section>
+      <h2><span class="num">2</span> Two core stories drive the two mega-nav items <span class="tag stories">stories</span></h2>
+      <p>The site must tell two stories. In the sitemap they become the only two nav items that branch into children — everything else is a leaf.</p>
+      <table class="why">
+        <tr><th>Story (from brief)</th><th>Nav item</th><th>Children in the tree</th></tr>
+        <tr>
+          <td><b>Acquire &amp; Grow</b> — Fullsteam acquires and grows vertical-specific software into market leaders</td>
+          <td><b>Solutions</b></td>
+          <td>Verticals grouped under category chips (Hospitality &amp; Events, Retail &amp; Storage, Health &amp; Wellness, Field &amp; Transportation, Associations &amp; ERP) plus an index page</td>
+        </tr>
+        <tr>
+          <td><b>Embedded Expansion</b> — those businesses expand beyond SaaS via embedded offerings</td>
+          <td><b>Platform</b></td>
+          <td>Payments, Lending, Insurance, Hardware, Integrations — plus AI at Fullsteam (see §7)</td>
+        </tr>
+      </table>
+      <div class="callout map"><b>Mapped to sitemap</b>Solutions and Platform are the only columns with child chains hanging beneath them. That asymmetry is intentional: the branching visual weight literally shows where the business grows.</div>
+    </section>
+
+    <!-- 3 -->
+    <section>
+      <h2><span class="num">3</span> Grouped verticals instead of "a page for every industry"</h2>
+      <p>The brief states all four audiences should explore representative companies and verticals <b>without requiring a page for every industry</b>. The sitemap therefore uses a two-level pattern inside Solutions:</p>
+      <ul>
+        <li><b>Category groupings</b> (tinted chips) reflect how the portfolio clusters naturally — hospitality-adjacent businesses together, field-based businesses together, etc.</li>
+        <li><b>A persistent index node</b> ("All Verticals") gives filterable access for anyone who doesn't find themselves in the groups — including prospects from future acquisitions.</li>
+        <li>This keeps CMS maintenance proportional on Duda: new verticals slot into an existing category rather than forcing a nav change.</li>
+      </ul>
+      <div class="callout quote"><b>Brief requirement</b>"All four groups should understand the vision and explore representative companies and verticals without requiring a page for every industry."</div>
+    </section>
+
+    <!-- 4 -->
+    <section>
+      <h2><span class="num">4</span> Audience-led left edge: Founders &amp; Investors first <span class="tag audience">audiences</span></h2>
+      <p>Founders (software sellers) and investors are the two rank-1 audiences. Both arrive with one focused question — "what happens if I sell my company here?" and "what's the growth trajectory?" — so each gets a single-purpose leaf page placed at the front of the rail.</p>
+      <ul>
+        <li><b>Single page each</b>, not mega-menus: these are conversion paths, not browsing paths. The single-page badge marks them as leaves.</li>
+        <li><b>Leftmost placement</b> = highest-priority entrances, matching the header wireframe where both lead the primary nav.</li>
+        <li><b>Rank-2 audiences</b> (employees, customers) are served through Careers, Our Story, and Solutions/Platform respectively — they browse; they don't need dedicated entry points.</li>
+      </ul>
+      <div class="callout map"><b>Mapped to sitemap</b>For Founders and For Investors sit as the first two cells under the Home rail, with the header wireframe surfacing them above Solutions/Platform for the same reason.</div>
+    </section>
+
+    <!-- 5 -->
+    <section>
+      <h2><span class="num">5</span> A lean Home block</h2>
+      <p>Home in the sitemap carries exactly three jobs: hero framing, the two audience paths, and a short brand-story summary. It then hands visitors off downward — visually represented by the single stroke to the rail — rather than trying to be the destination itself.</p>
+      <ul>
+        <li>The fuller CTA phrase ("Explore our vertical solutions across hospitality, retail, wellness, field services, and more…") lives in hero copy while the button stays short (per header-wireframe note).</li>
+        <li>An exploratory site needs a light front door: heavy content lives one level down, at Solutions and Platform.</li>
+      </ul>
+      <div class="callout map"><b>Mapped to sitemap</b>Home is the only solid-bordered node — it anchors the tree and stands apart from the dashed placeholder content below it.</div>
+    </section>
+
+    <!-- 6 -->
+    <section>
+      <h2><span class="num">6</span> The primary CTA pulls everything toward Solutions <span class="tag cta">cta</span></h2>
+      <p>The brief asks how to shift the primary CTA toward <b>"Explore our vertical solutions."</b> The sitemap answers structurally, not just with copy:</p>
+      <ul>
+        <li>Solutions sits mid-rail in the nav row and gets the largest subtree — the center of gravity of the whole map.</li>
+        <li>The header CTA button shortens to "Explore Solutions"; the full phrase lives in hero and mega-menu footer copy (mirroring header-wireframe.html).</li>
+        <li>Contact remains a utility link, not a nav branch — CTAs lead to exploration first; contact is always available secondarily.</li>
+      </ul>
+      <div class="callout quote"><b>Brief question</b>"How to shift the primary CTA toward 'Explore our vertical solutions'?"</div>
+    </section>
+
+    <!-- 7 -->
+    <section>
+      <h2><span class="num">7</span> Open questions answered by the structure</h2>
+      <table class="why">
+        <tr><th>Client open question</th><th>Structural answer in the sitemap</th></tr>
+        <tr><td><b>Should AI merit a dedicated page?</b></td><td>Yes — "AI at Fullsteam" is a distinct child of Platform, green-flagged (matching the header prototype's AI highlight) because AI-enabled innovation is part of the shared core message, but grouped under Platform since it's delivered through the embedded products.</td></tr>
+        <tr><td><b>How to support sellers / founders better?</b></td><td>Dedicated "For Founders" leaf page ("sell your business path") — one clear entrance instead of buried acquisition info.</td></tr>
+        <tr><td><b>How to present platform services concretely?</b></td><td>Each Platform product is its own page where concrete examples live (device shots, processing volumes, lending case studies), rather than one abstract platform overview.</td></tr>
+        <tr><td><b>Shift primary CTA?</b></td><td>Solutions anchors the experience structurally (§6).</td></tr>
+      </table>
+    </section>
+
+    <!-- 8 -->
+    <section>
+      <h2><span class="num">8</span> Constraints &amp; assumptions</h2>
+      <ul>
+        <li><b>CMS:</b> Duda anticipated retained — the tree maps cleanly to Duda's page/group model (nav groups become menu items; category chips map to folder pages or anchor sections).</li>
+        <li><b>Leaf stubs:</b> "single page" badges mean one template, no children — founders, investors, Our Story, Careers, plus utility legal pages noted at the foot of the sitemap.</li>
+        <li><b>Brand untouched:</b> all styling is low-fi wireframe convention; palette appears only per the V.1 06/2018 spec.</li>
+        <li><b>Future-proofing:</b> the Solutions grouping absorbs acquired verticals without nav surgery — expected given the acquire-and-grow mechanism.</li>
+      </ul>
+      <div class="callout map"><b>Traceability</b>Every claim above distills PROJECT_KNOWLEDGE_BASE.md, which distills the source brief at clientDocs/Fullsteam Web Brief (1).docx. Update there when decisions change.</div>
+    </section>
+
+
+  </main>
+
+  <div class="legend">
+    <span><i></i> Dashed outline = low-fi wireframe</span>
+    <span>Blue #00587C = primary / headers</span>
+    <span>Gold tint callout = direct brief language</span>
+    <span>Blue tint callout = mapped to sitemap element</span>
+    <span>Green #84BD00 = AI highlight</span>
+  </div>
+
+</body>
+</html>

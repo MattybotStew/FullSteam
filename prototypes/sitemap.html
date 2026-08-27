@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sitemap Wireframe — Fullsteam</title>
+<style>
+  /* ============================================================
+     LOW-FIDELITY WIREFRAME STYLES (grayscale, boxy, placeholder)
+     Not final design — dashed boxes + org-chart connectors only.
+     ============================================================ */
+  :root{
+    --line:#b9c6cc;
+    --line-solid:#7f969f;
+    --bg:#f4f6f7;
+    --panel:#ffffff;
+    --text:#1c2b31;
+    --muted:#5f7076;
+
+    /* FULLSTEAM BRAND PALETTE (V.1 - 06/2018) */
+    --blue:#00587C;
+    --gold:#FFC600;
+    --green:#84BD00;
+    --dark:#10171a;
+
+    --blue-tint:#E7F1F6;
+    --stroke-w:20px;   /* drop-stroke length between levels */
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    background:var(--bg); color:var(--text); padding-bottom:80px;
+  }
+
+  .notice{
+    background:#222; color:#fff; font-size:12px; letter-spacing:.02em;
+    padding:8px 24px; font-weight:500;
+  }
+  .notice b{ font-weight:700; }
+  .notice span{ opacity:.7; margin-left:8px; font-weight:400; }
+
+  .page-title{ max-width:1200px; margin:28px auto 0; padding:0 24px; }
+  .page-title h1{ font-size:22px; color:var(--blue); }
+  .page-title p{ font-size:13px; color:var(--muted); margin-top:4px; }
+
+  .sitemap{ max-width:1200px; margin:36px auto 0; padding:0 24px; }
+
+  .node{
+    background:var(--panel);
+    border:1.5px dashed var(--line-solid);
+    padding:12px 14px; text-align:center; position:relative;
+  }
+  .node b{ display:block; font-size:14px; color:var(--blue); font-weight:700; }
+  .node i{ display:block; font-style:normal; font-size:11px; color:var(--muted); margin-top:3px; }
+
+  .node.home{
+    border-style:solid; border-color:var(--blue);
+    max-width:260px; margin:0 auto; padding:16px;
+  }
+  .node.home b{ font-size:16px; letter-spacing:.05em; }
+
+  .stem{
+    width:0; height:var(--stroke-w);
+    border-left:1.5px dashed var(--line-solid);
+    margin:0 auto;
+  }
+
+  /* Level 1 : HOME -> horizontal rail -> main-nav row */
+  .rail-row{ display:flex; align-items:flex-start; width:100%; }
+  .rail-cell{
+    flex:1; min-width:0; position:relative;
+    padding:var(--stroke-w) 6px 0; text-align:center;
+  }
+  .rail-cell::before{
+    content:''; position:absolute; top:0; left:50%;
+    height:var(--stroke-w);
+    border-left:1.5px dashed var(--line-solid);
+  }
+  .rail-cell::after{
+    content:''; position:absolute; top:0; left:0; right:0;
+    border-top:1.5px dashed var(--line-solid);
+  }
+  .rail-cell.first::after{ left:50%; right:0; }   /* rail starts at center of first cell */
+  .rail-cell.last::after{ left:0; right:50%; }    /* rail ends at center of last cell */
+  .rail-cell.only::after{ display:none; }
+
+  .rail-cell > .node{ height:100%; }
+
+  /* Level 2 : children chains under a nav node */
+  .kids{ margin-top:var(--stroke-w); }
+  .kid{ position:relative; }
+  .kid + .kid{ margin-top:var(--stroke-w); }
+  .kid + .kid::before{
+    content:''; position:absolute; top:calc(-1 * var(--stroke-w)); left:50%;
+    height:var(--stroke-w);
+    border-left:1.5px dashed var(--line-solid);
+  }
+
+  .kids .node{ padding:10px 10px; }
+  .kids .node b{ font-size:12px; }
+  .kids .node i{ font-size:10px; }
+
+  .cat-chip{
+    display:inline-block; margin:var(--stroke-w) auto 0;
+    padding:4px 10px; border:1px dashed var(--line);
+    background:var(--blue-tint);
+    font-size:10px; font-weight:700; letter-spacing:.06em;
+    color:var(--blue); text-transform:uppercase;
+    position:relative;
+  }
+  .cat-chip::before{
+    content:''; position:absolute; top:calc(-1 * var(--stroke-w)); left:50%;
+    height:var(--stroke-w);
+    border-left:1.5px dashed var(--line-solid);
+  }
+
+  .leaf-badge{
+    display:inline-block; margin-top:6px;
+    font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); border:1px solid var(--line); padding:2px 6px;
+  }
+
+  .utility-note{
+    max-width:1200px; margin:18px auto 0; padding:0 24px;
+    font-size:11px; color:var(--muted); text-align:center;
+  }
+
+  .legend{
+    max-width:1200px; margin:40px auto 0; padding:12px 24px;
+    display:flex; flex-wrap:wrap; gap:14px 24px;
+    border-top:1px dashed var(--line);
+    font-size:11px; color:var(--muted);
+  }
+  .legend span{ white-space:nowrap; }
+  .legend i{
+    display:inline-block; width:22px; height:0;
+    border-top:1.5px dashed var(--line-solid);
+    vertical-align:middle; margin-right:6px;
+  }
+
+  @media (max-width:900px){
+    .rail-row{ flex-wrap:wrap; gap:24px 0; }
+    .rail-cell{ flex:1 1 33%; }
+    .rail-cell::after{ display:none; }
+  }
+</style>
+</head>
+<body>
+  <div class="notice">
+    <b>Sitemap Wireframe v0.1</b>
+    <span>Low-fi structure · Fullsteam brand palette · traditional tree: Home → primary nav → child pages</span>
+  </div>
+
+  <div class="page-title">
+    <h1>Fullsteam.com — Page Tree</h1>
+    <p>Dashed lines show hierarchy connections. Blocks are placeholder nodes, not final designs.</p>
+  </div>
+
+  <main class="sitemap">
+
+    <!-- LEVEL 0 : HOME -->
+    <div class="node home"><b>HOME</b><i>/&nbsp;&nbsp;hero · audience paths · brand story summary</i></div>
+
+    <!-- stroke down from home to the rail -->
+    <div class="stem"></div>
+
+    <!-- LEVEL 1 + 2 : MAIN NAV ROW WITH CHILDREN -->
+    <div class="rail-row">
+
+      <!-- For Founders (leaf) -->
+      <div class="rail-cell first">
+        <div class="node">
+          <b>For Founders</b>
+          <i>sell your business path</i>
+          <span class="leaf-badge">single page</span>
+        </div>
+      </div>
+
+      <!-- For Investors (leaf) -->
+      <div class="rail-cell">
+        <div class="node">
+          <b>For Investors</b>
+          <i>portfolio thesis &amp; scale story</i>
+          <span class="leaf-badge">single page</span>
+        </div>
+      </div>
+
+      <!-- Solutions (grouped verticals mega-menu) -->
+      <div class="rail-cell">
+        <div class="node">
+          <b>Solutions</b>
+          <i>vertical software portfolio</i>
+        </div>
+        <div class="kids">
+          <div class="cat-chip">Hospitality &amp; Events</div>
+          <div class="kid"><div class="node"><b>Hospitality</b><i>management</i></div></div>
+          <div class="kid"><div class="node"><b>Weddings &amp; Events</b><i>operations</i></div></div>
+          <div class="kid"><div class="node"><b>Wine</b><i>sales &amp; tasting room</i></div></div>
+
+          <div class="cat-chip">Retail &amp; Storage</div>
+          <div class="kid"><div class="node"><b>Retail</b><i>specialty POS</i></div></div>
+          <div class="kid"><div class="node"><b>Storage &amp; Marina</b><i>facilities</i></div></div>
+
+          <div class="cat-chip">Health &amp; Wellness</div>
+          <div class="kid"><div class="node"><b>Health &amp; Wellness</b><i>practice mgmt</i></div></div>
+
+          <div class="cat-chip">Field &amp; Transportation</div>
+          <div class="kid"><div class="node"><b>Field Services</b><i>home &amp; commercial</i></div></div>
+          <div class="kid"><div class="node"><b>Transportation</b><i>ground &amp; parking</i></div></div>
+          <div class="kid"><div class="node"><b>Automotive</b><i>lube, repair, lots</i></div></div>
+
+          <div class="cat-chip">Associations &amp; ERP</div>
+          <div class="kid"><div class="node"><b>Associations</b><i>nonprofits &amp; chapters</i></div></div>
+          <div class="kid"><div class="node"><b>ERP</b><i>B2B back-office</i></div></div>
+
+          <div class="cat-chip">Index</div>
+          <div class="kid"><div class="node"><b>All Verticals</b><i>full list w/ filter · find your vertical</i></div></div>
+        </div>
+      </div>
+
+      <!-- Platform (embedded expansion mega-menu) -->
+      <div class="rail-cell">
+        <div class="node">
+          <b>Platform</b>
+          <i>embedded expansion products</i>
+        </div>
+        <div class="kids">
+          <div class="kid"><div class="node"><b>Payments</b><i>embedded processing</i></div></div>
+          <div class="kid"><div class="node"><b>Lending</b><i>embedded financing</i></div></div>
+          <div class="kid"><div class="node"><b>Insurance</b><i>embedded coverage</i></div></div>
+          <div class="kid"><div class="node"><b>Hardware</b><i>POS &amp; devices</i></div></div>
+          <div class="kid"><div class="node"><b>Integrations</b><i>ecosystem</i></div></div>
+          <div class="kid"><div class="node" style="border-color:var(--green);"><b style="color:var(--green);">AI at Fullsteam</b><i>intelligent features</i></div></div>
+        </div>
+      </div>
+
+      <!-- Our Story (leaf) -->
+      <div class="rail-cell">
+        <div class="node">
+          <b>Our Story</b>
+          <i>history · leadership</i>
+          <span class="leaf-badge">single page</span>
+        </div>
+      </div>
+
+      <!-- Careers (leaf) -->
+      <div class="rail-cell last">
+        <div class="node">
+          <b>Careers</b>
+          <i>culture · open roles</i>
+          <span class="leaf-badge">single page</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="utility-note">
+      Utility items available on every page (not shown as tree nodes): Contact — header link ·
+      “Explore Solutions” CTA — header button · legal footer pages (Privacy, Terms).
+    </p>
+
+    <!-- LEGEND -->
+    <div class="legend">
+      <span><i></i> Dashed outline/stroke = low-fi wireframe connection</span>
+      <span>Home block outlined solid in Bio Blue #00587C</span>
+      <span>Blue #00587C = primary nav / page names</span>
+      <span>Tinted chip = solutions category grouping</span>
+      <span>Green #84BD00 = AI highlight (matches header)</span>
+      <span>“Single page” badge = leaf node, no children</span>
+    </div>
+
+  </main>
+
+</body>
+</html>

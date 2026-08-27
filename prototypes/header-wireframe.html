@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Header Wireframe — Fullsteam (audience-led nav)</title>
+<style>
+  /* ============================================================
+     LOW-FIDELITY WIREFRAME STYLES (grayscale, boxy, placeholder)
+     Not final design — placeholder text and dashed boxes only.
+     ============================================================ */
+  :root{
+    --line:#b9c6cc;      /* dashed wireframe outline (cool gray) */
+    --line-solid:#7f969f;
+    --bg:#f4f6f7;        /* page bg */
+    --panel:#ffffff;     /* header + mega-menu bg */
+    --text:#1c2b31;      /* near-black body text */
+    --muted:#5f7076;     /* secondary text */
+
+    /* FULLSTEAM BRAND PALETTE (V.1 - 06/2018) */
+    --blue:#00587C;      /* Primary - Bio Blue  (PMS 308C) */
+    --gold:#FFC600;      /* Primary - Gold      (PMS 7548C) */
+    --green:#84BD00;     /* Accent  - Green      (PMS 376C) */
+    --dark:#10171a;      /* Supporting - Black */
+
+    /* light tints for hover / chips */
+    --blue-tint:#E7F1F6; /* ~10% of brand blue */
+    --gold-tint:#FFF6DB;
+    --green-tint:#EFF7E2;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    padding-bottom:80px;
+  }
+
+  /* Wireframe notice strip */
+  .notice{
+    background:#222; color:#fff; font-size:12px; letter-spacing:.02em;
+    padding:8px 24px; font-weight:500;
+  }
+  .notice b{ font-weight:700; }
+  .notice span{ opacity:.7; margin-left:8px; font-weight:400; }
+
+  /* ================= HEADER ================= */
+  header{
+    background:var(--panel);
+    border-bottom:1px dashed var(--line);
+    position:sticky; top:0; z-index:50;
+  }
+  .nav-row{
+    max-width:1200px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; gap:24px;
+  }
+
+  /* Logo placeholder (brand blue) */
+  .logo{
+    width:150px; height:38px;
+    border:1.5px dashed var(--line-solid);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--blue); font-size:12px; font-weight:700; letter-spacing:.1em;
+    flex-shrink:0;
+  }
+
+  /* Desktop nav */
+  .nav-links{ display:flex; align-items:center; gap:4px; flex:1; }
+  .nav-item{ position:relative; }
+  .nav-link{
+    display:inline-block; padding:10px 14px; font-size:14px; font-weight:600;
+    color:var(--blue); text-decoration:none; white-space:nowrap;
+  }
+  .nav-link:hover{ background:var(--blue-tint); }
+  .nav-link .caret{
+    font-size:10px; margin-left:5px; color:var(--muted); vertical-align:middle;
+  }
+
+  /* Right side */
+  .nav-right{ display:flex; align-items:center; gap:14px; flex-shrink:0; }
+  .contact{
+    font-size:14px; color:var(--blue); text-decoration:none;
+    padding:10px 4px; font-weight:500;
+  }
+  .cta{
+    background:var(--blue); color:#fff; text-decoration:none;
+    font-size:13px; font-weight:600; padding:11px 18px; white-space:nowrap;
+  }
+  .cta:hover{ background:var(--green); }
+
+  /* Hamburger (mobile) */
+  .hamburger{ display:none; font-size:22px; cursor:pointer; padding:4px 10px; }
+
+  /* ================= MEGA-MENU PANELS ================= */
+  .mega{
+    display:none;
+    position:absolute; left:0; top:100%;
+    width:760px; max-width:92vw;
+    background:var(--panel);
+    border:1px dashed var(--line);
+    border-top:2px solid var(--line-solid);
+    padding:24px; z-index:60;
+    box-shadow:4px 8px 18px rgba(0,0,0,.12);
+  }
+  .nav-item:hover .mega,
+  .nav-item:focus-within .mega,
+  .nav-item.open .mega,
+  .nav-item.pinned .mega{ display:block; }
+  /* Pinned state (for screenshots): open with #platform or #solutions in the URL */
+
+  .mega h4{
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:14px; font-weight:700;
+    padding-bottom:8px; border-bottom:1px dashed var(--line);
+  }
+
+  /* Solutions mega: category columns */
+  .cat-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;
+  }
+  .cat-col .cat-name{
+    color:var(--blue); font-weight:700; font-size:14px; margin-bottom:10px; display:block;
+  }
+  .cat-col .cat-name .pipe{ color:var(--green); font-weight:400; margin-left:4px; }
+  .cat-col ul{ list-style:none; }
+  .cat-col li{ padding:5px 0; font-size:13px; color:var(--text); }
+  .cat-col li span{ color:var(--muted); }
+
+  .mega-foot{
+    margin-top:20px; padding-top:16px; border-top:1px dashed var(--line);
+    font-size:13px; font-weight:600;
+  }
+  .mega-foot a{ color:var(--text); text-decoration:none; border-bottom:1px dashed var(--line-solid); }
+
+  /* Platform mega: simple list */
+  .plat-list{ display:grid; grid-template-columns:repeat(2,1fr); gap:6px 24px; }
+  .plat-list li{ list-style:none; padding:8px 0; font-size:14px; font-weight:600; border-bottom:1px dashed var(--line); }
+  .plat-list li span{ font-weight:400; color:var(--muted); margin-left:8px; font-size:12px; }
+  .plat-list li.ai{ color:var(--green); } /* AI highlighted as an innovation accent */
+  .plat-list li.ai span{ color:var(--muted); }
+
+  /* ================= CONTENT AREA (placeholder) ================= */
+  main{ max-width:1200px; margin:36px auto 0; padding:0 24px; }
+  .wire-block{
+    border:1.5px dashed var(--line); background:#fff;
+    padding:26px; margin-bottom:20px;
+  }
+  .wire-block h1{ font-size:22px; font-weight:700; margin-bottom:10px; }
+  .wire-block h1 .tag{ font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.08em; }
+  .wire-block p{ font-size:14px; color:var(--muted); max-width:640px; }
+  .cta-ghost{
+    display:inline-block; margin-top:16px; padding:12px 20px;
+    border:1.5px dashed var(--blue); color:var(--blue); font-size:13px; font-weight:700;
+  }
+
+  /* Brand palette chip strip */
+  .palette{ margin-top:20px; display:flex; gap:12px; flex-wrap:wrap; }
+  .swatch{
+    border:1px dashed var(--line-solid); background:#fff; padding:10px 12px;
+    font-size:12px; min-width:150px;
+  }
+  .swatch .chip{ width:100%; height:34px; margin-bottom:6px; }
+  .swatch b{ display:block; font-size:12px; }
+  .swatch span{ color:var(--muted); font-family:monospace; }
+
+  .legend{
+    display:flex; gap:20px; flex-wrap:wrap; margin-bottom:20px;
+    font-size:12px; color:var(--muted);
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .legend i{ width:14px; height:14px; display:inline-block; border:1px dashed var(--line-solid); background:#fff; }
+
+  /* ================= MOBILE ================= */
+  @media (max-width: 920px){
+    .nav-links, .nav-right{ display:none; }
+    .hamburger{ display:block; margin-left:auto; }
+    .nav-row{ flex-wrap:wrap; }
+    .nav-row.mobile-open .nav-links{
+      display:block; width:100%; order:3;
+      border-top:1px dashed var(--line); padding-top:8px;
+    }
+    .nav-row.mobile-open .nav-right{ display:flex; width:100%; order:4; padding-top:8px; }
+    .nav-item{ position:relative; }
+    .nav-item > .mega{
+      position:static; width:100%; box-shadow:none; margin:4px 0 10px;
+    }
+    .cat-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="notice">
+    <b>Header Wireframe v0.2 — on-brand</b>
+    <span>Low-fi structure · Fullsteam brand palette applied · hover "Solutions" / "Platform" to preview mega-menus</span>
+  </div>
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="nav-row" id="navRow">
+
+      <!-- Logo placeholder -->
+      <div class="logo">FULLSTEAM LOGO</div>
+
+      <!-- Primary nav -->
+      <nav class="nav-links">
+
+        <!-- For Founders -->
+        <div class="nav-item">
+          <a class="nav-link" href="#">For Founders</a>
+        </div>
+
+        <!-- For Investors -->
+        <div class="nav-item">
+          <a class="nav-link" href="#">For Investors</a>
+        </div>
+
+        <!-- Solutions (grouped verticals mega-menu) -->
+        <div class="nav-item">
+          <a class="nav-link" href="#">Solutions <span class="caret">&#9662;</span></a>
+          <div class="mega">
+            <h4>Vertical solutions — grouped</h4>
+            <div class="cat-grid">
+              <div class="cat-col">
+                <span class="cat-name">Hospitality &amp; Events <span class="pipe">→</span></span>
+                <ul>
+                  <li>Hospitality <span>management</span></li>
+                  <li>Weddings &amp; Events <span>operations</span></li>
+                  <li>Wine <span>sales &amp; tasting room</span></li>
+                </ul>
+              </div>
+              <div class="cat-col">
+                <span class="cat-name">Retail &amp; Storage <span class="pipe">→</span></span>
+                <ul>
+                  <li>Retail <span>specialty POS</span></li>
+                  <li>Storage &amp; Marina <span>facilities</span></li>
+                </ul>
+              </div>
+              <div class="cat-col">
+                <span class="cat-name">Health &amp; Wellness <span class="pipe">→</span></span>
+                <ul>
+                  <li>Health &amp; Wellness <span>practice mgmt</span></li>
+                </ul>
+              </div>
+              <div class="cat-col">
+                <span class="cat-name">Field &amp; Transportation <span class="pipe">→</span></span>
+                <ul>
+                  <li>Field Services <span>home &amp; commercial</span></li>
+                  <li>Transportation <span>ground &amp; parking</span></li>
+                  <li>Automotive <span>lube, repair, lots</span></li>
+                </ul>
+              </div>
+              <div class="cat-col">
+                <span class="cat-name">Associations &amp; ERP <span class="pipe">→</span></span>
+                <ul>
+                  <li>Associations <span>nonprofits &amp; chapters</span></li>
+                  <li>ERP <span>B2B back-office</span></li>
+                </ul>
+              </div>
+              <div class="cat-col">
+                <span class="cat-name">All verticals <span class="pipe">→</span></span>
+                <ul>
+                  <li><span>Full list with filter</span></li>
+                  <li><span>Find your vertical</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mega-foot"><a href="#">Explore Solutions →</a></div>
+          </div>
+        </div>
+
+        <!-- Platform (embedded expansion mega-menu) -->
+        <div class="nav-item">
+          <a class="nav-link" href="#">Platform <span class="caret">&#9662;</span></a>
+          <div class="mega" style="width:520px;">
+            <h4>Platform — embedded expansion</h4>
+            <ul class="plat-list">
+              <li>Payments <span>embedded processing</span></li>
+              <li>Lending <span>embedded financing</span></li>
+              <li>Insurance <span>embedded coverage</span></li>
+              <li>Hardware <span>POS &amp; devices</span></li>
+              <li>Integrations <span>ecosystem</span></li>
+              <li class="ai">AI at Fullsteam <span>intelligent features</span></li>
+            </ul>
+            <div class="mega-foot"><a href="#">See how the platform grows our software →</a></div>
+          </div>
+        </div>
+
+        <!-- Our Story -->
+        <div class="nav-item">
+          <a class="nav-link" href="#">Our Story</a>
+        </div>
+
+        <!-- Careers -->
+        <div class="nav-item">
+          <a class="nav-link" href="#">Careers</a>
+        </div>
+
+      </nav>
+
+      <!-- Right side -->
+      <div class="nav-right">
+        <a class="contact" href="#">Contact</a>
+        <a class="cta" href="#">Explore Solutions</a>
+      </div>
+
+      <!-- Hamburger (mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- ================= PLACEHOLDER CONTENT ================= -->
+  <main>
+    <div class="legend">
+      <span><i></i> Dashed outline = low-fi wireframe</span>
+      <span>Blue #00587C = primary / links / CTA</span>
+      <span>Button = short "Explore Solutions"; full phrase lives in hero copy</span>
+      <span>Gold #FFC600 = accent</span>
+      <span>Green #84BD00 = accent / AI highlight</span>
+      <span>Hover Solutions / Platform to see mega-menus</span>
+    </div>
+
+    <div class="wire-block">
+      <h1>Hero <span class="tag">(placeholder)</span></h1>
+      <p>Heading + short subline. The fuller CTA phrase lives in the copy: "Explore our vertical solutions across hospitality, retail, wellness, field services, and more." Header surfaces the founder &amp; investor paths above.</p>
+      <span class="cta-ghost">Explore Solutions →</span>
+    </div>
+
+    <div class="wire-block">
+      <h1>Audience paths <span class="tag">(placeholder)</span></h1>
+      <p>Two secondary entry points: "For Founders / Sell your business" and "For Investors".</p>
+    </div>
+
+    <div class="wire-block">
+      <h1>Fullsteam brand palette <span class="tag">(V.1 — 06/2018)</span></h1>
+      <div class="palette">
+        <div class="swatch"><div class="chip" style="background:#00587C"></div><b>Bio Blue</b><span>#00587C</span></div>
+        <div class="swatch"><div class="chip" style="background:#FFC600"></div><b>Gold</b><span>#FFC600</span></div>
+        <div class="swatch"><div class="chip" style="background:#84BD00"></div><b>Green</b><span>#84BD00</span></div>
+        <div class="swatch"><div class="chip" style="background:#000"></div><b>Black</b><span>#000000</span></div>
+        <div class="swatch"><div class="chip" style="background:#fff; border:1px dashed var(--line-solid)"></div><b>White</b><span>#FFFFFF</span></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Minimal interactivity: hamburger toggles mobile nav; tap a caret item opens mega on touch.
+    const navRow = document.getElementById('navRow');
+    document.getElementById('hamburger').addEventListener('click', function(){
+      navRow.classList.toggle('mobile-open');
+    });
+    // Pinned mega-menu for screenshots: #platform or #solutions in the URL
+    // keeps that mega-menu open without hovering.
+    const pinTarget = (window.location.hash || '').replace('#', '').toLowerCase();
+    if (pinTarget === 'platform' || pinTarget === 'solutions') {
+      document.querySelectorAll('.nav-item').forEach(function(item){
+        const link = item.querySelector('.nav-link');
+        if (link && link.textContent.toLowerCase().indexOf(pinTarget) !== -1 && item.querySelector('.mega')) {
+          item.classList.add('pinned');
+        }
+      });
+    }
+    // On touch devices, allow tapping a nav item to open its mega-menu.
+    document.querySelectorAll('.nav-item').forEach(function(item){
+      const link = item.querySelector('.nav-link');
+      link.addEventListener('click', function(e){
+        if (window.matchMedia('(hover: none)').matches && item.querySelector('.mega')) {
+          e.preventDefault();
+          item.classList.toggle('open');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
