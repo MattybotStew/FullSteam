@@ -315,7 +315,7 @@ how these sites created a dedicated page to showcase their use of AI:
 | Greg Colella — Greg.Colella@fullsteam.com | Overall positioning and content review; content owner for acquisitions, company and portfolio; look & feel |
 | Michael Lawler — Michael.Lawler@fullsteam.com | Strategy/positioning, look & feel, overall approval |
 | Charles Freund — Charles.Freund@fullsteam.com | Content owner for investors, company information, look & feel |
-| Dom Morea — dominic.morea@fullsteam.com | Content owner for payments and platform |
+| Dom Morea — dominic.morea@fullsteam.com | Content owner for payments and offerings |
 | Termeh Dehdashti — termeh.dehdashti@fullsteam.com | *(focus area not listed)* |
 | Alicia Hire — alicia.hire@fullsteam.com | Content owner for careers, company content |
 | Howie Linderman — howard.linderman@clubprophet.com | Design-to-Development hand-off *(note: **@clubprophet.com** email)* |
@@ -337,6 +337,15 @@ how these sites created a dedicated page to showcase their use of AI:
 
 ### Directional decision
 
+**Nav terminology (embedded-expansion axis = "Offerings", not "Platform").**
+The client rejected "Platform" as a nav/menu label — too abstract and
+tech-forward for a site that should feel exploratory rather than corporate.
+The embedded-expansion branch (Payments, Lending, Insurance, Hardware,
+Integrations, AI) is labeled **"Offerings"**, matching the brief's own language
+("embedded offerings"). All sitemap, nav, and IA references use "Offerings."
+Alternatives considered (Capabilities, Products, Services, How We Grow,
+Expansion, Growth) are detailed in `prototypes/sitemap-rationale.html` §9.
+
 **Audience-led primary navigation.** The two co-primary audiences —
 **For Founders / Sellers** and **For Investors** — take the top slots in the
 header. The vertical portfolio is grouped *beneath* them, not given equal nav
@@ -357,7 +366,7 @@ From `fullsteam.com/sitemap.xml` + homepage crawl (2026-08-25):
 - **Verticals (11 top-level pages):** ERP, Wine, Transportation, Hospitality,
   Automotive, Retail, Health & Wellness, Storage & Marina, Weddings & Events,
   Field Services, Associations (+ `/our-verticals` hub, header mega-menu)
-- **Platform** (`/platform`) · **About** (`/about`) + Our Story + Careers
+- **Offerings** (`/offerings`) · **About** (`/about`) + Our Story + Careers
 - **Acquisition** (`/acquisition`) · **Contact** (`/contact`)
 - **Utility:** `/privacy`, `/complaints`, `/employees`
 
@@ -367,7 +376,7 @@ From `fullsteam.com/sitemap.xml` + homepage crawl (2026-08-25):
 HOME
 ├─ Hero: primary CTA "Explore our vertical solutions"
 ├─ Secondary paths into founder + investor stories
-└─ Representative verticals / platform proof
+└─ Representative verticals / offerings proof
 
 FOR FOUNDERS (Sell Your Business)         [audience #1 — story: Acquire & Grow]
 ├─ Why Fullsteam (as a home for your business)
@@ -387,8 +396,8 @@ SOLUTIONS / VERTICALS                      [story: Acquire & Grow — the portfo
 ├─ Vertical detail pages (one reusable template; representative set for SEO)
 └─ "Find your vertical" picker (exploratory feel)
 
-PLATFORM                                   [story: Embedded Expansion — growth engine]
-├─ Platform overview
+OFFERINGS                                  [story: Embedded Expansion — growth engine]
+├─ Offerings overview
 ├─ Payments · Lending · Insurance · Hardware · Integrations
 └─ Shown via concrete customer examples / case studies
 
@@ -405,7 +414,7 @@ UTILITY (Privacy, Terms, Complaints — minimal, not in the 25-page design)
 1. **For Founders**
 2. **For Investors**
 3. **Solutions** (Verticals)
-4. **Platform**
+4. **Offerings**
 5. **Our Story**
 6. **Careers** · **Contact**
 
@@ -414,7 +423,7 @@ UTILITY (Privacy, Terms, Complaints — minimal, not in the 25-page design)
 Budget is manageable because most interior pages are **reusable templates**:
 Hub, Vertical Detail, Offering Detail, Story, Audience Landing, Careers,
 Contact — plus bespoke pages (Home, Verticals Hub, Founders, Investors, AI).
-Vertical + platform offering pages share templates, keeping the bespoke count low.
+Vertical + offerings detail pages share templates, keeping the bespoke count low.
 
 ### Navigation patterns — client reference sites (analysis)
 
@@ -428,7 +437,7 @@ Vertical + platform offering pages share templates, keeping the bespoke count lo
 |------|----------------------|------------------------------|
 | **TogetherWork** | "Brands" mega-menu grouped into 5 vertical categories (Arts, Member-Based, Mission-Driven, Pet Care, Recreation & Wellness), each with a "…Solutions" landing page. Tagline = embedded payments + AI. | **Grouped vertical macro-categories** with category landing pages. |
 | **DaySmart** | "Solutions" mega-menu: Recreation & Fitness / Pet & Animal Care / Beauty & Personal Care / All Businesses; a **"Filter products by [category]"** control. **"DaySmart AI"** and **"DaySmart Capital"** are top-level nav items. | AI + embedded (Capital) get dedicated nav slots; category filter UI. |
-| **Square** (aspirational) | **Dual-axis IA:** "Business types" mega-menu (vertical groupings w/ granular sub-verticals) + "Products" mega-menu (capabilities: Payments, Banking, Staff, Marketing, Hardware, Developers). | Two parallel nav axes mirroring Fullsteam's two stories (Solutions + Platform). |
+| **Square** (aspirational) | **Dual-axis IA:** "Business types" mega-menu (vertical groupings w/ granular sub-verticals) + "Products" mega-menu (capabilities: Payments, Banking, Staff, Marketing, Hardware, Developers). | Two parallel nav axes mirroring Fullsteam's two stories (Solutions + Offerings). |
 | **ECI Solutions** | "Products" mega-menu by industry category (Manufacturing, Residential Construction, Distribution, Building Supply, Office Technology, Field Service). "AI for ERP" in popular links. | Industry-category mega-menu; AI as a distinct offering page. |
 | **Banyan Software** (peer) | Story/audience-led nav: Why Banyan / **How you Grow** / **AI** / Careers / Impact; "**For Founders**" in footer. | **Validates audience-led nav**; AI as a top-level item. |
 | **CORA Group** (peer, near-identical model) | Nav: About Us → **Being Acquired** / Our Approach → **Founders & Entrepreneurs** / M&A Advisors / **Portfolio** / Media. "Portfolio" is a single nav item. | Founder/seller story front-and-center; single "Portfolio" item. |
@@ -437,16 +446,16 @@ Vertical + platform offering pages share templates, keeping the bespoke count lo
 
 **Synthesized implications for the Fullsteam sitemap:**
 1. **Solutions hub = grouped macro-category mega-menu** (TogetherWork/DaySmart/Square/ECI pattern) — collapse the 11 verticals into ~4–6 categories with category landing pages + a filter. Solves "no page-per-industry."
-2. **Dual-axis IA maps to the two stories:** Solutions (business type / verticals) + Platform (capability: payments, lending, insurance, hardware, integrations) — the Square model.
+2. **Dual-axis IA maps to the two stories:** Solutions (business type / verticals) + Offerings (capability: payments, lending, insurance, hardware, integrations) — the Square model.
 3. **Audience-led nav validated** by closest peers (CORA "Being Acquired", Banyan "For Founders") — keep For Founders / For Investors as top items.
 4. **AI merits a dedicated top-level page** — every relevant peer does this (Banyan, DaySmart, ECI). Resolves open Q1 in favor of a dedicated page.
-5. **Embedded offerings get their own nav presence** (DaySmart Capital, Square Banking) → distinct Platform section.
+5. **Embedded offerings get their own nav presence** (DaySmart Capital, Square Banking) → distinct Offerings section.
 6. **Portfolio-as-homepage-hero** (Bending Spoons/Quilt) supports the exploratory feel without bloating the nav.
 
 ### Open items still to resolve
 - [ ] Exact grouping/labeling of verticals under the hub (candidate macro-categories to define)
 - [ ] How many vertical detail pages to carry vs. group (SEO vs. "no page-per-industry")
-- [ ] AI as top-level nav item (recommended per peer analysis) vs. nested under Platform
+- [ ] AI as top-level nav item (recommended per peer analysis) vs. nested under Offerings
 - [ ] Founders/Investors funnel content and CTAs
 - [ ] Which existing URLs/vertical pages get redirected where (migration map)
 
@@ -480,7 +489,7 @@ highlight). Applied to the header wireframe v0.2.
 > **Status:** Working draft for the stakeholder discovery calls. All navigation
 > decisions are **hypotheses** (H1–H6) to be validated here — not locked.
 > **Hypothesis legend:** H1 audience-led nav · H2 grouped Solutions mega-menu ·
-> H3 no page-per-industry · H4 Platform axis + AI placement · H5 conversion goal ·
+> H3 no page-per-industry · H4 Offerings axis + AI placement · H5 conversion goal ·
 > H6 flat nav / tone.
 
 ### A. Global question — ask everyone (highest risk; H5)
@@ -509,7 +518,7 @@ highlight). Applied to the header wireframe v0.2.
 - 10. "Is the goal of this site **storytelling/positioning**, or **selling**
   (driving leads/demos)?" (H5)
 - 11. "Should **AI** be a headline story we lead with, or a supporting capability
-  underneath the platform?" (H4)
+  underneath our offerings?" (H4)
 - 12. "On a scale of brochure-to-bold, where should the site land — and is bold a
   risk for our investor audience?" (look & feel)
 
@@ -520,11 +529,11 @@ highlight). Applied to the header wireframe v0.2.
 - 15. "Should **investors** be a primary nav destination, or served quietly in the
   footer?" (H1)
 
-**Dom Morea** — payments & platform (H2/H4)
+**Dom Morea** — payments & offerings (H2/H4)
 - 16. "How would you pitch the **embedded expansion** (payments/lending/insurance/
   hardware/AI) to an investor in 30 seconds?" (H4)
-- 17. "Is **AI** under Platform, or its own story?" (H4)
-- 18. "Can we show the platform through **concrete examples** — a real winery taking
+- 17. "Is **AI** under Offerings, or its own story?" (H4)
+- 18. "Can we show the offerings through **concrete examples** — a real winery taking
   payments, a storage facility using a device — rather than feature lists?"
   (H4, open Q3)
 
@@ -587,7 +596,7 @@ landscape draft).
 ### Confirmed via live fetch
 | Company | Model | Positioning line / tagline | How they organize nav | Relevance |
 |---|---|---|---|---|
-| **Xplor** | Vertical software + embedded payments + growth tech (**closest analog**) | "Powering the businesses behind everyday life experiences"; "We build modern software, embedded payments, and intelligent capabilities" | By **Industries** (Fitness & Leisure, Recreation, Golf & Club, Field Services, Dry Cleaning, Education) **+ Payments** (all industries) | **Most direct competitor.** Validates our Solutions+Platform dual-axis — but we must *differentiate*, not imitate. |
+| **Xplor** | Vertical software + embedded payments + growth tech (**closest analog**) | "Powering the businesses behind everyday life experiences"; "We build modern software, embedded payments, and intelligent capabilities" | By **Industries** (Fitness & Leisure, Recreation, Golf & Club, Field Services, Dry Cleaning, Education) **+ Payments** (all industries) | **Most direct competitor.** Validates our Solutions+Offerings dual-axis — but we must *differentiate*, not imitate. |
 | **Toast** | One vertical (restaurants) + embedded everything | "One connected platform to power every part of your business"; "Start for $0" | **Service models** (Quick/Full service, bars…) + **Capabilities** (POS, payments, hardware, marketing, payroll, **Capital loans**, **Toast IQ** AI) | Strong example of vertical + embedded expansion; Capital + AI both visible. |
 | **Mindbody** | Fitness/wellness/beauty vertical software + embedded | "More revenue. More clients. More growth." / "You're on the #1 platform in the business" | **Business type** (Fitness, Wellness, Beauty, Enterprise) + **Capabilities** (Payments, Marketing, Staff, Scheduling, Reporting) + **Mindbody Capital**, **AI Concierge** | Embedded lending (Capital) + AI (from parent Playlist) as visible stories. |
 
@@ -604,7 +613,7 @@ landscape draft).
 
 ### Strategic read for Fullsteam's site
 1. **Xplor is the mirror** of Fullsteam's two-story model (software + embedded payments) and organizes exactly the way we proposed (industries + payments). Strong validation — but since it's a competitor, Fullsteam must **lead with what Xplor can't claim** (the multi-vertical acquisition/portfolio story + founder/investor audience), not just match the layout.
-2. **Embedded finance + AI as visible nav items** (Toast Capital, Mindbody Capital/AI) supports our decision to give the **Platform** axis and **AI** real presence.
+2. **Embedded finance + AI as visible nav items** (Toast Capital, Mindbody Capital/AI) supports our decision to give the **Offerings** axis and **AI** real presence.
 3. **Their weakness is Fullsteam's opening:** they sell *within one vertical* to operators. Fullsteam's differentiators are the **portfolio breadth** and the **seller/founder + investor narratives** — which our audience-led nav already centers.
 
 ---

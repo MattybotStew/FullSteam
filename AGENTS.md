@@ -15,6 +15,11 @@ Welcome. This is the project workspace for the **Fullsteam.com website redesign*
   reorganization, not a rebrand.
 - Two core stories: (1) acquire & grow vertical software, (2) expand via
   embedded offerings (payments, lending, insurance, hardware, integrations).
+- **Nav terminology:** the embedded-expansion axis is labeled **"Offerings"**
+  (not "Platform") — the client rejected "Platform." Use "Offerings" in all
+  sitemap, nav, and IA references. See the alternatives considered in
+  `PROJECT_KNOWLEDGE_BASE.md` §14 (nav terminology note) and
+  `prototypes/sitemap-rationale.html` §9.
 - Primary audiences: software sellers/founders and investors. Secondary:
   employees and customers.
 - Primary CTA target: **"Explore our vertical solutions."**

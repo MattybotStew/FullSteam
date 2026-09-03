@@ -106,7 +106,7 @@
   .nav-item:focus-within .mega,
   .nav-item.open .mega,
   .nav-item.pinned .mega{ display:block; }
-  /* Pinned state (for screenshots): open with #platform or #solutions in the URL */
+  /* Pinned state (for screenshots): open with #offerings or #solutions in the URL */
 
   .mega h4{
     font-size:11px; letter-spacing:.12em; text-transform:uppercase;
@@ -132,7 +132,7 @@
   }
   .mega-foot a{ color:var(--text); text-decoration:none; border-bottom:1px dashed var(--line-solid); }
 
-  /* Platform mega: simple list */
+  /* Offerings mega: simple list */
   .plat-list{ display:grid; grid-template-columns:repeat(2,1fr); gap:6px 24px; }
   .plat-list li{ list-style:none; padding:8px 0; font-size:14px; font-weight:600; border-bottom:1px dashed var(--line); }
   .plat-list li span{ font-weight:400; color:var(--muted); margin-left:8px; font-size:12px; }
@@ -192,7 +192,7 @@
 
   <div class="notice">
     <b>Header Wireframe v0.2 — on-brand</b>
-    <span>Low-fi structure · Fullsteam brand palette applied · hover "Solutions" / "Platform" to preview mega-menus</span>
+    <span>Low-fi structure · Fullsteam brand palette applied · hover "Solutions" / "Offerings" to preview mega-menus</span>
   </div>
 
   <!-- ================= HEADER ================= -->
@@ -265,15 +265,15 @@
                 </ul>
               </div>
             </div>
-            <div class="mega-foot"><a href="#">Explore Solutions →</a></div>
+            <div class="mega-foot"><a href="#">See how our Offerings grows our software →</a></div>
           </div>
         </div>
 
-        <!-- Platform (embedded expansion mega-menu) -->
+        <!-- Offerings (embedded expansion mega-menu) -->
         <div class="nav-item">
-          <a class="nav-link" href="#">Platform <span class="caret">&#9662;</span></a>
+          <a class="nav-link" href="#">Offerings <span class="caret">&#9662;</span></a>
           <div class="mega" style="width:520px;">
-            <h4>Platform — embedded expansion</h4>
+            <h4>Offerings — embedded expansion</h4>
             <ul class="plat-list">
               <li>Payments <span>embedded processing</span></li>
               <li>Lending <span>embedded financing</span></li>
@@ -282,7 +282,7 @@
               <li>Integrations <span>ecosystem</span></li>
               <li class="ai">AI at Fullsteam <span>intelligent features</span></li>
             </ul>
-            <div class="mega-foot"><a href="#">See how the platform grows our software →</a></div>
+            <div class="mega-foot"><a href="#">See how our Offerings grows our software →</a></div>
           </div>
         </div>
 
@@ -317,7 +317,7 @@
       <span>Button = short "Explore Solutions"; full phrase lives in hero copy</span>
       <span>Gold #FFC600 = accent</span>
       <span>Green #84BD00 = accent / AI highlight</span>
-      <span>Hover Solutions / Platform to see mega-menus</span>
+      <span>Hover Solutions / Offerings to see mega-menus</span>
     </div>
 
     <div class="wire-block">
@@ -349,10 +349,10 @@
     document.getElementById('hamburger').addEventListener('click', function(){
       navRow.classList.toggle('mobile-open');
     });
-    // Pinned mega-menu for screenshots: #platform or #solutions in the URL
+    // Pinned mega-menu for screenshots: #offerings or #solutions in the URL
     // keeps that mega-menu open without hovering.
     const pinTarget = (window.location.hash || '').replace('#', '').toLowerCase();
-    if (pinTarget === 'platform' || pinTarget === 'solutions') {
+    if (pinTarget === 'offerings' || pinTarget === 'solutions') {
       document.querySelectorAll('.nav-item').forEach(function(item){
         const link = item.querySelector('.nav-link');
         if (link && link.textContent.toLowerCase().indexOf(pinTarget) !== -1 && item.querySelector('.mega')) {
