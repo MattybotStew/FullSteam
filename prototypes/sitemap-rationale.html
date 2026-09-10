@@ -166,7 +166,7 @@
         <tr>
           <td><b>Acquire &amp; Grow</b> — Fullsteam acquires and grows vertical-specific software into market leaders</td>
           <td><b>Solutions</b></td>
-          <td>Verticals grouped under category chips (Hospitality &amp; Events, Retail &amp; Storage, Health &amp; Wellness, Field &amp; Transportation, Associations &amp; ERP) plus an index page</td>
+          <td>Flat list of all 11 verticals on the hub + find-your-vertical filter (no macro-category labels — updated 2026-09-10)</td>
         </tr>
         <tr>
           <td><b>Embedded Expansion</b> — those businesses expand beyond SaaS via embedded offerings</td>
@@ -179,32 +179,34 @@
 
     <!-- 3 -->
     <section>
-      <h2><span class="num">3</span> Grouped verticals instead of "a page for every industry"</h2>
-      <p>The brief states all four audiences should explore representative companies and verticals <b>without requiring a page for every industry</b>. The sitemap therefore uses a two-level pattern inside Solutions:</p>
+      <h2><span class="num">3</span> Flat vertical list instead of "a page for every industry"</h2>
+      <p>The brief states all four audiences should explore representative companies and verticals <b>without requiring a page for every industry</b>. The sitemap therefore uses a hub + detail pattern inside Solutions:</p>
       <ul>
-        <li><b>Category groupings</b> (tinted chips) reflect how the portfolio clusters naturally — hospitality-adjacent businesses together, field-based businesses together, etc.</li>
-        <li><b>A persistent index node</b> ("All Verticals") gives filterable access for anyone who doesn't find themselves in the groups — including prospects from future acquisitions.</li>
-        <li>This keeps CMS maintenance proportional on Duda: new verticals slot into an existing category rather than forcing a nav change.</li>
+        <li><b>Flat list of all 11 verticals</b> on the hub and in the Menu overlay — <b>no macro-category labels</b> (updated 2026-09-10; supersedes earlier category-chip grouping).</li>
+        <li><b>A dedicated Solutions hub page</b> (<code>/solutions</code>) is the primary-CTA destination, with a <b>find-your-vertical</b> filter/type-ahead — the exploratory front door, not a nav dump.</li>
+        <li><b>All 11 verticals get a detail page from one reusable template</b> (locked 2026-09-10) for SEO and future acquisitions; they are linked from the hub, not listed as 11 chrome nav items.</li>
+        <li>The homepage shows a revenue-ordered subset; the hub carries the full list.</li>
       </ul>
       <div class="callout quote"><b>Brief requirement</b>"All four groups should understand the vision and explore representative companies and verticals without requiring a page for every industry."</div>
     </section>
 
     <!-- 4 -->
     <section>
-      <h2><span class="num">4</span> Audience-led left edge: Founders &amp; Investors first <span class="tag audience">audiences</span></h2>
-      <p>Founders (software sellers) and investors are the two rank-1 audiences. Both arrive with one focused question — "what happens if I sell my company here?" and "what's the growth trajectory?" — so each gets a single-purpose leaf page placed at the front of the rail.</p>
+      <h2><span class="num">4</span> Founder path first — investors served by proof, not a nav node <span class="tag audience">audiences</span></h2>
+      <p>Founders (software sellers) are the rank-1 audience that needs a single-purpose entrance, so <b>For Founders</b> is a leaf at the front of the rail. <b>For Investors was removed from the sitemap (2026-09-10)</b> — investors are a co-primary audience but are served through the homepage scale/proof story and footer paths rather than a dedicated nav branch.</p>
       <ul>
-        <li><b>Single page each</b>, not mega-menus: these are conversion paths, not browsing paths. The single-page badge marks them as leaves.</li>
-        <li><b>Leftmost placement</b> = highest-priority entrances, matching the header wireframe where both lead the primary nav.</li>
-        <li><b>Rank-2 audiences</b> (employees, customers) are served through Careers, Our Story, and Solutions/Offerings respectively — they browse; they don't need dedicated entry points.</li>
+        <li><b>For Founders is a single page</b>, not a mega-menu: it is a conversion path, not a browsing path. The single-page badge marks it as a leaf.</li>
+        <li><b>Leftmost placement</b> = highest-priority entrance, matching the header chrome where it leads the primary nav.</li>
+        <li><b>Investors</b> get no L1 node; investor-facing proof (scale, growth, portfolio breadth, inferable KPIs) lives on the homepage and in the footer.</li>
+        <li><b>Rank-2 audiences</b> (employees, customers) are served through Careers, Our Story, and Solutions/Offerings respectively.</li>
       </ul>
-      <div class="callout map"><b>Mapped to sitemap</b>For Founders and For Investors sit as the first two cells under the Home rail, with the header wireframe surfacing them above Solutions/Offerings for the same reason.</div>
+      <div class="callout map"><b>Mapped to sitemap</b>For Founders is the first cell under the Home rail. There is no For Investors node.</div>
     </section>
 
     <!-- 5 -->
     <section>
       <h2><span class="num">5</span> A lean Home block</h2>
-      <p>Home in the sitemap carries exactly three jobs: hero framing, the two audience paths, and a short brand-story summary. It then hands visitors off downward — visually represented by the single stroke to the rail — rather than trying to be the destination itself.</p>
+      <p>Home in the sitemap carries exactly three jobs: hero framing, the <b>For Founders</b> audience path (investors are served by scale/proof on the page — no L1 node), and a short brand-story summary. It then hands visitors off downward — visually represented by the single stroke to the rail — rather than trying to be the destination itself.</p>
       <ul>
         <li>The fuller CTA phrase ("Explore our vertical solutions across hospitality, retail, wellness, field services, and more…") lives in hero copy while the button stays short (per header-wireframe note).</li>
         <li>An exploratory site needs a light front door: heavy content lives one level down, at Solutions and Offerings.</li>

@@ -154,6 +154,8 @@
   <div class="page-title">
     <h1>Fullsteam.com — Page Tree</h1>
     <p>Dashed lines show hierarchy connections. Blocks are placeholder nodes, not final designs.</p>
+    <p>Level-1 nodes are <b>pages</b> (the inventory). The header does not have to list every L1 item. Access layers: <b>chrome</b> (always visible) · <b>overlay / Menu</b> (same labels, opened) · <b>footer</b> (full tree for recovery). Compare chrome options in <a href="./header-wireframe.html" style="color:var(--blue)">header-wireframe.html</a>.</p>
+    <p><b>Locked 2026-09-10:</b> L1 = For Founders · Solutions · Offerings · Our Story · Careers. <b>For Investors removed.</b> Solutions is a dedicated hub page (find-your-vertical filter); all 11 verticals listed flat — no macro-category labels; each gets a detail page from one reusable template; AI at Fullsteam is a page nested under Offerings. See PROJECT_KNOWLEDGE_BASE.md §14.</p>
   </div>
 
   <main class="sitemap">
@@ -176,45 +178,25 @@
         </div>
       </div>
 
-      <!-- For Investors (leaf) -->
-      <div class="rail-cell">
-        <div class="node">
-          <b>For Investors</b>
-          <i>portfolio thesis &amp; scale story</i>
-          <span class="leaf-badge">single page</span>
-        </div>
-      </div>
-
-      <!-- Solutions (grouped verticals mega-menu) -->
+      <!-- Solutions (flat vertical list + hub filter) -->
       <div class="rail-cell">
         <div class="node">
           <b>Solutions</b>
-          <i>vertical software portfolio</i>
+          <i>hub page · find your vertical</i>
         </div>
         <div class="kids">
-          <div class="cat-chip">Hospitality &amp; Events</div>
           <div class="kid"><div class="node"><b>Hospitality</b><i>management</i></div></div>
           <div class="kid"><div class="node"><b>Weddings &amp; Events</b><i>operations</i></div></div>
           <div class="kid"><div class="node"><b>Wine</b><i>sales &amp; tasting room</i></div></div>
-
-          <div class="cat-chip">Retail &amp; Storage</div>
           <div class="kid"><div class="node"><b>Retail</b><i>specialty POS</i></div></div>
           <div class="kid"><div class="node"><b>Storage &amp; Marina</b><i>facilities</i></div></div>
-
-          <div class="cat-chip">Health &amp; Wellness</div>
           <div class="kid"><div class="node"><b>Health &amp; Wellness</b><i>practice mgmt</i></div></div>
-
-          <div class="cat-chip">Field &amp; Transportation</div>
           <div class="kid"><div class="node"><b>Field Services</b><i>home &amp; commercial</i></div></div>
           <div class="kid"><div class="node"><b>Transportation</b><i>ground &amp; parking</i></div></div>
           <div class="kid"><div class="node"><b>Automotive</b><i>lube, repair, lots</i></div></div>
-
-          <div class="cat-chip">Associations &amp; ERP</div>
           <div class="kid"><div class="node"><b>Associations</b><i>nonprofits &amp; chapters</i></div></div>
           <div class="kid"><div class="node"><b>ERP</b><i>B2B back-office</i></div></div>
-
-          <div class="cat-chip">Index</div>
-          <div class="kid"><div class="node"><b>All Verticals</b><i>full list w/ filter · find your vertical</i></div></div>
+          <div class="kid"><div class="node"><b>Find your vertical</b><i>filter / type-ahead on /solutions — not a separate page</i></div></div>
         </div>
       </div>
 
@@ -255,8 +237,8 @@
     </div>
 
     <p class="utility-note">
-      Utility items available on every page (not shown as tree nodes): Contact — header link ·
-      “Explore Solutions” CTA — header button · legal footer pages (Privacy, Terms).
+      Utility on every page (not L1 tree nodes): Contact · “Explore Solutions” CTA · legal footer (Privacy, Terms).
+      Contact and the CTA may live in chrome, overlay, or both — they are not extra sitemap branches.
     </p>
 
     <!-- LEGEND -->
@@ -267,6 +249,7 @@
       <span>Tinted chip = solutions category grouping</span>
       <span>Green #84BD00 = AI highlight (matches header)</span>
       <span>“Single page” badge = leaf node, no children</span>
+      <span>Header chrome ≠ L1 count — overlay/footer still reach every L1 node</span>
     </div>
 
   </main>

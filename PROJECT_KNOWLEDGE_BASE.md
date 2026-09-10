@@ -1,10 +1,25 @@
 # Fullsteam.com Website Redesign — Project Knowledge Base
 
 > **Source:** `clientDocs/Fullsteam Web Brief (1).docx`,
-> `clientDocs/Fullsteam Kickoff Presentation.pdf`
+> `clientDocs/Fullsteam Kickoff Presentation.pdf`,
+> `Fullsteam Overview_Confidential - redacted.pdf` (company/investor overview deck),
+> `clientDocs/Fullsteam User Interview Template.xlsx` (internal discovery interviews, Sept 2026)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
-> **Status:** Discovery / Proposal phase (Cloudmellow selected, project kicked off)
-> **Last updated:** 2026-08-26
+> **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress
+> **Last updated:** 2026-09-10 (added §20 Discovery Interview Findings)
+
+---
+
+## Confidentiality & Case-Study Handling (convention)
+
+Some source material (e.g. `Fullsteam Overview_Confidential - redacted.pdf`) is
+**confidential**. Do not reproduce confidential figures, named client case
+studies, or specific product/brand names in any deliverable or draft. When
+referencing a case study, describe it as a **generic company type** — e.g. "a
+hospitality property-management company", "a restaurant POS platform", "a
+marina-management software company" — rather than a named product, brand, or
+customer. Verify with the client which metrics and examples are publishable
+before using them in site copy.
 
 ---
 
@@ -43,16 +58,21 @@ The site must tell **two core stories**:
 **Experience intent:** The experience should feel more **exploratory** than corporate,
 helping visitors understand the company **through its solutions**.
 
+**Validated in discovery (§20):** the site is a **validation/credibility destination,
+not a lead-gen engine**; the narrative leads and the data supports ("narrative first,
+data second"); "who we are" outranks "what we do"; and the messaging order is
+**Software → Verticals → Integrate Payments**.
+
 ---
 
 ## 4. Priority Audiences
 
 | Rank | Audience | Primary need / shared message |
 |------|----------|-------------------------------|
-| 1 | **Software sellers / founders** | Understand Fullsteam as an acquisition/home for their business |
-| 1 | **Investors** | Understand growth trajectory & embedded/AI opportunity |
-| 2 | **Employees** | Understand the vision & company culture |
-| 2 | **Customers** | Understand the products and embedded ecosystem |
+| 1 | **Software sellers / founders** | Understand Fullsteam as a **home for their business** (not an "exit"): values fit, certainty of close, and a bigger org that scales them |
+| 1 | **Investors** | See **scale + growth** and proof Fullsteam buys and improves businesses; inferable KPIs, breadth of verticals, embedded/AI upside |
+| 2 | **Employees** | Feel the **authentic** culture — "best of both worlds: a big company that doesn't operate like one" (~15% of site content) |
+| 2 | **Customers** | Understand the products and embedded ecosystem; trust Fullsteam's backing |
 
 **Shared core message:**
 > Fullsteam owns modern, system-of-record software serving **SMB and mid-market**
@@ -76,10 +96,17 @@ Fullsteam is looking for support across:
 
 ### Open questions the client wants a partner's POV on
 
-1. Should **AI** merit a **dedicated page**?
+1. Should **AI** merit a **dedicated page**? → *Still open after discovery; peer
+   analysis favors a dedicated page, Charles left placement open (§20.5/§20.11).*
 2. How to better support audiences interested in **selling a company to Fullsteam**?
-3. How to present **platform services** through **concrete examples**?
+   → *Discovery answered the "why": a home for your business, values fit, certainty
+   of close, never "exit" framing (§20.4).*
+3. How to present **platform services** through **concrete examples**? → *Reframed as
+   **Offerings** (never "Platform"); show via real customer/testimonial examples
+   (§20.6).*
 4. How to shift the **primary CTA** toward **"Explore our vertical solutions"**?
+   → *Confirmed; but the site's job is validation/credibility, so pair the CTA with
+   trust proof, not hard lead-gen (§20.2).*
 
 ### Platform constraint
 
@@ -122,13 +149,18 @@ Fullsteam is looking for support across:
 - **Asset:** Fullsteam.com (website redesign)
 - **Brand identity:** Keep unchanged
 - **CMS:** Duda (current, likely retained) — https://www.duda.co
-- **Business model:** Acquires & grows vertical software; expands via embedded offerings
-- **Embedded offerings:** Payments, lending, insurance, hardware, integrations
-- **AI:** AI-enabled innovation is a growth driver; possible dedicated page (open question)
+- **Business model:** Acquires & grows vertical software ("vertical software rollup"); expands via embedded **Offerings**
+- **Embedded offerings:** Payments, lending, insurance, hardware, integrations (+ AI)
+- **Revenue mix (internal):** ~3/4 software, ~1/4 payments — profit split is reversed. Message order: **Software → Verticals → Payments**
+- **Scale (internal/verify publishability):** ~2,000+ employees, 80k+ customers, 11 verticals, ~100 acquisitions (as of Sept 2026)
+- **AI:** Now a required part of the narrative (2026); concrete use cases, no staff-reduction implication; dedicated-page decision open
 - **Target markets:** SMB and mid-market system-of-record software
 - **Primary audiences:** Software sellers/founders, investors (secondary: employees, customers)
 - **Primary CTA target:** "Explore our vertical solutions"
-- **Desired feel:** Exploratory, bolder, storytelling — not corporate brochure
+- **Site purpose (validated):** **Validation/credibility destination — not paid/organic lead-gen.** Outbound drives the pipeline; the site confirms who Fullsteam is before a meeting
+- **Tone:** Humanize; 8th-grade reading level, conversational, narrative-first; "who we are" over "what we do"
+- **Desired feel:** Exploratory, bolder, premium, storytelling — not corporate brochure
+- **Not publishable without client sign-off:** explicit revenue/run-rate, profitability, named acquisition case studies still in transformation
 
 ---
 
@@ -329,13 +361,13 @@ how these sites created a dedicated page to showcase their use of AI:
 
 ---
 
-## 14. Sitemap & Information Architecture (In Progress)
+## 14. Sitemap & Information Architecture (LOCKED)
 
-> **Status:** Early thinking — directional decision made (audience-led nav), full
-> sitemap not yet locked. Revisions allowed per SOW (3 rounds per phase).
-> **Decision date:** 2026-08-25 (Creative Director, Cloudmellow).
+> **Status:** **Locked** 2026-09-10 (Creative Director, Cloudmellow) after
+> discovery. Revisions still allowed per SOW (3 rounds per phase).
+> **Supersedes:** the earlier audience-led draft (2026-08-25).
 
-### Directional decision
+### Locked decisions
 
 **Nav terminology (embedded-expansion axis = "Offerings", not "Platform").**
 The client rejected "Platform" as a nav/menu label — too abstract and
@@ -346,17 +378,24 @@ Integrations, AI) is labeled **"Offerings"**, matching the brief's own language
 Alternatives considered (Capabilities, Products, Services, How We Grow,
 Expansion, Growth) are detailed in `prototypes/sitemap-rationale.html` §9.
 
-**Audience-led primary navigation.** The two co-primary audiences —
-**For Founders / Sellers** and **For Investors** — take the top slots in the
-header. The vertical portfolio is grouped *beneath* them, not given equal nav
-weight. This directly addresses the brief's open questions about better
-supporting seller and investor audiences, and positions Fullsteam as "a home for
-your business" rather than a software directory.
+**Two-axis primary navigation (portfolio + growth engine).** The L1 tree is led
+by the two branching stories — **Solutions** (Acquire & Grow) and **Offerings**
+(Embedded Expansion) — plus the audience path **For Founders**, **Our Story**,
+and **Careers**. This is no longer a two-audience nav: **"For Investors" was
+removed from the sitemap and chrome** (2026-09-10). Investors are served through
+the portfolio/scale proof on the homepage and via Contact — there is no
+investor nav node or dedicated investor page.
 
-> **Note on the CTA:** Audience-led nav does **not** override the primary CTA.
-> The homepage hero CTA remains **"Explore our vertical solutions"** — the two
-> coexist. Home leads with the CTA and funnels into the Solutions/Verticals hub,
-> while the header surfaces the founder + investor paths.
+> **Note on the CTA:** the primary CTA is unchanged. The homepage hero CTA remains
+> **"Explore our vertical solutions"**, funneling into the **Solutions hub**.
+
+**Locked structural choices (2026-09-10):**
+- **Solutions is a dedicated hub page** with a **find-your-vertical** filter —
+  flat list of all 11 verticals, **no macro-category labels** (2026-09-10).
+- **All 11 verticals get a detail page from one reusable template** (SEO +
+  future acquisitions), linked from the hub — not 11 chrome nav items.
+- **AI at Fullsteam is its own page, nested under Offerings** (not a top-level
+  L1, not merely an Offerings section).
 
 ### Current site structure (as-is, for migration mapping)
 
@@ -370,60 +409,62 @@ From `fullsteam.com/sitemap.xml` + homepage crawl (2026-08-25):
 - **Acquisition** (`/acquisition`) · **Contact** (`/contact`)
 - **Utility:** `/privacy`, `/complaints`, `/employees`
 
-### Proposed sitemap (draft — audience-led)
+### Locked sitemap (2026-09-10)
 
 ```
-HOME
+HOME                                      (/)
 ├─ Hero: primary CTA "Explore our vertical solutions"
-├─ Secondary paths into founder + investor stories
+├─ Audience path: For Founders (investors served via proof + footer, no node)
 └─ Representative verticals / offerings proof
 
-FOR FOUNDERS (Sell Your Business)         [audience #1 — story: Acquire & Grow]
-├─ Why Fullsteam (as a home for your business)
+FOR FOUNDERS                              (/for-founders)      [leaf · single page]
+├─ Why Fullsteam — "a home for your business"
 ├─ How the acquisition process works
 ├─ What we're looking for (vertical focus)
-├─ FAQ
 └─ Talk to us (contact funnel)
 
-FOR INVESTORS                              [audience #2]
-├─ Why invest / overview
-├─ Growth strategy (embedded expansion + AI)
-├─ Market & financial opportunity
-└─ IR contact
+SOLUTIONS                                 (/solutions)         [HUB + find-your-vertical]
+├─ Flat list — all 11 verticals (no macro-category labels)
+│   Hospitality · Weddings & Events · Wine · Retail · Storage & Marina
+│   Health & Wellness · Field Services · Transportation · Automotive
+│   Associations · ERP
+├─ 11 vertical detail pages (one reusable template)
+└─ "Find your vertical" filter / type-ahead picker
 
-SOLUTIONS / VERTICALS                      [story: Acquire & Grow — the portfolio]
-├─ Verticals hub (grouped by macro-category — NOT 11 nav items)
-├─ Vertical detail pages (one reusable template; representative set for SEO)
-└─ "Find your vertical" picker (exploratory feel)
-
-OFFERINGS                                  [story: Embedded Expansion — growth engine]
-├─ Offerings overview
+OFFERINGS                                 (/offerings)         [hub]
 ├─ Payments · Lending · Insurance · Hardware · Integrations
+├─ AI at Fullsteam                        (/offerings/ai)      [own page, nested]
 └─ Shown via concrete customer examples / case studies
 
-AI AT FULLSTEAM                            [open Q1 — dedicated page, ref: banyan/ECI]
-OUR STORY
-├─ About · Leadership · Newsroom
-CAREERS
-CONTACT
-UTILITY (Privacy, Terms, Complaints — minimal, not in the 25-page design)
+OUR STORY                                 (/our-story)         [leaf]
+CAREERS                                   (/careers)           [leaf]
+
+UTILITY (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA ·
+Privacy · Terms
 ```
 
-### Proposed top-level nav (draft)
+> **Removed:** **For Investors** (was a draft L1 in the audience-led version) —
+> deleted 2026-09-10. Investor content is served through homepage scale/proof and
+> the footer, not a dedicated nav node.
+
+### Locked top-level nav
 
 1. **For Founders**
-2. **For Investors**
-3. **Solutions** (Verticals)
-4. **Offerings**
-5. **Our Story**
-6. **Careers** · **Contact**
+2. **Solutions** (hub)
+3. **Offerings** (hub)
+4. **Our Story**
+5. **Careers** · **Contact** (utility)
+
+> Chrome may show fewer items than L1 (see `plans/header-sitemap-variants.md`);
+> the Menu overlay and footer must still reach every L1 node.
 
 ### 25-page design budget mapping
 
 Budget is manageable because most interior pages are **reusable templates**:
-Hub, Vertical Detail, Offering Detail, Story, Audience Landing, Careers,
-Contact — plus bespoke pages (Home, Verticals Hub, Founders, Investors, AI).
-Vertical + offerings detail pages share templates, keeping the bespoke count low.
+Solutions Hub, Vertical Detail (×11), Offering Detail (×5), Story, Careers,
+Contact — plus bespoke pages (Home, For Founders, Offerings Hub, AI at
+Fullsteam). Vertical and offering detail pages share templates, keeping the
+bespoke count low (~24 designed pages against the 25-page cap).
 
 ### Navigation patterns — client reference sites (analysis)
 
@@ -445,19 +486,22 @@ Vertical + offerings detail pages share templates, keeping the bespoke count low
 | **Quilt** | Very flat nav (Quilt / Advantage / About / Team / News / Careers); product brands on homepage, not nav. | Flat, story-first nav; brands showcased on homepage. |
 
 **Synthesized implications for the Fullsteam sitemap:**
-1. **Solutions hub = grouped macro-category mega-menu** (TogetherWork/DaySmart/Square/ECI pattern) — collapse the 11 verticals into ~4–6 categories with category landing pages + a filter. Solves "no page-per-industry."
+1. **Solutions hub = flat vertical list + find-your-vertical filter** — all 11 verticals on the hub and in the Menu overlay (two columns); no macro-category labels. Homepage shows a revenue-ordered subset, not page-per-industry.
 2. **Dual-axis IA maps to the two stories:** Solutions (business type / verticals) + Offerings (capability: payments, lending, insurance, hardware, integrations) — the Square model.
-3. **Audience-led nav validated** by closest peers (CORA "Being Acquired", Banyan "For Founders") — keep For Founders / For Investors as top items.
-4. **AI merits a dedicated top-level page** — every relevant peer does this (Banyan, DaySmart, ECI). Resolves open Q1 in favor of a dedicated page.
+3. **Founder/seller path validated** by closest peers (CORA "Being Acquired", Banyan "For Founders") — keep **For Founders** as a top item. (The draft's "For Investors" node was removed 2026-09-10; investors are served via proof + footer.)
+4. **AI gets a dedicated page** — every relevant peer does this (Banyan, DaySmart, ECI). Resolves open Q1 in favor of a dedicated page; locked as a page **nested under Offerings**.
 5. **Embedded offerings get their own nav presence** (DaySmart Capital, Square Banking) → distinct Offerings section.
 6. **Portfolio-as-homepage-hero** (Bending Spoons/Quilt) supports the exploratory feel without bloating the nav.
 
 ### Open items still to resolve
-- [ ] Exact grouping/labeling of verticals under the hub (candidate macro-categories to define)
-- [ ] How many vertical detail pages to carry vs. group (SEO vs. "no page-per-industry")
-- [ ] AI as top-level nav item (recommended per peer analysis) vs. nested under Offerings
-- [ ] Founders/Investors funnel content and CTAs
-- [ ] Which existing URLs/vertical pages get redirected where (migration map)
+- [x] ~~Exact grouping/labeling of verticals under the hub~~ — locked: **flat list of 11 verticals, no macro-category labels** (supersedes earlier 5-category grouping, 2026-09-10).
+- [x] ~~How many vertical detail pages to carry vs. group~~ — locked: **all 11**, one reusable template.
+- [x] ~~AI placement~~ — locked: **own page nested under Offerings**.
+- [x] ~~Category pages / macro labels~~ — **removed**; no category landing pages.
+- [ ] **Our Story sub-pages** — currently a single leaf; decide whether Leadership / Newsroom become children (KB §14 draft had them).
+- [ ] **For Founders funnel content and CTA.**
+- [ ] **Investor path** — with the nav node deleted, confirm the exact homepage proof + Contact path that serves investors.
+- [ ] **URL / migration map** — redirect current `/our-verticals` + 11 top-level vertical slugs to `/solutions/...`; `/acquisition` → `/for-founders`; `/about` → `/our-story`.
 
 ---
 
@@ -486,8 +530,9 @@ highlight). Applied to the header wireframe v0.2.
 
 ## 16. Discovery Interview Question Bank
 
-> **Status:** Working draft for the stakeholder discovery calls. All navigation
-> decisions are **hypotheses** (H1–H6) to be validated here — not locked.
+> **Status:** Question bank used in the discovery calls (Sept 2026). Results are
+> synthesized in **§20**; the hypothesis scorecard in **§20.10** records which
+> hypotheses were validated (H1, H5, H6), reinforced (H3), or remain open (H2, H4).
 > **Hypothesis legend:** H1 audience-led nav · H2 grouped Solutions mega-menu ·
 > H3 no page-per-industry · H4 Offerings axis + AI placement · H5 conversion goal ·
 > H6 flat nav / tone.
@@ -654,8 +699,391 @@ landscape draft).
 
 ---
 
+## 19. Fullsteam Company Overview Deck (Confidential — company facts & metrics)
+
+> **Source:** `Fullsteam Overview_Confidential - redacted.pdf` (16 slides).
+> **Nature:** Investor / company overview deck — the authoritative source of
+> company facts, metrics, positioning, and the AI story. **Confidential:**
+> treat all figures as internal reference; verify which metrics are
+> publishable before using them in site copy.
+> **Metrics as of:** 03/31/2026 (unless noted).
+
+This deck is the richest factual source we have on Fullsteam itself. It
+confirms the two-story framing in the brief and adds concrete numbers, a
+positioning line, the vertical revenue mix, and a detailed AI narrative — all
+directly useful for messaging and homepage "stats + story" content.
+
+### 19.1 Positioning line (candidate headline)
+
+> **"Fullsteam is the operating system for vertical markets — software-first,
+> payments-native, AI-accelerated."**
+
+This is the company's own one-line positioning and a strong candidate for the
+homepage hero/messaging framework.
+
+### 19.2 At-a-glance facts
+
+| Fact | Detail |
+|------|--------|
+| Founded | 2018 |
+| Employees | 2,000+ |
+| Customers | 80,000+ SMBs across **11 durable verticals** |
+| Platform | Unified front-office + back-office + payments in **one system of record** |
+| Payments | Embedded proprietary payments engine (automated reconciliation, omnichannel, stickiness) |
+| M&A | Proven, programmatic M&A engine (identify → acquire → integrate → monetize) |
+
+### 19.3 History & milestones
+
+- **Cumulative acquisitions:** 6 → 21 → 34 → 48 → 64 → 74 → 83 → 95 → **97**
+  (founding → present).
+- **Revenue expansion since founding ($M):** 2018 → 2019 → 2020 → 2021 → 2022 →
+  2023 → 2024 → 2025 → LTM 3/31/26 (values not shown in redacted deck).
+- **Key developments (chronological):** processing agreement → payments
+  platform launched → accelerated boarded payments volume → international
+  expansion → minority recap → merchant capital offering → digital marketing
+  services → majority recap → **>$1B payments/month** → Canadian PayFac
+  registration → insurance offering → unified CRM → **Top 20 U.S. Non-Bank
+  Merchant Acquirer** → agreement extended to 2032 → **>$2B payments/month**.
+
+### 19.4 Market context (why vertical software + embedded payments wins)
+
+| Metric | Value | Source |
+|--------|-------|--------|
+| U.S. merchants using a software platform for payments/business mgmt | **48% (2022) → 90% (2025)** | McKinsey |
+| U.S. SME payments revenue through software-led platforms | **$7B (2020) → $16B (2025)**; ~60% of U.S. SMB acquiring payments revenue in 2025 | McKinsey |
+| Businesses viewing management software as critical to success | **95%** | Worldpay |
+| Vertical-specific software spending by SMBs | **$157B (2024A) → $255B (2028E)** | Gartner / PSE |
+
+**Top cited benefits of software platforms:** improved efficiency (29%),
+greater visibility (24%), centralized data (22%), payments integration (20%),
+other (5%).
+
+**AI thesis:** software applications own the reliable, structured SKU-level data
+needed for AI; software provides the verification/trust layer for commerce;
+embedded finance turns SaaS into AI commerce's distribution layer.
+
+### 19.5 Why Fullsteam wins (two competitive axes)
+
+| Axis | Fullsteam advantage |
+|------|---------------------|
+| **End-customer competition** | Horizontal payments platforms lack Fullsteam's vertical-specific workflows & compliance depth; payments-native = seamless vs. fragmented point tools; **multi-vertical depth + integrated payments** |
+| **M&A competition** | Diversified vertical exposure limits single-market risk; modern payments infrastructure enables post-acquisition payment conversion; proven acquisition model = credible buyer / preferred partner; **programmatic M&A engine + proprietary payments upside** |
+
+### 19.6 Key investment highlights (7)
+
+1. Mission-critical core systems-of-record software supporting daily workflows.
+2. Proprietary payments platform monetizing recurring, card-based spend.
+3. Robust AI strategy purpose-built for today's economy.
+4. 80k+ customers reflect the breadth of the broader economy.
+5. Integration + go-to-market strategy translates acquisitions into scalable value creation.
+6. Track record of repeatable M&A model (integration + payments-conversion synergies).
+7. Experienced, founder-led management team.
+
+### 19.7 Payments platform detail
+
+- **46K** merchants with payments converted; **$29B** annualized net boarded volume.
+- **$22B** LTM Merchant GMV processed through FullsteamPay.
+- **6+ years** average customer tenure.
+- Capabilities: PCI Level 1 certified, omnichannel tokenization, cloud terminals,
+  single sign-on, mobile EMV, signature capture, account updater, fleet cards,
+  automated reconciliation, single integration to FullsteamPay.
+
+### 19.8 AI strategy (three pillars + concrete proof points)
+
+| Pillar | What it does | Example outcomes |
+|--------|--------------|------------------|
+| **R&D Efficiency** | Accelerate design, development, testing, documentation | Delivery timeline −5 months (hospitality PMS); PMS modules modernized 10× faster; dev throughput 4× (restaurant POS); UI modernization at 50% of est. cost (marina software) |
+| **Workflow Automation** | Remove repetitive, rules-based work (engineering, support, finance, ops, HR) | High-complexity resolution time −90%; $260k+ annual savings; creation time −80%; process design −75% |
+| **Embedded in Software** | AI capabilities inside products for measurable customer/revenue outcomes | Embedded intelligence suite for a winery (churn prediction, signup prediction, upsell recommendation, reservation standup, conversational data assistant); a hospitality data connector |
+
+**AI proof points (genericized — no named products/customers):** a hotel
+ops/marketing assistant (automates daily briefings and form creation), an AI
+coding assistant, an AI support agent (support resolution & triage), accounting
+support workflows, talent-assessment automation, an integration visual journey
+map, an embedded intelligence suite for wineries (churn/signup/upsell/
+reservation/chat), and a hospitality data connector (centralized API + AI
+workflow layer; <5% manual code, 1–2 weeks vs. 1–2 months, ~$250/month AI token
+cost).
+
+### 19.9 Vertical revenue mix (% of LTM revenue, excl. Summit)
+
+> This is the authoritative weighting of the 11 verticals — directly informs
+> which verticals to lead with on the homepage and in the grouped hub.
+
+| Vertical | % of LTM revenue |
+|----------|------------------|
+| Hospitality | 18% |
+| ERP | 13% |
+| Specialty Retail | 10% |
+| Transportation | 9% |
+| Wine | 9% |
+| Automotive | 8% |
+| Health & Wellness | 8% |
+| Field Services | 7% |
+| Weddings & Events | 5% |
+| Association Management | 5% |
+| Storage & Marina | 4% |
+
+**Vertical market thesis (from deck):** software that is a critical system of
+record → massive recurring payments opportunity → deep vertical domain expertise
+→ niche industries with significant whitespace and minimal competition →
+durable, AI-resilient demand.
+
+### 19.10 Implications for the redesign
+
+1. **Positioning line is a ready-made hero/messaging anchor** —
+   "operating system for vertical markets" (software-first, payments-native,
+   AI-accelerated) maps cleanly onto the two core stories.
+2. **Concrete stats for the "stats + story" homepage pattern** (Quilt reference
+   values company stats): 80k+ customers, 2,000+ employees, 11 verticals,
+   $22B LTM GMV, 6+ years tenure, 97 acquisitions.
+3. **Vertical revenue mix informs homepage ordering** — lead with Hospitality,
+   ERP, Specialty Retail, Transportation, Wine (the top five).
+4. **AI is a demonstrable, quantified story** (three pillars + named proof
+   points) — strongly supports a dedicated AI page (resolves open Q1) and
+   gives the AI section real substance rather than generic claims.
+5. **Two-story framing confirmed:** the deck's structure (software system of
+   record + embedded payments + M&A engine) is the same Acquire & Grow +
+   Embedded Expansion narrative in the brief.
+
+---
+
+## 20. Discovery Interview Findings (Internal Stakeholder Sessions, Sept 2026)
+
+> **Source:** `clientDocs/Fullsteam User Interview Template.xlsx` — Cloudmellow-led
+> discovery interviews with Fullsteam stakeholders (four sessions, 2026-09-01 →
+> 2026-09-03). This section synthesizes the raw notes. **Confidentiality:** treat
+> all figures and named acquisition/case-study examples as internal-only unless the
+> client confirms publishability. Per the convention at the top of this document,
+> named products/brands are genericized here; the raw names remain in the xlsx.
+
+### Session roster
+
+| Session | Date | Participants | Focus |
+|---------|------|--------------|-------|
+| 1 | 2026-09-01 | Alicia Hire, Emily Dial, Termeh Dehdashti (+ Scott White) | Careers, employer brand, company content |
+| 2 | 2026-09-01 | Greg Colella, Michael Lawler | Positioning, acquisitions, portfolio, look & feel |
+| 3 | 2026-09-02 | Charles Freund (+ Scott White) | Investors, company info, look & feel |
+| 4 | 2026-09-03 | Dom Morea | Payments & platform / Offerings |
+
+### 20.1 Headline shifts (what the interviews changed)
+
+1. **The website is a validation/credibility destination — not a lead-gen engine.**
+   Fullsteam does not expect the site to source deals. Outbound (email + trade shows)
+   and sustained relationship-building drive the pipeline; the site exists so a
+   founder or investor who already knows of Fullsteam can **confirm who they are**
+   before a meeting. Paid/organic acquisition lead-gen is explicitly **not** a goal.
+   → Resolves hypothesis **H5** (conversion goal = exploration/credibility, not lead-gen).
+2. **"Who we are" outranks "what we do."** The client wants the site to **humanize**
+   Fullsteam — narrative first, data second. "It's okay to tell the story with the
+   data, but we have to make sure the narrative is first."
+3. **The site must communicate Fullsteam's size.** Investors repeatedly say Fullsteam
+   is "a lot bigger than they thought" — the current site undersells scale.
+4. **Software leads, payments supports.** Message order is **Software → Verticals →
+   Integrate Payments** (Scott). Software is ~3/4 of revenue and payments ~1/4, but
+   the *profit* split is reversed. The payments narrative is currently *over*-indexed:
+   sellers assume Fullsteam only cares about payments.
+5. **AI is now table stakes in the narrative** (2026), but must be handled carefully —
+   explain the use cases before overwhelming the visitor, and never imply staff
+   reduction in favor of AI.
+6. **Acquisitions are not announced at close.** Announcement is case-by-case, usually
+   only once a company reaches the "graduation phase" (a couple of years in), to avoid
+   raising doubt for end users of the acquired software.
+
+### 20.2 Website purpose & conversion goal (resolves H5)
+
+- **Primary function:** credibility/validation. "There is a very specific process for
+  how investors or founders make it to our site… We use our site as validation."
+- **Not** a product-sales site; **no PPC** required.
+- **Goal for investors:** get them to "take our phone call and have a conversation."
+- **Goal for founders:** confirm Fullsteam is credible, values-aligned, and certain to
+  close — then request a meeting.
+- **Implication:** CTAs should favor **exploration + contact/meeting request** over
+  hard lead-gen; proof and trust signals matter more than conversion funnels.
+
+### 20.3 Core positioning & messaging order
+
+- **Michael Lawler:** "We are a **multi-vertical technology and payment processing
+  partner**." Fullsteam provides software to each business to simplify daily
+  operations (booking/reservations, payment processing, scheduling, customer
+  experience systems).
+- **Greg Colella:** Fullsteam is "many excellent vertical technology companies that
+  have fintech capabilities" — visitors should be amazed at how many companies
+  Fullsteam works with and serves.
+- **Internal language:** "**vertical software rollup**" / "vertical tech rollup" —
+  understood by investors and founders; individual contributors may not grasp it.
+  "Vertical software" = software for a specific industry (vs. horizontal = Salesforce,
+  HubSpot). Use "vertical" as the primary word.
+- **Brand architecture:** Fullsteam does **not** convert acquired brands to Fullsteam —
+  they stay standalone. End users often won't know Fullsteam; the site's job is to
+  explain the parent to those who look.
+- **Messaging order:** Software → Verticals → Integrate Payments.
+- **Do not state profitability explicitly** on the site; imply growth/profitability
+  through scale, breadth, and payments penetration.
+- **Tone:** 8th-grade reading level, conversational, no jargon — humanize and be clear.
+- **Copy reference:** mirror the **J.P. Morgan fireside-chat document** tone/structure.
+
+### 20.4 Audience findings
+
+**Founders / sellers (audience #1)**
+- Want to **feel special**. Lead with what Fullsteam knows, understands, and loves
+  about *their* business; do not recite acquisition counts (it makes them feel generic).
+- Biggest objections to taking a meeting: (1) "Fullsteam only cares about my payments,"
+  (2) "Fullsteam won't accept the multiple I could get elsewhere," (3) "Fullsteam
+  doesn't understand what we do."
+- Price is the most important factor, but **values/philosophy fit, personal connection,
+  and certainty of close** tip the decision.
+- Branding the sale as an "**exit**" is a **turn-off**. Many are not looking to exit
+  immediately (1–2 years); they value joining a larger org that scales the business and
+  centralizes back-office functions. Fullsteam "doesn't turn and burn" — it holds
+  companies ("a home for your business").
+- The addressable acquisition universe is **~1,000 companies**, all already contacted;
+  the **meeting is the biggest source of truth** — more than the website.
+- Real-world example (genericized): a floral-shop software founder, pursued for years
+  with quarterly follow-ups, who returned to the site to re-remind himself before
+  engaging — evidence the site's job is **validation**.
+
+**Investors (audience #1)**
+- Mostly **large private equity** investors plus some **sovereign wealth funds**;
+  **3–7 year** investment horizon. They want proof Fullsteam buys and improves
+  businesses and enhances profitability (payments is the profitability lever).
+- Site should convey **size/scale** — investors are surprised how big Fullsteam is.
+- Favor metrics that industry insiders can infer without Fullsteam stating them
+  overtly: growth, retention, gross/net, margins, employee counts, customer counts,
+  payment volume, mix KPIs (e.g. "20% comes from X"). **Avoid** publishing revenue,
+  run-rate, or forward promises.
+- Telling **all the verticals served** is itself an investor proof point.
+- Investor engagement runs through **investment bankers** (e.g. Goldman Sachs, J.P.
+  Morgan) with a teaser → market scan → fireside chats (CEO + CFO) → data room →
+  1–2 bids → legal process (~18 months). **Analysts** (not senior partners) pull site
+  info for committee review — so the site must be legible to a junior analyst.
+
+**Employees / candidates (secondary, but a real content owner)**
+- ~**15%** of the site's communication should address the employer/company story.
+- Positioning: "**the best of both worlds — a big company that doesn't operate like a
+  big company**." Small, agile, mostly remote, diverse across many industries, with
+  access to leadership and room to take ownership conception-to-execution.
+- Hiring bar: self-directed **problem-solvers** who thrive in a freeform, fast-paced,
+  dynamic environment — not people who want a "standard" corporate way of working.
+  The site should present an **authentic** (not marketing) picture to avoid
+  new-hire disillusionment.
+- "Humanize" is the watchword: prior recruiting suffered when a new office felt
+  empty/unreal. Show **who we are and who we work with**.
+
+### 20.5 AI narrative
+
+- **Why it matters now:** in 2026 AI is the market's focus; payments (once the
+  differentiator) is now assumed. Not talking about AI raises the question "why not?"
+- **Framing by audience:**
+  - *Investors:* efficiency, return on spend, **de-risking**, and accelerating the AI
+    journey — **not** "cost cutting." Use "leaner" with investors, never with owners.
+    Emphasize customer-facing use cases that generate revenue, plus R&D/security.
+  - *Founders/owners:* consistency and faster response times; automation of mundane
+    work (chat/voice, bug fixes). **Never imply eliminating staff in favor of AI.**
+  - *Acquisition-side angle (Charles):* AI lets companies build software fast, which
+    could reduce the need to buy companies — but Fullsteam's **proprietary vertical
+    data** helps AI build needed products/features, which is a differentiator.
+- **Placement:** Charles suggested AI could live on the acquisition side or as general
+  information; Scott's notes require an **AI framework** in the messaging strategy.
+  (Dedicated-page decision remains open — see §20.10.)
+- **Guardrail:** explain what the AI actually is before overwhelming users; use cases
+  must be concrete (automation, consistency, responsiveness, R&D velocity).
+
+### 20.6 Payments / Offerings (Dom Morea)
+
+- **Core thesis:** software and payments work better **together**; Fullsteam set out
+  from inception to prove embedded payments is a seamless extension of vertical SaaS.
+- **"Payments should be invisible"** — mission-critical, 24/7, reliable, timely
+  settlement. The value is in **how** it's embedded, not the commodity itself.
+- **Differentiator:** deeply integrated, at-scale, time-tested embedded payments with
+  **no third-party merchant dependency**; fast/certified integration for new founders;
+  **"one hand to shake, one throat to choke"** vs. juggling multiple providers.
+  A dedicated team supports each business unit when issues arise.
+- **Beyond payments:** **Merchant Capital Advance** (borrow against future
+  transactions; repaid by netting future flows). Aspiration to expand into financial
+  advising and legal assistance — "a one-stop shop for all things business."
+- **Industry-specific payment features** are a moat (e.g. salon software with deposits,
+  no-show charges, tipping — features a generic processor wouldn't have).
+- **Proof:** founder/payments **testimonials**; demonstrate the capability has worked
+  **across many verticals** even if not yet in a prospect's specific vertical.
+- **Investor framing:** payments enhances profitability of each acquired business and
+  is the margin/expansion story — but keep explicit profitability off the public site.
+- **Open item:** the axis is still labeled **Offerings** (client rejected "Platform").
+  Dom's team internally calls it "payments and platform" — do not surface "Platform"
+  on the site.
+
+### 20.7 Portfolio, brand & case-study policy
+
+- **Tell the story of the impactful companies**, not all ~100. Focus on the few that
+  best represent each vertical.
+- **Only show leadership** — not the full staff. Feature the business with mentions of
+  its leaders within the vertical.
+- **Announcement policy:** acquisitions are internal during transformation; they are
+  showcased case-by-case, typically after the **graduation phase** (a couple of years).
+  Never raise doubt for the acquired product's end users; Fullsteam's backing is a
+  trust signal ("it will be around").
+- Some brands are merged/rolled up over time depending on market; Fullsteam aims to be
+  **market leader** in each space and will acquire several companies per vertical.
+- **Post-acquisition playbook starts with sales process/enablement** — the premise being
+  "if they were doing everything right, they wouldn't need to sell."
+
+### 20.8 Tone, look & feel direction (interviews)
+
+- **Humanize.** Shift from "what we do" to "**who we are**" — the people behind the
+  company, vertical leaders, founders who sold, leaders who grew at Fullsteam.
+- **Narrative first, data second.** Tell the story *around* the data points.
+- **Modern + premium**, with **more whitespace**; update the hero; full-width imagery
+  and **video** (audio + visual, not talking-head-only, no "word walls").
+- **8th-grade reading level**, conversational, plain-speak over jargon.
+- **AI readability** of the site is explicitly important (Charles).
+- One singular story that speaks to the multiple audiences that visit the site.
+- **Avoid:** word walls, talking-head videos, over-focusing on "what we do."
+
+### 20.9 Design / reference sites named in interviews
+
+| Reference | Named by | Note |
+|-----------|----------|------|
+| silverlake.com | Charles | Investor-brand look/feel |
+| thomabravo.com | Charles | Investor-brand look/feel |
+| adventinternational.com | Greg/Charles | Named as a competitor reference |
+| J.P. Morgan fireside-chat document | Scott | Copy tone/structure model |
+
+(These add to the client reference lists already captured in §9 and §18.)
+
+### 20.10 Hypothesis scorecard (from §16)
+
+| # | Hypothesis | Verdict from interviews |
+|---|------------|-------------------------|
+| H1 | Audience-led nav (founders + investors top) | **Validated** — three distinct messaging tracks confirmed by careers team and leadership |
+| H2 | Grouped Solutions mega-menu | Not directly tested; still a design hypothesis |
+| H3 | No page-per-industry | Reinforced — "tell the story of impactful companies, not all 100" |
+| H4 | Offerings axis + AI placement | **Offerings label confirmed**; AI treatment still open |
+| H5 | Conversion goal = exploration/credibility | **Resolved** — site is validation/credibility, not lead-gen |
+| H6 | Flat nav / human tone | **Validated** — 8th-grade, conversational, humanize |
+
+### 20.11 Open items / follow-ups from discovery
+
+- [ ] Confirm which metrics/scale signals are publishable (investors want inferable KPIs,
+      but no revenue/run-rate on the site).
+- [ ] Decide AI placement: dedicated page vs. acquisition-side/general info vs. Offerings
+      sub-section (Charles left it open; peer analysis favors a dedicated page — §14).
+- [ ] Confirm the ~15% employer/careers content allocation and where it lives.
+- [ ] Confirm the founder/testimonial and case-study roster permitted for public use
+      (genericized until then).
+- [x] ~~Reconcile "For Investors" as a nav destination~~ — **resolved 2026-09-10:
+      deleted** from the sitemap and chrome. Investors are served via homepage
+      scale/proof + Contact (§14). Charles's investor audience is served without a
+      nav node.
+- [ ] Source/produce the video content the look-and-feel direction now requires.
+
+---
+
 *Knowledge base generated from the client's agency brief (source of truth:
 `clientDocs/Fullsteam Web Brief (1).docx`), supplemented by the kickoff
 presentation (`clientDocs/Fullsteam Kickoff Presentation.pdf`), the kickoff
 follow-up / action items, the discovery stakeholder list (Basecamp,
-2026-08-25), and client look-and-feel website references (2026-08-26).*
+2026-08-25), client look-and-feel website references (2026-08-26), the
+confidential company/investor overview deck
+(`Fullsteam Overview_Confidential - redacted.pdf`, 2026-09-10), and the
+internal discovery interviews
+(`clientDocs/Fullsteam User Interview Template.xlsx`, 2026-09-01 → 2026-09-03).*
