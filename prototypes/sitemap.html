@@ -100,20 +100,6 @@
   .kids .node b{ font-size:12px; }
   .kids .node i{ font-size:10px; }
 
-  .cat-chip{
-    display:inline-block; margin:var(--stroke-w) auto 0;
-    padding:4px 10px; border:1px dashed var(--line);
-    background:var(--blue-tint);
-    font-size:10px; font-weight:700; letter-spacing:.06em;
-    color:var(--blue); text-transform:uppercase;
-    position:relative;
-  }
-  .cat-chip::before{
-    content:''; position:absolute; top:calc(-1 * var(--stroke-w)); left:50%;
-    height:var(--stroke-w);
-    border-left:1.5px dashed var(--line-solid);
-  }
-
   .leaf-badge{
     display:inline-block; margin-top:6px;
     font-size:9px; letter-spacing:.08em; text-transform:uppercase;
@@ -246,7 +232,6 @@
       <span><i></i> Dashed outline/stroke = low-fi wireframe connection</span>
       <span>Home block outlined solid in Bio Blue #00587C</span>
       <span>Blue #00587C = primary nav / page names</span>
-      <span>Tinted chip = solutions category grouping</span>
       <span>Green #84BD00 = AI highlight (matches header)</span>
       <span>“Single page” badge = leaf node, no children</span>
       <span>Header chrome ≠ L1 count — overlay/footer still reach every L1 node</span>
