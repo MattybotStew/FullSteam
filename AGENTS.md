@@ -60,10 +60,11 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - Primary CTA target: **"Explore our vertical solutions."**
 - **Portfolio axis = "Vertical Software"** (renamed from "Solutions", 2026-09-10);
   the CTA stays **"Explore our vertical solutions."**
-- **Vertical Software verticals:** flat list of all 11 on the hub and in the Menu
-  overlay (two columns) — **no category labels** (deleted after the client call,
-  2026-09-14; e.g. no "Hospitality & Events"). Homepage shows a revenue-ordered
-  subset only. Hub includes **find-your-vertical** filter (not header search).
+- **Vertical Software is a single page** (revised 2026-09-15): a **sticky sidebar**
+  lists all 11 verticals and swaps a **tabbed panel**; **no child pages**, no
+  category labels. The Menu overlay lists the same 11 flat (two columns). Homepage
+  shows a revenue-ordered subset only. **find-your-vertical** type-ahead filters the
+  sidebar (not header search).
 - **Embedded Offerings = Payments, Lending, Insurance + AI at Fullsteam.**
   **Hardware and Integrations are not separate pages** (folded into Payments /
   the Embedded Offerings overview), 2026-09-10.

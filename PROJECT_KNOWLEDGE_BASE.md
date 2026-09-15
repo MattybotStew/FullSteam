@@ -365,8 +365,9 @@ how these sites created a dedicated page to showcase their use of AI:
 
 > **Status:** **Locked** 2026-09-10 (Creative Director, Cloudmellow) after
 > discovery; **finalized 2026-09-14** (Leadership page added; category pages,
-> For Founders funnel, and migration map resolved). Revisions still allowed per
-> SOW (3 rounds per phase).
+> For Founders funnel, and migration map resolved); **revised 2026-09-15**
+> (Vertical Software becomes a single tabbed page — no child pages). Revisions
+> still allowed per SOW (3 rounds per phase).
 > **Supersedes:** the earlier audience-led draft (2026-08-25).
 
 ### Locked decisions
@@ -388,14 +389,13 @@ served through the portfolio/scale proof on the homepage and via Contact — the
 is no investor nav node or dedicated investor page.
 
 > **Note on the CTA:** the primary CTA is unchanged. The homepage hero CTA remains
-> **"Explore our vertical solutions"**, funneling into the **Vertical Software hub**.
+> **"Explore our vertical solutions"**, funneling into the **Vertical Software page**.
 
-**Locked structural choices (2026-09-10; finalized 2026-09-14):**
-- **Vertical Software is a dedicated hub page** with a **find-your-vertical**
-  filter — flat list of all 11 verticals, **no category labels and no category
-  landing pages** (labels deleted after the client call, 2026-09-14).
-- **All 11 verticals get a detail page from one reusable template** (SEO +
-  future acquisitions), linked from the hub — not 11 chrome nav items.
+**Locked structural choices (2026-09-10; finalized 2026-09-14; revised 2026-09-15):**
+- **Vertical Software is a single page** (2026-09-15) — a **sticky sidebar** lists all
+  11 verticals and swaps a **tabbed panel** in place; **no child pages**, no category
+  labels. The find-your-vertical type-ahead filters the sidebar. Supersedes the
+  2026-09-10 "11 vertical detail pages from one reusable template."
 - **Embedded Offerings = Payments, Lending, Insurance + AI at Fullsteam.**
   **Hardware and Integrations were dropped as separate pages** (2026-09-10);
   hardware is folded into Payments (POS & devices) and integrations into the
@@ -434,13 +434,13 @@ FOR FOUNDERS                              (/for-founders)      [leaf · single p
 ├─ What we're looking for (vertical focus)
 └─ Talk to us (contact funnel)
 
-VERTICAL SOFTWARE                         (/vertical-software) [HUB + find-your-vertical]
-├─ Flat list — all 11 verticals (no category labels)
+VERTICAL SOFTWARE                         (/vertical-software) [SINGLE PAGE]
+├─ Sticky sidebar — flat list of all 11 verticals (no category labels)
 │   Hospitality · Weddings & Events · Wine · Retail · Storage & Marina
 │   Health & Wellness · Field Services · Transportation · Automotive
 │   Association Management · ERP
-├─ 11 vertical detail pages (one reusable template)
-└─ "Find your vertical" filter / type-ahead picker
+├─ Tabs swap the panel in place — no child pages
+└─ "Find your vertical" type-ahead filters the sidebar
 
 EMBEDDED OFFERINGS                        (/offerings)         [hub]
 ├─ Payments · Lending · Insurance
@@ -475,11 +475,12 @@ Privacy · Terms
 ### 25-page design budget mapping
 
 Budget is manageable because most interior pages are **reusable templates**:
-Vertical Software Hub, Vertical Detail (×11), Offering Detail (×3), Story,
-Newsroom (dynamic CMS), Leadership, Careers, Contact — plus bespoke pages (Home,
-For Founders, Embedded Offerings Hub, AI at Fullsteam). Vertical and offering
-detail pages share templates, keeping the bespoke count low (~24 designed pages
-against the 25-page cap, leaving ~1 slot for e.g. Digital Marketing or 404).
+Vertical Software (single tabbed page), Offering Detail (×3), Story, Newsroom
+(dynamic CMS), Leadership, Careers, Contact — plus bespoke pages (Home, For
+Founders, Embedded Offerings Hub, AI at Fullsteam). Offering detail pages share a
+template, and the 11 verticals now live inside the Vertical Software page rather
+than as 11 pages, so the count is low (~13 designed pages against the 25-page cap,
+leaving ~12 slots for e.g. Digital Marketing, 404, or future pages).
 
 ### Navigation patterns — client reference sites (analysis)
 
@@ -501,7 +502,7 @@ against the 25-page cap, leaving ~1 slot for e.g. Digital Marketing or 404).
 | **Quilt** | Very flat nav (Quilt / Advantage / About / Team / News / Careers); product brands on homepage, not nav. | Flat, story-first nav; brands showcased on homepage. |
 
 **Synthesized implications for the Fullsteam sitemap:**
-1. **Vertical Software hub = flat vertical list + find-your-vertical filter** — all 11 verticals on the hub and in the Menu overlay (two columns); no category labels. Homepage shows a revenue-ordered subset, not page-per-industry.
+1. **Vertical Software = single page, sticky sidebar + tabs** — all 11 verticals in the sidebar and in the Menu overlay (two columns); no category labels; find-your-vertical type-ahead filters the sidebar. Homepage shows a revenue-ordered subset, not page-per-industry.
 2. **Dual-axis IA maps to the two stories:** Vertical Software (business type / verticals) + Offerings (capability: payments, lending, insurance, AI; hardware & integrations folded in) — the Square model.
 3. **Founder/seller path validated** by closest peers (CORA "Being Acquired", Banyan "For Founders") — keep **For Founders** as a top item. (The draft's "For Investors" node was removed 2026-09-10; investors are served via proof + footer.)
 4. **AI gets a dedicated page** — every relevant peer does this (Banyan, DaySmart, ECI). Resolves open Q1 in favor of a dedicated page; locked as a page **nested under Offerings**.
@@ -510,13 +511,13 @@ against the 25-page cap, leaving ~1 slot for e.g. Digital Marketing or 404).
 
 ### Open items still to resolve
 - [x] ~~Exact grouping/labeling of verticals under the hub~~ — locked: **flat list of 11 verticals, no category labels** (supersedes earlier 5-category grouping, 2026-09-10; labels deleted 2026-09-14).
-- [x] ~~How many vertical detail pages to carry vs. group~~ — locked: **all 11**, one reusable template.
+- [x] ~~How many vertical detail pages to carry vs. group~~ — **revised 2026-09-15: none.** Vertical Software is a single page; the 11 verticals are in-page tabs (sticky sidebar), not pages.
 - [x] ~~AI placement~~ — locked: **own page nested under Offerings**.
 - [x] ~~Category pages / labels~~ — **removed**; no category labels and no category landing pages (2026-09-14).
 - [x] ~~**Our Story sub-pages**~~ — **resolved:** **Newsroom** (`/our-story/newsroom`, single dynamic CMS page) and **Leadership** (`/our-story/leadership`) are both nested under Our Story (2026-09-14).
 - [x] ~~**For Founders funnel**~~ — **resolved:** stays a single-page leaf with the four locked sections (2026-09-14).
 - [ ] **Investor path** — with the nav node deleted, confirm the exact homepage proof + Contact path that serves investors. *(Sitemap impact: none — no nav node or page.)*
-- [x] ~~**URL / migration map**~~ — **resolved** (kept in `plans/sitemap-lock.md`): `/our-verticals` + 11 top-level vertical slugs → `/vertical-software/...`; `/acquisition` → `/for-founders`; `/about` → `/our-story`; `/newsroom` → `/our-story/newsroom`; add `/our-story/leadership`.
+- [x] ~~**URL / migration map**~~ — **resolved** (kept in `plans/sitemap-lock.md`): `/our-verticals` + 11 top-level vertical slugs → `/vertical-software` (with `#<vertical>` anchors); `/acquisition` → `/for-founders`; `/about` → `/our-story`; `/newsroom` → `/our-story/newsroom`; add `/our-story/leadership`.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: Sitemap lock
-overview: Lock the Fullsteam.com L1 tree and page inventory (For Investors deleted; Vertical Software hub + all 11 vertical pages; Embedded Offerings = Payments/Lending/Insurance/AI; Newsroom a dynamic CMS page under Our Story), then reconcile every sitemap/chrome/design artifact to the locked tree.
+overview: Lock the Fullsteam.com L1 tree and page inventory (For Investors deleted; Vertical Software a single tabbed page with a sticky sidebar — no child pages; Embedded Offerings = Payments/Lending/Insurance/AI; Newsroom + Leadership under Our Story), then reconcile every sitemap/chrome/design artifact to the locked tree.
 todos:
   - id: lock-decisions
     content: "Confirm lock decisions: delete For Investors, AI page under Offerings, all 11 vertical pages (one template), Vertical Software hub with find-your-vertical"
@@ -32,20 +32,24 @@ todos:
   - id: finalize
     content: "Finalize sitemap.html (v1.0) with Leadership node; reconcile KB §14 + wireframes.md"
     status: completed
+  - id: vertical-tabs
+    content: "Revise Vertical Software to a single tabbed page (sticky sidebar of 11 verticals, no child pages); reconcile all artifacts"
+    status: completed
 authored: 2026-09-10
 finalized: 2026-09-14
+revised: 2026-09-15
 ---
 
-# Sitemap lock (2026-09-10 · finalized 2026-09-14)
+# Sitemap lock (2026-09-10 · finalized 2026-09-14 · revised 2026-09-15)
 
 ## Locked tree
 
 ```
 HOME                                      (/)
 ├─ For Founders                          (/for-founders)      leaf
-├─ VERTICAL SOFTWARE                     (/vertical-software) HUB + find-your-vertical
-│   ├─ Flat list — all 11 verticals (no category labels)
-│   └─ 11 vertical detail pages (one reusable template)
+├─ VERTICAL SOFTWARE                     (/vertical-software) SINGLE PAGE
+│   └─ Sticky sidebar lists all 11 verticals; tabs swap the panel
+│      (no category labels, no child pages, find-your-vertical type-ahead)
 ├─ EMBEDDED OFFERINGS                    (/offerings)         hub
 │   ├─ Payments · Lending · Insurance
 │   │   (Hardware & Integrations folded in — no separate pages)
@@ -64,9 +68,13 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
   scale/proof + Contact. (Supersedes the audience-led draft.)
 - **Portfolio axis renamed Solutions → Vertical Software** (Figma comment #1);
   the primary CTA stays "Explore our vertical solutions."
-- **Vertical Software is a dedicated hub page** with a find-your-vertical filter.
-- **All 11 verticals get a detail page from one reusable template** — flat list on
-  the hub and in the Menu overlay; **no category labels** (2026-09-10).
+- **Vertical Software is a single page** (2026-09-15) — a **sticky sidebar** lists all
+  11 verticals and swaps a **tabbed panel** in place. **No child pages.** The
+  find-your-vertical type-ahead filters the sidebar. Supersedes "11 vertical detail
+  pages from one reusable template" (2026-09-10). Trade-off accepted: one URL carries
+  all verticals (weaker per-vertical SEO); deep links use `#<vertical>` anchors.
+- **All 11 verticals shown as in-page tabs** — the sidebar/Menu list stays flat;
+  **no category labels** (2026-09-10).
 - **Embedded-expansion axis = "Embedded Offerings"** (client-preferred, 2026-09-10;
   short form "Offerings" in body copy). **Embedded Offerings = Payments, Lending,
   Insurance + AI.** **Hardware & Integrations dropped as separate pages** (Figma
@@ -78,12 +86,12 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
 - **Leadership is a page under Our Story** at `/our-story/leadership`
   (2026-09-14) — leaders only, per the confidentiality rule (no full staff listing).
 - **For Founders is a single-page leaf** (2026-09-14) — no sub-pages.
-- **No category labels and no category landing pages** (2026-09-14) — the 11
-  verticals stay a flat list on the hub. (Category labels were deleted after the
-  client call; supersedes the earlier "labels only" note.)
-- "All Verticals" folded into the hub (Figma comment #2) — not a separate page.
+- **No category labels** (2026-09-14) — the 11 verticals stay a flat list in the
+  sidebar. (Category labels were deleted after the client call; supersedes the
+  earlier "labels only" note.)
+- "All Verticals" folded into the single Vertical Software page (Figma comment #2).
 - Chrome may show fewer items than L1; overlay/footer must reach every node.
-- ~24 designed pages against the 25-page cap (~1 slot free).
+- ~13 designed pages against the 25-page cap (~12 slots free).
 
 ## Files reconciled
 
@@ -125,6 +133,19 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
 - Files touched: `PROJECT_KNOWLEDGE_BASE.md` §14, `AGENTS.md`, `wireframes.md`,
   `prototypes/sitemap.html`, `prototypes/sitemap-rationale.html`, both plan copies.
 
+### Revision (2026-09-15) — Vertical Software becomes one tabbed page
+
+- Client direction: **no child pages.** Vertical Software is a **single page** with a
+  **sticky sidebar** (all 11 verticals) that swaps a **tabbed panel**; find-your-
+  vertical type-ahead filters the sidebar.
+- **Deleted the 11 vertical detail pages** — page inventory drops from ~24 to ~13.
+- Migration: the 11 vertical slugs + `/our-verticals` now redirect to
+  `/vertical-software` (`#<vertical>` deep links).
+- Files touched: `PROJECT_KNOWLEDGE_BASE.md` §14, `AGENTS.md`, `wireframes.md`,
+  `prototypes/sitemap.html`, `prototypes/sitemap-rationale.html`,
+  `prototypes/meganav-rationale.html`, `plans/header-sitemap-variants.md` + both
+  `.cursor` mirrors, both plan copies.
+
 ## Open items — resolved (2026-09-14)
 
 - [x] **Our Story sub-pages** — **Newsroom** (`/our-story/newsroom`) is a single
@@ -137,8 +158,8 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
 - [x] **For Founders funnel** — **stays a single-page leaf** (`/for-founders`) with
       the four locked sections (Why · process · what we look for · contact).
 - [x] **URL / migration map** — **kept in this lock doc only**, not on the HTML page:
-      `/our-verticals` + 11 vertical slugs → `/vertical-software/...`;
-      `/acquisition` → `/for-founders`; `/about` → `/our-story`;
+      `/our-verticals` + 11 vertical slugs → `/vertical-software` (with `#<vertical>`
+      anchors); `/acquisition` → `/for-founders`; `/about` → `/our-story`;
       `/newsroom` → `/our-story/newsroom`; add `/our-story/leadership`.
 
 > No open sitemap items remain. Future changes fall under the SOW's revision rounds.

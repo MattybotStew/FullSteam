@@ -106,6 +106,18 @@
     color:var(--muted); border:1px solid var(--line); padding:2px 6px;
   }
 
+  /* In-page tabs: content inside a page, NOT a child node */
+  .inpage{
+    margin-top:10px; padding:9px 10px;
+    border:1px solid var(--blue-tint); background:var(--blue-tint);
+    font-size:10px; line-height:1.5; color:var(--muted);
+  }
+  .inpage-label{
+    display:block; font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--blue); font-weight:700; margin-bottom:4px;
+  }
+  .inpage-note{ display:block; margin-top:5px; opacity:.85; }
+
   .utility-note{
     max-width:1200px; margin:18px auto 0; padding:0 24px;
     font-size:11px; color:var(--muted); text-align:center;
@@ -141,7 +153,7 @@
     <h1>Fullsteam.com — Page Tree</h1>
     <p>Dashed lines show hierarchy connections. Blocks are placeholder nodes, not final designs.</p>
     <p>Level-1 nodes are <b>pages</b> (the inventory). The header does not have to list every L1 item. Access layers: <b>chrome</b> (always visible) · <b>overlay / Menu</b> (same labels, opened) · <b>footer</b> (full tree for recovery). Compare chrome options in <a href="./header-wireframe.html" style="color:var(--blue)">header-wireframe.html</a>.</p>
-    <p><b>Locked 2026-09-10 · finalized 2026-09-14:</b> L1 = For Founders · <b>Vertical Software</b> · <b>Embedded Offerings</b> · Our Story · Careers. <b>For Investors removed.</b> Vertical Software is a dedicated hub page (find-your-vertical filter); all 11 verticals listed flat — <b>no category labels, no category landing pages</b> (labels deleted after the client call, 2026-09-14). Each vertical gets a detail page from one reusable template. <b>Hardware &amp; Integrations dropped</b> as separate pages (folded into Embedded Offerings / Payments). AI at Fullsteam is a page nested under Embedded Offerings. <b>Newsroom</b> and <b>Leadership</b> are both pages nested under Our Story. For Founders stays a single-page leaf. See PROJECT_KNOWLEDGE_BASE.md §14.</p>
+    <p><b>Locked 2026-09-10 · finalized 2026-09-14 · revised 2026-09-15:</b> L1 = For Founders · <b>Vertical Software</b> · <b>Embedded Offerings</b> · Our Story · Careers. <b>For Investors removed.</b> <b>Vertical Software is a single page</b> — a sticky sidebar lists all 11 verticals and swaps a tabbed panel in place; <b>no child pages</b> and no category labels. <b>Hardware &amp; Integrations dropped</b> as separate pages (folded into Embedded Offerings / Payments). AI at Fullsteam is a page nested under Embedded Offerings. <b>Newsroom</b> and <b>Leadership</b> are both pages nested under Our Story. For Founders stays a single-page leaf. See PROJECT_KNOWLEDGE_BASE.md §14.</p>
   </div>
 
   <main class="sitemap">
@@ -164,25 +176,19 @@
         </div>
       </div>
 
-      <!-- Vertical Software (flat vertical list + hub filter) -->
+      <!-- Vertical Software (single page: sticky sidebar + tabbed panel) -->
       <div class="rail-cell">
         <div class="node">
           <b>Vertical Software</b>
-          <i>hub page · find your vertical</i>
+          <i>single page · sticky sidebar + tabbed panel</i>
+          <span class="leaf-badge">single page · no children</span>
         </div>
-        <div class="kids">
-          <div class="kid"><div class="node"><b>Hospitality</b><i>management</i></div></div>
-          <div class="kid"><div class="node"><b>Weddings &amp; Events</b><i>operations</i></div></div>
-          <div class="kid"><div class="node"><b>Wine</b><i>sales &amp; tasting room</i></div></div>
-          <div class="kid"><div class="node"><b>Retail</b><i>specialty POS</i></div></div>
-          <div class="kid"><div class="node"><b>Storage &amp; Marina</b><i>facilities</i></div></div>
-          <div class="kid"><div class="node"><b>Health &amp; Wellness</b><i>practice mgmt</i></div></div>
-          <div class="kid"><div class="node"><b>Field Services</b><i>home &amp; commercial</i></div></div>
-          <div class="kid"><div class="node"><b>Transportation</b><i>ground &amp; parking</i></div></div>
-          <div class="kid"><div class="node"><b>Automotive</b><i>lube, repair, lots</i></div></div>
-          <div class="kid"><div class="node"><b>Association Management</b><i>nonprofits &amp; chapters</i></div></div>
-          <div class="kid"><div class="node"><b>ERP</b><i>B2B back-office</i></div></div>
-          <div class="kid"><div class="node"><b>Find your vertical</b><i>filter / type-ahead on the hub — not a separate page</i></div></div>
+        <div class="inpage">
+          <span class="inpage-label">in-page tabs — not pages</span>
+          Hospitality · Weddings &amp; Events · Wine · Retail · Storage &amp; Marina ·
+          Health &amp; Wellness · Field Services · Transportation · Automotive ·
+          Association Management · ERP
+          <span class="inpage-note">Sticky sidebar lists all 11; selecting swaps the panel. Find-your-vertical type-ahead filters the sidebar.</span>
         </div>
       </div>
 
@@ -235,6 +241,7 @@
       <span>Blue #00587C = primary nav / page names</span>
       <span>Green #84BD00 = AI highlight (matches header)</span>
       <span>“Single page” badge = leaf node, no children</span>
+      <span>Blue-tint box = in-page content (tabs), not a child page</span>
       <span>Header chrome ≠ L1 count — overlay/footer still reach every L1 node</span>
     </div>
 

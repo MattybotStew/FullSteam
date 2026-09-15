@@ -22,7 +22,7 @@ copied: 2026-09-10
 
 > **Historical draft (pre–sitemap lock).** The body below describes the original
 > comparison pass. **For Investors was deleted 2026-09-10** — see the supersede
-> section at the bottom and [`sitemap-lock.md`](../../plans/sitemap-lock.md) for the locked tree.
+> section at the bottom and [`sitemap-lock.md`](./sitemap-lock.md) for the locked tree.
 
 ## Split the two jobs
 
@@ -30,9 +30,9 @@ The sitemap is the **inventory** (what pages exist, how they nest, what we desig
 
 **Current mismatch**
 
-- [prototypes/sitemap.html](../../prototypes/sitemap.html) L1 rail: For Founders · For Investors · Solutions · Offerings · Our Story · Careers, plus utility note for Contact + “Explore Solutions”.
-- [prototypes/header-wireframe.html](../../prototypes/header-wireframe.html): same six links + Contact + CTA (traditional mega-nav).
-- Homepage [homepage-bendingspoons-style.html](../../prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html): Solutions · Offerings · Our Story | For Founders | Explore CTA. **Investors and Careers missing**; audience-led KB decision ([PROJECT_KNOWLEDGE_BASE.md](../../PROJECT_KNOWLEDGE_BASE.md) §14) is inverted (portfolio in chrome, founders as a quiet right-side link).
+- [prototypes/sitemap.html](../prototypes/sitemap.html) L1 rail: For Founders · For Investors · Solutions · Offerings · Our Story · Careers, plus utility note for Contact + “Explore Solutions”.
+- [prototypes/header-wireframe.html](../prototypes/header-wireframe.html): same six links + Contact + CTA (traditional mega-nav).
+- Homepage [homepage-bendingspoons-style.html](../prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html): Solutions · Offerings · Our Story | For Founders | Explore CTA. **Investors and Careers missing**; audience-led KB decision ([PROJECT_KNOWLEDGE_BASE.md](../PROJECT_KNOWLEDGE_BASE.md) §14) is inverted (portfolio in chrome, founders as a quiet right-side link).
 
 Constraint to keep in all variants: **Offerings** (never Platform); hero CTA remains **Explore our vertical solutions**; no header search.
 
@@ -70,13 +70,13 @@ Chrome: logo + **Offerings** *or* **Our Story** (single secondary) + **Explore s
 
 Shared rules for A/B/C:
 
-- Overlay/footer **is** the sitemap at L1 (same node names as [prototypes/sitemap.html](../../prototypes/sitemap.html)).
-- Mega-menus from [header-wireframe.html](../../prototypes/header-wireframe.html) move **into the overlay** (flat Solutions vertical list; Offerings list + AI), not into a hover bar.
+- Overlay/footer **is** the sitemap at L1 (same node names as [prototypes/sitemap.html](../prototypes/sitemap.html)).
+- Mega-menus from [header-wireframe.html](../prototypes/header-wireframe.html) move **into the overlay** (flat Solutions vertical list; Offerings list + AI), not into a hover bar.
 - Interior pages use the **same chrome** as home so the pattern is a system, not a homepage trick.
 
 ## What we wire: one page, three headers stacked
 
-Comparison lives in [prototypes/header-wireframe.html](../../prototypes/header-wireframe.html) (keep the existing six-item bar as **Option 0 — current / traditional** at the top if useful, or replace it). Below that, **stack A, B, and C vertically** so they can be scanned in one scroll — not tabs, not three files.
+Comparison lives in [prototypes/header-wireframe.html](../prototypes/header-wireframe.html) (keep the existing six-item bar as **Option 0 — current / traditional** at the top if useful, or replace it). Below that, **stack A, B, and C vertically** so they can be scanned in one scroll — not tabs, not three files.
 
 Each stack block:
 
@@ -85,9 +85,9 @@ Each stack block:
 3. Directly under that strip, a **drawn-open overlay** (not hover-only) listing the same sitemap L1: For Founders, Solutions (flat vertical list), Offerings (+ AI), Our Story, Careers, Contact — so it is obvious every option still reaches the traditional tree.
 4. One line of risk/feel under the overlay.
 
-Do **not** change the homepage chrome in this pass. After you pick A, B, or C, copy that strip onto [homepage-bendingspoons-style.html](../../prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html).
+Do **not** change the homepage chrome in this pass. After you pick A, B, or C, copy that strip onto [homepage-bendingspoons-style.html](../prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html).
 
-Also: short legend on [prototypes/sitemap.html](../../prototypes/sitemap.html) (L1 = pages; header is a filter). One line in [design.md](../../design.md) §5: no header search; finder lives in overlay / Solutions hub.
+Also: short legend on [prototypes/sitemap.html](../prototypes/sitemap.html) (L1 = pages; header is a filter). One line in [design.md](../design.md) §5: no header search; finder lives in overlay / Solutions hub.
 
 No IA page count change. No new sitemap branches. This is chrome + overlay presentation only.
 
@@ -98,15 +98,16 @@ No IA page count change. No new sitemap branches. This is chrome + overlay prese
 - Trust marquee section removed from homepage.
 - Palette aligned to deck teal-navy `#003D4F` + brand gold `#FFC600`.
 
-### Sitemap locked (2026-09-10) — supersedes the draft L1 in this plan
+### Sitemap locked (2026-09-10 · revised 2026-09-15) — supersedes the draft L1 in this plan
 
 - **L1:** For Founders · **Vertical Software** · **Embedded Offerings** · Our Story · Careers (+ Contact utility).
 - **For Investors deleted** (no nav node, no page) — the "same six links" and
   Option A/B/C overlays in this plan no longer include it.
 - **Portfolio axis renamed Solutions → Vertical Software** (Figma comment #1);
   CTA stays "Explore our vertical solutions."
-- **Vertical Software = dedicated hub page** with a find-your-vertical filter; **all 11
-  verticals** get a detail page from one reusable template.
+- **Vertical Software = a single page** (revised 2026-09-15) — sticky sidebar of all
+  11 verticals swaps a tabbed panel; **no child pages**, find-your-vertical
+  type-ahead filters the sidebar.
 - **Embedded-expansion axis = "Embedded Offerings"** (client-preferred).
   **Embedded Offerings = Payments, Lending, Insurance + AI**; **Hardware &
   Integrations dropped as separate pages** (folded in).

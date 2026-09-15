@@ -67,7 +67,7 @@ accents, mosaic of verticals in the hero.
 **Chrome (Option B revised):** `Logo · For Founders · Menu · Explore Solutions`.
 The menu opens a full-width overlay containing the sitemap L1 (**Vertical
 Software**, Embedded Offerings, Our Story, Careers, Contact). No header search; the "find
-your vertical" finder lives in the overlay / Vertical Software hub.
+your vertical" finder lives in the overlay / Vertical Software page.
 
 ### Section-by-section
 
@@ -154,14 +154,15 @@ pick: B revised** — pending client sign-off (OI-1). Option 0 is labeled legacy
 
 ## 5. Sitemap reference
 
-**Locked L1 (2026-09-10 · finalized 2026-09-14):** For Founders · **Vertical
-Software** · **Embedded Offerings** · Our Story · Careers. **For Investors was
-deleted.** **Hardware & Integrations were dropped** as separate pages (folded into
-Embedded Offerings / Payments). AI at Fullsteam is a page nested under Embedded
+**Locked L1 (2026-09-10 · finalized 2026-09-14 · revised 2026-09-15):** For
+Founders · **Vertical Software** · **Embedded Offerings** · Our Story · Careers.
+**For Investors was deleted.** **Vertical Software is a single page** — a sticky
+sidebar lists all 11 verticals and swaps a tabbed panel; **no child pages**, no
+category labels. **Hardware & Integrations were dropped** as separate pages (folded
+into Embedded Offerings / Payments). AI at Fullsteam is a page nested under Embedded
 Offerings. Under Our Story: **Newsroom** (`/our-story/newsroom`, single dynamic CMS
 page) and **Leadership** (`/our-story/leadership`, leaders only). **For Founders is
-a single-page leaf**; **no category labels and no category landing pages**
-(verticals stay flat). See `PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
+a single-page leaf.** See `PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
 
 `prototypes/sitemap.html` is the inventory of pages (L1 = pages). The header does
 **not** need to list every L1 node; chrome, the Menu overlay, and the footer are
@@ -221,3 +222,4 @@ not L1 tree nodes.
 | 2026-09-10 | Renamed portfolio axis **Solutions → Vertical Software** (Figma comment #1). Dropped **Hardware & Integrations** as separate Offerings pages (Figma comments #8/#9); folded into Payments / Offerings. "All Verticals" folded into the hub. Voice rule added: external copy uses "you" (Figma #7). |
 | 2026-09-10 | Axis label **Offerings → Embedded Offerings** (client-preferred; short form "Offerings"). **Newsroom** added as a single dynamic CMS page under Our Story. |
 | 2026-09-14 | **Sitemap finalized.** **Leadership** added as a page under Our Story; **Newsroom** nested at `/our-story/newsroom`. For Founders confirmed a single-page leaf; **category labels deleted** after the client call (flat 11-vertical list, no landing pages); migration map kept in the lock doc. `sitemap.html` marked v1.0 FINAL. |
+| 2026-09-15 | **Vertical Software revised to a single page** — sticky sidebar of the 11 verticals swaps a tabbed panel; **11 detail pages removed**, no child pages. `sitemap.html` updated (in-page tab note, not child nodes); budget drops to ~13 pages. |

@@ -98,15 +98,16 @@ No IA page count change. No new sitemap branches. This is chrome + overlay prese
 - Trust marquee section removed from homepage.
 - Palette aligned to deck teal-navy `#003D4F` + brand gold `#FFC600`.
 
-### Sitemap locked (2026-09-10) — supersedes the draft L1 in this plan
+### Sitemap locked (2026-09-10 · revised 2026-09-15) — supersedes the draft L1 in this plan
 
 - **L1:** For Founders · **Vertical Software** · **Embedded Offerings** · Our Story · Careers (+ Contact utility).
 - **For Investors deleted** (no nav node, no page) — the "same six links" and
   Option A/B/C overlays in this plan no longer include it.
 - **Portfolio axis renamed Solutions → Vertical Software** (Figma comment #1);
   CTA stays "Explore our vertical solutions."
-- **Vertical Software = dedicated hub page** with a find-your-vertical filter; **all 11
-  verticals** get a detail page from one reusable template.
+- **Vertical Software = a single page** (revised 2026-09-15) — sticky sidebar of all
+  11 verticals swaps a tabbed panel; **no child pages**, find-your-vertical
+  type-ahead filters the sidebar.
 - **Embedded-expansion axis = "Embedded Offerings"** (client-preferred).
   **Embedded Offerings = Payments, Lending, Insurance + AI**; **Hardware &
   Integrations dropped as separate pages** (folded in).

@@ -60,7 +60,7 @@ crowd out the other:
    verticals, and the embedded expansion are proven with concrete examples — named verticals,
    representative brands, and outcome-led teasers.
 5. **No page-per-industry on the homepage.** Verticals appear as a revenue-ordered subset on the
-   homepage; the Vertical Software hub and Menu overlay list all 11 flat — no category labels (KB §14).
+   homepage; the Vertical Software page and Menu overlay list all 11 flat — no category labels (KB §14).
 6. **"Embedded Offerings," never "Platform."** The embedded-expansion axis is labeled
    **Embedded Offerings** (client-preferred 2026-09-10; short form "Offerings" in body copy).
    This must hold everywhere on the homepage.
@@ -239,8 +239,8 @@ ask the question the *next* block answers.
 - **Primary CTA placement discipline.** The phrase "Explore our vertical solutions" is reserved for the
   hero's primary action. Secondary/utility CTAs use shorter forms (e.g. "Explore Solutions," "For
   Founders") and are visually quieter so the hero CTA never competes.
-- **Find-your-vertical picker.** Lives on the Vertical Software hub and in the header **Menu overlay** — not as a header search field. Lightweight filter/type-ahead; must work on mobile. Feeds the   exploratory feel (KB §14). Header chrome is sparse (option B revised on the homepage wire: For Founders + Menu + CTA); the traditional sitemap L1 is reached via overlay and footer.
-- **Flat vertical navigation.** All 11 verticals on the Vertical Software hub and in the Menu overlay (two
+- **Find-your-vertical picker.** Lives on the Vertical Software page and in the header **Menu overlay** — not as a header search field. Lightweight filter/type-ahead; must work on mobile. Feeds the   exploratory feel (KB §14). Header chrome is sparse (option B revised on the homepage wire: For Founders + Menu + CTA); the traditional sitemap L1 is reached via overlay and footer.
+- **Flat vertical navigation.** All 11 verticals on the Vertical Software page and in the Menu overlay (two
   columns) plus find-your-vertical filter — **not** 11 chrome nav items and **not** category labels.
 - **Embedded Offerings label enforcement.** The axis label is "Embedded Offerings" (short form
   "Offerings" in body copy/CTAs). No "Platform," no "Capabilities," no "Services" as the axis name.
