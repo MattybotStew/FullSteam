@@ -41,7 +41,7 @@ HTML wireframes currently do, section by section, and what is still open.
 
 | File | Role | Status |
 |------|------|--------|
-| [`prototypes/sitemap.html`](./prototypes/sitemap.html) | Full page tree (L1 = pages); chrome/overlay/footer as access layers | Active reference |
+| [`prototypes/sitemap.html`](./prototypes/sitemap.html) | Full page tree (L1 = pages); chrome/overlay/footer as access layers | Locked — v1.0 final |
 | [`prototypes/header-wireframe.html`](./prototypes/header-wireframe.html) | Stacked chrome options 0 / A / B / C, each with its drawn-open overlay | Comparison — pick pending |
 | [`prototypes/sitemap-rationale.html`](./prototypes/sitemap-rationale.html) | Rationale for IA/nav terminology decisions (incl. "Offerings") | Reference |
 | [`prototypes/meganav-rationale.html`](./prototypes/meganav-rationale.html) | Rationale for mega-menu / grouped verticals | Reference |
@@ -65,9 +65,9 @@ minimal chrome and portfolio-forward homepage. Full-width navy canvas, serif
 accents, mosaic of verticals in the hero.
 
 **Chrome (Option B revised):** `Logo · For Founders · Menu · Explore Solutions`.
-The menu opens a full-width overlay containing the sitemap L1 (Solutions,
-Offerings, Our Story, Careers, Contact). No header search; the "find your
-vertical" finder lives in the overlay / Solutions hub.
+The menu opens a full-width overlay containing the sitemap L1 (**Vertical
+Software**, Embedded Offerings, Our Story, Careers, Contact). No header search; the "find
+your vertical" finder lives in the overlay / Vertical Software hub.
 
 ### Section-by-section
 
@@ -75,9 +75,9 @@ vertical" finder lives in the overlay / Solutions hub.
 |---|---------|--------|------------------|--------|
 | 1 | **Header** | Sparse chrome; audience path + primary CTA | Logo, "For Founders", "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
 | 2 | **Hero** | State the model + scale, hand off one CTA | H1 "The operating system for vertical markets." + copy + primary CTA + 6-tile vertical mosaic (Hospitality, ERP, Specialty Retail, Transportation, Wine, Automotive) | Built |
-| 3 | **Feature / story** | Give the two stories + AI + founders a compact tabbed home | Left tab rail: Acquire & grow · Offerings · AI at Fullsteam · For Founders; right panel with copy, visual placeholder, metric line | Built (JS tabs) |
+| 3 | **Feature / story** | Give the two stories + AI + founders a compact tabbed home | Left tab rail: Acquire & grow · Embedded Offerings · AI at Fullsteam · For Founders; right panel with copy, visual placeholder, metric line | Built (JS tabs) |
 | 4 | **Our businesses** | Portfolio proof; subset, not page-per-industry | 6 tiles ordered by revenue mix + "Browse all verticals" link | Built |
-| 5 | **Offerings** | Growth-engine proof via concrete examples | 2×2 quad: Payments, Lending, Insurance, Hardware & integrations + "See all Offerings" link | Built |
+| 5 | **Embedded Offerings** | Growth-engine proof via concrete examples | 2×2 quad: Payments, Lending, Insurance, AI at Fullsteam + "See all Offerings" link | Built |
 | 6 | **Closing CTA** | Final action, no dead-end | "Get a feel for the portfolio in one pass." + primary CTA + quiet "For Founders" link | Built |
 | 7 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
 
@@ -86,9 +86,9 @@ vertical" finder lives in the overlay / Solutions hub.
 - **Primary CTA** appears in header, hero, and closing — always
   **"Explore our vertical solutions"** (full form); header uses the short form
   "Explore vertical solutions."
-- **"Offerings"** is the axis label throughout (never "Platform").
+- **"Embedded Offerings"** is the axis label (client-preferred; short form "Offerings" in body copy; never "Platform").
 - **Verticals are a flat list** in the Menu overlay (two columns, all 11) and as a
-  revenue-ordered mosaic on the homepage — no macro-category labels, no 11-item chrome nav.
+  revenue-ordered mosaic on the homepage — no category labels, no 11-item chrome nav.
 - **Menu overlay = the sitemap at L1**, with a note that the finder is here (not a
   header search field).
 - **Metrics are embedded** in the feature panels with **[verify publishability]**
@@ -154,9 +154,14 @@ pick: B revised** — pending client sign-off (OI-1). Option 0 is labeled legacy
 
 ## 5. Sitemap reference
 
-**Locked L1 (2026-09-10):** For Founders · Solutions · Offerings · Our Story ·
-Careers. **For Investors was deleted.** AI at Fullsteam is a page nested under
-Offerings. See `PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
+**Locked L1 (2026-09-10 · finalized 2026-09-14):** For Founders · **Vertical
+Software** · **Embedded Offerings** · Our Story · Careers. **For Investors was
+deleted.** **Hardware & Integrations were dropped** as separate pages (folded into
+Embedded Offerings / Payments). AI at Fullsteam is a page nested under Embedded
+Offerings. Under Our Story: **Newsroom** (`/our-story/newsroom`, single dynamic CMS
+page) and **Leadership** (`/our-story/leadership`, leaders only). **For Founders is
+a single-page leaf**; **no category labels and no category landing pages**
+(verticals stay flat). See `PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
 
 `prototypes/sitemap.html` is the inventory of pages (L1 = pages). The header does
 **not** need to list every L1 node; chrome, the Menu overlay, and the footer are
@@ -176,7 +181,7 @@ not L1 tree nodes.
 - Use the brand palette for **legibility only** — Bio Blue `#00587C` for
   links/CTA, Gold `#FFC600` for Offerings accent, Green `#84BD00` for AI.
 - Keep copy short and obviously provisional; mark locked copy explicitly.
-- Preserve the constraint words: **"Offerings"** (never Platform), hero CTA
+- Preserve the constraint words: **"Embedded Offerings"** (never Platform), hero CTA
   **"Explore our vertical solutions."**
 - If you change structure or order, update the section table in §2 and the
   changelog in §8.
@@ -212,4 +217,7 @@ not L1 tree nodes.
 |------|--------|
 | 2026-09-10 | Created wireframe spec; documented current direction, alternative A, chrome options, and open items. |
 | 2026-09-10 | Post-lock audit: G-1 fixed; G-3 placeholders; sitemap Solutions hub label; doc drift; header palette aligned; OI-1 provisional B revised. |
-| 2026-09-10 | Removed macro-category labels for verticals — flat 11-vertical list in overlay, sitemap, and docs. |
+| 2026-09-10 | Removed category labels for verticals — flat 11-vertical list in overlay, sitemap, and docs. |
+| 2026-09-10 | Renamed portfolio axis **Solutions → Vertical Software** (Figma comment #1). Dropped **Hardware & Integrations** as separate Offerings pages (Figma comments #8/#9); folded into Payments / Offerings. "All Verticals" folded into the hub. Voice rule added: external copy uses "you" (Figma #7). |
+| 2026-09-10 | Axis label **Offerings → Embedded Offerings** (client-preferred; short form "Offerings"). **Newsroom** added as a single dynamic CMS page under Our Story. |
+| 2026-09-14 | **Sitemap finalized.** **Leadership** added as a page under Our Story; **Newsroom** nested at `/our-story/newsroom`. For Founders confirmed a single-page leaf; **category labels deleted** after the client call (flat 11-vertical list, no landing pages); migration map kept in the lock doc. `sitemap.html` marked v1.0 FINAL. |

@@ -364,38 +364,49 @@ how these sites created a dedicated page to showcase their use of AI:
 ## 14. Sitemap & Information Architecture (LOCKED)
 
 > **Status:** **Locked** 2026-09-10 (Creative Director, Cloudmellow) after
-> discovery. Revisions still allowed per SOW (3 rounds per phase).
+> discovery; **finalized 2026-09-14** (Leadership page added; category pages,
+> For Founders funnel, and migration map resolved). Revisions still allowed per
+> SOW (3 rounds per phase).
 > **Supersedes:** the earlier audience-led draft (2026-08-25).
 
 ### Locked decisions
 
-**Nav terminology (embedded-expansion axis = "Offerings", not "Platform").**
-The client rejected "Platform" as a nav/menu label — too abstract and
-tech-forward for a site that should feel exploratory rather than corporate.
-The embedded-expansion branch (Payments, Lending, Insurance, Hardware,
-Integrations, AI) is labeled **"Offerings"**, matching the brief's own language
-("embedded offerings"). All sitemap, nav, and IA references use "Offerings."
-Alternatives considered (Capabilities, Products, Services, How We Grow,
-Expansion, Growth) are detailed in `prototypes/sitemap-rationale.html` §9.
+**Nav terminology.**
+- **Portfolio axis = "Vertical Software"** (renamed from "Solutions", 2026-09-10).
+- **Embedded-expansion axis = "Embedded Offerings"** (client-preferred, 2026-09-10;
+  short form "Offerings" in body copy/CTAs). The client rejected "Platform" as too
+  abstract and tech-forward; "Embedded Offerings" matches the brief's own language
+  ("embedded offerings"). Alternatives considered (Capabilities, Products, Services,
+  How We Grow, Expansion, Growth) are detailed in `prototypes/sitemap-rationale.html` §9.
 
 **Two-axis primary navigation (portfolio + growth engine).** The L1 tree is led
-by the two branching stories — **Solutions** (Acquire & Grow) and **Offerings**
-(Embedded Expansion) — plus the audience path **For Founders**, **Our Story**,
-and **Careers**. This is no longer a two-audience nav: **"For Investors" was
-removed from the sitemap and chrome** (2026-09-10). Investors are served through
-the portfolio/scale proof on the homepage and via Contact — there is no
-investor nav node or dedicated investor page.
+by the two branching stories — **Vertical Software** (Acquire & Grow) and
+**Embedded Offerings** (Embedded Expansion) — plus the audience path **For
+Founders**, **Our Story**, and **Careers**. This is no longer a two-audience nav: **"For
+Investors" was removed from the sitemap and chrome** (2026-09-10). Investors are
+served through the portfolio/scale proof on the homepage and via Contact — there
+is no investor nav node or dedicated investor page.
 
 > **Note on the CTA:** the primary CTA is unchanged. The homepage hero CTA remains
-> **"Explore our vertical solutions"**, funneling into the **Solutions hub**.
+> **"Explore our vertical solutions"**, funneling into the **Vertical Software hub**.
 
-**Locked structural choices (2026-09-10):**
-- **Solutions is a dedicated hub page** with a **find-your-vertical** filter —
-  flat list of all 11 verticals, **no macro-category labels** (2026-09-10).
+**Locked structural choices (2026-09-10; finalized 2026-09-14):**
+- **Vertical Software is a dedicated hub page** with a **find-your-vertical**
+  filter — flat list of all 11 verticals, **no category labels and no category
+  landing pages** (labels deleted after the client call, 2026-09-14).
 - **All 11 verticals get a detail page from one reusable template** (SEO +
   future acquisitions), linked from the hub — not 11 chrome nav items.
-- **AI at Fullsteam is its own page, nested under Offerings** (not a top-level
-  L1, not merely an Offerings section).
+- **Embedded Offerings = Payments, Lending, Insurance + AI at Fullsteam.**
+  **Hardware and Integrations were dropped as separate pages** (2026-09-10);
+  hardware is folded into Payments (POS & devices) and integrations into the
+  Embedded Offerings overview.
+- **AI at Fullsteam is its own page, nested under Embedded Offerings** (not a
+  top-level L1, not merely a section).
+- **Newsroom is a single dynamic CMS page** under Our Story, nested at
+  `/our-story/newsroom` (2026-09-10; nested 2026-09-14).
+- **Leadership is a page under Our Story** (2026-09-14, `/our-story/leadership`) —
+  leaders only; no full staff listing (confidentiality rule).
+- **For Founders stays a single-page leaf** (2026-09-14) — no sub-pages.
 
 ### Current site structure (as-is, for migration mapping)
 
@@ -423,20 +434,23 @@ FOR FOUNDERS                              (/for-founders)      [leaf · single p
 ├─ What we're looking for (vertical focus)
 └─ Talk to us (contact funnel)
 
-SOLUTIONS                                 (/solutions)         [HUB + find-your-vertical]
-├─ Flat list — all 11 verticals (no macro-category labels)
+VERTICAL SOFTWARE                         (/vertical-software) [HUB + find-your-vertical]
+├─ Flat list — all 11 verticals (no category labels)
 │   Hospitality · Weddings & Events · Wine · Retail · Storage & Marina
 │   Health & Wellness · Field Services · Transportation · Automotive
-│   Associations · ERP
+│   Association Management · ERP
 ├─ 11 vertical detail pages (one reusable template)
 └─ "Find your vertical" filter / type-ahead picker
 
-OFFERINGS                                 (/offerings)         [hub]
-├─ Payments · Lending · Insurance · Hardware · Integrations
+EMBEDDED OFFERINGS                        (/offerings)         [hub]
+├─ Payments · Lending · Insurance
+│   (Hardware & Integrations folded in — no separate pages, 2026-09-10)
 ├─ AI at Fullsteam                        (/offerings/ai)      [own page, nested]
 └─ Shown via concrete customer examples / case studies
 
-OUR STORY                                 (/our-story)         [leaf]
+OUR STORY                                 (/our-story)
+├─ Newsroom                               (/our-story/newsroom) [single dynamic CMS page]
+└─ Leadership                             (/our-story/leadership) [leaders only]
 CAREERS                                   (/careers)           [leaf]
 
 UTILITY (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA ·
@@ -445,14 +459,14 @@ Privacy · Terms
 
 > **Removed:** **For Investors** (was a draft L1 in the audience-led version) —
 > deleted 2026-09-10. Investor content is served through homepage scale/proof and
-> the footer, not a dedicated nav node.
+> Contact, not a dedicated nav node.
 
 ### Locked top-level nav
 
 1. **For Founders**
-2. **Solutions** (hub)
-3. **Offerings** (hub)
-4. **Our Story**
+2. **Vertical Software** (hub)
+3. **Embedded Offerings** (hub)
+4. **Our Story** (+ Newsroom)
 5. **Careers** · **Contact** (utility)
 
 > Chrome may show fewer items than L1 (see `plans/header-sitemap-variants.md`);
@@ -461,10 +475,11 @@ Privacy · Terms
 ### 25-page design budget mapping
 
 Budget is manageable because most interior pages are **reusable templates**:
-Solutions Hub, Vertical Detail (×11), Offering Detail (×5), Story, Careers,
-Contact — plus bespoke pages (Home, For Founders, Offerings Hub, AI at
-Fullsteam). Vertical and offering detail pages share templates, keeping the
-bespoke count low (~24 designed pages against the 25-page cap).
+Vertical Software Hub, Vertical Detail (×11), Offering Detail (×3), Story,
+Newsroom (dynamic CMS), Leadership, Careers, Contact — plus bespoke pages (Home,
+For Founders, Embedded Offerings Hub, AI at Fullsteam). Vertical and offering
+detail pages share templates, keeping the bespoke count low (~24 designed pages
+against the 25-page cap, leaving ~1 slot for e.g. Digital Marketing or 404).
 
 ### Navigation patterns — client reference sites (analysis)
 
@@ -478,7 +493,7 @@ bespoke count low (~24 designed pages against the 25-page cap).
 |------|----------------------|------------------------------|
 | **TogetherWork** | "Brands" mega-menu grouped into 5 vertical categories (Arts, Member-Based, Mission-Driven, Pet Care, Recreation & Wellness), each with a "…Solutions" landing page. Tagline = embedded payments + AI. | **Grouped vertical macro-categories** with category landing pages. |
 | **DaySmart** | "Solutions" mega-menu: Recreation & Fitness / Pet & Animal Care / Beauty & Personal Care / All Businesses; a **"Filter products by [category]"** control. **"DaySmart AI"** and **"DaySmart Capital"** are top-level nav items. | AI + embedded (Capital) get dedicated nav slots; category filter UI. |
-| **Square** (aspirational) | **Dual-axis IA:** "Business types" mega-menu (vertical groupings w/ granular sub-verticals) + "Products" mega-menu (capabilities: Payments, Banking, Staff, Marketing, Hardware, Developers). | Two parallel nav axes mirroring Fullsteam's two stories (Solutions + Offerings). |
+| **Square** (aspirational) | **Dual-axis IA:** "Business types" mega-menu (vertical groupings w/ granular sub-verticals) + "Products" mega-menu (capabilities: Payments, Banking, Staff, Marketing, Hardware, Developers). | Two parallel nav axes mirroring Fullsteam's two stories (Vertical Software + Offerings). |
 | **ECI Solutions** | "Products" mega-menu by industry category (Manufacturing, Residential Construction, Distribution, Building Supply, Office Technology, Field Service). "AI for ERP" in popular links. | Industry-category mega-menu; AI as a distinct offering page. |
 | **Banyan Software** (peer) | Story/audience-led nav: Why Banyan / **How you Grow** / **AI** / Careers / Impact; "**For Founders**" in footer. | **Validates audience-led nav**; AI as a top-level item. |
 | **CORA Group** (peer, near-identical model) | Nav: About Us → **Being Acquired** / Our Approach → **Founders & Entrepreneurs** / M&A Advisors / **Portfolio** / Media. "Portfolio" is a single nav item. | Founder/seller story front-and-center; single "Portfolio" item. |
@@ -486,22 +501,22 @@ bespoke count low (~24 designed pages against the 25-page cap).
 | **Quilt** | Very flat nav (Quilt / Advantage / About / Team / News / Careers); product brands on homepage, not nav. | Flat, story-first nav; brands showcased on homepage. |
 
 **Synthesized implications for the Fullsteam sitemap:**
-1. **Solutions hub = flat vertical list + find-your-vertical filter** — all 11 verticals on the hub and in the Menu overlay (two columns); no macro-category labels. Homepage shows a revenue-ordered subset, not page-per-industry.
-2. **Dual-axis IA maps to the two stories:** Solutions (business type / verticals) + Offerings (capability: payments, lending, insurance, hardware, integrations) — the Square model.
+1. **Vertical Software hub = flat vertical list + find-your-vertical filter** — all 11 verticals on the hub and in the Menu overlay (two columns); no category labels. Homepage shows a revenue-ordered subset, not page-per-industry.
+2. **Dual-axis IA maps to the two stories:** Vertical Software (business type / verticals) + Offerings (capability: payments, lending, insurance, AI; hardware & integrations folded in) — the Square model.
 3. **Founder/seller path validated** by closest peers (CORA "Being Acquired", Banyan "For Founders") — keep **For Founders** as a top item. (The draft's "For Investors" node was removed 2026-09-10; investors are served via proof + footer.)
 4. **AI gets a dedicated page** — every relevant peer does this (Banyan, DaySmart, ECI). Resolves open Q1 in favor of a dedicated page; locked as a page **nested under Offerings**.
 5. **Embedded offerings get their own nav presence** (DaySmart Capital, Square Banking) → distinct Offerings section.
 6. **Portfolio-as-homepage-hero** (Bending Spoons/Quilt) supports the exploratory feel without bloating the nav.
 
 ### Open items still to resolve
-- [x] ~~Exact grouping/labeling of verticals under the hub~~ — locked: **flat list of 11 verticals, no macro-category labels** (supersedes earlier 5-category grouping, 2026-09-10).
+- [x] ~~Exact grouping/labeling of verticals under the hub~~ — locked: **flat list of 11 verticals, no category labels** (supersedes earlier 5-category grouping, 2026-09-10; labels deleted 2026-09-14).
 - [x] ~~How many vertical detail pages to carry vs. group~~ — locked: **all 11**, one reusable template.
 - [x] ~~AI placement~~ — locked: **own page nested under Offerings**.
-- [x] ~~Category pages / macro labels~~ — **removed**; no category landing pages.
-- [ ] **Our Story sub-pages** — currently a single leaf; decide whether Leadership / Newsroom become children (KB §14 draft had them).
-- [ ] **For Founders funnel content and CTA.**
-- [ ] **Investor path** — with the nav node deleted, confirm the exact homepage proof + Contact path that serves investors.
-- [ ] **URL / migration map** — redirect current `/our-verticals` + 11 top-level vertical slugs to `/solutions/...`; `/acquisition` → `/for-founders`; `/about` → `/our-story`.
+- [x] ~~Category pages / labels~~ — **removed**; no category labels and no category landing pages (2026-09-14).
+- [x] ~~**Our Story sub-pages**~~ — **resolved:** **Newsroom** (`/our-story/newsroom`, single dynamic CMS page) and **Leadership** (`/our-story/leadership`) are both nested under Our Story (2026-09-14).
+- [x] ~~**For Founders funnel**~~ — **resolved:** stays a single-page leaf with the four locked sections (2026-09-14).
+- [ ] **Investor path** — with the nav node deleted, confirm the exact homepage proof + Contact path that serves investors. *(Sitemap impact: none — no nav node or page.)*
+- [x] ~~**URL / migration map**~~ — **resolved** (kept in `plans/sitemap-lock.md`): `/our-verticals` + 11 top-level vertical slugs → `/vertical-software/...`; `/acquisition` → `/for-founders`; `/about` → `/our-story`; `/newsroom` → `/our-story/newsroom`; add `/our-story/leadership`.
 
 ---
 
@@ -533,7 +548,7 @@ highlight). Applied to the header wireframe v0.2.
 > **Status:** Question bank used in the discovery calls (Sept 2026). Results are
 > synthesized in **§20**; the hypothesis scorecard in **§20.10** records which
 > hypotheses were validated (H1, H5, H6), reinforced (H3), or remain open (H2, H4).
-> **Hypothesis legend:** H1 audience-led nav · H2 grouped Solutions mega-menu ·
+> **Hypothesis legend:** H1 audience-led nav · H2 grouped verticals mega-menu ·
 > H3 no page-per-industry · H4 Offerings axis + AI placement · H5 conversion goal ·
 > H6 flat nav / tone.
 
@@ -641,7 +656,7 @@ landscape draft).
 ### Confirmed via live fetch
 | Company | Model | Positioning line / tagline | How they organize nav | Relevance |
 |---|---|---|---|---|
-| **Xplor** | Vertical software + embedded payments + growth tech (**closest analog**) | "Powering the businesses behind everyday life experiences"; "We build modern software, embedded payments, and intelligent capabilities" | By **Industries** (Fitness & Leisure, Recreation, Golf & Club, Field Services, Dry Cleaning, Education) **+ Payments** (all industries) | **Most direct competitor.** Validates our Solutions+Offerings dual-axis — but we must *differentiate*, not imitate. |
+| **Xplor** | Vertical software + embedded payments + growth tech (**closest analog**) | "Powering the businesses behind everyday life experiences"; "We build modern software, embedded payments, and intelligent capabilities" | By **Industries** (Fitness & Leisure, Recreation, Golf & Club, Field Services, Dry Cleaning, Education) **+ Payments** (all industries) | **Most direct competitor.** Validates our Vertical Software + Offerings dual-axis — but we must *differentiate*, not imitate. |
 | **Toast** | One vertical (restaurants) + embedded everything | "One connected platform to power every part of your business"; "Start for $0" | **Service models** (Quick/Full service, bars…) + **Capabilities** (POS, payments, hardware, marketing, payroll, **Capital loans**, **Toast IQ** AI) | Strong example of vertical + embedded expansion; Capital + AI both visible. |
 | **Mindbody** | Fitness/wellness/beauty vertical software + embedded | "More revenue. More clients. More growth." / "You're on the #1 platform in the business" | **Business type** (Fitness, Wellness, Beauty, Enterprise) + **Capabilities** (Payments, Marketing, Staff, Scheduling, Reporting) + **Mindbody Capital**, **AI Concierge** | Embedded lending (Capital) + AI (from parent Playlist) as visible stories. |
 
@@ -1008,7 +1023,8 @@ durable, AI-resilient demand.
   **across many verticals** even if not yet in a prospect's specific vertical.
 - **Investor framing:** payments enhances profitability of each acquired business and
   is the margin/expansion story — but keep explicit profitability off the public site.
-- **Open item:** the axis is still labeled **Offerings** (client rejected "Platform").
+- **Axis label:** now **"Embedded Offerings"** (client-preferred, 2026-09-10; short
+  form "Offerings"). "Platform" was rejected by the client.
   Dom's team internally calls it "payments and platform" — do not surface "Platform"
   on the site.
 
@@ -1055,9 +1071,9 @@ durable, AI-resilient demand.
 | # | Hypothesis | Verdict from interviews |
 |---|------------|-------------------------|
 | H1 | Audience-led nav (founders + investors top) | **Validated** — three distinct messaging tracks confirmed by careers team and leadership |
-| H2 | Grouped Solutions mega-menu | Not directly tested; still a design hypothesis |
+| H2 | Grouped verticals mega-menu | Superseded — flat vertical list locked 2026-09-10 |
 | H3 | No page-per-industry | Reinforced — "tell the story of impactful companies, not all 100" |
-| H4 | Offerings axis + AI placement | **Offerings label confirmed**; AI treatment still open |
+| H4 | Offerings axis + AI placement | **"Embedded Offerings" label confirmed**; AI = own page nested under it |
 | H5 | Conversion goal = exploration/credibility | **Resolved** — site is validation/credibility, not lead-gen |
 | H6 | Flat nav / human tone | **Validated** — 8th-grade, conversational, humanize |
 
@@ -1065,8 +1081,9 @@ durable, AI-resilient demand.
 
 - [ ] Confirm which metrics/scale signals are publishable (investors want inferable KPIs,
       but no revenue/run-rate on the site).
-- [ ] Decide AI placement: dedicated page vs. acquisition-side/general info vs. Offerings
-      sub-section (Charles left it open; peer analysis favors a dedicated page — §14).
+- [x] ~~Decide AI placement: dedicated page vs. acquisition-side/general info vs. Offerings
+      sub-section~~ — **resolved 2026-09-10:** AI at Fullsteam is its own page nested
+      under Embedded Offerings (§14).
 - [ ] Confirm the ~15% employer/careers content allocation and where it lives.
 - [ ] Confirm the founder/testimonial and case-study roster permitted for public use
       (genericized until then).

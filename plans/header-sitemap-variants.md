@@ -100,11 +100,17 @@ No IA page count change. No new sitemap branches. This is chrome + overlay prese
 
 ### Sitemap locked (2026-09-10) — supersedes the draft L1 in this plan
 
-- **L1:** For Founders · Solutions · Offerings · Our Story · Careers (+ Contact utility).
+- **L1:** For Founders · **Vertical Software** · **Embedded Offerings** · Our Story · Careers (+ Contact utility).
 - **For Investors deleted** (no nav node, no page) — the "same six links" and
   Option A/B/C overlays in this plan no longer include it.
-- **Solutions = dedicated hub page** with a find-your-vertical filter; **all 11
+- **Portfolio axis renamed Solutions → Vertical Software** (Figma comment #1);
+  CTA stays "Explore our vertical solutions."
+- **Vertical Software = dedicated hub page** with a find-your-vertical filter; **all 11
   verticals** get a detail page from one reusable template.
-- **AI at Fullsteam = its own page nested under Offerings** (not top-level).
+- **Embedded-expansion axis = "Embedded Offerings"** (client-preferred).
+  **Embedded Offerings = Payments, Lending, Insurance + AI**; **Hardware &
+  Integrations dropped as separate pages** (folded in).
+- **AI at Fullsteam = its own page nested under Embedded Offerings** (not top-level).
+- **Newsroom = single dynamic CMS page** under Our Story.
 - Canonical tree: `PROJECT_KNOWLEDGE_BASE.md` §14. Chrome/overlay/footer must use
   these labels and reach every L1 node; chrome may still show fewer items.

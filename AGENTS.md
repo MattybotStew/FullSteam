@@ -27,9 +27,11 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Discovery is complete** — four internal stakeholder interviews were run
   (Sept 2026) and synthesized in `PROJECT_KNOWLEDGE_BASE.md` §20. Use §20 as the
   current source of client intent.
-- **Sitemap locked (2026-09-10):** L1 = For Founders · Solutions · Offerings ·
-  Our Story · Careers. **For Investors removed** (no nav node, no page). See
-  `plans/sitemap-lock.md` and KB §14.
+- **Sitemap locked (2026-09-10, finalized 2026-09-14):** L1 = For Founders ·
+  **Vertical Software** · **Embedded Offerings** · Our Story · Careers. **For
+  Investors removed** (no nav node, no page). Under Our Story: **Newsroom** (single
+  dynamic CMS page) and **Leadership**. For Founders is a single-page leaf; no
+  category landing pages. See `plans/sitemap-lock.md` and KB §14.
 - We are in the **Sitemap/Wireframe** milestone; the **homepage** is the active
   design surface and is still being iterated.
 - **Header chrome (provisional):** Option **B revised** — Logo · For Founders ·
@@ -47,19 +49,25 @@ This file is the canonical agent entry point (works with Cursor, which reads
   reorganization, not a rebrand.
 - Two core stories: (1) acquire & grow vertical software, (2) expand via
   embedded offerings (payments, lending, insurance, hardware, integrations).
-- **Nav terminology:** the embedded-expansion axis is labeled **"Offerings"**
-  (not "Platform") — the client rejected "Platform." Use "Offerings" in all
-  sitemap, nav, and IA references. See the alternatives considered in
+- **Nav terminology:** the embedded-expansion axis is labeled **"Embedded
+  Offerings"** (client-preferred, 2026-09-10; short form "Offerings" in body copy).
+  The client rejected "Platform." See the alternatives considered in
   `PROJECT_KNOWLEDGE_BASE.md` §14 (nav terminology note) and
   `prototypes/sitemap-rationale.html` §9.
 - Primary audiences: software sellers/founders and investors. Secondary:
   employees and customers. **Investors have no dedicated nav/page** — served via
   homepage scale/proof + Contact.
 - Primary CTA target: **"Explore our vertical solutions."**
-- **Solutions verticals:** flat list of all 11 on the hub and in the Menu overlay
-  (two columns) — **no macro-category labels** (e.g. no "Hospitality & Events").
-  Homepage shows a revenue-ordered subset only. Hub includes **find-your-vertical**
-  filter (not header search).
+- **Portfolio axis = "Vertical Software"** (renamed from "Solutions", 2026-09-10);
+  the CTA stays **"Explore our vertical solutions."**
+- **Vertical Software verticals:** flat list of all 11 on the hub and in the Menu
+  overlay (two columns) — **no category labels** (deleted after the client call,
+  2026-09-14; e.g. no "Hospitality & Events"). Homepage shows a revenue-ordered
+  subset only. Hub includes **find-your-vertical** filter (not header search).
+- **Embedded Offerings = Payments, Lending, Insurance + AI at Fullsteam.**
+  **Hardware and Integrations are not separate pages** (folded into Payments /
+  the Embedded Offerings overview), 2026-09-10.
+- **Newsroom** (`/our-story/newsroom`) and **Leadership** (`/our-story/leadership`) are both pages under Our Story (2026-09-14).
 - CMS is Duda and is likely retained.
 
 ### From discovery interviews (§20) — apply these before messaging decisions

@@ -42,8 +42,8 @@ Fullsteam tells **two core stories**, and the homepage must give both room witho
 crowd out the other:
 
 1. **Acquire & Grow** — Fullsteam acquires and grows vertical-specific software companies into
-   market leaders (the *portfolio / Solutions* story).
-2. **Embedded Expansion** — those businesses expand beyond SaaS through embedded **Offerings**:
+   market leaders (the *portfolio / Vertical Software* story).
+2. **Embedded Expansion** — those businesses expand beyond SaaS through **Embedded Offerings**:
    payments, lending, insurance, hardware, and integrations (the *growth-engine* story).
 
 ### Core UX principles
@@ -60,9 +60,10 @@ crowd out the other:
    verticals, and the embedded expansion are proven with concrete examples — named verticals,
    representative brands, and outcome-led teasers.
 5. **No page-per-industry on the homepage.** Verticals appear as a revenue-ordered subset on the
-   homepage; the Solutions hub and Menu overlay list all 11 flat — no macro-category labels (KB §14).
-6. **"Offerings," never "Platform."** All references to the embedded-expansion axis use the label
-   **Offerings** (client-rejected "Platform"). This must hold everywhere on the homepage.
+   homepage; the Vertical Software hub and Menu overlay list all 11 flat — no category labels (KB §14).
+6. **"Embedded Offerings," never "Platform."** The embedded-expansion axis is labeled
+   **Embedded Offerings** (client-preferred 2026-09-10; short form "Offerings" in body copy).
+   This must hold everywhere on the homepage.
 7. **Validation over conversion.** The homepage exists to confirm credibility and get a
    warm visitor to take a meeting/call — not to run a lead-gen funnel. CTAs invite
    exploration and contact; proof and trust signals outrank conversion pressure (§20.2).
@@ -74,7 +75,7 @@ crowd out the other:
    publishing revenue/run-rate or explicit profitability (§20.4).
 
 ### Primary CTA vs. nav (do not conflate)
-- **Homepage hero CTA** = "Explore our vertical solutions" → funnels into the **Solutions / Verticals**
+- **Homepage hero CTA** = "Explore our vertical solutions" → funnels into the **Vertical Software**
   hub.
 - **Header** surfaces the **For Founders** path (top slot); investors are served by the homepage
   scale/proof story, not a nav node.
@@ -109,7 +110,7 @@ ask the question the *next* block answers.
 ```
 1  HERO              "Explore our vertical solutions" → immediately define the model + scale
 2  THE TWO STORIES   One glance at both the "Acquire & Grow" and "Embedded Expansion" story
-3  EXPLORE BY VERTICAL  (Solutions proof) → flat vertical list + "Find your vertical"
+3  EXPLORE BY VERTICAL  (Vertical Software proof) → flat vertical list + "Find your vertical"
 4  OFFERINGS IN ACTION  (growth-engine proof, via concrete examples, not feature lists)
 5  WHY FULLSTEAM      3 reasons / proof that backs the "why choose us"
 6  SOCIAL PROOF       Outcomes & real voices (stat bars, quotes, video testimonials)
@@ -148,16 +149,16 @@ ask the question the *next* block answers.
   embedded-growth story register.
 - **Content needs:** Two clearly-labeled story lanes —
   1. **Acquire & Grow** (the portfolio / vertical software / "system of record").
-  2. **Embedded Expansion / Offerings** (payments, lending, insurance, hardware, integrations, AI).
+  2. **Embedded Expansion / Embedded Offerings** (payments, lending, insurance, hardware, integrations, AI).
 - **UX intent:** This is the conceptual spine. It makes Fullsteam legible to investors (who care about
-  the growth model) and to customers/founders (who care about the software). Use the **Offerings** label,
-  never "Platform."
+  the growth model) and to customers/founders (who care about the software). Use the **Embedded
+  Offerings** label, never "Platform."
 
-### 4.3 Explore by vertical (Solutions proof — the "meat")
+### 4.3 Explore by vertical (Vertical Software proof — the "meat")
 - **UX goal:** Let each customer self-identify and click through to their world. This is the **primary
   conversion moment** and should feel like an invitation to explore, not a product catalog.
 - **Content needs:**
-  - All **11 verticals** in a flat list (two columns in the Menu overlay) — no macro-category labels.
+  - All **11 verticals** in a flat list (two columns in the Menu overlay) — no category labels.
   - Each vertical with a **plain-language, outcome-oriented** descriptor ("modern software for
     wineries to manage, grow, and optimize sales") — not a feature dump.
   - A **"Find your vertical"** picker / filter control for the exploratory feel.
@@ -166,11 +167,12 @@ ask the question the *next* block answers.
 - **UX intent:** Zero friction for a wine-business owner who doesn't know Fullsteam's product names —
   they find "Wine / Hospitality" and click. Supports "no page-per-industry."
 
-### 4.4 Offerings in action (growth-engine proof)
+### 4.4 Embedded Offerings in action (growth-engine proof)
 - **UX goal:** Prove the embedded expansion is real and valuable — through concrete examples, not
   abstract feature lists (open Q3 in the brief).
 - **Content needs:**
-  - **Payments, Lending, Insurance, Hardware, Integrations** (and AI) introduced as Offerings.
+  - **Payments, Lending, Insurance** (and AI) introduced as Embedded Offerings — with
+    **Hardware & Integrations folded in** (no separate pages, KB §14).
   - Shown via **real customer examples / case-study teasers** (a winery taking payments, a storage
     facility using a device, etc.).
 - **UX intent:** Converts "they're a holding company" into "they make their software companies *grow*."
@@ -224,7 +226,7 @@ ask the question the *next* block answers.
 
 ### 4.9 Our Story / Careers / Footer
 - **UX goal:** Quiet company context for employees/candidates and utility without stealing focus.
-- **Content needs:** Our Story, Leadership/Newsroom, Careers entry; standard utility footer (Privacy,
+- **Content needs:** Our Story, **Newsroom** (single dynamic CMS page), Careers entry; standard utility footer (Privacy,
   Terms, Complaints).
 - **UX intent:** Serves the employee/candidate audience (audience rank 2) and satisfies legal/utility
   needs at the bottom of the reading path. Careers should read as growth & culture-forward (see KB
@@ -237,11 +239,11 @@ ask the question the *next* block answers.
 - **Primary CTA placement discipline.** The phrase "Explore our vertical solutions" is reserved for the
   hero's primary action. Secondary/utility CTAs use shorter forms (e.g. "Explore Solutions," "For
   Founders") and are visually quieter so the hero CTA never competes.
-- **Find-your-vertical picker.** Lives on the Solutions hub and in the header **Menu overlay** — not as a header search field. Lightweight filter/type-ahead; must work on mobile. Feeds the   exploratory feel (KB §14). Header chrome is sparse (option B revised on the homepage wire: For Founders + Menu + CTA); the traditional sitemap L1 is reached via overlay and footer.
-- **Flat vertical navigation.** All 11 verticals on the Solutions hub and in the Menu overlay (two
-  columns) plus find-your-vertical filter — **not** 11 chrome nav items and **not** macro-category labels.
-- **Offerings label enforcement.** Every label/teaser for payments/lending/insurance/hardware/
-  integrations/AI uses "Offerings." No "Platform," no "Capabilities," no "Services" as the axis name.
+- **Find-your-vertical picker.** Lives on the Vertical Software hub and in the header **Menu overlay** — not as a header search field. Lightweight filter/type-ahead; must work on mobile. Feeds the   exploratory feel (KB §14). Header chrome is sparse (option B revised on the homepage wire: For Founders + Menu + CTA); the traditional sitemap L1 is reached via overlay and footer.
+- **Flat vertical navigation.** All 11 verticals on the Vertical Software hub and in the Menu overlay (two
+  columns) plus find-your-vertical filter — **not** 11 chrome nav items and **not** category labels.
+- **Embedded Offerings label enforcement.** The axis label is "Embedded Offerings" (short form
+  "Offerings" in body copy/CTAs). No "Platform," no "Capabilities," no "Services" as the axis name.
 - **Responsive behavior.** All interactions (picker, accordions for vertical groups if used, video,
   video testimonials) must degrade cleanly to mobile; test the filter and sticky behaviors.
 - **Sticky header interplay.** If the header is sticky, ensure the homepage doesn't present two competing
@@ -268,7 +270,7 @@ and the rate of visitors who reach an interior audience or vertical page from th
 ## 7. Constraints & Ground Rules
 
 - **Brand identity unchanged** — reorganization of content/IA/UX only (KB §2). Not a rebrand.
-- **Use "Offerings"** for the embedded-expansion axis everywhere (KB §14 / nav terminology note).
+- **Use "Embedded Offerings"** for the embedded-expansion axis everywhere (short form "Offerings" in body copy; KB §14 / nav terminology note).
 - **Primary CTA** = "Explore our vertical solutions" (brief + KB §4/§8).
 - **No page-per-industry** on the homepage; use a revenue-ordered subset + representative proof (KB §4/§14).
 - **CMS is Duda** (likely retained) — homepage components should be Duda-friendly/reusable.
@@ -276,6 +278,8 @@ and the rate of visitors who reach an interior audience or vertical page from th
   talking-head-only; flag sourcing/production in planning.
 - **Validation, not lead-gen** — no PPC; CTAs invite exploration/contact, not funnels (§20.2).
 - **Tone:** 8th-grade reading level, conversational, humanize; narrative first, data second (§20.3).
+- **Voice:** external copy addresses the reader as **"you"** — the site is talking *to* the
+  visitor. Reserve internal "we" for Fullsteam speaking about itself. (Figma comment #7.)
 - **Never frame the sale as an "exit"** — "a home for your business" (§20.4).
 - **Confidentiality:** no revenue/run-rate, profitability, or named acquisition case
   studies still in transformation; genericize until cleared (§20.7, top-of-KB convention).
@@ -294,13 +298,13 @@ and the rate of visitors who reach an interior audience or vertical page from th
       one combined proof moment enough? Avoid redundancy.
 - [ ] How many **representative verticals/brands** to feature on the homepage vs. hub-only
       inline vs. link to the hub. (KB §14 open item.)
-- [ ] **AI homepage treatment** — page exists (nested under Offerings); decide whether the homepage
-      gives AI a band or keeps it inside the Offerings story. (KB §14 locked AI page; §20.5.)
+- [ ] **AI homepage treatment** — page exists (nested under Embedded Offerings); decide whether the
+      homepage gives AI a band or keeps it inside the Embedded Offerings story. (KB §14; §20.5.)
 - [ ] Sticky-header vs. in-content hero CTA dominance when scrolled (§5).
 - [x] ~~Confirm the **conversion goal** framing (exploration vs. lead-gen)~~ — **resolved
       in discovery:** the site is validation/credibility, not lead-gen (§20.2). CTAs stay
       exploration/contact-led.
-- [x] ~~**AI placement**~~ — **resolved:** dedicated page nested under Offerings (KB §14 locked).
+- [x] ~~**AI placement**~~ — **resolved:** dedicated page nested under Embedded Offerings (KB §14).
 - [x] ~~**"For Investors" as a nav destination**~~ — **resolved 2026-09-10: deleted.**
       No investor nav node or page; served via homepage scale/proof + Contact (KB §14).
 - [ ] Confirm which **scale/KPI signals** are publishable and where the ~15% employer/careers

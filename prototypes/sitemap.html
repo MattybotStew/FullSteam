@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sitemap Wireframe — Fullsteam</title>
+<title>Sitemap — Fullsteam (Locked)</title>
 <style>
   /* ============================================================
      LOW-FIDELITY WIREFRAME STYLES (grayscale, boxy, placeholder)
@@ -133,15 +133,15 @@
 </head>
 <body>
   <div class="notice">
-    <b>Sitemap Wireframe v0.1</b>
-    <span>Low-fi structure · Fullsteam brand palette · traditional tree: Home → primary nav → child pages</span>
+    <b>Sitemap v1.0 — FINAL (locked)</b>
+    <span>Locked 2026-09-10 · finalized 2026-09-14 · traditional tree: Home → primary nav → child pages</span>
   </div>
 
   <div class="page-title">
     <h1>Fullsteam.com — Page Tree</h1>
     <p>Dashed lines show hierarchy connections. Blocks are placeholder nodes, not final designs.</p>
     <p>Level-1 nodes are <b>pages</b> (the inventory). The header does not have to list every L1 item. Access layers: <b>chrome</b> (always visible) · <b>overlay / Menu</b> (same labels, opened) · <b>footer</b> (full tree for recovery). Compare chrome options in <a href="./header-wireframe.html" style="color:var(--blue)">header-wireframe.html</a>.</p>
-    <p><b>Locked 2026-09-10:</b> L1 = For Founders · Solutions · Offerings · Our Story · Careers. <b>For Investors removed.</b> Solutions is a dedicated hub page (find-your-vertical filter); all 11 verticals listed flat — no macro-category labels; each gets a detail page from one reusable template; AI at Fullsteam is a page nested under Offerings. See PROJECT_KNOWLEDGE_BASE.md §14.</p>
+    <p><b>Locked 2026-09-10 · finalized 2026-09-14:</b> L1 = For Founders · <b>Vertical Software</b> · <b>Embedded Offerings</b> · Our Story · Careers. <b>For Investors removed.</b> Vertical Software is a dedicated hub page (find-your-vertical filter); all 11 verticals listed flat — <b>no category labels, no category landing pages</b> (labels deleted after the client call, 2026-09-14). Each vertical gets a detail page from one reusable template. <b>Hardware &amp; Integrations dropped</b> as separate pages (folded into Embedded Offerings / Payments). AI at Fullsteam is a page nested under Embedded Offerings. <b>Newsroom</b> and <b>Leadership</b> are both pages nested under Our Story. For Founders stays a single-page leaf. See PROJECT_KNOWLEDGE_BASE.md §14.</p>
   </div>
 
   <main class="sitemap">
@@ -164,10 +164,10 @@
         </div>
       </div>
 
-      <!-- Solutions (flat vertical list + hub filter) -->
+      <!-- Vertical Software (flat vertical list + hub filter) -->
       <div class="rail-cell">
         <div class="node">
-          <b>Solutions</b>
+          <b>Vertical Software</b>
           <i>hub page · find your vertical</i>
         </div>
         <div class="kids">
@@ -180,34 +180,35 @@
           <div class="kid"><div class="node"><b>Field Services</b><i>home &amp; commercial</i></div></div>
           <div class="kid"><div class="node"><b>Transportation</b><i>ground &amp; parking</i></div></div>
           <div class="kid"><div class="node"><b>Automotive</b><i>lube, repair, lots</i></div></div>
-          <div class="kid"><div class="node"><b>Associations</b><i>nonprofits &amp; chapters</i></div></div>
+          <div class="kid"><div class="node"><b>Association Management</b><i>nonprofits &amp; chapters</i></div></div>
           <div class="kid"><div class="node"><b>ERP</b><i>B2B back-office</i></div></div>
-          <div class="kid"><div class="node"><b>Find your vertical</b><i>filter / type-ahead on /solutions — not a separate page</i></div></div>
+          <div class="kid"><div class="node"><b>Find your vertical</b><i>filter / type-ahead on the hub — not a separate page</i></div></div>
         </div>
       </div>
 
       <!-- Offerings (embedded expansion mega-menu) -->
       <div class="rail-cell">
         <div class="node">
-          <b>Offerings</b>
+          <b>Embedded Offerings</b>
           <i>embedded expansion products</i>
         </div>
         <div class="kids">
           <div class="kid"><div class="node"><b>Payments</b><i>embedded processing</i></div></div>
           <div class="kid"><div class="node"><b>Lending</b><i>embedded financing</i></div></div>
           <div class="kid"><div class="node"><b>Insurance</b><i>embedded coverage</i></div></div>
-          <div class="kid"><div class="node"><b>Hardware</b><i>POS &amp; devices</i></div></div>
-          <div class="kid"><div class="node"><b>Integrations</b><i>ecosystem</i></div></div>
           <div class="kid"><div class="node" style="border-color:var(--green);"><b style="color:var(--green);">AI at Fullsteam</b><i>intelligent features</i></div></div>
         </div>
       </div>
 
-      <!-- Our Story (leaf) -->
+      <!-- Our Story (+ Newsroom + Leadership children) -->
       <div class="rail-cell">
         <div class="node">
           <b>Our Story</b>
-          <i>history · leadership</i>
-          <span class="leaf-badge">single page</span>
+          <i>history · mission</i>
+        </div>
+        <div class="kids">
+          <div class="kid"><div class="node"><b>Newsroom</b><i>/our-story/newsroom · dynamic CMS</i></div></div>
+          <div class="kid"><div class="node"><b>Leadership</b><i>/our-story/leadership · leaders only</i></div></div>
         </div>
       </div>
 
