@@ -108,13 +108,20 @@
 
   /* In-page tabs: content inside a page, NOT a child node */
   .inpage{
-    margin-top:10px; padding:9px 10px;
+    margin-top:10px; padding:9px 10px; text-align:left;
     border:1px solid var(--blue-tint); background:var(--blue-tint);
     font-size:10px; line-height:1.5; color:var(--muted);
   }
   .inpage-label{
     display:block; font-size:9px; letter-spacing:.08em; text-transform:uppercase;
     color:var(--blue); font-weight:700; margin-bottom:4px;
+  }
+  .inpage-list{ list-style:none; margin:0; padding:0; }
+  .inpage-list li{
+    padding:2px 0 2px 10px; position:relative;
+  }
+  .inpage-list li::before{
+    content:'›'; position:absolute; left:0; color:var(--blue);
   }
   .inpage-note{ display:block; margin-top:5px; opacity:.85; }
 
@@ -185,9 +192,19 @@
         </div>
         <div class="inpage">
           <span class="inpage-label">in-page tabs — not pages</span>
-          Hospitality · Weddings &amp; Events · Wine · Retail · Storage &amp; Marina ·
-          Health &amp; Wellness · Field Services · Transportation · Automotive ·
-          Association Management · ERP
+          <ul class="inpage-list">
+            <li>Hospitality</li>
+            <li>Weddings &amp; Events</li>
+            <li>Wine</li>
+            <li>Retail</li>
+            <li>Storage &amp; Marina</li>
+            <li>Health &amp; Wellness</li>
+            <li>Field Services</li>
+            <li>Transportation</li>
+            <li>Automotive</li>
+            <li>Association Management</li>
+            <li>ERP</li>
+          </ul>
           <span class="inpage-note">Sticky sidebar lists all 11; selecting swaps the panel. Find-your-vertical type-ahead filters the sidebar.</span>
         </div>
       </div>
