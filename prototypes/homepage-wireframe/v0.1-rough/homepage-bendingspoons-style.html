@@ -4,43 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homepage Wireframe — Ollama layout · Fullsteam</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Fragment+Mono&display=swap" rel="stylesheet">
 <style>
-  /* Layout concept: ollama.com · Fullsteam deck teal-navy + brand gold */
+  /* Low-fi wireframe skin — structure only, not a visual direction */
   :root{
-    --navy:#003D4F;        /* deck slide deep teal-navy */
-    --navy-mid:#004858;    /* cards / overlay */
-    --navy-light:#005872;  /* hover — steps toward Bio Blue */
-    --blue:#00587C;        /* brand Bio Blue */
-    --ink:#FFFFFF;
-    --gray-1:#C8DDE6;
-    --muted:#8FB0BE;
+    --bg:#FFFFFF;
+    --tan:#F3E6D0;
+    --ink:#000000;
+    --muted:#222222;
     --white:#FFFFFF;
-    --gold:#FFC600;        /* brand Fullsteam Gold */
-    --panel:var(--navy-light);
-    --card:var(--navy-mid);
-    --line:rgba(255,255,255,.14);
-    --off:rgba(255,255,255,.07);
-    --serif:"Instrument Serif", Georgia, serif;
-    --sans:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-    --mono:"Fragment Mono", ui-monospace, monospace;
+    --yellow:#FFC600;
+    --ph:#4A4A4A;
+    --ph-icon:#C8C8C8;
+    --line:#000000;
+    --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono:ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --img-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8C8C8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='1.5'/%3E%3Ccircle cx='8.5' cy='9.5' r='1.6'/%3E%3Cpath d='M4 17.5 9 12.5l3.5 3.5L16 12l5 5.5'/%3E%3C/svg%3E");
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; }
-  body{ font-family:var(--sans); color:var(--ink); background:var(--navy); -webkit-font-smoothing:antialiased; }
-  a{ color:inherit; text-decoration:none; }
-  button{ font-family:inherit; cursor:pointer; }
-  em{ font-family:var(--serif); font-style:italic; color:var(--gray-1); }
+  body{ font-family:var(--sans); color:var(--ink); background:var(--bg); }
+  a{ color:var(--ink); text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; color:var(--ink); }
+  em{ font-style:italic; color:var(--ink); }
 
   .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
   .wrap-wide{ max-width:1280px; margin:0 auto; padding:0 24px; }
 
+  /* Standard image placeholder: landscape icon on dark gray */
+  .img-ph{
+    background:var(--ph);
+    display:flex; align-items:center; justify-content:center;
+    min-height:120px; width:100%;
+  }
+  .img-ph::after{
+    content:"";
+    width:56px; height:56px;
+    background:var(--img-icon) center / contain no-repeat;
+  }
+
   /* Header: option B — people in chrome, portfolio in overlay */
   header{
     position:sticky; top:0; z-index:50;
-    background:rgba(0,61,79,.94); backdrop-filter:blur(12px);
+    background:var(--white);
     border-bottom:1px solid var(--line);
   }
   .nav{
@@ -53,19 +58,19 @@
     margin:0 auto;
   }
   .nav-left{ display:flex; align-items:center; gap:22px; }
-  .logo{ font-size:18px; font-weight:700; letter-spacing:.02em; }
-  .nav-links{ display:flex; gap:18px; font-size:14px; font-weight:500; color:var(--gray-1); }
-  .nav-links a:hover{ color:var(--gold); }
+  .logo{ font-size:18px; font-weight:700; letter-spacing:.02em; color:var(--ink); }
+  .nav-links{ display:flex; gap:18px; font-size:14px; font-weight:500; color:var(--ink); }
+  .nav-links a:hover{ text-decoration:underline; }
   .nav-right{ display:flex; align-items:center; justify-content:flex-end; gap:16px; }
-  .nav-sub{ font-size:13px; font-weight:500; color:var(--muted); }
+  .nav-sub{ font-size:13px; font-weight:500; color:var(--ink); }
   .menu-btn{
     background:none; border:0; font:inherit; font-size:13px; font-weight:600;
-    color:var(--gold); padding:8px 0;
+    color:var(--ink); padding:8px 0;
   }
   .site-overlay{
     display:none;
     border-top:1px solid var(--line);
-    background:var(--navy-mid);
+    background:var(--tan);
     padding:28px 24px 32px;
   }
   .site-overlay.is-open{ display:block; }
@@ -74,165 +79,312 @@
     display:grid; grid-template-columns:repeat(5,1fr); gap:24px;
   }
   .ov-solutions{ grid-column:span 2; }
-  .site-overlay h3{ font-size:14px; font-weight:600; margin-bottom:8px; }
+  .site-overlay h3{ font-size:14px; font-weight:600; margin-bottom:8px; color:var(--ink); }
   .site-overlay ul{ list-style:none; }
-  .site-overlay li{ font-size:13px; color:var(--muted); padding:3px 0; }
-  .site-overlay a{ color:var(--gray-1); }
-  .site-overlay a:hover{ color:var(--gold); }
-  .site-overlay .ov-note{ grid-column:1 / -1; font-size:12px; color:var(--muted); }
+  .site-overlay li{ font-size:13px; color:var(--ink); padding:3px 0; }
+  .site-overlay a{ color:var(--ink); }
+  .site-overlay a:hover{ text-decoration:underline; }
+  .site-overlay .ov-note{ grid-column:1 / -1; font-size:12px; color:var(--ink); }
   .solutions-split{
     display:grid; grid-template-columns:1fr 1fr; gap:32px;
     align-items:start;
   }
   .solutions-split .ov-finder{
-    font-size:12px; color:var(--muted); margin-top:10px;
+    font-size:12px; color:var(--ink); margin-top:10px;
     font-family:var(--mono);
   }
   .pill{
     display:inline-flex; align-items:center; justify-content:center;
-    background:var(--gold); color:#003040;
-    border-radius:999px; padding:9px 18px;
-    font-size:13px; font-weight:600;
+    background:var(--yellow); color:var(--ink);
+    border:0;
+    border-radius:0; padding:9px 18px;
+    font-size:13px; font-weight:700;
   }
-  .pill:hover{ filter:brightness(1.06); }
+  .pill:hover{ filter:brightness(1.04); }
   .pill-lg{ padding:14px 28px; font-size:16px; }
 
-  /* Hero: title, then copy+CTA | vertical mosaic (not a fake product window) */
-  .hero{ padding:72px 0 48px; }
-  .hero h1{
-    font-size:clamp(48px,8vw,92px);
-    font-weight:600; letter-spacing:-.035em; line-height:.95;
-    max-width:18ch;
+  /* Square-style layout: overlay hero, two-up products, open scenes, industries + proof */
+  .beat{
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink); margin-bottom:14px;
   }
-  .hero-split{
-    display:grid;
-    grid-template-columns:minmax(240px,.85fr) 1.35fr;
-    gap:40px;
-    align-items:end;
-    margin-top:48px;
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
   }
-  .hero-copy p{
-    font-size:18px; line-height:1.55; color:var(--muted); max-width:36ch; margin-bottom:28px;
+
+  /* Square: mosaic of verticals, then hero grows full-screen on scroll */
+  .hero-pin{
+    height:240vh;
+    --p:0;
+  }
+  .hero-sticky{
+    position:sticky;
+    top:57px;
+    height:calc(100vh - 57px);
+    overflow:hidden;
+    background:var(--bg);
   }
   .mosaic{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    grid-template-rows:repeat(2, minmax(140px, 1fr));
-    gap:10px;
-    min-height:320px;
+    position:absolute; inset:0;
+    z-index:1;
+    pointer-events:none;
   }
-  .mosaic a{
-    display:flex; flex-direction:column; justify-content:flex-end;
-    background:var(--card);
-    border:1px solid var(--line);
+  .mosaic-tile{
+    position:absolute;
+    overflow:hidden;
     border-radius:14px;
-    padding:16px 18px;
-    min-height:140px;
+    pointer-events:auto;
+    transform:scale(calc(1 + var(--p) * 0.08));
+    opacity:calc(1 - var(--p) * 1.15);
   }
-  .mosaic a:hover{ background:var(--navy-light); border-color:rgba(255,255,255,.18); }
-  .mosaic a strong{ font-size:16px; font-weight:600; letter-spacing:-.02em; }
-  .mosaic a span{ font-size:13px; color:var(--muted); margin-top:4px; }
-
-  /* Feature: left titles / right detail — Ollama pattern */
-  .feature{
-    padding:80px 0;
-    border-top:1px solid var(--line);
-  }
-  .feature-grid{
-    display:grid;
-    grid-template-columns:minmax(220px,.7fr) 1.3fr;
-    gap:48px;
-    align-items:start;
-  }
-  .feat-nav{ display:flex; flex-direction:column; }
-  .feat-nav button{
-    text-align:left;
-    background:none; border:0; border-bottom:1px solid var(--line);
-    padding:22px 0;
-    font-size:28px; font-weight:500; letter-spacing:-.03em;
-    color:var(--muted);
-  }
-  .feat-nav button.is-on{ color:var(--gold); }
-  .feat-nav button:hover{ color:var(--white); }
-  .feat-panel h2{ font-size:28px; font-weight:500; letter-spacing:-.03em; margin-bottom:16px; }
-  .feat-panel p{ font-size:18px; line-height:1.6; color:var(--muted); max-width:52ch; }
-  .feat-metric{
-    margin-top:40px;
-    font-family:var(--mono); font-size:12px; color:var(--muted);
-    text-align:right;
-  }
-  .feat-visual{
-    margin-top:28px;
-    min-height:220px;
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:12px;
+  .mosaic-tile .img-ph{ height:100%; min-height:0; }
+  .mosaic-tile .img-ph::after{ width:28px; height:28px; }
+  .mosaic-doodle{
+    background:var(--bg);
+    border:2px solid var(--ink);
     display:flex; align-items:center; justify-content:center;
-    color:var(--muted); font-family:var(--mono); font-size:12px;
-    letter-spacing:.06em;
   }
-  .feat-panel[hidden]{ display:none; }
-
-  /* Card row (integrations / offerings analog) */
-  .section{ padding:80px 0; border-top:1px solid var(--line); }
-  .section h2{
-    font-size:clamp(32px,5vw,52px); font-weight:600; letter-spacing:-.03em; line-height:1.05;
-    max-width:16ch; margin-bottom:16px;
+  .mosaic-doodle svg{ width:55%; height:55%; stroke:var(--ink); fill:none; stroke-width:1.6; }
+  .t1{ width:11%; aspect-ratio:1; left:8%; top:6%; }
+  .t2{ width:9%; aspect-ratio:1; left:28%; top:4%; }
+  .t3{ width:10%; aspect-ratio:1; left:52%; top:5%; }
+  .t4{ width:12%; aspect-ratio:1; right:7%; top:3%; }
+  .t5{ width:10%; aspect-ratio:1; left:2%; top:32%; }
+  .t6{ width:8%; aspect-ratio:1; left:22%; top:30%; }
+  .t7{ width:11%; aspect-ratio:1; left:42%; top:28%; }
+  .t8{ width:10%; aspect-ratio:1; left:64%; top:31%; }
+  .t9{ width:11%; aspect-ratio:1; right:1%; top:36%; }
+  .t10{ width:10%; aspect-ratio:1; left:6%; bottom:18%; }
+  .t11{ width:9%; aspect-ratio:1; left:26%; bottom:16%; }
+  .t12{ width:11%; aspect-ratio:1; left:48%; bottom:14%; }
+  .t13{ width:13%; aspect-ratio:1; right:10%; bottom:18%; }
+  .t14{ width:8%; aspect-ratio:1; left:18%; bottom:2%; }
+  .t15{ width:10%; aspect-ratio:1; right:22%; bottom:1%; }
+  .mosaic-line{
+    position:absolute; left:50%; top:52%;
+    transform:translate(-50%,-50%);
+    width:min(18em, 86vw);
+    text-align:center;
+    font-size:clamp(22px,3.2vw,36px);
+    font-weight:500; letter-spacing:-.02em; line-height:1.25;
+    z-index:3; pointer-events:none;
+    padding:8px 12px;
+    opacity:calc(1 - var(--p) * 2.4);
   }
-  .section .lede{ font-size:18px; line-height:1.55; color:var(--muted); max-width:48ch; margin-bottom:36px; }
-  .text-link{ font-size:15px; font-weight:600; border-bottom:1px solid var(--gold); padding-bottom:2px; color:var(--ink); }
+  .hero{
+    position:absolute; inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:80px 24px 88px;
+    overflow:hidden;
+    background:var(--ph);
+    z-index:2;
+    clip-path:inset(32% 26% 32% 26% round 16px);
+    pointer-events:none;
+    opacity:0;
+  }
+  .hero.is-open{ pointer-events:auto; }
+  .hero-bg{
+    position:absolute; inset:0;
+    min-height:100%;
+    z-index:0;
+  }
+  .hero-bg::after{ display:none; }
+  .hero-copy{
+    position:relative; z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    width:min(960px, 100%);
+    min-width:min(960px, 100%);
+    max-width:960px;
+    opacity:0;
+  }
+  .hero-marquee{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    display:flex; gap:36px; justify-content:center; flex-wrap:wrap;
+    padding:18px 24px 22px;
+    font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+    color:#fff;
+    opacity:0;
+  }
+  .hero-marquee a{ color:#fff; }
+  .hero .beat, .hero h1, .hero-copy p{ color:#fff; }
+  .hero h1{
+    font-size:clamp(36px,5.8vw,68px);
+    font-weight:700; letter-spacing:-.03em; line-height:1.05;
+    margin-bottom:16px;
+    width:100%;
+    max-width:none;
+  }
+  .hero-copy p{
+    font-size:18px; line-height:1.45;
+    max-width:36ch; margin-bottom:28px;
+  }
+  .hero-ctas{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center; align-items:center; }
+  .hero-ctas .ghost{
+    color:#fff; font-size:15px; font-weight:600;
+    border-bottom:1px solid #fff; padding:8px 0;
+  }
 
-  .tiles{
+  .band{ padding:96px 0 88px; background:var(--bg); }
+  .band.tan{ background:var(--tan); }
+  .band-head{ text-align:center; width:min(960px, 100%); max-width:960px; margin:0 auto 48px; }
+  .band-head h2{
+    font-size:clamp(32px,5vw,56px); font-weight:700; letter-spacing:-.03em; line-height:1.08;
+    margin-bottom:12px;
+  }
+  .band-head p{ font-size:18px; line-height:1.5; }
+
+  .pair{
+    display:grid; grid-template-columns:1fr 1fr; gap:40px;
+    max-width:1120px; margin:0 auto; padding:0 24px;
+  }
+  .pair a{ display:block; }
+  .pair .img-ph{ min-height:0; aspect-ratio:4 / 3; }
+  .pair h3{ font-size:22px; font-weight:700; margin-top:16px; }
+  .pair p{ font-size:15px; line-height:1.45; margin-top:6px; max-width:36ch; }
+
+  .scene{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
+    grid-template-columns:1fr 1fr;
+    gap:72px;
+    align-items:center;
+    max-width:1200px;
+    margin:0 auto;
+    padding:100px 40px;
   }
-  .tile{
-    background:var(--card); border:1px solid var(--line); border-radius:12px;
-    padding:22px; min-height:140px;
-    display:flex; flex-direction:column; justify-content:space-between;
+  .scene.tan{ background:var(--tan); max-width:none; padding:100px 8vw; }
+  .scene.is-flip .scene-copy{ order:2; }
+  .scene h2{
+    font-size:clamp(28px,4vw,48px); font-weight:700; letter-spacing:-.03em;
+    line-height:1.08; max-width:12ch; margin:12px 0 16px;
   }
-  .tile h3{ font-size:20px; font-weight:600; }
-  .tile p{ font-size:14px; color:var(--muted); line-height:1.45; margin-top:8px; }
-  .tile .ex{ font-family:var(--mono); font-size:11px; color:var(--muted); margin-top:12px; }
+  .scene p{ font-size:18px; line-height:1.5; max-width:36ch; margin-bottom:18px; }
+  .scene .img-ph{ min-height:0; aspect-ratio:1; }
 
-  .quad{
-    display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  .grow{
+    padding:72px 24px 88px;
+    background:var(--ink);
+    color:var(--white);
+    text-align:left;
   }
-  .quad article{
-    background:var(--card); border:1px solid var(--line); border-radius:12px; padding:28px;
+  .grow .beat{ color:var(--white); }
+  .grow-head{ max-width:1280px; margin:0 auto 28px; }
+  .grow h2{
+    font-size:clamp(32px,5vw,56px); font-weight:700; letter-spacing:-.03em;
+    line-height:1.08; max-width:16ch; margin:0;
+    color:var(--white);
   }
-  .quad h3{ font-size:22px; font-weight:600; margin-bottom:8px; }
-  .quad p{ font-size:15px; color:var(--muted); line-height:1.5; }
+  .film{
+    display:flex; gap:8px;
+    height:min(58vh, 520px);
+    max-width:1280px; margin:0 auto;
+  }
+  .film-card{
+    position:relative;
+    flex:1 1 0;
+    min-width:0;
+    overflow:hidden;
+    border:0; padding:0;
+    background:var(--ph);
+    color:var(--white);
+    text-align:left;
+    cursor:pointer;
+    font:inherit;
+    transition:flex .4s ease;
+    overflow:hidden;
+    border:0; padding:0;
+    background:var(--ph);
+    color:var(--white);
+    text-align:left;
+    cursor:pointer;
+    font:inherit;
+  }
+  .film-card.is-feature{ flex:2.35; }
+  .film-card .img-ph{ height:100%; min-height:0; }
+  .film-card .img-ph::after{ width:40px; height:40px; }
+  .film-name{
+    position:absolute; left:16px; bottom:16px; z-index:2;
+    font-size:clamp(16px,2vw,28px); font-weight:700;
+    letter-spacing:-.02em; color:var(--white);
+    text-shadow:0 1px 8px rgba(0,0,0,.45);
+  }
+  .film-card.is-feature .film-name{ display:none; }
+  .film-overlay{
+    display:none;
+    position:absolute; inset:auto 0 0 0; z-index:2;
+    padding:28px 28px 24px;
+    background:linear-gradient(transparent, rgba(0,0,0,.55));
+    color:var(--white);
+  }
+  .film-card.is-feature .film-overlay{ display:block; }
+  .film-overlay .film-kicker{
+    display:block;
+    font-size:clamp(28px,3.5vw,44px); font-weight:700;
+    letter-spacing:-.03em; margin-bottom:12px;
+  }
+  .film-overlay .num{
+    display:block;
+    font-size:clamp(28px,3.2vw,40px); font-weight:700; letter-spacing:-.04em;
+  }
+  .film-overlay .lbl{ display:block; font-size:14px; margin:4px 0 16px; max-width:28ch; }
+  .film-overlay a{
+    display:inline-block;
+    color:var(--white); font-size:13px; font-weight:600;
+    border-bottom:1px solid var(--white); padding-bottom:2px;
+  }
+  .grow-foot{
+    max-width:1280px; margin:20px auto 0;
+    display:flex; flex-wrap:wrap; gap:12px 28px; align-items:baseline;
+    justify-content:space-between;
+  }
+  .grow-verts{
+    display:flex; flex-wrap:wrap; gap:10px 22px;
+    font-size:13px;
+  }
+  .grow-verts a{ color:var(--white); border-bottom:1px solid rgba(255,255,255,.45); padding-bottom:2px; }
+  .grow .note{ font-family:var(--mono); font-size:11px; color:var(--white); }
 
-  /* Closing CTA */
   .close{
-    padding:100px 0 80px; text-align:center; border-top:1px solid var(--line);
+    padding:120px 24px 100px; text-align:center; background:var(--bg);
   }
   .close h2{
-    font-size:clamp(32px,5vw,56px); font-weight:600; letter-spacing:-.03em; line-height:1.05;
-    max-width:16ch; margin:0 auto 28px;
+    font-size:clamp(32px,5vw,56px); font-weight:700; letter-spacing:-.03em; line-height:1.08;
+    width:min(960px, 100%);
+    max-width:960px;
+    margin:0 auto 28px;
   }
-
+  .text-link{ font-size:15px; font-weight:700; border-bottom:1px solid var(--ink); padding-bottom:2px; color:var(--ink); }
   footer{
     border-top:1px solid var(--line);
     padding:40px 0 56px;
+    background:var(--tan);
   }
   .foot{
     display:flex; flex-wrap:wrap; gap:32px 48px; justify-content:space-between;
-    font-size:14px; color:var(--gray-1);
+    font-size:14px; color:var(--ink);
   }
-  .foot a{ display:block; padding:4px 0; }
-  .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+  .foot a{ display:block; padding:4px 0; color:var(--ink); }
+  .foot a:hover{ text-decoration:underline; }
+  .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin-bottom:10px; }
 
   @media (max-width:900px){
     .nav-links{ display:none; }
     .site-overlay .ov-inner{ grid-template-columns:1fr 1fr; }
-    .solutions-split{ grid-template-columns:1fr; }
-    .solutions-split{ gap:16px; }
-    .hero-split, .feature-grid, .tiles, .quad{ grid-template-columns:1fr; }
-    .mosaic{ grid-template-columns:1fr 1fr; }
-    .hero h1{ font-size:44px; }
+    .solutions-split{ grid-template-columns:1fr; gap:16px; }
+    .pair, .scene{ grid-template-columns:1fr; }
+    .scene.is-flip .scene-copy{ order:0; }
+    .hero h1{ font-size:32px; }
+    .hero-marquee{ gap:16px; font-size:11px; }
+    .hero-pin{ height:180vh; }
+    .t4,.t9,.t14,.t15{ display:none; }
+    .film{ height:380px; }
+    .film-card:not(.is-feature) .film-name{ font-size:16px; }
   }
 </style>
 </head>
@@ -300,89 +452,176 @@
     </div>
   </header>
 
-  <section class="hero wrap-wide" id="top">
-    <h1>The operating system<br>for vertical markets.</h1>
-    <div class="hero-split">
-      <div class="hero-copy">
-        <p>Software-first, payments-native, AI-accelerated. We own system-of-record software for 80,000+ SMB businesses across 11 verticals — and grow it with embedded payments, lending, insurance, hardware, and AI.</p>
-        <a class="pill pill-lg" href="#solutions">Explore our vertical solutions</a>
+  <div class="hero-pin" id="top">
+    <div class="hero-sticky">
+      <div class="mosaic" id="mosaic">
+        <a class="mosaic-tile t1" href="#solutions"><span class="img-ph"></span><span class="sr-only">Hospitality</span></a>
+        <span class="mosaic-tile mosaic-doodle t2" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 42V18M24 18c0-8 8-12 8-18"/><path d="M24 22c-6 2-10 8-10 14h20c0-6-4-12-10-14"/><circle cx="24" cy="10" r="3"/></svg></span>
+        <a class="mosaic-tile t3" href="#solutions"><span class="img-ph"></span><span class="sr-only">ERP</span></a>
+        <span class="mosaic-tile mosaic-doodle t4" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="10" y="8" width="20" height="32" rx="2"/><path d="M30 16h10l-4 8 4 8H30"/></svg></span>
+        <a class="mosaic-tile t5" href="#solutions"><span class="img-ph"></span><span class="sr-only">Retail</span></a>
+        <span class="mosaic-tile mosaic-doodle t6" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M14 38V18l10-10 10 10v20"/><path d="M14 38h20"/></svg></span>
+        <a class="mosaic-tile t7" href="#solutions"><span class="img-ph"></span><span class="sr-only">Wine</span></a>
+        <a class="mosaic-tile t8" href="#solutions"><span class="img-ph"></span><span class="sr-only">Transportation</span></a>
+        <a class="mosaic-tile t9" href="#solutions"><span class="img-ph"></span><span class="sr-only">Automotive</span></a>
+        <a class="mosaic-tile t10" href="#solutions"><span class="img-ph"></span><span class="sr-only">Field Services</span></a>
+        <a class="mosaic-tile t11" href="#solutions"><span class="img-ph"></span><span class="sr-only">Health &amp; Wellness</span></a>
+        <a class="mosaic-tile t12" href="#solutions"><span class="img-ph"></span><span class="sr-only">Storage</span></a>
+        <span class="mosaic-tile mosaic-doodle t13" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M12 18h24l-3 18H15z"/><path d="M18 18V14a6 6 0 0 1 12 0v4"/></svg></span>
+        <a class="mosaic-tile t14" href="#solutions"><span class="img-ph"></span><span class="sr-only">Associations</span></a>
+        <a class="mosaic-tile t15" href="#solutions"><span class="img-ph"></span><span class="sr-only">Weddings</span></a>
+        <p class="mosaic-line">Whatever the industry, we own the software it runs on.</p>
       </div>
-      <div class="mosaic" aria-label="Representative verticals">
-        <a href="#solutions"><strong>Hospitality</strong><span>Operations &amp; guest workflows</span></a>
-        <a href="#solutions"><strong>ERP</strong><span>B2B back-office</span></a>
-        <a href="#solutions"><strong>Specialty Retail</strong><span>Specialty POS</span></a>
-        <a href="#solutions"><strong>Transportation</strong><span>Ground &amp; parking</span></a>
-        <a href="#solutions"><strong>Wine</strong><span>Sales &amp; tasting rooms</span></a>
-        <a href="#solutions"><strong>Automotive</strong><span>Lube, repair &amp; lots</span></a>
+      <section class="hero" id="heroStage">
+        <div class="img-ph hero-bg" aria-hidden="true"></div>
+        <div class="hero-copy" id="heroCopy">
+          <p class="beat">01 — The story</p>
+          <h1>The operating system for vertical markets.</h1>
+          <p>We acquire and grow the software that runs specific industries — then we expand it.</p>
+          <div class="hero-ctas">
+            <a class="pill pill-lg" href="#solutions">Explore our vertical solutions</a>
+            <a class="ghost" href="#founders">For Founders</a>
+          </div>
+        </div>
+        <nav class="hero-marquee" id="heroMarquee" aria-label="Verticals">
+          <a href="#solutions">Hospitality</a>
+          <a href="#solutions">ERP</a>
+          <a href="#solutions">Retail</a>
+          <a href="#solutions">Transportation</a>
+          <a href="#solutions">Wine</a>
+          <a href="#solutions">Automotive</a>
+        </nav>
+      </section>
+    </div>
+  </div>
+
+  <section class="band" id="story">
+    <div class="band-head">
+      <p class="beat">02 — Who we are</p>
+      <h2>Acquire the software. Then grow it.</h2>
+      <p>Not to flip a company. A home for the business — owned and operated for the long term.</p>
+    </div>
+    <div class="pair">
+      <a href="#story">
+        <div class="img-ph" aria-hidden="true"></div>
+        <h3>Empower and supercharge growth</h3>
+        <p>Vertical software they already run every day. We keep it, fund it, and make it better.</p>
+      </a>
+      <a href="#offerings">
+        <div class="img-ph" aria-hidden="true"></div>
+        <h3>Embedded Offerings</h3>
+        <p>Payments, lending, insurance, and AI inside the same workflow — not a separate stack.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="scene" id="solutions">
+    <div class="scene-copy">
+      <p class="beat">03 — The software</p>
+      <h2>The system they already run.</h2>
+      <p>Hospitality, wine, storage, and the rest of the eleven. The product stays. We own it for the long term.</p>
+      <a class="text-link" href="#solutions">Browse all verticals</a>
+    </div>
+    <div class="img-ph" aria-hidden="true"></div>
+  </section>
+
+  <section class="scene is-flip tan" id="offerings">
+    <div class="scene-copy">
+      <p class="beat">04 — What we add</p>
+      <h2>Payments in the same workflow.</h2>
+      <p>A tasting room takes cards. The software already running the shop does the reconciling. Then lending and insurance at the point of need.</p>
+      <a class="text-link" href="#offerings">See all Offerings</a>
+    </div>
+    <div class="img-ph" aria-hidden="true"></div>
+  </section>
+
+  <section class="scene" id="ai">
+    <div class="scene-copy">
+      <p class="beat">05 — AI at Fullsteam</p>
+      <h2>Use cases first. Never a headcount story.</h2>
+      <p>Faster product work, quieter operations, features in the software. The data in these verticals is the difference.</p>
+    </div>
+    <div class="img-ph" aria-hidden="true"></div>
+  </section>
+
+  <section class="grow" id="industries">
+    <div class="grow-head">
+      <p class="beat">06 — Built for every industry</p>
+      <h2>Keep the businesses growing.</h2>
+    </div>
+    <div class="film" id="film">
+      <div class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Hospitality">
+        <span class="img-ph" aria-hidden="true"></span>
+        <span class="film-name">Hospitality</span>
+        <span class="film-overlay">
+          <span class="film-kicker">Hospitality</span>
+          <span class="num">80k+</span>
+          <span class="lbl">SMB businesses on software we own [verify]</span>
+          <a href="#solutions">Learn more</a>
+        </span>
+      </div>
+      <div class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="ERP">
+        <span class="img-ph" aria-hidden="true"></span>
+        <span class="film-name">ERP</span>
+        <span class="film-overlay">
+          <span class="film-kicker">ERP</span>
+          <span class="num">11</span>
+          <span class="lbl">vertical markets, one operating company [verify]</span>
+          <a href="#solutions">Learn more</a>
+        </span>
+      </div>
+      <div class="film-card is-feature" role="button" tabindex="0" aria-pressed="true" data-name="Retail">
+        <span class="img-ph" aria-hidden="true"></span>
+        <span class="film-name">Retail</span>
+        <span class="film-overlay">
+          <span class="film-kicker">Retail</span>
+          <span class="num">80k+</span>
+          <span class="lbl">SMB businesses on software we own [verify]</span>
+          <a href="#solutions">Learn more</a>
+        </span>
+      </div>
+      <div class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Transportation">
+        <span class="img-ph" aria-hidden="true"></span>
+        <span class="film-name">Transportation</span>
+        <span class="film-overlay">
+          <span class="film-kicker">Transportation</span>
+          <span class="num">~100</span>
+          <span class="lbl">businesses still owned [verify]</span>
+          <a href="#solutions">Learn more</a>
+        </span>
+      </div>
+      <div class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Wine">
+        <span class="img-ph" aria-hidden="true"></span>
+        <span class="film-name">Wine</span>
+        <span class="film-overlay">
+          <span class="film-kicker">Wine</span>
+          <span class="num">2,000+</span>
+          <span class="lbl">people inside the company [verify]</span>
+          <a href="#solutions">Learn more</a>
+        </span>
       </div>
     </div>
-  </section>
-
-  <section class="feature wrap" id="story">
-    <div class="feature-grid">
-      <nav class="feat-nav" aria-label="Stories">
-        <button type="button" class="is-on" data-feat="grow">Acquire &amp; grow</button>
-        <button type="button" data-feat="offer">Embedded Offerings</button>
-        <button type="button" data-feat="ai">AI at Fullsteam</button>
-        <button type="button" data-feat="founders">For Founders</button>
-      </nav>
-      <div>
-        <article class="feat-panel" id="panel-grow">
-          <h2>Acquire &amp; grow</h2>
-          <p>Fullsteam acquires established, vertical-specific software companies and grows them into market leaders — the daily system of record for their industry. We own and operate for the long term.</p>
-          <div class="feat-visual">CHART / SCALE PLACEHOLDER</div>
-          <div class="feat-metric">~100 acquisitions · 11 verticals · customer scale [verify publishability]</div>
-        </article>
-        <article class="feat-panel" id="panel-offer" hidden>
-          <h2>Embedded Offerings</h2>
-          <p>Then we do what a standalone software company rarely can: expand each business with embedded offerings — payments, lending, insurance, hardware, and integrations — turning software into a compounding revenue engine.</p>
-          <div class="feat-visual">EXAMPLE STILL — e.g. winery payments</div>
-          <div class="feat-metric">Payments scale [verify publishability] · shown through concrete examples</div>
-        </article>
-        <article class="feat-panel" id="panel-ai" hidden>
-          <h2>AI at Fullsteam</h2>
-          <p>AI on three fronts: R&amp;D efficiency, workflow automation, and intelligence embedded in the software itself — e.g. a hospitality company modernizes its PMS 10× faster with AI-assisted development.</p>
-          <div class="feat-visual">AI CAPABILITY PLACEHOLDER</div>
-          <div class="feat-metric">Three pillars · quantified proof points · possible dedicated page</div>
-        </article>
-        <article class="feat-panel" id="panel-founders" hidden>
-          <h2>For Founders</h2>
-          <p>A home for your business. Acquisition process, what we look for, and a path to talk — without turning the homepage into a directory. Investor-facing proof (scale, growth, portfolio breadth) lives in the story above.</p>
-          <div class="feat-visual">PROCESS / PATH PLACEHOLDER</div>
-          <div class="feat-metric">Header path · not competing with the primary CTA</div>
-        </article>
+    <div class="grow-foot">
+      <div class="grow-verts">
+        <a href="#solutions">Hospitality</a>
+        <a href="#solutions">Weddings &amp; Events</a>
+        <a href="#solutions">Wine</a>
+        <a href="#solutions">Retail</a>
+        <a href="#solutions">Storage &amp; Marina</a>
+        <a href="#solutions">Health &amp; Wellness</a>
+        <a href="#solutions">Field Services</a>
+        <a href="#solutions">Transportation</a>
+        <a href="#solutions">Automotive</a>
+        <a href="#solutions">Associations</a>
+        <a href="#solutions">ERP</a>
       </div>
+      <p class="note">Revenue-ordered subset in the film. Figures pending publishability. No named brands.</p>
     </div>
   </section>
 
-  <section class="section wrap" id="solutions">
-    <h2>Our businesses</h2>
-    <p class="lede">All eleven verticals on the hub — flat list, no category labels. Homepage shows six by revenue mix (KB §19.9). Find your industry on the hub or use the filter.</p>
-    <div class="tiles">
-      <article class="tile"><div><h3>Hospitality</h3><p>Operations &amp; guest workflows</p></div><span class="ex">See the hospitality solution →</span></article>
-      <article class="tile"><div><h3>ERP</h3><p>B2B back-office</p></div><span class="ex">See the ERP solution →</span></article>
-      <article class="tile"><div><h3>Specialty Retail</h3><p>Specialty POS</p></div><span class="ex">See the retail solution →</span></article>
-      <article class="tile"><div><h3>Transportation</h3><p>Ground &amp; parking</p></div><span class="ex">See the transportation solution →</span></article>
-      <article class="tile"><div><h3>Wine</h3><p>Sales &amp; tasting rooms</p></div><span class="ex">See the wine solution →</span></article>
-      <article class="tile"><div><h3>Automotive</h3><p>Lube, repair &amp; lots</p></div><span class="ex">See the automotive solution →</span></article>
-    </div>
-    <p style="margin-top:28px;"><a class="text-link" href="#solutions">Browse all verticals →</a></p>
-  </section>
-
-  <section class="section wrap" id="offerings">
-    <h2>Embedded Offerings — the growth engine</h2>
-    <p class="lede">Keep the software they already run. Expand it with embedded offerings — payments, lending, insurance, and AI, with hardware and integrations built in.</p>
-    <div class="quad">
-      <article><h3>Payments</h3><p>A winery takes cards at the tasting room, reconciled automatically.</p></article>
-      <article><h3>Lending</h3><p>Tenant financing at the point of need — e.g. move-in.</p></article>
-      <article><h3>Insurance</h3><p>Storage tenant coverage at sign-up, friction-free.</p></article>
-      <article><h3>AI at Fullsteam</h3><p>Intelligence embedded in the software — R&amp;D efficiency, workflow automation, and customer-facing features.</p></article>
-    </div>
-    <p style="margin-top:28px;"><a class="text-link" href="#offerings">See all Offerings →</a></p>
-  </section>
-
-  <section class="close wrap" id="founders">
-    <h2>Get a feel for the portfolio in one pass.</h2>
+  <section class="close" id="founders">
+    <p class="beat">07 — Keep going</p>
+    <h2>See the portfolio. Or talk if you built one of these businesses.</h2>
     <a class="pill pill-lg" href="#solutions">Explore our vertical solutions</a>
     <p style="margin-top:20px;"><a class="nav-sub" href="#founders">For Founders — a home for your business</a></p>
   </section>
@@ -418,28 +657,76 @@
   </footer>
 
   <script>
-    const buttons = document.querySelectorAll(".feat-nav button");
-    const panels = {
-      grow: document.getElementById("panel-grow"),
-      offer: document.getElementById("panel-offer"),
-      ai: document.getElementById("panel-ai"),
-      founders: document.getElementById("panel-founders")
-    };
-    buttons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        buttons.forEach((b) => b.classList.remove("is-on"));
-        btn.classList.add("is-on");
-        Object.entries(panels).forEach(([key, el]) => {
-          el.hidden = key !== btn.dataset.feat;
-        });
-      });
-    });
     const menuBtn = document.getElementById("menuBtn");
     const overlay = document.getElementById("siteOverlay");
     menuBtn.addEventListener("click", () => {
       const open = overlay.classList.toggle("is-open");
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
     });
+
+    (function mosaicToHero(){
+      const pin = document.querySelector(".hero-pin");
+      const mosaic = document.getElementById("mosaic");
+      const hero = document.getElementById("heroStage");
+      const copy = document.getElementById("heroCopy");
+      const marquee = document.getElementById("heroMarquee");
+      if (!pin || !hero) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const apply = (p) => {
+        pin.style.setProperty("--p", String(p));
+        const grow = Math.max(0, Math.min(1, (p - 0.08) / 0.82));
+        const inset = (1 - grow) * 32;
+        const side = (1 - grow) * 26;
+        hero.style.opacity = p < 0.06 ? "0" : "1";
+        hero.style.clipPath = grow >= 0.99
+          ? "none"
+          : "inset(" + inset + "% " + side + "% " + inset + "% " + side + "% round 16px)";
+        mosaic.style.pointerEvents = p > 0.4 ? "none" : "auto";
+        copy.style.opacity = String(Math.max(0, Math.min(1, (p - 0.58) / 0.28)));
+        marquee.style.opacity = String(Math.max(0, Math.min(1, (p - 0.78) / 0.18)));
+        hero.classList.toggle("is-open", p > 0.55);
+      };
+      if (reduce){
+        apply(1);
+        pin.style.height = "auto";
+        return;
+      }
+      apply(0);
+      const tick = () => {
+        const top = pin.getBoundingClientRect().top;
+        const range = pin.offsetHeight - window.innerHeight;
+        const p = Math.max(0, Math.min(1, (57 - top) / Math.max(1, range)));
+        apply(p);
+      };
+      window.addEventListener("scroll", tick, { passive: true });
+      window.addEventListener("resize", tick);
+      tick();
+    })();
+
+    (function filmStrip(){
+      const film = document.getElementById("film");
+      if (!film) return;
+      const cards = [...film.querySelectorAll(".film-card")];
+      const select = (card) => {
+        cards.forEach((c) => {
+          const on = c === card;
+          c.classList.toggle("is-feature", on);
+          c.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+      };
+      cards.forEach((card) => {
+        card.addEventListener("click", (e) => {
+          if (e.target.closest("a")) return;
+          select(card);
+        });
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            select(card);
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>

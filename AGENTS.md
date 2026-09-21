@@ -20,13 +20,16 @@ This file is the canonical agent entry point (works with Cursor, which reads
   constraints, open questions) and the future home of the visual design direction.
 - **Source assets:** the original client brief lives at
   `clientDocs/Fullsteam Web Brief (1).docx`; the internal discovery interviews live
-  at `clientDocs/Fullsteam User Interview Template.xlsx`. Treat them as source of
-  truth; the knowledge base is a distillation that should stay in sync.
+  at `clientDocs/Fullsteam User Interview Template.xlsx`; the **content-writing
+  SOW** lives at `clientDocs/Fullsteam Website Content Project Brief.docx`
+  (distilled in KB **§21**). Treat them as source of truth; the knowledge base is
+  a distillation that should stay in sync.
 
 ## Current state (active phase)
 - **Discovery is complete** — four internal stakeholder interviews were run
   (Sept 2026) and synthesized in `PROJECT_KNOWLEDGE_BASE.md` §20. Use §20 as the
-  current source of client intent.
+  current source of client intent; use **§21** for the content track (10 pages,
+  voice, copy pillars, dates through 2026-11-11).
 - **Sitemap locked (2026-09-10, finalized 2026-09-14):** L1 = For Founders ·
   **Vertical Software** · **Embedded Offerings** · Our Story · Careers. **For
   Investors removed** (no nav node, no page). Under Our Story: **Newsroom** (single

@@ -20,11 +20,12 @@ HTML wireframes currently do, section by section, and what is still open.
    home of the visual/design direction. This file (`wireframes.md`) governs the
    **structure, IA, content order, and interaction scaffolding** only. Do not merge
    the two, and do not let edits to one silently rewrite the other.
-2. **Do not treat wireframe styling as final.** The HTML uses real brand colors,
-   fonts (Instrument Sans / Instrument Serif / Fragment Mono), and layout polish
-   **for legibility during review only**. None of that is an approved visual
-   direction. Fonts, color application, spacing, radii, and imagery are all
-   placeholders until the design pass.
+2. **Do not treat wireframe styling as final.** Page wireframes use a low-fi
+   skin (white / light tan backgrounds, black Helvetica type, yellow CTAs,
+   dark-gray image-icon placeholders) **so they read as structure, not a
+   designed site**. None of that is an approved visual direction. Fonts, color
+   application, spacing, radii, and imagery stay placeholders until the design
+   pass.
 3. **Do not change a wireframe to match a design idea that hasn't been agreed.**
    If a design decision lands later, record it in `design.md` first, then reconcile
    the wireframe deliberately (and note it in the changelog below).
@@ -45,7 +46,7 @@ HTML wireframes currently do, section by section, and what is still open.
 | [`prototypes/header-wireframe.html`](./prototypes/header-wireframe.html) | Stacked chrome options 0 / A / B / C, each with its drawn-open overlay | Comparison — pick pending |
 | [`prototypes/sitemap-rationale.html`](./prototypes/sitemap-rationale.html) | Rationale for IA/nav terminology decisions (incl. "Offerings") | Reference |
 | [`prototypes/meganav-rationale.html`](./prototypes/meganav-rationale.html) | Rationale for mega-menu / grouped verticals | Reference |
-| [`prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html`](./prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html) | **Current homepage direction** — Ollama-style layout, Bending Spoons structure | Active |
+| [`prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html`](./prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html) | **Current homepage direction** — Square layout guide, long-scroll story | Active |
 | [`prototypes/homepage-wireframe/v0.1-rough/alternative-home-a.html`](./prototypes/homepage-wireframe/v0.1-rough/alternative-home-a.html) | Alternative A — storytelling-led, dual-axis (Solutions / Offerings) | Alternative |
 | `prototypes/homepage-wireframe/v0.1-rough/sections/` | Reserved for per-section explorations | Empty |
 
@@ -60,9 +61,13 @@ python3 -m http.server 8000
 
 ## 2. Current direction — `homepage-bendingspoons-style.html`
 
-**Layout concept:** Ollama-style split feature section + Bending Spoons-style
-minimal chrome and portfolio-forward homepage. Full-width navy canvas, serif
-accents, mosaic of verticals in the hero.
+**Layout concept:** Homepage as a **long scrolling story**, using
+[squareup.com/us/en](https://squareup.com/us/en) as the layout guide: full-bleed
+visual hero with type over the image, a verticals marquee (Square’s logo bar,
+without named brands), a two-up “who we are” pair, then open image+copy scenes,
+then industries + general proof. Low-fi skin: white / tan, black type (hero
+overlay is white on the placeholder for contrast), yellow CTAs, image-icon
+placeholders. One general story — not audience tabs.
 
 **Chrome (Option B revised):** `Logo · For Founders · Menu · Explore Solutions`.
 The menu opens a full-width overlay containing the sitemap L1 (**Vertical
@@ -74,12 +79,14 @@ your vertical" finder lives in the overlay / Vertical Software page.
 | # | Section | Intent | What's on screen | Status |
 |---|---------|--------|------------------|--------|
 | 1 | **Header** | Sparse chrome; audience path + primary CTA | Logo, "For Founders", "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
-| 2 | **Hero** | State the model + scale, hand off one CTA | H1 "The operating system for vertical markets." + copy + primary CTA + 6-tile vertical mosaic (Hospitality, ERP, Specialty Retail, Transportation, Wine, Automotive) | Built |
-| 3 | **Feature / story** | Give the two stories + AI + founders a compact tabbed home | Left tab rail: Acquire & grow · Embedded Offerings · AI at Fullsteam · For Founders; right panel with copy, visual placeholder, metric line | Built (JS tabs) |
-| 4 | **Our businesses** | Portfolio proof; subset, not page-per-industry | 6 tiles ordered by revenue mix + "Browse all verticals" link | Built |
-| 5 | **Embedded Offerings** | Growth-engine proof via concrete examples | 2×2 quad: Payments, Lending, Insurance, AI at Fullsteam + "See all Offerings" link | Built |
-| 6 | **Closing CTA** | Final action, no dead-end | "Get a feel for the portfolio in one pass." + primary CTA + quiet "For Founders" link | Built |
-| 7 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
+| 2 | **Hero** | Square: mosaic of verticals, then full-screen on scroll | White scatter of image-placeholders + line doodles and a center line (“Whatever the industry…”). Scrolling the pin grows a full-bleed hero (H1 + yellow CTA + vertical marquee). | Built |
+| 3 | **Who we are** | Two-up pair (Square “Terminal / Stand”) | Beat **02**. H2 + Empower and supercharge growth \| Embedded Offerings, each a visual + short line. | Built |
+| 4 | **The software** | Scene: image + copy | Beat **03**. “The system they already run.” Link to all verticals. | Built |
+| 5 | **What we add** | Flipped scene | Beat **04**. Payments in the workflow; lending/insurance in the same copy. | Built |
+| 6 | **AI** | Scene, use cases first | Beat **05**. AI at Fullsteam — never a headcount story. | Built |
+| 7 | **Industries + proof** | Square “Keep your business growing” filmstrip | Beat **06**. Dark band, revenue-ordered subset (5 panels), center featured with inferable KPI overlay. All 11 as text links. | Built |
+| 8 | **Closing CTA** | Explore, founders as coda | Beat **07**. Primary CTA + quiet For Founders. | Built |
+| 9 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
 
 ### Deliberate choices in this wireframe
 
@@ -87,12 +94,14 @@ your vertical" finder lives in the overlay / Vertical Software page.
   **"Explore our vertical solutions"** (full form); header uses the short form
   "Explore vertical solutions."
 - **"Embedded Offerings"** is the axis label (client-preferred; short form "Offerings" in body copy; never "Platform").
-- **Verticals are a flat list** in the Menu overlay (two columns, all 11) and as a
-  revenue-ordered mosaic on the homepage — no category labels, no 11-item chrome nav.
+- **Verticals** appear as a **hero marquee** (six names) and again as a **flat 11-name
+  row** in the proof band — Square’s “seamless verticals,” without brand logos.
 - **Menu overlay = the sitemap at L1**, with a note that the finder is here (not a
   header search field).
-- **Metrics are embedded** in the feature panels with **[verify publishability]**
-  placeholders rather than a separate stat band (confidential deck figures removed).
+- **Metrics** sit in a **general proof band** (beat 03) with **[verify publishability]**
+  placeholders — same numbers for every visitor, not a founders/investors split.
+- **For Founders** lives in chrome + a quiet close link only. The scroll itself is
+  one company story.
 
 ### Known gaps & issues (do not silently fix — see open items)
 
@@ -100,19 +109,20 @@ your vertical" finder lives in the overlay / Vertical Software page.
   2026-09-10:** now targets `#solutions`.
 - ~~**G-2** Footer lists **For Investors** but the chrome does not.~~ **Resolved
   2026-09-10:** For Investors deleted from the sitemap; footer link removed.
-- **G-3** Feature-panel metrics use **[verify publishability]** placeholders until
+- **G-3** Proof-band metrics use **[verify publishability]** placeholders until
   client confirms which scale/KPI signals can go on the site (OI-5).
 - **G-4** **No social-proof band** (testimonials / video) despite `design.md` §4.6.
 - **G-5** **No Our Story / Careers band** — employer/careers story (~15% of content
   per §20) is footer-only.
-- **G-6** "For Founders" appears both as a chrome item and a feature tab; **investors
-  have no band/tab at all**.
-- **G-7** The feature section uses **JS tabs**; confirm this interaction is wanted on
-  a validation/exploration homepage (vs. stacked sections).
+- ~~**G-6** "For Founders" as chrome + feature tab.~~ **Resolved 2026-09-21
+  (wireframe experiment):** founders path is chrome + close only; scroll is general.
+- ~~**G-7** JS tabs on the feature section.~~ **Resolved 2026-09-21:** tabs removed;
+  long-form stacked chapters (Bending Spoons guide).
 - **G-8** Hero headline "The operating system for vertical markets." is the deck
   positioning line — confirm it is the approved hero message.
-- **G-9** Hero mosaic and **Our businesses** section show the same six verticals —
-  redundant scroll; pick teaser vs. expanded proof (client review, OI-3).
+- ~~**G-9** Hero strip and Our businesses showed the same six verticals.~~
+  **Resolved 2026-09-21:** hero is the teaser strip; beat 04 is three deep generic
+  chapters, not a second 6-up mosaic.
 
 ---
 
@@ -131,8 +141,8 @@ Audience bands (Founders / Investors) → Closing → Footer.
 > alternative as an ordering comparison, not the final audience structure.
 
 Use this as the counterpoint to the current direction when deciding section order:
-- **Current direction** leads with the positioning headline + vertical mosaic, and
-  folds the two stories into a tabbed feature.
+- **Current direction** is a Bending Spoons-style **long scroll**: hero strip, then
+  thesis, general proof, three vertical chapters, offerings stack.
 - **Alternative A** leads with the two stories as a visible dual-axis, then proves
   with stats, then portfolio, then offerings.
 
@@ -176,11 +186,12 @@ not L1 tree nodes.
 
 - Static HTML, no build step. Keep files self-contained (inline CSS/JS) so they
   preview by opening the file or via the static server.
-- Low-fidelity language: dashed outlines = wireframe; solid/filled = higher
-  fidelity. Alternative A follows this convention; the current direction is more
-  polished (see boundary rule 2).
-- Use the brand palette for **legibility only** — Bio Blue `#00587C` for
-  links/CTA, Gold `#FFC600` for Offerings accent, Green `#84BD00` for AI.
+- Low-fidelity language: white + light tan (`#F3E6D0`) backgrounds, black type
+  (Helvetica / Arial), yellow CTAs (`#FFC600` + black text), 1px black rules.
+  Image slots use a dark-gray (`#4A4A4A`) block with the standard landscape
+  image icon. Do not reintroduce navy fills, brand fonts, or photography.
+- This is a **wireframe skin only** — not an approved visual direction (see
+  boundary rule 2). Sitemap / rationale docs may stay as IA diagrams.
 - Keep copy short and obviously provisional; mark locked copy explicitly.
 - Preserve the constraint words: **"Embedded Offerings"** (never Platform), hero CTA
   **"Explore our vertical solutions."**
@@ -197,18 +208,18 @@ not L1 tree nodes.
 - ~~**OI-2 — "For Investors" placement.**~~ **Resolved 2026-09-10: deleted.**
   No investor nav node or page; investors are served by homepage scale/proof +
   Contact. (KB §14 locked.)
-- **OI-3 — Section order.** Current tabbed-feature direction vs. Alternative A's
-  explicit two-story lanes. Which ordering best serves a validation/exploration
-  homepage?
+- **OI-3 — Section order.** Wireframe experiment 2026-09-21: long-form Bending
+  Spoons scroll (thesis → general proof → 3 vertical chapters → offerings stack).
+  Confirm vs Alternative A’s dual-axis. `design.md` not updated.
 - **OI-4 — AI homepage treatment.** Dedicated page is **locked under Offerings**
-  (KB §14). Still decide: keep the feature tab, give AI its own band, or fold into
-  the Offerings story only.
-- **OI-5 — Stat / proof strategy.** One stat band, embedded metrics, or both?
+  (KB §14). Current wireframe: AI is the last row in beat 05, not a tab.
+- **OI-5 — Stat / proof strategy.** Current: one general proof band (beat 03).
   Which figures are publishable (G-3)?
 - **OI-6 — Social proof & video.** Where testimonials/mission video live (G-4).
 - **OI-7 — Careers/company band.** How the ~15% employer story surfaces above the
   footer (G-5).
-- **OI-8 — Feature interaction.** Keep JS tabs or stack sections (G-7).
+- ~~**OI-8 — Feature interaction.**~~ **Wireframe experiment 2026-09-21:** JS tabs
+  removed in favor of stacked long-form. Confirm with client.
 
 ---
 
@@ -223,3 +234,11 @@ not L1 tree nodes.
 | 2026-09-10 | Axis label **Offerings → Embedded Offerings** (client-preferred; short form "Offerings"). **Newsroom** added as a single dynamic CMS page under Our Story. |
 | 2026-09-14 | **Sitemap finalized.** **Leadership** added as a page under Our Story; **Newsroom** nested at `/our-story/newsroom`. For Founders confirmed a single-page leaf; **category labels deleted** after the client call (flat 11-vertical list, no landing pages); migration map kept in the lock doc. `sitemap.html` marked v1.0 FINAL. |
 | 2026-09-15 | **Vertical Software revised to a single page** — sticky sidebar of the 11 verticals swaps a tabbed panel; **11 detail pages removed**, no child pages. `sitemap.html` updated (in-page tab note, not child nodes); budget drops to ~13 pages. |
+| 2026-09-21 | Low-fi restyle on homepage + header + Alternative A: white / tan backgrounds, black type, yellow CTAs, dark-gray image-icon placeholders. Structure and IA unchanged. |
+| 2026-09-21 | Homepage hero composition: even 6-tile mosaic → **asymmetric type / featured visual split** with a 2×2 Hospitality placeholder, overlapping stacked vertical labels, and five satellite tiles. Copy, CTA, chrome, and lo-fi skin unchanged. |
+| 2026-09-21 | Homepage hero option 2: **centered H1 + software-first line + yellow CTA**, then a **horizontal snap-scrolling row of portrait cards** (image-placeholder + title only). Six revenue-ordered verticals + peek “Browse all.” Removed Hospitality 2×2 / overlapping name stack / satellites. Chrome and lo-fi skin unchanged. |
+| 2026-09-21 | Hero treated as **beat 01 of a long scroll story**: first viewport; cards **deal from behind the H1** (center-out stagger), then settle into the strip. Handoff “How we grow them ↓”. Beat labels 01–05 on later sections (wireframe scaffolding only). `design.md` not edited. |
+| 2026-09-21 | Rest of homepage follows **Bending Spoons long-form**: thesis → general proof band → three generic vertical chapters → offerings stack. Tabs, 6-up mosaic, and founder/investor story-split removed from the scroll. Named people/brands are not the case studies. `design.md` not edited. |
+| 2026-09-21 | Homepage **layout guide → Square** (`squareup.com/us/en`): full-bleed overlay hero, verticals marquee, two-up pair, image+copy scenes, industries + general proof. Deal-cards / Bending Spoons chapter stack removed. Chrome, CTA, and lo-fi skin kept. `design.md` not edited. |
+| 2026-09-21 | Hero sequence: **mosaic of verticals first** (Square “flavor of business” scatter), then on scroll the **hero grows full-screen**. |
+| 2026-09-21 | Beat 06 → Square **industry filmstrip**: five revenue-ordered panels, featured overlay with inferable KPIs **[verify]**, remaining verticals as text. `design.md` not edited. |

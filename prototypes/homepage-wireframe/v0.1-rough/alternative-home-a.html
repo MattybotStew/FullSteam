@@ -6,41 +6,50 @@
 <title>Homepage Wireframe — Alternative A (storytelling / dual-axis) · Fullsteam</title>
 <style>
   /* ============================================================
-     LOW-FIDELITY WIREFRAME — grayscale, boxy, placeholder.
+     LOW-FIDELITY WIREFRAME — white / tan, black type, yellow CTAs.
      Alternative A = storytelling-led + dual-axis (Solutions / Offerings).
-     Not final design. Brand palette applied sparingly for legibility.
+     Not a visual direction.
      ============================================================ */
   :root{
-    --line:#b9c6cc;      /* dashed outline */
-    --line-solid:#7f969f;
-    --bg:#f4f6f7;        /* page bg */
-    --panel:#ffffff;
-    --text:#1c2b31;
-    --muted:#5f7076;
-
-    --blue:#00587C;      /* primary - links / CTA / logo */
-    --gold:#FFC600;      /* accent  - Offerings lane */
-    --green:#84BD00;     /* accent  - AI highlight */
-    --dark:#10171a;
-
-    --blue-tint:#E7F1F6;
-    --gold-tint:#FFF6DB;
-    --green-tint:#EFF7E2;
+    --line:#000000;
+    --line-solid:#000000;
+    --bg:#FFFFFF;
+    --tan:#F3E6D0;
+    --panel:#FFFFFF;
+    --text:#000000;
+    --muted:#222222;
+    --yellow:#FFC600;
+    --blue:#000000;
+    --gold:#FFC600;
+    --green:#000000;
+    --dark:#000000;
+    --ph:#4A4A4A;
+    --img-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8C8C8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='1.5'/%3E%3Ccircle cx='8.5' cy='9.5' r='1.6'/%3E%3Cpath d='M4 17.5 9 12.5l3.5 3.5L16 12l5 5.5'/%3E%3C/svg%3E");
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   body{
     font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     background:var(--bg); color:var(--text); padding-bottom:60px; line-height:1.5;
   }
+  .img-ph{
+    background:var(--ph);
+    display:flex; align-items:center; justify-content:center;
+    min-height:120px; width:100%;
+  }
+  .img-ph::after{
+    content:"";
+    width:48px; height:48px;
+    background:var(--img-icon) center / contain no-repeat;
+  }
   .notice{
-    background:#222; color:#fff; font-size:12px; padding:8px 24px; font-weight:500;
+    background:#000; color:#fff; font-size:12px; padding:8px 24px; font-weight:500;
   }
   .notice b{ font-weight:700; }
   .notice span{ opacity:.7; margin-left:8px; font-weight:400; }
 
   /* ================= HEADER (reuse v0.2 pattern, condensed) ================= */
   header{
-    background:var(--panel); border-bottom:1px dashed var(--line);
+    background:var(--panel); border-bottom:1px solid var(--line);
     position:sticky; top:0; z-index:40;
   }
   .nav-row{
@@ -48,18 +57,19 @@
     display:flex; align-items:center; gap:20px;
   }
   .logo{
-    width:140px; height:34px; border:1.5px dashed var(--line-solid);
+    width:140px; height:34px; border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
-    color:var(--blue); font-size:11px; font-weight:700; letter-spacing:.08em; flex-shrink:0;
+    color:var(--text); font-size:11px; font-weight:700; letter-spacing:.08em; flex-shrink:0;
   }
   .nav-links{ display:flex; gap:2px; flex:1; }
   .nav-link{
-    padding:9px 13px; font-size:13px; font-weight:600; color:var(--blue); text-decoration:none;
+    padding:9px 13px; font-size:13px; font-weight:600; color:var(--text); text-decoration:none;
   }
   .nav-right{ display:flex; gap:12px; flex-shrink:0; align-items:center; }
-  .contact{ font-size:13px; color:var(--blue); text-decoration:none; font-weight:500; }
+  .contact{ font-size:13px; color:var(--text); text-decoration:none; font-weight:500; }
   .cta{
-    background:var(--blue); color:#fff; text-decoration:none;
+    background:var(--yellow); color:var(--text); text-decoration:none;
+    border:1px solid var(--line);
     font-size:12px; font-weight:700; padding:10px 16px;
   }
 
@@ -73,9 +83,10 @@
 
   /* Section chrome */
   .sec{
-    border:1.5px dashed var(--line); background:var(--panel);
+    border:1px solid var(--line); background:var(--panel);
     padding:26px; margin-bottom:22px; position:relative;
   }
+  .sec.tan{ background:var(--tan); }
   .sec > .sec-tag{
     position:absolute; top:-11px; left:18px;
     background:var(--dark); color:#fff; font-size:10px; font-weight:700;
@@ -85,13 +96,13 @@
     font-size:12px; color:var(--muted); font-weight:500;
     border-bottom:1px dashed var(--line); padding-bottom:12px; margin-bottom:18px;
   }
-  .sec h2.head{ font-size:13px; font-weight:700; color:var(--blue); margin-bottom:14px; }
+  .sec h2.head{ font-size:13px; font-weight:700; color:var(--text); margin-bottom:14px; }
 
   /* Hero */
   .hero{ text-align:center; padding:44px 26px 38px; }
   .hero .kicker{
     display:inline-block; font-size:11px; font-weight:700; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--blue); border:1.5px dashed var(--line-solid);
+    text-transform:uppercase; color:var(--text); border:1px solid var(--line);
     padding:5px 14px; margin-bottom:22px;
   }
   .hero .eyebrow{ font-size:15px; color:var(--muted); font-weight:600; margin-bottom:10px; }
@@ -102,100 +113,102 @@
   .hero .sub{ font-size:15px; color:var(--muted); max-width:640px; margin:0 auto 26px; }
   .hero .ctas{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
   .btn-primary{
-    background:var(--blue); color:#fff; padding:13px 26px; font-size:14px; font-weight:700;
+    background:var(--yellow); color:var(--text); border:1px solid var(--line);
+    padding:13px 26px; font-size:14px; font-weight:700;
     display:inline-block;
   }
   .btn-ghost{
-    background:#fff; color:var(--blue); border:1.5px dashed var(--line-solid);
+    background:#fff; color:var(--text); border:1px solid var(--line);
     padding:13px 22px; font-size:13px; font-weight:600; display:inline-block;
   }
 
   /* ================= TWO STORIES / DUAL AXIS ================= */
   .dual{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:22px; }
-  .lane{ border:1.5px dashed var(--line-solid); background:var(--panel); padding:24px; position:relative; }
-  .lane.axis-b{ background:var(--gold-tint); border-color:var(--gold); }
+  .lane{ border:1px solid var(--line); background:var(--panel); padding:24px; position:relative; }
+  .lane.axis-b{ background:var(--tan); border-color:var(--line); }
   .lane .lane-tag{
     font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; margin-bottom:14px;
     display:inline-block; padding:4px 12px;
   }
-  .lane.axis-a .lane-tag{ background:var(--blue); color:#fff; }
-  .lane.axis-b .lane-tag{ color:var(--dark); border:1.5px dashed var(--gold); }
+  .lane.axis-a .lane-tag{ background:var(--yellow); color:var(--text); border:1px solid var(--line); }
+  .lane.axis-b .lane-tag{ color:var(--text); border:1px solid var(--line); }
   .lane h3{ font-size:20px; font-weight:800; margin-bottom:10px; color:var(--dark); }
   .lane p{ font-size:13px; color:var(--muted); margin-bottom:16px; }
   .lane ul{ list-style:none; margin-bottom:16px; }
   .lane ul li{ font-size:13px; padding:6px 0; border-bottom:1px dashed var(--line); }
   .lane ul li:last-child{ border-bottom:none; }
-  .lane ul li b{ color:var(--blue); }
+  .lane ul li b{ color:var(--text); }
   .lane ul li span{ color:var(--muted); }
   .lane .lane-cta{
-    font-size:13px; font-weight:700; color:var(--blue); text-decoration:none;
+    font-size:13px; font-weight:700; color:var(--text); text-decoration:none;
     display:inline-block; padding:4px 0; border-bottom:1px dashed var(--line-solid);
   }
 
   /* ================= PROOF / STAT BAND ================= */
   .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px; }
-  .stat{ background:var(--panel); border:1.5px dashed var(--line); text-align:center; padding:20px 12px; }
-  .stat .num{ font-size:26px; font-weight:800; color:var(--blue); }
+  .stat{ background:var(--panel); border:1px solid var(--line); text-align:center; padding:20px 12px; }
+  .stat .num{ font-size:26px; font-weight:800; color:var(--text); }
   .stat .lbl{ font-size:12px; color:var(--muted); margin-top:4px; }
-  .stat.ai{ background:var(--green-tint); border-color:var(--green); }
+  .stat.ai{ background:var(--tan); border-color:var(--line); }
   .stat.ai .num{ color:var(--dark); }
 
   /* ================= SOLUTIONS (VERTICALS) ================= */
   .vert-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  .vert-col{ border:1.5px dashed var(--line-solid); background:var(--panel); padding:18px; }
+  .vert-col{ border:1px solid var(--line); background:var(--panel); padding:18px; }
   .vert-col ul{ list-style:none; }
   .vert-col li{ font-size:13px; padding:6px 0; border-bottom:1px dashed var(--line); display:flex; justify-content:space-between; }
   .vert-col li:last-child{ border-bottom:none; }
   .vert-col li span{ color:var(--muted); font-size:12px; }
   .vert-actions{ margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
   .filter-pill{
-    border:1.5px dashed var(--blue); background:#fff; color:var(--blue);
+    border:1px solid var(--line); background:#fff; color:var(--text);
     font-size:12px; font-weight:600; padding:9px 16px;
   }
 
   /* ================= OFFERINGS IN ACTION ================= */
   .offer-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  .offer{ border:1.5px dashed var(--gold); background:var(--panel); padding:18px; }
-  .offer .offer-ic{ width:36px; height:36px; border:1.5px dashed var(--gold); display:flex; align-items:center; justify-content:center; font-size:16px; margin-bottom:12px; background:var(--gold-tint); }
+  .offer{ border:1px solid var(--line); background:var(--panel); padding:0 0 18px; }
+  .offer .img-ph{ min-height:110px; margin-bottom:14px; }
+  .offer .offer-body{ padding:0 18px; }
+  .offer .offer-ic{ display:none; }
   .offer h4{ font-size:15px; font-weight:700; margin-bottom:6px; }
   .offer p{ font-size:12px; color:var(--muted); margin-bottom:12px; }
   .offer .ex{
     background:var(--bg); border:1px dashed var(--line); padding:9px 11px;
     font-size:12px; color:var(--text); font-style:italic;
   }
-  .offer .ex b{ color:var(--blue); font-style:normal; }
-  .offer-row .offer.ai .offer-ic{ border-color:var(--green); background:var(--green-tint); }
+  .offer .ex b{ color:var(--text); font-style:normal; }
+  .offer-row .offer.ai .offer-ic{ display:none; }
 
   /* ================= WHY / SOCIAL PROOF ================= */
   .why{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:22px; }
-  .why-reasons{ background:var(--panel); border:1.5px dashed var(--line); padding:22px; }
-  .why-reasons h3{ font-size:17px; color:var(--blue); margin-bottom:14px; }
+  .why-reasons{ background:var(--tan); border:1px solid var(--line); padding:22px; }
+  .why-reasons h3{ font-size:17px; color:var(--text); margin-bottom:14px; }
   .why-reasons ol{ margin-left:18px; }
   .why-reasons li{ font-size:13px; margin-bottom:14px; }
   .why-reasons li b{ display:block; font-size:14px; margin-bottom:3px; }
-  .social{ background:var(--panel); border:1.5px dashed var(--line); padding:22px; }
+  .social{ background:var(--panel); border:1px solid var(--line); padding:22px; }
   .social .video{
-    height:120px; border:1.5px dashed var(--line-solid); background:var(--bg);
-    display:flex; align-items:center; justify-content:center; font-size:26px; color:var(--muted); margin-bottom:14px;
+    min-height:140px; margin-bottom:14px;
   }
   .social blockquote{ font-size:14px; color:var(--text); font-style:italic; margin-bottom:8px; }
   .social .who{ font-size:12px; color:var(--muted); }
 
   /* ================= AUDIENCE BANDS ================= */
   .audience{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:22px; }
-  .aud{ background:var(--panel); border:1.5px dashed var(--line-solid); padding:22px; text-align:center; }
+  .aud{ background:var(--tan); border:1px solid var(--line); padding:22px; text-align:center; }
   .aud .aud-tag{ font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
   .aud h3{ font-size:19px; margin-bottom:8px; }
   .aud p{ font-size:13px; color:var(--muted); max-width:340px; margin:0 auto 14px; }
 
   /* ================= CLOSING ================= */
-  .closing{ text-align:center; padding:40px 26px; background:var(--panel); border:1.5px dashed var(--line); margin-bottom:22px; }
+  .closing{ text-align:center; padding:40px 26px; background:var(--tan); border:1px solid var(--line); margin-bottom:22px; }
   .closing h2{ font-size:24px; color:var(--dark); margin-bottom:10px; }
   .closing p{ font-size:14px; color:var(--muted); max-width:560px; margin:0 auto 22px; }
 
   footer{ border-top:1px dashed var(--line); padding:24px 0; color:var(--muted); font-size:12px; }
   footer .foot-grid{ display:flex; gap:40px; flex-wrap:wrap; justify-content:space-between; }
-  footer b{ color:var(--blue); }
+  footer b{ color:var(--text); }
 
   /* ================= RESPONSIVE ================= */
   @media (max-width:900px){
@@ -233,10 +246,10 @@
   <main>
 
     <div class="legend">
-      <span><i></i> Dashed outline = low-fi wireframe</span>
-      <span>Blue #00587C = Solutions / portfolio / CTA</span>
-      <span>Gold #FFC600 = Offerings lane &amp; accent</span>
-      <span>Green #84BD00 = AI highlight</span>
+      <span><i></i> White / tan = canvas</span>
+      <span>Black = type + rules</span>
+      <span>Yellow #FFC600 = CTA</span>
+      <span>Dark gray + image icon = photo placeholder</span>
       <span>Alternate ordering to v0.1: lead with the two stories, not the portfolio</span>
     </div>
 
@@ -326,28 +339,34 @@
     </section>
 
     <!-- ============ OFFERINGS IN ACTION ============ -->
-    <section class="sec" style="border-color:var(--gold);">
-      <span class="sec-tag" style="background:var(--gold); color:var(--dark);">Offerings</span>
+    <section class="sec tan">
+      <span class="sec-tag">Offerings</span>
       <h2 class="head">Offerings in action</h2>
       <p class="sec-note">The embedded expansion axis, shown through concrete customer examples — not feature lists. Growth engine story.</p>
       <div class="offer-row">
         <div class="offer">
-          <div class="offer-ic">$</div>
-          <h4>Payments</h4>
-          <p>Embedded processing inside our software.</p>
-          <div class="ex">e.g. <b>A winery</b> takes card payments at the tasting room, reconciled automatically.</div>
+          <div class="img-ph" aria-hidden="true"></div>
+          <div class="offer-body">
+            <h4>Payments</h4>
+            <p>Embedded processing inside our software.</p>
+            <div class="ex">e.g. <b>A winery</b> takes card payments at the tasting room, reconciled automatically.</div>
+          </div>
         </div>
         <div class="offer">
-          <div class="offer-ic">◒</div>
-          <h4>Lending &amp; Insurance</h4>
-          <p>Embedded financing and coverage at the point of need.</p>
-          <div class="ex">e.g. <b>A storage facility</b> offers tenant insurance at move-in.</div>
+          <div class="img-ph" aria-hidden="true"></div>
+          <div class="offer-body">
+            <h4>Lending &amp; Insurance</h4>
+            <p>Embedded financing and coverage at the point of need.</p>
+            <div class="ex">e.g. <b>A storage facility</b> offers tenant insurance at move-in.</div>
+          </div>
         </div>
         <div class="offer ai">
-          <div class="offer-ic">AI</div>
-          <h4>AI at Fullsteam</h4>
-          <p>Intelligent features embedded across the portfolio.</p>
-          <div class="ex">e.g. <b>A hospitality company</b> modernizes its PMS 10× faster with AI-assisted development.</div>
+          <div class="img-ph" aria-hidden="true"></div>
+          <div class="offer-body">
+            <h4>AI at Fullsteam</h4>
+            <p>Intelligent features embedded across the portfolio.</p>
+            <div class="ex">e.g. <b>A hospitality company</b> modernizes its PMS 10× faster with AI-assisted development.</div>
+          </div>
         </div>
       </div>
       <div class="vert-actions">
@@ -366,8 +385,8 @@
         </ol>
       </div>
       <div class="social">
-        <h3 style="font-size:17px;color:var(--blue);margin-bottom:12px;">What our clients &amp; partners are saying</h3>
-        <div class="video">▶ mission video / customer video testimonials</div>
+        <h3 style="font-size:17px;color:var(--text);margin-bottom:12px;">What our clients &amp; partners are saying</h3>
+        <div class="img-ph video" aria-hidden="true"></div>
         <blockquote>"It's become so easy — payments are built right in, and the support is great."</blockquote>
         <div class="who">— Named customer, [Company], [Role]</div>
       </div>

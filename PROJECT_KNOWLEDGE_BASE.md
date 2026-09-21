@@ -3,10 +3,11 @@
 > **Source:** `clientDocs/Fullsteam Web Brief (1).docx`,
 > `clientDocs/Fullsteam Kickoff Presentation.pdf`,
 > `Fullsteam Overview_Confidential - redacted.pdf` (company/investor overview deck),
-> `clientDocs/Fullsteam User Interview Template.xlsx` (internal discovery interviews, Sept 2026)
+> `clientDocs/Fullsteam User Interview Template.xlsx` (internal discovery interviews, Sept 2026),
+> `clientDocs/Fullsteam Website Content Project Brief.docx` (content-writing SOW, Sept 2026)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
-> **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress
-> **Last updated:** 2026-09-10 (added §20 Discovery Interview Findings)
+> **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21)
+> **Last updated:** 2026-09-21 (added §21 Website Content Project Brief)
 
 ---
 
@@ -158,6 +159,7 @@ Fullsteam is looking for support across:
 - **Primary audiences:** Software sellers/founders, investors (secondary: employees, customers)
 - **Primary CTA target:** "Explore our vertical solutions"
 - **Site purpose (validated):** **Validation/credibility destination — not paid/organic lead-gen.** Outbound drives the pipeline; the site confirms who Fullsteam is before a meeting
+- **Content track (§21):** 10 core pages; copy pillars = home for your business, certainty of close, embedded capabilities; delivery **2026-11-11**
 - **Tone:** Humanize; 8th-grade reading level, conversational, narrative-first; "who we are" over "what we do"
 - **Desired feel:** Exploratory, bolder, premium, storytelling — not corporate brochure
 - **Not publishable without client sign-off:** explicit revenue/run-rate, profitability, named acquisition case studies still in transformation
@@ -192,11 +194,12 @@ how these sites created a dedicated page to showcase their use of AI:
 
 ## 10. Suggested Next Steps
 
-- [ ] Confirm scope/priorities with client
-- [ ] Draft messaging framework around the two core stories
-- [ ] Propose site information architecture (no page-per-industry)
+- [x] Confirm scope/priorities with client — discovery complete (§20); sitemap locked (§14)
+- [ ] Draft messaging framework around the two core stories — **Messaging Architecture in progress**; content SOW in §21
+- [x] Propose site information architecture (no page-per-industry) — locked §14
 - [ ] Define page template set and content model (Duda-compatible)
 - [ ] Prototype UX/UI direction and primary CTA placement
+- [ ] Write **10 core pages** per content brief (§21) against the locked sitemap
 - [ ] Develop response covering experience, approach, content model, site structure, timing, team, budget
 
 ## 11. Kickoff Presentation — Cloudmellow (Agency) Details
@@ -261,6 +264,9 @@ how these sites created a dedicated page to showcase their use of AI:
 - Cloudmellow writes up to **10 primary website pages** and incorporates approved
   content into wireframes. Exclusions: privacy policies, terms of use, licensing
   info, employee bios, product descriptions, translation services.
+- **Content SOW (Sept 2026):** see **§21** — 600–1,500 words/page, Google Doc,
+  outline 2026-09-18 → first draft 2026-10-08 → final draft 2026-10-19 →
+  sign-off 2026-10-26; full project delivery 2026-11-11.
 - Fullsteam is responsible for content on all remaining pages.
 - Additional Cloudmellow copywriting available for **$3,500** extra.
 
@@ -1096,12 +1102,178 @@ durable, AI-resilient demand.
 
 ---
 
+## 21. Website Content Project Brief (Cloudmellow content SOW, Sept 2026)
+
+> **Source:** `clientDocs/Fullsteam Website Content Project Brief.docx`
+> **Project:** Fullsteam (Company) — Fullsteam.com Website Design + Marketing
+> **PM:** Nicole Williams (`Nicole@Cloudmellow.com`)
+> **Final project delivery:** **November 11, 2026**
+> **Role of this section:** Distills the **content-writing** brief. It does **not**
+> reopen the locked sitemap (§14). Page names in the brief (About, Verticals)
+> map to locked URLs below. Discovery interviews (§20) remain the source of
+> client intent when copy and discovery disagree — see reconciliation notes.
+
+This is the **10-page content track** already scoped in the kickoff (§11:
+Cloudmellow writes up to 10 primary website pages). Cloudmellow is also building
+a **Messaging Architecture** to guide the writing.
+
+### 21.1 Core goal
+
+The site should tell the Fullsteam story **through the software businesses they
+acquire and grow**. It should help **founders** understand why Fullsteam is a
+strong **home for their company** and help **investors** understand why Fullsteam
+is a **credible company to back**. The client wants the site as a **storytelling
+and validation point** for founders, investors, and potential employees.
+
+The work is less about rebuilding a website and more about helping Fullsteam
+**look like the category leader it already is:** innovative, credible,
+founder-friendly, investor-ready, and differentiated from generic SaaS or
+holding-company websites. Framed as a **strategic website storytelling
+engagement** for an acquisition-driven vertical SaaS and payments company.
+
+> **Nav/copy guardrail:** the brief uses "credible platform to back" in the
+> investor sentence. **Do not put "Platform" in nav or as the offerings label**
+> (client rejected it, 2026-09-10). Prefer "company," "partner," or "home" in
+> public copy unless Messaging Architecture explicitly reopens that word.
+
+### 21.2 Success metrics (KPIs)
+
+| KPI | Detail |
+|-----|--------|
+| Schedule | On-time sign-off by **November 11, 2026** |
+| Story | Improved storytelling |
+| Search | SEO performance targets (unspecified in the brief; tie to kickoff SEO audit, §11) |
+
+### 21.3 Audiences in this brief (ranked)
+
+The content SOW ranks audiences **Founders → Investors → Prospective employees**.
+Discovery still treats founders **and** investors as dual #1 for the site's
+validation job (§4 / §20.4); employees remain secondary (~15% of communication).
+Use this table for **copy emphasis**; do not add a For Investors page (§14).
+
+**Primary — Founders / SaaS business owners**
+- Fear **losing control** of the company and culture.
+- Valuation is an objection, but the deeper fear is **disruption** to culture,
+  employees, and existing customers.
+- Fear traditional PE that **"turn and burn"** or strip assets on a short
+  **3–5 year** hold.
+- Worry acquirers **"only care about numbers"** and will not value their legacy.
+
+**Secondary — Investors**
+- Need confidence in **scale, financial stability, and market authority**.
+- Current site **undersells actual size**.
+- Require **implied-scale** signals (headcount, customer counts, transaction
+  volume) without hard financial disclosure or **overt run-rate** on the site.
+
+**Tertiary — Prospective employees**
+- Need clarity on **what Fullsteam does**, culture, and work environment.
+
+### 21.4 Value propositions & reader takeaway (copy pillars)
+
+Use these as content pillars; they align with discovery ("home for your
+business," never "exit," certainty of close, embedded capabilities).
+
+| Pillar | What it means in copy |
+|--------|------------------------|
+| **"A Home for Your Business"** | Long-term stewardship, continuity, and growth capital that preserves product identity and culture without disrupting what founders built |
+| **Certainty of close & stability** | Reliable commitment to closing smoothly |
+| **Integrated operations & embedded capabilities** | Operational support (compliance, back-office centralization, AI tools) plus deeply integrated, vertical-specific payments that remove operational burden |
+
+**What readers should leave believing:** Fullsteam is an authentic, established,
+human partner — a place businesses go **to keep growing**, not an "exit" and not
+a cold private-equity roll-up. It is a **multi-vertical technology** company with
+deep domain expertise and **strong institutional backing**.
+
+**Nuance vs. discovery (§20.4):** the content brief says certainty of close
+**consistently outweighs price** as the top deciding factor. Discovery said
+**price is the most important factor**, with values fit, personal connection, and
+certainty of close **tipping** the decision. For public copy, lead with home /
+values / certainty of close (never "exit"); do not claim founders ignore price.
+
+### 21.5 Tone & brand voice (content brief)
+
+Four voice attributes — consistent with §20.8 (humanize, 8th-grade,
+conversational, implied scale):
+
+1. **Authentic, human, and grounded** — not cold corporate walls of text or PE
+   jargon; real stories from leaders, founders, and employees.
+2. **Conversational and plain-spoken** — accessible reading level; not dense
+   financial or tech jargon.
+3. **Reassuring and steward-focused** — empathetic to founder concerns; trust,
+   continuity, partnership rather than transactional exits.
+4. **Confidently implied authority** — scale and capability shown maturely,
+   without boasting or overt financial figures.
+
+### 21.6 Deliverable
+
+| Item | Spec |
+|------|------|
+| Deliverable | Content for **10 website core pages** |
+| Length | ~**600–1,500 words per page**, depending on page type |
+| Format | Google Doc |
+| Named examples in the brief | Home, About, Verticals, Embedded Offerings, "and more" |
+
+**Map brief labels → locked sitemap (§14)** when writing outlines:
+
+| Brief label | Locked page |
+|-------------|-------------|
+| Home | `/` |
+| About | **Our Story** `/our-story` (not `/about`; `/about` migrates here) |
+| Verticals | **Vertical Software** `/vertical-software` (single tabbed page) |
+| Embedded Offerings | `/offerings` hub |
+
+The remaining slots in the 10-page budget are not named in the brief. Natural
+candidates against the locked tree (confirm in outline approval): **For
+Founders**, **Payments / Lending / Insurance** (offering details), **AI at
+Fullsteam**, **Careers**, **Leadership**, **Newsroom**, **Contact**. Kickoff
+exclusions still apply (§11): privacy, terms, licensing, employee bios, product
+descriptions, translation.
+
+### 21.7 Provided assets & context
+
+| Asset | Location / note |
+|-------|-----------------|
+| Strategic Framework | `Fullsteam Strategic Positioning (6).pdf` — ingest into the KB when filed in `clientDocs/` |
+| Design / layout specs | [FS-Design Figma](https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=2-135) (`fileKey` `3oHvScSPrK5l6N1qfv9WCw`, node `2:135`) |
+| Brand guidelines | [Google Drive file](https://drive.google.com/file/d/1rLHKyufSZKHsIsqjd7t2pTMYEc_2EMhX/view?usp=drive_link) |
+| Messaging Architecture | In progress at Cloudmellow — **guides the writing**; not yet a KB source |
+
+Reference examples in this brief are the same set already captured in **§9 / §18**
+(Quilt, Frontier Growth, TogetherWork, Bending Spoons, DaySmart, Square;
+AI pages at Banyan and ECI). No new URLs.
+
+### 21.8 Content milestones
+
+| Milestone | Date |
+|-----------|------|
+| Kickoff & outline approval | **2026-09-18** |
+| First draft submission | **2026-10-08** |
+| Final revised draft | **2026-10-19** |
+| Final sign-off & asset handoff | **2026-10-26** |
+| Final delivery of (full) project | **2026-11-11** |
+
+These sit **inside** the kickoff 12-week design program (Discovery →
+Sitemap/Wireframe → Design → Handoff → Delivery, §11). Content outline should
+follow the **locked sitemap**, not invent a parallel IA.
+
+### 21.9 Open items from this brief
+
+- [ ] Confirm the exact **10 pages** in the content budget against the locked tree.
+- [ ] File **Strategic Positioning (6).pdf** in `clientDocs/` and distill into the KB.
+- [ ] Ingest **Messaging Architecture** when it exists — it governs copy after this brief.
+- [ ] Tie "SEO performance targets" to the kickoff SEO audit (2–3 focus keywords, §11).
+- [ ] Keep implied-scale metrics on the **publishability** list (§20.11).
+
+---
+
 *Knowledge base generated from the client's agency brief (source of truth:
 `clientDocs/Fullsteam Web Brief (1).docx`), supplemented by the kickoff
 presentation (`clientDocs/Fullsteam Kickoff Presentation.pdf`), the kickoff
 follow-up / action items, the discovery stakeholder list (Basecamp,
 2026-08-25), client look-and-feel website references (2026-08-26), the
 confidential company/investor overview deck
-(`Fullsteam Overview_Confidential - redacted.pdf`, 2026-09-10), and the
+(`Fullsteam Overview_Confidential - redacted.pdf`, 2026-09-10), the
 internal discovery interviews
-(`clientDocs/Fullsteam User Interview Template.xlsx`, 2026-09-01 → 2026-09-03).*
+(`clientDocs/Fullsteam User Interview Template.xlsx`, 2026-09-01 → 2026-09-03),
+and the website content project brief
+(`clientDocs/Fullsteam Website Content Project Brief.docx`, 2026-09-21).*

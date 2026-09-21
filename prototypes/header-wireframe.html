@@ -6,19 +6,17 @@
 <title>Header Wireframe — Fullsteam (chrome options vs sitemap)</title>
 <style>
   :root{
-    --navy:#003D4F;
-    --navy-mid:#004858;
-    --navy-light:#005872;
-    --line:rgba(255,255,255,.14);
-    --line-solid:rgba(255,255,255,.22);
-    --bg:var(--navy);
-    --panel:var(--navy-mid);
-    --text:#EDF1F6;
-    --muted:#8FB0BE;
-    --blue:#00587C;
+    --bg:#FFFFFF;
+    --tan:#F3E6D0;
+    --line:#000000;
+    --line-solid:#000000;
+    --panel:#FFFFFF;
+    --text:#000000;
+    --muted:#222222;
+    --yellow:#FFC600;
     --gold:#FFC600;
-    --green:#84BD00;
-    --dark:#003040;
+    --green:#000000;
+    --dark:#000000;
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   body{
@@ -28,7 +26,7 @@
     padding-bottom:80px;
   }
   .notice{
-    background:#222; color:#fff; font-size:12px; letter-spacing:.02em;
+    background:#000; color:#fff; font-size:12px; letter-spacing:.02em;
     padding:8px 24px; font-weight:500;
   }
   .notice b{ font-weight:700; }
@@ -39,31 +37,31 @@
   }
   .intro h1{ font-size:22px; color:var(--text); }
   .intro p{ font-size:13px; color:var(--muted); margin-top:6px; max-width:72ch; }
-  .intro a{ color:var(--gold); }
+  .intro a{ color:var(--text); text-decoration:underline; }
 
   .legend{
     display:flex; gap:20px; flex-wrap:wrap; margin:16px 0 8px;
     font-size:12px; color:var(--muted);
   }
   .legend span{ display:inline-flex; align-items:center; gap:6px; }
-  .legend i{ width:14px; height:14px; display:inline-block; border:1px dashed var(--line-solid); background:var(--navy-mid); }
+  .legend i{ width:14px; height:14px; display:inline-block; border:1px solid var(--line); background:var(--tan); }
 
   /* Stacked option blocks */
   .option{
     max-width:1200px; margin:28px auto; padding:0 24px;
   }
   .option-label{
-    border:1.5px dashed var(--line-solid);
-    background:var(--navy-mid);
+    border:1px solid var(--line);
+    background:var(--tan);
     padding:12px 16px;
     margin-bottom:0;
   }
-  .option-label b{ color:var(--gold); font-size:14px; }
+  .option-label b{ color:var(--text); font-size:14px; }
   .option-label span{ display:block; font-size:12px; color:var(--muted); margin-top:4px; }
 
   .chrome{
     background:var(--panel);
-    border:1px dashed var(--line);
+    border:1px solid var(--line);
     border-top:none;
   }
   .nav-row{
@@ -72,9 +70,9 @@
   }
   .logo{
     width:150px; height:38px;
-    border:1.5px dashed var(--line-solid);
+    border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
-    color:var(--gold); font-size:12px; font-weight:700; letter-spacing:.1em;
+    color:var(--text); font-size:12px; font-weight:700; letter-spacing:.1em;
     flex-shrink:0;
   }
   .nav-links{ display:flex; align-items:center; gap:4px; flex:1; flex-wrap:wrap; }
@@ -82,7 +80,7 @@
     display:inline-block; padding:10px 12px; font-size:14px; font-weight:600;
     color:var(--text); text-decoration:none; white-space:nowrap;
   }
-  .nav-link:hover{ color:var(--gold); }
+  .nav-link:hover{ text-decoration:underline; }
   .nav-link .caret{ font-size:10px; margin-left:5px; color:var(--muted); }
   .nav-right{ display:flex; align-items:center; gap:14px; flex-shrink:0; margin-left:auto; }
   .contact{
@@ -90,12 +88,13 @@
     padding:10px 4px; font-weight:500;
   }
   .menu-link{
-    font-size:14px; color:var(--gold); text-decoration:none;
+    font-size:14px; color:var(--text); text-decoration:none;
     padding:10px 4px; font-weight:700;
   }
   .cta{
-    background:var(--gold); color:var(--dark); text-decoration:none;
-    font-size:13px; font-weight:600; padding:11px 18px; white-space:nowrap;
+    background:var(--yellow); color:var(--text); text-decoration:none;
+    border:1px solid var(--line);
+    font-size:13px; font-weight:700; padding:11px 18px; white-space:nowrap;
   }
 
   /* Traditional mega (option 0 only) */
@@ -105,8 +104,8 @@
     position:absolute; left:0; top:100%;
     width:760px; max-width:92vw;
     background:var(--panel);
-    border:1px dashed var(--line);
-    border-top:2px solid var(--line-solid);
+    border:1px solid var(--line);
+    border-top:2px solid var(--line);
     padding:24px; z-index:60;
     box-shadow:4px 8px 18px rgba(0,0,0,.12);
   }
@@ -124,13 +123,13 @@
   .plat-list{ display:grid; grid-template-columns:repeat(2,1fr); gap:6px 24px; }
   .plat-list li{ list-style:none; padding:8px 0; font-size:14px; font-weight:600; border-bottom:1px dashed var(--line); }
   .plat-list li span{ font-weight:400; color:var(--muted); margin-left:8px; font-size:12px; }
-  .plat-list li.ai{ color:var(--green); }
+  .plat-list li.ai{ color:var(--text); font-weight:600; }
 
   /* Drawn-open overlay (A/B/C) — same sitemap L1 */
   .overlay{
-    background:var(--navy-light);
-    border:1px dashed var(--line);
-    border-top:2px solid var(--gold);
+    background:var(--tan);
+    border:1px solid var(--line);
+    border-top:2px solid var(--line);
     padding:22px 20px 18px;
   }
   .overlay .ov-kicker{
@@ -143,7 +142,7 @@
     gap:16px 20px;
   }
   .ov-col h3{
-    font-size:14px; color:var(--gold); font-weight:700; margin-bottom:8px;
+    font-size:14px; color:var(--text); font-weight:700; margin-bottom:8px;
   }
   .ov-col h3 em{
     font-style:normal; font-size:10px; font-weight:600; color:var(--muted);
@@ -152,7 +151,7 @@
   .ov-col ul{ list-style:none; }
   .ov-col li{ font-size:13px; padding:3px 0; color:var(--text); }
   .ov-col li span{ color:var(--muted); }
-  .ov-col li.ai{ color:var(--green); font-weight:600; }
+  .ov-col li.ai{ color:var(--text); font-weight:600; }
   .ov-note{
     margin-top:14px; font-size:12px; color:var(--muted);
     border-top:1px dashed var(--line); padding-top:12px;
@@ -187,12 +186,11 @@
 
   <div class="intro">
     <h1>Header vs sitemap — stacked chrome options</h1>
-    <p>The sitemap stays a traditional page tree. These headers are filters: fewer items in chrome, full L1 in the overlay. Labels match <a href="./sitemap.html">sitemap.html</a>. Option 0 is the legacy six-item bar (rejected). Visual direction matches the homepage wireframe: teal-navy <code>#003D4F</code> + gold <code>#FFC600</code>.</p>
+    <p>The sitemap stays a traditional page tree. These headers are filters: fewer items in chrome, full L1 in the overlay. Labels match <a href="./sitemap.html">sitemap.html</a>. Option 0 is the legacy six-item bar (rejected). Low-fi skin matches the homepage wireframe: white / light tan, black type, yellow CTAs.</p>
     <div class="legend">
-      <span><i></i> Dashed = low-fi</span>
-      <span>Navy #003D4F = canvas</span>
-      <span>Gold #FFC600 = CTA / accents</span>
-      <span>Green #84BD00 = AI</span>
+      <span><i></i> White / tan = canvas</span>
+      <span>Black = type + rules</span>
+      <span>Yellow #FFC600 = CTA</span>
     </div>
   </div>
 
