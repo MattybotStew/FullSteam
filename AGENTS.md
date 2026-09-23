@@ -18,6 +18,12 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Homepage UX spec / design doc:** read [`design.md`](./design.md) before working
   on the homepage. It is the UX-only spec (audiences, flow, section intent,
   constraints, open questions) and the future home of the visual design direction.
+- **Inspiration / layout patterns:** read [`inspiration.md`](./inspiration.md) before
+  borrowing a layout idea from any reference site. It records what we take from each
+  reference and what we explicitly reject, with the guardrails inline so a pattern is
+  never separated from its constraint. **Cursor and any other agent: consult this file
+  before proposing homepage structure changes.** Layout/structure only — it is not a
+  visual direction.
 - **Source assets:** the original client brief lives at
   `clientDocs/Fullsteam Web Brief (1).docx`; the internal discovery interviews live
   at `clientDocs/Fullsteam User Interview Template.xlsx`; the **content-writing
@@ -37,9 +43,10 @@ This file is the canonical agent entry point (works with Cursor, which reads
   category landing pages. See `plans/sitemap-lock.md` and KB §14.
 - We are in the **Sitemap/Wireframe** milestone; the **homepage** is the active
   design surface and is still being iterated.
-- **Header chrome (provisional):** Option **B revised** — Logo · For Founders ·
-  Menu · Explore vertical solutions. Full L1 in the Menu overlay + footer. Compare
-  options in `prototypes/header-wireframe.html`.
+- **Header chrome (provisional):** Option **B revised** — Logo · Menu · Explore
+  vertical solutions. **For Founders is not in the header strip** as of 2026-09-23; it
+  lives in the Menu overlay, footer, and the closing CTA. Full L1 in the Menu overlay
+  + footer. Compare options in `prototypes/header-wireframe.html`.
 - Homepage wireframes live under `prototypes/homepage-wireframe/`. The
   `v0.1-rough/` subfolder holds low-fi explorations (`alternative-home-a.html`,
   `homepage-bendingspoons-style.html` — current direction).
