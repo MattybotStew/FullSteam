@@ -1237,6 +1237,7 @@ descriptions, translation.
 | Design / layout specs | [FS-Design Figma](https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=2-135) (`fileKey` `3oHvScSPrK5l6N1qfv9WCw`, node `2:135`) |
 | Brand guidelines | [Google Drive file](https://drive.google.com/file/d/1rLHKyufSZKHsIsqjd7t2pTMYEc_2EMhX/view?usp=drive_link) |
 | Messaging Architecture | In progress at Cloudmellow — **guides the writing**; not yet a KB source |
+| Homepage H2 drafts (wireframe only) | Slack comments from **Nicole Williams**, 2026-09-22, on homepage screenshots (beats 02 / 04 / 07). Placeholder in the homepage wireframe — **not locked copy**. Discovery (§20) still governs if copy and this draft disagree. |
 
 Reference examples in this brief are the same set already captured in **§9 / §18**
 (Quilt, Frontier Growth, TogetherWork, Bending Spoons, DaySmart, Square;

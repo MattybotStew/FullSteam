@@ -63,29 +63,28 @@ python3 -m http.server 8000
 
 **Layout concept:** Homepage as a **long scrolling story**, using
 [squareup.com/us/en](https://squareup.com/us/en) as the layout guide: full-bleed
-visual hero with type over the image, a verticals marquee (Square’s logo bar,
-without named brands), a two-up “who we are” pair, then open image+copy scenes,
+visual hero with type over the image, a two-up “who we are” pair, then open image+copy scenes,
 then industries + general proof. Low-fi skin: white / tan, black type (hero
 overlay is white on the placeholder for contrast), yellow CTAs, image-icon
 placeholders. One general story — not audience tabs.
 
-**Chrome (Option B revised):** `Logo · For Founders · Menu · Explore Solutions`.
-The menu opens a full-width overlay containing the sitemap L1 (**Vertical
-Software**, Embedded Offerings, Our Story, Careers, Contact). No header search; the "find
+**Chrome (Option B revised, 2026-09-23):** `Logo · Menu · Explore Solutions`. For Founders is in the Menu overlay, footer, and beat 07 close — not in the header strip.
+The menu opens a full-width overlay containing the sitemap L1 (**For Founders**,
+**Vertical Software**, Embedded Offerings, Our Story, Careers, Contact). No header search; the "find
 your vertical" finder lives in the overlay / Vertical Software page.
 
 ### Section-by-section
 
 | # | Section | Intent | What's on screen | Status |
 |---|---------|--------|------------------|--------|
-| 1 | **Header** | Sparse chrome; audience path + primary CTA | Logo, "For Founders", "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
-| 2 | **Hero** | Square: mosaic of verticals, then full-screen on scroll | White scatter of image-placeholders + line doodles and a center line (“Whatever the industry…”). Scrolling the pin grows a full-bleed hero (H1 + yellow CTA + vertical marquee). | Built |
-| 3 | **Who we are** | Two-up pair (Square “Terminal / Stand”) | Beat **02**. H2 + Empower and supercharge growth \| Embedded Offerings, each a visual + short line. | Built |
+| 1 | **Header** | Sparse chrome; primary CTA | Logo, "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
+| 2 | **Hero** | Square: mosaic of verticals, then full-screen on scroll | White scatter of image-placeholders + line doodles and a center line (“Whatever the industry…”). Scrolling the pin grows a full-bleed hero (H1 + yellow CTA). | Built |
+| 3 | **Who we are** | Two-up pair (Square “Terminal / Stand”) | Beat **02**. H2 “Scale your vertical software without losing your legacy.” + Empower and supercharge growth \| Embedded Offerings. | Built |
 | 4 | **The software** | Scene: image + copy | Beat **03**. “The system they already run.” Link to all verticals. | Built |
-| 5 | **What we add** | Flipped scene | Beat **04**. Payments in the workflow; lending/insurance in the same copy. | Built |
+| 5 | **What we add** | Flipped scene | Beat **04**. “Keep the software they trust. Supercharge how they monetize.” Lending/insurance stay in the body. | Built |
 | 6 | **AI** | Scene, use cases first | Beat **05**. AI at Fullsteam — never a headcount story. | Built |
 | 7 | **Industries + proof** | Square “Keep your business growing” filmstrip | Beat **06**. Dark band, revenue-ordered subset (5 panels), center featured with inferable KPI overlay. All 11 as text links. | Built |
-| 8 | **Closing CTA** | Explore, founders as coda | Beat **07**. Primary CTA + quiet For Founders. | Built |
+| 8 | **Closing CTA** | Explore, founders as coda | Beat **07**. “Ready to see where your business can go next?” Primary CTA + quiet For Founders. | Built |
 | 9 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
 
 ### Deliberate choices in this wireframe
@@ -94,13 +93,13 @@ your vertical" finder lives in the overlay / Vertical Software page.
   **"Explore our vertical solutions"** (full form); header uses the short form
   "Explore vertical solutions."
 - **"Embedded Offerings"** is the axis label (client-preferred; short form "Offerings" in body copy; never "Platform").
-- **Verticals** appear as a **hero marquee** (six names) and again as a **flat 11-name
-  row** in the proof band — Square’s “seamless verticals,” without brand logos.
+- **Verticals** appear as a **flat 11-name
+  row** in the proof band — Square’s “seamless verticals,” without brand logos. (Hero marquee removed 2026-09-23.)
 - **Menu overlay = the sitemap at L1**, with a note that the finder is here (not a
   header search field).
 - **Metrics** sit in a **general proof band** (beat 03) with **[verify publishability]**
   placeholders — same numbers for every visitor, not a founders/investors split.
-- **For Founders** lives in chrome + a quiet close link only. The scroll itself is
+- **For Founders** lives in the Menu overlay, footer, and a quiet close link — not in header chrome. The scroll itself is
   one company story.
 
 ### Known gaps & issues (do not silently fix — see open items)
@@ -115,7 +114,7 @@ your vertical" finder lives in the overlay / Vertical Software page.
 - **G-5** **No Our Story / Careers band** — employer/careers story (~15% of content
   per §20) is footer-only.
 - ~~**G-6** "For Founders" as chrome + feature tab.~~ **Resolved 2026-09-21
-  (wireframe experiment):** founders path is chrome + close only; scroll is general.
+  (wireframe experiment):** founders path is overlay + close (header chrome link removed 2026-09-23); scroll is general.
 - ~~**G-7** JS tabs on the feature section.~~ **Resolved 2026-09-21:** tabs removed;
   long-form stacked chapters (Bending Spoons guide).
 - **G-8** Hero headline "The operating system for vertical markets." is the deck
@@ -202,8 +201,8 @@ not L1 tree nodes.
 
 ## 7. Open items (decisions needed)
 
-- **OI-1 — Final chrome pattern.** **Provisional: B revised** (Logo · For Founders ·
-  Menu · Explore Solutions). Confirm with client, then apply the chosen strip to all
+- **OI-1 — Final chrome pattern.** **Provisional: B revised** (Logo ·
+  Menu · Explore Solutions; For Founders not in the strip as of 2026-09-23). Confirm with client, then apply the chosen strip to all
   interior pages so chrome is a system, not a homepage trick.
 - ~~**OI-2 — "For Investors" placement.**~~ **Resolved 2026-09-10: deleted.**
   No investor nav node or page; investors are served by homepage scale/proof +
@@ -242,3 +241,6 @@ not L1 tree nodes.
 | 2026-09-21 | Homepage **layout guide → Square** (`squareup.com/us/en`): full-bleed overlay hero, verticals marquee, two-up pair, image+copy scenes, industries + general proof. Deal-cards / Bending Spoons chapter stack removed. Chrome, CTA, and lo-fi skin kept. `design.md` not edited. |
 | 2026-09-21 | Hero sequence: **mosaic of verticals first** (Square “flavor of business” scatter), then on scroll the **hero grows full-screen**. |
 | 2026-09-21 | Beat 06 → Square **industry filmstrip**: five revenue-ordered panels, featured overlay with inferable KPIs **[verify]**, remaining verticals as text. `design.md` not edited. |
+| 2026-09-23 | Homepage H2 drafts from **Slack comments by Nicole Williams** (Cloudmellow content PM, 2026-09-22 screenshots) — not discovery interviews: beat 02 “Scale your vertical software without losing your legacy.”; beat 04 “Keep the software they trust. Supercharge how they monetize.”; beat 07 “Ready to see where your business can go next?” Supporting lines unchanged. Placeholder copy, not locked. `design.md` not edited. |
+| 2026-09-23 | Homepage: removed hero verticals marquee and header “For Founders” chrome link. Chrome is Logo · Menu · Explore vertical solutions. For Founders remains in Menu overlay, footer, and beat 07 close. `design.md` not edited. |
+| 2026-09-23 | Reverted `.scene h2` `max-width` from `min(960px, 100%)` back to **`12ch`**. The 960px change was uncommitted and unexplained (likely spill from wide-headline requests). Beat 02’s long H2 lives on `.band-head` (already 960px); `.scene h2` is the image+copy column (beats 03–05) and stays tightly stacked per the Bending Spoons scene pattern. |
