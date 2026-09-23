@@ -78,16 +78,15 @@ your vertical" finder lives in the overlay / Vertical Software page.
 | # | Section | Intent | What's on screen | Status |
 |---|---------|--------|------------------|--------|
 | 1 | **Header** | Sparse chrome; primary CTA | Logo, "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
-| 2 | **Hero** | Mosaic of verticals first, then a separate full-screen hero rises from the bottom | One-size mosaic **H1** (“Whatever the industry,” / “we own the software it runs on.”) above **11 labeled image tiles** (scattered). After that hold, scroll slides the full-bleed hero (visual H2) **up from the bottom** — it does not grow/clip the mosaic. Proof strip under the pin. | Built |
+| 2 | **Hero** | Software/verticals first, then the hero promise | **Desktop (>768px):** mosaic **H1** above **11 labeled scattered tiles**; scroll grows the **Retail** tile into the full-bleed hero (`clip-path` from the tile rect). **Mobile (≤768px):** same copy, readable stacked H1 (no orphan “on.”), **11 full-width vertical tabs**, then the hero as a normal full-bleed section in document flow (no pin/scatter/overlay). Reduced-motion uses the same in-flow stack. Proof strip follows. | Built |
 | 3 | **Who we are** | Two-up pair (Square “Terminal / Stand”) | Beat **02**. H2 “Scale your vertical software without losing your legacy.” + Empower and supercharge growth \| Embedded Offerings. | Built |
 | 4 | **The software** | Scene: image + copy | Beat **03**. “The system they already run.” Link to all verticals. | Built |
 | 5 | **What we add** | Flipped scene | Beat **04**. “Keep the software they trust. Supercharge how they monetize.” Lending/insurance stay in the body. | Built |
 | 6 | **AI** | Scene, use cases first | Beat **05**. AI at Fullsteam — never a headcount story. | Built |
 | 7 | **Industries + proof** | Square filmstrip + Localyzer pin-and-swap KPIs | Beat **06**. Five revenue-ordered panels; featured overlay **cycles** 11 / 80k+ / 2,000+ **[verify]**. All 11 as text links. | Built |
 | 8 | **Founder voice** | Genericized quote | After industries. Floral-shop software founder — unpublished until confirmed. | Built |
-| 9 | **Newsroom** | Filmstrip of 4 teasers | Current subset only; full set on Newsroom. | Built |
-| 10 | **Closing CTA** | Explore, founders as coda | Beat **07**. “Ready to see where your business can go next?” Primary CTA + quiet For Founders. | Built |
-| 11 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
+| 9 | **Closing CTA** | Explore, founders as coda | Beat **07**. “Ready to see where your business can go next?” Primary CTA + quiet For Founders. | Built |
+| 10 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
 
 ### Deliberate choices in this wireframe
 
@@ -114,7 +113,7 @@ your vertical" finder lives in the overlay / Vertical Software page.
   client confirms which scale/KPI signals can go on the site (OI-5).
 - ~~**G-4** **No social-proof band** (testimonials / video) despite `design.md` §4.6.~~
   **Partial 2026-09-23:** genericized founder quote after beat 06. Still unpublished; no video.
-- ~~**G-5** **No Our Story / Careers band**~~ **Partial 2026-09-23:** Newsroom filmstrip on homepage. Careers still footer-only.
+- ~~**G-5** **No Our Story / Careers band**~~ **Open again 2026-09-23:** Newsroom filmstrip removed with the Newsroom page. Careers still footer-only.
 - ~~**G-6** "For Founders" as chrome + feature tab.~~ **Resolved 2026-09-21
   (wireframe experiment):** founders path is overlay + close (header chrome link removed 2026-09-23); scroll is general.
 - ~~**G-7** JS tabs on the feature section.~~ **Resolved 2026-09-21:** tabs removed;
@@ -165,15 +164,15 @@ pick: B revised** — pending client sign-off (OI-1). Option 0 is labeled legacy
 
 ## 5. Sitemap reference
 
-**Locked L1 (2026-09-10 · finalized 2026-09-14 · revised 2026-09-15):** For
+**Locked L1 (2026-09-10 · finalized 2026-09-14 · revised 2026-09-23):** For
 Founders · **Vertical Software** · **Embedded Offerings** · Our Story · Careers.
 **For Investors was deleted.** **Vertical Software is a single page** — a sticky
 sidebar lists all 11 verticals and swaps a tabbed panel; **no child pages**, no
 category labels. **Hardware & Integrations were dropped** as separate pages (folded
 into Embedded Offerings / Payments). AI at Fullsteam is a page nested under Embedded
-Offerings. Under Our Story: **Newsroom** (`/our-story/newsroom`, single dynamic CMS
-page) and **Leadership** (`/our-story/leadership`, leaders only). **For Founders is
-a single-page leaf.** See `PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
+Offerings. Under Our Story: **Leadership** (`/our-story/leadership`, leaders only).
+**Newsroom was removed** (2026-09-23). **For Founders is a single-page leaf.** See
+`PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
 
 `prototypes/sitemap.html` is the inventory of pages (L1 = pages). The header does
 **not** need to list every L1 node; chrome, the Menu overlay, and the footer are
@@ -257,3 +256,6 @@ not L1 tree nodes.
 | 2026-09-23 | Mosaic H1 wrap: non-breaking spaces on “runs on.”; `.mosaic-head` **960px → 1200px** so the second line stays one line. Type size unchanged. `design.md` not edited. |
 | 2026-09-23 | Mosaic opening stack **150px higher**: `.mosaic-head` margin **200px → 50px**. Sticky chrome unchanged. `design.md` not edited. |
 | 2026-09-23 | Hero reveal: after the mosaic (headline + scattered tiles), the full-screen hero **slides up from the bottom** of the sticky pin. Replaces grow/clip-path over the mosaic. Mosaic H1, chrome, and lo-fi skin unchanged. `design.md` not edited. |
+| 2026-09-23 | **Mobile hero split (≤768px):** stacked opening — readable H1, 2-col vertical tiles on canvas, then full-bleed hero in document flow. Desktop keeps mosaic scatter + bottom-slide pin. Reduced-motion: no pin/scatter. Header chrome stays Logo · Menu · Explore. `design.md` not edited. |
+| 2026-09-23 | Mobile mosaic tiles become **full-width tabs** (label + small placeholder), stacked 1-col. Desktop scatter unchanged. `design.md` not edited. |
+| 2026-09-23 | **Newsroom removed** from sitemap and prototype (Menu, footer, homepage filmstrip). Our Story child is **Leadership** only. Desktop hero: **Retail tile grows** into the full-bleed stage (clip-path from the tile). Mobile still stacked tabs + in-flow hero. `design.md` not edited. |

@@ -408,10 +408,9 @@ is no investor nav node or dedicated investor page.
   Embedded Offerings overview.
 - **AI at Fullsteam is its own page, nested under Embedded Offerings** (not a
   top-level L1, not merely a section).
-- **Newsroom is a single dynamic CMS page** under Our Story, nested at
-  `/our-story/newsroom` (2026-09-10; nested 2026-09-14).
 - **Leadership is a page under Our Story** (2026-09-14, `/our-story/leadership`) —
   leaders only; no full staff listing (confidentiality rule).
+- **Newsroom is not in the sitemap** (removed 2026-09-23).
 - **For Founders stays a single-page leaf** (2026-09-14) — no sub-pages.
 
 ### Current site structure (as-is, for migration mapping)
@@ -455,7 +454,6 @@ EMBEDDED OFFERINGS                        (/offerings)         [hub]
 └─ Shown via concrete customer examples / case studies
 
 OUR STORY                                 (/our-story)
-├─ Newsroom                               (/our-story/newsroom) [single dynamic CMS page]
 └─ Leadership                             (/our-story/leadership) [leaders only]
 CAREERS                                   (/careers)           [leaf]
 
@@ -472,7 +470,7 @@ Privacy · Terms
 1. **For Founders**
 2. **Vertical Software** (hub)
 3. **Embedded Offerings** (hub)
-4. **Our Story** (+ Newsroom)
+4. **Our Story** (+ Leadership)
 5. **Careers** · **Contact** (utility)
 
 > Chrome may show fewer items than L1 (see `plans/header-sitemap-variants.md`);
@@ -481,8 +479,7 @@ Privacy · Terms
 ### 25-page design budget mapping
 
 Budget is manageable because most interior pages are **reusable templates**:
-Vertical Software (single tabbed page), Offering Detail (×3), Story, Newsroom
-(dynamic CMS), Leadership, Careers, Contact — plus bespoke pages (Home, For
+Vertical Software (single tabbed page), Offering Detail (×3), Story, Leadership, Careers, Contact — plus bespoke pages (Home, For
 Founders, Embedded Offerings Hub, AI at Fullsteam). Offering detail pages share a
 template, and the 11 verticals now live inside the Vertical Software page rather
 than as 11 pages, so the count is low (~13 designed pages against the 25-page cap,
@@ -520,10 +517,10 @@ leaving ~12 slots for e.g. Digital Marketing, 404, or future pages).
 - [x] ~~How many vertical detail pages to carry vs. group~~ — **revised 2026-09-15: none.** Vertical Software is a single page; the 11 verticals are in-page tabs (sticky sidebar), not pages.
 - [x] ~~AI placement~~ — locked: **own page nested under Offerings**.
 - [x] ~~Category pages / labels~~ — **removed**; no category labels and no category landing pages (2026-09-14).
-- [x] ~~**Our Story sub-pages**~~ — **resolved:** **Newsroom** (`/our-story/newsroom`, single dynamic CMS page) and **Leadership** (`/our-story/leadership`) are both nested under Our Story (2026-09-14).
+- [x] ~~**Our Story sub-pages**~~ — **resolved:** **Leadership** (`/our-story/leadership`) is nested under Our Story (2026-09-14). **Newsroom removed** 2026-09-23.
 - [x] ~~**For Founders funnel**~~ — **resolved:** stays a single-page leaf with the four locked sections (2026-09-14).
 - [ ] **Investor path** — with the nav node deleted, confirm the exact homepage proof + Contact path that serves investors. *(Sitemap impact: none — no nav node or page.)*
-- [x] ~~**URL / migration map**~~ — **resolved** (kept in `plans/sitemap-lock.md`): `/our-verticals` + 11 top-level vertical slugs → `/vertical-software` (with `#<vertical>` anchors); `/acquisition` → `/for-founders`; `/about` → `/our-story`; `/newsroom` → `/our-story/newsroom`; add `/our-story/leadership`.
+- [x] ~~**URL / migration map**~~ — **resolved** (kept in `plans/sitemap-lock.md`): `/our-verticals` + 11 top-level vertical slugs → `/vertical-software` (with `#<vertical>` anchors); `/acquisition` → `/for-founders`; `/about` → `/our-story`; `/newsroom` → `/our-story` (Newsroom page removed 2026-09-23); add `/our-story/leadership`.
 
 ---
 
@@ -1225,7 +1222,7 @@ conversational, implied scale):
 The remaining slots in the 10-page budget are not named in the brief. Natural
 candidates against the locked tree (confirm in outline approval): **For
 Founders**, **Payments / Lending / Insurance** (offering details), **AI at
-Fullsteam**, **Careers**, **Leadership**, **Newsroom**, **Contact**. Kickoff
+Fullsteam**, **Careers**, **Leadership**, **Contact**. Kickoff
 exclusions still apply (§11): privacy, terms, licensing, employee bios, product
 descriptions, translation.
 

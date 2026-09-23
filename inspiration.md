@@ -193,13 +193,10 @@ constraint.
    not a named acquisition (G5). Leadership only, never full staff. Do not present
    this as a testimonial of a customer relationship; it is a founder/partner voice.
 
-5. **News as a filmstrip, not an archive dump.** Their insights strip gives
-   thought-leadership credibility without a wall of links — though note they *do*
-   paste the whole archive, including 2018 posts. **Fullsteam analog:** Newsroom
-   teasers as credibility, matching the locked IA (Newsroom sits under Our Story).
-   **Constraint:** show a small, current subset on the homepage; the full set lives
-   on the Newsroom page. Also helps close **G-5** in `wireframes.md` (currently no
-   Our Story / Careers band on the homepage).
+5. **News as a filmstrip, not an archive dump.** Their insights strip is a
+   thought-leadership pattern. **Fullsteam analog:** do not add a Newsroom page or
+   homepage filmstrip (Newsroom is off the sitemap, 2026-09-23). Credibility stays
+   on Our Story / Leadership and allowlisted proof.
 
 *Lighter, optional:* a **3-up KPI strip** after the industry filmstrip (same KPI
 allowlist constraint); a **benefit bento** — but only if it frames *who we are /
@@ -226,7 +223,7 @@ what we add*, never as a feature matrix.
 #### Delta vs. Fullsteam's current wireframe
 
 `homepage-bendingspoons-style.html` already has a 7-beat structure: sticky chrome →
-mosaic → hero-rises-from-bottom → who-we-are (02) → software (03) → offerings (04)
+mosaic → Retail-tile grow-hero → who-we-are (02) → software (03) → offerings (04)
 → AI (05) → industries (06) → founders close (07).
 
 **Localyzer's real delta is not IA — it is three placements.** Nothing here
@@ -238,8 +235,8 @@ justifies changing the locked sitemap.
 | No proof in the first viewport — proof is buried at beats 03 and 06 | Logo / scale-proof strip directly under the first story beat |
 | Beat 06 proof is a static filmstrip; the scrolling pin is spent on the hero | Pin that cycles 2–3 statistics from the KPI allowlist |
 
-Plus two additions: a **quote block before the close**, and a **Newsroom filmstrip**
-(G-5 open; G-4 remains open).
+Plus a **quote block before the close**. Do not add a Newsroom filmstrip (Newsroom
+is off the sitemap, 2026-09-23). G-4 remains open for video.
 
 #### If this is ever implemented
 
@@ -253,8 +250,8 @@ Plus two additions: a **quote block before the close**, and a **Newsroom filmstr
 way of introducing broad verticals").
 
 **What we took:** full-bleed overlay hero with type over the image; a mosaic of
-verticals as the opening move, then a **separate** full-screen hero that **rises
-from the bottom** (not a grow/clip of the mosaic tiles); a two-up
+verticals as the opening move, then the **Retail tile growing** into the full-screen
+hero (clip-path from that tile’s rect — not a panel sliding up); a two-up
 "who we are" pair; open image+copy scenes; an industry filmstrip for proof.
 
 **Where it lives:** the current homepage wireframe, with a full section table in
@@ -263,6 +260,12 @@ list — this entry records only why Square was chosen.
 
 **Still open on this reference:** the verticals marquee was removed 2026-09-23, so
 the mosaic now carries vertical naming alone. See `wireframes.md` §8 changelog.
+
+**Desktop vs mobile split (layout pattern, 2026-09-23):** Square’s pinned mosaic +
+**Retail tile grow-hero** is a **wide-viewport** beat. On small screens (≤768px) we do
+**not** run scatter, sticky pin, or overlay. The same story is a stack in document
+flow: headline → full-width vertical tabs (all on canvas) → full-bleed hero as the next
+section. Reduced-motion uses that in-flow stack on every width.
 
 ---
 
@@ -317,10 +320,6 @@ When a new reference is studied:
 **Do not** edit `design.md` or a wireframe on the strength of this file alone.
 Patterns move: discovery/KB → `design.md` intent → wireframe execution. See the
 boundary rules in [`wireframes.md`](./wireframes.md) §0.
-
-> before beat 07. Replace any long article list with a **Newsroom filmstrip**.
-
-Not approved. Not started. Recorded here so the study isn't lost.
 
 ---
 

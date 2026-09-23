@@ -112,6 +112,6 @@ No IA page count change. No new sitemap branches. This is chrome + overlay prese
   **Embedded Offerings = Payments, Lending, Insurance + AI**; **Hardware &
   Integrations dropped as separate pages** (folded in).
 - **AI at Fullsteam = its own page nested under Embedded Offerings** (not top-level).
-- **Newsroom = single dynamic CMS page** under Our Story.
+- **Leadership = page under Our Story.** **Newsroom is not in the sitemap** (removed 2026-09-23).
 - Canonical tree: `PROJECT_KNOWLEDGE_BASE.md` §14. Chrome/overlay/footer must use
   these labels and reach every L1 node; chrome may still show fewer items.

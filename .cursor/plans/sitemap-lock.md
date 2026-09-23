@@ -1,6 +1,6 @@
 ---
 name: Sitemap lock
-overview: Lock the Fullsteam.com L1 tree and page inventory (For Investors deleted; Vertical Software a single tabbed page with a sticky sidebar — no child pages; Embedded Offerings = Payments/Lending/Insurance/AI; Newsroom + Leadership under Our Story), then reconcile every sitemap/chrome/design artifact to the locked tree.
+overview: Lock the Fullsteam.com L1 tree and page inventory (For Investors deleted; Vertical Software a single tabbed page with a sticky sidebar — no child pages; Embedded Offerings = Payments/Lending/Insurance/AI; Leadership under Our Story; Newsroom removed), then reconcile every sitemap/chrome/design artifact to the locked tree.
 todos:
   - id: lock-decisions
     content: "Confirm lock decisions: delete For Investors, AI page under Offerings, all 11 vertical pages (one template), Vertical Software hub with find-your-vertical"
@@ -37,10 +37,10 @@ todos:
     status: completed
 authored: 2026-09-10
 finalized: 2026-09-14
-revised: 2026-09-15
+revised: 2026-09-23
 ---
 
-# Sitemap lock (2026-09-10 · finalized 2026-09-14 · revised 2026-09-15)
+# Sitemap lock (2026-09-10 · finalized 2026-09-14 · revised 2026-09-23)
 
 ## Locked tree
 
@@ -55,7 +55,6 @@ HOME                                      (/)
 │   │   (Hardware & Integrations folded in — no separate pages)
 │   └─ AI at Fullsteam                   (/offerings/ai)      own page, nested
 ├─ Our Story                             (/our-story)
-│   ├─ Newsroom                          (/our-story/newsroom) single dynamic CMS page
 │   └─ Leadership                        (/our-story/leadership) page (leaders only)
 └─ Careers                               (/careers)           leaf
 
@@ -81,10 +80,9 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
   comments #8/#9), folded into Payments / the Embedded Offerings overview.
 - **AI at Fullsteam is its own page nested under Embedded Offerings** (not
   top-level, not a section).
-- **Newsroom is a single dynamic CMS page** under Our Story, nested at
-  `/our-story/newsroom` (2026-09-10; nested 2026-09-14).
 - **Leadership is a page under Our Story** at `/our-story/leadership`
   (2026-09-14) — leaders only, per the confidentiality rule (no full staff listing).
+- **Newsroom removed** (2026-09-23) — no nav node, no page, no homepage filmstrip.
 - **For Founders is a single-page leaf** (2026-09-14) — no sub-pages.
 - **No category labels** (2026-09-14) — the 11 verticals stay a flat list in the
   sidebar. (Category labels were deleted after the client call; supersedes the
@@ -146,11 +144,17 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
   `prototypes/meganav-rationale.html`, `plans/header-sitemap-variants.md` + both
   `.cursor` mirrors, both plan copies.
 
+### Revision (2026-09-23) — Newsroom removed
+
+- **Newsroom deleted** from the locked tree (no nav node, no page). Existing
+  `/newsroom` and `/our-story/newsroom` migrate to `/our-story`.
+- Homepage overlay, footer, and news filmstrip stripped. Our Story child is
+  **Leadership** only.
+
 ## Open items — resolved (2026-09-14)
 
-- [x] **Our Story sub-pages** — **Newsroom** (`/our-story/newsroom`) is a single
-      dynamic CMS page; **Leadership** (`/our-story/leadership`) is a page. Both
-      nested under Our Story.
+- [x] **Our Story sub-pages** — **Leadership** (`/our-story/leadership`) is a page
+      nested under Our Story. **Newsroom removed** 2026-09-23 (no page).
 - [x] **Leadership** — **separate page** under Our Story (`/our-story/leadership`),
       not a section. Uses one of the free budget slots.
 - [x] **Category pages** — **no category labels and no landing pages.** The hub keeps
@@ -160,6 +164,6 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
 - [x] **URL / migration map** — **kept in this lock doc only**, not on the HTML page:
       `/our-verticals` + 11 vertical slugs → `/vertical-software` (with `#<vertical>`
       anchors); `/acquisition` → `/for-founders`; `/about` → `/our-story`;
-      `/newsroom` → `/our-story/newsroom`; add `/our-story/leadership`.
+      `/newsroom` → `/our-story` (Newsroom page removed 2026-09-23); add `/our-story/leadership`.
 
 > No open sitemap items remain. Future changes fall under the SOW's revision rounds.

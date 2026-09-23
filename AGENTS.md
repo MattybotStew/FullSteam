@@ -38,8 +38,8 @@ This file is the canonical agent entry point (works with Cursor, which reads
   voice, copy pillars, dates through 2026-11-11).
 - **Sitemap locked (2026-09-10, finalized 2026-09-14):** L1 = For Founders ·
   **Vertical Software** · **Embedded Offerings** · Our Story · Careers. **For
-  Investors removed** (no nav node, no page). Under Our Story: **Newsroom** (single
-  dynamic CMS page) and **Leadership**. For Founders is a single-page leaf; no
+  Investors removed** (no nav node, no page). Under Our Story: **Leadership**.
+  **Newsroom removed** (2026-09-23). For Founders is a single-page leaf; no
   category landing pages. See `plans/sitemap-lock.md` and KB §14.
 - We are in the **Sitemap/Wireframe** milestone; the **homepage** is the active
   design surface and is still being iterated.
@@ -78,7 +78,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Embedded Offerings = Payments, Lending, Insurance + AI at Fullsteam.**
   **Hardware and Integrations are not separate pages** (folded into Payments /
   the Embedded Offerings overview), 2026-09-10.
-- **Newsroom** (`/our-story/newsroom`) and **Leadership** (`/our-story/leadership`) are both pages under Our Story (2026-09-14).
+- **Leadership** (`/our-story/leadership`) is a page under Our Story (2026-09-14). **Newsroom is not in the sitemap** (removed 2026-09-23).
 - CMS is Duda and is likely retained.
 
 ### From discovery interviews (§20) — apply these before messaging decisions

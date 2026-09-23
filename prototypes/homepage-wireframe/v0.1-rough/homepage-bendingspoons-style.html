@@ -182,7 +182,7 @@
   }
   .t1{ width:13%; left:-4%; top:6%; }
   .t2{ width:11%; left:18%; top:18%; }
-  .t3{ width:14%; left:38%; top:8%; }
+  .t3{ width:14%; left:38%; top:8%; z-index:2; }
   .t4{ width:12%; left:60%; top:22%; }
   .t5{ width:13%; right:-5%; top:10%; }
   .t6{ width:12%; left:2%; top:48%; }
@@ -208,10 +208,12 @@
     padding:80px 24px 88px;
     overflow:hidden;
     background:var(--ph);
-    z-index:2;
-    transform:translateY(100%);
+    z-index:3;
+    transform:none;
+    opacity:0;
+    clip-path:inset(100% 0 0 0);
     pointer-events:none;
-    will-change:transform;
+    will-change:clip-path, opacity;
   }
   .hero.is-open{ pointer-events:auto; }
   .hero-bg{
@@ -396,25 +398,6 @@
     font-family:var(--mono); font-size:12px;
   }
 
-  .news{
-    padding:88px 24px 96px; background:var(--bg);
-  }
-  .news-head{
-    max-width:1280px; margin:0 auto 28px;
-    display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:end;
-  }
-  .news h2{
-    font-size:clamp(28px,4vw,44px); font-weight:700; letter-spacing:-.03em;
-    max-width:16ch; line-height:1.08;
-  }
-  .news-film{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
-    max-width:1280px; margin:0 auto;
-  }
-  .news-card .img-ph{ aspect-ratio:16/10; min-height:0; }
-  .news-card .when{ font-family:var(--mono); font-size:11px; margin-top:12px; }
-  .news-card h3{ font-size:16px; font-weight:600; margin-top:6px; line-height:1.3; max-width:22ch; }
-
   .close{
     padding:120px 24px 100px; text-align:center; background:var(--bg);
   }
@@ -444,12 +427,172 @@
     .pair, .scene{ grid-template-columns:1fr; }
     .scene.is-flip .scene-copy{ order:0; }
     .hero-copy h2{ font-size:32px; }
-    .hero-pin{ height:220vh; }
-    .mosaic-head{ margin:80px auto; }
-    .t5,.t11{ width:16%; }
     .film{ height:380px; }
     .film-card:not(.is-feature) .film-name{ font-size:16px; }
-    .news-film{ grid-template-columns:1fr 1fr; }
+  }
+
+  /* Mobile / reduced-motion: stacked opening — no pin, scatter, or overlay */
+  .hero-pin.is-flow{
+    height:auto;
+  }
+  .hero-pin.is-flow .hero-sticky{
+    position:static;
+    height:auto;
+    overflow:visible;
+  }
+  .hero-pin.is-flow .mosaic{
+    position:relative;
+    inset:auto;
+    padding:8px 16px 28px;
+    overflow:visible;
+    pointer-events:auto;
+  }
+  .hero-pin.is-flow .mosaic-head{
+    width:100%;
+    margin:20px auto 24px;
+    pointer-events:auto;
+  }
+  .hero-pin.is-flow .mosaic-head h1{
+    font-size:clamp(28px, 8.2vw, 40px);
+    letter-spacing:-.025em;
+    line-height:1.12;
+  }
+  .hero-pin.is-flow .mosaic-grid{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+    gap:10px;
+    flex:none;
+    height:auto;
+    width:100%;
+    overflow:visible;
+  }
+  .hero-pin.is-flow .mosaic-tile{
+    position:relative;
+    width:100%;
+    left:auto;
+    right:auto;
+    top:auto;
+    aspect-ratio:1;
+  }
+  .hero-pin.is-flow .hero{
+    position:relative;
+    min-height:calc(100svh - 57px);
+    transform:none;
+    clip-path:none;
+    opacity:1;
+    pointer-events:auto;
+    will-change:auto;
+    padding:64px 20px 72px;
+  }
+  .hero-pin.is-flow .hero-copy{
+    opacity:1;
+    min-width:0;
+    width:100%;
+  }
+
+  @media (max-width:768px){
+    .nav{
+      padding:10px 16px;
+      gap:10px;
+    }
+    .nav-right{
+      gap:10px;
+      min-width:0;
+      flex:1;
+      justify-content:flex-end;
+    }
+    .menu-btn{ flex-shrink:0; }
+    .pill{
+      padding:8px 12px;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .hero-pin{ height:auto; }
+    .hero-sticky{
+      position:static;
+      height:auto;
+      overflow:visible;
+    }
+    .mosaic{
+      position:relative;
+      inset:auto;
+      padding:8px 16px 28px;
+      overflow:visible;
+      pointer-events:auto;
+    }
+    .mosaic-head{
+      width:100%;
+      margin:20px auto 24px;
+      pointer-events:auto;
+    }
+    .mosaic-head h1{
+      font-size:clamp(28px, 8.2vw, 40px);
+      letter-spacing:-.025em;
+      line-height:1.12;
+    }
+    .mosaic-grid,
+    .hero-pin.is-flow .mosaic-grid{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:none;
+      height:auto;
+      width:100%;
+      overflow:visible;
+    }
+    .mosaic-tile,
+    .hero-pin.is-flow .mosaic-tile{
+      position:relative;
+      display:flex;
+      align-items:center;
+      width:100%;
+      left:auto;
+      right:auto;
+      top:auto;
+      aspect-ratio:auto;
+      height:52px;
+      border-radius:8px;
+      background:#e8e4dc;
+    }
+    .mosaic-tile .img-ph,
+    .hero-pin.is-flow .mosaic-tile .img-ph{
+      width:52px;
+      height:52px;
+      flex-shrink:0;
+      min-height:0;
+    }
+    .mosaic-tile .img-ph::after,
+    .hero-pin.is-flow .mosaic-tile .img-ph::after{ width:18px; height:18px; }
+    .mosaic-label,
+    .hero-pin.is-flow .mosaic-label{
+      position:static;
+      left:auto; right:auto; bottom:auto;
+      flex:1;
+      padding:0 14px;
+      font-size:15px;
+      font-weight:700;
+      color:var(--ink);
+      text-shadow:none;
+    }
+    .hero{
+      position:relative;
+      min-height:calc(100svh - 57px);
+      transform:none;
+      clip-path:none;
+      opacity:1;
+      pointer-events:auto;
+      will-change:auto;
+      padding:64px 20px 72px;
+    }
+    .hero-copy{
+      opacity:1;
+      min-width:0;
+      width:100%;
+    }
+    .hero-copy h2{ font-size:30px; }
+    .hero-copy p{ font-size:16px; }
   }
 </style>
 </head>
@@ -501,7 +644,7 @@
         </div>
         <div>
           <h3>Our Story</h3>
-          <ul><li><a href="#story">History · leadership</a></li><li><a href="#story">Newsroom</a></li></ul>
+          <ul><li><a href="#story">History · leadership</a></li></ul>
           <h3 style="margin-top:16px">Careers</h3>
           <ul><li><a href="#story">Culture · open roles</a></li></ul>
         </div>
@@ -521,7 +664,7 @@
       <div class="mosaic" id="mosaic">
         <div class="mosaic-head">
           <p class="mosaic-kicker">For founders of industry software</p>
-          <h1>Whatever the industry,<br>we own the software it&nbsp;runs&nbsp;on.</h1>
+          <h1>Whatever the industry,<br>we own the software it runs&nbsp;on.</h1>
           <p class="mosaic-sub">The software they already run. We keep it.</p>
         </div>
         <div class="mosaic-grid">
@@ -687,38 +830,6 @@
     </blockquote>
   </section>
 
-  <section class="news" id="news">
-    <div class="news-head">
-      <div>
-        <p class="beat">Newsroom</p>
-        <h2>What's happening.</h2>
-      </div>
-      <a class="text-link" href="#">View Newsroom</a>
-    </div>
-    <div class="news-film">
-      <a class="news-card" href="#">
-        <span class="img-ph" aria-hidden="true"></span>
-        <p class="when">Date [placeholder]</p>
-        <h3>A company note. Generic until publishable.</h3>
-      </a>
-      <a class="news-card" href="#">
-        <span class="img-ph" aria-hidden="true"></span>
-        <p class="when">Date [placeholder]</p>
-        <h3>Leadership, not a staff announcement.</h3>
-      </a>
-      <a class="news-card" href="#">
-        <span class="img-ph" aria-hidden="true"></span>
-        <p class="when">Date [placeholder]</p>
-        <h3>A vertical in the news. No named acquisition.</h3>
-      </a>
-      <a class="news-card" href="#">
-        <span class="img-ph" aria-hidden="true"></span>
-        <p class="when">Date [placeholder]</p>
-        <h3>How we grow software we already own.</h3>
-      </a>
-    </div>
-  </section>
-
   <section class="close" id="founders">
     <p class="beat">07 — Keep going</p>
     <h2>Ready to see where your business can go next?</h2>
@@ -733,7 +844,6 @@
         <a href="#">Our Story</a>
         <a href="#">Leadership</a>
         <a href="#">Careers</a>
-        <a href="#">Newsroom</a>
       </div>
       <div>
         <div class="fh">Explore</div>
@@ -769,32 +879,70 @@
       const mosaic = document.getElementById("mosaic");
       const hero = document.getElementById("heroStage");
       const copy = document.getElementById("heroCopy");
-      if (!pin || !hero) return;
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const sticky = pin && pin.querySelector(".hero-sticky");
+      const retail = pin && pin.querySelector(".mosaic-tile.t3");
+      const head = pin && pin.querySelector(".mosaic-head");
+      if (!pin || !hero || !sticky || !retail) return;
+      const others = [...pin.querySelectorAll(".mosaic-tile")].filter((t) => t !== retail);
+      const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const mobileMq = window.matchMedia("(max-width: 768px)");
       const apply = (p) => {
         pin.style.setProperty("--p", String(p));
-        /* Hold mosaic (headline + scattered tiles) until ~40% of the pin, then slide the hero up. */
-        const rise = Math.max(0, Math.min(1, (p - 0.4) / 0.48));
-        hero.style.transform = "translateY(" + ((1 - rise) * 100) + "%)";
-        mosaic.style.pointerEvents = rise > 0.08 ? "none" : "auto";
-        copy.style.opacity = String(Math.max(0, Math.min(1, (p - 0.62) / 0.22)));
-        hero.classList.toggle("is-open", rise > 0.55);
+        const grow = Math.max(0, Math.min(1, (p - 0.22) / 0.55));
+        const fade = Math.max(0, Math.min(1, (p - 0.1) / 0.28));
+        if (head) head.style.opacity = String(1 - fade);
+        others.forEach((t) => { t.style.opacity = String(1 - fade); });
+        retail.style.opacity = grow > 0.02 ? "0" : "1";
+        const sr = sticky.getBoundingClientRect();
+        const tr = retail.getBoundingClientRect();
+        const top = Math.max(0, tr.top - sr.top) * (1 - grow);
+        const left = Math.max(0, tr.left - sr.left) * (1 - grow);
+        const bottom = Math.max(0, sr.bottom - tr.bottom) * (1 - grow);
+        const right = Math.max(0, sr.right - tr.right) * (1 - grow);
+        const radius = 12 * (1 - grow);
+        hero.style.clipPath = "inset(" + top + "px " + right + "px " + bottom + "px " + left + "px round " + radius + "px)";
+        hero.style.transform = "none";
+        hero.style.opacity = grow > 0 ? "1" : "0";
+        mosaic.style.pointerEvents = grow > 0.08 ? "none" : "auto";
+        copy.style.opacity = String(Math.max(0, Math.min(1, (grow - 0.42) / 0.4)));
+        hero.classList.toggle("is-open", grow > 0.5);
       };
-      if (reduce){
-        apply(1);
-        pin.style.height = "auto";
-        return;
-      }
-      apply(0);
+      const useFlow = () => reduceMq.matches || mobileMq.matches;
       const tick = () => {
+        if (useFlow()) return;
         const top = pin.getBoundingClientRect().top;
         const range = pin.offsetHeight - window.innerHeight;
         const p = Math.max(0, Math.min(1, (57 - top) / Math.max(1, range)));
         apply(p);
       };
+      const clearTileStyles = () => {
+        if (head) head.style.opacity = "";
+        others.forEach((t) => { t.style.opacity = ""; });
+        retail.style.opacity = "";
+      };
+      const syncMode = () => {
+        if (useFlow()){
+          pin.classList.add("is-flow");
+          pin.style.height = "auto";
+          hero.style.transform = "none";
+          hero.style.clipPath = "none";
+          hero.style.opacity = "1";
+          mosaic.style.pointerEvents = "auto";
+          copy.style.opacity = "1";
+          hero.classList.add("is-open");
+          clearTileStyles();
+          return;
+        }
+        pin.classList.remove("is-flow");
+        pin.style.height = "";
+        apply(0);
+        tick();
+      };
       window.addEventListener("scroll", tick, { passive: true });
-      window.addEventListener("resize", tick);
-      tick();
+      window.addEventListener("resize", syncMode);
+      if (mobileMq.addEventListener) mobileMq.addEventListener("change", syncMode);
+      if (reduceMq.addEventListener) reduceMq.addEventListener("change", syncMode);
+      syncMode();
     })();
 
     (function filmStrip(){
