@@ -21,7 +21,7 @@
     --img-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8C8C8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='1.5'/%3E%3Ccircle cx='8.5' cy='9.5' r='1.6'/%3E%3Cpath d='M4 17.5 9 12.5l3.5 3.5L16 12l5 5.5'/%3E%3C/svg%3E");
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
+  html{ scroll-behavior:smooth; overflow-x:hidden; }
   body{ font-family:var(--sans); color:var(--ink); background:var(--bg); }
   a{ color:var(--ink); text-decoration:none; }
   button{ font-family:inherit; cursor:pointer; color:var(--ink); }
@@ -111,9 +111,9 @@
     overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
   }
 
-  /* Square: mosaic of verticals, then hero grows full-screen on scroll */
+  /* Mosaic first; then a separate full-screen hero rises from the bottom */
   .hero-pin{
-    height:240vh;
+    height:280vh;
     --p:0;
   }
   .hero-sticky{
@@ -126,49 +126,78 @@
   .mosaic{
     position:absolute; inset:0;
     z-index:1;
+    display:flex; flex-direction:column;
+    padding:0 32px;
+    overflow:visible;
     pointer-events:none;
+  }
+  .mosaic-head{
+    width:min(1200px, 100%);
+    margin:50px auto;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    pointer-events:none;
+  }
+  .mosaic-kicker{
+    font-family:var(--sans);
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink);
+    margin-bottom:16px;
+  }
+  .mosaic-head h1{
+    width:100%;
+    margin:0;
+    text-align:center;
+    font-family:var(--sans);
+    font-size:clamp(38px,6.08vw,68.4px);
+    font-weight:900; letter-spacing:-.03em; line-height:1.05;
+    color:var(--ink);
+  }
+  .mosaic-sub{
+    margin-top:16px;
+    font-size:16px;
+    line-height:1.4;
+    color:var(--ink);
+    max-width:42ch;
+  }
+  .mosaic-grid{
+    position:relative;
+    flex:1; min-height:0;
+    width:100%;
+    height:140%;
+    overflow:visible;
+    pointer-events:auto;
   }
   .mosaic-tile{
     position:absolute;
     overflow:hidden;
-    border-radius:14px;
-    pointer-events:auto;
-    transform:scale(calc(1 + var(--p) * 0.08));
-    opacity:calc(1 - var(--p) * 1.15);
+    border-radius:12px;
+    display:block;
+    aspect-ratio:1;
   }
+  .t1{ width:13%; left:-4%; top:6%; }
+  .t2{ width:11%; left:18%; top:18%; }
+  .t3{ width:14%; left:38%; top:8%; }
+  .t4{ width:12%; left:60%; top:22%; }
+  .t5{ width:13%; right:-5%; top:10%; }
+  .t6{ width:12%; left:2%; top:48%; }
+  .t7{ width:15%; left:24%; top:56%; }
+  .t8{ width:11%; left:50%; top:62%; }
+  .t9{ width:13%; right:-2%; top:52%; }
+  .t10{ width:12%; left:12%; top:88%; }
+  .t11{ width:14%; right:10%; top:94%; }
   .mosaic-tile .img-ph{ height:100%; min-height:0; }
   .mosaic-tile .img-ph::after{ width:28px; height:28px; }
-  .mosaic-doodle{
-    background:var(--bg);
-    border:2px solid var(--ink);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .mosaic-doodle svg{ width:55%; height:55%; stroke:var(--ink); fill:none; stroke-width:1.6; }
-  .t1{ width:11%; aspect-ratio:1; left:8%; top:6%; }
-  .t2{ width:9%; aspect-ratio:1; left:28%; top:4%; }
-  .t3{ width:10%; aspect-ratio:1; left:52%; top:5%; }
-  .t4{ width:12%; aspect-ratio:1; right:7%; top:3%; }
-  .t5{ width:10%; aspect-ratio:1; left:2%; top:32%; }
-  .t6{ width:8%; aspect-ratio:1; left:22%; top:30%; }
-  .t7{ width:11%; aspect-ratio:1; left:42%; top:28%; }
-  .t8{ width:10%; aspect-ratio:1; left:64%; top:31%; }
-  .t9{ width:11%; aspect-ratio:1; right:1%; top:36%; }
-  .t10{ width:10%; aspect-ratio:1; left:6%; bottom:18%; }
-  .t11{ width:9%; aspect-ratio:1; left:26%; bottom:16%; }
-  .t12{ width:11%; aspect-ratio:1; left:48%; bottom:14%; }
-  .t13{ width:13%; aspect-ratio:1; right:10%; bottom:18%; }
-  .t14{ width:8%; aspect-ratio:1; left:18%; bottom:2%; }
-  .t15{ width:10%; aspect-ratio:1; right:22%; bottom:1%; }
-  .mosaic-line{
-    position:absolute; left:50%; top:52%;
-    transform:translate(-50%,-50%);
-    width:min(18em, 86vw);
-    text-align:center;
-    font-size:clamp(22px,3.2vw,36px);
-    font-weight:500; letter-spacing:-.02em; line-height:1.25;
-    z-index:3; pointer-events:none;
-    padding:8px 12px;
-    opacity:calc(1 - var(--p) * 2.4);
+  .mosaic-label{
+    position:absolute; left:10px; right:10px; bottom:10px; z-index:2;
+    color:#fff; font-size:13px; font-weight:700;
+    letter-spacing:-.01em; line-height:1.2;
+    text-shadow:0 1px 8px rgba(0,0,0,.55);
   }
   .hero{
     position:absolute; inset:0;
@@ -180,9 +209,9 @@
     overflow:hidden;
     background:var(--ph);
     z-index:2;
-    clip-path:inset(32% 26% 32% 26% round 16px);
+    transform:translateY(100%);
     pointer-events:none;
-    opacity:0;
+    will-change:transform;
   }
   .hero.is-open{ pointer-events:auto; }
   .hero-bg{
@@ -202,8 +231,8 @@
     max-width:960px;
     opacity:0;
   }
-  .hero .beat, .hero h1, .hero-copy p{ color:#fff; }
-  .hero h1{
+  .hero .beat, .hero-copy h2, .hero-copy p{ color:#fff; }
+  .hero-copy h2{
     font-size:clamp(36px,5.8vw,68px);
     font-weight:700; letter-spacing:-.03em; line-height:1.05;
     margin-bottom:16px;
@@ -219,6 +248,19 @@
     color:#fff; font-size:15px; font-weight:600;
     border-bottom:1px solid #fff; padding:8px 0;
   }
+  .hero-kicker{
+    font-family:var(--mono); font-size:12px; letter-spacing:.1em;
+    text-transform:uppercase; color:#fff;
+    margin-bottom:16px; max-width:42ch; line-height:1.4;
+  }
+  .hero-copy .hero-kicker{ font-size:12px; max-width:42ch; margin-bottom:16px; }
+  .proof-strip{
+    display:flex; flex-wrap:wrap; gap:32px 64px; justify-content:center;
+    padding:32px 24px; text-align:center;
+    border-bottom:1px solid var(--line); background:var(--bg);
+  }
+  .proof-strip .num{ font-size:clamp(24px,3vw,32px); font-weight:700; letter-spacing:-.04em; }
+  .proof-strip .lbl{ font-family:var(--mono); font-size:11px; margin-top:6px; max-width:16ch; margin-left:auto; margin-right:auto; }
 
   .band{ padding:96px 0 88px; background:var(--bg); }
   .band.tan{ background:var(--tan); }
@@ -339,6 +381,40 @@
   .grow-verts a{ color:var(--white); border-bottom:1px solid rgba(255,255,255,.45); padding-bottom:2px; }
   .grow .note{ font-family:var(--mono); font-size:11px; color:var(--white); }
 
+  .voice{
+    padding:96px 24px; background:var(--tan); text-align:center;
+  }
+  .voice blockquote{
+    max-width:960px; margin:0 auto;
+  }
+  .voice blockquote p{
+    font-size:clamp(24px,3.4vw,40px); font-weight:500; letter-spacing:-.03em;
+    line-height:1.2; margin-bottom:20px;
+  }
+  .voice footer{
+    background:none; border:0; padding:0;
+    font-family:var(--mono); font-size:12px;
+  }
+
+  .news{
+    padding:88px 24px 96px; background:var(--bg);
+  }
+  .news-head{
+    max-width:1280px; margin:0 auto 28px;
+    display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:end;
+  }
+  .news h2{
+    font-size:clamp(28px,4vw,44px); font-weight:700; letter-spacing:-.03em;
+    max-width:16ch; line-height:1.08;
+  }
+  .news-film{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+    max-width:1280px; margin:0 auto;
+  }
+  .news-card .img-ph{ aspect-ratio:16/10; min-height:0; }
+  .news-card .when{ font-family:var(--mono); font-size:11px; margin-top:12px; }
+  .news-card h3{ font-size:16px; font-weight:600; margin-top:6px; line-height:1.3; max-width:22ch; }
+
   .close{
     padding:120px 24px 100px; text-align:center; background:var(--bg);
   }
@@ -367,11 +443,13 @@
     .solutions-split{ grid-template-columns:1fr; gap:16px; }
     .pair, .scene{ grid-template-columns:1fr; }
     .scene.is-flip .scene-copy{ order:0; }
-    .hero h1{ font-size:32px; }
-    .hero-pin{ height:180vh; }
-    .t4,.t9,.t14,.t15{ display:none; }
+    .hero-copy h2{ font-size:32px; }
+    .hero-pin{ height:220vh; }
+    .mosaic-head{ margin:80px auto; }
+    .t5,.t11{ width:16%; }
     .film{ height:380px; }
     .film-card:not(.is-feature) .film-name{ font-size:16px; }
+    .news-film{ grid-template-columns:1fr 1fr; }
   }
 </style>
 </head>
@@ -441,28 +519,31 @@
   <div class="hero-pin" id="top">
     <div class="hero-sticky">
       <div class="mosaic" id="mosaic">
-        <a class="mosaic-tile t1" href="#solutions"><span class="img-ph"></span><span class="sr-only">Hospitality</span></a>
-        <span class="mosaic-tile mosaic-doodle t2" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 42V18M24 18c0-8 8-12 8-18"/><path d="M24 22c-6 2-10 8-10 14h20c0-6-4-12-10-14"/><circle cx="24" cy="10" r="3"/></svg></span>
-        <a class="mosaic-tile t3" href="#solutions"><span class="img-ph"></span><span class="sr-only">ERP</span></a>
-        <span class="mosaic-tile mosaic-doodle t4" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="10" y="8" width="20" height="32" rx="2"/><path d="M30 16h10l-4 8 4 8H30"/></svg></span>
-        <a class="mosaic-tile t5" href="#solutions"><span class="img-ph"></span><span class="sr-only">Retail</span></a>
-        <span class="mosaic-tile mosaic-doodle t6" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M14 38V18l10-10 10 10v20"/><path d="M14 38h20"/></svg></span>
-        <a class="mosaic-tile t7" href="#solutions"><span class="img-ph"></span><span class="sr-only">Wine</span></a>
-        <a class="mosaic-tile t8" href="#solutions"><span class="img-ph"></span><span class="sr-only">Transportation</span></a>
-        <a class="mosaic-tile t9" href="#solutions"><span class="img-ph"></span><span class="sr-only">Automotive</span></a>
-        <a class="mosaic-tile t10" href="#solutions"><span class="img-ph"></span><span class="sr-only">Field Services</span></a>
-        <a class="mosaic-tile t11" href="#solutions"><span class="img-ph"></span><span class="sr-only">Health &amp; Wellness</span></a>
-        <a class="mosaic-tile t12" href="#solutions"><span class="img-ph"></span><span class="sr-only">Storage</span></a>
-        <span class="mosaic-tile mosaic-doodle t13" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M12 18h24l-3 18H15z"/><path d="M18 18V14a6 6 0 0 1 12 0v4"/></svg></span>
-        <a class="mosaic-tile t14" href="#solutions"><span class="img-ph"></span><span class="sr-only">Associations</span></a>
-        <a class="mosaic-tile t15" href="#solutions"><span class="img-ph"></span><span class="sr-only">Weddings</span></a>
-        <p class="mosaic-line">Whatever the industry, we own the software it runs on.</p>
+        <div class="mosaic-head">
+          <p class="mosaic-kicker">For founders of industry software</p>
+          <h1>Whatever the industry,<br>we own the software it&nbsp;runs&nbsp;on.</h1>
+          <p class="mosaic-sub">The software they already run. We keep it.</p>
+        </div>
+        <div class="mosaic-grid">
+          <a class="mosaic-tile t1" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Hospitality</span></a>
+          <a class="mosaic-tile t2" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">ERP</span></a>
+          <a class="mosaic-tile t3" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Retail</span></a>
+          <a class="mosaic-tile t4" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Transportation</span></a>
+          <a class="mosaic-tile t5" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Wine</span></a>
+          <a class="mosaic-tile t6" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Automotive</span></a>
+          <a class="mosaic-tile t7" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Health &amp; Wellness</span></a>
+          <a class="mosaic-tile t8" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Field Services</span></a>
+          <a class="mosaic-tile t9" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Weddings &amp; Events</span></a>
+          <a class="mosaic-tile t10" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Associations</span></a>
+          <a class="mosaic-tile t11" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Storage &amp; Marina</span></a>
+        </div>
       </div>
       <section class="hero" id="heroStage">
         <div class="img-ph hero-bg" aria-hidden="true"></div>
         <div class="hero-copy" id="heroCopy">
+          <p class="hero-kicker">For founders of industry software — and anyone confirming who we are.</p>
           <p class="beat">01 — The story</p>
-          <h1>The operating system for vertical markets.</h1>
+          <h2>The operating system for vertical markets.</h2>
           <p>We acquire and grow the software that runs specific industries — then we expand it.</p>
           <div class="hero-ctas">
             <a class="pill pill-lg" href="#solutions">Explore our vertical solutions</a>
@@ -471,6 +552,12 @@
         </div>
       </section>
     </div>
+  </div>
+
+  <div class="proof-strip" aria-label="Scale, pending publishability">
+    <div><div class="num">11</div><div class="lbl">vertical markets</div></div>
+    <div><div class="num">80k+</div><div class="lbl">SMB businesses [verify]</div></div>
+    <div><div class="num">2,000+</div><div class="lbl">people [verify]</div></div>
   </div>
 
   <section class="band" id="story">
@@ -533,8 +620,7 @@
         <span class="film-name">Hospitality</span>
         <span class="film-overlay">
           <span class="film-kicker">Hospitality</span>
-          <span class="num">80k+</span>
-          <span class="lbl">SMB businesses on software we own [verify]</span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
           <a href="#solutions">Learn more</a>
         </span>
       </div>
@@ -543,8 +629,7 @@
         <span class="film-name">ERP</span>
         <span class="film-overlay">
           <span class="film-kicker">ERP</span>
-          <span class="num">11</span>
-          <span class="lbl">vertical markets, one operating company [verify]</span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
           <a href="#solutions">Learn more</a>
         </span>
       </div>
@@ -553,8 +638,7 @@
         <span class="film-name">Retail</span>
         <span class="film-overlay">
           <span class="film-kicker">Retail</span>
-          <span class="num">80k+</span>
-          <span class="lbl">SMB businesses on software we own [verify]</span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
           <a href="#solutions">Learn more</a>
         </span>
       </div>
@@ -563,8 +647,7 @@
         <span class="film-name">Transportation</span>
         <span class="film-overlay">
           <span class="film-kicker">Transportation</span>
-          <span class="num">~100</span>
-          <span class="lbl">businesses still owned [verify]</span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
           <a href="#solutions">Learn more</a>
         </span>
       </div>
@@ -573,8 +656,7 @@
         <span class="film-name">Wine</span>
         <span class="film-overlay">
           <span class="film-kicker">Wine</span>
-          <span class="num">2,000+</span>
-          <span class="lbl">people inside the company [verify]</span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
           <a href="#solutions">Learn more</a>
         </span>
       </div>
@@ -594,6 +676,46 @@
         <a href="#solutions">ERP</a>
       </div>
       <p class="note">Revenue-ordered subset in the film. Figures pending publishability. No named brands.</p>
+    </div>
+  </section>
+
+  <section class="voice" id="voice">
+    <p class="beat">A founder voice</p>
+    <blockquote>
+      <p>We needed a home that would keep the product and the people. Not a short hold.</p>
+      <footer>Founder, a floral-shop software company. Placeholder — unpublished until the client confirms.</footer>
+    </blockquote>
+  </section>
+
+  <section class="news" id="news">
+    <div class="news-head">
+      <div>
+        <p class="beat">Newsroom</p>
+        <h2>What's happening.</h2>
+      </div>
+      <a class="text-link" href="#">View Newsroom</a>
+    </div>
+    <div class="news-film">
+      <a class="news-card" href="#">
+        <span class="img-ph" aria-hidden="true"></span>
+        <p class="when">Date [placeholder]</p>
+        <h3>A company note. Generic until publishable.</h3>
+      </a>
+      <a class="news-card" href="#">
+        <span class="img-ph" aria-hidden="true"></span>
+        <p class="when">Date [placeholder]</p>
+        <h3>Leadership, not a staff announcement.</h3>
+      </a>
+      <a class="news-card" href="#">
+        <span class="img-ph" aria-hidden="true"></span>
+        <p class="when">Date [placeholder]</p>
+        <h3>A vertical in the news. No named acquisition.</h3>
+      </a>
+      <a class="news-card" href="#">
+        <span class="img-ph" aria-hidden="true"></span>
+        <p class="when">Date [placeholder]</p>
+        <h3>How we grow software we already own.</h3>
+      </a>
     </div>
   </section>
 
@@ -651,16 +773,12 @@
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const apply = (p) => {
         pin.style.setProperty("--p", String(p));
-        const grow = Math.max(0, Math.min(1, (p - 0.08) / 0.82));
-        const inset = (1 - grow) * 32;
-        const side = (1 - grow) * 26;
-        hero.style.opacity = p < 0.06 ? "0" : "1";
-        hero.style.clipPath = grow >= 0.99
-          ? "none"
-          : "inset(" + inset + "% " + side + "% " + inset + "% " + side + "% round 16px)";
-        mosaic.style.pointerEvents = p > 0.4 ? "none" : "auto";
-        copy.style.opacity = String(Math.max(0, Math.min(1, (p - 0.58) / 0.28)));
-        hero.classList.toggle("is-open", p > 0.55);
+        /* Hold mosaic (headline + scattered tiles) until ~40% of the pin, then slide the hero up. */
+        const rise = Math.max(0, Math.min(1, (p - 0.4) / 0.48));
+        hero.style.transform = "translateY(" + ((1 - rise) * 100) + "%)";
+        mosaic.style.pointerEvents = rise > 0.08 ? "none" : "auto";
+        copy.style.opacity = String(Math.max(0, Math.min(1, (p - 0.62) / 0.22)));
+        hero.classList.toggle("is-open", rise > 0.55);
       };
       if (reduce){
         apply(1);
@@ -702,6 +820,29 @@
           }
         });
       });
+    })();
+
+    (function kpiCycle(){
+      const slots = document.querySelectorAll(".kpi-cycle");
+      if (!slots.length) return;
+      const kpis = [
+        { num: "11", lbl: "vertical markets [verify]" },
+        { num: "80k+", lbl: "SMB businesses on software we own [verify]" },
+        { num: "2,000+", lbl: "people inside the company [verify]" }
+      ];
+      let i = 0;
+      const paint = () => {
+        const k = kpis[i % kpis.length];
+        slots.forEach((slot) => {
+          const n = slot.querySelector(".num");
+          const l = slot.querySelector(".lbl");
+          if (n) n.textContent = k.num;
+          if (l) l.textContent = k.lbl;
+        });
+      };
+      paint();
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      setInterval(() => { i += 1; paint(); }, 3200);
     })();
   </script>
 </body>

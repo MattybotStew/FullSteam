@@ -78,14 +78,16 @@ your vertical" finder lives in the overlay / Vertical Software page.
 | # | Section | Intent | What's on screen | Status |
 |---|---------|--------|------------------|--------|
 | 1 | **Header** | Sparse chrome; primary CTA | Logo, "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
-| 2 | **Hero** | Square: mosaic of verticals, then full-screen on scroll | White scatter of image-placeholders + line doodles and a center line (“Whatever the industry…”). Scrolling the pin grows a full-bleed hero (H1 + yellow CTA). | Built |
+| 2 | **Hero** | Mosaic of verticals first, then a separate full-screen hero rises from the bottom | One-size mosaic **H1** (“Whatever the industry,” / “we own the software it runs on.”) above **11 labeled image tiles** (scattered). After that hold, scroll slides the full-bleed hero (visual H2) **up from the bottom** — it does not grow/clip the mosaic. Proof strip under the pin. | Built |
 | 3 | **Who we are** | Two-up pair (Square “Terminal / Stand”) | Beat **02**. H2 “Scale your vertical software without losing your legacy.” + Empower and supercharge growth \| Embedded Offerings. | Built |
 | 4 | **The software** | Scene: image + copy | Beat **03**. “The system they already run.” Link to all verticals. | Built |
 | 5 | **What we add** | Flipped scene | Beat **04**. “Keep the software they trust. Supercharge how they monetize.” Lending/insurance stay in the body. | Built |
 | 6 | **AI** | Scene, use cases first | Beat **05**. AI at Fullsteam — never a headcount story. | Built |
-| 7 | **Industries + proof** | Square “Keep your business growing” filmstrip | Beat **06**. Dark band, revenue-ordered subset (5 panels), center featured with inferable KPI overlay. All 11 as text links. | Built |
-| 8 | **Closing CTA** | Explore, founders as coda | Beat **07**. “Ready to see where your business can go next?” Primary CTA + quiet For Founders. | Built |
-| 9 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
+| 7 | **Industries + proof** | Square filmstrip + Localyzer pin-and-swap KPIs | Beat **06**. Five revenue-ordered panels; featured overlay **cycles** 11 / 80k+ / 2,000+ **[verify]**. All 11 as text links. | Built |
+| 8 | **Founder voice** | Genericized quote | After industries. Floral-shop software founder — unpublished until confirmed. | Built |
+| 9 | **Newsroom** | Filmstrip of 4 teasers | Current subset only; full set on Newsroom. | Built |
+| 10 | **Closing CTA** | Explore, founders as coda | Beat **07**. “Ready to see where your business can go next?” Primary CTA + quiet For Founders. | Built |
+| 11 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
 
 ### Deliberate choices in this wireframe
 
@@ -110,9 +112,9 @@ your vertical" finder lives in the overlay / Vertical Software page.
   2026-09-10:** For Investors deleted from the sitemap; footer link removed.
 - **G-3** Proof-band metrics use **[verify publishability]** placeholders until
   client confirms which scale/KPI signals can go on the site (OI-5).
-- **G-4** **No social-proof band** (testimonials / video) despite `design.md` §4.6.
-- **G-5** **No Our Story / Careers band** — employer/careers story (~15% of content
-  per §20) is footer-only.
+- ~~**G-4** **No social-proof band** (testimonials / video) despite `design.md` §4.6.~~
+  **Partial 2026-09-23:** genericized founder quote after beat 06. Still unpublished; no video.
+- ~~**G-5** **No Our Story / Careers band**~~ **Partial 2026-09-23:** Newsroom filmstrip on homepage. Careers still footer-only.
 - ~~**G-6** "For Founders" as chrome + feature tab.~~ **Resolved 2026-09-21
   (wireframe experiment):** founders path is overlay + close (header chrome link removed 2026-09-23); scroll is general.
 - ~~**G-7** JS tabs on the feature section.~~ **Resolved 2026-09-21:** tabs removed;
@@ -244,3 +246,14 @@ not L1 tree nodes.
 | 2026-09-23 | Homepage H2 drafts from **Slack comments by Nicole Williams** (Cloudmellow content PM, 2026-09-22 screenshots) — not discovery interviews: beat 02 “Scale your vertical software without losing your legacy.”; beat 04 “Keep the software they trust. Supercharge how they monetize.”; beat 07 “Ready to see where your business can go next?” Supporting lines unchanged. Placeholder copy, not locked. `design.md` not edited. |
 | 2026-09-23 | Homepage: removed hero verticals marquee and header “For Founders” chrome link. Chrome is Logo · Menu · Explore vertical solutions. For Founders remains in Menu overlay, footer, and beat 07 close. `design.md` not edited. |
 | 2026-09-23 | Reverted `.scene h2` `max-width` from `min(960px, 100%)` back to **`12ch`**. The 960px change was uncommitted and unexplained (likely spill from wide-headline requests). Beat 02’s long H2 lives on `.band-head` (already 960px); `.scene h2` is the image+copy column (beats 03–05) and stays tightly stacked per the Bending Spoons scene pattern. |
+| 2026-09-23 | Combined Square + Localyzer **structure** (G1–G8): audience kicker on the grown hero; 3-up allowlisted proof strip under the pin (no logos); beat 06 KPI **cycle** (11 / 80k+ / 2,000+); genericized founder quote; Newsroom 4-up filmstrip. No demo CTAs. `design.md` not edited. |
+| 2026-09-23 | Opening mosaic: headline **above** the tiles; **11 image tiles**, one per vertical, **title inside each block**. Doodles removed. `design.md` not edited. |
+| 2026-09-23 | Mosaic tiles return to **scattered positions** (not a grid). Labels kept. |
+| 2026-09-23 | Mosaic headline **30% larger** (`clamp(28px,4.16vw,47px)`), **200px** top/bottom margin. Tiles sit lower and can hang **off-canvas**. `design.md` not edited. |
+| 2026-09-23 | Mosaic opening: **Localyzer-style centered stack** (small uppercase kicker + oversized headline + one-line sub); ~200px margin on the block. Tiles unchanged. `design.md` not edited. |
+| 2026-09-23 | Mosaic display split: medium lead “Whatever the industry,” + **much larger H1** “we own the software it runs on.” Kicker, sub, 200px block margin, Helvetica black-on-white, scattered tiles kept. Grown hero heading demoted to **h2** so the mosaic is the document H1. `design.md` not edited. |
+| 2026-09-23 | Mosaic H1 one size: both lines (“Whatever the industry,” / “we own the software it runs on.”) share the large Helvetica black display; kicker stays smaller. `design.md` not edited. |
+| 2026-09-23 | Mosaic H1 **5% smaller**: `clamp(40px,6.4vw,72px)` → `clamp(38px,6.08vw,68.4px)`. Both lines still one size. `design.md` not edited. |
+| 2026-09-23 | Mosaic H1 wrap: non-breaking spaces on “runs on.”; `.mosaic-head` **960px → 1200px** so the second line stays one line. Type size unchanged. `design.md` not edited. |
+| 2026-09-23 | Mosaic opening stack **150px higher**: `.mosaic-head` margin **200px → 50px**. Sticky chrome unchanged. `design.md` not edited. |
+| 2026-09-23 | Hero reveal: after the mosaic (headline + scattered tiles), the full-screen hero **slides up from the bottom** of the sticky pin. Replaces grow/clip-path over the mosaic. Mosaic H1, chrome, and lo-fi skin unchanged. `design.md` not edited. |

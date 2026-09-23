@@ -53,7 +53,7 @@ patterns, a **take** list, and an **ignore** list.
 |------|------|--------|--------------|-----------------|
 | [squareup.com](https://squareup.com/us/en) *(aspirational, client-flagged)* | Layout guide — current | **Active** | Full-bleed overlay hero, mosaic-of-verticals opening, two-up pair, image+copy scenes, industry filmstrip | `homepage-bendingspoons-style.html` (2026-09-21) |
 | [bendingspoons.com](https://bendingspoons.com) *(client-flagged)* | Layout guide — superseded | Superseded | Long-form chapter stack; portfolio-as-homepage; premium sparse feel | Partly retained (long-form chapters, 2026-09-21); portfolio cards removed |
-| [localyzer.io](https://www.localyzer.io/) | Layout study | **Studied — not implemented** | See §2.1 — 5 candidate patterns | Nothing yet |
+| [localyzer.io](https://www.localyzer.io/) | Layout study | **Partial — 2026-09-23** | Kicker, early proof strip, KPI cycle, quote, news filmstrip | `homepage-bendingspoons-style.html` |
 | [quiltsoftware.com](https://quiltsoftware.com) *(client-flagged)* | Layout study | Not yet studied | — | — |
 | [togetherwork.com](https://togetherwork.com) *(client-flagged)* | Layout study | Not yet studied | — | — |
 | [daysmart.com](https://daysmart.com) *(client-flagged)* | Layout study | Not yet studied | — | — |
@@ -71,7 +71,7 @@ patterns, a **take** list, and an **ignore** list.
 
 ### 2.1 Localyzer — `localyzer.io` (studied 2026-09-23)
 
-**Layout study only. Nothing implemented. Status: candidate patterns, pending review.**
+**Layout study. Selected patterns implemented 2026-09-23** (kicker, proof strip, KPI cycle, quote, news). Conversion machinery still rejected.
 
 #### Why they are NOT a model for us
 
@@ -178,7 +178,7 @@ constraint.
    strip may need to be genericized or built from permitted portfolio brands only.
 
 3. **One pinned mosaic cycling 2–3 inferable statistics.** One layout, swapping
-   headline. This maps cleanly onto our Square-style grow-hero + vertical mosaic —
+   headline. This maps cleanly onto our pinned mosaic + rise-from-bottom hero —
    it adds a second dimension to a pin we already have, with **no demo and no new
    page**. **Constraint:** every number must sit inside the KPI allowlist — growth,
    retention, margins, employee/customer counts, payment volume. **Not** revenue,
@@ -226,7 +226,7 @@ what we add*, never as a feature matrix.
 #### Delta vs. Fullsteam's current wireframe
 
 `homepage-bendingspoons-style.html` already has a 7-beat structure: sticky chrome →
-mosaic → grow-to-fullscreen hero → who-we-are (02) → software (03) → offerings (04)
+mosaic → hero-rises-from-bottom → who-we-are (02) → software (03) → offerings (04)
 → AI (05) → industries (06) → founders close (07).
 
 **Localyzer's real delta is not IA — it is three placements.** Nothing here
@@ -253,7 +253,8 @@ Plus two additions: a **quote block before the close**, and a **Newsroom filmstr
 way of introducing broad verticals").
 
 **What we took:** full-bleed overlay hero with type over the image; a mosaic of
-verticals as the opening move, growing to a full-screen hero on scroll; a two-up
+verticals as the opening move, then a **separate** full-screen hero that **rises
+from the bottom** (not a grow/clip of the mosaic tiles); a two-up
 "who we are" pair; open image+copy scenes; an industry filmstrip for proof.
 
 **Where it lives:** the current homepage wireframe, with a full section table in
