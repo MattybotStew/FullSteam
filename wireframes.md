@@ -78,7 +78,7 @@ your vertical" finder lives in the overlay / Vertical Software page.
 | # | Section | Intent | What's on screen | Status |
 |---|---------|--------|------------------|--------|
 | 1 | **Header** | Sparse chrome; primary CTA | Logo, "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
-| 2 | **Hero** | Software/verticals first, then the hero promise | **Desktop (>768px):** mosaic **H1** above **11 labeled scattered tiles**; scroll grows the **Retail** tile into the full-bleed hero (`clip-path` from the tile rect). **Mobile (≤768px):** same copy, readable stacked H1 (no orphan “on.”), **11 full-width vertical tabs**, then the hero as a normal full-bleed section in document flow (no pin/scatter/overlay). Reduced-motion uses the same in-flow stack. Proof strip follows. | Built |
+| 2 | **Hero** | Software/verticals first, then the hero promise | Mosaic **H1** above **11 labeled scattered tiles**. On ≤768px: one cluster **staggered vertically** below the headline (sides may crop), **mixed tile opacities**. Scroll grows the **Retail** tile into the full-bleed hero on **all breakpoints**. Reduced-motion: in-flow mosaic then settled hero. Proof strip follows. | Built |
 | 3 | **Who we are** | Two-up pair (Square “Terminal / Stand”) | Beat **02**. H2 “Scale your vertical software without losing your legacy.” + Empower and supercharge growth \| Embedded Offerings. | Built |
 | 4 | **The software** | Scene: image + copy | Beat **03**. “The system they already run.” Link to all verticals. | Built |
 | 5 | **What we add** | Flipped scene | Beat **04**. “Keep the software they trust. Supercharge how they monetize.” Lending/insurance stay in the body. | Built |
@@ -259,3 +259,6 @@ not L1 tree nodes.
 | 2026-09-23 | **Mobile hero split (≤768px):** stacked opening — readable H1, 2-col vertical tiles on canvas, then full-bleed hero in document flow. Desktop keeps mosaic scatter + bottom-slide pin. Reduced-motion: no pin/scatter. Header chrome stays Logo · Menu · Explore. `design.md` not edited. |
 | 2026-09-23 | Mobile mosaic tiles become **full-width tabs** (label + small placeholder), stacked 1-col. Desktop scatter unchanged. `design.md` not edited. |
 | 2026-09-23 | **Newsroom removed** from sitemap and prototype (Menu, footer, homepage filmstrip). Our Story child is **Leadership** only. Desktop hero: **Retail tile grows** into the full-bleed stage (clip-path from the tile). Mobile still stacked tabs + in-flow hero. `design.md` not edited. |
+| 2026-09-23 | Mobile mosaic: **tabs removed**. Tiles stay a centered scatter like desktop, **slightly smaller** (`32vw`). Retail grow-hero pin runs on **all breakpoints**; reduced-motion still skips the pin. `design.md` not edited. |
+| 2026-09-23 | Mobile mosaic: **one overlapping cluster** filling the lower half (all 11 tiles, some overflow the sides). No separate bottom pile; grow-hero still on all breakpoints. `design.md` not edited. |
+| 2026-09-23 | Mobile mosaic: tiles **staggered vertically** below the headline (not a tight bottom pile) with **mixed `--tile-op`**. Grow-hero multiplies `--tile-op` so the mix survives scroll. `design.md` not edited. |

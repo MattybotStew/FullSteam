@@ -111,7 +111,7 @@
     overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
   }
 
-  /* Mosaic first; then a separate full-screen hero rises from the bottom */
+  /* Mosaic first; Retail tile grows into the full-screen hero (all breakpoints) */
   .hero-pin{
     height:280vh;
     --p:0;
@@ -179,6 +179,8 @@
     border-radius:12px;
     display:block;
     aspect-ratio:1;
+    --tile-op:1;
+    opacity:var(--tile-op);
   }
   .t1{ width:13%; left:-4%; top:6%; }
   .t2{ width:11%; left:18%; top:18%; }
@@ -431,7 +433,7 @@
     .film-card:not(.is-feature) .film-name{ font-size:16px; }
   }
 
-  /* Mobile / reduced-motion: stacked opening — no pin, scatter, or overlay */
+  /* Reduced-motion: skip the pin; mosaic then settled hero in flow */
   .hero-pin.is-flow{
     height:auto;
   }
@@ -443,53 +445,20 @@
   .hero-pin.is-flow .mosaic{
     position:relative;
     inset:auto;
+    min-height:calc(100svh - 57px);
     padding:8px 16px 28px;
     overflow:visible;
     pointer-events:auto;
   }
-  .hero-pin.is-flow .mosaic-head{
-    width:100%;
-    margin:20px auto 24px;
-    pointer-events:auto;
-  }
-  .hero-pin.is-flow .mosaic-head h1{
-    font-size:clamp(28px, 8.2vw, 40px);
-    letter-spacing:-.025em;
-    line-height:1.12;
-  }
-  .hero-pin.is-flow .mosaic-grid{
-    position:relative;
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
-    gap:10px;
-    flex:none;
-    height:auto;
-    width:100%;
-    overflow:visible;
-  }
-  .hero-pin.is-flow .mosaic-tile{
-    position:relative;
-    width:100%;
-    left:auto;
-    right:auto;
-    top:auto;
-    aspect-ratio:1;
-  }
   .hero-pin.is-flow .hero{
     position:relative;
     min-height:calc(100svh - 57px);
-    transform:none;
     clip-path:none;
     opacity:1;
     pointer-events:auto;
     will-change:auto;
-    padding:64px 20px 72px;
   }
-  .hero-pin.is-flow .hero-copy{
-    opacity:1;
-    min-width:0;
-    width:100%;
-  }
+  .hero-pin.is-flow .hero-copy{ opacity:1; min-width:0; width:100%; }
 
   @media (max-width:768px){
     .nav{
@@ -508,89 +477,33 @@
       font-size:12px;
       white-space:nowrap;
     }
-    .hero-pin{ height:auto; }
-    .hero-sticky{
-      position:static;
-      height:auto;
-      overflow:visible;
-    }
-    .mosaic{
-      position:relative;
-      inset:auto;
-      padding:8px 16px 28px;
-      overflow:visible;
-      pointer-events:auto;
-    }
+    .mosaic{ padding:0 12px; }
     .mosaic-head{
       width:100%;
-      margin:20px auto 24px;
-      pointer-events:auto;
+      margin:28px auto 12px;
     }
     .mosaic-head h1{
-      font-size:clamp(28px, 8.2vw, 40px);
+      font-size:clamp(26px, 7.4vw, 40px);
       letter-spacing:-.025em;
       line-height:1.12;
     }
-    .mosaic-grid,
-    .hero-pin.is-flow .mosaic-grid{
-      position:relative;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      flex:none;
-      height:auto;
-      width:100%;
-      overflow:visible;
+    .mosaic-sub{ font-size:14px; }
+    .t1, .t2, .t3, .t4, .t5, .t6, .t7, .t8, .t9, .t10, .t11{
+      width:30vw;
     }
-    .mosaic-tile,
-    .hero-pin.is-flow .mosaic-tile{
-      position:relative;
-      display:flex;
-      align-items:center;
-      width:100%;
-      left:auto;
-      right:auto;
-      top:auto;
-      aspect-ratio:auto;
-      height:52px;
-      border-radius:8px;
-      background:#e8e4dc;
-    }
-    .mosaic-tile .img-ph,
-    .hero-pin.is-flow .mosaic-tile .img-ph{
-      width:52px;
-      height:52px;
-      flex-shrink:0;
-      min-height:0;
-    }
-    .mosaic-tile .img-ph::after,
-    .hero-pin.is-flow .mosaic-tile .img-ph::after{ width:18px; height:18px; }
-    .mosaic-label,
-    .hero-pin.is-flow .mosaic-label{
-      position:static;
-      left:auto; right:auto; bottom:auto;
-      flex:1;
-      padding:0 14px;
-      font-size:15px;
-      font-weight:700;
-      color:var(--ink);
-      text-shadow:none;
-    }
-    .hero{
-      position:relative;
-      min-height:calc(100svh - 57px);
-      transform:none;
-      clip-path:none;
-      opacity:1;
-      pointer-events:auto;
-      will-change:auto;
-      padding:64px 20px 72px;
-    }
-    .hero-copy{
-      opacity:1;
-      min-width:0;
-      width:100%;
-    }
+    .t1{ left:-8%; top:14%; --tile-op:.72; }
+    .t2{ left:16%; top:22%; --tile-op:.48; }
+    .t3{ left:34%; top:10%; --tile-op:1; }
+    .t4{ left:56%; top:18%; --tile-op:.62; }
+    .t5{ left:auto; right:-10%; top:12%; --tile-op:.38; }
+    .t6{ left:0%; top:38%; --tile-op:.85; }
+    .t7{ left:22%; top:46%; --tile-op:.42; }
+    .t8{ left:46%; top:40%; --tile-op:.7; }
+    .t9{ left:auto; right:-6%; top:50%; --tile-op:.55; }
+    .t10{ left:10%; top:64%; --tile-op:.9; }
+    .t11{ left:auto; right:4%; top:68%; --tile-op:.5; }
+    .mosaic-label{ font-size:11px; left:8px; right:8px; bottom:8px; }
+    .hero{ padding:56px 16px 64px; }
     .hero-copy h2{ font-size:30px; }
     .hero-copy p{ font-size:16px; }
   }
@@ -885,14 +798,17 @@
       if (!pin || !hero || !sticky || !retail) return;
       const others = [...pin.querySelectorAll(".mosaic-tile")].filter((t) => t !== retail);
       const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const mobileMq = window.matchMedia("(max-width: 768px)");
+      const tileOp = (el) => {
+        const n = parseFloat(getComputedStyle(el).getPropertyValue("--tile-op"));
+        return Number.isFinite(n) ? n : 1;
+      };
       const apply = (p) => {
         pin.style.setProperty("--p", String(p));
         const grow = Math.max(0, Math.min(1, (p - 0.22) / 0.55));
         const fade = Math.max(0, Math.min(1, (p - 0.1) / 0.28));
         if (head) head.style.opacity = String(1 - fade);
-        others.forEach((t) => { t.style.opacity = String(1 - fade); });
-        retail.style.opacity = grow > 0.02 ? "0" : "1";
+        others.forEach((t) => { t.style.opacity = String(tileOp(t) * (1 - fade)); });
+        retail.style.opacity = grow > 0.02 ? "0" : String(tileOp(retail));
         const sr = sticky.getBoundingClientRect();
         const tr = retail.getBoundingClientRect();
         const top = Math.max(0, tr.top - sr.top) * (1 - grow);
@@ -907,7 +823,7 @@
         copy.style.opacity = String(Math.max(0, Math.min(1, (grow - 0.42) / 0.4)));
         hero.classList.toggle("is-open", grow > 0.5);
       };
-      const useFlow = () => reduceMq.matches || mobileMq.matches;
+      const useFlow = () => reduceMq.matches;
       const tick = () => {
         if (useFlow()) return;
         const top = pin.getBoundingClientRect().top;
@@ -940,7 +856,6 @@
       };
       window.addEventListener("scroll", tick, { passive: true });
       window.addEventListener("resize", syncMode);
-      if (mobileMq.addEventListener) mobileMq.addEventListener("change", syncMode);
       if (reduceMq.addEventListener) reduceMq.addEventListener("change", syncMode);
       syncMode();
     })();

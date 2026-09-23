@@ -262,10 +262,9 @@ list — this entry records only why Square was chosen.
 the mosaic now carries vertical naming alone. See `wireframes.md` §8 changelog.
 
 **Desktop vs mobile split (layout pattern, 2026-09-23):** Square’s pinned mosaic +
-**Retail tile grow-hero** is a **wide-viewport** beat. On small screens (≤768px) we do
-**not** run scatter, sticky pin, or overlay. The same story is a stack in document
-flow: headline → full-width vertical tabs (all on canvas) → full-bleed hero as the next
-section. Reduced-motion uses that in-flow stack on every width.
+**Retail tile grow-hero** runs on **every width**. On small screens the scatter stays
+centered and tiles are **slightly smaller** (`32vw`, not a tab list). No in-flow swap.
+Reduced-motion skips the pin.
 
 ---
 
