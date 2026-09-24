@@ -319,3 +319,4 @@ not L1 tree nodes.
 | 2026-09-24 | Proof strip (`#investors`) moved below Beat 02; investor card says numbers are below; count-up + scale/fade on enter (reduced-motion: final nums, no motion). |
 | 2026-09-24 | Homepage: “AI at Fullsteam” callout (label + lorem + pill → `#ai`) sits inside `#solutions .scene-copy` under “Browse all verticals” and inside `#offerings .scene-copy` under “See all Offerings” — same bordered-box markup; no sibling between sections. |
 | 2026-09-24 | Axis B hero CTAs: ghost **Careers** text link (`#careers`, beat 06) beside the Explore pill. |
+| 2026-09-24 | Beat 06 `#careers`: added `is-flip` so image is left, copy right (matches `#offerings`). |
