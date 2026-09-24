@@ -109,7 +109,7 @@ ask the question the *next* block answers.
 
 ```
 1  HERO              "Explore our vertical solutions" → immediately define the model + scale
-2  THE TWO STORIES   One glance at both the "Acquire & Grow" and "Embedded Expansion" story
+2  THE TWO STORIES   Both stories in one glance: Axis A (Portfolio) → binary snap → Axis B (Growth engine) — §3.1, no separate block
 3  EXPLORE BY VERTICAL  (Vertical Software proof) → flat vertical list + "Find your vertical"
 4  OFFERINGS IN ACTION  (growth-engine proof, via concrete examples, not feature lists)
 5  WHY FULLSTEAM      3 reasons / proof that backs the "why choose us"
@@ -124,6 +124,35 @@ ask the question the *next* block answers.
 > audience paths and company context beneath. Exact ordering and whether certain bands merge is an
 > open wireframe question — see §8 Open Questions.
 
+### 3.1 Opening sequence — Axis A (Portfolio) → binary snap → Axis B (Growth engine)
+
+**Decided 2026-09-24.** The locked two-axis model (KB §14: *portfolio + growth engine*) is delivered
+on the homepage **in sequence**, not side by side. The parallel two-lane treatment in
+`alternative-home-a.html` is retired for the live build; the same pairing now plays as two states of
+the pinned opening:
+
+| | State | Job | Carries |
+|---|---|---|---|
+| **Axis A** | Portfolio | identity / ownership | Mosaic H1 + audience kicker + the 11 verticals as tiles — *what Fullsteam owns* |
+| **Axis B** | Growth engine | the growth model | Hero H2 + kicker + the Offerings sub-line — *how those businesses get bigger* |
+
+- **Why A comes first:** "portfolio-first understanding" is the page's first UX principle (§1) and
+  the message order is Software → Verticals → Payments (§20.1 #4). Axis A earns the right to Axis B's
+  claim; Axis B then pays off with beat 04's proof.
+- **"Binary snap" is the transition, and it is literal:** two states, one scroll threshold, **no
+  interpolation, no easing, no crossfade**. The page cannot rest between A and B — a smooth grow
+  leaves the visitor reading a half-formed state and blurs which of the two claims they are being
+  shown. §4.1 for the hero-level rules; `wireframes.md` changelog 2026-09-24 for the build and the
+  defect it fixed.
+- **Both states are content, not decoration.** Neither is `aria-hidden`: assistive tech reads the H1
+  (Axis A) and then the hero H2 (Axis B) regardless of scroll position, and nothing depends on
+  seeing the cut. With `prefers-reduced-motion` the pin is skipped and the two states appear in
+  document order, A above B — the sequence survives without the motion.
+- **Scope guard:** this decision governs the **opening**. Whether the rest of the page is also
+  organized as two acts with a hard boundary is open (§8; `wireframes.md` OI-9).
+- **Canonical record:** KB **§23** states the same decision as project strategy, with the
+  guardrails (§23.6) and the axis vocabulary table (§23.5) this spec assumes.
+
 ---
 
 ## 4. Section-by-Section UX Intent
@@ -131,18 +160,47 @@ ask the question the *next* block answers.
 ### 4.1 Hero (above the fold)
 - **UX goal:** In under a few seconds, state what Fullsteam is, prove it's substantial, and hand the
   visitor one clear action.
+- **Two statements share the first viewport (decided 2026-09-24).** The pinned opening is not one
+  headline but two — **Axis A then Axis B** (§3.1), cut apart by a binary snap — and they must not
+  say the same thing:
+  1. **Axis A — mosaic H1 = identity / ownership** — the document H1, read first: *"Whatever the
+     industry, we own the software it runs on."* + audience kicker + *"The software they already
+     run. We keep it."*
+  2. **Axis B — hero H2 = the growth model** — revealed by the snap: states how the businesses
+     Fullsteam owns get bigger. This is the only place the two-story model can reach the first
+     viewport (investors and founders are both rank-1 audiences, §2).
+- **The transition is a binary snap, not an animation (decided 2026-09-24).** One threshold, two
+  states, no interpolation and no easing: the page never rests between A and B. Treat this as a
+  strategy rule, not a technicality — a smooth grow exposes a half-formed state and muddies which
+  claim the visitor is being shown. States are declared in CSS; JS only flips a class. §3.1;
+  `wireframes.md` changelog 2026-09-24 (this replaces the 2026-09-21 grow-the-Retail-tile morph).
 - **Content needs:**
-  - Headline expressing the "acquire & grow + embedded expansion" model in plain, confident language.
+  - **Audience kicker** above the hero H2 — it answers *is this for me?* before the headline is read
+    and is the standing fix for G-8 (`wireframes.md`). It repeats the mosaic kicker deliberately, as
+    a callback across the snap, and adds the validation clause. Never a product claim.
+  - **Hero H2 = the growth model in plain words, software-first** — Software → Verticals → Payments
+    (§20.1 #4). Agreed line (2026-09-24): **"Software first. Then we grow it."**
+  - **Sub-line = who we are, then what we do** — agreed line (2026-09-24): *"A permanent home for each
+    software business we buy — plus the Offerings that help it grow: payments, lending, insurance,
+    and AI."* Uses the short form **Offerings**; never "Platform."
   - **Single primary CTA:** "Explore our vertical solutions."
   - A **secondary, quieter CTA** for founders/investors ("Selling your business?" / "For investors") —
     present but not competing with the primary CTA.
   - Optional **proof strip** (scale signals) — a short run of credible stats. (See §4.5 before duplicating.)
+- **Lane naming (corrected 2026-09-24):** **"the growth engine" is the name of Axis B** (§3.1) — the
+  opening's second state, and the axis that beat 04 proves. It is an *axis* name, not a hero
+  headline: beat 01 stays the **model** beat and states both halves in plain words rather than
+  borrowing the axis label, so the hero doesn't pre-empt the Offerings proof.
 - **Discovery direction (§20.8):** update the hero; use **full-width imagery / video
   showing the people behind the brand**; more whitespace; a modern, premium feel.
   Message order Software → Verticals → Payments; do not lead with payments.
 - **UX intent:** No jargon, no "platform," no dense corporate sentence. The visitor should be able to
   say "they buy and grow software companies and add payments/etc." The CTA is the primary job; all
   other text serves that CTA.
+- **Retired for the hero (2026-09-24):** the deck positioning line *"Fullsteam is the operating system
+  for vertical markets"* (KB §19.1). It was never confirmed as the hero message (G-8) and its identity
+  job is done better, in visitor language, by the mosaic H1. It stays available for interior pages and
+  sales material. See `wireframes.md` G-8 + changelog.
 
 ### 4.2 The two stories
 - **UX goal:** Give the business model a memorable, two-part shape so both the acquirer story and the
@@ -153,6 +211,11 @@ ask the question the *next* block answers.
 - **UX intent:** This is the conceptual spine. It makes Fullsteam legible to investors (who care about
   the growth model) and to customers/founders (who care about the software). Use the **Embedded
   Offerings** label, never "Platform."
+- **Lane naming (decided 2026-09-24):** lane 2's plain name is **"the growth engine"** — it names
+  **Axis B** in the opening (§3.1), and **beat 04** is the proof that pays it off. The hero (beat 01)
+  *states* the model without borrowing the axis label. The homepage carries no separate "two stories"
+  block: the mosaic H1 (ownership, Axis A) and the hero H2 (growth model, Axis B) deliver both lanes
+  above the fold through the snap, and beat 04 proves lane 2 in detail.
 
 ### 4.3 Explore by vertical (Vertical Software proof — the "meat")
 - **UX goal:** Let each customer self-identify and click through to their world. This is the **primary
@@ -213,7 +276,8 @@ ask the question the *next* block answers.
   - **For Founders / Sellers** → "a home for your business" framing (acquisition process, what we look
     for), with its own light CTA. Lives in the header and/or a homepage feature tab/band.
   - **For Investors** → **no dedicated path** (locked 2026-09-10; KB §14). Investors are served by
-    the scale/proof signals and the two-story model; contact is the action.
+    the scale/proof signals and the two-story model; contact is the action. On the homepage the
+    label is an anchor (`#investors`) to that proof band, not a page.
 - **UX intent:** Position Fullsteam as "a home for your business" and let the portfolio itself prove
   the growth-equity story. Do not create an investor directory page.
 
@@ -226,8 +290,8 @@ ask the question the *next* block answers.
 
 ### 4.9 Our Story / Careers / Footer
 - **UX goal:** Quiet company context for employees/candidates and utility without stealing focus.
-- **Content needs:** Our Story, **Newsroom** (single dynamic CMS page), Careers entry; standard utility footer (Privacy,
-  Terms, Complaints).
+- **Content needs:** Our Story, Careers entry; standard utility footer (Privacy, Terms, Complaints).
+  (Newsroom removed 2026-09-23 — no page, no footer/overlay link; see KB §14 and `plans/sitemap-lock.md`.)
 - **UX intent:** Serves the employee/candidate audience (audience rank 2) and satisfies legal/utility
   needs at the bottom of the reading path. Careers should read as growth & culture-forward (see KB
   "Building on Great Starts Here").
@@ -310,6 +374,11 @@ and the rate of visitors who reach an interior audience or vertical page from th
 - [ ] Confirm which **scale/KPI signals** are publishable and where the ~15% employer/careers
       content allocation lives (§20.4/§20.11).
 - [ ] Which **video content** exists or must be produced for the homepage's social-proof band (§7).
+- [ ] **How far does the binary snap reach?** The opening's Axis A → Axis B cut is decided (§3.1).
+      Open: whether the *rest* of the page is also two acts with a hard boundary, and whether "snap"
+      additionally means scroll-snapping to each state. The scroll-snap reading is deliberately not
+      built — page-wide mandatory snap fights long-form reading and traps keyboard/AT users; it would
+      have to be opt-in and pin-scoped. (`wireframes.md` OI-9.)
 
 ---
 

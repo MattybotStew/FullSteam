@@ -1,5 +1,21 @@
 .DS_Store
 
 # Confidential client source docs — do NOT commit to this public repo
+# This repo is PUBLIC and GitHub Pages publishes the WHOLE repo (`path: "."` in
+# .github/workflows/pages.yml), so any tracked clientDocs file is downloadable from
+# raw.githubusercontent.com AND from mattybotstew.github.io/FullSteam/clientDocs/.
+# Verified 2026-09-24: Kickoff Presentation.pdf and Website Content Project Brief.docx
+# both return HTTP 200 on both paths; the files ignored below return 404. Ignoring is
+# the control that works — keep new client material behind this rule.
+clientDocs/
+# Individual entries kept for history (the blanket rule above covers them):
 clientDocs/Fullsteam Overview_Confidential - redacted.pdf
 clientDocs/Fullsteam User Interview Template.xlsx
+clientDocs/Fullsteam Strategic Messaging Architecture V2.docx
+
+# WARNING: 5 clientDocs files were committed BEFORE these rules existed and are still
+# tracked and publicly served: Fullsteam Kickoff Presentation.pdf, Fullsteam Web Brief
+# (1).docx, Fullsteam Website Content Project Brief.docx (+ "copy"), Fullsteam Color
+# Palette Cheat sheet.pdf. Ignoring does not untrack them, and they are also in git
+# history (commits 5dc0829, e5d34fb), so raw URLs keep serving them after any
+# `git rm --cached`. See PROJECT_KNOWLEDGE_BASE.md §22.7.

@@ -4,10 +4,11 @@
 > `clientDocs/Fullsteam Kickoff Presentation.pdf`,
 > `Fullsteam Overview_Confidential - redacted.pdf` (company/investor overview deck),
 > `clientDocs/Fullsteam User Interview Template.xlsx` (internal discovery interviews, Sept 2026),
-> `clientDocs/Fullsteam Website Content Project Brief.docx` (content-writing SOW, Sept 2026)
+> `clientDocs/Fullsteam Website Content Project Brief.docx` (content-writing SOW, Sept 2026),
+> `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
-> **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21)
-> **Last updated:** 2026-09-21 (added §21 Website Content Project Brief)
+> **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22); **homepage opening strategy locked** (§23)
+> **Last updated:** 2026-09-24 (added **§23 Homepage Strategy — Axis A → binary snap → Axis B**, made canonical and pinned into `AGENTS.md` for every agent; added §22 Strategic Messaging Architecture V2; hero copy reconciled; V2 matrix quarantined as unratified + number/count conflicts recorded; `clientDocs/` exposure verified and `.gitignore`d)
 
 ---
 
@@ -195,10 +196,10 @@ how these sites created a dedicated page to showcase their use of AI:
 ## 10. Suggested Next Steps
 
 - [x] Confirm scope/priorities with client — discovery complete (§20); sitemap locked (§14)
-- [ ] Draft messaging framework around the two core stories — **Messaging Architecture in progress**; content SOW in §21
+- [x] Draft messaging framework around the two core stories — client-authored **Messaging Architecture V2**, distilled in **§22**; homepage hero reconciled to it 2026-09-24 (`design.md` §4.1); content SOW in §21
 - [x] Propose site information architecture (no page-per-industry) — locked §14
 - [ ] Define page template set and content model (Duda-compatible)
-- [ ] Prototype UX/UI direction and primary CTA placement
+- [ ] Prototype UX/UI direction and primary CTA placement — homepage **opening sequence decided** (KB §23: Axis A → binary snap → Axis B); visual direction still open
 - [ ] Write **10 core pages** per content brief (§21) against the locked sitemap
 - [ ] Develop response covering experience, approach, content model, site structure, timing, team, budget
 
@@ -393,6 +394,11 @@ Founders**, **Our Story**, and **Careers**. This is no longer a two-audience nav
 Investors" was removed from the sitemap and chrome** (2026-09-10). Investors are
 served through the portfolio/scale proof on the homepage and via Contact — there
 is no investor nav node or dedicated investor page.
+
+> **Homepage delivers these same two axes in sequence (2026-09-24):** **Axis A
+> (Portfolio) → binary snap → Axis B (Growth engine)** — not the side-by-side
+> two-lane treatment in `prototypes/homepage-wireframe/v0.1-rough/alternative-home-a.html`.
+> **Canonical record: §23.** Spec: `design.md` §3.1; scope open question: `wireframes.md` OI-9.
 
 > **Note on the CTA:** the primary CTA is unchanged. The homepage hero CTA remains
 > **"Explore our vertical solutions"**, funneling into the **Vertical Software page**.
@@ -739,6 +745,22 @@ directly useful for messaging and homepage "stats + story" content.
 
 This is the company's own one-line positioning and a strong candidate for the
 homepage hero/messaging framework.
+
+> **Update 2026-09-24:** the line is **retired from the homepage hero**. It was never
+> confirmed as the hero message, and the two halves are now split across the pinned
+> opening instead: the **mosaic H1** carries identity/ownership ("Whatever the industry,
+> we own the software it runs on."), and the **hero H2 (Axis B)** carries the second half in
+> plain words — "Software first. Then we grow it." See `design.md` §4.1, `wireframes.md`
+> G-8, and §22 below (V2 Pillar 2 is the source of the second half). The unsplit line
+> remains available for interior pages, decks, and sales material.
+>
+> **Homepage strategy (2026-09-24):** the homepage delivers the two-axis model
+> (this section's structure, §14's nav axes) as a **sequence** — **Axis A (Portfolio) →
+> binary snap → Axis B (Growth engine)**. Axis A = what Fullsteam owns (mosaic H1 + the 11
+> verticals); Axis B = how those businesses grow (hero H2 + the Offerings sub-line). The
+> "snap" is literal: the pinned opening holds two states and cuts between them at one
+> threshold with no interpolation. **Canonical record: §23.** Full spec: `design.md` §3.1;
+> build + defect fixed: `wireframes.md` changelog 2026-09-24; open scope question: OI-9.
 
 ### 19.2 At-a-glance facts
 
@@ -1275,3 +1297,325 @@ internal discovery interviews
 (`clientDocs/Fullsteam User Interview Template.xlsx`, 2026-09-01 → 2026-09-03),
 and the website content project brief
 (`clientDocs/Fullsteam Website Content Project Brief.docx`, 2026-09-21).*
+
+---
+
+## 22. Strategic Messaging Architecture V2 (client document, Sept 2026)
+
+**Source:** `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` — the **source of
+record** for this distillation. Verify provenance by hash, not filename: an identical copy was
+re-sent by the marketing team 2026-09-24 and arrived **corrupted by an encoding round-trip**
+(every non-ASCII byte replaced with `EF BF BD`, which breaks all 13 zip entries and their
+CRCs — unopenable). Intact copy =
+`b002e145d505c2bb2f75fc6c80cac838539c4ebf3af64e92e39ff3bc4879fc76`.
+
+This is the client's own brand-positioning architecture — promise/proof/outcome framework,
+three personas, sales & marketing execution guidance, and three pillars. It is the newest
+client-authored messaging artifact, so **it supersedes the deck's positioning line as the
+current statement of intent** — but its pillar titles are *internal* positioning labels,
+not visitor copy (see §22.6), it covers **M&A/marketing voice rather than web structure**
+(it says nothing about IA or nav), and it is **partially unratified**: the doc was assembled
+with AI assistance and carries an open, unresolved author comment (§22.1). Full text kept
+out of the repo's public paths (see §22.7).
+
+### 22.1 Framework — Promise / Proof / Outcome
+
+- **01 PROMISE:** "We purchase and nurture specialized software for permanent investment,
+  providing founders with a reliable partner who also protects their team, culture, and
+  brand legacy."
+- **02 PROOF:** financial bedrock + operations engine + integrated AI; "community trusted
+  by over 100 software founders."
+- **03 OUTCOME:** "Enterprise stability, a caring community, growth, capital, and compounded
+  value — safeguarding the legacies niche software founders built."
+- **⚠ The Strategic Alignment Matrix is unratified — do not build copy on it.** It is the one
+  section of V2 that was AI-drafted and left undecided. The doc carries a Word comment from
+  **Marian Ladenburg, 2026-09-23, anchored to the entire matrix**:
+  *"Jessie you can choose to leave this in or take it out. Gemini through it in."*
+  So it is a **draft for the client to ratify or cut**, not messaging authority — the
+  promise/proof/outcome framework, personas, and pillars stand on their own without it.
+- Note: **customers are absent from V2's persona set** — the site still serves them
+  (rank-2 audience, §20 / `design.md` §2), so V2 is not a complete audience model.
+
+Matrix content, **for reference only once it is ratified** (columns are V2's own "strategic
+lens" framing — note it addresses *investors* and *employees* but never customers):
+
+| | Software Founders & Acquisition Targets | Institutional Investors & Capital Partners | Prospective Employees & Candidate Talent |
+|---|---|---|---|
+| **01 Promise** | a permanent home protecting team, brand culture, and legacy, while injecting capital to scale | "a resilient multi-industry software engine driven by recurring embedded payments and AI innovation" | enterprise-level stability with small-team agility, project variety, and direct impact |
+| **02 Proof** | **"100+ acquired niche software platforms"**, experienced onboarding team, peer founder network, transparent deal execution | strong financial backing, operational growth engines, AI integrations, and **13+ specialized market sectors** | 2,000+ team members, high-performing remote culture, direct interaction with executive leaders |
+| **03 Outcome** | smooth transitions + legacy protection, "freeing your business to **keep compounding value indefinitely**" | defensible positioning + "**predictable fintech revenue growth**" across diversified industries | a career where proactive problem-solvers build cutting-edge tech within a caring community |
+
+- **Two matrix lines cannot ship as written** (investor promise and investor outcome) — see
+  §22.6.5. The founder column, by contrast, is the most usable raw material in V2 for the
+  **For Founders** page once ratified: it pairs the fear ("turn-and-burn") with the answer
+  (transparent execution, no late-stage surprises, permanent capital).
+
+### 22.2 Personas (V2)
+
+| Persona | Core drivers | Primary fear (their language) |
+|---|---|---|
+| **Software founders** | Protect brand legacy, continuity for employees, growth capital, hassle-free transition | "Turn-and-burn" PE that strips assets, disrupts culture, lays off core staff, or **flips in 3–5 years** |
+| **Investors** | Long-term capital compounding, multi-industry diversification, high-margin embedded payments, disciplined back office | Uncapitalized platforms, customer churn, single-industry downturns |
+| **Prospective employees** | Mobility across software industries, direct access to leadership, remote flexibility, creative autonomy | A rigid bureaucratic conglomerate, or an unstable startup with no resources |
+
+- The founders' stated fear is the sharpest confirmation yet of §20.4's rule: **never frame
+  the sale as an "exit,"** and never look like the 3–5-year flip. Fullsteam is the
+  **permanent home**, and certainty of close / no late-stage renegotiation is a selling
+  point — not just a nicety.
+- Investors are addressed with **implied scale indicators** and no sensitive financial line
+  items — consistent with §20.4 (no revenue/run-rate, no explicit profitability).
+
+### 22.3 Sales & marketing execution guidance (V2)
+
+- **M&A:** "Fullsteam is a caring community for legacy brands. Lead with **culture
+  preservation and smooth business transitions**" — to answer founders' fear of asset
+  stripping directly.
+- **Brand marketing & external content:** use **"conversational, plain-spoken language in
+  the first person"** — the client's own example is *"We buy and manage specialty
+  software"* — and share **real employee stories and tangible local examples** ("local auto
+  shops or wineries powered by Fullsteam") rather than dense corporate jargon (their
+  negative example: *"vertical software roll-up"*).
+- **Employer branding:** career mobility across 100+ business units, direct access to
+  leadership, agile culture.
+- **Investor messaging:** implied scale indicators only; do not overshare financial line
+  items.
+- **Tension to manage:** V2's voice guidance (plain, first person, concrete) is stricter
+  than the website copy it has generated so far. **"Unlock recurring growth for niche
+  software … through embedded functionality" is exactly the kind of phrasing V2 tells us
+  not to use.** Terms of art ("roll-up", "recurring growth", "embedded functionality")
+  belong in the deck, not in visitor copy.
+
+### 22.4 The three pillars (V2) and where they land on the homepage
+
+| | Pillar (V2 title — internal label) | Differentiators | Homepage landing |
+|---|---|---|---|
+| **1** | **A Permanent Home for Specialty Software** *(Thoughtful Acquisition, Smooth Business Transitions, Permanent Investment)* | permanent investment, not asset stripping; transparency and "closing with ease"; legacy & culture preservation; long-term guardians | Hero **sub-line** ("A permanent home for each software business we buy…") + **beat 02** (who we are) |
+| **2** | **Software-First, Payments-Native, AI-Accelerated** *(Embedded Functionality, Back-Office Support, Cutting-Edge Tech Innovation)* | software-first + embedded payments; AI-accelerated modernization; embedded capabilities beyond payments (compliance, risk, marketing, insurance, capital); back office (finance, legal, HR, compliance) | **Beat 01** hero H2, in plain words: "Software first. Then we grow it." + **beat 04** (Offerings proof) + **beat 05** (AI) |
+| **3** | **Stay Niche, Gain Enterprise Leverage** *(Enterprise Strength, Community Scale, Endless Industry Variety)* | enterprise leverage on a niche identity ("a massive train engine pulling specialized cars"); 2,000+ colleagues; "never alone on an island" | **Beat 02** ("Scale your vertical software without losing your legacy." — the same idea) + **beat 03** + **beat 06/07** scale proof |
+
+- **All three pillars are covered above the fold or in beats 02–06** — a useful review
+  check: no pillar is missing, and beat 01 no longer claims lane 2's name
+  (`design.md` §4.1/§4.2, `wireframes.md` G-8).
+- Pillar 3's language ("never alone on an island," train-engine metaphor) is the most
+  humanized material in V2 and is the best candidate for tone-setting body copy; the
+  metaphor itself is probably too long for the homepage.
+
+### 22.5 Authority signals / KPIs supplied by V2
+
+Publishable-candidate scale indicators (**all still subject to §20.7 publishability review
+— this is OI-5 / `wireframes.md` G-3**):
+
+| Signal | Value | Note |
+|---|---|---|
+| Business customers | 70,000+ | — |
+| Volume processed on Fullsteam Pay | **over $75 billion** | cumulative |
+| Transactions processed | **over 480 million** | cumulative |
+| Employees | 2,000+ | — |
+| Software businesses | **100+** | **four restatements of one claim:** "100+ specialty software businesses", "100+ business units", "100+ acquired niche software platforms" (matrix), "over 100 software founders" |
+| Founders served | over 100 | "community trusted by over 100 software founders" |
+| Industries | **13+** | conflicts with the locked **11 verticals** — see §22.6 |
+
+- These are **sharper than the placeholders currently in the wireframe** (11 / 80k+ /
+  2,000+). Route the confirmed set into the beat 06 KPI cycle rather than inventing numbers —
+  the strongest pairs are **70,000+ business customers** and **$75B+ processed on Fullsteam
+  Pay (cumulative)**, both inferable scale signals rather than financials (§20.4).
+- **Do not mix counts on one page.** The mosaic shows **11 verticals**; V2 says **13+
+  industries**; the current wireframe placeholder says 11 / **80k+**. A visitor-facing page
+  must carry exactly one vertical count and one customer count (§22.6.2; OI-5 / G-3 still
+  gate all of these on publishability).
+- **"100+" is one number, not four.** V2 uses it for businesses, business units, acquired
+  platforms, and founders; in copy pick the phrasing that matches the mosaic's 11
+  ("100+ specialty software businesses") and never show two of these variants as if they
+  were separate stats.
+- V2's "*cumulative totals" asterisk on $75B / 480M must be preserved in any published use.
+
+### 22.6 Terminology conflicts V2 introduces (resolve before site copy)
+
+1. **Four words for the same thing:** V2 uses **"niche" / "specialty" / "specialized" /
+   "industry-specific"**; the locked project vocabulary is **"vertical"** (§20.3: "Use
+   'vertical' as the primary word"), and the sitemap axis is **Vertical Software**.
+   **Decision: ship "vertical" in site copy.** V2's "specialty/niche" is acceptable only
+   where a human voice is deliberately quoting a founder's own words.
+2. **13+ industries vs the locked 11 verticals** (§14). V2 counts 13+ "specialized market
+   sectors/industries"; the sitemap and the homepage mosaic show **11**. Either the locked
+   count is understated or V2 bundles sectors. **Needs a client answer** — do not publish
+   two different counts on one page. (Same class of issue as the 11 vs 80k+ mismatch.)
+3. **"Platform" resurfaces** ("the financial leverage of a large platform"). §14/§20.6
+   reject "Platform" as the **axis label** — the V2 phrase is not a nav label, but any
+   hero/section copy built from V2 must avoid the word. On the homepage the axis stays
+   **Embedded Offerings**.
+4. **Pillar titles are internal labels, not headlines.** "Software-First, Payments-Native,
+   AI-Accelerated" is a strategy-deck header (three hyphenated compounds); V2's own
+   execution guidance says to use plain first-person speech instead. **Rewrite pillar
+   titles before using them as visitor copy** — this is what beat 01 does now.
+5. **Two matrix lines cannot ship** (the matrix is unratified anyway — §22.1):
+   "**predictable fintech revenue growth**" is a financial forecast, and §20.4 forbids
+   revenue/profitability claims in any form; and the investors' *promise* line ("driven by
+   recurring embedded payments") **leads with payments**, inverting §20.1's order (software →
+   verticals → integrate payments; software is ~¾ of revenue, payments ~¼ and currently
+   over-indexed). Watch **"recurring"** as well: V2 leans on it, while V2's own voice
+   guidance cites "unlock recurring growth … through embedded functionality" as the kind of
+   jargon to avoid (§22.3).
+
+### 22.7 Confidentiality & repo hygiene
+
+- The V2 docx is **client-authored internal material** (personas, fears, scale indicators,
+  pillar strategy). It is **not** for publication, and it sits in `clientDocs/`, which is
+  inside this repo.
+- **⚠ VERIFIED EXPOSURE (2026-09-24) — this is not hypothetical.** The repo
+  `github.com/MattybotStew/FullSteam` is **public** (`private: false`) and GitHub Pages is
+  live with `.github/workflows/pages.yml` publishing **`path: "."`** — the *entire* repo.
+  Tested over the public internet, unauthenticated:
+  - `clientDocs/Fullsteam Kickoff Presentation.pdf` → **HTTP 200** (1,986,039 bytes) on both
+    `mattybotstew.github.io/FullSteam/…` and `raw.githubusercontent.com/…/main/…`
+  - `clientDocs/Fullsteam Website Content Project Brief.docx` (**the content SOW**) →
+    **HTTP 200** (355,716 bytes) on both paths
+  - `clientDocs/Fullsteam Web Brief (1).docx` → **HTTP 200**
+  - the two files already in `.gitignore` (interview template, redacted overview) →
+    **HTTP 404** on both paths
+  So **`.gitignore` is the control that actually works here**, and 5 client files were
+  committed before it existed. V2 itself is currently untracked and therefore *not* served —
+  it was one `git add` away from being published with the rest.
+- **Fixed 2026-09-24:** `.gitignore` now ignores `clientDocs/` **as a directory** (plus the
+  specific V2 filename), so new client material cannot be committed accidentally. That
+  closes the V2 path.
+- **Still open — needs a client/owner decision** (the part ignoring cannot fix):
+  1. **Already-published files.** `git rm --cached` stops future deploys from serving them,
+     but they remain in git history (commits `5dc0829`, `e5d34fb`) and stay downloadable via
+     raw GitHub URLs on a public repo. Full removal = history rewrite (`git filter-repo`/BFG)
+     **or** making the repo private.
+  2. **Artifact scope.** `path: "."` also publishes `prototypes/`, `plans/`, `.cursor/`, and
+     `index.html`. If the prototype previews should stay public that is fine, but the
+     artifact should be an explicit allowlist rather than the repo root.
+  3. **Where client source docs live at all.** The cleanest fix is to keep `clientDocs/`
+     outside the repo entirely (private drive/shared folder) and record only the distillations
+     (§20–§22) here. Given the client's own confidentiality rules (§20.7), raise it with them.
+- Copy derived from V2 must respect §20.7: no revenue/run-rate, no explicit profitability,
+  no named acquisition case studies, genericized examples only.
+
+---
+
+## 23. Homepage Strategy — Axis A → binary snap → Axis B (LOCKED 2026-09-24)
+
+> **Status:** **Locked for the homepage opening** (2026-09-24). Supersedes both the
+> side-by-side two-lane treatment (`prototypes/homepage-wireframe/v0.1-rough/alternative-home-a.html`,
+> whose `.dual` lanes are retired for the live build) and the 2026-09-21 grow-the-Retail-tile
+> morph (interpolated clip-path, per-frame writes).
+> **Spec of record:** `design.md` §3.1 (the sequence) + §4.1 (hero-level rules).
+> **Build + fixed defects:** `wireframes.md` §2 table row 2 and the changelog entry 2026-09-24.
+> **Open scope question:** `wireframes.md` **OI-9** / `design.md` §8.
+> **Why this section exists:** until now the decision was recorded only as dated update blocks
+> inside §14 and §19.1, which is easy to miss. **This is the single canonical statement** —
+> every other doc points here, and §14/§19.1 keep their blocks as history only.
+> **Audience:** every agent (Cursor, VS Code, or otherwise) and every writer touching the
+> homepage's first viewport.
+
+### 23.1 The model in one line
+
+**The client's two-axis model — portfolio + growth engine (§14) — is delivered on the
+homepage *in sequence*, never side by side:** **Axis A (Portfolio) → binary snap →
+Axis B (Growth engine).**
+
+This is the whole opening, and it is what beat **01 — The model** exists to do. It is also the
+client-facing framing available for sign-off: *"your two-axis model, delivered in sequence."*
+
+### 23.2 The two states
+
+| | State | Job | Carries | Beat |
+|---|---|---|---|---|
+| **Axis A** | **Portfolio** | identity / ownership | Mosaic **H1** ("Whatever the industry, we own the software it runs on.") + **audience kicker** + the **11 verticals** as labeled scattered tiles | **01** |
+| **Axis B** | **Growth engine** | the growth model | **Audience kicker** + hero **H2** (**"Software first. Then we grow it."**) + the Offerings sub-line | **01**, proved at **04** |
+
+- **Both states are content, not decoration** — neither is `aria-hidden`. Assistive tech reads
+  the H1 (Axis A) then the H2 (Axis B) at any scroll position, and nothing on the page depends
+  on *seeing* the cut.
+- **The two statements must not say the same thing.** Axis A owns identity/ownership; Axis B
+  owns the growth model. This split is exactly why the deck line "the operating system for
+  vertical markets" is **retired from the hero** (`wireframes.md` **G-8**, resolved 2026-09-24).
+- **The kickers echo on purpose:** mosaic = audience; hero = audience + validation clause.
+  **Never a product claim.**
+- **Offerings sub-line** (who we are, then what we do): *"A permanent home for each software
+  business we buy — plus the Offerings that help it grow: payments, lending, insurance, and
+  AI."* Short form **Offerings**; never "Platform."
+- **Primary CTA unchanged:** "Explore our vertical solutions."
+- **"The growth engine" is an *axis* name, not a headline.** Beat 01 states both halves in
+  plain words rather than borrowing the axis label, so the hero doesn't pre-empt beat 04's
+  Offerings proof (`design.md` §4.1 lane-naming note).
+
+### 23.3 The snap is literal — and it is a strategy rule
+
+Two states, **one scroll threshold**, and **no interpolation, no easing, no crossfade**. The
+page cannot rest half-way between A and B.
+
+- **Threshold:** fires at **50% of the pin**, snaps back below **45%**, and applies on **all
+  breakpoints**. The cut is discrete — *no grow, no fade, nothing in between*.
+- **States are declared in CSS; JS only flips classes** (`is-hidden` on the mosaic,
+  `is-axis-b` on the hero). That keeps the states reviewable in the stylesheet instead of being
+  written per frame, and there is **no CSS transition on either state**.
+- **Why this is a strategy rule, not a technicality:** a smooth grow exposes a half-formed
+  state and muddies *which of the two claims* the visitor is being shown. A proposal to
+  re-introduce a morph is a **strategy change**, not a polish pass — treat it as one.
+- **Reduced motion:** the pin is skipped and both states render **in flow, A above B** — the
+  sequence survives without the motion.
+- **No JS:** the page renders its **state-A resting state only** (mosaic in flow). This is the
+  known caveat tracked in `wireframes.md` **OI-9**; a no-JS/deferred hero reveal is the option.
+
+### 23.4 Why Axis A comes first
+
+- **Portfolio-first understanding is the page's first UX principle** (`design.md` §1): a
+  visitor must know *what Fullsteam owns* before *how those businesses grow*.
+- **Message order is Software → Verticals → Payments** (§20.1 #4) — software is ≈ ¾ of
+  revenue, payments ≈ ¼ and currently over-indexed. **Axis A earns the right to Axis B's
+  claim.**
+- **Axis B pays off with proof, not adjectives** — beat **04** (*The growth engine*) is where
+  the receipts live ("Keep the software they trust. Supercharge how they monetize.").
+
+### 23.5 Vocabulary (canonical — do not vary)
+
+| Term | Means | Never |
+|---|---|---|
+| **Axis A** | Portfolio — *what Fullsteam owns* | "the portfolio page", "Solutions" |
+| **Axis B** | Growth engine — *how those businesses get bigger* | "the payments story", "Platform" |
+| **binary snap** | the discrete A→B cut | "morph", "morphing", "crossfade", "transition" |
+| **Offerings** | Embedded Offerings, short form in body copy | "Platform" |
+| **vertical** | the portfolio unit (**11**) | "industry", "niche", "specialty" in site copy (§22.6) |
+
+**Two vocabularies, two jobs — do not mix them:** the **axes** (Axis A / Axis B) name the
+homepage's *model*; the **nav labels** (Vertical Software / Embedded Offerings) name the
+*sitemap* (§14). "The growth engine" is an axis label and never a headline.
+
+### 23.6 Guardrails — all agents
+
+1. **Do not re-introduce interpolation, easing, or any transitional state** between Axis A and
+   Axis B. That is precisely the 2026-09-21 morph this decision replaced.
+2. **Do not add a third state or a third claim** to the opening. Two states, two jobs.
+3. **Do not merge the two headlines.** Axis A = identity/ownership; Axis B = the growth model.
+   One merged sentence blurs both audiences (§4).
+4. **Do not restyle the snap in a wireframe as a "design idea."** The track boundary holds:
+   discovery/KB → `design.md` intent → wireframe execution (see `AGENTS.md`).
+5. **Do not rename the axes** in any artifact — the §23.5 table is canonical. V2's vocabulary
+   does not override it (§22.6).
+6. **Do not scope the snap beyond the opening** without a decision. Page-wide two-act
+   structure and scroll-snapping are both **open** (§23.7).
+
+### 23.7 Open items
+
+- **OI-9 — how far "binary snap" reaches.** Decided for the **opening only**. Open:
+  (a) whether the *rest* of the page is also two acts with a hard boundary; (b) whether "snap"
+  additionally means **scroll-snapping** to each state — deliberately **not built**, because
+  page-wide mandatory snap fights long-form reading and traps keyboard/AT users; it would have
+  to be opt-in and pin-scoped.
+- **No-JS resting state** (§23.3) — decide whether to add a no-JS or deferred hero reveal.
+- **Beat 06 KPI cycle** still cycles placeholders (11 / 80k+ / 2,000+) — blocked on the count
+  conflicts and publishability (§22.5, §22.6).
+
+### 23.8 Provenance
+
+- **Supersedes:** the side-by-side two-lane `.dual` treatment in `alternative-home-a.html`
+  (retired for the live build) and the 2026-09-21 grow-the-Retail-tile morph.
+- **Recorded canonically here 2026-09-24** by request, and pinned into `AGENTS.md` so any
+  agent entering the repo from VS Code, Cursor, or anywhere else reads it before touching the
+  homepage. §14 and §19.1 retain their dated update blocks as history and link here.
+- **Still needs client sign-off:** the framing language *"your two-axis model, delivered in
+  sequence"* and **"the growth engine"** as the name of Axis B (see §22 for the V2 relationship).
+

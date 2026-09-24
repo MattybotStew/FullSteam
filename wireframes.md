@@ -78,10 +78,10 @@ your vertical" finder lives in the overlay / Vertical Software page.
 | # | Section | Intent | What's on screen | Status |
 |---|---------|--------|------------------|--------|
 | 1 | **Header** | Sparse chrome; primary CTA | Logo, "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
-| 2 | **Hero** | Software/verticals first, then the hero promise | Mosaic **H1** above **11 labeled scattered tiles**. On ≤768px: one cluster **staggered vertically** below the headline (sides may crop), **mixed tile opacities**. Scroll grows the **Retail** tile into the full-bleed hero on **all breakpoints**. Reduced-motion: in-flow mosaic then settled hero. Proof strip follows. | Built |
+| 2 | **Hero** | Beat **01 — The model**: **Axis A (Portfolio) → binary snap → Axis B (Growth engine)**. Axis A carries identity/ownership; Axis B carries the growth model (software-first) | Mosaic **H1** ("Whatever the industry, we own the software it runs on.") above **11 labeled scattered tiles** = Axis A. On ≤768px: one cluster **staggered vertically** below the headline (sides may crop), **mixed tile opacities**. One scroll threshold (**50% of the pin**; snaps back below 45%) cuts to the full-bleed hero on **all breakpoints** = Axis B: audience kicker + **"Software first. Then we grow it."** + the Offerings sub-line. **The cut is discrete — no grow, no fade, nothing in between.** Reduced-motion: in-flow mosaic then settled hero (sequence kept, cut skipped). Proof strip follows. | Built |
 | 3 | **Who we are** | Two-up pair (Square “Terminal / Stand”) | Beat **02**. H2 “Scale your vertical software without losing your legacy.” + Empower and supercharge growth \| Embedded Offerings. | Built |
 | 4 | **The software** | Scene: image + copy | Beat **03**. “The system they already run.” Link to all verticals. | Built |
-| 5 | **What we add** | Flipped scene | Beat **04**. “Keep the software they trust. Supercharge how they monetize.” Lending/insurance stay in the body. | Built |
+| 5 | **What we add** | Flipped scene — the **proof of Axis B** (the growth engine): the axis is named in the opening, the receipts are here | Beat **04 — The growth engine**. “Keep the software they trust. Supercharge how they monetize.” Lending/insurance stay in the body. | Built |
 | 6 | **AI** | Scene, use cases first | Beat **05**. AI at Fullsteam — never a headcount story. | Built |
 | 7 | **Industries + proof** | Square filmstrip + Localyzer pin-and-swap KPIs | Beat **06**. Five revenue-ordered panels; featured overlay **cycles** 11 / 80k+ / 2,000+ **[verify]**. All 11 as text links. | Built |
 | 8 | **Founder voice** | Genericized quote | After industries. Floral-shop software founder — unpublished until confirmed. | Built |
@@ -98,10 +98,27 @@ your vertical" finder lives in the overlay / Vertical Software page.
   row** in the proof band — Square’s “seamless verticals,” without brand logos. (Hero marquee removed 2026-09-23.)
 - **Menu overlay = the sitemap at L1**, with a note that the finder is here (not a
   header search field).
-- **Metrics** sit in a **general proof band** (beat 03) with **[verify publishability]**
-  placeholders — same numbers for every visitor, not a founders/investors split.
-- **For Founders** lives in the Menu overlay, footer, and a quiet close link — not in header chrome. The scroll itself is
-  one company story.
+- **Metrics** sit in a **general proof band** (`#investors`) with **[verify publishability]**
+  placeholders — same numbers for every visitor, not a founders/investors split. **For investors**
+  is an in-page anchor to that band (beat 02 card + beat 07), never a page or a nav node.
+  Persona doors live in beat 02, not as hero text links.
+- **For Founders** lives in the Menu overlay, footer, beat 03 (`#founders`), and a quiet close
+  link — not in header chrome. After the persona door the scroll is: founders → software/verticals
+  → Offerings + AI → people joining → close.
+- **The first viewport is a two-state sequence (2026-09-24):** **Axis A (Portfolio) → binary snap →
+  Axis B (Growth engine)**. Axis A's mosaic H1 carries identity/ownership; Axis B's hero H2 carries
+  the **growth model** — deliberately not the same claim (the deck's "operating system for vertical
+  markets" line is retired from the hero, G-8). The two kickers echo on purpose: mosaic = audience,
+  hero = audience + validation clause.
+- **The snap is literally binary (2026-09-24):** two states, one threshold, **no interpolation and no
+  CSS transition on either state** — the page cannot rest half-way between A and B. JS flips only
+  `is-hidden` (mosaic) / `is-axis-b` (hero); the visual states live in the stylesheet, so they stay
+  reviewable instead of being written per-frame. Replaces the 2026-09-21 grow-the-Retail-tile morph,
+  whose interpolated clip-path and per-frame writes smeared against the 0.1s transitions at the pin
+  edge.
+- **Both states are content:** neither is `aria-hidden`, so AT reads the H1 (Axis A) then the hero H2
+  (Axis B) at any scroll position, and with motion reduced both states appear in flow, A above B.
+  (With JS off the page renders its state-A resting state only — see OI-9 for that caveat.)
 
 ### Known gaps & issues (do not silently fix — see open items)
 
@@ -118,8 +135,13 @@ your vertical" finder lives in the overlay / Vertical Software page.
   (wireframe experiment):** founders path is overlay + close (header chrome link removed 2026-09-23); scroll is general.
 - ~~**G-7** JS tabs on the feature section.~~ **Resolved 2026-09-21:** tabs removed;
   long-form stacked chapters (Bending Spoons guide).
-- **G-8** Hero headline "The operating system for vertical markets." is the deck
-  positioning line — confirm it is the approved hero message.
+- ~~**G-8** Hero headline "The operating system for vertical markets." is the deck
+  positioning line — confirm it is the approved hero message.~~ **Resolved 2026-09-24:**
+  the deck line is **retired from the hero** (it was never confirmed; its identity job is
+  done better by the mosaic H1). Beat 01 now states the **growth model** — "Software first.
+  Then we grow it." — under a restored **audience kicker**, with the mosaic H1 carrying
+  identity/ownership. **"The growth engine" names Axis B** (the opening's second state) and beat 04
+  is its proof. See `design.md` §3.1 + §4.1.
 - ~~**G-9** Hero strip and Our businesses showed the same six verticals.~~
   **Resolved 2026-09-21:** hero is the teaser strip; beat 04 is three deep generic
   chapters, not a second 6-up mosaic.
@@ -210,16 +232,37 @@ not L1 tree nodes.
   Contact. (KB §14 locked.)
 - **OI-3 — Section order.** Wireframe experiment 2026-09-21: long-form Bending
   Spoons scroll (thesis → general proof → 3 vertical chapters → offerings stack).
-  Confirm vs Alternative A’s dual-axis. `design.md` not updated.
+  Confirm vs Alternative A’s dual-axis. **Partly resolved 2026-09-24:** the dual axis is now
+  delivered **in sequence** — Axis A (Portfolio) → binary snap → Axis B (Growth engine) — so
+  Alternative A's side-by-side `.dual` lanes are retired for the live build; the mid-page order is
+  still the 2026-09-21 experiment. `design.md` §3.1 records the opening.
 - **OI-4 — AI homepage treatment.** Dedicated page is **locked under Offerings**
   (KB §14). Current wireframe: AI is the last row in beat 05, not a tab.
-- **OI-5 — Stat / proof strategy.** Current: one general proof band (beat 03).
-  Which figures are publishable (G-3)?
+- **OI-5 — Stat / proof strategy.** Current: one general proof band (beat 03) + the beat 06
+  KPI cycle, which still cycles **placeholders (11 / 80k+ / 2,000+)**. V2 supplies a real,
+  marketing-authored set — **70,000+ customers · $75B+ processed on Fullsteam Pay · 480M+
+  transactions · 2,000+ employees · 100+ businesses** (KB §22.5) — so this becomes a copy
+  swap, not an invention. **Blocked on two client answers:** (a) publishability
+  (§20.7 / G-3; the "*cumulative totals" asterisk must ride along with $75B / 480M);
+  (b) **the count conflict** — the mosaic shows **11 verticals** while V2 says **13+
+  industries**, and the placeholder says **80k+ customers** where V2 says **70,000+**. One
+  page carries one vertical count and one customer count, so do not patch the cycle until
+  both are settled (KB §22.6.2).
 - **OI-6 — Social proof & video.** Where testimonials/mission video live (G-4).
 - **OI-7 — Careers/company band.** How the ~15% employer story surfaces above the
   footer (G-5).
 - ~~**OI-8 — Feature interaction.**~~ **Wireframe experiment 2026-09-21:** JS tabs
   removed in favor of stacked long-form. Confirm with client.
+- **OI-9 — How far "binary snap" reaches.** Decided 2026-09-24 for the **opening only**
+  (Axis A → Axis B; `design.md` §3.1; canonical record **KB §23**). Two readings stay open: (a) the whole page is **two acts**
+  with a hard boundary mid-scroll (portfolio act → growth act); (b) "snap" also means the *scroll*
+  snaps to each state (`scroll-snap`). (b) is deliberately **not** built — page-wide mandatory snap
+  fights long-form reading and traps keyboard/AT users; if wanted it must be opt-in and pin-scoped.
+  Two build caveats to settle before this ships: **(i) no-JS** — state A is the static resting state,
+  so without JS the Axis B copy (H2 + CTA) stays hidden (unchanged from before the snap; fixed
+  properly with a `has-js` class on `<html>` so the pin is the progressive enhancement);
+  **(ii) first frame** — the hero background is a lo-fi placeholder today, so an instant cut costs
+  nothing, but with real artwork the Axis B frame must be preloaded or the cut exposes an empty state.
 
 ---
 
@@ -262,3 +305,13 @@ not L1 tree nodes.
 | 2026-09-23 | Mobile mosaic: **tabs removed**. Tiles stay a centered scatter like desktop, **slightly smaller** (`32vw`). Retail grow-hero pin runs on **all breakpoints**; reduced-motion still skips the pin. `design.md` not edited. |
 | 2026-09-23 | Mobile mosaic: **one overlapping cluster** filling the lower half (all 11 tiles, some overflow the sides). No separate bottom pile; grow-hero still on all breakpoints. `design.md` not edited. |
 | 2026-09-23 | Mobile mosaic: tiles **staggered vertically** below the headline (not a tight bottom pile) with **mixed `--tile-op`**. Grow-hero multiplies `--tile-op` so the mix survives scroll. `design.md` not edited. |
+| 2026-09-23 | Newsroom cleanup completed: removed the last **"Press / media kit"** footer link (Connect column). Reconciled `design.md` §4.9 — dropped the stale Newsroom content need so the design track matches the locked sitemap (Our Story child is **Leadership** only). Sitemap tree itself unchanged (Newsroom already absent). |
+| 2026-09-24 | **Beat 01 hero copy decided — the growth-model variant (called "Axis B" in review), corrected.** The deck line "The operating system for vertical markets." is **retired from the hero**; the mosaic H1 keeps identity/ownership and the grown hero states the **growth model** — "Software first. Then we grow it." — under a restored **audience kicker**, with the Offerings sub-line beneath. The uncommitted draft copy (markup ids `axis-b-*`, now removed) is replaced. Closes **G-8**; `design.md` §4.1/§4.2 reconciled to match; KB **§22** (V2 strategic messaging architecture) distilled. |
+| 2026-09-24 | **Homepage strategy recorded: Axis A (Portfolio) → binary snap → Axis B (Growth engine).** The locked two-axis model (KB §14: portfolio + growth engine) is delivered on the homepage **in sequence**, not side by side — Alternative A's parallel `.dual` lanes are retired for the live build (OI-3 partly resolved). **Axis A = the portfolio mosaic** (H1 identity/ownership + 11 tiles); **Axis B = the growth engine hero** ("Software first. Then we grow it." + Offerings sub-line). **The snap is a mechanism, not a metaphor:** the pinned opening now holds exactly **two states** and cuts at **one threshold** (50% of the pin; 45% to snap back) with **no interpolation, no easing, no CSS transition** — the grow-the-Retail-tile morph (clip-path traced per frame from the tile rect + opacity ramps) is **removed**, which fixes the smear/jitter where those per-frame writes met the 0.1s transitions at the pin edge. JS now flips one class each way (`is-hidden` / `is-axis-b`); the states are declared in CSS. Corrects the previous row's naming clause: **"the growth engine" names Axis B** (the axis, named in the opening) and **beat 04 is its proof**. A11y: neither state is `aria-hidden` (AT reads Axis A then Axis B at any scroll position); reduced-motion skips the pin and shows A above B in flow. `design.md` §3.1 (new) + §4.1/§4.2 reconciled; KB §14/§19.1 updated. |
+| 2026-09-24 | **Scroll after the persona door reordered to the V2 narrative:** founders (home + quote) → software + verticals film → Offerings then AI → short people-joining beat (`#careers`) → close. Axis A/B opening unchanged. Body paragraph prose greeked (Greek-script placeholders); headlines, beats, nav, buttons, and persona labels stay English. |
+| 2026-09-24 | **Beat 02 is the persona door.** Same side-card layout under the proof strip, now one card each for founders (`#founders`), people joining (`#careers`), and investors (`#investors`). Center: "Find the part that is for you." Hero text links removed; hero keeps the single Explore pill. |
+| 2026-09-24 | Beat 02: founders side card removed; center lorem replaced by **For founders** pill (`href="#founders"`, sticky offset like `#investors`). Left keeps people-joining; right keeps investors. Modest left/right orbit parallax (off under `prefers-reduced-motion`). |
+| 2026-09-24 | LinkedIn lo-fi module (label + 3 fake posts + Follow pill) inserted above beat 07 close; not a live embed. Close section drops the **For investors** text link (proof strip + orbit investor card kept). |
+| 2026-09-24 | LinkedIn module → horizontal scroll strip of 10 lo-fi cards (avatar + lorem + date); label + Follow pill kept above beat 07. |
+| 2026-09-24 | **For investors is an anchor, not a page.** Hero ghost link and the beat 07 close jump to `#investors` on the existing proof strip (labeled "For investors"). No nav node, no footer item, no new page — same lock as 2026-09-10. `design.md` §4.7 notes the anchor. |
+| 2026-09-24 | **V2 messaging source re-verified against the docx + its Word comments.** The **Strategic Alignment Matrix is unratified** — the file carries an open author comment (Marian Ladenburg, 2026-09-23) saying it can be left in or cut, and it was AI-drafted ("Gemini threw it in") — so KB **§22.1 quarantines it** instead of citing it as a source; the matrix's real cell text is now transcribed there with the caveat. V2's number set recorded against **OI-5** (70,000+ customers / $75B+ processed / 480M+ transactions / 2,000+ employees / 100+ businesses), including the **11 verticals vs 13+ industries** conflict, the **80k+ vs 70,000+** placeholder mismatch, and "100+" reused four ways. Two matrix lines flagged as unshippable (a financial forecast; payments-first framing). **No wireframe structure changed** — `design.md` not edited. |
