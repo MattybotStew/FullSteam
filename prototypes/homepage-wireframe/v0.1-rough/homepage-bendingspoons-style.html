@@ -476,6 +476,28 @@
   .grow-verts a{ color:var(--white); border-bottom:1px solid rgba(255,255,255,.45); padding-bottom:2px; }
   .grow .note{ font-family:var(--mono); font-size:11px; color:var(--white); }
 
+  .ai-callout{
+    display:flex; flex-direction:column; align-items:flex-start; gap:10px;
+    margin-top:28px;
+    padding:18px 20px;
+    border:1px solid var(--line);
+    max-width:42ch;
+  }
+  .ai-callout-label{
+    font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+    text-transform:uppercase; font-weight:700; margin:0;
+  }
+  .ai-callout p{
+    font-size:15px; line-height:1.45; margin:0; max-width:36ch;
+  }
+  .ai-callout .pill{ text-decoration:none; }
+  .grow .ai-callout{
+    max-width:1280px; margin:28px auto 0;
+    border-color:rgba(255,255,255,.35); color:var(--white);
+  }
+  .grow .ai-callout-label{ color:var(--white); }
+  .scene .ai-callout{ margin-top:24px; }
+
   .voice{
     padding:96px 24px; background:var(--tan); text-align:center;
   }
@@ -896,6 +918,11 @@
       </div>
       <p class="note">Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet.</p>
     </div>
+    <aside class="ai-callout" aria-label="AI at Fullsteam">
+      <p class="ai-callout-label">AI at Fullsteam</p>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+      <a class="pill" href="#ai">Learn more</a>
+    </aside>
   </section>
 
   <!-- 05 Growth engine (Offerings) then AI -->
@@ -905,6 +932,11 @@
       <h2>Keep the software they trust. Supercharge how they monetize.</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
       <a class="text-link" href="#offerings">See all Offerings</a>
+      <aside class="ai-callout" aria-label="AI at Fullsteam">
+        <p class="ai-callout-label">AI at Fullsteam</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+        <a class="pill" href="#ai">Learn more</a>
+      </aside>
     </div>
     <div class="img-ph" aria-hidden="true"></div>
   </section>
@@ -1132,29 +1164,38 @@
     })();
 
     (function stickyHashAnchors(){
-      /* Instant scroll with sticky-header offset (~72px). Used by #investors and #founders. */
-      const ids = ["investors", "founders"];
-      const go = (id) => {
-        if (location.hash !== "#" + id) return;
+      /* Same-page hash links: smooth scroll with sticky-header offset (~72px). */
+      const HEADER_OFFSET = 72;
+      const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const scrollBehavior = () => (reduceMq.matches ? "auto" : "smooth");
+      const targetTop = (el) => el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+      const scrollToId = (id) => {
+        if (!id) {
+          window.scrollTo({ top: 0, behavior: scrollBehavior() });
+          return;
+        }
         const el = document.getElementById(id);
         if (!el) return;
-        const top = el.getBoundingClientRect().top + window.scrollY - 72;
-        const root = document.documentElement;
-        const prev = root.style.scrollBehavior;
-        root.style.scrollBehavior = "auto";
-        window.scrollTo(0, top);
-        root.style.scrollBehavior = prev;
+        window.scrollTo({ top: Math.max(0, targetTop(el)), behavior: scrollBehavior() });
       };
       document.addEventListener("click", (e) => {
-        const a = e.target.closest(ids.map((id) => 'a[href="#' + id + '"]').join(","));
+        const a = e.target.closest("a[href]");
         if (!a) return;
-        const id = a.getAttribute("href").slice(1);
-        if (!ids.includes(id)) return;
+        if (a.target === "_blank") return;
+        const href = a.getAttribute("href");
+        if (!href || href.charAt(0) !== "#") return;
+        /* Ignore empty / placeholder hashes like href="#" */
+        if (href === "#") return;
+        const id = href.slice(1);
+        /* Only same-page hash links (already ensured by leading #) */
         e.preventDefault();
-        if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
-        go(id);
+        if (location.hash !== href) history.pushState(null, "", href);
+        else history.replaceState(null, "", href);
+        scrollToId(id);
       });
-      ids.forEach(go);
+      if (location.hash && location.hash !== "#") {
+        scrollToId(location.hash.slice(1));
+      }
     })();
 
     (function orbitParallax(){
