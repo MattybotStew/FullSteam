@@ -274,18 +274,26 @@
   .hero-copy .hero-kicker{ font-size:12px; max-width:42ch; margin-bottom:16px; }
   .proof-strip{
     scroll-margin-top:72px;
-    padding:32px 24px; text-align:center;
+    padding:48px 24px 56px; text-align:center;
     border-bottom:1px solid var(--line); background:var(--bg);
   }
   .proof-kicker{
     font-family:var(--mono); font-size:11px; letter-spacing:.12em;
-    text-transform:uppercase; margin-bottom:16px;
+    text-transform:uppercase; margin-bottom:20px;
   }
   .proof-nums{
-    display:flex; flex-wrap:wrap; gap:32px 64px; justify-content:center;
+    display:flex; flex-wrap:wrap; gap:40px 72px; justify-content:center;
   }
-  .proof-strip .num{ font-size:clamp(24px,3vw,32px); font-weight:700; letter-spacing:-.04em; }
-  .proof-strip .lbl{ font-family:var(--mono); font-size:11px; margin-top:6px; max-width:16ch; margin-left:auto; margin-right:auto; }
+  .proof-strip .num{
+    font-size:clamp(40px,6vw,64px); font-weight:700; letter-spacing:-.04em;
+    line-height:1; opacity:.35; transform:scale(.92);
+    transition:opacity .55s ease, transform .55s ease;
+  }
+  .proof-strip.is-in .num{ opacity:1; transform:scale(1); }
+  .proof-strip .lbl{ font-family:var(--mono); font-size:11px; margin-top:10px; max-width:16ch; margin-left:auto; margin-right:auto; }
+  @media (prefers-reduced-motion: reduce){
+    .proof-strip .num{ opacity:1; transform:none; transition:none; }
+  }
 
   .band{ padding:96px 0 88px; background:var(--bg); }
   .band.tan{ background:var(--tan); }
@@ -296,6 +304,12 @@
   }
   .band-head p{ font-size:18px; line-height:1.5; }
 
+  /* Beat 02 persona door: tall pin so left/right orbit cards can parallax across ~220vh travel.
+     Center headline + For founders stay sticky/readable; prefers-reduced-motion skips pin + motion. */
+  #story.band{
+    height:220vh;
+    padding:0;
+  }
   .orbit{
     display:grid;
     grid-template-columns:1fr minmax(260px, 480px) 1fr;
@@ -304,6 +318,13 @@
     max-width:1200px;
     margin:0 auto;
     padding:0 24px;
+  }
+  #story .orbit{
+    position:sticky;
+    top:57px;
+    min-height:calc(100vh - 57px);
+    box-sizing:border-box;
+    padding:48px 24px;
   }
   .orbit-side{ display:flex; flex-direction:column; gap:20px; will-change:transform; }
   .orbit-card{ position:relative; display:block; }
@@ -337,6 +358,12 @@
   }
   .orbit-center .pill{ text-decoration:none; margin-top:4px; }
   @media (prefers-reduced-motion: reduce){
+    #story.band{ height:auto; padding:96px 0 88px; }
+    #story .orbit{
+      position:static;
+      min-height:0;
+      padding:0 24px;
+    }
     .orbit-side{ will-change:auto; transform:none !important; }
   }
   .pair{
@@ -727,16 +754,7 @@
     </div>
   </div>
 
-  <section class="proof-strip" id="investors" aria-label="Scale, for investors, pending publishability">
-    <p class="proof-kicker">For investors</p>
-    <div class="proof-nums">
-      <div><div class="num">11</div><div class="lbl">vertical markets</div></div>
-      <div><div class="num">80k+</div><div class="lbl">SMB businesses [verify]</div></div>
-      <div><div class="num">2,000+</div><div class="lbl">people [verify]</div></div>
-    </div>
-  </section>
-
-  <!-- Beat 02: persona door. Scroll after this follows founders → software → growth → people → close. -->
+  <!-- Beat 02: persona door. Scroll after this follows proof strip → founders → software → growth → people → close. -->
   <section class="band" id="story">
     <div class="orbit">
       <div class="orbit-side" data-orbit-parallax="left">
@@ -758,9 +776,27 @@
           <div class="img-ph" aria-hidden="true"></div>
           <span class="orbit-face">
             <span class="orbit-who">For investors</span>
-            <span class="orbit-line">Duis aute irure dolor in reprehenderit in voluptate velit esse.</span>
+            <span class="orbit-line">The numbers are below.</span>
           </span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip" id="investors" aria-label="Scale, for investors, pending publishability">
+    <p class="proof-kicker">For investors</p>
+    <div class="proof-nums">
+      <div>
+        <div class="num" data-count="11" data-suffix="">0</div>
+        <div class="lbl">vertical markets</div>
+      </div>
+      <div>
+        <div class="num" data-count="80" data-suffix="k+">0</div>
+        <div class="lbl">SMB businesses [verify]</div>
+      </div>
+      <div>
+        <div class="num" data-count="2000" data-suffix="+" data-format="comma">0</div>
+        <div class="lbl">people [verify]</div>
       </div>
     </div>
   </section>
@@ -1133,18 +1169,66 @@
       };
       const tick = () => {
         if (reduceMq.matches) { clear(); return; }
-        const rect = section.getBoundingClientRect();
-        const vh = window.innerHeight || 1;
-        /* Progress while #story crosses the viewport: -1 at enter, 0 centered, +1 at exit */
-        const mid = rect.top + rect.height / 2;
-        const t = Math.max(-1, Math.min(1, (mid - vh / 2) / (vh / 2)));
-        left.style.transform = "translate3d(0," + (t * -28) + "px,0)";
-        right.style.transform = "translate3d(0," + (t * 36) + "px,0)";
+        /* Pin progress 0→1 while #story is sticky (~220vh runway); t = -1…+1 for opposing rates */
+        const range = Math.max(1, section.offsetHeight - window.innerHeight);
+        const p = Math.max(0, Math.min(1, -section.getBoundingClientRect().top / range));
+        const t = p * 2 - 1;
+        left.style.transform = "translate3d(0," + (t * -96) + "px,0)";
+        right.style.transform = "translate3d(0," + (t * 128) + "px,0)";
       };
       window.addEventListener("scroll", tick, { passive: true });
       window.addEventListener("resize", tick);
       if (reduceMq.addEventListener) reduceMq.addEventListener("change", tick);
       tick();
+    })();
+
+    (function proofCountUp(){
+      const strip = document.getElementById("investors");
+      if (!strip) return;
+      const nums = [...strip.querySelectorAll(".num[data-count]")];
+      if (!nums.length) return;
+      const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const format = (el, value) => {
+        const suffix = el.getAttribute("data-suffix") || "";
+        const n = Math.round(value);
+        const body = el.getAttribute("data-format") === "comma" ? n.toLocaleString("en-US") : String(n);
+        el.textContent = body + suffix;
+      };
+      const paintFinal = () => {
+        nums.forEach((el) => format(el, Number(el.getAttribute("data-count")) || 0));
+        strip.classList.add("is-in");
+      };
+      const run = () => {
+        if (strip.dataset.counted === "1") return;
+        strip.dataset.counted = "1";
+        strip.classList.add("is-in");
+        if (reduceMq.matches) { paintFinal(); return; }
+        const duration = 1100;
+        const start = performance.now();
+        const targets = nums.map((el) => Number(el.getAttribute("data-count")) || 0);
+        nums.forEach((el) => format(el, 0));
+        const frame = (now) => {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          nums.forEach((el, i) => format(el, targets[i] * eased));
+          if (t < 1) requestAnimationFrame(frame);
+          else paintFinal();
+        };
+        requestAnimationFrame(frame);
+      };
+      if (reduceMq.matches) {
+        paintFinal();
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            run();
+            io.disconnect();
+          }
+        });
+      }, { threshold: 0.35 });
+      io.observe(strip);
     })();
 
     (function filmStrip(){
