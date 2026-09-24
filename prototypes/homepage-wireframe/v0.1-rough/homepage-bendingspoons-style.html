@@ -22,6 +22,13 @@
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; overflow-x:hidden; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+  /* Sticky-header clearance for native hash fallback (JS still offsets explicitly). */
+  #top, #story, #investors, #founders, #solutions, #offerings, #careers{
+    scroll-margin-top:72px;
+  }
   body{ font-family:var(--sans); color:var(--ink); background:var(--bg); }
   a{ color:var(--ink); text-decoration:none; }
   button{ font-family:inherit; cursor:pointer; color:var(--ink); }
@@ -497,6 +504,11 @@
   }
   .grow .ai-callout-label{ color:var(--white); }
   .scene .ai-callout{ margin-top:24px; }
+  /* Standalone callout between scenes (not inside .grow film) */
+  body > .ai-callout{
+    margin:28px auto 40px;
+    margin-left:max(40px, calc((100% - 1200px) / 2 + 40px));
+  }
 
   .voice{
     padding:96px 24px; background:var(--tan); text-align:center;
@@ -850,6 +862,12 @@
     <div class="img-ph" aria-hidden="true"></div>
   </section>
 
+  <aside class="ai-callout" aria-label="AI at Fullsteam">
+    <p class="ai-callout-label">AI at Fullsteam</p>
+    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+    <a class="pill" href="#ai">Learn more</a>
+  </aside>
+
   <section class="grow" id="industries">
     <div class="grow-head">
       <p class="beat">04b — The verticals</p>
@@ -918,11 +936,6 @@
       </div>
       <p class="note">Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet.</p>
     </div>
-    <aside class="ai-callout" aria-label="AI at Fullsteam">
-      <p class="ai-callout-label">AI at Fullsteam</p>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-      <a class="pill" href="#ai">Learn more</a>
-    </aside>
   </section>
 
   <!-- 05 Growth engine (Offerings) then AI -->
@@ -1164,19 +1177,48 @@
     })();
 
     (function stickyHashAnchors(){
-      /* Same-page hash links: smooth scroll with sticky-header offset (~72px). */
+      /* Same-page hash links: smooth scroll with sticky-header offset (~72px).
+         CSSOM pitfall: scrollTo({ behavior:"auto" }) follows html{scroll-behavior},
+         so with smooth CSS it still animates — never use "auto" when we mean jump.
+         We animate with rAF + forced instant frames so motion is reliable, and jump
+         for prefers-reduced-motion. */
       const HEADER_OFFSET = 72;
       const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const scrollBehavior = () => (reduceMq.matches ? "auto" : "smooth");
+      history.scrollRestoration = "manual";
+      let animToken = 0;
       const targetTop = (el) => el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+      const jumpTo = (top) => {
+        const root = document.documentElement;
+        const prev = root.style.scrollBehavior;
+        root.style.scrollBehavior = "auto";
+        window.scrollTo(0, top);
+        root.style.scrollBehavior = prev;
+      };
+      const animateTo = (top) => {
+        const start = window.scrollY;
+        const dist = top - start;
+        if (Math.abs(dist) < 1) return;
+        const token = ++animToken;
+        const duration = Math.min(1100, Math.max(380, Math.abs(dist) * 0.35));
+        const t0 = performance.now();
+        const ease = (t) => 1 - Math.pow(1 - t, 3);
+        const step = (now) => {
+          if (token !== animToken) return;
+          const t = Math.min(1, (now - t0) / duration);
+          jumpTo(start + dist * ease(t));
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
       const scrollToId = (id) => {
-        if (!id) {
-          window.scrollTo({ top: 0, behavior: scrollBehavior() });
-          return;
+        let top = 0;
+        if (id) {
+          const el = document.getElementById(id);
+          if (!el) return;
+          top = Math.max(0, targetTop(el));
         }
-        const el = document.getElementById(id);
-        if (!el) return;
-        window.scrollTo({ top: Math.max(0, targetTop(el)), behavior: scrollBehavior() });
+        if (reduceMq.matches) jumpTo(top);
+        else animateTo(top);
       };
       document.addEventListener("click", (e) => {
         const a = e.target.closest("a[href]");
