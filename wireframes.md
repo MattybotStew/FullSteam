@@ -332,6 +332,7 @@ not L1 tree nodes.
 | 2026-09-24 | Beat 06 `#careers`: added `is-flip` so image is left, copy right (matches `#offerings`). |
 | 2026-09-25 | **Interior page wireframes.** For Founders, FAQ, Vertical Software (sidebar + 11 tabs + type-ahead), Embedded Offerings (Payments / Lending / Insurance / AI tabs), Our Story, Leadership, Careers, and Contact. Same low-fi skin and Option B chrome as the homepage. Homepage Menu, footer, primary Explore CTAs, filmstrip, and “see all” links now open those pages. In-page homepage story anchors stay on the homepage. Privacy, Terms, and Complaints are still unbuilt (content exclusions). `design.md` not edited. |
 | 2026-09-25 | Vertical Software: removed the find-your-vertical search field. The sidebar is the list of 11 tabs only. |
+| 2026-09-25 | Vertical Software hero: “Read the story” scrolls to the active vertical’s headline. |
 
 ---
 
@@ -343,7 +344,7 @@ Same chrome on every page: Logo · Menu · Explore vertical solutions. The Menu 
 |------|-----------|
 | **For Founders** | Why Fullsteam → how it works (4 steps) → what we look for → talk to us. Never frames the sale as an exit. |
 | **FAQ** | Six founder questions. Answers record the constraints (software before payments, brands stay, no announcement at close). |
-| **Vertical Software** | Story leads each panel (name, then the two paragraphs). Image and fact chips follow. Sticky list of all 11 verticals swaps the panel. Hash is the deep link (`#retail`). No category labels, no child pages, no search field. |
+| **Vertical Software** | Contained hero at the top: one page headline for the verticals, one line, image inside the column. Each panel opens with that vertical’s title, then the story paragraphs, an overlapping icon collage to the right of the story paragraphs, and fact chips, beside a sticky list of all 11. The list swaps the panel only. The menu’s vertical names use the same hash, open that tab, and scroll to its headline. No category labels, no child pages, no search field. |
 | **Embedded Offerings** | Intro states integrations live here. Sticky list: Payments (hardware folded in), Lending, Insurance, AI. AI tab is use cases first, never a headcount story. |
 | **Our Story** | Who we are → the model → brands keep their names → links to Leadership and Careers. No invented timeline. |
 | **Leadership** | Six placeholder leader cards. Leaders only. |
