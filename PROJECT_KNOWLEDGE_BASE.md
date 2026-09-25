@@ -453,11 +453,9 @@ VERTICAL SOFTWARE                         (/vertical-software) [SINGLE PAGE]
 ├─ Tabs swap the panel in place — no child pages
 └─ "Find your vertical" type-ahead filters the sidebar
 
-EMBEDDED OFFERINGS                        (/offerings)         [hub]
-├─ Payments · Lending · Insurance
-│   (Hardware & Integrations folded in — no separate pages, 2026-09-10)
-├─ AI at Fullsteam                        (/offerings/ai)      [own page, nested]
-└─ Shown via concrete customer examples / case studies
+EMBEDDED OFFERINGS                        (/offerings)         [SINGLE PAGE]
+├─ Sticky sidebar — Payments · Lending · Insurance · AI
+└─ Tabs swap the panel in place — no child pages
 
 OUR STORY                                 (/our-story)
 └─ Leadership                             (/our-story/leadership) [leaders only]

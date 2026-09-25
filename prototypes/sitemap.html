@@ -152,15 +152,15 @@
 </head>
 <body>
   <div class="notice">
-    <b>Sitemap v1.0 — FINAL (locked)</b>
-    <span>Locked 2026-09-10 · finalized 2026-09-14 · traditional tree: Home → primary nav → child pages</span>
+    <b>Sitemap v1.1 — FINAL (locked)</b>
+    <span>Locked 2026-09-10 · finalized 2026-09-14 · revised 2026-09-25</span>
   </div>
 
   <div class="page-title">
     <h1>Fullsteam.com — Page Tree</h1>
     <p>Dashed lines show hierarchy connections. Blocks are placeholder nodes, not final designs.</p>
     <p>Level-1 nodes are <b>pages</b> (the inventory). The header does not have to list every L1 item. Access layers: <b>chrome</b> (always visible) · <b>overlay / Menu</b> (same labels, opened) · <b>footer</b> (full tree for recovery). Compare chrome options in <a href="./header-wireframe.html" style="color:var(--blue)">header-wireframe.html</a>.</p>
-    <p><b>Locked 2026-09-10 · finalized 2026-09-14 · revised 2026-09-23:</b> L1 = For Founders · <b>Vertical Software</b> · <b>Embedded Offerings</b> · Our Story · Careers. <b>For Investors removed.</b> <b>Vertical Software is a single page</b> — a sticky sidebar lists all 11 verticals and swaps a tabbed panel in place; <b>no child pages</b> and no category labels. <b>Hardware &amp; Integrations dropped</b> as separate pages (folded into Embedded Offerings / Payments). AI at Fullsteam is a page nested under Embedded Offerings. <b>Leadership</b> is nested under Our Story. <b>Newsroom removed</b> (no nav node, no page). For Founders stays a single-page leaf. See PROJECT_KNOWLEDGE_BASE.md §14.</p>
+    <p><b>Locked 2026-09-10 · finalized 2026-09-14 · revised 2026-09-25:</b> L1 = For Founders · <b>Vertical Software</b> · <b>Embedded Offerings</b> · Our Story · Careers. <b>For Investors removed.</b> <b>Vertical Software is a single page</b> — a sticky sidebar lists all 11 verticals and swaps a tabbed panel in place; <b>no child pages</b> and no category labels. <b>Embedded Offerings is also a single page</b> — a sticky sidebar lists Payments, Lending, Insurance, and AI with tabbed panels; <b>no child pages</b>. <b>Leadership</b> is nested under Our Story. <b>Newsroom removed</b> (no nav node, no page). For Founders stays a single-page leaf. See PROJECT_KNOWLEDGE_BASE.md §14.</p>
   </div>
 
   <main class="sitemap">
@@ -209,17 +209,22 @@
         </div>
       </div>
 
-      <!-- Offerings (embedded expansion mega-menu) -->
+      <!-- Offerings (single page: sticky sidebar + tabbed panel) -->
       <div class="rail-cell">
         <div class="node">
           <b>Embedded Offerings</b>
-          <i>embedded expansion products</i>
+          <i>single page · sticky sidebar + tabbed panel</i>
+          <span class="leaf-badge">single page · no children</span>
         </div>
-        <div class="kids">
-          <div class="kid"><div class="node"><b>Payments</b><i>embedded processing</i></div></div>
-          <div class="kid"><div class="node"><b>Lending</b><i>embedded financing</i></div></div>
-          <div class="kid"><div class="node"><b>Insurance</b><i>embedded coverage</i></div></div>
-          <div class="kid"><div class="node" style="border-color:var(--green);"><b style="color:var(--green);">AI at Fullsteam</b><i>intelligent features</i></div></div>
+        <div class="inpage">
+          <span class="inpage-label">in-page tabs — not pages</span>
+          <ul class="inpage-list">
+            <li>Payments</li>
+            <li>Lending</li>
+            <li>Insurance</li>
+            <li>AI at Fullsteam</li>
+          </ul>
+          <span class="inpage-note">Sticky sidebar lists the offerings; selecting swaps the panel. Hardware &amp; Integrations are folded into Payments/Overview.</span>
         </div>
       </div>
 

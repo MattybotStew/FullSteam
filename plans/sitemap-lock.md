@@ -50,10 +50,9 @@ HOME                                      (/)
 ├─ VERTICAL SOFTWARE                     (/vertical-software) SINGLE PAGE
 │   └─ Sticky sidebar lists all 11 verticals; tabs swap the panel
 │      (no category labels, no child pages, find-your-vertical type-ahead)
-├─ EMBEDDED OFFERINGS                    (/offerings)         hub
-│   ├─ Payments · Lending · Insurance
-│   │   (Hardware & Integrations folded in — no separate pages)
-│   └─ AI at Fullsteam                   (/offerings/ai)      own page, nested
+├─ EMBEDDED OFFERINGS                    (/offerings)         [SINGLE PAGE]
+│   └─ Sticky sidebar lists Payments · Lending · Insurance · AI; tabs swap the panel
+│      (no child pages, no separate AI page)
 ├─ Our Story                             (/our-story)
 │   └─ Leadership                        (/our-story/leadership) page (leaders only)
 └─ Careers                               (/careers)           leaf
