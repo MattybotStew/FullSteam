@@ -1,0 +1,173 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - text: Homepage Wireframe — Alternative A
+    - generic [ref=f1e3]: Storytelling-led · dual-axis (Solutions / Offerings) · runs parallel to bionic v0.1-rough · UX only, no visual direction · predates the 2026-09-10 sitemap lock — its For Investors band is not part of the locked IA (KB §14)
+  - banner [ref=f1e4]:
+    - generic [ref=f1e5]:
+      - generic [ref=f1e6]: FULLSTEAM LOGO
+      - generic [ref=f1e7]:
+        - link "Contact" [ref=f1e8] [cursor=pointer]:
+          - /url: "#"
+        - link "Explore Solutions" [ref=f1e9] [cursor=pointer]:
+          - /url: "#"
+  - main [ref=f1e10]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: White / tan = canvas
+      - generic [ref=f1e14]: Black = type + rules
+      - generic [ref=f1e15]: "Yellow #FFC600 = CTA"
+      - generic [ref=f1e16]: Dark gray + image icon = photo placeholder
+      - generic [ref=f1e17]: "Alternate ordering to v0.1: lead with the two stories, not the portfolio"
+    - generic [ref=f1e18]:
+      - generic [ref=f1e19]: Two ways we grow software companies
+      - generic [ref=f1e20]: Fullsteam
+      - heading "The operating system for vertical markets." [level=1] [ref=f1e21]
+      - paragraph [ref=f1e22]: Software-first, payments-native, AI-accelerated. Fullsteam owns modern system-of-record software for 80,000+ SMB businesses across 11 verticals — then grows it with embedded payments, lending, insurance, hardware, and AI.
+      - generic [ref=f1e23]:
+        - link "Explore our vertical solutions →" [ref=f1e24] [cursor=pointer]:
+          - /url: "#"
+        - link "Selling your business?" [ref=f1e25] [cursor=pointer]:
+          - /url: "#"
+    - generic [ref=f1e26]:
+      - generic [ref=f1e27]:
+        - generic [ref=f1e28]: Story 01 · Acquire & Grow
+        - heading "The businesses we own" [level=3] [ref=f1e29]
+        - paragraph [ref=f1e30]: Modern, vertical-specific software companies we acquire, operate, and grow into market leaders.
+        - list [ref=f1e31]:
+          - listitem [ref=f1e32]: Market-leading vertical software — system-of-record for every business
+          - listitem [ref=f1e33]: 11 verticals — hospitality, ERP, retail, wine & more
+          - listitem [ref=f1e34]: 97 acquisitions — proven, programmatic M&A engine
+        - link "Explore the solutions →" [ref=f1e35] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=f1e36]:
+        - generic [ref=f1e37]: Story 02 · Embedded Expansion
+        - heading "The offerings that grow them" [level=3] [ref=f1e38]
+        - paragraph [ref=f1e39]: Embedded products that expand each business beyond software — a compounding growth engine.
+        - list [ref=f1e40]:
+          - listitem [ref=f1e41]: Payments — $22B+ processed annually, embedded
+          - listitem [ref=f1e42]: Lending & Insurance — embedded financing & coverage
+          - listitem [ref=f1e43]: Hardware & Integrations — devices & ecosystem
+        - link "See the offerings in action →" [ref=f1e44] [cursor=pointer]:
+          - /url: "#"
+    - generic [ref=f1e45]:
+      - generic [ref=f1e46]: Scale
+      - heading "Proof of model — why this works" [level=2] [ref=f1e47]
+      - generic [ref=f1e48]:
+        - generic [ref=f1e49]:
+          - generic [ref=f1e50]: 80k+
+          - generic [ref=f1e51]: SMB customers served
+        - generic [ref=f1e52]:
+          - generic [ref=f1e53]: "11"
+          - generic [ref=f1e54]: durable vertical markets
+        - generic [ref=f1e55]:
+          - generic [ref=f1e56]: $22B
+          - generic [ref=f1e57]: LTM payments processed
+        - generic [ref=f1e58]:
+          - generic [ref=f1e59]: "97"
+          - generic [ref=f1e60]: acquisitions since 2018
+      - generic [ref=f1e61]: Real figures from the confidential company overview deck (KB §19). Verify publishability with client before lock. Keep tight — don't overload the band.
+    - generic [ref=f1e62]:
+      - generic [ref=f1e63]: Solutions
+      - heading "Explore our vertical solutions" [level=2] [ref=f1e64]
+      - paragraph [ref=f1e65]: "Primary CTA lives here. All 11 verticals — flat list, no category labels. Homepage leads with revenue mix (KB §19.9): Hospitality 18% · ERP 13% · Specialty Retail 10% · Transportation 9% · Wine 9%."
+      - generic [ref=f1e66]:
+        - list [ref=f1e68]:
+          - listitem [ref=f1e69]:
+            - text: Hospitality
+            - generic [ref=f1e70]: management
+          - listitem [ref=f1e71]:
+            - text: Weddings & Events
+            - generic [ref=f1e72]: operations
+          - listitem [ref=f1e73]:
+            - text: Wine
+            - generic [ref=f1e74]: sales & tasting room
+          - listitem [ref=f1e75]:
+            - text: Retail
+            - generic [ref=f1e76]: specialty POS
+          - listitem [ref=f1e77]:
+            - text: Storage & Marina
+            - generic [ref=f1e78]: facilities
+          - listitem [ref=f1e79]:
+            - text: Health & Wellness
+            - generic [ref=f1e80]: practice mgmt
+        - list [ref=f1e82]:
+          - listitem [ref=f1e83]:
+            - text: Field Services
+            - generic [ref=f1e84]: home & commercial
+          - listitem [ref=f1e85]:
+            - text: Transportation
+            - generic [ref=f1e86]: ground & parking
+          - listitem [ref=f1e87]:
+            - text: Automotive
+            - generic [ref=f1e88]: lube, repair, lots
+          - listitem [ref=f1e89]:
+            - text: Associations
+            - generic [ref=f1e90]: nonprofits & chapters
+          - listitem [ref=f1e91]:
+            - text: ERP
+            - generic [ref=f1e92]: B2B back-office
+      - generic [ref=f1e93]:
+        - link "Find your vertical →" [ref=f1e94] [cursor=pointer]:
+          - /url: "#"
+        - link "Filter by business type" [ref=f1e95] [cursor=pointer]:
+          - /url: "#"
+    - generic [ref=f1e96]:
+      - generic [ref=f1e97]: Offerings
+      - heading "Offerings in action" [level=2] [ref=f1e98]
+      - paragraph [ref=f1e99]: The embedded expansion axis, shown through concrete customer examples — not feature lists. Growth engine story.
+      - generic [ref=f1e100]:
+        - generic [ref=f1e103]:
+          - heading "Payments" [level=4] [ref=f1e104]
+          - paragraph [ref=f1e105]: Embedded processing inside our software.
+          - generic [ref=f1e106]: e.g. A winery takes card payments at the tasting room, reconciled automatically.
+        - generic [ref=f1e109]:
+          - heading "Lending & Insurance" [level=4] [ref=f1e110]
+          - paragraph [ref=f1e111]: Embedded financing and coverage at the point of need.
+          - generic [ref=f1e112]: e.g. A storage facility offers tenant insurance at move-in.
+        - generic [ref=f1e115]:
+          - heading "AI at Fullsteam" [level=4] [ref=f1e116]
+          - paragraph [ref=f1e117]: Intelligent features embedded across the portfolio.
+          - generic [ref=f1e118]: e.g. A hospitality company modernizes its PMS 10× faster with AI-assisted development.
+      - link "See all offerings →" [ref=f1e120] [cursor=pointer]:
+        - /url: "#"
+    - generic [ref=f1e121]:
+      - generic [ref=f1e122]:
+        - heading "Why Fullsteam" [level=3] [ref=f1e123]
+        - list [ref=f1e124]:
+          - listitem [ref=f1e125]:
+            - generic [ref=f1e126]: System-of-record depth
+            - text: Mission-critical software businesses run on every day — 6+ years average tenure.
+          - listitem [ref=f1e127]:
+            - generic [ref=f1e128]: Payments-native
+            - text: $22B processed through our own engine, embedded in the workflow.
+          - listitem [ref=f1e129]:
+            - generic [ref=f1e130]: AI-accelerated
+            - text: R&D efficiency, workflow automation, and embedded intelligence across the portfolio.
+      - generic [ref=f1e131]:
+        - heading "What our clients & partners are saying" [level=3] [ref=f1e132]
+        - blockquote [ref=f1e134]: "\"It's become so easy — payments are built right in, and the support is great.\""
+        - generic [ref=f1e135]: — Named customer, [Company], [Role]
+    - generic [ref=f1e136]:
+      - generic [ref=f1e137]:
+        - generic [ref=f1e138]: For Founders / Sellers
+        - heading "A home for your business" [level=3] [ref=f1e139]
+        - paragraph [ref=f1e140]: If you've built great vertical software, learn how Fullsteam could be its next — and best — chapter.
+        - link "Sell your business →" [ref=f1e141] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=f1e142]:
+        - generic [ref=f1e143]: For Investors
+        - heading "A compounding growth story" [level=3] [ref=f1e144]
+        - paragraph [ref=f1e145]: See the acquisition + embedded-expansion model and the AI-enabled trajectory.
+        - link "Investor overview →" [ref=f1e146] [cursor=pointer]:
+          - /url: "#"
+    - generic [ref=f1e147]:
+      - heading "Find your business in our portfolio." [level=2] [ref=f1e148]
+      - paragraph [ref=f1e149]: Whatever your industry, there's a Fullsteam business — and an offering — behind it.
+      - link "Explore our vertical solutions →" [ref=f1e150] [cursor=pointer]:
+        - /url: "#"
+      - link "or contact us" [ref=f1e152] [cursor=pointer]:
+        - /url: "#"
+    - generic [ref=f1e154]:
+      - generic [ref=f1e155]: Fullsteam
+      - generic [ref=f1e156]: Solutions · Offerings · For Founders · For Investors
+      - generic [ref=f1e157]: Our Story · Careers · Contact
+      - generic [ref=f1e158]: Privacy · Terms · Complaints

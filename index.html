@@ -1,12 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html">
-<link rel="canonical" href="prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html">
-<title>Fullsteam homepage wireframe</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Review Portal — Fullsteam</title>
+  <style>
+    :root {
+      --blue: #00587C;
+      --gold: #FFC600;
+      --bg: #f8f9fa;
+      --text: #1c2b31;
+      --muted: #5f7076;
+      --panel: #ffffff;
+      --border: #d1d9db;
+    }
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .portal-container {
+      width: 100%;
+      max-width: 800px;
+      padding: 40px 24px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    header h1 {
+      font-size: 32px;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    header p {
+      font-size: 16px;
+      color: var(--muted);
+    }
+    .section {
+      margin-bottom: 32px;
+    }
+    .section-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .link-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .link-card:hover {
+      border-color: var(--blue);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transform: translateY(-2px);
+    }
+    .link-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      color: var(--blue);
+    }
+    .link-card p {
+      margin: 0 0 16px 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .link-card .cta {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .status-badge {
+      display: inline-block;
+      font-size: 10px;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: #e7f1f6;
+      color: var(--blue);
+    }
+    .status-locked {
+      background: #eefbe9;
+      color: #2e7d32;
+    }
+    footer {
+      text-align: center;
+      margin-top: 64px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
 </head>
 <body>
-  <p><a href="prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html">Open the homepage wireframe</a></p>
+
+  <div class="portal-container">
+    <header>
+      <h1>Fullsteam Redesign</h1>
+      <p>Client Review Portal &bull; Project Phase: Wireframing</p>
+    </header>
+
+    <div class="section">
+      <div class="section-title">Structural Blueprints</div>
+      <div class="link-grid">
+        <a href="02_Wireframes/locked/sitemap.html" class="link-card">
+          <div>
+            <span class="status-badge status-locked">Locked</span>
+            <h3>Sitemap & IA</h3>
+            <p>The finalized page tree and navigation hierarchy.</p>
+          </div>
+          <div class="cta">Review Sitemap &rarr;</div>
+        </a>
+        <a href="02_Wireframes/active/header-wireframe.html" class="link-card">
+          <div>
+            <span class="status-badge">Active</span>
+            <h3>Header & Chrome</h3>
+            <p>Explorations for the top navigation and menu overlay.</p>
+          </div>
+          <div class="cta">Review Chrome &rarr;</div>
+        </a>
+        <a href="02_Wireframes/active/homepage-wireframe/homepage-bendingspoons-style.html" class="link-card">
+          <div>
+            <span class="status-badge">Active</span>
+            <h3>Homepage Concept</h3>
+            <p>The current long-scroll storytelling direction.</p>
+          </div>
+          <div class="cta">Review Homepage &rarr;</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Visual Design</div>
+      <div class="link-grid">
+        <div class="link-card" style="opacity: 0.6; cursor: default;">
+          <div>
+            <span class="status-badge">Pending</span>
+            <h3>Style Guide</h3>
+            <p>Typography, color palette, and UI components.</p>
+          </div>
+          <div class="cta" style="color: var(--muted);">Coming Soon</div>
+        </div>
+        <div class="link-card" style="opacity: 0.6; cursor: default;">
+          <div>
+            <span class="status-badge">Pending</span>
+            <h3>High-Fidelity Screens</h3>
+            <p>Final visual designs for key pages.</p>
+          </div>
+          <div class="cta" style="color: var(--muted);">Coming Soon</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2026 Fullsteam Redesign Project
+    </footer>
+  </div>
+
 </body>
 </html>
