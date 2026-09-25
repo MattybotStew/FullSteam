@@ -50,7 +50,7 @@ HTML wireframes currently do, section by section, and what is still open.
 | [`02_Wireframes/archive/v0.1-rough/alternative-home-a.html`](./02_Wireframes/archive/v0.1-rough/alternative-home-a.html) | Alternative A — storytelling-led, dual-axis | Archive |
 | [`02_Wireframes/active/pages/for-founders.html`](./02_Wireframes/active/pages/for-founders.html) | For Founders — home, how it works, what we look for, talk to us | Active |
 | [`02_Wireframes/active/pages/faq.html`](./02_Wireframes/active/pages/faq.html) | Founder FAQ (`/for-founders/faq`) | Active |
-| [`02_Wireframes/active/pages/vertical-software.html`](./02_Wireframes/active/pages/vertical-software.html) | Vertical Software — sticky sidebar, 11 tabs | Active |
+| [`02_Wireframes/active/pages/vertical-software.html`](./02_Wireframes/active/pages/vertical-software.html) | Vertical Software — name tiles, story in a window | Active |
 | [`02_Wireframes/active/pages/offerings.html`](./02_Wireframes/active/pages/offerings.html) | Embedded Offerings — Payments, Lending, Insurance, AI tabs | Active |
 | [`02_Wireframes/active/pages/our-story.html`](./02_Wireframes/active/pages/our-story.html) | Our Story | Active |
 | [`02_Wireframes/active/pages/leadership.html`](./02_Wireframes/active/pages/leadership.html) | Leadership — leaders only | Active |
@@ -333,6 +333,9 @@ not L1 tree nodes.
 | 2026-09-25 | **Interior page wireframes.** For Founders, FAQ, Vertical Software (sidebar + 11 tabs + type-ahead), Embedded Offerings (Payments / Lending / Insurance / AI tabs), Our Story, Leadership, Careers, and Contact. Same low-fi skin and Option B chrome as the homepage. Homepage Menu, footer, primary Explore CTAs, filmstrip, and “see all” links now open those pages. In-page homepage story anchors stay on the homepage. Privacy, Terms, and Complaints are still unbuilt (content exclusions). `design.md` not edited. |
 | 2026-09-25 | Vertical Software: removed the find-your-vertical search field. The sidebar is the list of 11 tabs only. |
 | 2026-09-25 | Vertical Software hero: “Read the story” scrolls to the active vertical’s headline. |
+| 2026-09-25 | Vertical Software picker: the sticky sidebar is a grid of 11 name tiles. The selected tile is yellow. The story opens full width underneath. Hash still selects the tile. |
+| 2026-09-25 | Vertical Software story opens in a window. Arrows and a swipe move through all 11. On a narrow screen the window fills the page and Previous / Next sit at the bottom. |
+| 2026-09-25 | Vertical Software: hero image placeholder removed. Name tiles are taller gray image fields with the name overlaid; hover lifts the tile; the open tile stays yellow. |
 
 ---
 
@@ -344,7 +347,7 @@ Same chrome on every page: Logo · Menu · Explore vertical solutions. The Menu 
 |------|-----------|
 | **For Founders** | Why Fullsteam → how it works (4 steps) → what we look for → talk to us. Never frames the sale as an exit. |
 | **FAQ** | Six founder questions. Answers record the constraints (software before payments, brands stay, no announcement at close). |
-| **Vertical Software** | Contained hero at the top: one page headline for the verticals, one line, image inside the column. Each panel opens with that vertical’s title, then the story paragraphs, an overlapping icon collage to the right of the story paragraphs, and fact chips, beside a sticky list of all 11. The list swaps the panel only. The menu’s vertical names use the same hash, open that tab, and scroll to its headline. No category labels, no child pages, no search field. |
+| **Vertical Software** | Contained hero at the top: one page headline for the verticals, one line, and the Read the story control (no hero image). Eleven taller name tiles sit under the hero — gray image fields with the name overlaid; hover lifts a tile; the open tile is yellow. A tile opens that vertical’s story in a window — title, story paragraphs, an overlapping icon collage, and fact chips. Arrows move through all 11. On a narrow screen the window fills the page, the story scrolls inside it, and Previous / Next sit at the bottom. A swipe moves to the next vertical. The menu’s vertical names use the same hash and open that window. No category labels, no child pages, no search field. |
 | **Embedded Offerings** | Intro states integrations live here. Sticky list: Payments (hardware folded in), Lending, Insurance, AI. AI tab is use cases first, never a headcount story. |
 | **Our Story** | Who we are → the model → brands keep their names → links to Leadership and Careers. No invented timeline. |
 | **Leadership** | Six placeholder leader cards. Leaders only. |
