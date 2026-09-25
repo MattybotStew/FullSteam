@@ -42,24 +42,34 @@ HTML wireframes currently do, section by section, and what is still open.
 
 | File | Role | Status |
 |------|------|--------|
-| [`prototypes/sitemap.html`](./prototypes/sitemap.html) | Full page tree (L1 = pages); chrome/overlay/footer as access layers | Locked — v1.0 final |
-| [`prototypes/header-wireframe.html`](./prototypes/header-wireframe.html) | Stacked chrome options 0 / A / B / C, each with its drawn-open overlay | Comparison — pick pending |
-| [`prototypes/sitemap-rationale.html`](./prototypes/sitemap-rationale.html) | Rationale for IA/nav terminology decisions (incl. "Offerings") | Reference |
-| [`prototypes/meganav-rationale.html`](./prototypes/meganav-rationale.html) | Rationale for mega-menu / grouped verticals | Reference |
-| [`prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html`](./prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html) | **Current homepage direction** — Square layout guide, long-scroll story | Active |
-| [`prototypes/homepage-wireframe/v0.1-rough/alternative-home-a.html`](./prototypes/homepage-wireframe/v0.1-rough/alternative-home-a.html) | Alternative A — storytelling-led, dual-axis (Solutions / Offerings) | Alternative |
-| `prototypes/homepage-wireframe/v0.1-rough/sections/` | Reserved for per-section explorations | Empty |
+| [`02_Wireframes/locked/sitemap.html`](./02_Wireframes/locked/sitemap.html) | Full page tree (L1 = pages); chrome/overlay/footer as access layers | Locked — v1.1 |
+| [`02_Wireframes/active/header-wireframe.html`](./02_Wireframes/active/header-wireframe.html) | Stacked chrome options 0 / A / B / C, each with its drawn-open overlay | Comparison — pick pending |
+| [`01_Discovery/synthesis/sitemap-rationale.html`](./01_Discovery/synthesis/sitemap-rationale.html) | Rationale for IA/nav terminology decisions (incl. "Offerings") | Reference |
+| [`01_Discovery/synthesis/meganav-rationale.html`](./01_Discovery/synthesis/meganav-rationale.html) | Rationale for mega-menu / grouped verticals | Reference |
+| [`02_Wireframes/active/homepage-wireframe/homepage-v1.html`](./02_Wireframes/active/homepage-wireframe/homepage-v1.html) | **Current homepage direction** — long-scroll story | Active |
+| [`02_Wireframes/archive/v0.1-rough/alternative-home-a.html`](./02_Wireframes/archive/v0.1-rough/alternative-home-a.html) | Alternative A — storytelling-led, dual-axis | Archive |
+| [`02_Wireframes/active/pages/for-founders.html`](./02_Wireframes/active/pages/for-founders.html) | For Founders — home, how it works, what we look for, talk to us | Active |
+| [`02_Wireframes/active/pages/faq.html`](./02_Wireframes/active/pages/faq.html) | Founder FAQ (`/for-founders/faq`) | Active |
+| [`02_Wireframes/active/pages/vertical-software.html`](./02_Wireframes/active/pages/vertical-software.html) | Vertical Software — sticky sidebar, 11 tabs | Active |
+| [`02_Wireframes/active/pages/offerings.html`](./02_Wireframes/active/pages/offerings.html) | Embedded Offerings — Payments, Lending, Insurance, AI tabs | Active |
+| [`02_Wireframes/active/pages/our-story.html`](./02_Wireframes/active/pages/our-story.html) | Our Story | Active |
+| [`02_Wireframes/active/pages/leadership.html`](./02_Wireframes/active/pages/leadership.html) | Leadership — leaders only | Active |
+| [`02_Wireframes/active/pages/careers.html`](./02_Wireframes/active/pages/careers.html) | Careers — culture + open-role rows | Active |
+| [`02_Wireframes/active/pages/contact.html`](./02_Wireframes/active/pages/contact.html) | Contact (utility, not an L1 node) | Active |
 
 Preview from the repo root:
 
 ```
 python3 -m http.server 8000
-# → http://localhost:8000/prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html
+# → http://localhost:8000/02_Wireframes/active/homepage-wireframe/homepage-v1.html
+# → http://localhost:8000/02_Wireframes/active/pages/vertical-software.html
 ```
 
 ---
 
-## 2. Current direction — `homepage-bendingspoons-style.html`
+## 2. Current direction — `homepage-v1.html`
+
+The live file is [`02_Wireframes/active/homepage-wireframe/homepage-v1.html`](./02_Wireframes/active/homepage-wireframe/homepage-v1.html). Earlier notes below still say `homepage-bendingspoons-style.html`; that name is the same direction after the folder move.
 
 **Layout concept:** Homepage as a **long scrolling story**, using
 [squareup.com/us/en](https://squareup.com/us/en) as the layout guide: full-bleed
@@ -320,3 +330,24 @@ not L1 tree nodes.
 | 2026-09-24 | Homepage: “AI at Fullsteam” callout (label + lorem + pill → `#ai`) sits inside `#solutions .scene-copy` under “Browse all verticals” and inside `#offerings .scene-copy` under “See all Offerings” — same bordered-box markup; no sibling between sections. |
 | 2026-09-24 | Axis B hero CTAs: ghost **Careers** text link (`#careers`, beat 06) beside the Explore pill. |
 | 2026-09-24 | Beat 06 `#careers`: added `is-flip` so image is left, copy right (matches `#offerings`). |
+| 2026-09-25 | **Interior page wireframes.** For Founders, FAQ, Vertical Software (sidebar + 11 tabs + type-ahead), Embedded Offerings (Payments / Lending / Insurance / AI tabs), Our Story, Leadership, Careers, and Contact. Same low-fi skin and Option B chrome as the homepage. Homepage Menu, footer, primary Explore CTAs, filmstrip, and “see all” links now open those pages. In-page homepage story anchors stay on the homepage. Privacy, Terms, and Complaints are still unbuilt (content exclusions). `design.md` not edited. |
+| 2026-09-25 | Vertical Software: removed the find-your-vertical search field. The sidebar is the list of 11 tabs only. |
+
+---
+
+## 9. Interior pages (2026-09-25)
+
+Same chrome on every page: Logo · Menu · Explore vertical solutions. The Menu overlay and footer reach the locked tree. Body copy is placeholder. Headlines carry the locked job of the page.
+
+| Page | Structure |
+|------|-----------|
+| **For Founders** | Why Fullsteam → how it works (4 steps) → what we look for → talk to us. Never frames the sale as an exit. |
+| **FAQ** | Six founder questions. Answers record the constraints (software before payments, brands stay, no announcement at close). |
+| **Vertical Software** | Story leads each panel (name, then the two paragraphs). Image and fact chips follow. Sticky list of all 11 verticals swaps the panel. Hash is the deep link (`#retail`). No category labels, no child pages, no search field. |
+| **Embedded Offerings** | Intro states integrations live here. Sticky list: Payments (hardware folded in), Lending, Insurance, AI. AI tab is use cases first, never a headcount story. |
+| **Our Story** | Who we are → the model → brands keep their names → links to Leadership and Careers. No invented timeline. |
+| **Leadership** | Six placeholder leader cards. Leaders only. |
+| **Careers** | How it feels → who thrives → open-role table (placeholder rows). |
+| **Contact** | Conversation form. Reasons: software business, work here, something else. No investor page and no investor option. |
+
+Privacy, Terms, and Complaints stay footer labels only. They are outside the content-writing scope.

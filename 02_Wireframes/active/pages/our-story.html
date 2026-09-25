@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story — Wireframe · Fullsteam</title>
+<style>
+
+  :root{
+    --bg:#FFFFFF; --tan:#F3E6D0; --ink:#000000; --yellow:#FFC600;
+    --ph:#4A4A4A; --line:#000000;
+    --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono:ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --img-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8C8C8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='1.5'/%3E%3Ccircle cx='8.5' cy='9.5' r='1.6'/%3E%3Cpath d='M4 17.5 9 12.5l3.5 3.5L16 12l5 5.5'/%3E%3C/svg%3E");
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+  body{ font-family:var(--sans); color:var(--ink); background:var(--bg); line-height:1.45; }
+  a{ color:var(--ink); text-decoration:none; }
+  button, input, select, textarea{ font-family:inherit; color:var(--ink); }
+  button{ cursor:pointer; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
+  .img-ph{
+    background:var(--ph); display:flex; align-items:center; justify-content:center;
+    min-height:160px; width:100%;
+  }
+  .img-ph::after{
+    content:""; width:56px; height:56px;
+    background:var(--img-icon) center / contain no-repeat;
+  }
+  header{
+    position:sticky; top:0; z-index:100; background:#fff;
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:12px 24px; max-width:1280px; margin:0 auto;
+  }
+  .logo{ font-size:18px; font-weight:700; letter-spacing:.02em; }
+  .nav-right{ display:flex; align-items:center; gap:16px; }
+  .menu-btn{ background:none; border:0; font:inherit; font-size:13px; font-weight:600; padding:8px 0; }
+  .pill{
+    display:inline-flex; align-items:center; justify-content:center;
+    background:var(--yellow); color:var(--ink); border:0; padding:9px 18px;
+    font-size:13px; font-weight:700;
+  }
+  .pill-lg{ padding:14px 28px; font-size:16px; }
+  .site-overlay{ display:none; border-top:1px solid var(--line); background:var(--tan); padding:28px 24px 32px; }
+  .site-overlay.is-open{ display:block; }
+  .ov-inner{
+    max-width:1280px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(5,1fr); gap:24px;
+  }
+  .ov-solutions{ grid-column:span 2; }
+  .site-overlay h3{ font-size:14px; font-weight:600; margin-bottom:8px; }
+  .site-overlay ul{ list-style:none; }
+  .site-overlay li{ font-size:13px; padding:3px 0; }
+  .site-overlay a:hover{ text-decoration:underline; }
+  .site-overlay a[aria-current="page"]{ font-weight:700; border-bottom:1px solid var(--ink); }
+  .solutions-split{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+  .ov-finder{ font-size:12px; margin-top:10px; font-family:var(--mono); }
+  .beat{
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; margin-bottom:14px;
+  }
+  .page-hero{ padding:64px 0 48px; border-bottom:1px solid var(--line); }
+  .page-hero h1{
+    font-size:clamp(36px, 5vw, 56px); font-weight:700; letter-spacing:-.03em;
+    line-height:1.05; max-width:16ch;
+  }
+  .lede{ margin-top:16px; max-width:46ch; font-size:18px; }
+  .jumps{ display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:28px; font-size:14px; font-weight:600; }
+  .jumps a{ border-bottom:1px solid var(--ink); }
+  .block{ padding:64px 0; border-bottom:1px solid var(--line); }
+  .block.tan{ background:var(--tan); }
+  .block h2{
+    font-size:clamp(28px, 3.2vw, 40px); line-height:1.1; letter-spacing:-.02em;
+    max-width:18ch; margin-bottom:14px;
+  }
+  .prose{ max-width:62ch; font-size:16px; }
+  .prose p + p{ margin-top:12px; }
+  .anno{
+    margin-top:18px; max-width:62ch; padding:10px 12px;
+    border:1px dashed var(--ink); font-family:var(--mono); font-size:12px; line-height:1.4;
+  }
+  .split{ display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:start; }
+  .steps{ list-style:none; display:grid; gap:16px; margin-top:8px; }
+  .steps li{
+    display:grid; grid-template-columns:48px 1fr; gap:14px; align-items:start;
+    padding-top:16px; border-top:1px solid var(--line);
+  }
+  .steps b{ font-family:var(--mono); font-size:12px; letter-spacing:.08em; }
+  .steps h3{ font-size:18px; margin-bottom:4px; }
+  .steps p{ font-size:15px; max-width:52ch; }
+  .layout{ display:grid; grid-template-columns:260px 1fr; gap:28px; align-items:start; }
+  .side{ position:sticky; top:73px; }
+  .finder{ display:block; width:100%; margin:8px 0 12px; padding:10px 12px; border:1px solid var(--ink); background:#fff; font-size:14px; }
+  .tabs{ list-style:none; max-height:calc(100vh - 180px); overflow:auto; }
+  .tabs button{
+    display:block; width:100%; text-align:left; background:none; border:0;
+    border-bottom:1px solid var(--line); padding:10px 8px; font-size:14px;
+  }
+  .tabs button[aria-selected="true"]{ background:var(--yellow); font-weight:700; }
+  .tabs button.is-hidden{ display:none; }
+  .empty{ display:none; font-size:13px; padding:8px; }
+  .empty.is-on{ display:block; }
+  .panel{ display:none; }
+  .panel.is-active{ display:block; }
+  .panel h2{ max-width:22ch; }
+  .panel .img-ph{ min-height:280px; margin-bottom:20px; }
+  .facts{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:22px; }
+  .facts div{ border:1px solid var(--ink); padding:12px; background:#fff; }
+  .facts span{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
+  .cards{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:8px; }
+  .card{ border:1px solid var(--ink); background:#fff; }
+  .card .img-ph{ min-height:180px; }
+  .card figcaption{ padding:12px 14px 16px; }
+  .card strong{ display:block; font-size:16px; }
+  .card span{ display:block; font-size:13px; margin-top:4px; }
+  .roles{ width:100%; border-collapse:collapse; margin-top:8px; font-size:15px; }
+  .roles th, .roles td{ text-align:left; padding:12px 10px; border-bottom:1px solid var(--ink); font-weight:500; }
+  .roles th{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; }
+  .faq{ display:grid; gap:0; border-top:1px solid var(--line); }
+  .faq details{ border-bottom:1px solid var(--line); padding:14px 0; }
+  .faq summary{ font-size:18px; font-weight:700; cursor:pointer; }
+  .faq details p{ margin-top:10px; max-width:62ch; font-size:16px; }
+  form{ display:grid; gap:14px; max-width:560px; }
+  label{ display:grid; gap:6px; font-size:13px; font-weight:600; }
+  input, select, textarea{
+    width:100%; padding:10px 12px; border:1px solid var(--ink); background:#fff; font-size:15px; font-weight:400;
+  }
+  textarea{ min-height:120px; resize:vertical; }
+  .form-note{ font-size:14px; max-width:52ch; }
+  .form-note.is-on{ font-weight:700; }
+  footer{ border-top:1px solid var(--line); padding:40px 0 56px; background:var(--tan); }
+  .foot{ display:flex; flex-wrap:wrap; gap:32px 48px; justify-content:space-between; font-size:14px; }
+  .foot a{ display:block; padding:4px 0; }
+  .foot a:hover{ text-decoration:underline; }
+  .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
+  @media (max-width:900px){
+    .ov-inner{ grid-template-columns:1fr 1fr; }
+    .solutions-split, .split, .layout, .facts, .cards{ grid-template-columns:1fr; }
+    .layout, .side, .layout > div{ min-width:0; }
+    .side{ position:static; }
+    .page-hero h1, .block h2{ max-width:100%; }
+    .nav{ padding:10px 16px; gap:10px; }
+    .pill{ padding:8px 10px; font-size:12px; }
+    .tabs{ max-height:none; display:flex; gap:0; overflow:auto; width:100%; }
+    .tabs button{ width:auto; white-space:nowrap; border-bottom:0; border-right:1px solid var(--line); }
+  }
+
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="nav">
+      <a class="logo" href="../homepage-wireframe/homepage-v1.html">FULLSTEAM</a>
+      <div class="nav-right">
+        <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="siteOverlay">Menu</button>
+        <a class="pill" href="vertical-software.html">Explore vertical solutions</a>
+      </div>
+    </div>
+    <div class="site-overlay" id="siteOverlay">
+      <div class="ov-inner">
+        <div class="ov-solutions">
+          <h3><a href="vertical-software.html">Vertical Software</a></h3>
+          <div class="solutions-split">
+            <ul aria-label="Verticals">
+              <li><a href="vertical-software.html#hospitality">Hospitality</a></li><li><a href="vertical-software.html#weddings-events">Weddings & Events</a></li><li><a href="vertical-software.html#wine">Wine</a></li><li><a href="vertical-software.html#retail">Retail</a></li><li><a href="vertical-software.html#storage-marina">Storage & Marina</a></li><li><a href="vertical-software.html#health-wellness">Health & Wellness</a></li>
+            </ul>
+            <div>
+              <ul aria-label="Verticals">
+                <li><a href="vertical-software.html#field-services">Field Services</a></li><li><a href="vertical-software.html#transportation">Transportation</a></li><li><a href="vertical-software.html#automotive">Automotive</a></li><li><a href="vertical-software.html#association-management">Association Management</a></li><li><a href="vertical-software.html#erp">ERP</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3><a href="offerings.html">Embedded Offerings</a></h3>
+          <ul>
+            <li><a href="offerings.html#payments">Payments</a></li><li><a href="offerings.html#lending">Lending</a></li><li><a href="offerings.html#insurance">Insurance</a></li><li><a href="offerings.html#ai">AI at Fullsteam</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3><a href="our-story.html" aria-current="page">Our Story</a></h3>
+          <ul><li><a href="leadership.html">Leadership</a></li></ul>
+          <h3 style="margin-top:16px"><a href="careers.html">Careers</a></h3>
+          <ul><li><a href="careers.html#roles">Open roles</a></li></ul>
+        </div>
+        <div>
+          <h3><a href="contact.html">Contact</a></h3>
+          <ul><li><a href="contact.html">Talk to us</a></li></ul>
+          <h3 style="margin-top:16px"><a href="for-founders.html">For Founders</a></h3>
+          <ul>
+            <li><a href="for-founders.html">A home for your business</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="beat">Our Story</p>
+        <h1>Who we are, before what we do.</h1>
+        <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Narrative first. The numbers come after.</p>
+      </div>
+    </section>
+    <section class="block" id="who">
+      <div class="wrap split">
+        <div>
+          <p class="beat">01 — The company</p>
+          <h2>Many software businesses. One home.</h2>
+          <div class="prose">
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+        <div class="img-ph" aria-hidden="true"></div>
+      </div>
+    </section>
+    <section class="block tan" id="model">
+      <div class="wrap">
+        <p class="beat">02 — The model</p>
+        <h2>Software first. Then we grow it.</h2>
+        <div class="prose">
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </div>
+        <p style="margin-top:22px; display:flex; flex-wrap:wrap; gap:16px;">
+          <a class="pill" href="vertical-software.html">Explore our vertical solutions</a>
+          <a href="offerings.html" style="font-weight:700; border-bottom:1px solid #000; align-self:center;">Embedded Offerings</a>
+        </p>
+      </div>
+    </section>
+    <section class="block" id="brands">
+      <div class="wrap split">
+        <div class="img-ph" aria-hidden="true"></div>
+        <div>
+          <p class="beat">03 — The businesses</p>
+          <h2>They keep their own names.</h2>
+          <div class="prose">
+            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          <p class="anno">Do not invent a company timeline. Milestones stay blank until Our Story copy is written. Acquisitions are not announced at close.</p>
+        </div>
+      </div>
+    </section>
+    <section class="block tan" id="people">
+      <div class="wrap">
+        <p class="beat">04 — People</p>
+        <h2>The leaders, and the people who might join.</h2>
+        <p class="prose">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+        <p style="margin-top:22px; display:flex; flex-wrap:wrap; gap:16px;">
+          <a class="pill" href="leadership.html">Leadership</a>
+          <a href="careers.html" style="font-weight:700; border-bottom:1px solid #000; align-self:center;">Careers</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+
+  <footer>
+    <div class="wrap foot">
+      <div>
+        <div class="fh">Company</div>
+        <a href="our-story.html">Our Story</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="careers.html">Careers</a>
+      </div>
+      <div>
+        <div class="fh">Explore</div>
+        <a href="vertical-software.html">Vertical Software</a>
+        <a href="offerings.html">Embedded Offerings</a>
+        <a href="for-founders.html">For Founders</a>
+      </div>
+      <div>
+        <div class="fh">Connect</div>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html#partner">Partner inquiries</a>
+      </div>
+      <div>
+        <div class="fh">Legal</div>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Complaints</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const overlay = document.getElementById("siteOverlay");
+    menuBtn.addEventListener("click", () => {
+      const open = overlay.classList.toggle("is-open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      menuBtn.textContent = open ? "Close" : "Menu";
+    });
+  </script>
+
+
+</body>
+</html>
