@@ -439,10 +439,11 @@ HOME                                      (/)
 ├─ Audience path: For Founders (investors served via proof + footer, no node)
 └─ Representative verticals / offerings proof
 
-FOR FOUNDERS                              (/for-founders)      [leaf · single page]
+FOR FOUNDERS                              (/for-founders)
 ├─ Why Fullsteam — "a home for your business"
 ├─ How the acquisition process works
 ├─ What we're looking for (vertical focus)
+├─ FAQ                                   (/for-founders/faq) [leaf]
 └─ Talk to us (contact funnel)
 
 VERTICAL SOFTWARE                         (/vertical-software) [SINGLE PAGE]
