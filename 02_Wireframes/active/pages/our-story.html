@@ -84,6 +84,70 @@
     margin-top:18px; max-width:62ch; padding:10px 12px;
     border:1px dashed var(--ink); font-family:var(--mono); font-size:12px; line-height:1.4;
   }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:12px 16px; margin-top:28px; align-items:center; }
+  .ghost{
+    display:inline-flex; align-items:center; justify-content:center;
+    background:#fff; color:var(--ink); border:1px solid var(--ink);
+    padding:14px 28px; font-size:16px; font-weight:700; max-width:100%;
+  }
+  .text-link{ font-weight:700; border-bottom:1px solid var(--ink); }
+  .bleed-imgs{
+    display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:10px;
+    margin-top:40px; padding:0 24px;
+  }
+  .bleed-imgs .img-ph{ min-height:280px; }
+  .proof-band{ padding:28px 0 8px; }
+  .proof-band .beat{ margin-bottom:8px; }
+  .kpi-row{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:12px; }
+  .kpi{ border:1px solid var(--ink); padding:14px 12px; background:#fff; min-width:0; }
+  .kpi b{ display:block; font-size:20px; letter-spacing:-.02em; margin-bottom:6px; }
+  .kpi span{
+    display:block; font-family:var(--mono); font-size:11px; letter-spacing:.06em;
+    text-transform:uppercase; overflow-wrap:anywhere;
+  }
+  .intro-head{
+    display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+    gap:32px; align-items:start;
+  }
+  .intro-head h2{ max-width:16ch; }
+  .cluster{
+    display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+    gap:16px; margin-top:40px;
+  }
+  .cluster-col{ display:grid; gap:16px; min-width:0; }
+  .cluster-col.offset{ margin-top:56px; }
+  .cluster .img-ph{ min-height:220px; }
+  .trio{
+    display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.15fr) auto;
+    gap:28px; align-items:end;
+  }
+  .trio h2{ max-width:14ch; margin-bottom:0; }
+  .chapters{ display:grid; margin-top:8px; }
+  .chapter{
+    display:grid; grid-template-columns:150px minmax(0, 1fr);
+    gap:20px 28px; padding:28px 0; border-top:1px solid var(--line); min-width:0;
+  }
+  .chapter.has-img{ grid-template-columns:150px minmax(0, 1fr) minmax(0, 220px); }
+  .chapter .year{
+    font-family:var(--mono); font-size:12px; letter-spacing:.04em;
+  }
+  .chapter h3{ font-size:22px; line-height:1.15; letter-spacing:-.02em; margin-bottom:8px; }
+  .chapter p{ font-size:16px; max-width:62ch; }
+  .chapter .img-ph{ min-height:160px; }
+  .role{
+    display:grid; grid-template-columns:minmax(0, 1.1fr) minmax(0, 1.6fr) auto;
+    gap:16px 24px; align-items:center; padding:22px 0; border-top:1px solid var(--line);
+  }
+  .role h3{ font-size:20px; letter-spacing:-.02em; }
+  .role p{ font-size:15px; max-width:52ch; }
+  .close-band{ padding:56px 0 72px; background:var(--tan); border-top:1px solid var(--line); }
+  .close-repeat{
+    font-size:clamp(36px, 6vw, 72px); font-weight:700; letter-spacing:-.03em;
+    line-height:1.02; max-width:100%; overflow-wrap:anywhere;
+  }
+  .close-repeat + .close-repeat{ margin-top:4px; }
+  .close-band .lede{ margin-top:22px; }
+  .close-band .hero-actions{ margin-top:28px; }
   .split{ display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:start; }
   .steps{ list-style:none; display:grid; gap:16px; margin-top:8px; }
   .steps li{
@@ -140,7 +204,16 @@
   .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
   @media (max-width:900px){
     .ov-inner{ grid-template-columns:1fr 1fr; }
-    .solutions-split, .split, .layout, .facts, .cards{ grid-template-columns:1fr; }
+    .solutions-split, .split, .layout, .facts, .cards,
+    .bleed-imgs, .intro-head, .cluster, .trio, .chapter, .chapter.has-img, .role{
+      grid-template-columns:1fr;
+    }
+    .kpi-row{ grid-template-columns:1fr 1fr; }
+    .bleed-imgs{ padding:0 16px; }
+    .bleed-imgs .img-ph{ min-height:160px; }
+    .cluster-col.offset{ margin-top:0; }
+    .trio h2, .intro-head h2{ max-width:100%; }
+    .chapter .img-ph{ min-height:180px; }
     .layout, .side, .layout > div{ min-width:0; }
     .side{ position:static; }
     .page-hero h1, .block h2{ max-width:100%; }
@@ -204,60 +277,154 @@
 
 
   <main>
-    <section class="page-hero">
+    <section class="page-hero" style="border-bottom:0; padding-bottom:0;">
       <div class="wrap">
         <p class="beat">Our Story</p>
         <h1>Who we are, before what we do.</h1>
-        <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Narrative first. The numbers come after.</p>
-      </div>
-    </section>
-    <section class="block" id="who">
-      <div class="wrap split">
-        <div>
-          <p class="beat">01 — The company</p>
-          <h2>Many software businesses. One home.</h2>
-          <div class="prose">
-            <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-            <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-        </div>
-        <div class="img-ph" aria-hidden="true"></div>
-      </div>
-    </section>
-    <section class="block tan" id="model">
-      <div class="wrap">
-        <p class="beat">02 — The model</p>
-        <h2>Software first. Then we grow it.</h2>
-        <div class="prose">
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        </div>
-        <p style="margin-top:22px; display:flex; flex-wrap:wrap; gap:16px;">
-          <a class="pill" href="vertical-software.html">Explore our vertical solutions</a>
-          <a href="offerings.html" style="font-weight:700; border-bottom:1px solid #000; align-self:center;">Embedded Offerings</a>
+        <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+        <p class="hero-actions">
+          <a class="pill pill-lg" href="vertical-software.html">Explore our vertical solutions</a>
+          <a class="ghost" href="leadership.html">Leadership</a>
         </p>
       </div>
+      <div class="bleed-imgs" aria-hidden="true">
+        <div class="img-ph"></div>
+        <div class="img-ph"></div>
+        <div class="img-ph"></div>
+        <div class="img-ph"></div>
+      </div>
+      <div class="wrap proof-band">
+        <p class="beat">Scale, pending publishability</p>
+        <div class="kpi-row">
+          <div class="kpi"><b>Placeholder</b><span>Employee count</span></div>
+          <div class="kpi"><b>Placeholder</b><span>Customer count</span></div>
+          <div class="kpi"><b>Placeholder</b><span>Retention</span></div>
+          <div class="kpi"><b>Placeholder</b><span>Payment volume</span></div>
+        </div>
+        <p class="anno">Wireframe stand-ins. Not published figures. No revenue, run-rate, or profitability.</p>
+      </div>
     </section>
-    <section class="block" id="brands">
-      <div class="wrap split">
-        <div class="img-ph" aria-hidden="true"></div>
-        <div>
-          <p class="beat">03 — The businesses</p>
-          <h2>They keep their own names.</h2>
-          <div class="prose">
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    <section class="block" id="who">
+      <div class="wrap">
+        <div class="intro-head">
+          <div>
+            <p class="beat">01 — The company</p>
+            <h2>Many software businesses. One home.</h2>
           </div>
-          <p class="anno">Do not invent a company timeline. Milestones stay blank until Our Story copy is written. Acquisitions are not announced at close.</p>
+          <div class="prose">
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <p style="margin-top:18px"><a class="text-link" href="offerings.html">Embedded Offerings</a></p>
+          </div>
+        </div>
+        <div class="cluster" aria-hidden="true">
+          <div class="cluster-col">
+            <div class="img-ph"></div>
+            <div class="img-ph"></div>
+          </div>
+          <div class="cluster-col offset">
+            <div class="img-ph"></div>
+            <div class="img-ph"></div>
+          </div>
         </div>
       </div>
     </section>
+
     <section class="block tan" id="people">
+      <div class="wrap trio">
+        <div>
+          <p class="beat">02 — Leadership</p>
+          <h2>The people who lead.</h2>
+        </div>
+        <p class="prose">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.</p>
+        <a class="pill" href="leadership.html">Leadership</a>
+      </div>
+    </section>
+
+    <section class="block" id="chapters">
       <div class="wrap">
-        <p class="beat">04 — People</p>
-        <h2>The leaders, and the people who might join.</h2>
-        <p class="prose">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
-        <p style="margin-top:22px; display:flex; flex-wrap:wrap; gap:16px;">
-          <a class="pill" href="leadership.html">Leadership</a>
-          <a href="careers.html" style="font-weight:700; border-bottom:1px solid #000; align-self:center;">Careers</a>
+        <p class="beat">03 — Chapters</p>
+        <h2>How the home came together.</h2>
+        <p class="anno">Do not invent a company timeline. Year labels stay blank until Our Story copy is written. Acquisitions are not announced at close. Never frame a sale as an exit.</p>
+        <div class="chapters">
+          <article class="chapter has-img">
+            <p class="year">Year [placeholder]</p>
+            <div>
+              <h3>Software first. Then we grow it.</h3>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div class="img-ph" aria-hidden="true"></div>
+          </article>
+          <article class="chapter">
+            <p class="year">Year [placeholder]</p>
+            <div>
+              <h3>They keep their own names.</h3>
+              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+          </article>
+          <article class="chapter has-img">
+            <p class="year">Year [placeholder]</p>
+            <div>
+              <h3>A home for your business.</h3>
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            </div>
+            <div class="img-ph" aria-hidden="true"></div>
+          </article>
+          <article class="chapter">
+            <p class="year">Year [placeholder]</p>
+            <div>
+              <h3>What we add comes after the software.</h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+            </div>
+          </article>
+          <article class="chapter has-img">
+            <p class="year">Year [placeholder]</p>
+            <div>
+              <h3>Leaders, when the client names them.</h3>
+              <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+            </div>
+            <div class="img-ph" aria-hidden="true"></div>
+          </article>
+          <article class="chapter">
+            <p class="year">Year [placeholder]</p>
+            <div>
+              <h3>The businesses stay the story.</h3>
+              <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="roles">
+      <div class="wrap">
+        <p class="beat">04 — Careers</p>
+        <h2>People who might join.</h2>
+        <div class="prose" style="margin-bottom:8px">
+          <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
+        </div>
+        <article class="role">
+          <h3>Role [placeholder]</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+          <a class="pill" href="careers.html#roles">See open roles</a>
+        </article>
+        <article class="role">
+          <h3>Role [placeholder]</h3>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+          <a class="pill" href="careers.html#roles">See open roles</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="close-band" id="close">
+      <div class="wrap">
+        <p class="close-repeat">A home for your business</p>
+        <p class="close-repeat">A home for your business</p>
+        <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p class="hero-actions">
+          <a class="pill pill-lg" href="vertical-software.html">Explore our vertical solutions</a>
+          <a class="ghost" href="contact.html">Contact</a>
         </p>
       </div>
     </section>

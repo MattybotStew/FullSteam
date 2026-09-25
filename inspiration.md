@@ -53,7 +53,7 @@ patterns, a **take** list, and an **ignore** list.
 |------|------|--------|--------------|-----------------|
 | [squareup.com](https://squareup.com/us/en) *(aspirational, client-flagged)* | Layout guide — current | **Active** | Full-bleed overlay hero, mosaic-of-verticals opening, two-up pair, image+copy scenes, industry filmstrip | `homepage-bendingspoons-style.html` (2026-09-21) |
 | [bendingspoons.com](https://bendingspoons.com) *(client-flagged)* | Layout guide — superseded | Superseded | Long-form chapter stack; portfolio-as-homepage; premium sparse feel | Partly retained (long-form chapters, 2026-09-21); portfolio cards removed |
-| [localyzer.io](https://www.localyzer.io/) | Layout study | **Partial — 2026-09-23** | Kicker, early proof strip, KPI cycle, quote, news filmstrip | `homepage-bendingspoons-style.html` |
+| [localyzer.io](https://www.localyzer.io/) | Layout study | **Partial — about layout 2026-09-25** | Homepage: kicker, proof strip, KPI cycle, quote. About: hero, image band, proof strip, split intro, team row, chapter cards, roles, close | Homepage patterns in `homepage-bendingspoons-style.html`; about structure in `02_Wireframes/active/pages/our-story.html` |
 | [quiltsoftware.com](https://quiltsoftware.com) *(client-flagged)* | Layout study | Not yet studied | — | — |
 | [togetherwork.com](https://togetherwork.com) *(client-flagged)* | Layout study | Not yet studied | — | — |
 | [daysmart.com](https://daysmart.com) *(client-flagged)* | Layout study | Not yet studied | — | — |
@@ -237,6 +237,37 @@ justifies changing the locked sitemap.
 
 Plus a **quote block before the close**. Do not add a Newsroom filmstrip (Newsroom
 is off the sitemap, 2026-09-23). G-4 remains open for video.
+
+#### About page — `localyzer.io/about` (studied 2026-09-25)
+
+**Layout study, structure only.** The section order landed the same day on
+`02_Wireframes/active/pages/our-story.html`, in the existing wireframe skin.
+This is not a visual direction (rule 1; G8). Their color, type, photography,
+and copy stay behind.
+
+**Section sequence, verified on the live page:**
+
+1. Hero — H1, one-line lede, two buttons
+2. Full-bleed image carousel
+3. Logo filmstrip under the hero
+4. Split intro — title left, paragraph right — then a staggered two-column image cluster
+5. Team row — title, paragraph, and a button (no staff grid on this page)
+6. Stacked chapter cards — year label, headline, copy, some with an image
+7. Open-role rows — title, blurb, button
+8. Closing band — oversized repeating line, one sentence, one CTA
+
+**Take:** that order and those geometries. **Constraint:** Fullsteam slots only.
+Year labels stay `Year [placeholder]` — do not invent a company timeline or a
+founding chronology. The proof strip is allowlisted KPI *labels* (employee
+count, customer count, retention, payment volume), not their logos and not
+revenue, run-rate, or profitability (G4, G5). The team row links to Leadership
+(leaders only; no invented names). The role rows link to Careers and say
+`Role [placeholder]`. The close CTA stays **Explore our vertical solutions**,
+plus Contact (G3). Never frame the sale as an exit (G2).
+
+**Reject:** their headlines, metrics, and client names; demo CTAs ("Get in
+touch", "Join our team", "Get started"); the animated logo marquee; uppercase
+display type; and any staff directory.
 
 #### If this is ever implemented
 
