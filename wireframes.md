@@ -51,7 +51,7 @@ HTML wireframes currently do, section by section, and what is still open.
 | [`02_Wireframes/active/pages/for-founders.html`](./02_Wireframes/active/pages/for-founders.html) | For Founders — home, how it works, what we look for, talk to us | Active |
 | [`02_Wireframes/active/pages/faq.html`](./02_Wireframes/active/pages/faq.html) | Founder FAQ (`/for-founders/faq`) | Active |
 | [`02_Wireframes/active/pages/vertical-software.html`](./02_Wireframes/active/pages/vertical-software.html) | Vertical Software — name tiles, story in a window | Active |
-| [`02_Wireframes/active/pages/offerings.html`](./02_Wireframes/active/pages/offerings.html) | Embedded Offerings — Payments, Lending, Insurance, AI tabs | Active |
+| [`02_Wireframes/active/pages/offerings.html`](./02_Wireframes/active/pages/offerings.html) | Embedded Offerings — name tiles, story in a window | Active |
 | [`02_Wireframes/active/pages/our-story.html`](./02_Wireframes/active/pages/our-story.html) | Our Story | Active |
 | [`02_Wireframes/active/pages/leadership.html`](./02_Wireframes/active/pages/leadership.html) | Leadership — leaders only | Active |
 | [`02_Wireframes/active/pages/careers.html`](./02_Wireframes/active/pages/careers.html) | Careers — culture + open-role rows | Active |
@@ -336,6 +336,7 @@ not L1 tree nodes.
 | 2026-09-25 | Vertical Software picker: the sticky sidebar is a grid of 11 name tiles. The selected tile is yellow. The story opens full width underneath. Hash still selects the tile. |
 | 2026-09-25 | Vertical Software story opens in a window. Arrows and a swipe move through all 11. On a narrow screen the window fills the page and Previous / Next sit at the bottom. |
 | 2026-09-25 | Vertical Software: hero image placeholder removed. Name tiles are taller gray image fields with the name overlaid; hover lifts the tile; the open tile stays yellow. |
+| 2026-09-25 | Embedded Offerings matches the Vertical Software pattern. Sticky list replaced with four name tiles (Payments, Lending, Insurance, AI at Fullsteam). A tile opens that offering’s story in a window. Arrows and a swipe move through all four. On a narrow screen the window fills the page and Previous / Next sit at the bottom. Hardware stays inside Payments. Integrations stay in the overview. |
 
 ---
 
@@ -348,7 +349,7 @@ Same chrome on every page: Logo · Menu · Explore vertical solutions. The Menu 
 | **For Founders** | Why Fullsteam → how it works (4 steps) → what we look for → talk to us. Never frames the sale as an exit. |
 | **FAQ** | Six founder questions. Answers record the constraints (software before payments, brands stay, no announcement at close). |
 | **Vertical Software** | Contained hero at the top: one page headline for the verticals, one line, and the Read the story control (no hero image). Eleven taller name tiles sit under the hero — gray image fields with the name overlaid; hover lifts a tile; the open tile is yellow. A tile opens that vertical’s story in a window — title, story paragraphs, an overlapping icon collage, and fact chips. Arrows move through all 11. On a narrow screen the window fills the page, the story scrolls inside it, and Previous / Next sit at the bottom. A swipe moves to the next vertical. The menu’s vertical names use the same hash and open that window. No category labels, no child pages, no search field. |
-| **Embedded Offerings** | Intro states integrations live here. Sticky list: Payments (hardware folded in), Lending, Insurance, AI. AI tab is use cases first, never a headcount story. |
+| **Embedded Offerings** | Contained hero at the top: one page headline, one line (integrations live here), and the Read the story control (no hero image). Four taller name tiles sit under the hero — Payments, Lending, Insurance, AI at Fullsteam — gray image fields with the name overlaid; hover lifts a tile; the open tile is yellow. A tile opens that offering’s story in a window. Arrows move through all four. On a narrow screen the window fills the page, the story scrolls inside it, and Previous / Next sit at the bottom. A swipe moves to the next offering. The menu’s offering names use the same hash and open that window. Hardware folds into Payments. Integrations live in this overview. AI is use cases first, never a headcount story. No category labels, no child pages, no search field. |
 | **Our Story** | Who we are → the model → brands keep their names → links to Leadership and Careers. No invented timeline. |
 | **Leadership** | Six placeholder leader cards. Leaders only. |
 | **Careers** | How it feels → who thrives → open-role table (placeholder rows). |
