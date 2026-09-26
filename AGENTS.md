@@ -16,6 +16,10 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Wireframe spec:** read [`wireframes.md`](./wireframes.md) before editing any
   wireframe. It is the source of truth for the wireframe track — inventory,
   section-by-section structure, known gaps, and open items.
+- **Content slots:** [`content-slots.md`](./content-slots.md) is the slot-by-slot
+  inventory of every place copy goes, in document order, with a locked / draft /
+  placeholder status and the constraint each slot must respect. It is the handoff to
+  the team writing the copy — the wireframes themselves show structure only.
 - **Homepage UX spec / design doc:** read [`design.md`](./design.md) before working
   on the homepage. It is the UX-only spec (audiences, flow, section intent,
   constraints, open questions) and the future home of the visual design direction.

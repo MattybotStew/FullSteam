@@ -305,6 +305,11 @@
   }
   .proof-strip.is-in .num{ opacity:1; transform:scale(1); }
   .proof-strip .lbl{ font-family:var(--mono); font-size:11px; margin-top:10px; max-width:16ch; margin-left:auto; margin-right:auto; }
+  .proof-note{
+    display:inline-block; margin-top:28px; padding:9px 13px; max-width:54ch; text-align:left;
+    border:1px dashed rgba(255,255,255,.6);
+    font-family:var(--mono); font-size:11px; line-height:1.45; color:var(--white); opacity:.85;
+  }
   @media (prefers-reduced-motion: reduce){
     .proof-strip .num{ opacity:1; transform:none; transition:none; }
   }
@@ -843,13 +848,14 @@
       </div>
       <div>
         <div class="num" data-count="80" data-suffix="k+">0</div>
-        <div class="lbl">SMB businesses [verify]</div>
+        <div class="lbl">SMB businesses [placeholder]</div>
       </div>
       <div>
         <div class="num" data-count="2000" data-suffix="+" data-format="comma">0</div>
-        <div class="lbl">people [verify]</div>
+        <div class="lbl">people [placeholder]</div>
       </div>
     </div>
+    <p class="proof-note">[placeholder] = not approved copy. Figures are for layout only — pending client verification and publishability. The vertical count (11) is the settled IA count.</p>
   </section>
 
   <!-- 03 Founders: permanent home + voice -->
@@ -895,7 +901,7 @@
         <span class="film-name">Hospitality</span>
         <span class="film-overlay">
           <span class="film-kicker">Hospitality</span>
-          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets</span></span>
           <a href="pages/vertical-software.html#hospitality">Learn more</a>
         </span>
       </div>
@@ -904,7 +910,7 @@
         <span class="film-name">ERP</span>
         <span class="film-overlay">
           <span class="film-kicker">ERP</span>
-          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets</span></span>
           <a href="pages/vertical-software.html#erp">Learn more</a>
         </span>
       </div>
@@ -913,7 +919,7 @@
         <span class="film-name">Retail</span>
         <span class="film-overlay">
           <span class="film-kicker">Retail</span>
-          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets</span></span>
           <a href="pages/vertical-software.html#retail">Learn more</a>
         </span>
       </div>
@@ -922,7 +928,7 @@
         <span class="film-name">Transportation</span>
         <span class="film-overlay">
           <span class="film-kicker">Transportation</span>
-          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets</span></span>
           <a href="pages/vertical-software.html#transportation">Learn more</a>
         </span>
       </div>
@@ -931,7 +937,7 @@
         <span class="film-name">Wine</span>
         <span class="film-overlay">
           <span class="film-kicker">Wine</span>
-          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets [verify]</span></span>
+          <span class="kpi-cycle"><span class="num">11</span><span class="lbl">vertical markets</span></span>
           <a href="pages/vertical-software.html#wine">Learn more</a>
         </span>
       </div>
@@ -1362,9 +1368,9 @@
       const slots = document.querySelectorAll(".kpi-cycle");
       if (!slots.length) return;
       const kpis = [
-        { num: "11", lbl: "vertical markets [verify]" },
-        { num: "80k+", lbl: "SMB businesses on software we own [verify]" },
-        { num: "2,000+", lbl: "people inside the company [verify]" }
+        { num: "11", lbl: "vertical markets" },
+        { num: "80k+", lbl: "SMB businesses on software we own [placeholder]" },
+        { num: "2,000+", lbl: "people inside the company [placeholder]" }
       ];
       let i = 0;
       const paint = () => {
