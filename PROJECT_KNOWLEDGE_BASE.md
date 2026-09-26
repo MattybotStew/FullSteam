@@ -1493,11 +1493,33 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
   local-only — `git ls-remote origin` showed GitHub held just `refs/heads/main` — so V2 was
   never public, but it was one `git push --mirror` away from being. Those refs are deleted.
   A pre-rewrite bundle of all refs was kept locally as a rollback.
-  **What this cannot undo:** anything already downloaded, and GitHub's own caches. Cached
-  `raw.githubusercontent.com` responses and the old commit SHAs may stay resolvable after the
-  force-push until GitHub expires them. If a client doc must be treated as compromised, the
-  only reliable remedy is to ask the client for fresh copies and treat the old ones as
-  disclosed.
+- **Pushed and verified 2026-09-25** — `git push --force-with-lease origin main` after a
+  `git fetch` to resync `refs/remotes/origin/main` (it had been repointed to the rewritten
+  tip during the scrub, which would have made the lease check against the wrong value).
+  Tip moved `33c60f5` → `3fbf9b6`; Pages redeployed (run `36249289227`, success).
+  Measured over the public internet afterwards:
+
+  | URL | Before | After |
+  |-----|--------|-------|
+  | `mattybotstew.github.io/FullSteam/clientDocs/*` (all 5) | 200 | **404** |
+  | `raw.githubusercontent.com/…/main/clientDocs/*` | 200 | **404** |
+  | `raw.githubusercontent.com/…/HEAD/clientDocs/*` | 200 | **404** |
+  | `raw.githubusercontent.com/…/**33c60f5**/clientDocs/Kickoff Presentation.pdf` | 200 | **200 — still 1,986,039 bytes** |
+  | `github.com/…/commit/33c60f5` | 200 | **200** |
+
+  So the **live site and the current branch are clean**, but the **pre-rewrite commit `33c60f5`
+  is still fetchable by SHA** and still serves the client files. Force-pushing moves the
+  branch; it does not delete objects GitHub has already published, and `raw` URLs are
+  content-addressed, so the old SHA keeps working. Treat the rewrite as *reducing* exposure,
+  not eliminating it.
+- **Remedies for the residual `33c60f5` exposure, strongest first:**
+  1. **Ask GitHub Support to purge the unreachable objects.** This is the only step that
+     actually reaches what is already published, and it is a support request, not a git
+     command. Do it before anything else.
+  2. **Ask the client for fresh copies** of the affected files and treat the originals as
+     disclosed. The only complete remedy for a document that was public for ~2 days.
+  3. Switching Pages to an explicit allowlist (open item 1) stops this class of leak being
+     publishable at all, but does nothing retroactively.
 - **Still open — needs a client/owner decision:**
   1. **Artifact scope.** `path: "."` also publishes `02_Wireframes/`, `01_Discovery/`,
      `plans/`, and `index.html`. If the prototype previews should stay public that is
@@ -1505,8 +1527,9 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
   2. **Where client source docs live at all.** The cleanest fix is to keep `clientDocs/`
      outside the repo entirely (private drive/shared folder) and record only the distillations
      (§20–§22) here. Given the client's own confidentiality rules (§20.7), raise it with them.
-  3. **Whether the client should be told** that these files were briefly public. That is a
-     relationship call, not a technical one.
+  3. **Whether the client should be told.** Given §22.7 now has a measured 200 on the old
+     SHA, the honest answer is yes — the files *were* reachable by anyone who had the old
+     commit SHA, for the whole period they were on `main`. That is a relationship call.
 - Copy derived from V2 must respect §20.7: no revenue/run-rate, no explicit profitability,
   no named acquisition case studies, genericized examples only.
 
