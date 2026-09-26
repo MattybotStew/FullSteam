@@ -622,6 +622,9 @@
   .hero-pin.is-flow .hero-copy{ opacity:1; min-width:0; width:100%; }
 
   @media (max-width:768px){
+    /* The mobile bar is shorter (10px padding), so the pinned frame must offset
+       by the real height or a strip shows above the revealed hero. */
+    :root{ --chrome:56px; }
     .nav{
       padding:10px 16px;
       gap:10px;
@@ -1145,7 +1148,10 @@
         if (useFlow()) return;
         const top = pin.getBoundingClientRect().top;
         const range = pin.offsetHeight - window.innerHeight;
-        const p = Math.max(0, Math.min(1, (57 - top) / Math.max(1, range)));
+        /* Offset by the pinned frame's own top (the --chrome token) rather than a
+           literal, so the progress mapping tracks the header at every breakpoint. */
+        const chrome = sticky.getBoundingClientRect().top;
+        const p = Math.max(0, Math.min(1, (chrome - top) / Math.max(1, range)));
         apply(p);
       };
       const clearTileStyles = () => {
