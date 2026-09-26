@@ -1,8 +1,6 @@
 # FullSteam plans
 
-Project copies of Cursor plan documents. Canonical global plans also live at:
-
-`~/.cursor/plans/` (user-wide, all workspaces)
+Decision records for the project. This folder is the single source of truth.
 
 ## In this folder
 
@@ -11,10 +9,11 @@ Project copies of Cursor plan documents. Canonical global plans also live at:
 | [header-sitemap-variants.md](./header-sitemap-variants.md) | `header_sitemap_variants_747fb336.plan.md` | Completed (superseded by sitemap lock) |
 | [sitemap-lock.md](./sitemap-lock.md) | Authored in-repo (2026-09-10) | Completed (open items carried) |
 
-Mirrored at [`.cursor/plans/`](../.cursor/plans/) for Cursor workspace discovery.
-
 ## Note
 
-Repo copies are the source of truth for FullSteam. Global Cursor plans may also exist at `~/.cursor/plans/` (user-wide, all workspaces).
+These repo copies are the source of truth for FullSteam. They were previously mirrored
+into `.cursor/plans/` for Cursor workspace discovery; that mirror was removed on
+2026-09-25 because the copy of `sitemap-lock.md` had drifted and still described the
+pre-lock IA (FAQ outside For Founders, AI at Fullsteam as its own page, Embedded
+Offerings as a hub). Do not reintroduce a second copy — edit these files directly.
 
-When new FullSteam plans are created in Cursor, copy them here and to `.cursor/plans/` with a clean `.md` filename.

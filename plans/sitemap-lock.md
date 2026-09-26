@@ -94,14 +94,15 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
 ## Files reconciled
 
 - `PROJECT_KNOWLEDGE_BASE.md` — §14 locked; §20.11 investor item resolved.
-- `prototypes/sitemap.html` — lock note.
-- `prototypes/sitemap-rationale.html` — §3 hub + 11 pages; §4 founder-only.
-- `prototypes/header-wireframe.html` — For Investors removed from 0/A/B/C.
-- `prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html` — footer + copy.
-- `prototypes/homepage-wireframe/v0.1-rough/alternative-home-a.html` — predates-lock banner.
+- `02_Wireframes/locked/sitemap.html` — lock note.
+- `01_Discovery/synthesis/sitemap-rationale.html` — §3 hub + 11 pages; §4 founder-only.
+- `02_Wireframes/active/header-wireframe.html` — For Investors removed from 0/A/B/C.
+- `02_Wireframes/active/homepage.html` — footer + copy.
+- `02_Wireframes/archive/alternative-home-a.html` — predates-lock banner.
 - `design.md` — investor nav assumptions removed; voice rule ("you") added.
 - `wireframes.md` — OI-2 + G-2 resolved; chrome/sitemap refs.
-- `plans/header-sitemap-variants.md` + `.cursor/plans/header-sitemap-variants.md` — supersede note.
+- `plans/header-sitemap-variants.md` — supersede note (its `.cursor/plans/` mirror was
+  removed 2026-09-25; `plans/` is now the single source of truth).
 
 ### Revision (2026-09-10b) — Figma review comments
 
@@ -109,16 +110,16 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
 - Dropped **Hardware** and **Integrations** as Offerings pages; folded in.
 - Folded **All Verticals** into the hub; recorded voice rule (#7) in `design.md`.
 - Files touched in the rename pass: `PROJECT_KNOWLEDGE_BASE.md` §14, `AGENTS.md`,
-  `design.md`, `wireframes.md`, `prototypes/sitemap.html`,
-  `prototypes/sitemap-rationale.html`, `prototypes/meganav-rationale.html`,
-  `prototypes/header-wireframe.html`, homepage wireframe, and both plan files.
+  `design.md`, `wireframes.md`, `02_Wireframes/locked/sitemap.html`,
+  `01_Discovery/synthesis/sitemap-rationale.html`, `01_Discovery/synthesis/meganav-rationale.html`,
+  `02_Wireframes/active/header-wireframe.html`, homepage wireframe, and both plan files.
 
 ### Revision (2026-09-10c) — axis title + Newsroom
 
 - Renamed the embedded-expansion axis **Offerings → Embedded Offerings**
   (client-preferred; short form "Offerings" in body copy).
 - Added **Newsroom** as a single **dynamic CMS page** under Our Story.
-- Same files re-touched, plus `prototypes/sitemap.html` (Our Story node now has a
+- Same files re-touched, plus `02_Wireframes/locked/sitemap.html` (Our Story node now has a
   Newsroom child) and the homepage overlay/footer.
 
 ### Revision (2026-09-14) — finalization
@@ -129,7 +130,7 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
   list; no labels and no category landing pages.
 - **For Founders** confirmed a single-page leaf; **URL/migration map** kept here.
 - Files touched: `PROJECT_KNOWLEDGE_BASE.md` §14, `AGENTS.md`, `wireframes.md`,
-  `prototypes/sitemap.html`, `prototypes/sitemap-rationale.html`, both plan copies.
+  `02_Wireframes/locked/sitemap.html`, `01_Discovery/synthesis/sitemap-rationale.html`, both plan copies.
 
 ### Revision (2026-09-15) — Vertical Software becomes one tabbed page
 
@@ -140,8 +141,8 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
 - Migration: the 11 vertical slugs + `/our-verticals` now redirect to
   `/vertical-software` (`#<vertical>` deep links).
 - Files touched: `PROJECT_KNOWLEDGE_BASE.md` §14, `AGENTS.md`, `wireframes.md`,
-  `prototypes/sitemap.html`, `prototypes/sitemap-rationale.html`,
-  `prototypes/meganav-rationale.html`, `plans/header-sitemap-variants.md` + both
+  `02_Wireframes/locked/sitemap.html`, `01_Discovery/synthesis/sitemap-rationale.html`,
+  `01_Discovery/synthesis/meganav-rationale.html`, `plans/header-sitemap-variants.md` + both
   `.cursor` mirrors, both plan copies.
 
 ### Revision (2026-09-23) — Newsroom removed

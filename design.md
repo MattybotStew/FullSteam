@@ -5,7 +5,7 @@
 > **Owner:** Matt Stewart (Creative Director) · **Wireframe:** Bionic
 > **Related:** `PROJECT_KNOWLEDGE_BASE.md` §14 (sitemap/IA), §15 (palette),
 > **§20 (discovery-interview synthesis — read before messaging decisions)**,
-> `prototypes/header-wireframe.html` (header v0.2), `prototypes/sitemap-rationale.html`
+> `02_Wireframes/active/header-wireframe.html` (header v0.2), `01_Discovery/synthesis/sitemap-rationale.html`
 > **Source of truth (client):** `clientDocs/Fullsteam Web Brief (1).docx` +
 > `clientDocs/Fullsteam User Interview Template.xlsx` (internal discovery interviews)
 

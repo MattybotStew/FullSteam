@@ -385,7 +385,7 @@ how these sites created a dedicated page to showcase their use of AI:
   short form "Offerings" in body copy/CTAs). The client rejected "Platform" as too
   abstract and tech-forward; "Embedded Offerings" matches the brief's own language
   ("embedded offerings"). Alternatives considered (Capabilities, Products, Services,
-  How We Grow, Expansion, Growth) are detailed in `prototypes/sitemap-rationale.html` §9.
+  How We Grow, Expansion, Growth) are detailed in `01_Discovery/synthesis/sitemap-rationale.html` §9.
 
 **Two-axis primary navigation (portfolio + growth engine).** The L1 tree is led
 by the two branching stories — **Vertical Software** (Acquire & Grow) and
@@ -397,7 +397,7 @@ is no investor nav node or dedicated investor page.
 
 > **Homepage delivers these same two axes in sequence (2026-09-24):** **Axis A
 > (Portfolio) → binary snap → Axis B (Growth engine)** — not the side-by-side
-> two-lane treatment in `prototypes/homepage-wireframe/v0.1-rough/alternative-home-a.html`.
+> two-lane treatment in `02_Wireframes/archive/alternative-home-a.html`.
 > **Canonical record: §23.** Spec: `design.md` §3.1; scope open question: `wireframes.md` OI-9.
 
 > **Note on the CTA:** the primary CTA is unchanged. The homepage hero CTA remains
@@ -534,7 +534,7 @@ leaving ~12 slots for e.g. Digital Marketing, 404, or future pages).
 > **Source:** `~/Downloads/Fullsteam Color Palette Cheat sheet.pdf` (V.1 — 06/2018).
 > Brand identity is a **hard constraint** — keep unchanged. Palette is "modern and
 > warm" and "sophisticated." Referenced by the on-brand header wireframe
-> (`prototypes/header-wireframe.html`).
+> (`02_Wireframes/active/header-wireframe.html`).
 
 | Role | Name | HEX | RGB | PMS | CMYK |
 |------|------|-----|-----|-----|------|
@@ -1483,9 +1483,9 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
      but they remain in git history (commits `5dc0829`, `e5d34fb`) and stay downloadable via
      raw GitHub URLs on a public repo. Full removal = history rewrite (`git filter-repo`/BFG)
      **or** making the repo private.
-  2. **Artifact scope.** `path: "."` also publishes `prototypes/`, `plans/`, `.cursor/`, and
-     `index.html`. If the prototype previews should stay public that is fine, but the
-     artifact should be an explicit allowlist rather than the repo root.
+  2. **Artifact scope.** `path: "."` also publishes `02_Wireframes/`, `01_Discovery/`,
+     `plans/`, and `index.html`. If the prototype previews should stay public that is
+     fine, but the artifact should be an explicit allowlist rather than the repo root.
   3. **Where client source docs live at all.** The cleanest fix is to keep `clientDocs/`
      outside the repo entirely (private drive/shared folder) and record only the distillations
      (§20–§22) here. Given the client's own confidentiality rules (§20.7), raise it with them.
@@ -1497,7 +1497,7 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
 ## 23. Homepage Strategy — Axis A → binary snap → Axis B (LOCKED 2026-09-24)
 
 > **Status:** **Locked for the homepage opening** (2026-09-24). Supersedes both the
-> side-by-side two-lane treatment (`prototypes/homepage-wireframe/v0.1-rough/alternative-home-a.html`,
+> side-by-side two-lane treatment (`02_Wireframes/archive/alternative-home-a.html`,
 > whose `.dual` lanes are retired for the live build) and the 2026-09-21 grow-the-Retail-tile
 > morph (interpolated clip-path, per-frame writes).
 > **Spec of record:** `design.md` §3.1 (the sequence) + §4.1 (hero-level rules).

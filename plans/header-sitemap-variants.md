@@ -30,9 +30,9 @@ The sitemap is the **inventory** (what pages exist, how they nest, what we desig
 
 **Current mismatch**
 
-- [prototypes/sitemap.html](../prototypes/sitemap.html) L1 rail: For Founders · For Investors · Solutions · Offerings · Our Story · Careers, plus utility note for Contact + “Explore Solutions”.
-- [prototypes/header-wireframe.html](../prototypes/header-wireframe.html): same six links + Contact + CTA (traditional mega-nav).
-- Homepage [homepage-bendingspoons-style.html](../prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html): Solutions · Offerings · Our Story | For Founders | Explore CTA. **Investors and Careers missing**; audience-led KB decision ([PROJECT_KNOWLEDGE_BASE.md](../PROJECT_KNOWLEDGE_BASE.md) §14) is inverted (portfolio in chrome, founders as a quiet right-side link).
+- [02_Wireframes/locked/sitemap.html](../02_Wireframes/locked/sitemap.html) L1 rail: For Founders · For Investors · Solutions · Offerings · Our Story · Careers, plus utility note for Contact + “Explore Solutions”.
+- [02_Wireframes/active/header-wireframe.html](../02_Wireframes/active/header-wireframe.html): same six links + Contact + CTA (traditional mega-nav).
+- Homepage [homepage-bendingspoons-style.html](../02_Wireframes/active/homepage.html): Solutions · Offerings · Our Story | For Founders | Explore CTA. **Investors and Careers missing**; audience-led KB decision ([PROJECT_KNOWLEDGE_BASE.md](../PROJECT_KNOWLEDGE_BASE.md) §14) is inverted (portfolio in chrome, founders as a quiet right-side link).
 
 Constraint to keep in all variants: **Offerings** (never Platform); hero CTA remains **Explore our vertical solutions**; no header search.
 
@@ -70,13 +70,13 @@ Chrome: logo + **Offerings** *or* **Our Story** (single secondary) + **Explore s
 
 Shared rules for A/B/C:
 
-- Overlay/footer **is** the sitemap at L1 (same node names as [prototypes/sitemap.html](../prototypes/sitemap.html)).
-- Mega-menus from [header-wireframe.html](../prototypes/header-wireframe.html) move **into the overlay** (flat Solutions vertical list; Offerings list + AI), not into a hover bar.
+- Overlay/footer **is** the sitemap at L1 (same node names as [02_Wireframes/locked/sitemap.html](../02_Wireframes/locked/sitemap.html)).
+- Mega-menus from [header-wireframe.html](../02_Wireframes/active/header-wireframe.html) move **into the overlay** (flat Solutions vertical list; Offerings list + AI), not into a hover bar.
 - Interior pages use the **same chrome** as home so the pattern is a system, not a homepage trick.
 
 ## What we wire: one page, three headers stacked
 
-Comparison lives in [prototypes/header-wireframe.html](../prototypes/header-wireframe.html) (keep the existing six-item bar as **Option 0 — current / traditional** at the top if useful, or replace it). Below that, **stack A, B, and C vertically** so they can be scanned in one scroll — not tabs, not three files.
+Comparison lives in [02_Wireframes/active/header-wireframe.html](../02_Wireframes/active/header-wireframe.html) (keep the existing six-item bar as **Option 0 — current / traditional** at the top if useful, or replace it). Below that, **stack A, B, and C vertically** so they can be scanned in one scroll — not tabs, not three files.
 
 Each stack block:
 
@@ -85,9 +85,9 @@ Each stack block:
 3. Directly under that strip, a **drawn-open overlay** (not hover-only) listing the same sitemap L1: For Founders, Solutions (flat vertical list), Offerings (+ AI), Our Story, Careers, Contact — so it is obvious every option still reaches the traditional tree.
 4. One line of risk/feel under the overlay.
 
-Do **not** change the homepage chrome in this pass. After you pick A, B, or C, copy that strip onto [homepage-bendingspoons-style.html](../prototypes/homepage-wireframe/v0.1-rough/homepage-bendingspoons-style.html).
+Do **not** change the homepage chrome in this pass. After you pick A, B, or C, copy that strip onto [homepage-bendingspoons-style.html](../02_Wireframes/active/homepage.html).
 
-Also: short legend on [prototypes/sitemap.html](../prototypes/sitemap.html) (L1 = pages; header is a filter). One line in [design.md](../design.md) §5: no header search; finder lives in overlay / Solutions hub.
+Also: short legend on [02_Wireframes/locked/sitemap.html](../02_Wireframes/locked/sitemap.html) (L1 = pages; header is a filter). One line in [design.md](../design.md) §5: no header search; finder lives in overlay / Solutions hub.
 
 No IA page count change. No new sitemap branches. This is chrome + overlay presentation only.
 

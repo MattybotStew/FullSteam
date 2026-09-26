@@ -63,18 +63,18 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Header chrome (provisional):** Option **B revised** — Logo · Menu · Explore
   vertical solutions. **For Founders is not in the header strip** as of 2026-09-23; it
   lives in the Menu overlay, footer, and the closing CTA. Full L1 in the Menu overlay
-  - footer. Compare options in `prototypes/header-wireframe.html`.
+  - footer. Compare options in `02_Wireframes/active/header-wireframe.html`.
 - **Homepage opening = Axis A → binary snap → Axis B (locked 2026-09-24).** The first
   viewport is a **two-state pinned sequence**, not one hero: the mosaic (**Axis A** —
   identity/ownership) cuts to the hero (**Axis B** — the growth model) at a single threshold.
   Replaces the 2026-09-21 grow-the-Retail-tile morph and the side-by-side two-lane
   alternative. Canonical record: KB **§23** (guardrails §23.6, open items §23.7).
-- Homepage wireframes live under `prototypes/homepage-wireframe/`. The
-  `v0.1-rough/` subfolder holds low-fi explorations (`alternative-home-a.html`,
-  `homepage-bendingspoons-style.html` — current direction).
+- Homepage wireframe is `02_Wireframes/active/homepage.html`; interior pages sit in
+  `02_Wireframes/active/pages/`. Superseded low-fi explorations are in
+  `02_Wireframes/archive/`.
 - Wireframe HTML files are static — preview by opening the file or with a static
   server from the repo root:
-  `python3 -m http.server 8000` → http://localhost:8000/prototypes/...
+  `python3 -m http.server 8000` → http://localhost:8000/02_Wireframes/...
 
 ## Key facts (quick reference)
 
@@ -90,7 +90,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
   Offerings"** (client-preferred, 2026-09-10; short form "Offerings" in body copy).
   The client rejected "Platform." See the alternatives considered in
   `PROJECT_KNOWLEDGE_BASE.md` §14 (nav terminology note) and
-  `prototypes/sitemap-rationale.html` §9.
+  `01_Discovery/synthesis/sitemap-rationale.html` §9.
 - Primary audiences: software sellers/founders and investors. Secondary:
   employees and customers. **Investors have no dedicated nav/page** — served via
   homepage scale/proof + Contact.
@@ -135,7 +135,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
 The **wireframes** and the **design document** are two separate tracks. Respect
 the split; do not conflate or cross-write them.
 
-- **Wireframes** (`prototypes/**/*.html`, governed by [`wireframes.md`](./wireframes.md))
+- **Wireframes** (`02_Wireframes/**/*.html`, governed by [`wireframes.md`](./wireframes.md))
   = structure, IA, content order, interaction scaffolding. They are explorations.
 - **`design.md`** = the UX spec and the future **design document** (visual
   direction) — "the design MD we will work on later."

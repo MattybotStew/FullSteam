@@ -46,12 +46,12 @@ HTML wireframes currently do, section by section, and what is still open.
 | [`02_Wireframes/active/header-wireframe.html`](./02_Wireframes/active/header-wireframe.html) | Stacked chrome options 0 / A / B / C, each with its drawn-open overlay | Comparison — pick pending |
 | [`01_Discovery/synthesis/sitemap-rationale.html`](./01_Discovery/synthesis/sitemap-rationale.html) | Rationale for IA/nav terminology decisions (incl. "Offerings") | Reference |
 | [`01_Discovery/synthesis/meganav-rationale.html`](./01_Discovery/synthesis/meganav-rationale.html) | Rationale for mega-menu / grouped verticals | Reference |
-| [`02_Wireframes/active/homepage-wireframe/homepage-v1.html`](./02_Wireframes/active/homepage-wireframe/homepage-v1.html) | **Current homepage direction** — long-scroll story | Active |
-| [`02_Wireframes/archive/v0.1-rough/alternative-home-a.html`](./02_Wireframes/archive/v0.1-rough/alternative-home-a.html) | Alternative A — storytelling-led, dual-axis | Archive |
+| [`02_Wireframes/active/homepage.html`](./02_Wireframes/active/homepage.html) | **Current homepage direction** — long-scroll story | Active |
+| [`02_Wireframes/archive/alternative-home-a.html`](./02_Wireframes/archive/alternative-home-a.html) | Alternative A — storytelling-led, dual-axis | Archive |
 | [`02_Wireframes/active/pages/for-founders.html`](./02_Wireframes/active/pages/for-founders.html) | For Founders — home, how it works, what we look for, talk to us | Active |
 | [`02_Wireframes/active/pages/faq.html`](./02_Wireframes/active/pages/faq.html) | Founder FAQ (`/for-founders/faq`) | Active |
 | [`02_Wireframes/active/pages/vertical-software.html`](./02_Wireframes/active/pages/vertical-software.html) | Vertical Software — name tiles, story in a window | Active |
-| [`02_Wireframes/active/pages/offerings.html`](./02_Wireframes/active/pages/offerings.html) | Embedded Offerings — name tiles, story in a window | Active |
+| [`02_Wireframes/active/pages/embedded-offerings.html`](./02_Wireframes/active/pages/embedded-offerings.html) | Embedded Offerings — name tiles, story in a window | Active |
 | [`02_Wireframes/active/pages/our-story.html`](./02_Wireframes/active/pages/our-story.html) | Our Story | Active |
 | [`02_Wireframes/active/pages/leadership.html`](./02_Wireframes/active/pages/leadership.html) | Leadership — leaders only | Active |
 | [`02_Wireframes/active/pages/careers.html`](./02_Wireframes/active/pages/careers.html) | Careers — culture + open-role rows | Active |
@@ -61,15 +61,15 @@ Preview from the repo root:
 
 ```
 python3 -m http.server 8000
-# → http://localhost:8000/02_Wireframes/active/homepage-wireframe/homepage-v1.html
+# → http://localhost:8000/02_Wireframes/active/homepage.html
 # → http://localhost:8000/02_Wireframes/active/pages/vertical-software.html
 ```
 
 ---
 
-## 2. Current direction — `homepage-v1.html`
+## 2. Current direction — `homepage.html`
 
-The live file is [`02_Wireframes/active/homepage-wireframe/homepage-v1.html`](./02_Wireframes/active/homepage-wireframe/homepage-v1.html). Earlier notes below still say `homepage-bendingspoons-style.html`; that name is the same direction after the folder move.
+The live file is [`02_Wireframes/active/homepage.html`](./02_Wireframes/active/homepage.html). Earlier notes below still say `homepage-bendingspoons-style.html`; that name is the same direction after the folder move.
 
 **Layout concept:** Homepage as a **long scrolling story**, using
 [squareup.com/us/en](https://squareup.com/us/en) as the layout guide: full-bleed
@@ -206,7 +206,7 @@ Offerings. Under Our Story: **Leadership** (`/our-story/leadership`, leaders onl
 **Newsroom was removed** (2026-09-23). **For Founders is a single-page leaf.** See
 `PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
 
-`prototypes/sitemap.html` is the inventory of pages (L1 = pages). The header does
+`02_Wireframes/locked/sitemap.html` is the inventory of pages (L1 = pages). The header does
 **not** need to list every L1 node; chrome, the Menu overlay, and the footer are
 access layers that must still reach every node. Labels in chrome/overlay/footer
 must match the sitemap. Utility items (Contact, "Explore Solutions", legal) are
@@ -338,6 +338,7 @@ not L1 tree nodes.
 | 2026-09-25 | Vertical Software: hero image placeholder removed. Name tiles are taller gray image fields with the name overlaid; hover lifts the tile; the open tile stays yellow. |
 | 2026-09-25 | Embedded Offerings matches the Vertical Software pattern. Sticky list replaced with four name tiles (Payments, Lending, Insurance, AI at Fullsteam). A tile opens that offering’s story in a window. Arrows and a swipe move through all four. On a narrow screen the window fills the page and Previous / Next sit at the bottom. Hardware stays inside Payments. Integrations stay in the overview. |
 | 2026-09-25 | **Our Story** follows the Localyzer `/about` section order, in wireframe styles: hero and CTAs, full-bleed image band, KPI-label proof strip (no figures), split intro with a staggered image cluster, leadership teaser, chapter cards with year placeholders (no invented timeline), open-role rows, oversized close. `design.md` not edited. |
+| 2026-09-25 | **Repo cleanup — paths, names, hygiene. No structural or copy change.** Renames: `pages/offerings.html` → **`pages/embedded-offerings.html`** (match the locked page name); `active/homepage-wireframe/homepage-v1.html` → **`active/homepage.html`** (dropped the single-file folder and the version suffix); `archive/v0.1-rough/alternative-home-a.html` → **`archive/alternative-home-a.html`** (dropped the redundant version level); `03_Design/style_guide` → `03_Design/style-guide` (kebab-case, matching the other stage dirs; the dir is empty and untracked). All `prototypes/…` doc references repointed at the real files — the folder no longer exists. Also repaired links broken by the earlier stage-dir reorg: the homepage's `../pages/` → `pages/` (it moved up a level), interior back-links to the homepage, and the `locked/` ↔ `active/` sibling cross-links in the sitemap and header wireframes. Deleted the `.cursor/plans/` mirror of `plans/` — its `sitemap-lock.md` had drifted and still described the pre-lock IA — so `plans/` is the single source of truth. Untracked `.playwright-mcp/` and `.qwen/` scratch output and added them to `.gitignore`. All HTML and markdown links verified resolving; tile→story windows and hash deep-links re-checked in a browser. `design.md` edited only to repoint dead paths. |
 
 ---
 
