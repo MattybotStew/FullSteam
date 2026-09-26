@@ -72,7 +72,7 @@
   .lede{ margin-top:16px; max-width:46ch; font-size:18px; }
   .jumps{ display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:28px; font-size:14px; font-weight:600; }
   .jumps a{ border-bottom:1px solid var(--ink); }
-  .block{ padding:40px 0 80px; border-bottom:1px solid var(--line); }
+  .block{ padding:64px 0; border-bottom:1px solid var(--line); }
   .block.tan{ background:var(--tan); }
   .block h2{
     font-size:clamp(28px, 3.2vw, 40px); line-height:1.1; letter-spacing:-.02em;
@@ -266,20 +266,18 @@
     width:46px; height:46px; right:0; bottom:86px; z-index:5; border-radius:50%;
     background:#FFC600 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M12 20s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z'/%3E%3C/svg%3E") center / 22px no-repeat;
   }
+  /* Hero type scale mirrors .page-hero so this page reads as the same system as
+     the six .page-hero pages. The contained structure (no hero image) is
+     unchanged - only the styling had drifted. */
   .v-hero-card{
-    background:transparent; color:var(--ink); text-align:center;
-    padding:48px 0 28px;
+    padding:64px 0 48px;
+    border-bottom:1px solid var(--line);
   }
   .v-hero h1{
-    font-size:clamp(40px, 5vw, 68px); font-weight:800; letter-spacing:-.035em;
-    line-height:.95; color:var(--ink);
-    max-width:22ch; margin:0 auto 16px;
+    font-size:clamp(36px, 5vw, 56px); font-weight:700; letter-spacing:-.03em;
+    line-height:1.05; max-width:16ch;
   }
-  .v-hero .lede{
-    max-width:42ch; margin:0 auto 24px;
-    font-size:clamp(16px, 1.6vw, 20px); font-weight:500; color:var(--ink);
-  }
-  .v-hero .pill{ margin-bottom:8px; }
+  .v-hero .pill{ margin:24px 0 8px; }
   .facts{ grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:22px; }
   .facts div{ border:1px solid var(--ink); padding:12px; background:#fff; }
   .facts span{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
@@ -316,10 +314,11 @@
     .tabs{ grid-template-columns:1fr 1fr; }
     .panel.is-active{ grid-template-columns:1fr; }
     .v-mosaic{ grid-column:1; grid-row:auto; width:100%; max-width:300px; margin-top:8px; }
-    .v-hero h1{ max-width:100%; font-size:clamp(32px, 8vw, 48px); }
-    .v-hero-card{ padding:40px 16px 24px; }
+    .v-hero h1, .page-hero h1, .block h2{ max-width:100%; }
     .nav{ padding:10px 16px; gap:10px; }
-    .pill{ padding:8px 10px; font-size:12px; }
+    .nav-right{ min-width:0; flex:1; justify-content:flex-end; }
+    .menu-btn{ flex-shrink:0; }
+    .pill{ padding:8px 10px; font-size:12px; white-space:nowrap; }
     .tabs button{ min-height:112px; font-size:15px; }
     .v-modal{ place-items:stretch; height:100dvh; overflow:hidden; }
     .v-modal-frame{
