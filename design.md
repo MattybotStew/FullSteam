@@ -109,7 +109,7 @@ ask the question the *next* block answers.
 
 ```
 1  HERO              "Explore our vertical solutions" → immediately define the model + scale
-2  THE TWO STORIES   Both stories in one glance: Axis A (Portfolio) → binary snap → Axis B (Growth engine) — §3.1, no separate block
+2  THE TWO STORIES   Both stories in one glance: Axis A (Portfolio) → grow morph → Axis B (Growth engine) — §3.1, no separate block
 3  EXPLORE BY VERTICAL  (Vertical Software proof) → flat vertical list + "Find your vertical"
 4  OFFERINGS IN ACTION  (growth-engine proof, via concrete examples, not feature lists)
 5  WHY FULLSTEAM      3 reasons / proof that backs the "why choose us"
@@ -124,7 +124,7 @@ ask the question the *next* block answers.
 > audience paths and company context beneath. Exact ordering and whether certain bands merge is an
 > open wireframe question — see §8 Open Questions.
 
-### 3.1 Opening sequence — Axis A (Portfolio) → binary snap → Axis B (Growth engine)
+### 3.1 Opening sequence — Axis A (Portfolio) → grow morph → Axis B (Growth engine)
 
 **Decided 2026-09-24.** The locked two-axis model (KB §14: *portfolio + growth engine*) is delivered
 on the homepage **in sequence**, not side by side. The parallel two-lane treatment in
@@ -139,11 +139,13 @@ the pinned opening:
 - **Why A comes first:** "portfolio-first understanding" is the page's first UX principle (§1) and
   the message order is Software → Verticals → Payments (§20.1 #4). Axis A earns the right to Axis B's
   claim; Axis B then pays off with beat 04's proof.
-- **"Binary snap" is the transition, and it is literal:** two states, one scroll threshold, **no
-  interpolation, no easing, no crossfade**. The page cannot rest between A and B — a smooth grow
-  leaves the visitor reading a half-formed state and blurs which of the two claims they are being
-  shown. §4.1 for the hero-level rules; `wireframes.md` changelog 2026-09-24 for the build and the
-  defect it fixed.
+- **The transition is the grow morph.** As the pin scrolls, the **Retail tile grows to fill the
+  sticky frame** while the mosaic and its heading fade and the Axis B copy fades in — an
+  interpolated `clip-path` traced per frame from the tile's live rect, plus opacity ramps. It is
+  **not** a cut. This was first locked as a **binary snap** on 2026-09-24; the same day the client
+  read the discrete cut as "just snapping in place," and the morph was **restored** at the client's
+  request. §4.1 for the hero-level rules; `wireframes.md` changelog 2026-09-24 + 2026-09-26 for the
+  build and the reconciliation.
 - **Both states are content, not decoration.** Neither is `aria-hidden`: assistive tech reads the H1
   (Axis A) and then the hero H2 (Axis B) regardless of scroll position, and nothing depends on
   seeing the cut. With `prefers-reduced-motion` the pin is skipped and the two states appear in
@@ -161,23 +163,24 @@ the pinned opening:
 - **UX goal:** In under a few seconds, state what Fullsteam is, prove it's substantial, and hand the
   visitor one clear action.
 - **Two statements share the first viewport (decided 2026-09-24).** The pinned opening is not one
-  headline but two — **Axis A then Axis B** (§3.1), cut apart by a binary snap — and they must not
+  headline but two — **Axis A then Axis B** (§3.1), opened one into the other by the grow morph — and they must not
   say the same thing:
   1. **Axis A — mosaic H1 = identity / ownership** — the document H1, read first: *"Whatever the
      industry, we own the software it runs on."* + audience kicker + *"The software they already
      run. We keep it."*
-  2. **Axis B — hero H2 = the growth model** — revealed by the snap: states how the businesses
+  2. **Axis B — hero H2 = the growth model** — revealed by the grow: states how the businesses
      Fullsteam owns get bigger. This is the only place the two-story model can reach the first
      viewport (investors and founders are both rank-1 audiences, §2).
-- **The transition is a binary snap, not an animation (decided 2026-09-24).** One threshold, two
-  states, no interpolation and no easing: the page never rests between A and B. Treat this as a
-  strategy rule, not a technicality — a smooth grow exposes a half-formed state and muddies which
-  claim the visitor is being shown. States are declared in CSS; JS only flips a class. §3.1;
-  `wireframes.md` changelog 2026-09-24 (this replaces the 2026-09-21 grow-the-Retail-tile morph).
+- **The transition is the grow morph, not a cut (decided 2026-09-24; morph restored same day).**
+  The pinned opening **opens one state into the other** — the Retail tile grows to fill the frame
+  as the mosaic recedes and the Axis B copy arrives. Treat this as a strategy rule, not a
+  technicality: a hard cut reads as "snapping in place" and was rejected by the client. The two
+  states are declared in CSS; JS writes the per-frame `clip-path`/opacity, with **no CSS transition
+  on either state** so the morph cannot smear. §3.1; `wireframes.md` changelog 2026-09-24 + 2026-09-26.
 - **Content needs:**
   - **Audience kicker** above the hero H2 — it answers *is this for me?* before the headline is read
     and is the standing fix for G-8 (`wireframes.md`). It repeats the mosaic kicker deliberately, as
-    a callback across the snap, and adds the validation clause. Never a product claim.
+    a callback across the transition, and adds the validation clause. Never a product claim.
   - **Hero H2 = the growth model in plain words, software-first** — Software → Verticals → Payments
     (§20.1 #4). Agreed line (2026-09-24): **"Software first. Then we grow it."**
   - **Sub-line = who we are, then what we do** — agreed line (2026-09-24): *"A permanent home for each
@@ -215,7 +218,7 @@ the pinned opening:
   **Axis B** in the opening (§3.1), and **beat 04** is the proof that pays it off. The hero (beat 01)
   *states* the model without borrowing the axis label. The homepage carries no separate "two stories"
   block: the mosaic H1 (ownership, Axis A) and the hero H2 (growth model, Axis B) deliver both lanes
-  above the fold through the snap, and beat 04 proves lane 2 in detail.
+  above the fold through the morph, and beat 04 proves lane 2 in detail.
 
 ### 4.3 Explore by vertical (Vertical Software proof — the "meat")
 - **UX goal:** Let each customer self-identify and click through to their world. This is the **primary
@@ -374,10 +377,10 @@ and the rate of visitors who reach an interior audience or vertical page from th
 - [ ] Confirm which **scale/KPI signals** are publishable and where the ~15% employer/careers
       content allocation lives (§20.4/§20.11).
 - [ ] Which **video content** exists or must be produced for the homepage's social-proof band (§7).
-- [ ] **How far does the binary snap reach?** The opening's Axis A → Axis B cut is decided (§3.1).
-      Open: whether the *rest* of the page is also two acts with a hard boundary, and whether "snap"
-      additionally means scroll-snapping to each state. The scroll-snap reading is deliberately not
-      built — page-wide mandatory snap fights long-form reading and traps keyboard/AT users; it would
+- [ ] **How far does the grow morph reach?** The opening's Axis A → Axis B transition is decided (§3.1).
+      Open: whether the *rest* of the page is also two acts with a hard boundary, and whether the
+      opening additionally means scroll-snapping to each state. The scroll-snap reading is deliberately
+      not built — page-wide mandatory snap fights long-form reading and traps keyboard/AT users; it would
       have to be opt-in and pin-scoped. (`wireframes.md` OI-9.)
 
 ---

@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homepage Wireframe — Ollama layout · Fullsteam</title>
+<script>/* Progressive enhancement: the Axis A/B pin only exists with JS. Without this
+   class the two states render in document order (A above B). */document.documentElement.classList.add("has-js");</script>
 <style>
   /* Low-fi wireframe skin — structure only, not a visual direction */
   :root{
@@ -594,24 +596,33 @@
     .film-card:not(.is-feature) .film-name{ font-size:16px; }
   }
 
-  /* Reduced-motion: skip the pin; mosaic then settled hero in flow */
-  .hero-pin.is-flow{
+  /* Reduced motion OR no JS: skip the pin; mosaic then settled hero in flow.
+     The pin is progressive enhancement — an inline head script adds .has-js, so
+     without JS both states render in document order (A above B) and Axis B is
+     never left hidden. */
+  .hero-pin.is-flow,
+  html:not(.has-js) .hero-pin{
     height:auto;
   }
-  .hero-pin.is-flow .hero-sticky{
+  .hero-pin.is-flow .hero-sticky,
+  html:not(.has-js) .hero-pin .hero-sticky{
     position:static;
     height:auto;
     overflow:visible;
   }
-  .hero-pin.is-flow .mosaic{
+  .hero-pin.is-flow .mosaic,
+  html:not(.has-js) .hero-pin .mosaic{
     position:relative;
     inset:auto;
     min-height:calc(100svh - var(--chrome));
     padding:8px 16px 28px;
-    overflow:visible;
+    /* clip the tiles' off-edge bleed horizontally (the pinned layout clips it via
+       .hero-sticky) without taking a scroll container or hiding vertical bleed */
+    overflow-x:clip;
     pointer-events:auto;
   }
-  .hero-pin.is-flow .hero{
+  .hero-pin.is-flow .hero,
+  html:not(.has-js) .hero-pin .hero{
     position:relative;
     min-height:calc(100svh - var(--chrome));
     clip-path:none;
@@ -619,7 +630,8 @@
     pointer-events:auto;
     will-change:auto;
   }
-  .hero-pin.is-flow .hero-copy{ opacity:1; min-width:0; width:100%; }
+  .hero-pin.is-flow .hero-copy,
+  html:not(.has-js) .hero-pin .hero-copy{ opacity:1; min-width:0; width:100%; }
 
   @media (max-width:768px){
     /* The mobile bar is shorter (10px padding), so the pinned frame must offset

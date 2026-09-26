@@ -88,7 +88,7 @@ your vertical" finder lives in the overlay / Vertical Software page.
 | # | Section | Intent | What's on screen | Status |
 |---|---------|--------|------------------|--------|
 | 1 | **Header** | Sparse chrome; primary CTA | Logo, "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
-| 2 | **Hero** | Beat **01 — The model**: **Axis A (Portfolio) → binary snap → Axis B (Growth engine)**. Axis A carries identity/ownership; Axis B carries the growth model (software-first) | Mosaic **H1** ("Whatever the industry, we own the software it runs on.") above **11 labeled scattered tiles** = Axis A. On ≤768px: one cluster **staggered vertically** below the headline (sides may crop), **mixed tile opacities**. One scroll threshold (**50% of the pin**; snaps back below 45%) cuts to the full-bleed hero on **all breakpoints** = Axis B: audience kicker + **"Software first. Then we grow it."** + the Offerings sub-line. **The cut is discrete — no grow, no fade, nothing in between.** Reduced-motion: in-flow mosaic then settled hero (sequence kept, cut skipped). Proof strip follows. | Built |
+| 2 | **Hero** | Beat **01 — The model**: **Axis A (Portfolio) → grow morph → Axis B (Growth engine)**. Axis A carries identity/ownership; Axis B carries the growth model (software-first) | Mosaic **H1** ("Whatever the industry, we own the software it runs on.") above **11 labeled scattered tiles** = Axis A. On ≤768px: one cluster **staggered vertically** below the headline (sides may crop), **mixed tile opacities**. Scrolling the pin **grows the Retail tile into the full-bleed hero** on **all breakpoints** = Axis B: audience kicker + **"Software first. Then we grow it."** + the Offerings sub-line. **The transition is interpolated — clip-path + opacity, no CSS transition.** Reduced-motion: in-flow mosaic then settled hero (sequence kept, morph skipped). Proof strip follows. | Built |
 | 3 | **Who we are** | Two-up pair (Square “Terminal / Stand”) | Beat **02**. H2 “Scale your vertical software without losing your legacy.” + Empower and supercharge growth \| Embedded Offerings. | Built |
 | 4 | **The software** | Scene: image + copy | Beat **03**. “The system they already run.” Link to all verticals. | Built |
 | 5 | **What we add** | Flipped scene — the **proof of Axis B** (the growth engine): the axis is named in the opening, the receipts are here | Beat **04 — The growth engine**. “Keep the software they trust. Supercharge how they monetize.” Lending/insurance stay in the body. | Built |
@@ -115,20 +115,21 @@ your vertical" finder lives in the overlay / Vertical Software page.
 - **For Founders** lives in the Menu overlay, footer, beat 03 (`#founders`), and a quiet close
   link — not in header chrome. After the persona door the scroll is: founders → software/verticals
   → Offerings + AI → people joining → close.
-- **The first viewport is a two-state sequence (2026-09-24):** **Axis A (Portfolio) → binary snap →
+- **The first viewport is a two-state sequence (2026-09-24):** **Axis A (Portfolio) → grow morph →
   Axis B (Growth engine)**. Axis A's mosaic H1 carries identity/ownership; Axis B's hero H2 carries
   the **growth model** — deliberately not the same claim (the deck's "operating system for vertical
   markets" line is retired from the hero, G-8). The two kickers echo on purpose: mosaic = audience,
   hero = audience + validation clause.
-- **The snap is literally binary (2026-09-24):** two states, one threshold, **no interpolation and no
-  CSS transition on either state** — the page cannot rest half-way between A and B. JS flips only
-  `is-hidden` (mosaic) / `is-axis-b` (hero); the visual states live in the stylesheet, so they stay
-  reviewable instead of being written per-frame. Replaces the 2026-09-21 grow-the-Retail-tile morph,
-  whose interpolated clip-path and per-frame writes smeared against the 0.1s transitions at the pin
-  edge.
+- **The transition is the grow morph (restored 2026-09-24):** scrolling the pin **grows the Retail
+  tile into the hero** — an interpolated clip-path traced per frame from the tile's live rect plus
+  opacity ramps. **No CSS transition on either state**, so the per-frame writes cannot smear (the
+  jitter the same-day binary-snap interim fixed came from adding transitions, not from the grow).
+  The client read the interim discrete cut as "just snapping in place," so the morph is the rule;
+  a hard cut is a strategy change, not a polish pass.
 - **Both states are content:** neither is `aria-hidden`, so AT reads the H1 (Axis A) then the hero H2
   (Axis B) at any scroll position, and with motion reduced both states appear in flow, A above B.
-  (With JS off the page renders its state-A resting state only — see OI-9 for that caveat.)
+  **No-JS (resolved 2026-09-26):** the pin is gated by a `has-js` class on `<html>`, so without JS
+  the two states render in document order, A above B, and the morph is progressive enhancement.
 
 ### Known gaps & issues (do not silently fix — see open items)
 
@@ -230,20 +231,39 @@ not L1 tree nodes.
 - If you change structure or order, update the section table in §2 and the
   changelog in §8.
 
+**Shared CSS is duplicated on purpose — change all 9 files, never one.** Each page
+is a self-contained static file, so `.nav`, `.page-hero` / `.v-hero`, `.block`, `.lede`,
+`.pill`, `.foot`, and `:root` are copied into every page. Editing one copy silently
+drifts the set — that is exactly how *Vertical Software* and *Embedded Offerings* ended
+up on a different type scale, and how the mobile-nav fix first missed 8 files
+(changelog 2026-09-26). Before committing a chrome/type/spacing change, grep the other
+files and confirm parity. A local check that catches the common case:
+
+```
+# from the repo root — every page should report the same declarations
+for f in 02_Wireframes/active/homepage.html 02_Wireframes/active/pages/*.html; do
+  printf '%-42s ' "$f"
+  grep -oE '\.page-hero|\.v-hero-card|--chrome:[0-9]+px|line-height:1\.45' "$f" | sort -u | tr '\n' ' '
+  echo
+done
+```
+
+Anything present on some pages but not others is drift — decide once and apply to all.
+
 ---
 
 ## 7. Open items (decisions needed)
 
-- **OI-1 — Final chrome pattern.** **Provisional: B revised** (Logo ·
-  Menu · Explore Solutions; For Founders not in the strip as of 2026-09-23). Confirm with client, then apply the chosen strip to all
-  interior pages so chrome is a system, not a homepage trick.
+- **OI-1 — Final chrome pattern.** **B revised** (Logo · Menu · Explore Solutions; For Founders
+  not in the strip since 2026-09-23). *Decision 2026-09-26:* B revised stands and is already applied
+  to all 9 pages, so the set is a system, not a homepage trick. Only **client sign-off** remains.
 - ~~**OI-2 — "For Investors" placement.**~~ **Resolved 2026-09-10: deleted.**
   No investor nav node or page; investors are served by homepage scale/proof +
   Contact. (KB §14 locked.)
 - **OI-3 — Section order.** Wireframe experiment 2026-09-21: long-form Bending
   Spoons scroll (thesis → general proof → 3 vertical chapters → offerings stack).
   Confirm vs Alternative A’s dual-axis. **Partly resolved 2026-09-24:** the dual axis is now
-  delivered **in sequence** — Axis A (Portfolio) → binary snap → Axis B (Growth engine) — so
+  delivered **in sequence** — Axis A (Portfolio) → grow morph → Axis B (Growth engine) — so
   Alternative A's side-by-side `.dual` lanes are retired for the live build; the mid-page order is
   still the 2026-09-21 experiment. `design.md` §3.1 records the opening.
 - **OI-4 — AI homepage treatment.** Dedicated page is **locked under Offerings**
@@ -252,27 +272,31 @@ not L1 tree nodes.
   KPI cycle, which still cycles **placeholders (11 / 80k+ / 2,000+)**. V2 supplies a real,
   marketing-authored set — **70,000+ customers · $75B+ processed on Fullsteam Pay · 480M+
   transactions · 2,000+ employees · 100+ businesses** (KB §22.5) — so this becomes a copy
-  swap, not an invention. **Blocked on two client answers:** (a) publishability
-  (§20.7 / G-3; the "*cumulative totals" asterisk must ride along with $75B / 480M);
-  (b) **the count conflict** — the mosaic shows **11 verticals** while V2 says **13+
-  industries**, and the placeholder says **80k+ customers** where V2 says **70,000+**. One
-  page carries one vertical count and one customer count, so do not patch the cycle until
-  both are settled (KB §22.6.2).
-- **OI-6 — Social proof & video.** Where testimonials/mission video live (G-4).
-- **OI-7 — Careers/company band.** How the ~15% employer story surfaces above the
-  footer (G-5).
+  swap, not an invention. **Half resolved 2026-09-26:** the **vertical count is settled at 11**
+  — the locked IA carries 11 tiles and 11 tabs, so the site states 11, not V2's "13+ industries."
+  **Still open:** the **customer count** (placeholder 80k+ vs V2's 70,000+) and **publishability**
+  (§20.7 / G-3; the "*cumulative totals" asterisk must ride along with $75B / 480M). Do not patch
+  the cycle until the customer figure and publishability are settled (KB §22.6.2).
+- **OI-6 — Social proof & video.** *Decision 2026-09-26:* hold. The genericized founder quote
+  stays; no testimonials or mission video until the client supplies assets (G-4).
+- **OI-7 — Careers/company band.** *Decision 2026-09-26:* hold. The "For people joining" beat
+  (06) already carries the employer story above the footer; no further band until the client
+  provides the ~15% allocation content (G-5).
 - ~~**OI-8 — Feature interaction.**~~ **Wireframe experiment 2026-09-21:** JS tabs
   removed in favor of stacked long-form. Confirm with client.
-- **OI-9 — How far "binary snap" reaches.** Decided 2026-09-24 for the **opening only**
+- **OI-9 — How far the grow morph reaches.** Decided 2026-09-24 for the **opening only**
   (Axis A → Axis B; `design.md` §3.1; canonical record **KB §23**). Two readings stay open: (a) the whole page is **two acts**
-  with a hard boundary mid-scroll (portfolio act → growth act); (b) "snap" also means the *scroll*
-  snaps to each state (`scroll-snap`). (b) is deliberately **not** built — page-wide mandatory snap
+  with a hard boundary mid-scroll (portfolio act → growth act); (b) the opening *scroll*-snaps to
+  each state (`scroll-snap`). (b) is deliberately **not** built — page-wide mandatory snap
   fights long-form reading and traps keyboard/AT users; if wanted it must be opt-in and pin-scoped.
-  Two build caveats to settle before this ships: **(i) no-JS** — state A is the static resting state,
-  so without JS the Axis B copy (H2 + CTA) stays hidden (unchanged from before the snap; fixed
-  properly with a `has-js` class on `<html>` so the pin is the progressive enhancement);
-  **(ii) first frame** — the hero background is a lo-fi placeholder today, so an instant cut costs
-  nothing, but with real artwork the Axis B frame must be preloaded or the cut exposes an empty state.
+  Two build caveats: **(i) no-JS — RESOLVED 2026-09-26.** The pin is now gated by a `has-js` class
+  on `<html>`, so without JS the two states render in document order (A above B) and Axis B is never
+  stranded hidden. **(ii) first frame** — the hero background is a lo-fi placeholder today, so the
+  morph starts from a flat tile, but with real artwork the Axis B frame must be preloaded or the
+  morph's early frames expose an empty state.
+- **Legal pages (Privacy / Terms / Complaints).** *Decision 2026-09-26:* remain footer labels
+  only. They are outside the content-writing scope and require client-supplied legal copy; not
+  built as pages.
 
 ---
 
@@ -317,7 +341,7 @@ not L1 tree nodes.
 | 2026-09-23 | Mobile mosaic: tiles **staggered vertically** below the headline (not a tight bottom pile) with **mixed `--tile-op`**. Grow-hero multiplies `--tile-op` so the mix survives scroll. `design.md` not edited. |
 | 2026-09-23 | Newsroom cleanup completed: removed the last **"Press / media kit"** footer link (Connect column). Reconciled `design.md` §4.9 — dropped the stale Newsroom content need so the design track matches the locked sitemap (Our Story child is **Leadership** only). Sitemap tree itself unchanged (Newsroom already absent). |
 | 2026-09-24 | **Beat 01 hero copy decided — the growth-model variant (called "Axis B" in review), corrected.** The deck line "The operating system for vertical markets." is **retired from the hero**; the mosaic H1 keeps identity/ownership and the grown hero states the **growth model** — "Software first. Then we grow it." — under a restored **audience kicker**, with the Offerings sub-line beneath. The uncommitted draft copy (markup ids `axis-b-*`, now removed) is replaced. Closes **G-8**; `design.md` §4.1/§4.2 reconciled to match; KB **§22** (V2 strategic messaging architecture) distilled. |
-| 2026-09-24 | **Homepage strategy recorded: Axis A (Portfolio) → binary snap → Axis B (Growth engine).** The locked two-axis model (KB §14: portfolio + growth engine) is delivered on the homepage **in sequence**, not side by side — Alternative A's parallel `.dual` lanes are retired for the live build (OI-3 partly resolved). **Axis A = the portfolio mosaic** (H1 identity/ownership + 11 tiles); **Axis B = the growth engine hero** ("Software first. Then we grow it." + Offerings sub-line). **The snap is a mechanism, not a metaphor:** the pinned opening now holds exactly **two states** and cuts at **one threshold** (50% of the pin; 45% to snap back) with **no interpolation, no easing, no CSS transition** — the grow-the-Retail-tile morph (clip-path traced per frame from the tile rect + opacity ramps) is **removed**, which fixes the smear/jitter where those per-frame writes met the 0.1s transitions at the pin edge. JS now flips one class each way (`is-hidden` / `is-axis-b`); the states are declared in CSS. Corrects the previous row's naming clause: **"the growth engine" names Axis B** (the axis, named in the opening) and **beat 04 is its proof**. A11y: neither state is `aria-hidden` (AT reads Axis A then Axis B at any scroll position); reduced-motion skips the pin and shows A above B in flow. `design.md` §3.1 (new) + §4.1/§4.2 reconciled; KB §14/§19.1 updated. |
+| 2026-09-24 | ⚠️ **Superseded the same day — see the 2026-09-26 row: the transition is the grow morph, not a cut.** Original entry: **Homepage strategy recorded: Axis A (Portfolio) → binary snap → Axis B (Growth engine).** The locked two-axis model (KB §14: portfolio + growth engine) is delivered on the homepage **in sequence**, not side by side — Alternative A's parallel `.dual` lanes are retired for the live build (OI-3 partly resolved). **Axis A = the portfolio mosaic** (H1 identity/ownership + 11 tiles); **Axis B = the growth engine hero** ("Software first. Then we grow it." + Offerings sub-line). **The snap is a mechanism, not a metaphor:** the pinned opening now holds exactly **two states** and cuts at **one threshold** (50% of the pin; 45% to snap back) with **no interpolation, no easing, no CSS transition** — the grow-the-Retail-tile morph (clip-path traced per frame from the tile rect + opacity ramps) is **removed**, which fixes the smear/jitter where those per-frame writes met the 0.1s transitions at the pin edge. JS now flips one class each way (`is-hidden` / `is-axis-b`); the states are declared in CSS. Corrects the previous row's naming clause: **"the growth engine" names Axis B** (the axis, named in the opening) and **beat 04 is its proof**. A11y: neither state is `aria-hidden` (AT reads Axis A then Axis B at any scroll position); reduced-motion skips the pin and shows A above B in flow. `design.md` §3.1 (new) + §4.1/§4.2 reconciled; KB §14/§19.1 updated. |
 | 2026-09-24 | **Scroll after the persona door reordered to the V2 narrative:** founders (home + quote) → software + verticals film → Offerings then AI → short people-joining beat (`#careers`) → close. Axis A/B opening unchanged. Body paragraph prose greeked (Greek-script placeholders); headlines, beats, nav, buttons, and persona labels stay English. |
 | 2026-09-24 | **Beat 02 is the persona door.** Same side-card layout under the proof strip, now one card each for founders (`#founders`), people joining (`#careers`), and investors (`#investors`). Center: "Find the part that is for you." Hero text links removed; hero keeps the single Explore pill. |
 | 2026-09-24 | Beat 02: founders side card removed; center lorem replaced by **For founders** pill (`href="#founders"`, sticky offset like `#investors`). Left keeps people-joining; right keeps investors. Modest left/right orbit parallax (off under `prefers-reduced-motion`). |
@@ -345,6 +369,9 @@ not L1 tree nodes.
 | 2026-09-26 | **Design-consistency pass — 2 outlier subpages + chrome. No structural or copy change.** Audited by diffing every shared CSS rule across the homepage and all 8 subpages, aliasing the tile pages' `.v-hero*` hooks onto `.page-hero` so the two systems actually pair up instead of hiding behind different selector names. **(1) Two of the eight subpages had drifted off the design.** Vertical Software and Embedded Offerings used `.v-hero`, and it had grown its own type scale: H1 `clamp(40px,5vw,68px)` / weight 800 / `line-height:.95` / `letter-spacing:-.035em` / `max-width:22ch` / centered, against the six `.page-hero` pages' `clamp(36px,5vw,56px)` / 700 / 1.05 / `-.03em` / `16ch` / left. Their hero also had `padding:48px 0 28px` with no bottom rule against the standard `64px 0 48px` with one, and a `.v-hero .lede` override (higher specificity than the shared `.lede`) forcing 20px/42ch centered instead of the shared 18px/46ch. Separately their `.block` ran `padding:40px 0 80px` against `64px 0` everywhere else, so the section rhythm differed too. Both pages now use the standard scale and the shared `.lede`; the `.v-hero .lede` override is deleted rather than restated. Contained structure (no hero image), the name tiles, the story window, and the arrows/swipe are untouched. **(2) Header chrome measured differently on every page.** The 8 subpages set `body{line-height:1.45}` and the homepage did not, so the header rendered 59px on the homepage against 62px inside — and the pinned hero was already sitting at a hard-coded `57px` offset, 2px above where it belonged. Added `line-height:1.45` to the homepage's `.nav` only, **not** to `body`: a body-level change would reflow the locked Axis A/B pinned hero, which is out of scope here. Header is now 61.8px on all 9 pages. The six hard-coded `57px` offsets are replaced by a new `--chrome:62px` token so chrome changes cannot go stale silently; the pinned hero now seats at top 62 against a header bottom of 61.8 — a 0.2px seam where there was a 2px gap. Pin and unpin verified intact. **(3) The mobile nav fix had only ever been applied to the homepage.** The homepage's `max-width:768px` block gives the nav `white-space:nowrap`, `.menu-btn{flex-shrink:0}`, and `.nav-right{min-width:0;flex:1}`; the 8 subpages never received them, so at 320px the Explore CTA wrapped onto two lines and the header measured 71.8px against the homepage's 55.8. Added the same three rules to the subpages' `max-width:900px` block. Header is now 55.8px on all 9 pages at ≤768. **Verification:** 9 pages × 13 widths (320–1920), zero document overflow anywhere; H1 identical across all 8 subpages at every width (36 / 38.4 / 45 / 51.2 / 56px, weight 700, `line-height` 1.05); hero type, spacing, and color properties byte-identical, with the H1 and lede measuring identically (left 104, widths 498.2 / 460.4 at 1280). **Three things deliberately left alone, recorded so they are not mistaken for oversights.** (a) The homepage breaks at 768px and the subpages at 900px, so in the 769–900 band the header is 61.8px inside and 55.8px on the homepage. Aligning it would mean moving the homepage's `max-width:768px` block, which contains the entire locked mosaic layout (`.mosaic`, `.mosaic-head`, `.t1`–`.t11`, `.hero-copy`) — that is the Axis A opening, and repointing its breakpoint is a strategy decision, not a consistency pass. (b) `.facts` keeps `grid-column:1 / -1` on the two tile pages; the fact chips sit inside their 2-column panel grid and need to span, and the declaration is already scoped to just those two files. (c) `.tabs` is a genuinely different component on the tile pages — an 11-up / 4-up name-tile grid — against the standard pages' scrollable sidebar list. That is the documented structure from 2026-09-25, not drift. `design.md` not edited; it documents no hero type scale. |
 
 | 2026-09-26 | **Vertical label unified: “Associations” → “Association Management”.** One vertical had two names. The homepage called it **Associations** in three places — the Menu overlay, the Axis A mosaic tile (`t10`), and the grow-verticals list under the filmstrip — while the Vertical Software page, all 8 subpage menus, the locked `sitemap.html`, and the content draft (`04_Content/vertical-software.md`) all call it **Association Management**. Aligned the homepage’s three occurrences to the canonical long form, and the four in `header-wireframe.html` (the three option overlays plus the rejected Option 0 legacy bar — that file’s own copy says its labels must match `sitemap.html`). Left `PROJECT_KNOWLEDGE_BASE.md` §“Current site structure (as-is)” as `Associations` on purpose: it records the live-site crawl for migration mapping, not the locked name, and the locked list below it already reads `Association Management`. Verified the longer label fits both renderings: 125.9px wide inside a 145.9px mosaic tile at 1280, and 101px inside a 117px tile at 390, with zero horizontal page overflow. A full sweep of all 11 vertical names across the homepage and 8 subpages found no other drift. `design.md` not edited. |
+
+| 2026-09-26 | **Homepage transition reconciled — the opening is the grow morph, not the binary snap.** The docs had split from the build. `homepage.html` has only ever run the **grow morph** (the Retail tile `t3` grows into the hero; per-frame `clip-path` + opacity ramps; its own comment says "restored 2026-09-24 at the client's request"), and `AGENTS.md`'s opening bullet + same-day amendment agree — but `design.md` §3.1/§4.1, KB **§23/§23.6** ("do not re-introduce interpolation"), and this file all still mandated the **binary snap** and called the morph removed. An agent following the canonical docs would have deleted the client-requested transition. **Decision:** the grow morph is current; the binary snap was the same-day interim the client rejected as "just snapping in place." Reconciled `design.md` §3.1 (heading + both transition bullets) and §4.1, KB §23 (§23.1, §23.2, §23.3, §23.5 vocabulary, §23.6 guardrail 1), and `AGENTS.md`. The two states, the two headlines, the Axis A→B order, both-states-are-content, and reduced-motion flow are unchanged. The 2026-09-24 rows here and in KB are kept and marked superseded. Also fixed in the build: the morph's scroll math still used a hard-coded `57` (now reads the pinned frame's own top) and `--chrome` was a single 62px value while the ≤768 bar is 56px (added a mobile `:root` override) — the seam is now 0.2px at every breakpoint. `design.md` edited (it is the spec of record). |
+| 2026-09-26 | **Autonomous decisions pass.** (a) **No-JS hero — fixed.** The Axis A/B pin is gated by a `has-js` class on `<html>`; with JS off the two states render in document order (A above B) instead of stranding Axis B hidden (`.hero` defaults to `opacity:0; clip-path:inset(100% 0 0 0)`). Resolves the OI-9 no-JS caveat. (b) **Vertical count settled at 11** — the locked IA carries 11 tiles and 11 tabs, so the site states 11; only the **customer count** (80k+ vs V2's 70,000+) and proof **publishability** remain open under OI-5. (c) **Chrome stays B revised** (already on every page) pending client sign-off; no code change. (d) **Legal pages** (Privacy / Terms / Complaints) stay footer labels — outside content scope, client-supplied copy. (e) **OI-6 social proof / video** and **OI-7 careers band** unchanged — no assets exist to add. (f) **Repo/public-docs posture:** kept public (the Pages review site depends on it). The client-doc leak at old SHA `33c60f5` — **5 files still return 200, re-verified 2026-09-26** — is recorded with a drafted GitHub Support purge request in KB §22.7; the support request and any repo-visibility change need the owner's GitHub access, not the repo. No structural or copy change. |
 
 ---
 

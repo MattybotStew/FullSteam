@@ -8,7 +8,7 @@
 > `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-09-24 (added **§23 Homepage Strategy — Axis A → binary snap → Axis B**, made canonical and pinned into `AGENTS.md` for every agent; added §22 Strategic Messaging Architecture V2; hero copy reconciled; V2 matrix quarantined as unratified + number/count conflicts recorded; `clientDocs/` exposure verified and `.gitignore`d)
+> **Last updated:** 2026-09-26 (reconciled **§23 Homepage Strategy** across `design.md`, `AGENTS.md`, and `wireframes.md` to the **grow morph** — the transition restored 2026-09-24 at the client's request after the interim binary snap read as "just snapping in place"; the two states, two headlines, and Axis A→B order are unchanged. Also: §22 Strategic Messaging Architecture V2; hero copy reconciled; V2 matrix quarantined as unratified + number/count conflicts recorded; vertical count settled at 11; `clientDocs/` exposure verified and `.gitignore`d)
 
 ---
 
@@ -199,7 +199,7 @@ how these sites created a dedicated page to showcase their use of AI:
 - [x] Draft messaging framework around the two core stories — client-authored **Messaging Architecture V2**, distilled in **§22**; homepage hero reconciled to it 2026-09-24 (`design.md` §4.1); content SOW in §21
 - [x] Propose site information architecture (no page-per-industry) — locked §14
 - [ ] Define page template set and content model (Duda-compatible)
-- [ ] Prototype UX/UI direction and primary CTA placement — homepage **opening sequence decided** (KB §23: Axis A → binary snap → Axis B); visual direction still open
+- [ ] Prototype UX/UI direction and primary CTA placement — homepage **opening sequence decided** (KB §23: Axis A → grow morph → Axis B); visual direction still open
 - [ ] Write **10 core pages** per content brief (§21) against the locked sitemap
 - [ ] Develop response covering experience, approach, content model, site structure, timing, team, budget
 
@@ -396,7 +396,7 @@ served through the portfolio/scale proof on the homepage and via Contact — the
 is no investor nav node or dedicated investor page.
 
 > **Homepage delivers these same two axes in sequence (2026-09-24):** **Axis A
-> (Portfolio) → binary snap → Axis B (Growth engine)** — not the side-by-side
+> (Portfolio) → grow morph → Axis B (Growth engine)** — not the side-by-side
 > two-lane treatment in `02_Wireframes/archive/alternative-home-a.html`.
 > **Canonical record: §23.** Spec: `design.md` §3.1; scope open question: `wireframes.md` OI-9.
 
@@ -755,11 +755,12 @@ homepage hero/messaging framework.
 >
 > **Homepage strategy (2026-09-24):** the homepage delivers the two-axis model
 > (this section's structure, §14's nav axes) as a **sequence** — **Axis A (Portfolio) →
-> binary snap → Axis B (Growth engine)**. Axis A = what Fullsteam owns (mosaic H1 + the 11
+> grow morph → Axis B (Growth engine)**. Axis A = what Fullsteam owns (mosaic H1 + the 11
 > verticals); Axis B = how those businesses grow (hero H2 + the Offerings sub-line). The
-> "snap" is literal: the pinned opening holds two states and cuts between them at one
-> threshold with no interpolation. **Canonical record: §23.** Full spec: `design.md` §3.1;
-> build + defect fixed: `wireframes.md` changelog 2026-09-24; open scope question: OI-9.
+> transition is literal: the pinned opening holds two states and **grows the Retail tile into
+> the hero** to open one into the other, with no CSS transition (per-frame clip-path + opacity).
+> **Canonical record: §23.** Full spec: `design.md` §3.1;
+> build + defect fixed: `wireframes.md` changelog 2026-09-24 + 2026-09-26; open scope question: OI-9.
 
 ### 19.2 At-a-glance facts
 
@@ -1593,6 +1594,42 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
   **Note the limit:** a tracked file is still readable on `raw.githubusercontent.com` whether or
   not Pages serves it. The allowlist stops the *website* leak, not the *git* leak; `.gitignore`
   remains the control for the latter.
+- **Re-verified 2026-09-26 — the residual exposure is still live.** Re-measured over the public
+  internet (an earlier check this session used a wrong filename and briefly looked like a 404):
+  **all five client files still return HTTP 200 at `raw.githubusercontent.com/…/33c60f5/clientDocs/…`:**
+
+  | old SHA `33c60f5` | 2026-09-26 |
+  |---|---|
+  | Fullsteam Color Palette Cheat sheet.pdf | **200** |
+  | Fullsteam Kickoff Presentation.pdf | **200** |
+  | Fullsteam Web Brief (1).docx | **200** |
+  | Fullsteam Website Content Project Brief.docx | **200** |
+  | Fullsteam Website Content Project Brief copy.docx | **200** |
+  | Fullsteam Strategic Messaging Architecture V2.docx | 404 (never pushed) |
+
+  Current `main` and the live site stay clean (`404`); only the unreachable old commit serves them.
+  **The GitHub Support purge below has still not been filed.** Draft request (owner to send from the
+  account that owns the repo):
+
+  > Subject: Request to purge unreachable objects containing confidential client files
+  >
+  > Repository: `MattybotStew/FullSteam` (public). Commit `33c60f5` is unreachable after a history
+  > rewrite but its blobs are still served by `raw.githubusercontent.com`. Please remove the
+  > unreachable objects (or the commit) so those URLs 404. Affected paths under `clientDocs/`:
+  > the five files above. These are third-party confidential documents that must not remain
+  > downloadable. I confirm I own the repository.
+
+  Send via https://support.github.com → "Repository" → ask to purge unreachable Git objects, citing
+  the SHA and paths.
+- **Decision 2026-09-26 — repo/public-docs posture.** The repo **stays public** and the KB stays
+  tracked: the GitHub Pages review site (the client-facing wireframe portal) is served from it, and
+  the KB is the agent entry point that `AGENTS.md` depends on. This is a deliberate trade — a
+  public repo means the KB and any tracked file remain readable on `raw.githubusercontent.com`,
+  which the Pages allowlist cannot change. The controls that *do* apply are (a) `.gitignore` for
+  `clientDocs/`, (b) the Pages allowlist guard, and (c) the Support purge above. If the client's
+  confidentiality rules (§20.7) require the KB itself not be public, the real fix is a **private
+  repo with Pages enabled on a plan that supports it** — an owner/billing decision, not a repo
+  change.
 - **Still open — needs a client/owner decision:**
   1. **Where client source docs live at all.** The cleanest fix is to keep `clientDocs/`
      outside the repo entirely (private drive/shared folder) and record only the distillations
@@ -1607,14 +1644,20 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
 
 ---
 
-## 23. Homepage Strategy — Axis A → binary snap → Axis B (LOCKED 2026-09-24)
+## 23. Homepage Strategy — Axis A → grow morph → Axis B (LOCKED 2026-09-24)
 
-> **Status:** **Locked for the homepage opening** (2026-09-24). Supersedes both the
+> **Status:** **Locked for the homepage opening** (2026-09-24). Supersedes the
 > side-by-side two-lane treatment (`02_Wireframes/archive/alternative-home-a.html`,
-> whose `.dual` lanes are retired for the live build) and the 2026-09-21 grow-the-Retail-tile
-> morph (interpolated clip-path, per-frame writes).
+> whose `.dual` lanes are retired for the live build).
+> **Amended 2026-09-24 (same day); reconciliation recorded here 2026-09-26:** the opening was
+> first locked as a **binary snap** (a discrete cut). At the **client's request** the **grow
+> morph** was **restored** — the interpolated clip-path traced from the Retail tile's live rect
+> plus opacity ramps — because the cut "read as just snapping in place." The **two-state model,
+> the two headlines, and the Axis A→B order are unchanged**; only the **transition** changed. The
+> snap is retained below as interim history, not the current rule.
 > **Spec of record:** `design.md` §3.1 (the sequence) + §4.1 (hero-level rules).
-> **Build + fixed defects:** `wireframes.md` §2 table row 2 and the changelog entry 2026-09-24.
+> **Build + fixed defects:** `wireframes.md` §2 table row 2 and the changelog entries 2026-09-24
+> (morph → snap) and 2026-09-26 (snap → morph reconciliation).
 > **Open scope question:** `wireframes.md` **OI-9** / `design.md` §8.
 > **Why this section exists:** until now the decision was recorded only as dated update blocks
 > inside §14 and §19.1, which is easy to miss. **This is the single canonical statement** —
@@ -1625,7 +1668,7 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
 ### 23.1 The model in one line
 
 **The client's two-axis model — portfolio + growth engine (§14) — is delivered on the
-homepage *in sequence*, never side by side:** **Axis A (Portfolio) → binary snap →
+homepage *in sequence*, never side by side:** **Axis A (Portfolio) → grow morph →
 Axis B (Growth engine).**
 
 This is the whole opening, and it is what beat **01 — The model** exists to do. It is also the
@@ -1640,7 +1683,7 @@ client-facing framing available for sign-off: *"your two-axis model, delivered i
 
 - **Both states are content, not decoration** — neither is `aria-hidden`. Assistive tech reads
   the H1 (Axis A) then the H2 (Axis B) at any scroll position, and nothing on the page depends
-  on *seeing* the cut.
+  on *seeing* the transition.
 - **The two statements must not say the same thing.** Axis A owns identity/ownership; Axis B
   owns the growth model. This split is exactly why the deck line "the operating system for
   vertical markets" is **retired from the hero** (`wireframes.md` **G-8**, resolved 2026-09-24).
@@ -1654,23 +1697,31 @@ client-facing framing available for sign-off: *"your two-axis model, delivered i
   plain words rather than borrowing the axis label, so the hero doesn't pre-empt beat 04's
   Offerings proof (`design.md` §4.1 lane-naming note).
 
-### 23.3 The snap is literal — and it is a strategy rule
+### 23.3 The transition is the grow morph — and it is a strategy rule
 
-Two states, **one scroll threshold**, and **no interpolation, no easing, no crossfade**. The
-page cannot rest half-way between A and B.
+Three locks name the same sequence — Axis A → **grow morph** → Axis B. (An earlier, same-day
+lock called the transition a **binary snap**; the client read the discrete cut as "just snapping
+into place," and the grow morph was restored on 2026-09-24. Everything below describes the morph.)
 
-- **Threshold:** fires at **50% of the pin**, snaps back below **45%**, and applies on **all
-  breakpoints**. The cut is discrete — *no grow, no fade, nothing in between*.
-- **States are declared in CSS; JS only flips classes** (`is-hidden` on the mosaic,
-  `is-axis-b` on the hero). That keeps the states reviewable in the stylesheet instead of being
-  written per frame, and there is **no CSS transition on either state**.
-- **Why this is a strategy rule, not a technicality:** a smooth grow exposes a half-formed
-  state and muddies *which of the two claims* the visitor is being shown. A proposal to
-  re-introduce a morph is a **strategy change**, not a polish pass — treat it as one.
+Two states and **one interpolated transition** between them. The page **moves** from A to B; it
+does not cut.
+
+- **The mechanism:** as the pin scrolls, the **Retail tile (`t3`) grows to fill the sticky
+  frame** while the mosaic and its heading fade out and the Axis B copy fades in. The grow is
+  driven by pin progress `p` (0→1) via `clip-path: inset(… round …)` traced per frame from the
+  tile's live rect to the sticky frame, with opacity ramps on the mosaic, the other tiles, and
+  the hero copy. Same ramps at every breakpoint.
+- **No CSS transition on either state.** The interpolation *is* the per-frame write, so there is
+  nothing to smear against a transition — the jitter the interim snap fixed is avoided by keeping
+  the writes transition-free, not by removing the grow.
+- **Why this is a strategy rule, not a technicality:** the opening must **open one state into the
+  other**. A hard cut reads as "snapping in place" and was rejected. A proposal to **re-introduce
+  the discrete cut** is a **strategy change**, not a polish pass — treat it as one.
 - **Reduced motion:** the pin is skipped and both states render **in flow, A above B** — the
   sequence survives without the motion.
-- **No JS:** the page renders its **state-A resting state only** (mosaic in flow). This is the
-  known caveat tracked in `wireframes.md` **OI-9**; a no-JS/deferred hero reveal is the option.
+- **No JS:** *decision 2026-09-26* — a `has-js` class on `<html>` gates the pin, so with JS off
+  the two states render **in document order, A above B**, and the morph is pure progressive
+  enhancement. (Resolves the `wireframes.md` **OI-9** no-JS caveat.)
 
 ### 23.4 Why Axis A comes first
 
@@ -1688,7 +1739,7 @@ page cannot rest half-way between A and B.
 |---|---|---|
 | **Axis A** | Portfolio — *what Fullsteam owns* | "the portfolio page", "Solutions" |
 | **Axis B** | Growth engine — *how those businesses get bigger* | "the payments story", "Platform" |
-| **binary snap** | the discrete A→B cut | "morph", "morphing", "crossfade", "transition" |
+| **grow morph** (the grow) | the interpolated A→B transition — the Retail tile growing to fill the frame | "the snap", "crossfade", "morph" as a vague metaphor |
 | **Offerings** | Embedded Offerings, short form in body copy | "Platform" |
 | **vertical** | the portfolio unit (**11**) | "industry", "niche", "specialty" in site copy (§22.6) |
 
@@ -1698,28 +1749,31 @@ homepage's *model*; the **nav labels** (Vertical Software / Embedded Offerings) 
 
 ### 23.6 Guardrails — all agents
 
-1. **Do not re-introduce interpolation, easing, or any transitional state** between Axis A and
-   Axis B. That is precisely the 2026-09-21 morph this decision replaced.
+1. **Do not replace the grow morph with a discrete cut.** The interpolated transition is the
+   decision (restored 2026-09-24 at the client's request); a hard snap is a strategy change, not
+   a polish pass. Keep the per-frame writes free of CSS transitions so the morph cannot smear.
 2. **Do not add a third state or a third claim** to the opening. Two states, two jobs.
 3. **Do not merge the two headlines.** Axis A = identity/ownership; Axis B = the growth model.
    One merged sentence blurs both audiences (§4).
-4. **Do not restyle the snap in a wireframe as a "design idea."** The track boundary holds:
+4. **Do not restyle the transition in a wireframe as a "design idea."** The track boundary holds:
    discovery/KB → `design.md` intent → wireframe execution (see `AGENTS.md`).
 5. **Do not rename the axes** in any artifact — the §23.5 table is canonical. V2's vocabulary
    does not override it (§22.6).
-6. **Do not scope the snap beyond the opening** without a decision. Page-wide two-act
+6. **Do not scope the transition beyond the opening** without a decision. Page-wide two-act
    structure and scroll-snapping are both **open** (§23.7).
 
 ### 23.7 Open items
 
-- **OI-9 — how far "binary snap" reaches.** Decided for the **opening only**. Open:
-  (a) whether the *rest* of the page is also two acts with a hard boundary; (b) whether "snap"
-  additionally means **scroll-snapping** to each state — deliberately **not built**, because
+- **OI-9 — how far the transition reaches.** Decided for the **opening only**. Open:
+  (a) whether the *rest* of the page is also two acts with a hard boundary; (b) whether the
+  opening additionally **scroll-snaps** to each state — deliberately **not built**, because
   page-wide mandatory snap fights long-form reading and traps keyboard/AT users; it would have
   to be opt-in and pin-scoped.
-- **No-JS resting state** (§23.3) — decide whether to add a no-JS or deferred hero reveal.
-- **Beat 06 KPI cycle** still cycles placeholders (11 / 80k+ / 2,000+) — blocked on the count
-  conflicts and publishability (§22.5, §22.6).
+- ~~**No-JS resting state** (§23.3).~~ **Resolved 2026-09-26:** the pin is gated by a `has-js`
+  class on `<html>`; without JS the two states render in document order, A above B.
+- **Beat 06 KPI cycle** still cycles placeholders (11 / 80k+ / 2,000+) — the **vertical count is
+  settled at 11** (the locked IA: 11 tiles, 11 tabs; decided 2026-09-26), leaving the **customer
+  count** (80k+ vs V2's 70,000+) and publishability open (§22.5, §22.6).
 
 ### 23.8 Provenance
 

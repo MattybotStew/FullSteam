@@ -64,11 +64,12 @@ This file is the canonical agent entry point (works with Cursor, which reads
   vertical solutions. **For Founders is not in the header strip** as of 2026-09-23; it
   lives in the Menu overlay, footer, and the closing CTA. Full L1 in the Menu overlay
   - footer. Compare options in `02_Wireframes/active/header-wireframe.html`.
-- **Homepage opening = Axis A → binary snap → Axis B (locked 2026-09-24).** The first
+- **Homepage opening = Axis A → grow morph → Axis B (locked 2026-09-24).** The first
   viewport is a **two-state pinned sequence**, not one hero: the mosaic (**Axis A** —
-  identity/ownership) cuts to the hero (**Axis B** — the growth model) at a single threshold.
-  Replaces the 2026-09-21 grow-the-Retail-tile morph and the side-by-side two-lane
-  alternative. Canonical record: KB **§23** (guardrails §23.6, open items §23.7).
+  identity/ownership) **grows into** the hero (**Axis B** — the growth model) as the
+  Retail tile expands to fill the frame. The transition is the grow morph, not a cut.
+  Replaces the side-by-side two-lane alternative. Canonical record: KB **§23**
+  (guardrails §23.6, open items §23.7).
 - Homepage wireframe is `02_Wireframes/active/homepage.html`; interior pages sit in
   `02_Wireframes/active/pages/`. Superseded low-fi explorations are in
   `02_Wireframes/archive/`.
@@ -157,18 +158,20 @@ rules that survive any restyle or refactor:
 
 1. **Two states, two jobs.** **Axis A (Portfolio)** = identity/ownership — the mosaic H1,
    read first. **Axis B (Growth engine)** = the growth model — the hero H2, revealed by the
-   snap. Never one merged claim.
-2. **The snap is a discrete cut.** One threshold, **no interpolation, no easing, no
-   crossfade**; the page never rests between A and B. States live in CSS; JS only flips a
-   class (`is-hidden` / `is-axis-b`). Re-introducing a morph is a **strategy change**, not a
-   polish pass.
+   grow. Never one merged claim.
+2. **The transition is the grow morph.** The Retail tile grows into the hero — an interpolated
+   `clip-path` + opacity ramp, **restored 2026-09-24 at the client's request** after the interim
+   binary snap read as "just snapping in place." Keep the per-frame writes **free of CSS
+   transitions** so the morph cannot smear. Replacing it with a hard cut is a **strategy
+   change**, not a polish pass.
 3. **The deck line is retired from the hero.** "The operating system for vertical markets"
    (KB §19.1) is not the hero message — G-8 resolved 2026-09-24.
 4. **"The growth engine" names Axis B** and is an axis label, never a headline.
 5. **Both states are content.** Neither is `aria-hidden`; with `prefers-reduced-motion` the
-   two states render in document order, A above B. With JS off, state A only (open — OI-9).
-6. **Scope = the opening only.** Whether the rest of the page is two acts, and whether "snap"
-   also means scroll-snapping, are **open** (`wireframes.md` OI-9). Do not extend it silently.
+   two states render in document order, A above B. With JS off, the same in-flow fallback
+   applies — the pin is gated by a `has-js` class on `<html>` (resolved 2026-09-26).
+6. **Scope = the opening only.** Whether the rest of the page is two acts, and whether the
+   opening also scroll-snaps, are **open** (`wireframes.md` OI-9). Do not extend it silently.
 
 ## Conventions
 
