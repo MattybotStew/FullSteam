@@ -1478,17 +1478,35 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
 - **Fixed 2026-09-24:** `.gitignore` now ignores `clientDocs/` **as a directory** (plus the
   specific V2 filename), so new client material cannot be committed accidentally. That
   closes the V2 path.
-- **Still open — needs a client/owner decision** (the part ignoring cannot fix):
-  1. **Already-published files.** `git rm --cached` stops future deploys from serving them,
-     but they remain in git history (commits `5dc0829`, `e5d34fb`) and stay downloadable via
-     raw GitHub URLs on a public repo. Full removal = history rewrite (`git filter-repo`/BFG)
-     **or** making the repo private.
-  2. **Artifact scope.** `path: "."` also publishes `02_Wireframes/`, `01_Discovery/`,
+- **RESOLVED 2026-09-25 — the 5 published files are gone from history.** `clientDocs/` was
+  untracked from `HEAD`, then `git filter-branch --index-filter 'git rm -r --cached
+  --ignore-unmatch clientDocs' --prune-empty` rewrote every commit on `main` (all SHAs
+  changed; the rewrite is why a force-push is required). `refs/remotes/origin/*` had to be
+  repointed at the new tip or the old history stayed reachable through them. Followed by
+  `reflog expire --expire=now --all` + `gc --prune=now`. Verified after the fact:
+  `git rev-list --objects --all` returns no `clientDocs` object, a `strings` scan of the
+  packfile returns 0 hits, and `git fsck --full` is clean. The commit that only added the
+  content brief (`e5d34fb`) became empty and was pruned, so history is 43 commits.
+  **A 6th file was also found in history:** `Fullsteam Strategic Messaging Architecture V2.docx`
+  was *never* on `main`, but it was captured whole by Cline's local checkpoint refs
+  (`refs/cline/checkpoints/…`, "untracked files on cline checkpoint" trees). Those refs were
+  local-only — `git ls-remote origin` showed GitHub held just `refs/heads/main` — so V2 was
+  never public, but it was one `git push --mirror` away from being. Those refs are deleted.
+  A pre-rewrite bundle of all refs was kept locally as a rollback.
+  **What this cannot undo:** anything already downloaded, and GitHub's own caches. Cached
+  `raw.githubusercontent.com` responses and the old commit SHAs may stay resolvable after the
+  force-push until GitHub expires them. If a client doc must be treated as compromised, the
+  only reliable remedy is to ask the client for fresh copies and treat the old ones as
+  disclosed.
+- **Still open — needs a client/owner decision:**
+  1. **Artifact scope.** `path: "."` also publishes `02_Wireframes/`, `01_Discovery/`,
      `plans/`, and `index.html`. If the prototype previews should stay public that is
      fine, but the artifact should be an explicit allowlist rather than the repo root.
-  3. **Where client source docs live at all.** The cleanest fix is to keep `clientDocs/`
+  2. **Where client source docs live at all.** The cleanest fix is to keep `clientDocs/`
      outside the repo entirely (private drive/shared folder) and record only the distillations
      (§20–§22) here. Given the client's own confidentiality rules (§20.7), raise it with them.
+  3. **Whether the client should be told** that these files were briefly public. That is a
+     relationship call, not a technical one.
 - Copy derived from V2 must respect §20.7: no revenue/run-rate, no explicit profitability,
   no named acquisition case studies, genericized examples only.
 
