@@ -23,8 +23,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+
+      # Build the site into an explicit allowlist instead of publishing the repo
+      # root. `path: "."` served every tracked file, which put PROJECT_KNOWLEDGE_BASE.md
+      # (client strategy + the V2 figures that are NOT cleared for publication, see
+      # PROJECT_KNOWLEDGE_BASE.md 22 / 20.7) and the plans/ and 01_Discovery/ notes on
+      # the public web. Staging the allowlist by hand means a future `git add` of
+      # confidential material cannot leak by default - it has to be added here on purpose.
+      - name: Stage the published site
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site
+          cp index.html _site/
+          cp -R 02_Wireframes _site/
+          echo "--- published ---"
+          find _site -type f | sort
+          echo "--- confirm nothing internal leaked in ---"
+          if find _site -type f \
+               \( -name '*.md' -o -path '*plans*' -o -path '*01_Discovery*' \
+                  -o -path '*clientDocs*' -o -name '.git*' \) | grep -q .; then
+            echo "::error::internal file staged for publication - check the allowlist"
+            exit 1
+          fi
+          echo "ok: no internal files staged"
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4

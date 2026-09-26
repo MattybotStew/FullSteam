@@ -7,13 +7,15 @@
 # Cursor mirrored plan copies — plans/ is the single source of truth
 .cursor/plans/
 
+# Pages staging dir (built by .github/workflows/pages.yml, never committed)
+_site/
+
 # Confidential client source docs — do NOT commit to this public repo
-# This repo is PUBLIC and GitHub Pages publishes the WHOLE repo (`path: "."` in
-# .github/workflows/pages.yml), so any tracked clientDocs file is downloadable from
-# raw.githubusercontent.com AND from mattybotstew.github.io/FullSteam/clientDocs/.
-# Verified 2026-09-24: Kickoff Presentation.pdf and Website Content Project Brief.docx
-# both return HTTP 200 on both paths; the files ignored below return 404. Ignoring is
-# the control that works — keep new client material behind this rule.
+# This repo is PUBLIC. Since 2026-09-25 Pages publishes an explicit allowlist
+# (index.html + 02_Wireframes/, staged in the workflow) rather than the repo root,
+# so a tracked file is no longer automatically downloadable from
+# mattybotstew.github.io. It IS still readable on raw.githubusercontent.com, so
+# ignoring is still the control that matters. See PROJECT_KNOWLEDGE_BASE.md §22.7.
 clientDocs/
 # Individual entries kept for history (the blanket rule above covers them):
 clientDocs/Fullsteam Overview_Confidential - redacted.pdf

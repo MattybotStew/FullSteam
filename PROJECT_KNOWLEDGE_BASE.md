@@ -1520,16 +1520,31 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
      disclosed. The only complete remedy for a document that was public for ~2 days.
   3. Switching Pages to an explicit allowlist (open item 1) stops this class of leak being
      publishable at all, but does nothing retroactively.
+- **RESOLVED 2026-09-25 — Pages now publishes an allowlist, not the repo root.** While
+  verifying the history scrub I checked what `path: "."` had actually been serving, and the
+  exposure was wider than the client PDFs: **`PROJECT_KNOWLEDGE_BASE.md` was publicly
+  readable at `mattybotstew.github.io/FullSteam/PROJECT_KNOWLEDGE_BASE.md` (HTTP 200)**, along
+  with `AGENTS.md`, `design.md`, `wireframes.md`, `inspiration.md`, all of `plans/`, and all of
+  `01_Discovery/`. That file carries the §20 discovery synthesis, the §20.7 confidentiality
+  rules, and the §22 V2 figures — and those figures are recorded **here as not yet cleared for
+  publication** (subject to §20.7 / G-3). So un-cleared client numbers were on the open web.
+  `pages.yml` now stages an explicit allowlist (`index.html` + `02_Wireframes/`) into `_site/`
+  and publishes that, with a build-time guard that fails the deploy if any `.md`, `plans/`,
+  `01_Discovery/`, `clientDocs/`, or dotfile is staged. The guard was tested in both directions
+  — it passes on the real tree and fails when a file is deliberately added. Verified that no
+  published page links outside the allowlist, so nothing breaks.
+  **Note the limit:** a tracked file is still readable on `raw.githubusercontent.com` whether or
+  not Pages serves it. The allowlist stops the *website* leak, not the *git* leak; `.gitignore`
+  remains the control for the latter.
 - **Still open — needs a client/owner decision:**
-  1. **Artifact scope.** `path: "."` also publishes `02_Wireframes/`, `01_Discovery/`,
-     `plans/`, and `index.html`. If the prototype previews should stay public that is
-     fine, but the artifact should be an explicit allowlist rather than the repo root.
-  2. **Where client source docs live at all.** The cleanest fix is to keep `clientDocs/`
+  1. **Where client source docs live at all.** The cleanest fix is to keep `clientDocs/`
      outside the repo entirely (private drive/shared folder) and record only the distillations
      (§20–§22) here. Given the client's own confidentiality rules (§20.7), raise it with them.
-  3. **Whether the client should be told.** Given §22.7 now has a measured 200 on the old
-     SHA, the honest answer is yes — the files *were* reachable by anyone who had the old
-     commit SHA, for the whole period they were on `main`. That is a relationship call.
+  2. **Whether the client should be told.** Given §22.7 now has a measured 200 on the old
+     SHA, and this file was readable in full on the public site, the honest answer is yes — the
+     material *was* reachable, for the whole period it was on `main`. That is a relationship
+     call, and it is now a larger disclosure than the five PDFs: §20 (the interview synthesis)
+     and the §22 figures were readable by anyone who guessed the URL.
 - Copy derived from V2 must respect §20.7: no revenue/run-rate, no explicit profitability,
   no named acquisition case studies, genericized examples only.
 
