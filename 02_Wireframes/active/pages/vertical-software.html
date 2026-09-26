@@ -331,6 +331,12 @@
     .v-modal-bar{ display:flex; }
     .v-modal-top .v-modal-count{ display:none; }
   }
+  /* Narrow phones: the 2-up tab grid leaves ~101px of content width at 320px,
+     and "Transportation" is a single unbreakable word that overflowed its
+     button by 3px and got clipped by overflow:hidden. Tighten the well. */
+  @media (max-width:380px){
+    .tabs button{ padding:16px 12px; font-size:14px; }
+  }
   @keyframes v-sheet{
     from{ opacity:0; transform:translateY(100%); }
     to{ opacity:1; transform:none; }

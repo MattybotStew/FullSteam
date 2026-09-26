@@ -585,7 +585,6 @@
     .pair, .scene, .orbit{ grid-template-columns:1fr; }
     .orbit-center{ order:-1; }
     .scene.is-flip .scene-copy{ order:0; }
-    .hero-copy h2{ font-size:32px; }
     .film{ height:380px; }
     .film-card:not(.is-feature) .film-name{ font-size:16px; }
   }
@@ -661,7 +660,7 @@
     .t11{ left:auto; right:4%; top:68%; --tile-op:.5; }
     .mosaic-label{ font-size:11px; left:8px; right:8px; bottom:8px; }
     .hero{ padding:56px 16px 64px; }
-    .hero-copy h2{ font-size:30px; }
+    .hero-copy h2{ font-size:clamp(25px, 7vw, 38px); }
     .hero-copy p{ font-size:16px; }
   }
 </style>
