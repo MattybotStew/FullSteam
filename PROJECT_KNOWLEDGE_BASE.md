@@ -1277,11 +1277,68 @@ follow the **locked sitemap**, not invent a parallel IA.
 
 ### 21.9 Open items from this brief
 
-- [ ] Confirm the exact **10 pages** in the content budget against the locked tree.
+- [x] Confirm the exact **10 pages** in the content budget against the locked tree.
+  **Resolved 2026-09-26:** the brief's "10 pages" does **not** map 1:1 to routes.
+  Vertical Software is one page holding all 11 verticals (§14, client-confirmed
+  2026-09-26 — no child pages, no per-vertical routes), and Embedded Offerings is
+  one page holding four offerings, so no tenth route is available without breaking
+  the lock. The budget is therefore read as **content deliverables, not URLs**:
+  9 routes (8 content pages + Contact) with the 11 vertical stories counted as
+  their own deliverable. No IA change was made to satisfy the number.
+- [x] **Length is not a constraint** (client, 2026-09-26). Each page is written to
+  what the content needs; the 600–1,500 words per page in this brief is a guide,
+  not a ceiling. Vertical Software runs long *because* the single-page lock
+  concentrates eleven stories onto one route — a structural consequence, not a
+  drafting choice, and not something to trim back to fit.
 - [ ] File **Strategic Positioning (6).pdf** in `clientDocs/` and distill into the KB.
 - [ ] Ingest **Messaging Architecture** when it exists — it governs copy after this brief.
 - [ ] Tie "SEO performance targets" to the kickoff SEO audit (2–3 focus keywords, §11).
 - [ ] Keep implied-scale metrics on the **publishability** list (§20.11).
+- [ ] **OI-5 count conflict** still blocks any stated customer or vertical count on
+  Home and Vertical Software (§22.6.2). Drafted around so far rather than
+  bracketed everywhere — see below.
+- [ ] **§21.4 vs §20.4** (certainty of close vs price). Drafts stay silent on price
+  rather than take a position; the KB's resolution is to lead with home / values /
+  certainty and never claim founders ignore price. Cloudmellow may want an
+  explicit position — that is a client call.
+
+### 21.10 Where the drafts live
+
+**`04_Content/`** — first-draft copy, one file per page, added 2026-09-26.
+
+Deliberately **separate from the wireframes.** `02_Wireframes/` owns structure,
+IA, and content order and keeps greeked placeholder body copy; `04_Content/`
+owns the words. The two are not kept in sync file-to-file, and a content change
+does not imply a wireframe change (see the track boundary in `AGENTS.md`).
+
+Drafted: **For Founders**, **Vertical Software** (all 11 verticals). Voice is set
+by For Founders and the rest should follow it.
+
+Constraints applied to every draft, each traceable to a decision above:
+
+- Never "exit" — the frame is a home for the business (§20.4).
+- No revenue, run-rate, or profitability figures (§20.7).
+- No named acquisitions or case studies; verticals are written at industry level
+  so none reads as a portrait of a company we actually bought (§20).
+- Narrative first, data second; "who we are" before "what we do" (§20.8).
+- AI framed as administrative relief, never headcount, and never touching a
+  clinical or safety judgement in Health & Wellness (§20.6).
+- **No vertical count in prose.** The page shows eleven tiles and the copy never
+  says a number, so Vertical Software is clear of the OI-5 conflict until the
+  client settles it. One page, one number — if a count is approved it goes in the
+  hero or a kicker, not scattered through the stories.
+- Unconfirmed figures are **visible `[[CONFIRM: …]]` brackets**, not smooth prose.
+  The business count in For Founders is bracketed for exactly this reason: it is
+  on the §20.7 publishability list, so it is not drafted in until cleared.
+- Excluded per §11: privacy, terms, licensing, employee bios, product
+  descriptions, translation.
+
+Reading level, measured (Flesch-Kincaid grade): **For Founders 6.4**, **Vertical
+Software 9.7** — both at or under the 8th-grade target from §20.8, Vertical
+Software slightly over because the subject matter is industry software. Method and
+numbers are reproducible from the drafts; note the *grade* formula
+(0.39·w/s + 11.8·s/w − 15.59) — the Reading Ease constants give a very different
+and meaningless "grade" if substituted by mistake.
 
 ---
 
