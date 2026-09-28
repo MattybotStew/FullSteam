@@ -74,6 +74,28 @@ This file is the canonical agent entry point (works with Cursor, which reads
   Retail tile expands to fill the frame. The transition is the grow morph, not a cut.
   Replaces the side-by-side two-lane alternative. Canonical record: KB **§23**
   (guardrails §23.6, open items §23.7).
+- **Homepage opening — pins cut and mosaic fixed (2026-09-28).** The two-state
+  sequence and the two headlines are **unchanged**; only the cost of getting there
+  was reduced. Measured at 1440×900, before → after:
+  - **Sticky travel before real content: 4,500px → 962px** (46% → 12.8% of the
+    scrollable page). `#top` pin 280vh → **200vh**; `#story` demoted from a 220vh
+    **pin to an in-flow band** (it was 20% of the page for two cards' parallax;
+    §23.6 rule 6 scopes the pin to the opening only). Proof band now reached at
+    **29%** of the page, was 43%.
+  - **Tile labels were being cut at every viewport 320→1920.** Fixed with a
+    fixed-aspect `.mosaic-stage` (1376×525 desktop / 366×520 mobile) scaled to fit
+    by `fitMosaicStage()`; `--fit` defaults to `1` so **no-JS clips rather than
+    spills**, and the handler only ever scales *down*. Labels hug their word and
+    anchor to the tile's inward edge, so a bleeding tile still shows a complete
+    label. **Horizontal bleed is intentional for edge tiles only** — `.t1`, `.t5`,
+    `.t9`; labels are never cut, and interior tiles never fall below the fold.
+  - Morph ramps re-timed: the ramps now **overlap** (hero fades up as the grow
+    begins, copy starts before the tiles finish leaving, grow completes near the
+    end). The old mapping left a measured **~118px window with nothing on screen**
+    and snapped the hero `0→1` as a hard step under the interpolated clip-path.
+  - Regression to watch: any script dividing by `offsetHeight - innerHeight` for
+    the old pin **must be rewritten** to viewport-travel progress (§23.6 rule 2
+    still forbids CSS transitions on the per-frame writes).
 - Homepage wireframe is `02_Wireframes/active/homepage.html`; interior pages sit in
   `02_Wireframes/active/pages/`. Superseded low-fi explorations are in
   `02_Wireframes/archive/`.
@@ -107,9 +129,12 @@ This file is the canonical agent entry point (works with Cursor, which reads
   category labels. The Menu overlay lists the same 11 flat (two columns). Homepage
   shows a revenue-ordered subset only. **find-your-vertical** type-ahead filters the
   sidebar (not header search).
-- **Embedded Offerings = Payments, Lending, Insurance + AI at Fullsteam.**
-  **Hardware and Integrations are not separate pages** (folded into Payments /
-  the Embedded Offerings overview), 2026-09-10.
+- **Embedded Offerings is a single page** (clarified 2026-09-28): all four offerings
+  (**Payments, Lending, Insurance, AI at Fullsteam**) sit on one page as a **tile grid
+  whose tiles open a story window**; **no child pages** — **AI is a tile, not its own
+  page** (supersedes the 2026-09-10 "AI is its own page"). **Hardware and Integrations
+  are not separate pages** (folded into Payments / the Embedded Offerings overview),
+  2026-09-10.
 - **Leadership** (`/our-story/leadership`) is a page under Our Story (2026-09-14). **Newsroom is not in the sitemap** (removed 2026-09-23).
 - CMS is Duda and is likely retained.
 

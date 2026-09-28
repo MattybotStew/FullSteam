@@ -408,12 +408,20 @@ is no investor nav node or dedicated investor page.
   11 verticals and swaps a **tabbed panel** in place; **no child pages**, no category
   labels. The find-your-vertical type-ahead filters the sidebar. Supersedes the
   2026-09-10 "11 vertical detail pages from one reusable template."
-- **Embedded Offerings = Payments, Lending, Insurance + AI at Fullsteam.**
+- **Embedded Offerings is a single page** (clarified 2026-09-28) — all four
+  offerings (**Payments, Lending, Insurance, AI at Fullsteam**) live on one page,
+  presented as a **tile grid whose tiles open a story window**; **no child pages**.
   **Hardware and Integrations were dropped as separate pages** (2026-09-10);
   hardware is folded into Payments (POS & devices) and integrations into the
   Embedded Offerings overview.
-- **AI at Fullsteam is its own page, nested under Embedded Offerings** (not a
-  top-level L1, not merely a section).
+- **AI at Fullsteam is NOT its own page** (re-decided 2026-09-28, superseding the
+  2026-09-10 "own page nested under Embedded Offerings"). It is the **fourth tile on
+  the single Embedded Offerings page**, and its content is a story inside the
+  window — use cases first, never a headcount story. This is the only reading
+  consistent with "a single page / no child pages," and it matches the shipped
+  `pages/embedded-offerings.html` (4-tile grid; no `ai.html` exists). **This is a
+  locked, formally-approval-gated decision — if the client wants a nested AI page
+  instead, this bullet and its mirror in `AGENTS.md` are the two places to flip.**
 - **Leadership is a page under Our Story** (2026-09-14, `/our-story/leadership`) —
   leaders only; no full staff listing (confidentiality rule).
 - **Newsroom is not in the sitemap** (removed 2026-09-23).
@@ -1109,7 +1117,9 @@ durable, AI-resilient demand.
       but no revenue/run-rate on the site).
 - [x] ~~Decide AI placement: dedicated page vs. acquisition-side/general info vs. Offerings
       sub-section~~ — **resolved 2026-09-10:** AI at Fullsteam is its own page nested
-      under Embedded Offerings (§14).
+      under Embedded Offerings (§14). **Re-decided 2026-09-28:** AI is *not* a page —
+      it is the fourth tile on the single Embedded Offerings page, consistent with
+      "no child pages" (§14). The earlier resolution is superseded, not deleted.
 - [ ] Confirm the ~15% employer/careers content allocation and where it lives.
 - [ ] Confirm the founder/testimonial and case-study roster permitted for public use
       (genericized until then).
@@ -1774,6 +1784,38 @@ homepage's *model*; the **nav labels** (Vertical Software / Embedded Offerings) 
 - **Beat 06 KPI cycle** still cycles placeholders (11 / 80k+ / 2,000+) — the **vertical count is
   settled at 11** (the locked IA: 11 tiles, 11 tabs; decided 2026-09-26), leaving the **customer
   count** (80k+ vs V2's 70,000+) and publishability open (§22.5, §22.6).
+
+### 23.9 Revision 2026-09-28 — the opening got cheaper, not different
+
+The two-state model, the two headlines, and the **Axis A → B order are unchanged**. Only the
+cost of reaching Axis B was reduced, plus a measured defect in Axis A itself.
+
+- **Pins cut.** `#top` 280vh → **200vh**; `#story` demoted from a 220vh **pin to an in-flow
+  band**. Sticky travel before the first informative section: **4,500px → 962px** at 1440×900
+  (**46% → 12.8%** of the scrollable page). The proof band is reached at **29%** of the page,
+  was 43%. `#story` was spending 20% of the page on the parallax of two small cards — outside
+  §23.6 rule 6, which scopes the pin to the opening.
+  *Guardrail consequence:* with `#story` no longer pinned, **`orbitParallax` could not keep
+  dividing by `offsetHeight - innerHeight`** (that collapses to ~0 on an in-flow band and
+  froze the cards at their extreme offset). It now maps the section's travel across the
+  viewport to `t = -1…+1`. **This is the trap to check on any future pin removal.**
+- **Mosaic defect fixed — labels were cut at every viewport 320→1920** (Hospitality and Wine at
+  all 15; Association Management and Storage & Marina vertically clipped). Cause: percentage
+  tile positions inside an `overflow:hidden` grid whose height depended on the viewport.
+  Fix: a **fixed-aspect `.mosaic-stage`** (1376×525 desktop / 366×520 mobile) scaled to fit by
+  `fitMosaicStage()` — **only ever scales down**, and `--fit` defaults to `1` so **no-JS clips
+  rather than spills**. Labels hug their word and anchor to the tile's *inward* edge.
+  **Horizontal bleed is intentional for edge tiles only** (`.t1`, `.t5`, `.t9`); no label may
+  be cut and no interior tile may fall below the fold. Fully-visible tiles: 7/11 → **9/11** at
+  1440×900 (the 2 are the sanctioned bleeds) and 5/11 → **11/11** at 1280×720.
+- **Morph ramps re-timed to overlap.** The old mapping (tiles gone at p=0.38, copy starting at
+  p=0.45) left a measured **~118px window with nothing on screen at all**, and snapped the hero
+  `0→1` as a hard step underneath an otherwise-interpolated clip-path. Now the hero fades up as
+  the grow begins, the copy starts before the tiles finish leaving, and the grow completes near
+  the end of the runway so there is **no static tail**.
+- **Unchanged by this revision:** the two headlines, the Retail-tile grow as the transition,
+  per-frame writes free of CSS transitions (§23.6 rule 2), and the A-above-B no-JS /
+  reduced-motion order.
 
 ### 23.8 Provenance
 

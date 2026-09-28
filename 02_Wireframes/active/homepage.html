@@ -137,8 +137,10 @@
      The Retail tile (t3) grows into the full-screen hero as the pin is scrolled — the 2026-09-23
      grow-hero, restored 2026-09-24 at the client's request. This is the interpolated clip-path
      traced from the Retail tile rect + opacity ramps. See design.md §3.1 + §4.1. */
+  /* 200vh, not 280vh (2026-09-28): measured, the pin was 2,520px — 46% of the
+     page's scrollable height was pinned before the first informative band. */
   .hero-pin{
-    height:280vh;
+    height:200vh;
     --p:0;
   }
   .hero-sticky{
@@ -196,8 +198,23 @@
     position:relative;
     flex:1; min-height:0;
     width:100%;
-    height:140%;
-    overflow:visible;
+    /* Nothing may fall below the pinned frame: the stage is a fixed-aspect
+       composition scaled to fit the slot left over under the headline. */
+    overflow:hidden;
+    pointer-events:auto;
+  }
+  /* Authored in a fixed 1376x525 coordinate space (the 1440x900 frame) and scaled
+     uniformly, because tile size is a % of the grid's WIDTH while the leftover
+     slot height varies with the viewport — percentage-of-height positions alone
+     push the bottom row under the fold on short viewports. --fit defaults to 1,
+     so without JS the composition renders at its authored size and is clipped
+     rather than spilling; the fit handler only ever scales it down. */
+  .mosaic-stage{
+    position:absolute;
+    top:0; left:50%;
+    width:1376px; height:525px;
+    transform:translateX(-50%) scale(var(--fit,1));
+    transform-origin:top center;
     pointer-events:auto;
   }
   .mosaic-tile{
@@ -209,25 +226,30 @@
     --tile-op:1;
     opacity:var(--tile-op);
   }
-  .t1{ width:13%; left:-4%; top:6%; }
-  .t2{ width:11%; left:18%; top:18%; }
-  .t3{ width:14%; left:38%; top:8%; z-index:2; }
-  .t4{ width:12%; left:60%; top:22%; }
-  .t5{ width:13%; right:-5%; top:10%; }
-  .t6{ width:12%; left:2%; top:48%; }
-  .t7{ width:15%; left:24%; top:56%; }
-  .t8{ width:11%; left:50%; top:62%; }
-  .t9{ width:13%; right:-2%; top:52%; }
-  .t10{ width:12%; left:12%; top:88%; }
-  .t11{ width:14%; right:10%; top:94%; }
+  .t1{ width:12%; left:-3%; top:14%; }
+  .t2{ width:10%; left:16%; top:26%; }
+  .t3{ width:14%; left:38%; top:0; z-index:2; }
+  .t4{ width:11%; left:60%; top:30%; }
+  .t5{ width:12%; right:-3%; top:18%; }
+  .t6{ width:11%; left:1%; top:44%; }
+  .t7{ width:14%; left:22%; top:46%; }
+  .t8{ width:10%; left:48%; top:50%; }
+  .t9{ width:12%; right:-1%; top:44%; }
+  .t10{ width:11%; left:10%; top:68%; }
+  .t11{ width:12%; right:12%; top:68%; }
   .mosaic-tile .img-ph{ height:100%; min-height:0; }
   .mosaic-tile .img-ph::after{ width:28px; height:28px; }
+  /* The label hugs its word and is anchored to the tile's INWARD edge, so a tile
+     that bleeds off-canvas still shows a complete label. Left-bleeding t1 anchors
+     right; right-bleeding t5/t9 stay left-anchored. */
   .mosaic-label{
-    position:absolute; left:10px; right:10px; bottom:10px; z-index:2;
+    position:absolute; left:10px; bottom:10px; z-index:2;
+    width:max-content; max-width:calc(100% - 20px);
     color:#fff; font-size:13px; font-weight:700;
     letter-spacing:-.01em; line-height:1.2;
     text-shadow:0 1px 8px rgba(0,0,0,.55);
   }
+  .t1 .mosaic-label{ left:auto; right:10px; text-align:right; }
   .hero{
     position:absolute; inset:0;
     display:flex;
@@ -323,11 +345,15 @@
   }
   .band-head p{ font-size:18px; line-height:1.5; }
 
-  /* Beat 02 persona door: tall pin so left/right orbit cards can parallax across ~220vh travel.
-     Center headline + For founders stay sticky/readable; prefers-reduced-motion skips pin + motion. */
+  /* Beat 02 persona door. Was a 220vh pin (measured 1,980px) whose only purpose
+     was parallax on two of three small cards — 20% of the page's scrollable
+     height for no information. Now an in-flow band (KB §23.6 rule 6: the pin
+     scope is the opening only, and extending it here was already an extension).
+     The cards keep a light opposed drift driven by their position in the
+     viewport, so the section still breathes without a pin. */
   #story.band{
-    height:220vh;
-    padding:0;
+    height:auto;
+    padding:88px 0;
   }
   .orbit{
     display:grid;
@@ -339,11 +365,9 @@
     padding:0 24px;
   }
   #story .orbit{
-    position:sticky;
-    top:var(--chrome);
-    min-height:calc(100vh - var(--chrome));
+    min-height:0;
     box-sizing:border-box;
-    padding:48px 24px;
+    padding:0 24px;
   }
   .orbit-side{ display:flex; flex-direction:column; gap:20px; will-change:transform; }
   .orbit-card{ position:relative; display:block; }
@@ -669,21 +693,25 @@
       line-height:1.12;
     }
     .mosaic-sub{ font-size:14px; }
+    /* Mobile re-authors the same fixed-aspect stage at phone size so the fit
+       handler and the no-JS clip behave identically to desktop. */
+    .mosaic-stage{ width:366px; height:520px; }
     .t1, .t2, .t3, .t4, .t5, .t6, .t7, .t8, .t9, .t10, .t11{
-      width:30vw;
+      width:32%;
     }
-    .t1{ left:-8%; top:14%; --tile-op:.72; }
-    .t2{ left:16%; top:22%; --tile-op:.48; }
-    .t3{ left:34%; top:10%; --tile-op:1; }
-    .t4{ left:56%; top:18%; --tile-op:.62; }
-    .t5{ left:auto; right:-10%; top:12%; --tile-op:.38; }
-    .t6{ left:0%; top:38%; --tile-op:.85; }
-    .t7{ left:22%; top:46%; --tile-op:.42; }
-    .t8{ left:46%; top:40%; --tile-op:.7; }
-    .t9{ left:auto; right:-6%; top:50%; --tile-op:.55; }
-    .t10{ left:10%; top:64%; --tile-op:.9; }
-    .t11{ left:auto; right:4%; top:68%; --tile-op:.5; }
-    .mosaic-label{ font-size:11px; left:8px; right:8px; bottom:8px; }
+    .t1{ left:-8%; top:6%; --tile-op:.72; }
+    .t2{ left:12%; top:12%; --tile-op:.48; }
+    .t3{ left:34%; top:4%; --tile-op:1; }
+    .t4{ left:56%; top:10%; --tile-op:.62; }
+    .t5{ left:auto; right:-10%; top:8%; --tile-op:.38; }
+    .t6{ left:0%; top:24%; --tile-op:.85; }
+    .t7{ left:20%; top:30%; --tile-op:.42; }
+    .t8{ left:44%; top:26%; --tile-op:.7; }
+    .t9{ left:auto; right:-6%; top:32%; --tile-op:.55; }
+    .t10{ left:6%; top:48%; --tile-op:.9; }
+    .t11{ left:auto; right:2%; top:52%; --tile-op:.5; }
+    .mosaic-label{ font-size:11px; left:8px; bottom:8px; max-width:calc(100% - 16px); }
+    .t1 .mosaic-label{ right:8px; }
     .hero{ padding:56px 16px 64px; }
     .hero-copy h2{ font-size:clamp(25px, 7vw, 38px); }
     .hero-copy p{ font-size:16px; }
@@ -773,17 +801,19 @@
           <p class="mosaic-sub">Lorem ipsum dolor sit amet, consectetur.</p>
         </div>
         <div class="mosaic-grid">
-          <a class="mosaic-tile t1" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Hospitality</span></a>
-          <a class="mosaic-tile t2" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">ERP</span></a>
-          <a class="mosaic-tile t3" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Retail</span></a>
-          <a class="mosaic-tile t4" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Transportation</span></a>
-          <a class="mosaic-tile t5" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Wine</span></a>
-          <a class="mosaic-tile t6" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Automotive</span></a>
-          <a class="mosaic-tile t7" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Health &amp; Wellness</span></a>
-          <a class="mosaic-tile t8" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Field Services</span></a>
-          <a class="mosaic-tile t9" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Weddings &amp; Events</span></a>
-          <a class="mosaic-tile t10" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Association Management</span></a>
-          <a class="mosaic-tile t11" href="#solutions"><span class="img-ph"></span><span class="mosaic-label">Storage &amp; Marina</span></a>
+          <div class="mosaic-stage">
+          <a class="mosaic-tile t1" href="pages/vertical-software.html#hospitality"><span class="img-ph"></span><span class="mosaic-label">Hospitality</span></a>
+          <a class="mosaic-tile t2" href="pages/vertical-software.html#erp"><span class="img-ph"></span><span class="mosaic-label">ERP</span></a>
+          <a class="mosaic-tile t3" href="pages/vertical-software.html#retail"><span class="img-ph"></span><span class="mosaic-label">Retail</span></a>
+          <a class="mosaic-tile t4" href="pages/vertical-software.html#transportation"><span class="img-ph"></span><span class="mosaic-label">Transportation</span></a>
+          <a class="mosaic-tile t5" href="pages/vertical-software.html#wine"><span class="img-ph"></span><span class="mosaic-label">Wine</span></a>
+          <a class="mosaic-tile t6" href="pages/vertical-software.html#automotive"><span class="img-ph"></span><span class="mosaic-label">Automotive</span></a>
+          <a class="mosaic-tile t7" href="pages/vertical-software.html#health-wellness"><span class="img-ph"></span><span class="mosaic-label">Health &amp; Wellness</span></a>
+          <a class="mosaic-tile t8" href="pages/vertical-software.html#field-services"><span class="img-ph"></span><span class="mosaic-label">Field Services</span></a>
+          <a class="mosaic-tile t9" href="pages/vertical-software.html#weddings-events"><span class="img-ph"></span><span class="mosaic-label">Weddings &amp; Events</span></a>
+          <a class="mosaic-tile t10" href="pages/vertical-software.html#association-management"><span class="img-ph"></span><span class="mosaic-label">Association Management</span></a>
+          <a class="mosaic-tile t11" href="pages/vertical-software.html#storage-marina"><span class="img-ph"></span><span class="mosaic-label">Storage &amp; Marina</span></a>
+          </div>
         </div>
       </div>
       <!-- AXIS B — GROWTH ENGINE: how the businesses we own get bigger (revealed by the grow) -->
@@ -1119,6 +1149,34 @@
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
     });
 
+    (function fitMosaicStage(){
+      /* The Axis A scatter is authored in a fixed-aspect stage (1376x525 desktop,
+         366x520 mobile) because tile size is a % of the stage WIDTH while the
+         leftover slot under the headline is a function of viewport HEIGHT. Left
+         un-fitted, the bottom row falls under the pinned frame on short
+         viewports (measured: 5 of 11 tiles fully visible at 1280x720). Scale the
+         whole stage uniformly to fit; never upscale, so tiles stay their
+         authored size on large displays. --fit defaults to 1, so with JS off the
+         stage renders at its authored size and .mosaic-grid clips rather than
+         spilling. */
+      const grid = document.querySelector(".mosaic-grid");
+      const stage = grid && grid.querySelector(".mosaic-stage");
+      if (!grid || !stage) return;
+      const fit = () => {
+        const w = grid.clientWidth;
+        const h = grid.clientHeight;
+        if (!w || !h) return;
+        const sw = stage.offsetWidth;
+        const sh = stage.offsetHeight;
+        if (!sw || !sh) return;
+        const k = Math.min(1, w / sw, h / sh);
+        stage.style.setProperty("--fit", String(k));
+      };
+      fit();
+      window.addEventListener("resize", fit);
+      if (window.ResizeObserver) new ResizeObserver(fit).observe(grid);
+    })();
+
     (function mosaicToHero(){
       /* Homepage strategy (2026-09-24): AXIS A (Portfolio) -> GROW -> AXIS B (Growth engine).
          The Retail tile (t3) grows into the full-screen hero as the pin is scrolled — the
@@ -1140,13 +1198,29 @@
         const n = parseFloat(getComputedStyle(el).getPropertyValue("--tile-op"));
         return Number.isFinite(n) ? n : 1;
       };
+      const clamp01 = (v) => Math.max(0, Math.min(1, v));
+      /* Ramp budget. The three ramps OVERLAP on purpose: measured, the previous
+         mapping (tiles gone at p=0.38, copy only starting at p=0.45) left a ~118px
+         window with nothing on screen at all, and the hero container snapped 0->1
+         as a hard step underneath the interpolated clip-path. Now the hero fades
+         up as the grow begins, the copy starts before the tiles finish leaving,
+         and the grow completes near the end of the runway so there is no static
+         tail. */
+      const GROW_FROM = 0.10, GROW_SPAN = 0.82;
+      const TILE_FROM = 0.06, TILE_SPAN = 0.30;
+      const HEROOP_FROM = 0.02, HEROOP_SPAN = 0.15;
+      const COPY_FROM = 0.20, COPY_SPAN = 0.45;
       const apply = (p) => {
         pin.style.setProperty("--p", String(p));
-        const grow = Math.max(0, Math.min(1, (p - 0.22) / 0.55));
-        const fade = Math.max(0, Math.min(1, (p - 0.1) / 0.28));
+        const grow = clamp01((p - GROW_FROM) / GROW_SPAN);
+        const fade = clamp01((p - TILE_FROM) / TILE_SPAN);
+        const heroOp = clamp01((grow - HEROOP_FROM) / HEROOP_SPAN);
         if (head) head.style.opacity = String(1 - fade);
         others.forEach((t) => { t.style.opacity = String(tileOp(t) * (1 - fade)); });
-        retail.style.opacity = grow > 0.02 ? "0" : String(tileOp(retail));
+        /* The hero's clip region always covers the Retail tile's rect, so the tile
+           can be hidden as soon as the hero itself is opaque — but not before, or
+           the source of the grow would blink out. */
+        retail.style.opacity = grow > (HEROOP_FROM + HEROOP_SPAN) ? "0" : String(tileOp(retail));
         const sr = sticky.getBoundingClientRect();
         const tr = retail.getBoundingClientRect();
         const top = Math.max(0, tr.top - sr.top) * (1 - grow);
@@ -1156,9 +1230,9 @@
         const radius = 12 * (1 - grow);
         hero.style.clipPath = "inset(" + top + "px " + right + "px " + bottom + "px " + left + "px round " + radius + "px)";
         hero.style.transform = "none";
-        hero.style.opacity = grow > 0 ? "1" : "0";
+        hero.style.opacity = String(heroOp);
         mosaic.style.pointerEvents = grow > 0.08 ? "none" : "auto";
-        copy.style.opacity = String(Math.max(0, Math.min(1, (grow - 0.42) / 0.4)));
+        copy.style.opacity = String(clamp01((grow - COPY_FROM) / COPY_SPAN));
         hero.classList.toggle("is-open", grow > 0.5);
       };
       const useFlow = () => reduceMq.matches;
@@ -1277,12 +1351,16 @@
       };
       const tick = () => {
         if (reduceMq.matches) { clear(); return; }
-        /* Pin progress 0→1 while #story is sticky (~220vh runway); t = -1…+1 for opposing rates */
-        const range = Math.max(1, section.offsetHeight - window.innerHeight);
-        const p = Math.max(0, Math.min(1, -section.getBoundingClientRect().top / range));
+        /* #story is an in-flow band, not a pin (2026-09-28), so progress is the
+           section's travel across the viewport, not a sticky-pin ratio. Dividing
+           by offsetHeight - innerHeight would collapse to ~0 here and pin the
+           cards at their extreme. t = -1…+1 for the opposed rates. */
+        const r = section.getBoundingClientRect();
+        const span = r.height + window.innerHeight;
+        const p = Math.max(0, Math.min(1, (window.innerHeight - r.top) / Math.max(1, span)));
         const t = p * 2 - 1;
-        left.style.transform = "translate3d(0," + (t * -96) + "px,0)";
-        right.style.transform = "translate3d(0," + (t * 128) + "px,0)";
+        left.style.transform = "translate3d(0," + (t * -48) + "px,0)";
+        right.style.transform = "translate3d(0," + (t * 64) + "px,0)";
       };
       window.addEventListener("scroll", tick, { passive: true });
       window.addEventListener("resize", tick);
