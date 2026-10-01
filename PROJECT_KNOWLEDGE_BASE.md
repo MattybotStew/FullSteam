@@ -408,18 +408,20 @@ is no investor nav node or dedicated investor page.
   11 verticals and swaps a **tabbed panel** in place; **no child pages**, no category
   labels. The find-your-vertical type-ahead filters the sidebar. Supersedes the
   2026-09-10 "11 vertical detail pages from one reusable template."
-- **Embedded Offerings is a single page** (clarified 2026-09-28) — all four
-  offerings (**Payments, Lending, Insurance, AI at Fullsteam**) live on one page,
-  presented as a **tile grid whose tiles open a story window**; **no child pages**.
+- **Embedded Offerings is a single page** (clarified 2026-09-28 · layout changed
+  2026-10-01) — all four offerings (**Payments, Lending, Insurance, AI at Fullsteam**)
+  live on one page, now presented as a **horizontal filmstrip on a white background**
+  that mirrors the homepage's "03 — The verticals" section (**one card featured; click a
+  card to open its story**; was a tile grid + story window); **no child pages**.
   **Hardware and Integrations were dropped as separate pages** (2026-09-10);
   hardware is folded into Payments (POS & devices) and integrations into the
   Embedded Offerings overview.
 - **AI at Fullsteam is NOT its own page** (re-decided 2026-09-28, superseding the
   2026-09-10 "own page nested under Embedded Offerings"). It is the **fourth tile on
   the single Embedded Offerings page**, and its content is a story inside the
-  window — use cases first, never a headcount story. This is the only reading
+  filmstrip card — use cases first, never a headcount story. This is the only reading
   consistent with "a single page / no child pages," and it matches the shipped
-  `pages/embedded-offerings.html` (4-tile grid; no `ai.html` exists). **This is a
+  `pages/embedded-offerings.html` (4-card filmstrip; no `ai.html` exists). **This is a
   locked, formally-approval-gated decision — if the client wants a nested AI page
   instead, this bullet and its mirror in `AGENTS.md` are the two places to flip.**
 - **Leadership is a page under Our Story** (2026-09-14, `/our-story/leadership`) —
@@ -1948,8 +1950,9 @@ cost of reaching Axis B was reduced, plus a measured defect in Axis A itself.
 - **Vertical Software** — software-first lede; every vertical's fact chips gain a **"What we add"
   (AI + payments)** chip.
 - **Embedded Offerings** — hero re-framed **software-first / AI-forward**; payments positioned as
-  **invisible, embedded**; AI use cases first. Ordered Payments→AI; noted the option to promote AI
-  to the first tile.
+  **invisible, embedded**; AI use cases first. Layout changed to a **horizontal filmstrip on a
+  white background** mirroring the homepage "03 — The verticals" section (one card featured,
+  clicked to open). Ordered Payments→AI; noted the option to promote AI to the first card.
 - **Our Story** — software-first lede; KPI strip now carries **placeholder figures**
   (100+ / 2,000+ / 70,000+ / $75B+); added a **marquee-backers** line (Aquiline · Sixth Street ·
   ADIA, pending publishability) and a **real-imagery** note.

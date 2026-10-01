@@ -93,193 +93,80 @@
   .steps b{ font-family:var(--mono); font-size:12px; letter-spacing:.08em; }
   .steps h3{ font-size:18px; margin-bottom:4px; }
   .steps p{ font-size:15px; max-width:52ch; }
-  .tabs{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;
-    margin-bottom:36px;
-  }
-  .tabs button{
-    position:relative; display:flex; align-items:flex-end; min-height:148px;
-    text-align:left; overflow:hidden; isolation:isolate;
-    border:1px solid var(--ink); padding:16px 14px;
-    background:#4A4A4A var(--img-icon) center 36% / 48px no-repeat;
-    color:#fff; font-size:16px; font-weight:700; line-height:1.2;
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-  .tabs button::after{
-    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-    background:linear-gradient(180deg, transparent 28%, rgba(0,0,0,.78) 100%);
-    transition:background .18s ease;
-  }
-  .tabs button > span{ position:relative; z-index:1; }
-  .tabs button:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 24px rgba(0,0,0,.2);
-    border-color:#000;
-  }
-  .tabs button:hover::after{
-    background:linear-gradient(180deg, transparent 18%, rgba(0,0,0,.88) 100%);
-  }
-  .tabs button:focus-visible{
-    outline:2px solid var(--yellow); outline-offset:3px;
-  }
-  .tabs button[aria-selected="true"]{
-    background:var(--yellow); color:var(--ink);
-    box-shadow:0 10px 24px rgba(0,0,0,.16);
-  }
-  .tabs button[aria-selected="true"]::after{ display:none; }
-  .tabs button[aria-selected="true"]:hover{
-    background:#ffd133;
-  }
-  .v-modal{
-    position:fixed; inset:0; z-index:300;
-    display:grid; place-items:center;
-  }
-  .v-modal[hidden]{ display:none; }
-  .v-modal-backdrop{
-    position:absolute; inset:0; border:0; padding:0; cursor:pointer;
-    background:rgba(0,0,0,.46);
-    animation:v-fade .28s ease;
-  }
-  .v-modal-frame{
-    position:relative; z-index:1;
-    width:min(980px, calc(100vw - 148px));
-    max-height:min(86vh, 860px);
-    background:#fff; color:var(--ink);
-    display:flex; flex-direction:column;
-    box-shadow:0 28px 80px rgba(0,0,0,.22);
-    animation:v-rise .46s cubic-bezier(.16,.84,.24,1);
-  }
-  .v-modal-top{
-    display:flex; align-items:center; justify-content:space-between;
-    gap:16px; padding:16px 24px; border-bottom:1px solid var(--line);
-  }
-  .v-modal-count{
-    font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
-  }
-  .v-modal-close{
-    background:none; border:0; font:inherit; font-size:14px; font-weight:700; padding:8px 0;
-  }
-  .v-modal-arrow{
-    position:absolute; top:50%; transform:translateY(-50%);
-    display:flex; align-items:center; justify-content:center;
-    width:52px; height:52px;
-    border:1px solid var(--ink); border-radius:50%; background:#fff; z-index:2;
-  }
-  .v-modal-arrow::before{
-    content:""; display:block; width:10px; height:10px;
-    border-top:2px solid var(--ink); border-right:2px solid var(--ink);
-  }
-  .v-modal-prev{ left:-70px; }
-  .v-modal-prev::before{ transform:rotate(-135deg); }
-  .v-modal-next{ right:-70px; }
-  .v-modal-next::before{ transform:rotate(45deg); }
-  .v-modal-stage{ overflow:auto; padding:28px 36px 32px; flex:1; min-height:0; }
-  .v-modal-bar{
-    display:none; align-items:center; gap:10px;
-    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-    border-top:1px solid var(--line); background:#fff;
-  }
-  .v-modal-bar button{
-    flex:1; min-height:52px; border:1px solid var(--ink); background:#fff;
-    font:inherit; font-size:15px; font-weight:700;
-  }
-  .v-modal-bar button[data-step="1"]{ background:var(--yellow); }
-  .v-modal-bar .v-modal-count{ flex:0 0 auto; text-align:center; }
-  @keyframes v-fade{ from{ opacity:0; } to{ opacity:1; } }
-  @keyframes v-rise{
-    from{ opacity:0; transform:translateY(18px) scale(.98); }
-    to{ opacity:1; transform:none; }
-  }
-  @keyframes v-slide{
-    from{ opacity:0; transform:translateX(32px); }
-    to{ opacity:1; transform:none; }
-  }
-  @keyframes v-slide-back{
-    from{ opacity:0; transform:translateX(-32px); }
-    to{ opacity:1; transform:none; }
-  }
-  .panel{ display:none; }
-  .v-modal.is-back .panel.is-active{ animation-name:v-slide-back; }
-  .panel.is-active{
-    display:grid;
-    grid-template-columns:minmax(0,1fr) 300px;
-    column-gap:28px;
-    align-items:start;
-    min-width:0;
-    animation:v-slide .4s cubic-bezier(.16,.84,.24,1);
-  }
-  .panel .beat{ grid-column:1; margin-bottom:8px; }
-  .panel h2{ grid-column:1; max-width:none; margin-bottom:14px; scroll-margin-top:84px; }
-  .panel .prose{ grid-column:1; min-width:0; }
-  .v-mosaic{
-    grid-column:2; grid-row:1 / span 3;
-    position:relative; height:360px; width:300px;
-  }
-  .v-mosaic span{
-    position:absolute; display:block;
-    background:#4A4A4A var(--img-icon) center / 32px no-repeat;
-  }
-  .v-mosaic .lg{
-    width:168px; height:228px; right:6px; top:36px;
-    border-radius:28px; z-index:1;
-  }
-  .v-mosaic .md{
-    width:124px; height:146px; left:16px; top:58px;
-    border-radius:16px; z-index:2; opacity:.4;
-  }
-  .v-mosaic .md::before{
-    content:""; position:absolute; left:8px; top:8px;
-    width:22px; height:22px; border-radius:6px; background:#fff;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8'%3E%3Cpath d='M4 10 12 4l8 6v9H4z'/%3E%3Cpath d='M9 19v-6h6v6'/%3E%3C/svg%3E");
-    background-size:14px; background-repeat:no-repeat; background-position:center;
-  }
-  .v-mosaic .card{
-    width:150px; height:156px; left:28px; top:176px; z-index:3;
-    background:
-      linear-gradient(#000,#000) 14px 118px / 78px 3px no-repeat,
-      linear-gradient(#000,#000) 14px 130px / 52px 3px no-repeat,
-      #fff;
-    border:1px solid #000; border-radius:18px;
-  }
-  .v-mosaic .card::before{
-    content:""; position:absolute; left:12px; top:12px;
-    width:18px; height:18px; border-radius:4px; background:#FFC600;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='m12 3 2.2 6.4H21l-5.4 4 2 6.6L12 16.8 6.4 20l2-6.6L3 9.4h6.8z'/%3E%3C/svg%3E");
-    background-size:12px; background-repeat:no-repeat; background-position:center;
-  }
-  .v-mosaic .card::after{
-    content:""; position:absolute; left:12px; right:12px; top:38px; height:68px;
-    border-radius:8px; background:#4A4A4A var(--img-icon) center / 24px no-repeat;
-  }
-  .v-mosaic .round{
-    width:92px; height:92px; right:22px; bottom:6px; z-index:4;
-    border-radius:50%; border:4px solid #FFC600; background-size:28px;
-  }
-  .v-mosaic .smile{
-    width:42px; height:42px; left:0; top:4px; z-index:5; border-radius:50%;
-    background:#FFC600 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='9' cy='10' r='.8' fill='%23000'/%3E%3Ccircle cx='15' cy='10' r='.8' fill='%23000'/%3E%3Cpath d='M8 14c1.1 1.4 2.4 2 4 2s2.9-.6 4-2'/%3E%3C/svg%3E") center / 26px no-repeat;
-  }
-  .v-mosaic .clock{
-    width:74px; height:28px; right:0; top:18px; z-index:5; border-radius:14px;
-    background:#111 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.8'%3E%3Ccircle cx='12' cy='12' r='8'/%3E%3Cpath d='M12 8v5l3 2'/%3E%3C/svg%3E") center / 16px no-repeat;
-  }
-  .v-mosaic .heart{
-    width:46px; height:46px; right:0; bottom:86px; z-index:5; border-radius:50%;
-    background:#FFC600 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M12 20s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z'/%3E%3C/svg%3E") center / 22px no-repeat;
-  }
-  /* Hero type scale mirrors .page-hero so this page reads as the same system as
-     the six .page-hero pages. The contained structure (no hero image) is
-     unchanged - only the styling had drifted. */
-  .v-hero-card{
-    padding:64px 0 48px;
-    border-bottom:1px solid var(--line);
-  }
-  .v-hero h1{
+
+  /* ============================================================
+     Embedded Offerings as a horizontal filmstrip — mirrors the homepage's
+     "03 — The verticals / Keep the businesses growing" section (.grow/.film):
+     a row of cards, one featured, clicked to open. The one change is the
+     background: white here, not the homepage's ink. Click a card to open its
+     story (the content that used to live in the modal).
+     ============================================================ */
+  .strip{ padding:56px 0 72px; background:#fff; }
+  .strip-head{ max-width:1280px; margin:0 auto 28px; padding:0 24px; }
+  .strip-head h1{
     font-size:clamp(36px, 5vw, 56px); font-weight:700; letter-spacing:-.03em;
-    line-height:1.05; max-width:16ch;
+    line-height:1.05; max-width:18ch; margin-bottom:12px;
   }
-  .v-hero .pill{ margin:24px 0 8px; }
-  .facts{ grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:22px; }
+  .strip-head .lede{ margin-top:0; max-width:62ch; }
+  .film{
+    display:flex; gap:10px;
+    height:min(62vh, 560px);
+    max-width:1280px; margin:0 auto;
+    padding:0 24px 4px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+    scrollbar-width:thin;
+  }
+  .film-card{
+    position:relative;
+    flex:0 0 clamp(220px, 26vw, 340px);
+    overflow:hidden;
+    border:0; padding:0;
+    background:var(--ph);
+    color:#fff;
+    text-align:left;
+    cursor:pointer;
+    font:inherit;
+    transition:flex-basis .4s ease;
+    scroll-snap-align:start;
+    scroll-margin-top:84px;
+  }
+  .film-card.is-feature{ flex-basis:clamp(300px, 46vw, 700px); }
+  .film-card:focus-visible{ outline:2px solid var(--yellow); outline-offset:3px; }
+  .film-card .img-ph{ height:100%; min-height:0; }
+  .film-card .img-ph::after{ width:40px; height:40px; }
+  .film-name{
+    position:absolute; left:16px; bottom:16px; z-index:2;
+    font-size:clamp(18px, 2.2vw, 28px); font-weight:700;
+    letter-spacing:-.02em; color:#fff;
+    text-shadow:0 1px 8px rgba(0,0,0,.45);
+  }
+  .film-card.is-feature .film-name{ display:none; }
+  .film-panel{
+    display:none;
+    position:absolute; inset:auto 0 0 0; z-index:2;
+    padding:32px 30px 26px;
+    background:linear-gradient(transparent, rgba(0,0,0,.72));
+    color:#fff;
+  }
+  .film-card.is-feature .film-panel{ display:block; }
+  .film-kicker{
+    display:block;
+    font-size:clamp(26px, 3.2vw, 42px); font-weight:700;
+    letter-spacing:-.03em; margin-bottom:10px;
+  }
+  .film-prose{
+    display:block; font-size:16px; line-height:1.45; max-width:48ch; margin-bottom:16px;
+  }
+  .film-facts{ display:flex; flex-wrap:wrap; gap:12px 24px; }
+  .film-facts .fact{ font-size:13px; line-height:1.35; max-width:24ch; }
+  .film-facts b{
+    display:block; font-family:var(--mono); font-size:10px; letter-spacing:.1em;
+    text-transform:uppercase; opacity:.75; margin-bottom:3px;
+  }
+  .facts{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:22px; }
   .facts div{ border:1px solid var(--ink); padding:12px; background:#fff; }
   .facts span{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
   .cards{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:8px; }
@@ -312,32 +199,17 @@
     .ov-inner{ grid-template-columns:1fr 1fr; }
     .solutions-split, .split{ grid-template-columns:1fr; }
     .facts, .cards{ grid-template-columns:1fr; }
-    .tabs{ grid-template-columns:1fr 1fr; }
-    .panel.is-active{ grid-template-columns:1fr; }
-    .v-mosaic{ grid-column:1; grid-row:auto; width:100%; max-width:300px; margin-top:8px; }
-    .v-hero h1, .page-hero h1, .block h2{ max-width:100%; }
+    .page-hero h1, .block h2, .strip-head h1{ max-width:100%; }
     .nav{ padding:10px 16px; gap:10px; }
     .nav-right{ min-width:0; flex:1; justify-content:flex-end; }
     .menu-btn{ flex-shrink:0; }
     .pill{ padding:8px 10px; font-size:12px; white-space:nowrap; }
-    .tabs button{ min-height:112px; font-size:15px; }
-    .v-modal{ place-items:stretch; height:100dvh; overflow:hidden; }
-    .v-modal-frame{
-      width:100%; height:100dvh; max-height:100dvh;
-      animation-name:v-sheet;
-    }
-    .v-modal-arrow{ display:none; }
-    .v-modal-stage{ padding:20px 16px 24px; }
-    .v-modal-bar{ display:flex; }
-    .v-modal-top .v-modal-count{ display:none; }
-  }
-  @keyframes v-sheet{
-    from{ opacity:0; transform:translateY(100%); }
-    to{ opacity:1; transform:none; }
+    .film{ height:min(64vh, 520px); }
+    .film-card{ flex-basis:74vw; }
+    .film-card.is-feature{ flex-basis:86vw; }
   }
   @media (prefers-reduced-motion: reduce){
-    .v-modal-backdrop, .v-modal-frame, .panel.is-active,
-    .v-modal.is-back .panel.is-active{ animation:none; }
+    .film-card{ transition:none; }
   }
 
 </style>
@@ -393,81 +265,71 @@
   </header>
 
 
-  <main data-tabs>
-    <section class="v-hero">
-      <div class="wrap">
-        <div class="v-hero-card">
-          <h1>Keep the software. Grow how it makes money.</h1>
-          <p class="lede">Software comes first. Then we build in the things that grow it — <b>AI</b>, payments, lending, and insurance — inside the software each business already runs. Integrations live here, not on their own.</p>
-          <button type="button" class="pill pill-lg" id="toHeadline">Read the story</button>
-        </div>
+  <main>
+    <section class="strip">
+      <div class="strip-head">
+        <p class="beat">Embedded Offerings</p>
+        <h1>Keep the software. Grow how it makes money.</h1>
+        <p class="lede">Software comes first. Then we build in the things that grow it — <b>AI</b>, payments, lending, and insurance — inside the software each business already runs. Integrations live here, not on their own.</p>
+      </div>
+      <div class="film" id="film" aria-label="Embedded Offerings">
+        <article class="film-card is-feature" role="button" tabindex="0" aria-pressed="true" data-name="Payments" id="payments">
+          <span class="img-ph" aria-hidden="true"></span>
+          <span class="film-name">Payments</span>
+          <span class="film-panel">
+            <span class="film-kicker">Payments</span>
+            <span class="film-prose">Payments should feel invisible — the value is how deeply they are embedded in the software.</span>
+            <span class="film-facts">
+              <span class="fact"><b>In the software</b>Inside the product they already use.</span>
+              <span class="fact"><b>Hardware</b>POS and devices live in this story.</span>
+              <span class="fact"><b>One team</b>When it breaks, one team owns it.</span>
+            </span>
+          </span>
+        </article>
+        <article class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Lending" id="lending">
+          <span class="img-ph" aria-hidden="true"></span>
+          <span class="film-name">Lending</span>
+          <span class="film-panel">
+            <span class="film-kicker">Lending</span>
+            <span class="film-prose">An offering, not a product sheet. No rates, terms, or eligibility rules in this wireframe.</span>
+            <span class="film-facts">
+              <span class="fact"><b>Capital</b>Borrow against future transactions.</span>
+              <span class="fact"><b>Pays back</b>Structural label only. Detail unpublished.</span>
+              <span class="fact"><b>Who it is for</b>The software businesses already here.</span>
+            </span>
+          </span>
+        </article>
+        <article class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Insurance" id="insurance">
+          <span class="img-ph" aria-hidden="true"></span>
+          <span class="film-name">Insurance</span>
+          <span class="film-panel">
+            <span class="film-kicker">Insurance</span>
+            <span class="film-prose">Coverage that sits inside the software the business already runs, not in a separate storefront.</span>
+            <span class="film-facts">
+              <span class="fact"><b>What it covers</b>Coverage detail unpublished.</span>
+              <span class="fact"><b>How it sits</b>Embedded, not a separate storefront.</span>
+              <span class="fact"><b>Proof</b>Generic until the client confirms a story.</span>
+            </span>
+          </span>
+        </article>
+        <article class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="AI at Fullsteam" id="ai">
+          <span class="img-ph" aria-hidden="true"></span>
+          <span class="film-name">AI at Fullsteam</span>
+          <span class="film-panel">
+            <span class="film-kicker">AI at Fullsteam</span>
+            <span class="film-prose">Use cases first. Proprietary vertical data is the differentiator.</span>
+            <span class="film-facts">
+              <span class="fact"><b>Use case</b>Repetitive work gets faster; consistency and response time improve.</span>
+              <span class="fact"><b>Why here</b>The data already lives in the vertical software.</span>
+              <span class="fact"><b>Not this</b>Never a story about reducing staff.</span>
+            </span>
+          </span>
+        </article>
+      </div>
+      <div class="strip-head" style="margin-top:24px">
+        <p class="anno" style="margin-top:0">A horizontally scrolling strip — click a card to open its story, like the homepage verticals (03). Not child pages. Hardware folds into Payments. Integrations live in this overview. AI is use cases first, never a headcount story. Deep link is the hash, for example <code>#payments</code>. Direction (2026-10-01): lead with the software and AI; payments is "invisible, embedded" infrastructure.</p>
       </div>
     </section>
-    <section class="block">
-      <div class="wrap">
-        <div class="tabs" role="tablist" aria-label="Embedded Offerings"><button type="button" role="tab" data-tab="payments" id="tab-payments" aria-selected="false" aria-controls="panel-payments" tabindex="0"><span>Payments</span></button><button type="button" role="tab" data-tab="lending" id="tab-lending" aria-selected="false" aria-controls="panel-lending" tabindex="-1"><span>Lending</span></button><button type="button" role="tab" data-tab="insurance" id="tab-insurance" aria-selected="false" aria-controls="panel-insurance" tabindex="-1"><span>Insurance</span></button><button type="button" role="tab" data-tab="ai" id="tab-ai" aria-selected="false" aria-controls="panel-ai" tabindex="-1"><span>AI at Fullsteam</span></button></div>
-        <p class="anno">A tile opens the story. Arrows move through all four. Not child pages. No category labels. Deep link is the hash, for example #payments. Hardware folds into Payments. Integrations live in this overview. AI is a tile, not a separate page. <b>Direction (2026-10-01):</b> lead with the software and <b>AI</b>; payments is "invisible, embedded" infrastructure. AI is use cases first — never a headcount story. Ordered Payments→AI here; promote <b>AI to the first tile</b> if the client wants it forward.</p>
-      </div>
-      <div class="v-modal" id="vModal" hidden>
-        <button class="v-modal-backdrop" type="button" data-close aria-label="Close"></button>
-        <div class="v-modal-frame" role="dialog" aria-modal="true" aria-labelledby="vModalTitle" tabindex="-1">
-          <div class="v-modal-top">
-            <p class="v-modal-count" id="vModalCount">1 / 4</p>
-            <button class="v-modal-close" type="button" data-close>Close</button>
-          </div>
-          <button class="v-modal-arrow v-modal-prev" type="button" data-step="-1" aria-label="Previous offering"></button>
-          <button class="v-modal-arrow v-modal-next" type="button" data-step="1" aria-label="Next offering"></button>
-          <div class="v-modal-stage" id="vStage">
-        <article class="panel" data-panel="payments" id="panel-payments" role="tabpanel" aria-labelledby="tab-payments">
-          <p class="beat">Embedded Offerings</p>
-          <h2>Payments</h2>
-          <div class="prose"><p>Payments should feel invisible. The value is how they are embedded. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
-          <div class="v-mosaic" aria-hidden="true"><span class="lg"></span><span class="md"></span><span class="card"></span><span class="round"></span><span class="smile"></span><span class="clock"></span><span class="heart"></span></div>
-          <div class="facts">
-            <div><span>In the software</span>Payments sits inside the product they already use. Placeholder.</div>
-            <div><span>Hardware</span>POS and devices live in this story. Not a separate page.</div>
-            <div><span>When it breaks</span>One team for the business. Placeholder.</div></div>
-        </article>
-        <article class="panel" data-panel="lending" id="panel-lending" role="tabpanel" aria-labelledby="tab-lending">
-          <p class="beat">Embedded Offerings</p>
-          <h2>Lending</h2>
-          <div class="prose"><p>Lending is an offering, not a product sheet. No rates, terms, or eligibility rules in this wireframe. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
-          <div class="v-mosaic" aria-hidden="true"><span class="lg"></span><span class="md"></span><span class="card"></span><span class="round"></span><span class="smile"></span><span class="clock"></span><span class="heart"></span></div>
-          <div class="facts">
-            <div><span>Capital</span>Borrow against future transactions. Placeholder — no rates or terms.</div>
-            <div><span>How it pays back</span>Structural label only. Product detail unpublished.</div>
-            <div><span>Who it is for</span>The software businesses already here. Placeholder.</div></div>
-        </article>
-        <article class="panel" data-panel="insurance" id="panel-insurance" role="tabpanel" aria-labelledby="tab-insurance">
-          <p class="beat">Embedded Offerings</p>
-          <h2>Insurance</h2>
-          <div class="prose"><p>Body copy is unpublished. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
-          <div class="v-mosaic" aria-hidden="true"><span class="lg"></span><span class="md"></span><span class="card"></span><span class="round"></span><span class="smile"></span><span class="clock"></span><span class="heart"></span></div>
-          <div class="facts">
-            <div><span>What it covers</span>Placeholder. Coverage detail unpublished.</div>
-            <div><span>How it sits in the software</span>Embedded, not a separate storefront. Placeholder.</div>
-            <div><span>Proof</span>Generic until the client confirms a story.</div></div>
-        </article>
-        <article class="panel" data-panel="ai" id="panel-ai" role="tabpanel" aria-labelledby="tab-ai">
-          <p class="beat">Embedded Offerings</p>
-          <h2>AI at Fullsteam</h2>
-          <div class="prose"><p>Use cases first. Proprietary vertical data is the differentiator. Do not imply headcount cuts. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
-          <div class="v-mosaic" aria-hidden="true"><span class="lg"></span><span class="md"></span><span class="card"></span><span class="round"></span><span class="smile"></span><span class="clock"></span><span class="heart"></span></div>
-          <div class="facts">
-            <div><span>Use case</span>Mundane work gets faster. Consistency and response time. Placeholder.</div>
-            <div><span>Why here</span>The data already lives in the vertical software. Placeholder.</div>
-            <div><span>Not this</span>Never a story about reducing staff.</div></div>
-        </article>
-          </div>
-          <div class="v-modal-bar">
-            <button type="button" data-step="-1">Previous</button>
-            <p class="v-modal-count" id="vModalCountBar" aria-hidden="true">1 / 4</p>
-            <button type="button" data-step="1">Next</button>
-          </div>
-        </div>
-      </div>
-    </section>
-    <noscript><style>.v-modal{display:block;position:static}.v-modal[hidden]{display:block}.panel{display:block;margin-top:28px}.v-modal-backdrop,.v-modal-arrow,.v-modal-bar,.v-modal-top{display:none}</style></noscript>
   </main>
 
 
@@ -512,160 +374,42 @@
 
 
   <script>
-    (function () {
-      const root = document.querySelector("[data-tabs]");
-      const modal = document.getElementById("vModal");
-      const frame = modal && modal.querySelector(".v-modal-frame");
-      const stage = document.getElementById("vStage");
-      if (!root || !modal || !frame || !stage) return;
-      const buttons = [...root.querySelectorAll("[data-tab]")];
-      const panels = [...root.querySelectorAll("[data-panel]")];
-      const countEls = [...modal.querySelectorAll(".v-modal-count")];
-      let returnFocus = null;
-      let dir = 1;
-
-      const isOffering = (id) => buttons.some((b) => b.dataset.tab === id);
-      const hashId = () => location.hash.replace("#", "");
-
-      const show = (id) => {
-        const btn = buttons.find((b) => b.dataset.tab === id);
-        const panel = panels.find((p) => p.dataset.panel === id);
-        if (!btn || !panel) return;
-        buttons.forEach((b) => {
-          const on = b === btn;
-          b.setAttribute("aria-selected", on ? "true" : "false");
-          b.tabIndex = on ? 0 : -1;
+    (function strip(){
+      /* Embedded Offerings behaves like the homepage's "03 — The verticals" film:
+         one card is featured, clicking another opens it. Here the cards carry the
+         offering stories that used to live in a modal. The row scrolls horizontally;
+         selecting also brings the card into view. The hash (#payments, #ai, …) opens
+         a card so the menu links keep working. */
+      const film = document.getElementById("film");
+      if (!film) return;
+      const cards = [...film.querySelectorAll(".film-card")];
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const select = (card, scroll) => {
+        cards.forEach((c) => {
+          const on = c === card;
+          c.classList.toggle("is-feature", on);
+          c.setAttribute("aria-pressed", on ? "true" : "false");
         });
-        modal.classList.toggle("is-back", dir < 0);
-        panels.forEach((p) => p.classList.remove("is-active"));
-        void panel.offsetWidth;
-        panel.classList.add("is-active");
-        const head = panel.querySelector("h2");
-        if (head) {
-          document.querySelectorAll(".panel h2[id]").forEach((h) => {
-            if (h !== head) h.removeAttribute("id");
-          });
-          head.id = id;
-          frame.setAttribute("aria-labelledby", id);
+        if (scroll) {
+          const fr = film.getBoundingClientRect();
+          const cr = card.getBoundingClientRect();
+          const left = film.scrollLeft + (cr.left - fr.left) - (fr.width - cr.width) / 2;
+          film.scrollTo({ left: Math.max(0, left), behavior: reduce.matches ? "auto" : "smooth" });
         }
-        const n = buttons.indexOf(btn) + 1;
-        countEls.forEach((el) => { el.textContent = n + " / " + buttons.length; });
-        stage.style.scrollBehavior = "auto";
-        stage.scrollTop = 0;
       };
-
-      const open = (id) => {
-        show(id);
-        const menu = document.getElementById("siteOverlay");
-        const menuToggle = document.getElementById("menuBtn");
-        if (menu && menu.classList.contains("is-open")) {
-          menu.classList.remove("is-open");
-          menuToggle.setAttribute("aria-expanded", "false");
-          menuToggle.textContent = "Menu";
-        }
-        if (!modal.hidden) return;
-        returnFocus = document.activeElement;
-        modal.hidden = false;
-        document.body.style.overflow = "hidden";
-        frame.focus();
-      };
-
-      const close = (fromPop) => {
-        if (modal.hidden) return;
-        modal.hidden = true;
-        document.body.style.overflow = "";
-        if (returnFocus && returnFocus.focus) returnFocus.focus();
-        if (!fromPop && isOffering(hashId())) history.back();
-      };
-
-      const go = (id, push) => {
-        if (!isOffering(id)) return;
-        if (push && hashId() !== id) history.pushState({ vModal: id }, "", "#" + id);
-        else if (!push && hashId() !== id) history.replaceState({ vModal: id }, "", "#" + id);
-        open(id);
-      };
-
-      const step = (delta) => {
-        const current = buttons.findIndex((b) => b.getAttribute("aria-selected") === "true");
-        const i = current < 0 ? 0 : (current + delta + buttons.length) % buttons.length;
-        dir = delta;
-        go(buttons[i].dataset.tab, false);
-      };
-
-      buttons.forEach((b) => {
-        b.addEventListener("click", () => {
-          dir = 1;
-          returnFocus = b;
-          go(b.dataset.tab, true);
+      cards.forEach((card) => {
+        card.addEventListener("click", () => select(card, true));
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(card, true); }
         });
       });
-      root.addEventListener("keydown", (e) => {
-        if (!e.target.matches("[data-tab]")) return;
-        const i = buttons.indexOf(e.target);
-        if (i < 0) return;
-        let n = null;
-        if (e.key === "ArrowDown" || e.key === "ArrowRight") n = buttons[(i + 1) % buttons.length];
-        if (e.key === "ArrowUp" || e.key === "ArrowLeft") n = buttons[(i - 1 + buttons.length) % buttons.length];
-        if (e.key === "Home") n = buttons[0];
-        if (e.key === "End") n = buttons[buttons.length - 1];
-        if (!n) return;
-        e.preventDefault();
-        n.focus();
-      });
-      modal.addEventListener("click", (e) => {
-        if (e.target.closest("[data-close]")) close(false);
-        const stepBtn = e.target.closest("[data-step]");
-        if (stepBtn) step(Number(stepBtn.dataset.step));
-      });
-      frame.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") { e.preventDefault(); close(false); return; }
-        if (e.key === "ArrowRight") { e.preventDefault(); step(1); return; }
-        if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); return; }
-        if (e.key !== "Tab") return;
-        const items = [...frame.querySelectorAll("button")].filter((b) => b.offsetParent);
-        if (!items.length) return;
-        const first = items[0];
-        const last = items[items.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      });
-      let touchX = 0;
-      let touchY = 0;
-      stage.addEventListener("touchstart", (e) => {
-        touchX = e.changedTouches[0].clientX;
-        touchY = e.changedTouches[0].clientY;
-      }, { passive: true });
-      stage.addEventListener("touchend", (e) => {
-        const dx = e.changedTouches[0].clientX - touchX;
-        const dy = e.changedTouches[0].clientY - touchY;
-        if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
-        step(dx < 0 ? 1 : -1);
-      }, { passive: true });
-      window.addEventListener("popstate", () => {
-        const id = hashId();
-        if (isOffering(id)) open(id);
-        else close(true);
-      });
-      document.querySelectorAll("#siteOverlay a[href*='#']").forEach((a) => {
-        a.addEventListener("click", (e) => {
-          const id = (a.hash || "").replace("#", "");
-          if (!isOffering(id)) return;
-          const target = new URL(a.href, location.href);
-          if (target.pathname !== location.pathname) return;
-          e.preventDefault();
-          dir = 1;
-          go(id, true);
-        });
-      });
-      const jump = document.getElementById("toHeadline");
-      if (jump) {
-        jump.addEventListener("click", () => {
-          const current = buttons.find((b) => b.getAttribute("aria-selected") === "true");
-          dir = 1;
-          go((current || buttons[0]).dataset.tab, true);
-        });
-      }
-      if (isOffering(hashId())) open(hashId());
+      const fromHash = () => {
+        const id = location.hash.replace("#", "");
+        const card = cards.find((c) => c.id === id);
+        if (card) select(card, true);
+      };
+      window.addEventListener("hashchange", fromHash);
+      if (location.hash) fromHash();
     })();
   </script>
 

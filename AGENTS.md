@@ -147,12 +147,13 @@ This file is the canonical agent entry point (works with Cursor, which reads
   category labels. The Menu overlay lists the same 11 flat (two columns). Homepage
   shows a revenue-ordered subset only. **find-your-vertical** type-ahead filters the
   sidebar (not header search).
-- **Embedded Offerings is a single page** (clarified 2026-09-28): all four offerings
-  (**Payments, Lending, Insurance, AI at Fullsteam**) sit on one page as a **tile grid
-  whose tiles open a story window**; **no child pages** — **AI is a tile, not its own
-  page** (supersedes the 2026-09-10 "AI is its own page"). **Hardware and Integrations
-  are not separate pages** (folded into Payments / the Embedded Offerings overview),
-  2026-09-10.
+- **Embedded Offerings is a single page** (clarified 2026-09-28 · layout changed 2026-10-01):
+  all four offerings (**Payments, Lending, Insurance, AI at Fullsteam**) sit on one page as a
+  **horizontal filmstrip** — one card featured, click a card to open its story — mirroring the
+  homepage's "03 — The verticals" section, on a **white background** (was a tile grid + story
+  window). **No child pages** — **AI is a card, not its own page** (supersedes the 2026-09-10 "AI
+  is its own page"). **Hardware and Integrations are not separate pages** (folded into Payments /
+  the Embedded Offerings overview), 2026-09-10.
 - **Leadership** (`/our-story/leadership`) is a page under Our Story (2026-09-14). **Newsroom is not in the sitemap** (removed 2026-09-23).
 - CMS is Duda and is likely retained.
 

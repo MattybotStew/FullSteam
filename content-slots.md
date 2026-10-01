@@ -136,15 +136,16 @@ One page, 11 verticals, no child pages.
 
 ## 6. Embedded Offerings — `pages/embedded-offerings.html`
 
-One page: Payments · Lending · Insurance · AI at Fullsteam.
+One page: Payments · Lending · Insurance · AI at Fullsteam. **Presented as a horizontal
+filmstrip on a white background (2026-10-01)** — one card featured; click a card to open its story
+(mirrors the homepage "03 — The verticals" section).
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | H1 "Keep the software. Grow how it makes money." | Framing | Draft | 2026-10-01 |
 | Lede (software first, then AI/payments/lending/insurance; integrations live here) | Support | Draft | **AI-forward; payments framed as invisible/embedded** |
-| "Read the story" control | Jump | Locked | |
-| 4 tiles (labels) | The list | Locked | Hardware folds into Payments. Ordered Payments→AI; **promote AI to first tile** optional |
-| Per-offering story + fact chips | Detail | Placeholder | No rates/terms (Lending/Insurance); **AI = use cases, never headcount** |
+| 4 filmstrip cards (labels) | The list | Locked | Hardware folds into Payments. Ordered Payments→AI; **promote AI to the first card** optional |
+| Featured-card story (title + prose + **3 fact chips**) | Detail | Placeholder | No rates/terms (Lending/Insurance); **AI = use cases, never headcount**. Hash (`#payments`…) opens a card |
 
 ---
 
