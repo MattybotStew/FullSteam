@@ -49,8 +49,12 @@ From KB §20–§22 (`PROJECT_KNOWLEDGE_BASE.md`). These are hard constraints, n
 | "Explore vertical solutions" pill | Primary CTA (short form) | Locked | Header uses the short form; body uses the full form |
 | Menu overlay column heads | Sitemap L1 | Locked | Vertical Software · Embedded Offerings · Our Story · Careers · Contact · For Founders |
 | Menu overlay vertical list | 11 verticals | Locked | Flat list; **do not** add category labels. Includes **Association Management** |
+| Menu overlay "Open roles" | Workday job search | Locked | External: `https://fullsteam.wd1.myworkdayjobs.com/External` · `target="_blank"` · not `careers.html#roles` |
 | Overlay finder line | "find your vertical" | Draft | Type-ahead hint |
 | Footer columns | Tree recovery | Locked | Company · Explore · Connect · Legal |
+| Footer Company links | Tree recovery | Locked | Our Story · Leadership · Careers · **Open roles** (Workday, external) |
+| Footer Explore links | Tree recovery | Locked | Vertical Software · Embedded Offerings · For Founders · **FAQ** |
+| Footer Connect links | Tree recovery | Locked | Contact · Partner inquiries (`#partner`) |
 | Footer legal labels | Privacy · Terms · Complaints | Locked | Labels only; **no pages** exist and none are planned here |
 
 The **11 verticals** (exact labels, used in chrome, the mosaic, and the Vertical Software page):
@@ -184,7 +188,7 @@ filmstrip on a white background (2026-10-01)** — one card featured; click a ca
 | Lede | Support | Draft | **2,000+ people across 11 verticals**; mostly remote; close to decision-makers (2026-10-01) |
 | 01 "How it feels" + H2 "Room to own the work." | Culture | Draft | Authentic, not a recruiting poster; **real employee imagery, not stock** |
 | 02 "Who thrives" + H2 "People who pick up the problem." | Profile | Draft | AI is never a replacing-the-team story |
-| 03 "Open roles" + H2 "What is open right now." + role table | Roles | **Placeholder** | Rows are layout only; real roles from the client; **no invented job titles** |
+| 03 "Open roles" + H2 "What is open right now." + **See open roles** pill | Roles | Locked | External Workday (`fullsteam.wd1.myworkdayjobs.com/External`); **no in-page job table** |
 
 ---
 
@@ -194,6 +198,8 @@ filmstrip on a white background (2026-10-01)** — one card featured; click a ca
 |---|---|---|---|
 | H1 "Ask for a conversation." | Framing | Draft | Site confirms; meeting is next; no campaign |
 | Lede | Support | Draft | |
+| Hero jumps (FAQ for founders · Partner inquiries) | Recovery | Draft | FAQ → `faq.html`; partner → `#partner` |
+| FAQ callout band | Founder routing | Draft | Tan block: H2 "Questions answered before you write." + **Read the FAQ** pill → `faq.html` |
 | Form labels (Name · Email · Company · What this is about · Message) | Form | Draft | "What this is about" select: software business / work here / something else |
 | Send + form note | Form | Draft | Wireframe: nothing transmits |
 | "Partner inquiries" + H2 "Same door." | Investor-adjacent | Draft | **No "For Investors" option** — deliberate |
