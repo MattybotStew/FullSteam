@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — Fullsteam</title>
+<style>
+  :root{
+    --bg:#FFFFFF; --tan:#F3E6D0; --ink:#000000; --yellow:#FFC600; --line:#000000;
+    --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono:ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family:var(--sans); color:var(--ink); background:var(--bg);
+    min-height:100vh; display:flex; flex-direction:column;
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:12px 24px; max-width:1280px; width:100%; margin:0 auto;
+    border-bottom:1px solid var(--line);
+  }
+  .logo{ font-size:18px; font-weight:700; letter-spacing:.02em; color:var(--ink); }
+  .pill{
+    display:inline-flex; align-items:center; justify-content:center;
+    background:var(--yellow); color:var(--ink); padding:9px 18px;
+    font-size:13px; font-weight:700;
+  }
+  main{
+    flex:1; display:flex; align-items:center; justify-content:center;
+    padding:64px 24px; text-align:center;
+  }
+  .beat{
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(36px, 5vw, 56px); font-weight:700; letter-spacing:-.03em;
+    line-height:1.05; max-width:16ch; margin:0 auto;
+  }
+  .lede{ margin-top:16px; max-width:48ch; margin-left:auto; margin-right:auto; font-size:18px; }
+  .actions{
+    display:flex; flex-wrap:wrap; gap:16px; justify-content:center;
+    margin-top:32px;
+  }
+  .ghost{ font-size:15px; font-weight:700; border-bottom:1px solid var(--ink); padding-bottom:2px; color:var(--ink); }
+  footer{
+    border-top:1px solid var(--line); padding:24px; text-align:center;
+    font-family:var(--mono); font-size:11px; background:var(--tan);
+  }
+</style>
+</head>
+<body>
+
+  <div class="nav">
+    <a class="logo" id="logoLink" href="#">FULLSTEAM</a>
+    <a class="pill" id="exploreLink" href="#">Explore vertical solutions</a>
+  </div>
+
+  <main>
+    <div>
+      <p class="beat">Error · 404</p>
+      <h1>This page is not here.</h1>
+      <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit. The link may be outdated or the address may be wrong.</p>
+      <div class="actions">
+        <a class="pill" id="homeLink" href="#">Homepage wireframe</a>
+        <a class="ghost" id="portalLink" href="#">Review portal</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>Fullsteam redesign · wireframe review site</footer>
+
+  <script>
+    (function () {
+      function siteBase() {
+        const host = location.hostname;
+        if (host === "localhost" || host === "127.0.0.1") return "";
+        const match = location.pathname.match(/^\/[^/]+/);
+        return match ? match[0] : "";
+      }
+      const base = siteBase();
+      const join = (path) => base + "/" + path.replace(/^\//, "");
+      document.getElementById("logoLink").href = join("02_Wireframes/active/homepage.html");
+      document.getElementById("exploreLink").href = join("02_Wireframes/active/pages/vertical-software.html");
+      document.getElementById("homeLink").href = join("02_Wireframes/active/homepage.html");
+      document.getElementById("portalLink").href = join("index.html");
+    })();
+  </script>
+
+</body>
+</html>

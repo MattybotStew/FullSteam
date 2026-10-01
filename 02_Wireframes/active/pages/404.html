@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — Wireframe · Fullsteam</title>
+<style>
+
+  :root{
+    --bg:#FFFFFF; --tan:#F3E6D0; --ink:#000000; --yellow:#FFC600;
+    --line:#000000;
+    --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono:ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:var(--sans); color:var(--ink); background:var(--bg); line-height:1.45; }
+  a{ color:var(--ink); text-decoration:none; }
+  button{ font-family:inherit; color:var(--ink); cursor:pointer; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
+  header{
+    position:sticky; top:0; z-index:100; background:#fff;
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:12px 24px; max-width:1280px; margin:0 auto;
+  }
+  .logo{ font-size:18px; font-weight:700; letter-spacing:.02em; }
+  .nav-right{ display:flex; align-items:center; gap:16px; }
+  .menu-btn{ background:none; border:0; font:inherit; font-size:13px; font-weight:600; padding:8px 0; }
+  .pill{
+    display:inline-flex; align-items:center; justify-content:center;
+    background:var(--yellow); color:var(--ink); border:0; padding:9px 18px;
+    font-size:13px; font-weight:700;
+  }
+  .pill-lg{ padding:14px 28px; font-size:16px; }
+  .site-overlay{ display:none; border-top:1px solid var(--line); background:var(--tan); padding:28px 24px 32px; }
+  .site-overlay.is-open{ display:block; }
+  .ov-inner{ max-width:1280px; margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr); gap:24px; }
+  .ov-solutions{ grid-column:span 2; }
+  .site-overlay h3{ font-size:14px; font-weight:600; margin-bottom:8px; }
+  .site-overlay ul{ list-style:none; }
+  .site-overlay li{ font-size:13px; padding:3px 0; }
+  .site-overlay a:hover{ text-decoration:underline; }
+  .solutions-split{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+  .beat{
+    font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; margin-bottom:14px;
+  }
+  .page-hero{ padding:80px 0 96px; text-align:center; }
+  .page-hero h1{
+    font-size:clamp(36px, 5vw, 56px); font-weight:700; letter-spacing:-.03em;
+    line-height:1.05; max-width:20ch; margin:0 auto;
+  }
+  .lede{ margin:16px auto 0; max-width:52ch; font-size:18px; }
+  .actions{
+    display:flex; flex-wrap:wrap; gap:16px; justify-content:center;
+    align-items:center; margin-top:32px;
+  }
+  .ghost{ font-size:15px; font-weight:700; border-bottom:1px solid var(--ink); padding-bottom:2px; }
+  .anno{
+    margin:28px auto 0; max-width:52ch; padding:10px 12px;
+    border:1px dashed var(--ink); font-family:var(--mono); font-size:12px; line-height:1.4;
+    text-align:left;
+  }
+  footer{ border-top:1px solid var(--line); padding:40px 0 56px; background:var(--tan); }
+  .foot{ display:flex; flex-wrap:wrap; gap:32px 48px; justify-content:space-between; font-size:14px; }
+  .foot a{ display:block; padding:4px 0; }
+  .foot a:hover{ text-decoration:underline; }
+  .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
+  @media (max-width:900px){
+    .ov-inner{ grid-template-columns:1fr 1fr; }
+    .solutions-split{ grid-template-columns:1fr; }
+    .page-hero h1{ max-width:100%; }
+    .nav{ padding:10px 16px; gap:10px; }
+    .nav-right{ min-width:0; flex:1; justify-content:flex-end; }
+    .menu-btn{ flex-shrink:0; }
+    .pill{ padding:8px 10px; font-size:12px; white-space:nowrap; }
+  }
+
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="nav">
+      <a class="logo" href="../homepage.html">FULLSTEAM</a>
+      <div class="nav-right">
+        <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="siteOverlay">Menu</button>
+        <a class="pill" href="vertical-software.html">Explore vertical solutions</a>
+      </div>
+    </div>
+    <div class="site-overlay" id="siteOverlay">
+      <div class="ov-inner">
+        <div class="ov-solutions">
+          <h3><a href="vertical-software.html">Vertical Software</a></h3>
+          <div class="solutions-split">
+            <ul aria-label="Verticals">
+              <li><a href="vertical-software.html#hospitality">Hospitality</a></li><li><a href="vertical-software.html#weddings-events">Weddings & Events</a></li><li><a href="vertical-software.html#wine">Wine</a></li><li><a href="vertical-software.html#retail">Retail</a></li><li><a href="vertical-software.html#storage-marina">Storage & Marina</a></li><li><a href="vertical-software.html#health-wellness">Health & Wellness</a></li>
+            </ul>
+            <div>
+              <ul aria-label="Verticals">
+                <li><a href="vertical-software.html#field-services">Field Services</a></li><li><a href="vertical-software.html#transportation">Transportation</a></li><li><a href="vertical-software.html#automotive">Automotive</a></li><li><a href="vertical-software.html#association-management">Association Management</a></li><li><a href="vertical-software.html#erp">ERP</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3><a href="embedded-offerings.html">Embedded Offerings</a></h3>
+          <ul>
+            <li><a href="embedded-offerings.html#payments">Payments</a></li><li><a href="embedded-offerings.html#lending">Lending</a></li><li><a href="embedded-offerings.html#insurance">Insurance</a></li><li><a href="embedded-offerings.html#ai">AI at Fullsteam</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3><a href="our-story.html">Our Story</a></h3>
+          <ul><li><a href="leadership.html">Leadership</a></li></ul>
+          <h3 style="margin-top:16px"><a href="careers.html">Careers</a></h3>
+          <ul><li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li></ul>
+        </div>
+        <div>
+          <h3><a href="contact.html">Contact</a></h3>
+          <ul><li><a href="contact.html">Talk to us</a></li></ul>
+          <h3 style="margin-top:16px"><a href="for-founders.html">For Founders</a></h3>
+          <ul>
+            <li><a href="for-founders.html">A home for your business</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="beat">Error · 404</p>
+        <h1>This page is not here.</h1>
+        <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit. The link may be outdated or the address may be wrong.</p>
+        <div class="actions">
+          <a class="pill pill-lg" href="../homepage.html">Homepage wireframe</a>
+          <a class="ghost" href="../../../index.html">Review portal</a>
+          <a class="ghost" href="vertical-software.html">Vertical Software</a>
+        </div>
+        <p class="anno">Utility page for broken links. On GitHub Pages, the repo-root <code>404.html</code> is what visitors see for missing URLs; this file is the same message inside the wireframe chrome for preview.</p>
+      </div>
+    </section>
+  </main>
+
+
+  <footer>
+    <div class="wrap foot">
+      <div>
+        <div class="fh">Company</div>
+        <a href="our-story.html">Our Story</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="careers.html">Careers</a>
+        <a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a>
+      </div>
+      <div>
+        <div class="fh">Explore</div>
+        <a href="vertical-software.html">Vertical Software</a>
+        <a href="embedded-offerings.html">Embedded Offerings</a>
+        <a href="for-founders.html">For Founders</a>
+        <a href="faq.html">FAQ</a>
+      </div>
+      <div>
+        <div class="fh">Connect</div>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html#partner">Partner inquiries</a>
+      </div>
+      <div>
+        <div class="fh">Legal</div>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="#">Complaints</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const overlay = document.getElementById("siteOverlay");
+    menuBtn.addEventListener("click", () => {
+      const open = overlay.classList.toggle("is-open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      menuBtn.textContent = open ? "Close" : "Menu";
+    });
+  </script>
+
+
+</body>
+</html>

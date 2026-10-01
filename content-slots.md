@@ -63,7 +63,7 @@ From KB §20–§22 (`PROJECT_KNOWLEDGE_BASE.md`). These are hard constraints, n
 | Footer Company links | Tree recovery | Locked | Our Story · Leadership · Careers · **Open roles** (Workday, external) |
 | Footer Explore links | Tree recovery | Locked | Vertical Software · Embedded Offerings · For Founders · **FAQ** |
 | Footer Connect links | Tree recovery | Locked | Contact · Partner inquiries (`#partner`) |
-| Footer legal labels | Privacy · Terms · Complaints | Locked | Labels only; **no pages** exist and none are planned here |
+| Footer legal links | Privacy · Terms · Complaints | Locked | **Privacy** → `pages/privacy.html` · **Terms** → `pages/terms.html` (lorem wireframes; client legal replaces copy) · **Complaints** label only (`#`) |
 
 The **11 verticals** (exact labels, used in chrome, the mosaic, and the Vertical Software page):
 Hospitality · Weddings & Events · Wine · Retail · Storage & Marina · Health & Wellness ·
@@ -221,6 +221,16 @@ swaps content inline on a white background (2026-10-01; replaces the filmstrip)*
 | Form labels (Name · Email · Company · What this is about · Message) | Form | Draft | "What this is about" select: software business / work here / something else |
 | Send + form note | Form | Draft | Wireframe: nothing transmits |
 | "Partner inquiries" + H2 "Same door." | Investor-adjacent | Draft | **No "For Investors" option** — deliberate |
+
+---
+
+## 10b. Legal utility pages (wireframe placeholders)
+
+| Page | Path | Status | Note |
+|---|---|---|---|
+| Privacy policy | `pages/privacy.html` | **Placeholder** | Lorem sections; client legal replaces all body copy |
+| Terms of use | `pages/terms.html` | **Placeholder** | Lorem sections; client legal replaces all body copy |
+| Page not found | `pages/404.html` + root `404.html` | **Placeholder** | Lorem lede; CTAs to homepage wireframe + review portal. Root copy is published on GitHub Pages for missing URLs. |
 
 ---
 

@@ -57,6 +57,10 @@ HTML wireframes currently do, section by section, and what is still open.
 | [`02_Wireframes/active/pages/leadership.html`](./02_Wireframes/active/pages/leadership.html) | Leadership — leaders only | Active |
 | [`02_Wireframes/active/pages/careers.html`](./02_Wireframes/active/pages/careers.html) | Careers — culture + Workday open-roles CTA | Active |
 | [`02_Wireframes/active/pages/contact.html`](./02_Wireframes/active/pages/contact.html) | Contact (utility, not an L1 node) | Active |
+| [`02_Wireframes/active/pages/privacy.html`](./02_Wireframes/active/pages/privacy.html) | Privacy policy — lorem placeholder (utility) | Active |
+| [`02_Wireframes/active/pages/terms.html`](./02_Wireframes/active/pages/terms.html) | Terms of use — lorem placeholder (utility) | Active |
+| [`02_Wireframes/active/pages/404.html`](./02_Wireframes/active/pages/404.html) | 404 — not found (utility) | Active |
+| [`404.html`](./404.html) (repo root) | GitHub Pages custom 404 (same message, root-relative links) | Active |
 
 Preview from the repo root:
 
@@ -412,6 +416,8 @@ Anything present on some pages but not others is drift — decide once and apply
 | 2026-10-01 | **Careers — open roles → Workday CTA.** Removed the placeholder role table from `#roles`. Beat 03 is now a lede + yellow **See open roles** pill to the same Workday URL (new tab). |
 | 2026-10-01 | **Contact — FAQ callout.** Tan band between hero and form points founders to `faq.html` (Read the FAQ pill + hero jump). `design.md` not edited. |
 | 2026-10-01 | **Footer — full tree recovery.** All nine published pages: Company adds **Open roles** (Workday, new tab); Explore adds **FAQ**. Connect and Legal unchanged. |
+| 2026-10-01 | **Legal wireframes — Privacy + Terms.** Added `pages/privacy.html` and `pages/terms.html` (Option B chrome, lorem sections, dashed wireframe note). Footer Privacy/Terms links updated on homepage + all interior pages. Complaints still `#`. `design.md` not edited. |
+| 2026-10-01 | **404 page.** Added `pages/404.html` (full wireframe chrome) and repo-root `404.html` for GitHub Pages (links resolve from project-site base). Pages deploy allowlist copies root `404.html`. Body lorem + recovery CTAs. |
 | 2026-10-01 | **Headlines → intent, all pages.** Every content `h1/h2/h3` on the homepage and the 8 interior pages now reads as a short **`Intent:`** statement (heading tags kept), with a dashed `.anno` note beneath carrying detail, constraints, and audience. **Lens: investors primary, founders secondary** — a lens only; no IA/order change. Literal/example headline copy is retired from the wireframes; final copy lives in `content-slots.md`. The homepage's two **locked** lines are quoted inside their notes (Axis A H1, Axis B H2). First pass put the full intent into the headings; the client called it **"too much headline text,"** so headings were shortened and the detail moved to the notes. KB §25.5. |
 | 2026-10-01 | **Vertical Software — sticky sidebar, inline swap, modal removed.** The 4-up name-tile grid becomes a true **sticky sidebar** (left column, list of all 11) that swaps the story **inline** in the content column. The centered story window/modal (`v-modal`, backdrop, arrows, Prev/Next bar) is **removed entirely**; hash deep links (`#retail`) and Menu links still select. Panel titles are now intent lines; the software-first story, icon collage, and four fact chips stay. |
 | 2026-10-01 | **Embedded Offerings — filmstrip → same sticky sidebar.** **Overrides the same-day 2026-10-01 filmstrip decision** at the client's request. Four offerings (Payments · Lending · Insurance · AI at Fullsteam) in a **sticky sidebar** that swaps content **inline** on a white background; **no modal**. The offering tabs are removed (the sidebar is the list). Hash deep links and Menu links select. **Flag for client ratification** — it reverses a client-approved layout from earlier the same day. |
@@ -439,4 +445,4 @@ Same chrome on every page: Logo · Menu · Explore vertical solutions. The Menu 
 | **Careers** | Hero carries **2,000+ people across 11 verticals**. How it feels → who thrives → **open roles CTA** (yellow pill to Workday; no in-page job table). **Real employee imagery, not stock.** AI is never a replacing-the-team story. |
 | **Contact** | Conversation form. Reasons: software business, work here, something else. No investor page and no investor option. **Tan FAQ callout** (beat + H2 + pill to `faq.html`) between hero and form; hero jumps include FAQ for founders. |
 
-Privacy, Terms, and Complaints stay footer labels only. They are outside the content-writing scope.
+**Privacy** and **Terms** are wireframe utility pages (`pages/privacy.html`, `pages/terms.html`) with lorem body copy until client legal supplies final text. **Complaints** stays a footer label only (no page yet).
