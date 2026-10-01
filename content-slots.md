@@ -69,31 +69,39 @@ The opening is a **two-state pinned sequence** (Axis A → grow morph → Axis B
 content. See KB §23 (and **§24** for the 2026-10-01 client review) before touching anything above
 the fold. **The page was reordered 2026-10-01** — this table reflects the new order.
 
+**2026-10-01 messaging pass (intent-first):** the wireframe's supporting copy is replaced by
+**section intent notes** (`.anno` — the same convention the interior pages use). The wireframe now
+records *what each section must do and for whom*, not final wording; the final copy is written
+here. **Primary lens: investors**, founders secondary. This is a **lens change only** — the locked
+Axis A/B opening is unchanged (it still addresses founders first), and no IA/order changed.
+Messaging themes: forward-thinking, a repeatable process, best stewards of the products (for
+founders), and *acquire and make the software companies run better* (for investors).
+
 | # | Slot | Role | Status | Note |
 |---|---|---|---|---|
 | — | Kicker "For founders of industry software" | Audience kicker (Axis A) | Draft | Never a product claim |
 | — | **H1** "Whatever the industry, we own the software it runs on." | Axis A — identity/ownership | **Locked** | The document H1; read first |
-| — | Sub "The software they already run. We keep it." | Axis A support | Draft | |
+| — | Sub (now a section intent note) | Axis A support | **Intent** | Investor-primary lens; final copy in this file |
 | — | Axis A identity visual | Axis A — the owned software | Placeholder | **One visual, not 11 tiles** (client 2026-10-01); it is the grow morph's source |
 | 01 | Beat "01 — The model" | Section marker | Draft | |
 | 01 | Axis B kicker "For founders of industry software — and anyone confirming who we are." | Audience + validation | Draft | Echoes kicker deliberately |
 | 01 | **Axis B H2** "Software first. Then we grow it." | Axis B — the growth model | **Locked** | Agreed line (2026-09-24) |
-| 01 | Axis B lede | Growth model support | Placeholder | States both halves, Software-first |
+| 01 | Axis B lede (now a section intent note) | Growth model support | **Intent** | Forward-thinking, repeatable process; investor-primary lens |
 | 01 | CTAs: "Explore our vertical solutions" + "Careers" | Primary + secondary | Locked (CTA) | |
 | 02 | Beat + H2 **"What does Fullsteam do?"** | The model in plain words | Draft | Client's #1 question (2026-10-01) |
-| 02 | Lede (Message 1) | Intro | Placeholder | **Systems of record** with **AI, payments, operational excellence** |
-| 02 | Steps: **Acquire / Grow / Lead** | Three things we do | Draft | Acquire = buy + keep buying; Grow = AI + payments (link Offerings); Lead = powers industries (link Vertical Software) |
-| 02 | Founder CTA "A home for the business you built." + "Talk to us" | For founders | Locked framing | Never "exit"; link For Founders |
-| 02 | Founder voice quote + attribution | Social proof | Placeholder | Genericized; no names until confirmed |
-| 03 | Stats band: `11` verticals · `100+` businesses `[placeholder]` · `2,000+` people `[placeholder]` · `$75B+` processed `[placeholder]` `*cumulative` | Impressive scale, for investors (`#investors`) | **Placeholder** | 11 is settled; others pending publishability (OI-5). "Profitable" is a *feeling*, never a claim |
-| 03 | Proof note | Placeholder disclosure | Draft | Makes the placeholders unmistakable |
+| 02 | Lede (now a section intent note) | Intro | **Intent** | Answer "What does Fullsteam do?" in plain words; the thesis is **acquire and make them run better**; investor-primary lens |
+| 02 | Steps: **Acquire / Grow / Lead** | Three things we do | **Intent** | Structural headline labels only; Acquire = buy + keep buying; Grow = make each business run better (AI + embedded payments + shared back office, deck p19/p28); Lead = enterprise scale without bureaucracy (Pillar 3) |
+| 02 | Founder CTA "A home for the business you built." + "Talk to us" | For founders | Locked framing | Heading locked; body is now a section intent note. Never "exit" or "turn-and-burn"; founder track (secondary lens); link For Founders |
+| 02 | Founder voice quote + attribution | Social proof | **Intent** | Genericized; no names until confirmed |
+| 03 | Stats band: `70,000+` customers `[placeholder]` · `$75B+` processed `[placeholder]` · `480M+` transactions `[placeholder]` · `2,000+` people `[placeholder]` `*cumulative` | Impressive scale, for investors (`#investors`) | **Placeholder** | **Deck p28 authority set** (2026-10-01); all pending publishability (OI-5). "Profitable" is a *feeling*, never a claim |
+| 03 | Investor intent note | Trust signal + disclosure | **Intent** | Imply scale via inferable signals only; no revenue/run-rate/profitability. Marquee backers (Aquiline · Sixth Street · ADIA) **pending publishability — do not ship names** (matches `our-story.html:307`) |
 | 04 | Beat + H2 "Keep the businesses growing." | The verticals | Draft | Filmstrip kept — client likes it; moved up 2026-10-01 |
-| 04 | Filmstrip: 5 revenue-ordered panels + 11 text links | Verticals in action | Draft | Panel copy placeholder |
-| 04 | KPI cycle card (`11` / `100+` / `2,000+`) | Scale cycle | **Placeholder** | Mirrors the stats band |
-| 05 | Beat + H2 "AI that already knows the business." + lede | AI | Draft | Use cases first; never a headcount story |
-| 05 | Three AI example cards (forecasting / back office / support) | AI examples | Placeholder | Client asked to "highlight examples of AI"; genericize |
+| 04 | Filmstrip: 5 revenue-ordered panels + 11 text links | Verticals in action | Draft | Structural labels only; featured businesses generic until publishability confirmed |
+| 04 | KPI cycle card (`70,000+` / `$75B+` / `480M+` / `2,000+`) | Scale cycle | **Placeholder** | Mirrors the stats band (deck p28 set) |
+| 05 | Beat + H2 "AI that already knows the business." + lede | AI | **Intent** | Use cases first; never a headcount story; investor-primary lens (AI strengthens the software side) |
+| 05 | Three AI example cards (forecasting / back office / support) | AI examples | **Intent** | Headline labels only; client asked to "highlight examples of AI"; genericize the final copy |
 | 05 | Link "See AI at Fullsteam" | Cross-link | Draft | → Embedded Offerings#ai |
-| 06 | Beat + H2 "A great place to work." + lede | Employer story | Draft | Humanizing (2026-10-01) |
+| 06 | Beat + H2 "A great place to work." + lede | Employer story | **Intent** | Humanizing (2026-10-01); employer-brand track (tertiary) |
 | 06 | Three real-image placeholders + "Real team photo — not stock" captions | Culture imagery | **Placeholder** | **Actual people, not stock photos** |
 | 06 | Link "See Careers" + LinkedIn strip (cards + follow) | Careers + feed | Placeholder | No real feed data |
 | 07 | Beat + H2 "Ready to see where your business can go next?" + CTA + "For Founders — a home for your business" | Close | Draft | |

@@ -2022,3 +2022,94 @@ never "exit"; AI never headcount; no named acquisitions or revenue/profitability
    label; site stays **"Embedded Offerings"** (§14; §22.6.3).
 4. **Pillar titles are internal labels** — rewrite before use (this is what beat 01 does; §22.6.4).
 
+### 25.4 Homepage review against the deck (2026-10-01)
+
+> **Context:** the deck was re-supplied during the 2026-10-01 client review. It is the **same file**
+> (mtime 2026-09-29) already distilled above — **no net-new messaging vs. §25**, so this is a
+> **compliance check of the live homepage** against it, not a change to the source record.
+> Reviewed against `02_Wireframes/active/homepage.html`.
+
+**Already aligned** (no action):
+
+- **Promise / Pillar 1 "A Permanent Home"** → Axis A "The software they already run. We keep it."
+  + founder band "A home for the business you built." (`homepage.html:723`).
+- **Proof / Pillar 2 "Software-First, Payments-Native, AI-Accelerated"** → H2 "Software first.
+  Then we grow it." + "We help them grow with AI and payments" (`homepage.html:709`) + AI section.
+- **Outcome / Pillar 3** → "Our software powers entire industries" / "Across 11 verticals"
+  (`homepage.html:716`).
+- **SWOT weakness "Unclear & Complex Core Narrative"** → answered by the "What does Fullsteam do?"
+  beat (`homepage.html:698`).
+- **Voice (deck p28: plain, first person, no jargon)** → mostly held.
+
+**Gaps found** (candidates for a copy pass; none change IA):
+
+1. **Marquee financial backers absent** (deck p21, §25.2) — **Aquiline, Sixth Street, ADIA** are not
+   on the page. Highest-upside investor trust add, **gated on publishability** (§20.7).
+2. **Proof misses the "operations engine / back-office" layer** — deck PROOF = financial bedrock
+   **+ well-oiled operations engine + AI**; the page shows AI + stats but not the
+   finance/legal/HR/compliance support (Pillar 2 differentiator).
+3. **Stats set weaker than the deck's authority signals** (`homepage.html:742-755`) — deck supplies
+   **70,000+ customers · $75B+ · 480M+ transactions · 2,000+ employees**; the page runs
+   `11 / 100+ / 2,000+ / $75B+`. **"11 vertical markets" is not an investor scale signal**, and
+   **70,000+ customers / 480M transactions are missing**. (70k + $75B already flagged as the
+   strongest pair, §22.5.)
+4. **Signature payments message unused** (deck p19) — payments as "invisible, embedded"
+   infrastructure ("like the water or electric company"); the page says "native to the software,"
+   which is good but not the memorable framing.
+5. **Pillar 3's "enterprise leverage on a niche identity"** (train-engine metaphor, "never alone on
+   an island") is only implied, not written in visitor copy.
+6. **Founder band drops the fear-answer** — persona p25 promises growth *"without disrupting the
+   culture, product, or people"*; `homepage.html:724` covers name/team but not the direct
+   "we don't turn and burn."
+
+**Already-open conflicts** (unchanged, §25.3): 13+ industries vs. 11 verticals; "Platform";
+"predictable fintech revenue growth"; pillar titles as internal labels.
+
+**Applied 2026-10-01** — homepage copy pass for gaps 1–6, mirrored into `content-slots.md`:
+
+- **Gap 1 (backers):** added a "Backed by leading institutional capital." line to the proof strip
+  (`homepage.html`), with the marquee names kept **in a pending-publishability annotation, not
+  shipped** — matches the `our-story.html:307` convention. **Still needs client clearance.**
+- **Gap 2 (operations/back-office):** Grow step now names a shared back office (finance, legal,
+  HR, compliance).
+- **Gap 3 (stats):** proof strip now uses the deck p28 authority set — **70,000+ customers ·
+  $75B+ · 480M+ transactions · 2,000+ people**, all still `[placeholder]`; the filmstrip KPI cycle
+  mirrors it. Dropped `11 vertical markets` from the investor strip (not a scale signal; 11 remains
+  in "What we do" and the verticals).
+- **Gap 4 (payments message):** Grow copy now uses the "invisible … like the water or electric
+  company" framing (deck p19/p28).
+- **Gap 5 (Pillar 3):** Lead copy now carries "enterprise strength … none of the bureaucracy."
+- **Gap 6 (founder fear-answer):** founder band now says "We don't turn and burn the businesses we
+  buy — the culture, product, and people stay."
+
+This resolves nothing about the **open conflicts** (§25.3), which still need a client answer.
+
+> **Superseded later same day — see §25.5.** The literal copy above was replaced by **section intent
+> notes** (direction: the wireframe should state each section's intention, not final copy), so the
+> specific lines no longer live in `homepage.html`. The *themes* above (back office, invisible
+> payments, enterprise leverage, the founder fear-answer, the deck's stat set) survive as intent.
+
+### 25.5 Messaging direction — intent-first wireframe + investor-primary lens (2026-10-01)
+
+**Two client directions, applied to the homepage only** (interior pages untouched):
+
+1. **Intent-first wireframe.** The homepage's supporting copy is replaced by **section intent
+   notes** (`.anno`, the same convention the interior pages use — e.g. `for-founders.html:233`).
+   Each section now states *what it must communicate and for whom*; final wording is written into
+   `content-slots.md`, not the wireframe. Structural headlines/labels and the locked opening stay.
+2. **Primary lens: investors**, founders secondary. **Lens only** — the client confirmed the **locked
+   Axis A → grow morph → Axis B opening is unchanged** (it still addresses founders first; §23/§24
+   stand, no IA/order change). The investor lens governs the *intent behind* each section.
+
+**Messaging themes this encodes** (from the client, 2026-10-01):
+
+- **Forward-thinking and repeatable** — a disciplined process, not a one-off; the investor read.
+- **Best stewards of the products** — protection and continuity, for founders.
+- **Enthusiasm** — human, energetic voice, not a cold holding company.
+- **Acquire and make the software companies run better** — the core thesis, aimed at founders *and*
+  investors.
+
+**What changed in the files:** `homepage.html` — supporting copy → `.anno` intent notes (new `.anno`
+style added); `content-slots.md` — homepage rows marked **Intent** and the pass recorded at the top
+of §2. **Nothing above the fold changed**; the two locked headlines and the A→B order are intact.
+
