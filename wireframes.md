@@ -51,8 +51,8 @@ HTML wireframes currently do, section by section, and what is still open.
 | [`02_Wireframes/archive/alternative-home-a.html`](./02_Wireframes/archive/alternative-home-a.html) | Alternative A — storytelling-led, dual-axis | Archive |
 | [`02_Wireframes/active/pages/for-founders.html`](./02_Wireframes/active/pages/for-founders.html) | For Founders — home, how it works, what we look for, talk to us | Active |
 | [`02_Wireframes/active/pages/faq.html`](./02_Wireframes/active/pages/faq.html) | Founder FAQ (`/for-founders/faq`) | Active |
-| [`02_Wireframes/active/pages/vertical-software.html`](./02_Wireframes/active/pages/vertical-software.html) | Vertical Software — name tiles, story in a window | Active |
-| [`02_Wireframes/active/pages/embedded-offerings.html`](./02_Wireframes/active/pages/embedded-offerings.html) | Embedded Offerings — horizontal filmstrip (like homepage 03), white bg | Active |
+| [`02_Wireframes/active/pages/vertical-software.html`](./02_Wireframes/active/pages/vertical-software.html) | Vertical Software — sticky sidebar of 11, swaps content inline | Active |
+| [`02_Wireframes/active/pages/embedded-offerings.html`](./02_Wireframes/active/pages/embedded-offerings.html) | Embedded Offerings — sticky sidebar of 4, swaps content inline | Active |
 | [`02_Wireframes/active/pages/our-story.html`](./02_Wireframes/active/pages/our-story.html) | Our Story | Active |
 | [`02_Wireframes/active/pages/leadership.html`](./02_Wireframes/active/pages/leadership.html) | Leadership — leaders only | Active |
 | [`02_Wireframes/active/pages/careers.html`](./02_Wireframes/active/pages/careers.html) | Careers — culture + Workday open-roles CTA | Active |
@@ -219,10 +219,12 @@ pick: B revised** — pending client sign-off (OI-1). Option 0 is labeled legacy
 **Locked L1 (2026-09-10 · finalized 2026-09-14 · revised 2026-09-23):** For
 Founders · **Vertical Software** · **Embedded Offerings** · Our Story · Careers.
 **For Investors was deleted.** **Vertical Software is a single page** — a sticky
-sidebar lists all 11 verticals and swaps a tabbed panel; **no child pages**, no
-category labels. **Hardware & Integrations were dropped** as separate pages (folded
-into Embedded Offerings / Payments). AI at Fullsteam is a page nested under Embedded
-Offerings. Under Our Story: **Leadership** (`/our-story/leadership`, leaders only).
+sidebar lists all 11 verticals and swaps the panel **inline** (no modal); **no child
+pages**, no category labels. **Embedded Offerings is a single page** using the same
+sticky-sidebar pattern (Payments · Lending · Insurance · AI at Fullsteam), swapped
+inline. **Hardware & Integrations were dropped** as separate pages (folded into
+Embedded Offerings / Payments). **AI at Fullsteam is a card/panel, not its own page.**
+Under Our Story: **Leadership** (`/our-story/leadership`, leaders only).
 **Newsroom was removed** (2026-09-23). **For Founders is a single-page leaf.** See
 `PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
 
@@ -410,6 +412,9 @@ Anything present on some pages but not others is drift — decide once and apply
 | 2026-10-01 | **Careers — open roles → Workday CTA.** Removed the placeholder role table from `#roles`. Beat 03 is now a lede + yellow **See open roles** pill to the same Workday URL (new tab). |
 | 2026-10-01 | **Contact — FAQ callout.** Tan band between hero and form points founders to `faq.html` (Read the FAQ pill + hero jump). `design.md` not edited. |
 | 2026-10-01 | **Footer — full tree recovery.** All nine published pages: Company adds **Open roles** (Workday, new tab); Explore adds **FAQ**. Connect and Legal unchanged. |
+| 2026-10-01 | **Headlines → intent, all pages.** Every content `h1/h2/h3` on the homepage and the 8 interior pages now reads as a short **`Intent:`** statement (heading tags kept), with a dashed `.anno` note beneath carrying detail, constraints, and audience. **Lens: investors primary, founders secondary** — a lens only; no IA/order change. Literal/example headline copy is retired from the wireframes; final copy lives in `content-slots.md`. The homepage's two **locked** lines are quoted inside their notes (Axis A H1, Axis B H2). First pass put the full intent into the headings; the client called it **"too much headline text,"** so headings were shortened and the detail moved to the notes. KB §25.5. |
+| 2026-10-01 | **Vertical Software — sticky sidebar, inline swap, modal removed.** The 4-up name-tile grid becomes a true **sticky sidebar** (left column, list of all 11) that swaps the story **inline** in the content column. The centered story window/modal (`v-modal`, backdrop, arrows, Prev/Next bar) is **removed entirely**; hash deep links (`#retail`) and Menu links still select. Panel titles are now intent lines; the software-first story, icon collage, and four fact chips stay. |
+| 2026-10-01 | **Embedded Offerings — filmstrip → same sticky sidebar.** **Overrides the same-day 2026-10-01 filmstrip decision** at the client's request. Four offerings (Payments · Lending · Insurance · AI at Fullsteam) in a **sticky sidebar** that swaps content **inline** on a white background; **no modal**. The offering tabs are removed (the sidebar is the list). Hash deep links and Menu links select. **Flag for client ratification** — it reverses a client-approved layout from earlier the same day. |
 
 ---
 
@@ -427,8 +432,8 @@ Same chrome on every page: Logo · Menu · Explore vertical solutions. The Menu 
 |------|-----------|
 | **For Founders** | Why Fullsteam → how it works (4 steps) → what we look for → talk to us. Hero lede states the new line (systems of record + AI/payments/operational excellence; software first). "What we look for" leads with the industry and frames the software as a system of record, AI/payments added after. Never frames the sale as an exit. |
 | **FAQ** | **Eight** founder questions (was six). Adds **"What does Fullsteam actually buy?"** (system-of-record software; software ~¾) and **"Does AI replace my team?"** (no — use cases first, never headcount). Answers record the constraints (software before payments, brands stay, no announcement at close). |
-| **Vertical Software** | Contained hero with a software-first lede ("the system of record for each; AI and payments added after the close"). Eleven taller name tiles; a tile opens that vertical's story in a window — title, story paragraphs, an icon collage, and **four fact chips** now including **"What we add" (AI and payments)**. Arrows move through all 11. No category labels, no child pages, no search field. |
-| **Embedded Offerings** | **Horizontal filmstrip on a white background** (2026-10-01) — mirrors the homepage's "03 — The verticals" section: a row of cards with one featured, clicked to open. The cards carry the offering stories that used to live in a modal. Hero re-framed **software-first / AI-forward** ("Software comes first. Then we build in the things that grow it — AI, payments, lending, insurance"). **Four tabs under the lede** name each offering; they select the matching card. Four cards (Payments, Lending, Insurance, AI at Fullsteam); the featured card shows title + prose + fact chips. Payments is framed as **"invisible, embedded"**; **AI is use cases first, never a headcount story**. Hash (`#payments`…) opens a card. Hardware folds into Payments; integrations live here. |
+| **Vertical Software** | Hero states the intent (software-first; AI and payments added after the close). A **sticky sidebar** lists all 11 verticals and swaps the story **inline** — no modal, no tiles, no arrows. Each panel: title, story paragraphs, an icon collage, and **four fact chips** including **"What we add" (AI and payments)**. No category labels, no child pages, no search field. Hash deep links (`#retail`) select. |
+| **Embedded Offerings** | **Sticky sidebar that swaps content inline** on a white background (2026-10-01; replaces the filmstrip). Hero states the intent: software first, then the offerings built into it — **AI, payments, lending, insurance**. The sidebar lists four offerings (Payments, Lending, Insurance, AI at Fullsteam); selecting one swaps the panel inline — **no modal, no tabs**. Payments is framed as **"invisible, embedded"**; **AI is use cases first, never a headcount story**. Hash (`#payments`…) selects. Hardware folds into Payments; integrations live here. |
 | **Our Story** | Hero lede states the new line. **KPI strip now carries placeholder figures** — 100+ businesses · 2,000+ people · 70,000+ customers · $75B+ on Fullsteam Pay* (all `[placeholder]`, no revenue/run-rate/profitability). Adds a **marquee-backers** line (Aquiline · Sixth Street · ADIA) as a trust signal pending publishability, and a **real-imagery** note. Chapter cards unchanged (`Year [placeholder]`, no invented timeline). Localyzer-style close: one oversized "A home for your business" line, lede, Explore + Contact. No in-page open-role rows (Careers page only). Links to Leadership and Embedded Offerings. |
 | **Leadership** | Six placeholder leader cards. Leaders only. **Real portraits, not stock.** |
 | **Careers** | Hero carries **2,000+ people across 11 verticals**. How it feels → who thrives → **open roles CTA** (yellow pill to Workday; no in-page job table). **Real employee imagery, not stock.** AI is never a replacing-the-team story. |

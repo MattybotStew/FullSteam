@@ -2122,3 +2122,43 @@ industry, we own the software it runs on.'"*). Untouched: section **beat markers
 kickers, structural labels (Acquire/Grow/Lead, vertical names, stats), CTAs, and nav. Locked opening
 and A→B order still intact.
 
+---
+
+## 26. Interior pages — intent-first headlines + sticky-sidebar pattern (2026-10-01)
+
+**Client direction (2026-10-01):** "all pages handled like the homepage from a headline and intent
+focus," and "convert verticals & Offerings as a sticky sidebar that swaps content." Decisions taken:
+all 8 interior pages, sticky sidebar for both, **inline swap only — no modal**.
+
+### 26.1 Headlines → intent (all pages)
+
+Every content `h1/h2/h3` on the homepage **and** the 8 interior pages now reads as a short
+**`Intent:`** statement (heading tags kept), with a dashed `.anno` note carrying the detail,
+constraints, and audience. **Primary lens: investors, founders secondary** — a **lens only**; no IA,
+order, or nav change. Literal/example headline copy is retired from the wireframes; final copy lives
+in `content-slots.md`. On the homepage the two **locked** lines are quoted inside their notes (Axis A
+H1, Axis B H2). Sequence: the first pass put the full intent in the headings; the client called it
+**"too much headline text,"** so headings were shortened and the detail moved to the notes.
+
+### 26.2 Vertical Software — sticky sidebar, inline, modal removed
+
+The 4-up name-tile grid becomes a true **sticky sidebar** (left column, list of all 11) that swaps
+the story **inline**. The centered story window/modal (`v-modal`, backdrop, arrows, Prev/Next bar) is
+**removed entirely**. Hash deep links (`#retail`) and Menu links still select. Panel titles are intent
+lines; the software-first story, icon collage, and four fact chips stay.
+
+### 26.3 Embedded Offerings — filmstrip replaced by the same sticky sidebar
+
+**⚠ Overrides a client-approved decision.** Earlier the same day (2026-10-01) the site was rebuilt as
+a **horizontal filmstrip** (KB §24.6; `wireframes.md` 2026-10-01). At the client's request it is now
+a **sticky sidebar** (Payments · Lending · Insurance · AI at Fullsteam) that swaps content **inline**
+on white; **no modal**, tabs removed. This reverses the filmstrip layout — **flag for client
+ratification.** The four offerings, no-child-pages, and AI-as-card facts are unchanged.
+
+### 26.4 Files & verification
+
+Changed: `02_Wireframes/active/homepage.html`, all 8 `02_Wireframes/active/pages/*.html`,
+`content-slots.md`, `wireframes.md`, and `AGENTS.md` (this section). Verified in a browser:
+vertical/offering sidebar selection swaps the panel inline and updates the hash (`#retail`,
+`#insurance`), no `v-modal` remains, and no console errors. `design.md` not edited.
+

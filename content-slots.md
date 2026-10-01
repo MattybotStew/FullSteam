@@ -16,6 +16,14 @@ structure is locked — see `AGENTS.md` and `plans/sitemap-lock.md`).
 | **Locked** | Decided copy — change only via a recorded decision (KB / `design.md`). |
 | **Draft** | Real heading written during the wireframe pass; open to edit, pending sign-off. |
 | **Placeholder** | Lorem / `[placeholder]` / blank — must be written. |
+| **Intent** | The wireframe shows the section's *intention* (a short `Intent:` heading + a `.anno` detail note), not final copy. The real wording is written here. |
+
+> **2026-10-01 — intent-first (all pages).** Every content headline on the homepage and the 8
+> interior pages now reads as a short `Intent:` statement (heading tags kept), with a dashed
+> `.anno` note carrying detail, constraints, and audience. **Primary lens: investors**, founders
+> secondary — a lens only, no IA change. This is why many rows below show **Intent** rather than
+> a written heading: the wireframe no longer carries final copy. The two locked homepage lines
+> (Axis A H1, Axis B H2) are quoted inside their notes. See `wireframes.md` §8 changelog and KB §25.5.
 
 ---
 
@@ -141,26 +149,25 @@ One page, 11 verticals, no child pages.
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
-| H1 "The software these verticals already run." | Framing | Draft | |
-| Lede "Eleven verticals. One page." | Support | Draft | 11 is the settled count; **system of record per vertical**, + AI/payments (2026-10-01) |
+| H1 (page intent) | Framing | **Intent** | Investor-primary lens |
+| Lede / hero note | Support | **Intent** | 11 is the settled count; **system of record per vertical**, + AI/payments (2026-10-01) |
 | "Read the story" control | Jump to active story | Locked | |
-| 11 tiles (labels) | The list | Locked | Exact 11 names; **no category labels** |
-| Per-vertical story (title + body + fact chips) | Detail | Placeholder | Genericize; no named case studies until confirmed. Chips now include **"What we add" (AI + payments)** |
+| Sidebar list (labels) | The list | Locked | Exact 11 names; **no category labels**. Sticky sidebar, inline swap (2026-10-01; was tiles/modal) |
+| Per-vertical story (title + body + fact chips) | Detail | **Intent** | Headline is an intent line; body is placeholder. Genericize; no named case studies until confirmed. Chips include **"What we add" (AI + payments)** |
 
 ---
 
 ## 6. Embedded Offerings — `pages/embedded-offerings.html`
 
-One page: Payments · Lending · Insurance · AI at Fullsteam. **Presented as a horizontal
-filmstrip on a white background (2026-10-01)** — one card featured; click a card to open its story
-(mirrors the homepage "03 — The verticals" section).
+One page: Payments · Lending · Insurance · AI at Fullsteam. **Presented as a sticky sidebar that
+swaps content inline on a white background (2026-10-01; replaces the filmstrip)** — no modal, no tabs.
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
-| H1 "Keep the software. Grow how it makes money." | Framing | Draft | 2026-10-01 |
-| Lede (software first, then AI/payments/lending/insurance; integrations live here) | Support | Draft | **AI-forward; payments framed as invisible/embedded** |
-| 4 filmstrip cards (labels) | The list | Locked | Hardware folds into Payments. Ordered Payments→AI; **promote AI to the first card** optional |
-| Featured-card story (title + prose + **3 fact chips**) | Detail | Placeholder | No rates/terms (Lending/Insurance); **AI = use cases, never headcount**. Hash (`#payments`…) opens a card |
+| H1 (page intent) | Framing | **Intent** | 2026-10-01 |
+| Hero note (software first, then AI/payments/lending/insurance; integrations live here) | Support | **Intent** | **AI-forward; payments framed as invisible/embedded** |
+| Sidebar list (labels) | The list | Locked | Hardware folds into Payments. Ordered Payments→AI |
+| Panel (title + prose + fact chips) | Detail | **Intent** | Title is an intent line; body placeholder. No rates/terms (Lending/Insurance); **AI = use cases, never headcount**. Hash (`#payments`…) selects |
 
 ---
 

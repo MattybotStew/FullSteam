@@ -142,18 +142,22 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - Primary CTA target: **"Explore our vertical solutions."**
 - **Portfolio axis = "Vertical Software"** (renamed from "Solutions", 2026-09-10);
   the CTA stays **"Explore our vertical solutions."**
-- **Vertical Software is a single page** (revised 2026-09-15): a **sticky sidebar**
-  lists all 11 verticals and swaps a **tabbed panel**; **no child pages**, no
-  category labels. The Menu overlay lists the same 11 flat (two columns). Homepage
-  shows a revenue-ordered subset only. **find-your-vertical** type-ahead filters the
+- **Vertical Software is a single page** (revised 2026-09-15 · sidebar inline 2026-10-01): a
+  **sticky sidebar** lists all 11 verticals and **swaps the story inline** (no modal, no tiles);
+  **no child pages**, no category labels. The Menu overlay lists the same 11 flat (two columns).
+  Homepage shows a revenue-ordered subset only. **find-your-vertical** type-ahead filters the
   sidebar (not header search).
 - **Embedded Offerings is a single page** (clarified 2026-09-28 · layout changed 2026-10-01):
   all four offerings (**Payments, Lending, Insurance, AI at Fullsteam**) sit on one page as a
-  **horizontal filmstrip** — one card featured, click a card to open its story — mirroring the
-  homepage's "03 — The verticals" section, on a **white background** (was a tile grid + story
-  window). **No child pages** — **AI is a card, not its own page** (supersedes the 2026-09-10 "AI
-  is its own page"). **Hardware and Integrations are not separate pages** (folded into Payments /
-  the Embedded Offerings overview), 2026-09-10.
+  **sticky sidebar that swaps content inline** on a **white background** — the same pattern as
+  Vertical Software (this **replaced** the earlier 2026-10-01 horizontal filmstrip; **flag for
+  client ratification**). **No child pages** — **AI is a card/panel, not its own page** (supersedes
+  the 2026-09-10 "AI is its own page"). **Hardware and Integrations are not separate pages** (folded
+  into Payments / the Embedded Offerings overview), 2026-09-10.
+- **Wireframe headlines are intent, not copy (2026-10-01):** every content `h1/h2/h3` across the
+  homepage and the 8 interior pages reads as a short **`Intent:`** statement, with a dashed `.anno`
+  note carrying detail/constraints; final copy lives in `content-slots.md`. **Primary lens:
+  investors**, founders secondary (a lens only — no IA change). See KB §25.5 / §26.
 - **Leadership** (`/our-story/leadership`) is a page under Our Story (2026-09-14). **Newsroom is not in the sitemap** (removed 2026-09-23).
 - CMS is Duda and is likely retained.
 

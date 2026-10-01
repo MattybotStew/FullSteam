@@ -59,7 +59,6 @@
   .site-overlay a:hover{ text-decoration:underline; }
   .site-overlay a[aria-current="page"]{ font-weight:700; border-bottom:1px solid var(--ink); }
   .solutions-split{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
-  .ov-finder{ font-size:12px; margin-top:10px; font-family:var(--mono); }
   .beat{
     font-family:var(--mono); font-size:11px; letter-spacing:.14em;
     text-transform:uppercase; margin-bottom:14px;
@@ -95,91 +94,29 @@
   .steps p{ font-size:15px; max-width:52ch; }
 
   /* ============================================================
-     Embedded Offerings as a horizontal filmstrip — mirrors the homepage's
-     "03 — The verticals / Keep the businesses growing" section (.grow/.film):
-     a row of cards, one featured, clicked to open. The one change is the
-     background: white here, not the homepage's ink. Click a card to open its
-     story (the content that used to live in the modal).
+     Embedded Offerings = a sticky sidebar that swaps content, the same
+     pattern as Vertical Software (2026-10-01, replaces the filmstrip).
+     The sidebar lists all four offerings; selecting one swaps the panel
+     inline. No modal. Not child pages; deep link is the hash.
      ============================================================ */
-  .strip{ padding:56px 0 72px; background:#fff; }
-  .strip-head{ max-width:1280px; margin:0 auto 28px; padding:0 24px; }
-  .strip-head h1{
-    font-size:clamp(36px, 5vw, 56px); font-weight:700; letter-spacing:-.03em;
-    line-height:1.05; max-width:18ch; margin-bottom:12px;
+  .oe-layout{ display:grid; grid-template-columns:260px minmax(0,1fr); gap:40px; align-items:start; }
+  .oe-side{ position:sticky; top:84px; }
+  .oe-side .oe-side-list{ display:block; }
+  .oe-side button{
+    display:block; width:100%; text-align:left; background:none; border:0;
+    border-bottom:1px solid var(--ink); padding:12px 0;
+    font:inherit; font-size:15px; font-weight:700;
   }
-  .strip-head .lede{ margin-top:0; max-width:62ch; }
-  .offering-tabs{
-    display:flex; flex-wrap:wrap; gap:8px;
-    margin-top:22px;
-  }
-  .offering-tabs button{
-    background:#fff; border:1px solid var(--ink);
-    padding:10px 16px; font-size:14px; font-weight:600;
-  }
-  .offering-tabs button[aria-selected="true"]{
-    background:var(--yellow); font-weight:700;
-  }
-  .offering-tabs button:focus-visible{
-    outline:2px solid var(--yellow); outline-offset:2px;
-  }
-  .film{
-    display:flex; gap:10px;
-    height:min(62vh, 560px);
-    max-width:1280px; margin:0 auto;
-    padding:0 24px 4px;
-    overflow-x:auto;
-    overscroll-behavior-x:contain;
-    -webkit-overflow-scrolling:touch;
-    scroll-snap-type:x proximity;
-    scrollbar-width:thin;
-  }
-  .film-card{
-    position:relative;
-    flex:0 0 clamp(220px, 26vw, 340px);
-    overflow:hidden;
-    border:0; padding:0;
-    background:var(--ph);
-    color:#fff;
-    text-align:left;
-    cursor:pointer;
-    font:inherit;
-    transition:flex-basis .4s ease;
-    scroll-snap-align:start;
-    scroll-margin-top:84px;
-  }
-  .film-card.is-feature{ flex-basis:clamp(300px, 46vw, 700px); }
-  .film-card:focus-visible{ outline:2px solid var(--yellow); outline-offset:3px; }
-  .film-card .img-ph{ height:100%; min-height:0; }
-  .film-card .img-ph::after{ width:40px; height:40px; }
-  .film-name{
-    position:absolute; left:16px; bottom:16px; z-index:2;
-    font-size:clamp(18px, 2.2vw, 28px); font-weight:700;
-    letter-spacing:-.02em; color:#fff;
-    text-shadow:0 1px 8px rgba(0,0,0,.45);
-  }
-  .film-card.is-feature .film-name{ display:none; }
-  .film-panel{
-    display:none;
-    position:absolute; inset:auto 0 0 0; z-index:2;
-    padding:32px 30px 26px;
-    background:linear-gradient(transparent, rgba(0,0,0,.72));
-    color:#fff;
-  }
-  .film-card.is-feature .film-panel{ display:block; }
-  .film-kicker{
-    display:block;
-    font-size:clamp(26px, 3.2vw, 42px); font-weight:700;
-    letter-spacing:-.03em; margin-bottom:10px;
-  }
-  .film-prose{
-    display:block; font-size:16px; line-height:1.45; max-width:48ch; margin-bottom:16px;
-  }
-  .film-facts{ display:flex; flex-wrap:wrap; gap:12px 24px; }
-  .film-facts .fact{ font-size:13px; line-height:1.35; max-width:24ch; }
-  .film-facts b{
-    display:block; font-family:var(--mono); font-size:10px; letter-spacing:.1em;
-    text-transform:uppercase; opacity:.75; margin-bottom:3px;
-  }
+  .oe-side button[aria-selected="true"]{ background:var(--yellow); padding-left:10px; }
+  .oe-side button:focus-visible{ outline:2px solid var(--yellow); outline-offset:2px; }
+  .oe-content{ min-width:0; }
+  .panel{ display:none; }
+  .panel.is-active{ display:block; animation:oe-fade .32s ease; }
+  .panel h2{ max-width:none; scroll-margin-top:84px; }
+  .panel .prose{ max-width:62ch; }
+  @keyframes oe-fade{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce){ .panel.is-active{ animation:none; } }
+
   .facts{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:22px; }
   .facts div{ border:1px solid var(--ink); padding:12px; background:#fff; }
   .facts span{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
@@ -213,17 +150,16 @@
     .ov-inner{ grid-template-columns:1fr 1fr; }
     .solutions-split, .split{ grid-template-columns:1fr; }
     .facts, .cards{ grid-template-columns:1fr; }
-    .page-hero h1, .block h2, .strip-head h1{ max-width:100%; }
+    .page-hero h1, .block h2{ max-width:100%; }
     .nav{ padding:10px 16px; gap:10px; }
     .nav-right{ min-width:0; flex:1; justify-content:flex-end; }
     .menu-btn{ flex-shrink:0; }
     .pill{ padding:8px 10px; font-size:12px; white-space:nowrap; }
-    .film{ height:min(64vh, 520px); }
-    .film-card{ flex-basis:74vw; }
-    .film-card.is-feature{ flex-basis:86vw; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .film-card{ transition:none; }
+    .oe-layout{ grid-template-columns:1fr; gap:24px; }
+    .oe-side{ position:static; }
+    .oe-side .oe-side-list{ display:flex; flex-wrap:wrap; gap:8px; }
+    .oe-side button{ width:auto; border:1px solid var(--ink); padding:8px 14px; font-size:14px; }
+    .oe-side button[aria-selected="true"]{ padding-left:14px; }
   }
 
 </style>
@@ -279,75 +215,75 @@
   </header>
 
 
-  <main>
-    <section class="strip">
-      <div class="strip-head">
+  <main data-offerings>
+    <section class="page-hero">
+      <div class="wrap">
         <p class="beat">Embedded Offerings</p>
-        <h1>Keep the software. Grow how it makes money.</h1>
-        <p class="lede">Software comes first. Then we build in the things that grow it — <b>AI</b>, payments, lending, and insurance — inside the software each business already runs. Integrations live here, not on their own.</p>
-        <div class="offering-tabs" role="tablist" aria-label="Offerings on this page">
-          <button type="button" role="tab" id="tab-payments" aria-selected="true" aria-controls="payments" data-offering="payments">Payments</button>
-          <button type="button" role="tab" id="tab-lending" aria-selected="false" aria-controls="lending" data-offering="lending">Lending</button>
-          <button type="button" role="tab" id="tab-insurance" aria-selected="false" aria-controls="insurance" data-offering="insurance">Insurance</button>
-          <button type="button" role="tab" id="tab-ai" aria-selected="false" aria-controls="ai" data-offering="ai">AI at Fullsteam</button>
+        <h1>Intent: show how Fullsteam grows the software it owns.</h1>
+        <p class="anno">Software first, then the offerings built into it — AI, payments, lending, insurance — inside the product each business already runs. Hardware folds into Payments; integrations live here, not on their own. Primary lens: investors; founders secondary. Not child pages; deep link is the hash (e.g. <code>#payments</code>).</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap">
+        <div class="oe-layout">
+          <nav class="oe-side" aria-label="Embedded Offerings">
+            <p class="beat">Offerings</p>
+            <div class="oe-side-list" role="tablist" aria-label="Offerings">
+              <button type="button" role="tab" id="tab-payments" aria-selected="true" aria-controls="payments" data-offering="payments">Payments</button>
+              <button type="button" role="tab" id="tab-lending" aria-selected="false" aria-controls="lending" data-offering="lending">Lending</button>
+              <button type="button" role="tab" id="tab-insurance" aria-selected="false" aria-controls="insurance" data-offering="insurance">Insurance</button>
+              <button type="button" role="tab" id="tab-ai" aria-selected="false" aria-controls="ai" data-offering="ai">AI at Fullsteam</button>
+            </div>
+            <p class="anno" style="margin-top:20px">Intent: the sidebar is the list; selecting one swaps the story inline. No modal. Each offering is an overview, not a product sheet.</p>
+          </nav>
+
+          <div class="oe-content" id="oeContent">
+            <article class="panel is-active" data-panel="payments" id="payments" role="tabpanel" aria-labelledby="tab-payments">
+              <h2>Intent: present payments as invisible, embedded infrastructure.</h2>
+              <div class="prose"><p>Payments should feel invisible — the value is how deeply they are embedded in the software each business already runs. One team owns it when something breaks.</p></div>
+              <div class="facts">
+                <div><span>In the software</span>Inside the product they already use. Placeholder.</div>
+                <div><span>Hardware</span>POS and devices live in this story. Placeholder.</div>
+                <div><span>One team</span>When it breaks, one team owns it. Placeholder.</div>
+                <div><span>Why it wins</span>"Invisible, embedded" — not a payments revenue story. Placeholder.</div>
+              </div>
+            </article>
+
+            <article class="panel" data-panel="lending" id="lending" role="tabpanel" aria-labelledby="tab-lending">
+              <h2>Intent: present lending as an embedded offering, not a product sheet.</h2>
+              <div class="prose"><p>Capital that sits inside the software — an offering, not a product sheet. No rates, terms, or eligibility rules in this wireframe.</p></div>
+              <div class="facts">
+                <div><span>Capital</span>Borrow against future transactions. Placeholder.</div>
+                <div><span>Pays back</span>Structural label only. Detail unpublished.</div>
+                <div><span>Who it is for</span>The software businesses already here.</div>
+                <div><span>Constraint</span>No rates, terms, or eligibility claims.</div>
+              </div>
+            </article>
+
+            <article class="panel" data-panel="insurance" id="insurance" role="tabpanel" aria-labelledby="tab-insurance">
+              <h2>Intent: show insurance embedded in the software.</h2>
+              <div class="prose"><p>Coverage that sits inside the software the business already runs, not in a separate storefront.</p></div>
+              <div class="facts">
+                <div><span>What it covers</span>Coverage detail unpublished. Placeholder.</div>
+                <div><span>How it sits</span>Embedded, not a separate storefront.</div>
+                <div><span>Proof</span>Generic until the client confirms a story.</div>
+                <div><span>Audience</span>Both lenses — capability, not a product pitch.</div>
+              </div>
+            </article>
+
+            <article class="panel" data-panel="ai" id="ai" role="tabpanel" aria-labelledby="tab-ai">
+              <h2>Intent: show AI use cases, grounded in vertical data — never headcount.</h2>
+              <div class="prose"><p>Use cases first. Proprietary vertical data is the differentiator: the AI starts from the system of record, not a generic model.</p></div>
+              <div class="facts">
+                <div><span>Use case</span>Repetitive work gets faster; consistency and response time improve.</div>
+                <div><span>Why here</span>The data already lives in the vertical software.</div>
+                <div><span>Not this</span>Never a story about reducing staff.</div>
+                <div><span>Lens</span>Investors: AI strengthens the software side.</div>
+              </div>
+            </article>
+          </div>
         </div>
-      </div>
-      <div class="film" id="film" aria-label="Embedded Offerings">
-        <article class="film-card is-feature" role="button" tabindex="0" aria-pressed="true" data-name="Payments" id="payments">
-          <span class="img-ph" aria-hidden="true"></span>
-          <span class="film-name">Payments</span>
-          <span class="film-panel">
-            <span class="film-kicker">Payments</span>
-            <span class="film-prose">Payments should feel invisible — the value is how deeply they are embedded in the software.</span>
-            <span class="film-facts">
-              <span class="fact"><b>In the software</b>Inside the product they already use.</span>
-              <span class="fact"><b>Hardware</b>POS and devices live in this story.</span>
-              <span class="fact"><b>One team</b>When it breaks, one team owns it.</span>
-            </span>
-          </span>
-        </article>
-        <article class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Lending" id="lending">
-          <span class="img-ph" aria-hidden="true"></span>
-          <span class="film-name">Lending</span>
-          <span class="film-panel">
-            <span class="film-kicker">Lending</span>
-            <span class="film-prose">An offering, not a product sheet. No rates, terms, or eligibility rules in this wireframe.</span>
-            <span class="film-facts">
-              <span class="fact"><b>Capital</b>Borrow against future transactions.</span>
-              <span class="fact"><b>Pays back</b>Structural label only. Detail unpublished.</span>
-              <span class="fact"><b>Who it is for</b>The software businesses already here.</span>
-            </span>
-          </span>
-        </article>
-        <article class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Insurance" id="insurance">
-          <span class="img-ph" aria-hidden="true"></span>
-          <span class="film-name">Insurance</span>
-          <span class="film-panel">
-            <span class="film-kicker">Insurance</span>
-            <span class="film-prose">Coverage that sits inside the software the business already runs, not in a separate storefront.</span>
-            <span class="film-facts">
-              <span class="fact"><b>What it covers</b>Coverage detail unpublished.</span>
-              <span class="fact"><b>How it sits</b>Embedded, not a separate storefront.</span>
-              <span class="fact"><b>Proof</b>Generic until the client confirms a story.</span>
-            </span>
-          </span>
-        </article>
-        <article class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="AI at Fullsteam" id="ai">
-          <span class="img-ph" aria-hidden="true"></span>
-          <span class="film-name">AI at Fullsteam</span>
-          <span class="film-panel">
-            <span class="film-kicker">AI at Fullsteam</span>
-            <span class="film-prose">Use cases first. Proprietary vertical data is the differentiator.</span>
-            <span class="film-facts">
-              <span class="fact"><b>Use case</b>Repetitive work gets faster; consistency and response time improve.</span>
-              <span class="fact"><b>Why here</b>The data already lives in the vertical software.</span>
-              <span class="fact"><b>Not this</b>Never a story about reducing staff.</span>
-            </span>
-          </span>
-        </article>
-      </div>
-      <div class="strip-head" style="margin-top:24px">
-        <p class="anno" style="margin-top:0">A horizontally scrolling strip — click a card to open its story, like the homepage verticals (03). Not child pages. Hardware folds into Payments. Integrations live in this overview. AI is use cases first, never a headcount story. Deep link is the hash, for example <code>#payments</code>. Direction (2026-10-01): lead with the software and AI; payments is "invisible, embedded" infrastructure.</p>
       </div>
     </section>
   </main>
@@ -396,67 +332,69 @@
 
 
   <script>
-    (function strip(){
-      /* Embedded Offerings behaves like the homepage's "03 — The verticals" film:
-         one card is featured, clicking another opens it. Here the cards carry the
-         offering stories that used to live in a modal. The row scrolls horizontally;
-         selecting also brings the card into view. The hash (#payments, #ai, …) opens
-         a card so the menu links keep working. */
-      const film = document.getElementById("film");
-      if (!film) return;
-      const cards = [...film.querySelectorAll(".film-card")];
-      const tabs = [...document.querySelectorAll(".offering-tabs [role=tab]")];
+    (function offerings(){
+      /* Sticky sidebar swaps the panel inline — the same pattern as Vertical
+         Software. No modal. The hash (#payments, #ai, …) selects a panel so the
+         menu links keep working. */
+      const root = document.querySelector("[data-offerings]");
+      if (!root) return;
+      const buttons = [...root.querySelectorAll("[data-offering]")];
+      const panels = [...root.querySelectorAll("[data-panel]")];
+      const content = document.getElementById("oeContent");
+      const isId = (id) => panels.some((p) => p.dataset.panel === id);
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const select = (card, scroll, updateHash) => {
-        cards.forEach((c) => {
-          const on = c === card;
-          c.classList.toggle("is-feature", on);
-          c.setAttribute("aria-pressed", on ? "true" : "false");
+
+      const show = (id) => {
+        const btn = buttons.find((b) => b.dataset.offering === id);
+        const panel = panels.find((p) => p.dataset.panel === id);
+        if (!btn || !panel) return;
+        buttons.forEach((b) => {
+          const on = b === btn;
+          b.setAttribute("aria-selected", on ? "true" : "false");
+          b.tabIndex = on ? 0 : -1;
         });
-        tabs.forEach((t) => {
-          const on = t.getAttribute("data-offering") === card.id;
-          t.setAttribute("aria-selected", on ? "true" : "false");
-          t.tabIndex = on ? 0 : -1;
-        });
-        if (updateHash && location.hash.replace("#", "") !== card.id) {
-          history.replaceState(null, "", "#" + card.id);
-        }
-        if (scroll) {
-          const fr = film.getBoundingClientRect();
-          const cr = card.getBoundingClientRect();
-          const left = film.scrollLeft + (cr.left - fr.left) - (fr.width - cr.width) / 2;
-          film.scrollTo({ left: Math.max(0, left), behavior: reduce.matches ? "auto" : "smooth" });
-        }
+        panels.forEach((p) => p.classList.remove("is-active"));
+        panel.classList.add("is-active");
       };
-      cards.forEach((card) => {
-        card.addEventListener("click", () => select(card, true, true));
-        card.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(card, true, true); }
+
+      const go = (id, push, scroll) => {
+        if (!isId(id)) return;
+        if (push && location.hash.slice(1) !== id) history.pushState({ offering: id }, "", "#" + id);
+        else if (!push && location.hash.slice(1) !== id) history.replaceState({ offering: id }, "", "#" + id);
+        show(id);
+        if (scroll) content.scrollIntoView({ behavior: reduce.matches ? "auto" : "smooth", block: "start" });
+      };
+
+      buttons.forEach((b) => b.addEventListener("click", () => go(b.dataset.offering, true, false)));
+      root.addEventListener("keydown", (e) => {
+        if (!e.target.matches("[data-offering]")) return;
+        const i = buttons.indexOf(e.target);
+        if (i < 0) return;
+        let n = null;
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") n = buttons[(i + 1) % buttons.length];
+        if (e.key === "ArrowUp" || e.key === "ArrowLeft") n = buttons[(i - 1 + buttons.length) % buttons.length];
+        if (e.key === "Home") n = buttons[0];
+        if (e.key === "End") n = buttons[buttons.length - 1];
+        if (!n) return;
+        e.preventDefault();
+        n.focus();
+      });
+      window.addEventListener("hashchange", () => {
+        const id = location.hash.slice(1);
+        if (isId(id)) go(id, false, true);
+      });
+      document.querySelectorAll("#siteOverlay a[href*='#']").forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const id = (a.hash || "").slice(1);
+          if (!isId(id)) return;
+          const target = new URL(a.href, location.href);
+          if (target.pathname !== location.pathname) return;
+          e.preventDefault();
+          go(id, true, true);
         });
       });
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          const card = cards.find((c) => c.id === tab.getAttribute("data-offering"));
-          if (card) select(card, true, true);
-        });
-        tab.addEventListener("keydown", (e) => {
-          const i = tabs.indexOf(tab);
-          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-            e.preventDefault();
-            tabs[(i + 1) % tabs.length].focus();
-          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-            e.preventDefault();
-            tabs[(i - 1 + tabs.length) % tabs.length].focus();
-          }
-        });
-      });
-      const fromHash = () => {
-        const id = location.hash.replace("#", "");
-        const card = cards.find((c) => c.id === id);
-        if (card) select(card, true, false);
-      };
-      window.addEventListener("hashchange", fromHash);
-      if (location.hash) fromHash();
+      const hash = location.hash.slice(1);
+      show(isId(hash) ? hash : buttons[0].dataset.offering);
     })();
   </script>
 

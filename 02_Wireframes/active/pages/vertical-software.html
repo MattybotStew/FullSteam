@@ -93,113 +93,23 @@
   .steps b{ font-family:var(--mono); font-size:12px; letter-spacing:.08em; }
   .steps h3{ font-size:18px; margin-bottom:4px; }
   .steps p{ font-size:15px; max-width:52ch; }
-  .tabs{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;
-    margin-bottom:36px;
-  }
-  .tabs button{
-    position:relative; display:flex; align-items:flex-end; min-height:148px;
-    text-align:left; overflow:hidden; isolation:isolate;
-    border:1px solid var(--ink); padding:16px 14px;
-    background:#4A4A4A var(--img-icon) center 36% / 48px no-repeat;
-    color:#fff; font-size:16px; font-weight:700; line-height:1.2;
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-  .tabs button::after{
-    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-    background:linear-gradient(180deg, transparent 28%, rgba(0,0,0,.78) 100%);
-    transition:background .18s ease;
-  }
-  .tabs button > span{ position:relative; z-index:1; }
-  .tabs button:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 24px rgba(0,0,0,.2);
-    border-color:#000;
-  }
-  .tabs button:hover::after{
-    background:linear-gradient(180deg, transparent 18%, rgba(0,0,0,.88) 100%);
-  }
-  .tabs button:focus-visible{
-    outline:2px solid var(--yellow); outline-offset:3px;
-  }
-  .tabs button[aria-selected="true"]{
-    background:var(--yellow); color:var(--ink);
-    box-shadow:0 10px 24px rgba(0,0,0,.16);
-  }
-  .tabs button[aria-selected="true"]::after{ display:none; }
-  .tabs button[aria-selected="true"]:hover{
-    background:#ffd133;
-  }
-  .v-modal{
-    position:fixed; inset:0; z-index:300;
-    display:grid; place-items:center;
-  }
-  .v-modal[hidden]{ display:none; }
-  .v-modal-backdrop{
-    position:absolute; inset:0; border:0; padding:0; cursor:pointer;
-    background:rgba(0,0,0,.46);
-    animation:v-fade .28s ease;
-  }
-  .v-modal-frame{
-    position:relative; z-index:1;
-    width:min(980px, calc(100vw - 148px));
-    max-height:min(86vh, 860px);
-    background:#fff; color:var(--ink);
-    display:flex; flex-direction:column;
-    box-shadow:0 28px 80px rgba(0,0,0,.22);
-    animation:v-rise .46s cubic-bezier(.16,.84,.24,1);
-  }
-  .v-modal-top{
-    display:flex; align-items:center; justify-content:space-between;
-    gap:16px; padding:16px 24px; border-bottom:1px solid var(--line);
-  }
-  .v-modal-count{
-    font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
-  }
-  .v-modal-close{
-    background:none; border:0; font:inherit; font-size:14px; font-weight:700; padding:8px 0;
-  }
-  .v-modal-arrow{
-    position:absolute; top:50%; transform:translateY(-50%);
-    display:flex; align-items:center; justify-content:center;
-    width:52px; height:52px;
-    border:1px solid var(--ink); border-radius:50%; background:#fff; z-index:2;
-  }
-  .v-modal-arrow::before{
-    content:""; display:block; width:10px; height:10px;
-    border-top:2px solid var(--ink); border-right:2px solid var(--ink);
-  }
-  .v-modal-prev{ left:-70px; }
-  .v-modal-prev::before{ transform:rotate(-135deg); }
-  .v-modal-next{ right:-70px; }
-  .v-modal-next::before{ transform:rotate(45deg); }
-  .v-modal-stage{ overflow:auto; padding:28px 36px 32px; flex:1; min-height:0; }
-  .v-modal-bar{
-    display:none; align-items:center; gap:10px;
-    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-    border-top:1px solid var(--line); background:#fff;
-  }
-  .v-modal-bar button{
-    flex:1; min-height:52px; border:1px solid var(--ink); background:#fff;
+  /* ============================================================
+     Vertical Software = a sticky sidebar that swaps content (2026-10-01).
+     The sidebar lists all eleven verticals; selecting one swaps the panel
+     inline. No modal. Not child pages; deep link is the hash.
+     ============================================================ */
+  .v-layout{ display:grid; grid-template-columns:260px minmax(0,1fr); gap:40px; align-items:start; }
+  .v-side{ position:sticky; top:84px; }
+  .v-side .v-side-list{ display:block; }
+  .v-side button{
+    display:block; width:100%; text-align:left; background:none; border:0;
+    border-bottom:1px solid var(--ink); padding:12px 0;
     font:inherit; font-size:15px; font-weight:700;
   }
-  .v-modal-bar button[data-step="1"]{ background:var(--yellow); }
-  .v-modal-bar .v-modal-count{ flex:0 0 auto; text-align:center; }
-  @keyframes v-fade{ from{ opacity:0; } to{ opacity:1; } }
-  @keyframes v-rise{
-    from{ opacity:0; transform:translateY(18px) scale(.98); }
-    to{ opacity:1; transform:none; }
-  }
-  @keyframes v-slide{
-    from{ opacity:0; transform:translateX(32px); }
-    to{ opacity:1; transform:none; }
-  }
-  @keyframes v-slide-back{
-    from{ opacity:0; transform:translateX(-32px); }
-    to{ opacity:1; transform:none; }
-  }
+  .v-side button[aria-selected="true"]{ background:var(--yellow); padding-left:10px; }
+  .v-side button:focus-visible{ outline:2px solid var(--yellow); outline-offset:2px; }
+  .v-content{ min-width:0; }
   .panel{ display:none; }
-  .v-modal.is-back .panel.is-active{ animation-name:v-slide-back; }
   .panel.is-active{
     display:grid;
     grid-template-columns:minmax(0,1fr) 300px;
@@ -207,6 +117,10 @@
     align-items:start;
     min-width:0;
     animation:v-slide .4s cubic-bezier(.16,.84,.24,1);
+  }
+  @keyframes v-slide{
+    from{ opacity:0; transform:translateX(32px); }
+    to{ opacity:1; transform:none; }
   }
   .panel h2{ grid-column:1; max-width:none; margin-bottom:14px; scroll-margin-top:84px; }
   .panel .prose{ grid-column:1; min-width:0; }
@@ -311,7 +225,11 @@
     .ov-inner{ grid-template-columns:1fr 1fr; }
     .solutions-split, .split{ grid-template-columns:1fr; }
     .facts, .cards{ grid-template-columns:1fr; }
-    .tabs{ grid-template-columns:1fr 1fr; }
+    .v-layout{ grid-template-columns:1fr; gap:24px; }
+    .v-side{ position:static; }
+    .v-side .v-side-list{ display:flex; flex-wrap:wrap; gap:8px; }
+    .v-side button{ width:auto; border:1px solid var(--ink); padding:8px 14px; font-size:14px; }
+    .v-side button[aria-selected="true"]{ padding-left:14px; }
     .panel.is-active{ grid-template-columns:1fr; }
     .v-mosaic{ grid-column:1; grid-row:auto; width:100%; max-width:300px; margin-top:8px; }
     .v-hero h1, .page-hero h1, .block h2{ max-width:100%; }
@@ -319,30 +237,9 @@
     .nav-right{ min-width:0; flex:1; justify-content:flex-end; }
     .menu-btn{ flex-shrink:0; }
     .pill{ padding:8px 10px; font-size:12px; white-space:nowrap; }
-    .tabs button{ min-height:112px; font-size:15px; }
-    .v-modal{ place-items:stretch; height:100dvh; overflow:hidden; }
-    .v-modal-frame{
-      width:100%; height:100dvh; max-height:100dvh;
-      animation-name:v-sheet;
-    }
-    .v-modal-arrow{ display:none; }
-    .v-modal-stage{ padding:20px 16px 24px; }
-    .v-modal-bar{ display:flex; }
-    .v-modal-top .v-modal-count{ display:none; }
-  }
-  /* Narrow phones: the 2-up tab grid leaves ~101px of content width at 320px,
-     and "Transportation" is a single unbreakable word that overflowed its
-     button by 3px and got clipped by overflow:hidden. Tighten the well. */
-  @media (max-width:380px){
-    .tabs button{ padding:16px 12px; font-size:14px; }
-  }
-  @keyframes v-sheet{
-    from{ opacity:0; transform:translateY(100%); }
-    to{ opacity:1; transform:none; }
   }
   @media (prefers-reduced-motion: reduce){
-    .v-modal-backdrop, .v-modal-frame, .panel.is-active,
-    .v-modal.is-back .panel.is-active{ animation:none; }
+    .panel.is-active{ animation:none; }
   }
 
 </style>
@@ -402,29 +299,35 @@
 <section class="v-hero">
   <div class="wrap">
     <div class="v-hero-card">
-      <h1>The software these verticals already run.</h1>
-      <p class="lede">Eleven verticals. One page. Each is a system of record for its industry — with AI and payments we add after the close.</p>
+      <h1>Intent: show what Fullsteam owns across its verticals.</h1>
+      <p class="anno">Eleven verticals, one page. Each is a system of record for its industry — with AI and payments added after the close. Primary lens: investors; founders secondary. Not child pages; deep link is the hash (e.g. #retail).</p>
       <button type="button" class="pill pill-lg" id="toHeadline">Read the story</button>
     </div>
   </div>
 </section>
 <section class="block">
       <div class="wrap">
-          <div class="tabs" role="tablist" aria-label="Verticals"><button type="button" role="tab" data-tab="hospitality" id="tab-hospitality" aria-selected="false" aria-controls="panel-hospitality" tabindex="0"><span>Hospitality</span></button><button type="button" role="tab" data-tab="weddings-events" id="tab-weddings-events" aria-selected="false" aria-controls="panel-weddings-events" tabindex="-1"><span>Weddings & Events</span></button><button type="button" role="tab" data-tab="wine" id="tab-wine" aria-selected="false" aria-controls="panel-wine" tabindex="-1"><span>Wine</span></button><button type="button" role="tab" data-tab="retail" id="tab-retail" aria-selected="false" aria-controls="panel-retail" tabindex="-1"><span>Retail</span></button><button type="button" role="tab" data-tab="storage-marina" id="tab-storage-marina" aria-selected="false" aria-controls="panel-storage-marina" tabindex="-1"><span>Storage & Marina</span></button><button type="button" role="tab" data-tab="health-wellness" id="tab-health-wellness" aria-selected="false" aria-controls="panel-health-wellness" tabindex="-1"><span>Health & Wellness</span></button><button type="button" role="tab" data-tab="field-services" id="tab-field-services" aria-selected="false" aria-controls="panel-field-services" tabindex="-1"><span>Field Services</span></button><button type="button" role="tab" data-tab="transportation" id="tab-transportation" aria-selected="false" aria-controls="panel-transportation" tabindex="-1"><span>Transportation</span></button><button type="button" role="tab" data-tab="automotive" id="tab-automotive" aria-selected="false" aria-controls="panel-automotive" tabindex="-1"><span>Automotive</span></button><button type="button" role="tab" data-tab="association-management" id="tab-association-management" aria-selected="false" aria-controls="panel-association-management" tabindex="-1"><span>Association Management</span></button><button type="button" role="tab" data-tab="erp" id="tab-erp" aria-selected="false" aria-controls="panel-erp" tabindex="-1"><span>ERP</span></button></div>
-        <p class="anno">A tile opens the story. Arrows move through all eleven. Not child pages. No category labels. Deep link is the hash, for example #retail. Each vertical leads with the <b>software</b> — the system of record — then AI and payments as what we add. Featured businesses stay generic until publishability is confirmed.</p>
-      </div>
-      <div class="v-modal" id="vModal" hidden>
-        <button class="v-modal-backdrop" type="button" data-close aria-label="Close"></button>
-        <div class="v-modal-frame" role="dialog" aria-modal="true" aria-labelledby="vModalTitle" tabindex="-1">
-          <div class="v-modal-top">
-            <p class="v-modal-count" id="vModalCount">1 / 11</p>
-            <button class="v-modal-close" type="button" data-close>Close</button>
-          </div>
-          <button class="v-modal-arrow v-modal-prev" type="button" data-step="-1" aria-label="Previous vertical"></button>
-          <button class="v-modal-arrow v-modal-next" type="button" data-step="1" aria-label="Next vertical"></button>
-          <div class="v-modal-stage" id="vStage">
-        <article class="panel" data-panel="hospitality" id="panel-hospitality" role="tabpanel" aria-labelledby="tab-hospitality">
-          <h2>Hospitality</h2>
+          <div class="v-layout">
+          <nav class="v-side" aria-label="Verticals">
+            <p class="beat">Verticals</p>
+            <div class="v-side-list" role="tablist" aria-label="Verticals">
+              <button type="button" role="tab" data-tab="hospitality" id="tab-hospitality" aria-selected="true" aria-controls="panel-hospitality">Hospitality</button>
+              <button type="button" role="tab" data-tab="weddings-events" id="tab-weddings-events" aria-selected="false" aria-controls="panel-weddings-events">Weddings & Events</button>
+              <button type="button" role="tab" data-tab="wine" id="tab-wine" aria-selected="false" aria-controls="panel-wine">Wine</button>
+              <button type="button" role="tab" data-tab="retail" id="tab-retail" aria-selected="false" aria-controls="panel-retail">Retail</button>
+              <button type="button" role="tab" data-tab="storage-marina" id="tab-storage-marina" aria-selected="false" aria-controls="panel-storage-marina">Storage & Marina</button>
+              <button type="button" role="tab" data-tab="health-wellness" id="tab-health-wellness" aria-selected="false" aria-controls="panel-health-wellness">Health & Wellness</button>
+              <button type="button" role="tab" data-tab="field-services" id="tab-field-services" aria-selected="false" aria-controls="panel-field-services">Field Services</button>
+              <button type="button" role="tab" data-tab="transportation" id="tab-transportation" aria-selected="false" aria-controls="panel-transportation">Transportation</button>
+              <button type="button" role="tab" data-tab="automotive" id="tab-automotive" aria-selected="false" aria-controls="panel-automotive">Automotive</button>
+              <button type="button" role="tab" data-tab="association-management" id="tab-association-management" aria-selected="false" aria-controls="panel-association-management">Association Management</button>
+              <button type="button" role="tab" data-tab="erp" id="tab-erp" aria-selected="false" aria-controls="panel-erp">ERP</button>
+            </div>
+            <p class="anno" style="margin-top:20px">Intent: the sidebar is the list; selecting one swaps the story inline. No modal. Each vertical leads with the software — the system of record — then AI and payments as what we add. Featured businesses stay generic until publishability is confirmed.</p>
+          </nav>
+          <div class="v-content" id="vContent">
+        <article class="panel is-active" data-panel="hospitality" id="panel-hospitality" role="tabpanel" aria-labelledby="tab-hospitality">
+          <h2>Intent: tell the Hospitality story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -443,7 +346,7 @@
           </div>
         </article>
         <article class="panel" data-panel="weddings-events" id="panel-weddings-events" role="tabpanel" aria-labelledby="tab-weddings-events">
-          <h2>Weddings & Events</h2>
+          <h2>Intent: tell the Weddings & Events story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -462,7 +365,7 @@
           </div>
         </article>
         <article class="panel" data-panel="wine" id="panel-wine" role="tabpanel" aria-labelledby="tab-wine">
-          <h2>Wine</h2>
+          <h2>Intent: tell the Wine story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -481,7 +384,7 @@
           </div>
         </article>
         <article class="panel" data-panel="retail" id="panel-retail" role="tabpanel" aria-labelledby="tab-retail">
-          <h2>Retail</h2>
+          <h2>Intent: tell the Retail story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -500,7 +403,7 @@
           </div>
         </article>
         <article class="panel" data-panel="storage-marina" id="panel-storage-marina" role="tabpanel" aria-labelledby="tab-storage-marina">
-          <h2>Storage & Marina</h2>
+          <h2>Intent: tell the Storage & Marina story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -519,7 +422,7 @@
           </div>
         </article>
         <article class="panel" data-panel="health-wellness" id="panel-health-wellness" role="tabpanel" aria-labelledby="tab-health-wellness">
-          <h2>Health & Wellness</h2>
+          <h2>Intent: tell the Health & Wellness story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -538,7 +441,7 @@
           </div>
         </article>
         <article class="panel" data-panel="field-services" id="panel-field-services" role="tabpanel" aria-labelledby="tab-field-services">
-          <h2>Field Services</h2>
+          <h2>Intent: tell the Field Services story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -557,7 +460,7 @@
           </div>
         </article>
         <article class="panel" data-panel="transportation" id="panel-transportation" role="tabpanel" aria-labelledby="tab-transportation">
-          <h2>Transportation</h2>
+          <h2>Intent: tell the Transportation story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -576,7 +479,7 @@
           </div>
         </article>
         <article class="panel" data-panel="automotive" id="panel-automotive" role="tabpanel" aria-labelledby="tab-automotive">
-          <h2>Automotive</h2>
+          <h2>Intent: tell the Automotive story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -595,7 +498,7 @@
           </div>
         </article>
         <article class="panel" data-panel="association-management" id="panel-association-management" role="tabpanel" aria-labelledby="tab-association-management">
-          <h2>Association Management</h2>
+          <h2>Intent: tell the Association Management story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -614,7 +517,7 @@
           </div>
         </article>
         <article class="panel" data-panel="erp" id="panel-erp" role="tabpanel" aria-labelledby="tab-erp">
-          <h2>ERP</h2>
+          <h2>Intent: tell the ERP story.</h2>
           <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
@@ -633,15 +536,9 @@
           </div>
         </article>
           </div>
-          <div class="v-modal-bar">
-            <button type="button" data-step="-1">Previous</button>
-            <p class="v-modal-count" id="vModalCountBar" aria-hidden="true">1 / 11</p>
-            <button type="button" data-step="1">Next</button>
-          </div>
         </div>
       </div>
     </section>
-    <noscript><style>.v-modal{display:block;position:static}.v-modal[hidden]{display:block}.panel{display:block;margin-top:28px}.v-modal-backdrop,.v-modal-arrow,.v-modal-bar,.v-modal-top{display:none}</style></noscript>
   </main>
 
 
@@ -689,19 +586,14 @@
 
   <script>
     (function () {
+      /* Sticky sidebar swaps the panel inline (2026-10-01). No modal. */
       const root = document.querySelector("[data-tabs]");
-      const modal = document.getElementById("vModal");
-      const frame = modal && modal.querySelector(".v-modal-frame");
-      const stage = document.getElementById("vStage");
-      if (!root || !modal || !frame || !stage) return;
+      if (!root) return;
       const buttons = [...root.querySelectorAll("[data-tab]")];
       const panels = [...root.querySelectorAll("[data-panel]")];
-      const countEls = [...modal.querySelectorAll(".v-modal-count")];
-      let returnFocus = null;
-      let dir = 1;
-
-      const isVertical = (id) => buttons.some((b) => b.dataset.tab === id);
-      const hashId = () => location.hash.replace("#", "");
+      const content = document.getElementById("vContent");
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const isVertical = (id) => panels.some((p) => p.dataset.panel === id);
 
       const show = (id) => {
         const btn = buttons.find((b) => b.dataset.tab === id);
@@ -712,68 +604,19 @@
           b.setAttribute("aria-selected", on ? "true" : "false");
           b.tabIndex = on ? 0 : -1;
         });
-        modal.classList.toggle("is-back", dir < 0);
         panels.forEach((p) => p.classList.remove("is-active"));
-        void panel.offsetWidth;
         panel.classList.add("is-active");
-        const head = panel.querySelector("h2");
-        if (head) {
-          document.querySelectorAll(".panel h2[id]").forEach((h) => {
-            if (h !== head) h.removeAttribute("id");
-          });
-          head.id = id;
-          frame.setAttribute("aria-labelledby", id);
-        }
-        const n = buttons.indexOf(btn) + 1;
-        countEls.forEach((el) => { el.textContent = n + " / " + buttons.length; });
-        stage.scrollTop = 0;
       };
 
-      const open = (id) => {
-        show(id);
-        const menu = document.getElementById("siteOverlay");
-        const menuToggle = document.getElementById("menuBtn");
-        if (menu && menu.classList.contains("is-open")) {
-          menu.classList.remove("is-open");
-          menuToggle.setAttribute("aria-expanded", "false");
-          menuToggle.textContent = "Menu";
-        }
-        if (!modal.hidden) return;
-        returnFocus = document.activeElement;
-        modal.hidden = false;
-        document.body.style.overflow = "hidden";
-        frame.focus();
-      };
-
-      const close = (fromPop) => {
-        if (modal.hidden) return;
-        modal.hidden = true;
-        document.body.style.overflow = "";
-        if (returnFocus && returnFocus.focus) returnFocus.focus();
-        if (!fromPop && isVertical(hashId())) history.back();
-      };
-
-      const go = (id, push) => {
+      const go = (id, push, scroll) => {
         if (!isVertical(id)) return;
-        if (push && hashId() !== id) history.pushState({ vModal: id }, "", "#" + id);
-        else if (!push && hashId() !== id) history.replaceState({ vModal: id }, "", "#" + id);
-        open(id);
+        if (push && location.hash.slice(1) !== id) history.pushState({ v: id }, "", "#" + id);
+        else if (!push && location.hash.slice(1) !== id) history.replaceState({ v: id }, "", "#" + id);
+        show(id);
+        if (scroll && content) content.scrollIntoView({ behavior: reduce.matches ? "auto" : "smooth", block: "start" });
       };
 
-      const step = (delta) => {
-        const current = buttons.findIndex((b) => b.getAttribute("aria-selected") === "true");
-        const i = current < 0 ? 0 : (current + delta + buttons.length) % buttons.length;
-        dir = delta;
-        go(buttons[i].dataset.tab, false);
-      };
-
-      buttons.forEach((b) => {
-        b.addEventListener("click", () => {
-          dir = 1;
-          returnFocus = b;
-          go(b.dataset.tab, true);
-        });
-      });
+      buttons.forEach((b) => b.addEventListener("click", () => go(b.dataset.tab, true, false)));
       root.addEventListener("keydown", (e) => {
         if (!e.target.matches("[data-tab]")) return;
         const i = buttons.indexOf(e.target);
@@ -787,60 +630,27 @@
         e.preventDefault();
         n.focus();
       });
-      modal.addEventListener("click", (e) => {
-        if (e.target.closest("[data-close]")) close(false);
-        const stepBtn = e.target.closest("[data-step]");
-        if (stepBtn) step(Number(stepBtn.dataset.step));
-      });
-      frame.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") { e.preventDefault(); close(false); return; }
-        if (e.key === "ArrowRight") { e.preventDefault(); step(1); return; }
-        if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); return; }
-        if (e.key !== "Tab") return;
-        const items = [...frame.querySelectorAll("button")].filter((b) => b.offsetParent);
-        if (!items.length) return;
-        const first = items[0];
-        const last = items[items.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      });
-      let touchX = 0;
-      let touchY = 0;
-      stage.addEventListener("touchstart", (e) => {
-        touchX = e.changedTouches[0].clientX;
-        touchY = e.changedTouches[0].clientY;
-      }, { passive: true });
-      stage.addEventListener("touchend", (e) => {
-        const dx = e.changedTouches[0].clientX - touchX;
-        const dy = e.changedTouches[0].clientY - touchY;
-        if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
-        step(dx < 0 ? 1 : -1);
-      }, { passive: true });
-      window.addEventListener("popstate", () => {
-        const id = hashId();
-        if (isVertical(id)) open(id);
-        else close(true);
+      window.addEventListener("hashchange", () => {
+        const id = location.hash.slice(1);
+        if (isVertical(id)) go(id, false, true);
       });
       document.querySelectorAll("#siteOverlay a[href*='#']").forEach((a) => {
         a.addEventListener("click", (e) => {
-          const id = (a.hash || "").replace("#", "");
+          const id = (a.hash || "").slice(1);
           if (!isVertical(id)) return;
           const target = new URL(a.href, location.href);
           if (target.pathname !== location.pathname) return;
           e.preventDefault();
-          dir = 1;
-          go(id, true);
+          go(id, true, true);
         });
       });
       const jump = document.getElementById("toHeadline");
-      if (jump) {
-        jump.addEventListener("click", () => {
-          const current = buttons.find((b) => b.getAttribute("aria-selected") === "true");
-          dir = 1;
-          go((current || buttons[0]).dataset.tab, true);
-        });
-      }
-      if (isVertical(hashId())) open(hashId());
+      if (jump) jump.addEventListener("click", () => {
+        const cur = buttons.find((b) => b.getAttribute("aria-selected") === "true") || buttons[0];
+        go(cur.dataset.tab, true, true);
+      });
+      const hash = location.hash.slice(1);
+      show(isVertical(hash) ? hash : buttons[0].dataset.tab);
     })();
   </script>
 
