@@ -108,6 +108,20 @@
     line-height:1.05; max-width:18ch; margin-bottom:12px;
   }
   .strip-head .lede{ margin-top:0; max-width:62ch; }
+  .offering-tabs{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-top:22px;
+  }
+  .offering-tabs button{
+    background:#fff; border:1px solid var(--ink);
+    padding:10px 16px; font-size:14px; font-weight:600;
+  }
+  .offering-tabs button[aria-selected="true"]{
+    background:var(--yellow); font-weight:700;
+  }
+  .offering-tabs button:focus-visible{
+    outline:2px solid var(--yellow); outline-offset:2px;
+  }
   .film{
     display:flex; gap:10px;
     height:min(62vh, 560px);
@@ -271,6 +285,12 @@
         <p class="beat">Embedded Offerings</p>
         <h1>Keep the software. Grow how it makes money.</h1>
         <p class="lede">Software comes first. Then we build in the things that grow it — <b>AI</b>, payments, lending, and insurance — inside the software each business already runs. Integrations live here, not on their own.</p>
+        <div class="offering-tabs" role="tablist" aria-label="Offerings on this page">
+          <button type="button" role="tab" id="tab-payments" aria-selected="true" aria-controls="payments" data-offering="payments">Payments</button>
+          <button type="button" role="tab" id="tab-lending" aria-selected="false" aria-controls="lending" data-offering="lending">Lending</button>
+          <button type="button" role="tab" id="tab-insurance" aria-selected="false" aria-controls="insurance" data-offering="insurance">Insurance</button>
+          <button type="button" role="tab" id="tab-ai" aria-selected="false" aria-controls="ai" data-offering="ai">AI at Fullsteam</button>
+        </div>
       </div>
       <div class="film" id="film" aria-label="Embedded Offerings">
         <article class="film-card is-feature" role="button" tabindex="0" aria-pressed="true" data-name="Payments" id="payments">
@@ -383,13 +403,22 @@
       const film = document.getElementById("film");
       if (!film) return;
       const cards = [...film.querySelectorAll(".film-card")];
+      const tabs = [...document.querySelectorAll(".offering-tabs [role=tab]")];
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const select = (card, scroll) => {
+      const select = (card, scroll, updateHash) => {
         cards.forEach((c) => {
           const on = c === card;
           c.classList.toggle("is-feature", on);
           c.setAttribute("aria-pressed", on ? "true" : "false");
         });
+        tabs.forEach((t) => {
+          const on = t.getAttribute("data-offering") === card.id;
+          t.setAttribute("aria-selected", on ? "true" : "false");
+          t.tabIndex = on ? 0 : -1;
+        });
+        if (updateHash && location.hash.replace("#", "") !== card.id) {
+          history.replaceState(null, "", "#" + card.id);
+        }
         if (scroll) {
           const fr = film.getBoundingClientRect();
           const cr = card.getBoundingClientRect();
@@ -398,15 +427,31 @@
         }
       };
       cards.forEach((card) => {
-        card.addEventListener("click", () => select(card, true));
+        card.addEventListener("click", () => select(card, true, true));
         card.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(card, true); }
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(card, true, true); }
+        });
+      });
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const card = cards.find((c) => c.id === tab.getAttribute("data-offering"));
+          if (card) select(card, true, true);
+        });
+        tab.addEventListener("keydown", (e) => {
+          const i = tabs.indexOf(tab);
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+            e.preventDefault();
+            tabs[(i + 1) % tabs.length].focus();
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            e.preventDefault();
+            tabs[(i - 1 + tabs.length) % tabs.length].focus();
+          }
         });
       });
       const fromHash = () => {
         const id = location.hash.replace("#", "");
         const card = cards.find((c) => c.id === id);
-        if (card) select(card, true);
+        if (card) select(card, true, false);
       };
       window.addEventListener("hashchange", fromHash);
       if (location.hash) fromHash();
