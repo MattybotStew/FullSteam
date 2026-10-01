@@ -23,16 +23,22 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Homepage UX spec / design doc:** read [`design.md`](./design.md) before working
   on the homepage. It is the UX-only spec (audiences, flow, section intent,
   constraints, open questions) and the future home of the visual design direction.
-- **Homepage opening strategy (LOCKED 2026-09-24):** read **KB §23** before touching the
-  homepage's first viewport. The client's two-axis model is delivered **in sequence** —
-  **Axis A (Portfolio) → transition → Axis B (Growth engine)**. The transition is the
-  **grow-the-Retail-tile morph** (interpolated clip-path traced from the tile rect +
-  opacity ramps); it must open one state into the other, and the two headlines must never be
-  merged into one claim. Spec: `design.md` §3.1; build: `wireframes.md`; rules: KB §23.6.
+- **Homepage opening strategy (LOCKED 2026-09-24 · Axis A amended 2026-10-01):** read **KB
+  §23** (and **§24**) before touching the homepage's first viewport. The client's two-axis model
+  is delivered **in sequence** — **Axis A (Portfolio) → transition → Axis B (Growth engine)**.
+  The transition is the **grow morph** (interpolated clip-path traced from the Axis A visual's
+  rect + opacity ramps); it must open one state into the other, and the two headlines must never
+  be merged into one claim. Spec: `design.md` §3.1; build: `wireframes.md`; rules: KB §23.6.
   **Amended 2026-09-24 (same day):** the opening was first locked as a **binary snap**
   (discrete cut, no interpolation); at the **client's request** the interpolated **grow morph
   was restored** (the cut read as "just snapping in place"). The **two-state model, the two
-  headlines, and the Axis A→B order are unchanged**
+  headlines, and the Axis A→B order are unchanged**.
+  **Amended 2026-10-01 (client review):** Axis A is **no longer the 11 scattered vertical tiles**
+  ("do not want 11 floating vertical bubbles") — it is **one identity/scale visual**, and the 11
+  verticals live in the **filmstrip**. The grow morph's source is that visual (was the Retail tile
+  `t3`). The model, the two headlines, the A→B order, and both-states-are-content are **unchanged**.
+  The page after the opening was reordered — see KB **§24** and `wireframes.md` §2 (the canonical,
+  up-to-date order).
 - **Inspiration / layout patterns:** read [`inspiration.md`](./inspiration.md) before
   borrowing a layout idea from any reference site. It records what we take from each
   reference and what we explicitly reject, with the guardrails inline so a pattern is
@@ -43,7 +49,9 @@ This file is the canonical agent entry point (works with Cursor, which reads
   `clientDocs/Fullsteam Web Brief (1).docx`; the internal discovery interviews live
   at `clientDocs/Fullsteam User Interview Template.xlsx`; the **content-writing
   SOW** lives at `clientDocs/Fullsteam Website Content Project Brief.docx`
-  (distilled in KB **§21**). Treat them as source of truth; the knowledge base is
+  (distilled in KB **§21**); the Cloudmellow **Strategic Positioning 2026** deck
+  (SWOT, interview themes, pillars, personas, authority signals) is distilled in KB
+  **§25**. Treat them as source of truth; the knowledge base is
   a distillation that should stay in sync.
   **⚠ `clientDocs/` is gitignored (2026-09-24) and must never be tracked, force-added, or
   published** — the repo is **public** and GitHub Pages deploys `path: "."`, so anything
@@ -68,13 +76,23 @@ This file is the canonical agent entry point (works with Cursor, which reads
   vertical solutions. **For Founders is not in the header strip** as of 2026-09-23; it
   lives in the Menu overlay, footer, and the closing CTA. Full L1 in the Menu overlay
   - footer. Compare options in `02_Wireframes/active/header-wireframe.html`.
-- **Homepage opening = Axis A → grow morph → Axis B (locked 2026-09-24).** The first
-  viewport is a **two-state pinned sequence**, not one hero: the mosaic (**Axis A** —
-  identity/ownership) **grows into** the hero (**Axis B** — the growth model) as the
-  Retail tile expands to fill the frame. The transition is the grow morph, not a cut.
-  Replaces the side-by-side two-lane alternative. Canonical record: KB **§23**
-  (guardrails §23.6, open items §23.7).
-- **Homepage opening — pins cut and mosaic fixed (2026-09-28).** The two-state
+- **Homepage opening = Axis A → grow morph → Axis B (locked 2026-09-24 · Axis A amended
+  2026-10-01).** The first viewport is a **two-state pinned sequence**, not one hero: the
+  identity/scale visual (**Axis A** — what Fullsteam owns) **grows into** the hero (**Axis B** —
+  the growth model) as that visual expands to fill the frame. The transition is the grow morph,
+  not a cut. **Axis A is one visual, not the 11 tiles** (client 2026-10-01); the 11 verticals
+  are in the filmstrip. Canonical record: KB **§23** (guardrails §23.6) + **§24** (the review).
+- **Homepage reordered from client review (2026-10-01).** Order is now Opening → **What we do**
+  (Acquire/Grow/Lead + founder CTA + impressive stats) → **Verticals** filmstrip → **AI** →
+  **Great place to work** → Close. The old persona door, two-up "who we are," **Software** scene,
+  and homepage **Offerings** scene were removed; the **Embedded Offerings page + nav node stay**.
+  Full record: KB **§24**; canonical section table: `wireframes.md` §2. **The same messaging was
+  applied across all 8 interior pages (2026-10-01, KB §24.6)** — a messaging/UX pass, not a
+  sitemap change.
+- **Homepage opening — pins cut and mosaic fixed (2026-09-28).** *(Historical: the 11-tile
+  mosaic described here was replaced by a single Axis A visual on 2026-10-01 — `fitMosaicStage`
+  and the `.t1`–`.t11` tiles are gone. The pin-cut math and the morph-ramp fix still stand;
+  read the tile specifics as history, not the current build.)* The two-state
   sequence and the two headlines are **unchanged**; only the cost of getting there
   was reduced. Measured at 1440×900, before → after:
   - **Sticky travel before real content: 4,500px → 962px** (46% → 12.8% of the
@@ -181,18 +199,19 @@ the split; do not conflate or cross-write them.
 
 ## Homepage opening — Axis A / Axis B (all agents)
 
-**Locked 2026-09-24.** The canonical record is KB [`§23`](./PROJECT_KNOWLEDGE_BASE.md); the UX
+**Locked 2026-09-24 · Axis A amended 2026-10-01.** The canonical record is KB
+[`§23`](./PROJECT_KNOWLEDGE_BASE.md) + [`§24`](./PROJECT_KNOWLEDGE_BASE.md); the UX
 spec is `design.md` §3.1 + §4.1; the build and its fixed defects are in `wireframes.md`. Six
 rules that survive any restyle or refactor:
 
-1. **Two states, two jobs.** **Axis A (Portfolio)** = identity/ownership — the mosaic H1,
-   read first. **Axis B (Growth engine)** = the growth model — the hero H2, revealed by the
-   grow. Never one merged claim.
-2. **The transition is the grow morph.** The Retail tile grows into the hero — an interpolated
+1. **Two states, two jobs.** **Axis A (Portfolio)** = identity/ownership — the mosaic H1 +
+   **one identity/scale visual** (not the 11 tiles, as of 2026-10-01), read first. **Axis B
+   (Growth engine)** = the growth model — the hero H2, revealed by the grow. Never one merged claim.
+2. **The transition is the grow morph.** The **Axis A visual** grows into the hero — an interpolated
    `clip-path` + opacity ramp, **restored 2026-09-24 at the client's request** after the interim
    binary snap read as "just snapping in place." Keep the per-frame writes **free of CSS
    transitions** so the morph cannot smear. Replacing it with a hard cut is a **strategy
-   change**, not a polish pass.
+   change**, not a polish pass. (The grow source was the Retail tile `t3` until 2026-10-01.)
 3. **The deck line is retired from the hero.** "The operating system for vertical markets"
    (KB §19.1) is not the hero message — G-8 resolved 2026-09-24.
 4. **"The growth engine" names Axis B** and is an axis label, never a headline.

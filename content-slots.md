@@ -62,34 +62,36 @@ Field Services · Transportation · Automotive · **Association Management** · 
 ## 2. Homepage — `02_Wireframes/active/homepage.html`
 
 The opening is a **two-state pinned sequence** (Axis A → grow morph → Axis B). Both states are
-content. See KB §23 before touching anything above the fold.
+content. See KB §23 (and **§24** for the 2026-10-01 client review) before touching anything above
+the fold. **The page was reordered 2026-10-01** — this table reflects the new order.
 
 | # | Slot | Role | Status | Note |
 |---|---|---|---|---|
-| — | Mosaic kicker "For founders of industry software" | Audience kicker (Axis A) | Draft | Never a product claim |
-| — | **Mosaic H1** "Whatever the industry, we own the software it runs on." | Axis A — identity/ownership | **Locked** | The document H1; read first |
-| — | Mosaic sub "The software they already run. We keep it." + `[placeholder]` | Axis A support | Draft | |
-| — | 11 mosaic tiles (labels) | Axis A proof of portfolio | Locked | Exactly the 11 names above |
+| — | Kicker "For founders of industry software" | Audience kicker (Axis A) | Draft | Never a product claim |
+| — | **H1** "Whatever the industry, we own the software it runs on." | Axis A — identity/ownership | **Locked** | The document H1; read first |
+| — | Sub "The software they already run. We keep it." | Axis A support | Draft | |
+| — | Axis A identity visual | Axis A — the owned software | Placeholder | **One visual, not 11 tiles** (client 2026-10-01); it is the grow morph's source |
 | 01 | Beat "01 — The model" | Section marker | Draft | |
-| 01 | Axis B kicker "For founders of industry software — and anyone confirming who we are." | Audience + validation | Draft | Echoes mosaic kicker deliberately |
+| 01 | Axis B kicker "For founders of industry software — and anyone confirming who we are." | Audience + validation | Draft | Echoes kicker deliberately |
 | 01 | **Axis B H2** "Software first. Then we grow it." | Axis B — the growth model | **Locked** | Agreed line (2026-09-24) |
 | 01 | Axis B lede | Growth model support | Placeholder | States both halves, Software-first |
 | 01 | CTAs: "Explore our vertical solutions" + "Careers" | Primary + secondary | Locked (CTA) | |
-| 02 | Beat "02 — Who it's for" + H2 "Find the part that is for you." | Persona door | Draft | |
-| 02 | Cards: "For people joining" / "For founders" / "For investors" | Persona doors | Draft | Investors: numbers below; no investor page |
-| 03 | Proof strip: `11` vertical markets · `80k+` SMB businesses `[placeholder]` · `2,000+` people `[placeholder]` | Scale, for investors | **Placeholder** | 11 is settled; other two are for layout only — pending publishability (OI-5) |
+| 02 | Beat + H2 **"What does Fullsteam do?"** | The model in plain words | Draft | Client's #1 question (2026-10-01) |
+| 02 | Lede (Message 1) | Intro | Placeholder | **Systems of record** with **AI, payments, operational excellence** |
+| 02 | Steps: **Acquire / Grow / Lead** | Three things we do | Draft | Acquire = buy + keep buying; Grow = AI + payments (link Offerings); Lead = powers industries (link Vertical Software) |
+| 02 | Founder CTA "A home for the business you built." + "Talk to us" | For founders | Locked framing | Never "exit"; link For Founders |
+| 02 | Founder voice quote + attribution | Social proof | Placeholder | Genericized; no names until confirmed |
+| 03 | Stats band: `11` verticals · `100+` businesses `[placeholder]` · `2,000+` people `[placeholder]` · `$75B+` processed `[placeholder]` `*cumulative` | Impressive scale, for investors (`#investors`) | **Placeholder** | 11 is settled; others pending publishability (OI-5). "Profitable" is a *feeling*, never a claim |
 | 03 | Proof note | Placeholder disclosure | Draft | Makes the placeholders unmistakable |
-| 03 | Beat + H2 "A home for the business you built." | Founders value | Locked framing | Never "exit" |
-| 03 | Founder voice quote + attribution | Social proof | Placeholder | Genericized; no names until confirmed |
-| 04 | Beat + H2 "The system they already run." + link "Browse all verticals" | The software | Draft | |
-| 04 | AI card "AI at Fullsteam" + "Learn more" | AI teaser | Draft | Use cases first; never headcount |
-| 04b | Beat + H2 "Keep the businesses growing." | The verticals | Draft | |
-| 04b | Filmstrip: 5 revenue-ordered panels + 11 text links | Verticals in action | Draft | Panel copy placeholder |
-| 04b | KPI cycle card (`11` / `80k+` / `2,000+`) | Scale cycle | **Placeholder** | Mirrors the proof strip |
-| 05 | Beat + H2 "Keep the software they trust. Supercharge how they monetize." + link "See all Offerings" | The growth engine (Axis B proof) | Draft | Never "Platform" |
-| 05b | Beat + H2 "Use cases first. Never a headcount story." | AI | Locked framing | The AI rule, literally |
-| 06 | Beat + H2 "Work across the verticals." + link "See Careers" | Employer story | Draft | |
-| 06 | LinkedIn feed (6 cards + dates + follow) | Social feed | Placeholder | No real feed data |
+| 04 | Beat + H2 "Keep the businesses growing." | The verticals | Draft | Filmstrip kept — client likes it; moved up 2026-10-01 |
+| 04 | Filmstrip: 5 revenue-ordered panels + 11 text links | Verticals in action | Draft | Panel copy placeholder |
+| 04 | KPI cycle card (`11` / `100+` / `2,000+`) | Scale cycle | **Placeholder** | Mirrors the stats band |
+| 05 | Beat + H2 "AI that already knows the business." + lede | AI | Draft | Use cases first; never a headcount story |
+| 05 | Three AI example cards (forecasting / back office / support) | AI examples | Placeholder | Client asked to "highlight examples of AI"; genericize |
+| 05 | Link "See AI at Fullsteam" | Cross-link | Draft | → Embedded Offerings#ai |
+| 06 | Beat + H2 "A great place to work." + lede | Employer story | Draft | Humanizing (2026-10-01) |
+| 06 | Three real-image placeholders + "Real team photo — not stock" captions | Culture imagery | **Placeholder** | **Actual people, not stock photos** |
+| 06 | Link "See Careers" + LinkedIn strip (cards + follow) | Careers + feed | Placeholder | No real feed data |
 | 07 | Beat + H2 "Ready to see where your business can go next?" + CTA + "For Founders — a home for your business" | Close | Draft | |
 
 ---
@@ -99,10 +101,10 @@ content. See KB §23 before touching anything above the fold.
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | Beat "For founders" + **H1** "A home for the business you built." | Page promise | Locked framing | Never "exit" |
-| Lede | Support | Placeholder | |
+| Lede | Support | Draft | Systems of record + AI/payments/operational excellence; software first, certainty of close (2026-10-01) |
 | 01 "Why Fullsteam" + H2 "Your name stays. Your team stays." | The offer | Draft | Values fit, close, scale |
 | → 4-step list (We talk → real fit → clean close → keeps going) | Process | Placeholder | Structural only: no timelines, multiples, or deal terms |
-| 03 "What we look for" + H2 "Software built for one industry." | Fit | Draft | Lead with industry, not an acquisition count |
+| 03 "What we look for" + H2 "Software built for one industry." | Fit | Draft | Lead with industry, not an acquisition count; software = system of record, AI/payments added after |
 | 03 CTA "Explore our vertical solutions" | Cross-link | Locked | |
 | 04 "Talk to us" + H2 "Confirm who we are. Then ask for a conversation." + CTAs | Close | Draft | |
 
@@ -113,8 +115,8 @@ content. See KB §23 before touching anything above the fold.
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | Beat "For founders · FAQ" + H1 "Questions founders ask before a meeting." | Framing | Draft | |
-| Lede | Support | Placeholder | |
-| 6 question rows (Do you only care about payments? / Is this an exit? / name+team / close certainty / do you understand what we do? / when customers hear) | Q&A | Placeholder | Answers must record the locked constraints: software before payments; never "exit"; brands stay standalone; no announcement at close |
+| Lede | Support | Draft | 2026-10-01 |
+| 8 question rows (payments? / exit? / name+team / close certainty / understand what we do? / when customers hear / **what does Fullsteam buy?** / **does AI replace my team?**) | Q&A | Placeholder | Answers must record the locked constraints: software before payments; never "exit"; brands stay standalone; no announcement at close; **AI never framed as staff reduction** |
 
 ---
 
@@ -125,10 +127,10 @@ One page, 11 verticals, no child pages.
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | H1 "The software these verticals already run." | Framing | Draft | |
-| Lede "Eleven verticals. One page." | Support | Draft | 11 is the settled count |
+| Lede "Eleven verticals. One page." | Support | Draft | 11 is the settled count; **system of record per vertical**, + AI/payments (2026-10-01) |
 | "Read the story" control | Jump to active story | Locked | |
 | 11 tiles (labels) | The list | Locked | Exact 11 names; **no category labels** |
-| Per-vertical story (title + body + fact chips) | Detail | Placeholder | Genericize; no named case studies until confirmed |
+| Per-vertical story (title + body + fact chips) | Detail | Placeholder | Genericize; no named case studies until confirmed. Chips now include **"What we add" (AI + payments)** |
 
 ---
 
@@ -138,11 +140,11 @@ One page: Payments · Lending · Insurance · AI at Fullsteam.
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
-| H1 "Keep the software. Grow how it makes money." | Framing | Draft | |
-| Lede (integrations live here, not their own page) | Support | Draft | |
+| H1 "Keep the software. Grow how it makes money." | Framing | Draft | 2026-10-01 |
+| Lede (software first, then AI/payments/lending/insurance; integrations live here) | Support | Draft | **AI-forward; payments framed as invisible/embedded** |
 | "Read the story" control | Jump | Locked | |
-| 4 tiles (labels) | The list | Locked | Hardware folds into Payments |
-| Per-offering story + fact chips | Detail | Placeholder | No rates/terms (Lending/Insurance); AI = use cases, never headcount |
+| 4 tiles (labels) | The list | Locked | Hardware folds into Payments. Ordered Payments→AI; **promote AI to first tile** optional |
+| Per-offering story + fact chips | Detail | Placeholder | No rates/terms (Lending/Insurance); **AI = use cases, never headcount** |
 
 ---
 
@@ -150,9 +152,10 @@ One page: Payments · Lending · Insurance · AI at Fullsteam.
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
-| H1 "Who we are, before what we do." + CTAs (Explore + Leadership) | Framing | Draft | |
-| Image band | Supporting | — | Imagery TBD |
-| "Scale, pending publishability" KPI strip (4 KPI labels) | Proof | **Placeholder** | Labels only, **no figures** — no revenue/run-rate/profitability |
+| H1 "Who we are, before what we do." + CTAs (Explore + Leadership) | Framing | Draft | 2026-10-01 |
+| Image band | Supporting | — | **Real Fullsteam people, not stock** |
+| KPI strip — 100+ businesses · 2,000+ people · 70,000+ customers · $75B+ on Fullsteam Pay* | Proof | **Placeholder** | All `[placeholder]`; *cumulative; **no revenue/run-rate/profitability** |
+| Marquee backers (Aquiline · Sixth Street · ADIA) | Trust signal | Draft | **Confirm publishability** |
 | 01 "The company" + H2 "Many software businesses. One home." | Identity | Draft | |
 | Split intro + staggered image cluster | | Placeholder | |
 | 02 "Leadership" + H2 "The people who lead." + CTA | Teaser | Draft | Leaders only |
@@ -168,7 +171,7 @@ One page: Payments · Lending · Insurance · AI at Fullsteam.
 |---|---|---|---|
 | H1 "The people who lead Fullsteam." | Framing | Draft | |
 | Lede "Leaders only. This is not a staff directory." | Scope | Draft | |
-| 6 leader cards (Name / Role) | People | Placeholder | **No names until the client confirms who is public.** No bios |
+| 6 leader cards (Name / Role) | People | Placeholder | **No names until the client confirms who is public.** No bios. **Real portraits, not stock** |
 
 ---
 
@@ -177,8 +180,8 @@ One page: Payments · Lending · Insurance · AI at Fullsteam.
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | H1 "A big company that does not work like one." | Framing | Draft | |
-| Lede | Support | Placeholder | Mostly remote; close to decision-makers |
-| 01 "How it feels" + H2 "Room to own the work." | Culture | Draft | Authentic, not a recruiting poster |
+| Lede | Support | Draft | **2,000+ people across 11 verticals**; mostly remote; close to decision-makers (2026-10-01) |
+| 01 "How it feels" + H2 "Room to own the work." | Culture | Draft | Authentic, not a recruiting poster; **real employee imagery, not stock** |
 | 02 "Who thrives" + H2 "People who pick up the problem." | Profile | Draft | AI is never a replacing-the-team story |
 | 03 "Open roles" + H2 "What is open right now." + role table | Roles | **Placeholder** | Rows are layout only; real roles from the client; **no invented job titles** |
 

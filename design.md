@@ -108,44 +108,54 @@ The homepage is a single, deliberately-ordered scroll narrative. Each block shou
 ask the question the *next* block answers.
 
 ```
-1  HERO              "Explore our vertical solutions" → immediately define the model + scale
-2  THE TWO STORIES   Both stories in one glance: Axis A (Portfolio) → grow morph → Axis B (Growth engine) — §3.1, no separate block
-3  EXPLORE BY VERTICAL  (Vertical Software proof) → flat vertical list + "Find your vertical"
-4  OFFERINGS IN ACTION  (growth-engine proof, via concrete examples, not feature lists)
-5  WHY FULLSTEAM      3 reasons / proof that backs the "why choose us"
-6  SOCIAL PROOF       Outcomes & real voices (stat bars, quotes, video testimonials)
-7  FOR FOUNDERS  Secondary seller re-entry (header + feature tab); investors read scale/proof on-page — no nav node
-8  CLOSING CTA        Re-state the journey + "Find your vertical" / Contact
-9  (Our Story / Careers / Footer)   Quiet company context + utility
+1  OPENING           Axis A (identity/scale) → grow morph → Axis B (growth model) — §3.1
+2  WHAT WE DO        "What does Fullsteam do?" — Acquire → Grow/Build (AI + payments) → Lead → founder CTA → impressive stats
+3  VERTICALS         The filmstrip (Vertical Software proof; the client-liked treatment)
+4  AI                AI at Fullsteam — use cases / examples first; never a headcount story
+5  GREAT PLACE TO WORK  Humanizing company story (real imagery, not stock) + Careers/LinkedIn
+6  CLOSING CTA       Re-state the journey + Explore / Contact
+7  (Our Story / Careers / Footer)   Quiet company context + utility
 ```
 
+> **Revised 2026-10-01 (client homepage review).** The client asked to (a) make the landing feel
+> *more impressive* — scale, modern tech/AI, US/Canada reach — and drop the "11 floating vertical
+> bubbles"; (b) lead with a **"What does Fullsteam do?"** breakout (Acquire → Grow/Build → Lead +
+> founder CTA + impressive stats); (c) move the **verticals filmstrip up** after it; (d) **kill the
+> Software section and the homepage Offerings section in favor of AI** (the Embedded Offerings
+> *page* stays); (e) make **Great place to work** humanizing with **real images**. Full record:
+> KB **§24**. The opening model (§3.1 / §4.1) is amended, not replaced.
+
 > **Design note for Bionic:** sections are reusable building blocks. The homepage should assemble
-> these in an order that keeps the *portfolio + offerings* proof above the fold-weighted zone, with
+> these in an order that keeps the *portfolio + growth/AI* proof in the fold-weighted zone, with
 > audience paths and company context beneath. Exact ordering and whether certain bands merge is an
 > open wireframe question — see §8 Open Questions.
 
 ### 3.1 Opening sequence — Axis A (Portfolio) → grow morph → Axis B (Growth engine)
 
-**Decided 2026-09-24.** The locked two-axis model (KB §14: *portfolio + growth engine*) is delivered
-on the homepage **in sequence**, not side by side. The parallel two-lane treatment in
-`alternative-home-a.html` is retired for the live build; the same pairing now plays as two states of
-the pinned opening:
+**Decided 2026-09-24 · Axis A amended 2026-10-01.** The locked two-axis model (KB §14: *portfolio +
+growth engine*) is delivered on the homepage **in sequence**, not side by side. The parallel two-lane
+treatment in `alternative-home-a.html` is retired for the live build; the same pairing now plays as
+two states of the pinned opening:
 
 | | State | Job | Carries |
 |---|---|---|---|
-| **Axis A** | Portfolio | identity / ownership | Mosaic H1 + audience kicker + the 11 verticals as tiles — *what Fullsteam owns* |
+| **Axis A** | Portfolio | identity / ownership | Mosaic H1 + audience kicker + **one identity/scale visual** — *what Fullsteam owns* |
 | **Axis B** | Growth engine | the growth model | Hero H2 + kicker + the Offerings sub-line — *how those businesses get bigger* |
 
+- **Axis A amended 2026-10-01 (client review).** The 11 scattered vertical tiles ("floating
+  bubbles") were **replaced by one identity/scale visual**; the 11 verticals now live in the
+  **filmstrip** section (§4.3). The model, the two headlines, the A→B order, the grow morph, and
+  both-states-are-content are **unchanged**. KB §24.1/§24.2.
 - **Why A comes first:** "portfolio-first understanding" is the page's first UX principle (§1) and
   the message order is Software → Verticals → Payments (§20.1 #4). Axis A earns the right to Axis B's
-  claim; Axis B then pays off with beat 04's proof.
-- **The transition is the grow morph.** As the pin scrolls, the **Retail tile grows to fill the
+  claim; Axis B then pays off with the AI / growth proof.
+- **The transition is the grow morph.** As the pin scrolls, the **Axis A visual grows to fill the
   sticky frame** while the mosaic and its heading fade and the Axis B copy fades in — an
-  interpolated `clip-path` traced per frame from the tile's live rect, plus opacity ramps. It is
+  interpolated `clip-path` traced per frame from the visual's live rect, plus opacity ramps. It is
   **not** a cut. This was first locked as a **binary snap** on 2026-09-24; the same day the client
   read the discrete cut as "just snapping in place," and the morph was **restored** at the client's
   request. §4.1 for the hero-level rules; `wireframes.md` changelog 2026-09-24 + 2026-09-26 for the
-  build and the reconciliation.
+  build and the reconciliation. (Before 2026-10-01 the grow source was the Retail tile `t3`.)
 - **Both states are content, not decoration.** Neither is `aria-hidden`: assistive tech reads the H1
   (Axis A) and then the hero H2 (Axis B) regardless of scroll position, and nothing depends on
   seeing the cut. With `prefers-reduced-motion` the pin is skipped and the two states appear in
@@ -167,16 +177,19 @@ the pinned opening:
   say the same thing:
   1. **Axis A — mosaic H1 = identity / ownership** — the document H1, read first: *"Whatever the
      industry, we own the software it runs on."* + audience kicker + *"The software they already
-     run. We keep it."*
+     run. We keep it."* + **one identity/scale visual** (amended 2026-10-01 — before that, the 11
+     verticals as scattered tiles; the client rejected the "floating bubbles"). The client wants
+     this first screen to feel **more impressive** — scale, modern tech/AI, US/Canada reach.
   2. **Axis B — hero H2 = the growth model** — revealed by the grow: states how the businesses
      Fullsteam owns get bigger. This is the only place the two-story model can reach the first
      viewport (investors and founders are both rank-1 audiences, §2).
 - **The transition is the grow morph, not a cut (decided 2026-09-24; morph restored same day).**
-  The pinned opening **opens one state into the other** — the Retail tile grows to fill the frame
-  as the mosaic recedes and the Axis B copy arrives. Treat this as a strategy rule, not a
-  technicality: a hard cut reads as "snapping in place" and was rejected by the client. The two
-  states are declared in CSS; JS writes the per-frame `clip-path`/opacity, with **no CSS transition
-  on either state** so the morph cannot smear. §3.1; `wireframes.md` changelog 2026-09-24 + 2026-09-26.
+  The pinned opening **opens one state into the other** — the **Axis A visual** grows to fill the
+  frame as the mosaic recedes and the Axis B copy arrives (before 2026-10-01 the grow source was
+  the Retail tile `t3`). Treat this as a strategy rule, not a technicality: a hard cut reads as
+  "snapping in place" and was rejected by the client. The two states are declared in CSS; JS writes
+  the per-frame `clip-path`/opacity, with **no CSS transition on either state** so the morph cannot
+  smear. §3.1; `wireframes.md` changelog 2026-09-24 + 2026-09-26 + 2026-10-01.
 - **Content needs:**
   - **Audience kicker** above the hero H2 — it answers *is this for me?* before the headline is read
     and is the standing fix for G-8 (`wireframes.md`). It repeats the mosaic kicker deliberately, as
@@ -215,52 +228,76 @@ the pinned opening:
   the growth model) and to customers/founders (who care about the software). Use the **Embedded
   Offerings** label, never "Platform."
 - **Lane naming (decided 2026-09-24):** lane 2's plain name is **"the growth engine"** — it names
-  **Axis B** in the opening (§3.1), and **beat 04** is the proof that pays it off. The hero (beat 01)
-  *states* the model without borrowing the axis label. The homepage carries no separate "two stories"
-  block: the mosaic H1 (ownership, Axis A) and the hero H2 (growth model, Axis B) deliver both lanes
-  above the fold through the morph, and beat 04 proves lane 2 in detail.
+  **Axis B** in the opening (§3.1), and the **What we do → Grow/Build** block plus the **AI** section
+  pay it off. The hero (beat 01) *states* the model without borrowing the axis label. The homepage
+  carries no separate "two stories" block: the mosaic H1 (ownership, Axis A) and the hero H2 (growth
+  model, Axis B) deliver both lanes above the fold through the morph, and "Grow/Build" + AI prove
+  lane 2 in detail.
 
-### 4.3 Explore by vertical (Vertical Software proof — the "meat")
+### 4.3 Verticals (filmstrip — Vertical Software proof, moved up 2026-10-01)
 - **UX goal:** Let each customer self-identify and click through to their world. This is the **primary
   conversion moment** and should feel like an invitation to explore, not a product catalog.
+- **Placement (2026-10-01).** The filmstrip moves **up to right after "What we do"** (client review,
+  Message 3). The client **likes this treatment**, so its design/animation is kept.
 - **Content needs:**
+  - A revenue-ordered **filmstrip** of representative verticals (a featured panel + shrinking cards)
+    and **all 11 verticals as text links** beneath — no category labels.
   - All **11 verticals** in a flat list (two columns in the Menu overlay) — no category labels.
   - Each vertical with a **plain-language, outcome-oriented** descriptor ("modern software for
     wineries to manage, grow, and optimize sales") — not a feature dump.
-  - A **"Find your vertical"** picker / filter control for the exploratory feel.
-  - Representative brands shown as evidence (via the header mega-menu and/or hub) without requiring a
-    homepage link to every industry.
+  - A **"Find your vertical"** picker / filter control (Vertical Software page + Menu overlay).
 - **UX intent:** Zero friction for a wine-business owner who doesn't know Fullsteam's product names —
-  they find "Wine / Hospitality" and click. Supports "no page-per-industry."
+  they find "Wine / Hospitality" and click. Supports "no page-per-industry." The 11 verticals live
+  here now, **not** in the opening mosaic (amended 2026-10-01).
 
-### 4.4 Embedded Offerings in action (growth-engine proof)
-- **UX goal:** Prove the embedded expansion is real and valuable — through concrete examples, not
-  abstract feature lists (open Q3 in the brief).
+### 4.4 AI in action (the growth-engine proof — replaces the homepage Offerings section)
+- **UX goal:** Prove the growth story is real through **AI use cases** — concrete examples, not
+  abstract feature lists (client review Message 4: "highlight examples of AI").
 - **Content needs:**
-  - **Payments, Lending, Insurance** (and AI) introduced as Embedded Offerings — with
-    **Hardware & Integrations folded in** (no separate pages, KB §14).
-  - Shown via **real customer examples / case-study teasers** (a winery taking payments, a storage
-    facility using a device, etc.).
-- **UX intent:** Converts "they're a holding company" into "they make their software companies *grow*."
-  Particularly persuasive for **investors** (the growth story) and reassures **customers** that
-  payments are seamlessly embedded.
+  - **AI at Fullsteam** introduced with **2–3 example use cases** (forecasting, back-office
+    automation, grounded support — genericized). **Use cases first; never a headcount story** (§20.5).
+  - **Payments** acknowledged as part of "Grow/Build" in **§4-section "What we do"**, not a separate
+    homepage scene. The full **Embedded Offerings** story (payments, lending, insurance, AI) lives on
+    its **locked L1 page** — the homepage no longer duplicates it (2026-10-01).
+- **UX intent:** Converts "they're a holding company" into "they make their software companies
+  *grow*." Particularly persuasive for **investors** (the growth story) and reassures **customers**
+  that AI and payments are built into the software they already run.
+- **Note (2026-10-01).** The client **removed the homepage Embedded Offerings section in favor of AI**.
+  The **Embedded Offerings page and nav node stay** (sitemap lock); only the homepage emphasis changed.
 
-### 4.5 Why Fullsteam (three reasons)
-- **UX goal:** Answer the implicit "why choose Fullsteam / why is this better" before the visitor leaves.
-- **Content needs:** 3 distinct, concrete proof points (aligned to positioning, e.g. system-of-record
-  depth, embedded integration seamlessness, AI-enabled & scalable). These should not be generic —
-  they should each map to one of the two core stories.
-- **UX intent:** A short, scannable trust-and-differentiation moment. Avoid FrontierGrowth-style dated
-  "capabilities" lists; keep it proof-forward and modern.
-
-### 4.6 Social proof & outcomes
-- **UX goal:** Build trust through credible evidence and human voices.
+### 4.5 What we do — Acquire / Grow / Lead (added 2026-10-01)
+- **UX goal:** Answer the plain question the client wants answered first: **"What does Fullsteam do?"**
+  (client review Message 2). This replaces the old persona door / two-up "who we are."
 - **Content needs:**
-  - **Outcome/stat band** — a short, credible set of numbers (scale: companies acquired, users served,
-    portfolio verticals) presented cleanly (per Quilt reference §18). **Do not** overload — pick the few
-    that matter most and let interior pages carry the rest.
-  - **Testimonials** — quotes and/or **video testimonials** from named customers (mission video + customer
-    video is a cross-reference theme §18).
+  - A three-part breakout — **Acquire** (we buy great vertical software companies, and keep buying) →
+    **Grow/Build** (we grow them with **AI and payments**) → **Lead** (our software powers entire
+    industries across 11 verticals).
+  - A **founder call to action** ("A home for the business you built" → For Founders) as a banded
+    callout after the triad — the client listed it between Acquire and Grow/Build; final position
+    to confirm.
+  - A lede that carries **Message 1**: Fullsteam's companies are **systems of record** with **AI,
+    payments, and operational excellence** built in.
+  - The **impressive stats** cap the section (§4.6).
+- **UX intent:** A short, scannable answer to "what do they do," proof-forward and modern — avoid
+  V2's internal pillar titles (§22.6.4) and never "Platform."
+
+### 4.6 Social proof, stats & outcomes
+- **UX goal:** Build trust through credible evidence and human voices — and land the client's
+  "way more impressive than you thought" feeling (2026-10-01).
+- **Content needs:**
+  - **Impressive stats band** (`#investors`) — caps **What we do** (Message 2). Current placeholders:
+    **11** verticals · **100+** specialty software businesses · **2,000+** people · **$75B+**
+    processed on Fullsteam Pay *(all but 11 pending publishability — OI-5)*. Presented cleanly
+    (Quilt reference §18); **do not** overload.
+  - A **founder voice** quote (genericized) — kept from the prior build; unpublished until the
+    client confirms.
+  - The **LinkedIn** lo-fi strip under **Great place to work** carries ongoing proof.
+  - **Testimonials** — quotes and/or **video testimonials** from named customers, when the client
+    supplies assets (OI-6).
+- **"Profitable" is a feeling, not a claim (2026-10-01).** The client cited profitability as part of
+  the impression the site should create. Publishing revenue/run-rate/profitability is **forbidden**
+  (§20.4/§20.7) — carry the impression with **inferable KPIs** (scale, headcount, volume), never a
+  profitability statement.
 - **Discovery guardrails (§20.4/§20.7/§20.8):** show **leadership only**, not full staff;
   feature the business with mentions of its leaders. Do **not** name acquisitions still in
   transformation — genericize case studies ("a floral-shop software company") until the
@@ -277,10 +314,11 @@ the pinned opening:
   read the growth story from the portfolio/scale proof already on the page.
 - **Content needs:**
   - **For Founders / Sellers** → "a home for your business" framing (acquisition process, what we look
-    for), with its own light CTA. Lives in the header and/or a homepage feature tab/band.
+    for), with its own light CTA. Now a **banded callout inside "What we do"** (the founder call to
+    action, 2026-10-01), plus the header Menu overlay, footer, and closing link.
   - **For Investors** → **no dedicated path** (locked 2026-09-10; KB §14). Investors are served by
-    the scale/proof signals and the two-story model; contact is the action. On the homepage the
-    label is an anchor (`#investors`) to that proof band, not a page.
+    the **impressive stats band** and the growth model; contact is the action. On the homepage the
+    label is an anchor (`#investors`) to that band, not a page.
 - **UX intent:** Position Fullsteam as "a home for your business" and let the portfolio itself prove
   the growth-equity story. Do not create an investor directory page.
 
@@ -291,9 +329,11 @@ the pinned opening:
 - **UX intent:** Recover anyone who scrolled the full story without clicking and convert momentum into
   a step forward.
 
-### 4.9 Our Story / Careers / Footer
+### 4.9 Great place to work / Our Story / Careers / Footer
 - **UX goal:** Quiet company context for employees/candidates and utility without stealing focus.
-- **Content needs:** Our Story, Careers entry; standard utility footer (Privacy, Terms, Complaints).
+- **Content needs:** A homepage **"Great place to work"** section (2026-10-01, client review
+  Message 5) with **humanizing imagery of real Fullsteam people — not stock photos** (§20.8) — then
+  Our Story, Careers entry, and the standard utility footer (Privacy, Terms, Complaints).
   (Newsroom removed 2026-09-23 — no page, no footer/overlay link; see KB §14 and `plans/sitemap-lock.md`.)
 - **UX intent:** Serves the employee/candidate audience (audience rank 2) and satisfies legal/utility
   needs at the bottom of the reading path. Careers should read as growth & culture-forward (see KB
@@ -359,15 +399,24 @@ and the rate of visitors who reach an interior audience or vertical page from th
 
 ## 8. Open UX Questions (for wireframe / discovery)
 
-- [ ] Should **For Founders** be a distinct homepage band/feature (§4.7) or a header-only re-entry
-      point? (Investors have no path — resolved, see below.)
-- [ ] Does the homepage carry **its own stat strip** (§4.6) in addition to any hero proof (§4.1), or is
-      one combined proof moment enough? Avoid redundancy.
-- [ ] How many **representative verticals/brands** to feature on the homepage vs. hub-only
+- [x] ~~Should **For Founders** be a distinct homepage band/feature (§4.7) or a header-only re-entry
+      point?~~ **Resolved 2026-10-01:** a banded founder CTA inside **What we do**, plus the header
+      Menu overlay, footer, and closing link (§4.7; KB §24). Confirm the exact position.
+- [x] ~~Does the homepage carry **its own stat strip** (§4.6) in addition to any hero proof (§4.1)?~~
+      **Resolved 2026-10-01:** one **impressive stats band** (`#investors`) caps **What we do**; the
+      opening stays claim-only. (KB §24.3.)
+- [ ] How many **representative verticals/brands** to feature on the homepage filmstrip vs. hub-only
       inline vs. link to the hub. (KB §14 open item.)
-- [ ] **AI homepage treatment** — page exists (nested under Embedded Offerings); decide whether the
-      homepage gives AI a band or keeps it inside the Embedded Offerings story. (KB §14; §20.5.)
+- [x] ~~**AI homepage treatment**~~ **Resolved 2026-10-01:** AI gets its **own homepage section**
+      (use cases/examples first). The Software and homepage Offerings scenes were removed; the
+      Embedded Offerings page stays. (§4.4; KB §24.)
 - [ ] Sticky-header vs. in-content hero CTA dominance when scrolled (§5).
+- [ ] **Marquee backers.** The Strategic Positioning 2026 deck (KB §25) names **Aquiline Capital
+      Partners, Sixth Street, and the Abu Dhabi Investment Authority** as an underused trust signal.
+      Decide whether/where the homepage spotlights them (a strong "impressive" signal).
+- [ ] **Opening treatment.** The client wants the first screen to feel *more impressive*; Axis A is
+      now one visual, but whether it is video, a product collage, or a scale graphic is an open
+      **design/animation** question (KB §24.5).
 - [x] ~~Confirm the **conversion goal** framing (exploration vs. lead-gen)~~ — **resolved
       in discovery:** the site is validation/credibility, not lead-gen (§20.2). CTAs stay
       exploration/contact-led.

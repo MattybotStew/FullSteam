@@ -86,18 +86,26 @@ your vertical" finder lives in the overlay / Vertical Software page.
 
 ### Section-by-section
 
+**Reordered 2026-10-01 (client homepage review — see KB §24, `design.md` §3).** The old order
+(mosaic of 11 tiles → persona door → founders → software → filmstrip → Offerings → AI → careers) is
+replaced. Beats renumber after the opening.
+
 | # | Section | Intent | What's on screen | Status |
 |---|---------|--------|------------------|--------|
 | 1 | **Header** | Sparse chrome; primary CTA | Logo, "Menu" (overlay toggle), "Explore vertical solutions" pill | Built |
-| 2 | **Hero** | Beat **01 — The model**: **Axis A (Portfolio) → grow morph → Axis B (Growth engine)**. Axis A carries identity/ownership; Axis B carries the growth model (software-first) | Mosaic **H1** ("Whatever the industry, we own the software it runs on.") above **11 labeled scattered tiles** = Axis A. On ≤768px: one cluster **staggered vertically** below the headline (sides may crop), **mixed tile opacities**. Scrolling the pin **grows the Retail tile into the full-bleed hero** on **all breakpoints** = Axis B: audience kicker + **"Software first. Then we grow it."** + the Offerings sub-line. **The transition is interpolated — clip-path + opacity, no CSS transition.** Reduced-motion: in-flow mosaic then settled hero (sequence kept, morph skipped). Proof strip follows. | Built |
-| 3 | **Who we are** | Two-up pair (Square “Terminal / Stand”) | Beat **02**. H2 “Scale your vertical software without losing your legacy.” + Empower and supercharge growth \| Embedded Offerings. | Built |
-| 4 | **The software** | Scene: image + copy | Beat **03**. “The system they already run.” Link to all verticals. | Built |
-| 5 | **What we add** | Flipped scene — the **proof of Axis B** (the growth engine): the axis is named in the opening, the receipts are here | Beat **04 — The growth engine**. “Keep the software they trust. Supercharge how they monetize.” Lending/insurance stay in the body. | Built |
-| 6 | **AI** | Scene, use cases first | Beat **05**. AI at Fullsteam — never a headcount story. | Built |
-| 7 | **Industries + proof** | Square filmstrip + Localyzer pin-and-swap KPIs | Beat **06**. Five revenue-ordered panels; featured overlay **cycles** 11 / 80k+ / 2,000+ **[verify]**. All 11 as text links. | Built |
-| 8 | **Founder voice** | Genericized quote | After industries. Floral-shop software founder — unpublished until confirmed. | Built |
-| 9 | **Closing CTA** | Explore, founders as coda | Beat **07**. “Ready to see where your business can go next?” Primary CTA + quiet For Founders. | Built |
-| 10 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
+| 2 | **Opening** | Beat **01 — The model**: **Axis A (Portfolio) → grow morph → Axis B (Growth engine)**. Axis A carries identity/ownership; Axis B carries the growth model (software-first) | Axis A = mosaic **H1** ("Whatever the industry, we own the software it runs on.") + kicker + **one identity/scale visual** (a centered media block; **no 11 floating tiles** — removed 2026-10-01) = what Fullsteam owns. Scrolling the pin **grows that visual into the full-bleed hero** = Axis B: audience kicker + **"Software first. Then we grow it."** + the Offerings sub-line. **The transition is interpolated — clip-path + opacity, no CSS transition.** Reduced-motion: in-flow mosaic then settled hero (sequence kept, morph skipped). | Built |
+| 3 | **What we do** | Beat **02** — answer "What does Fullsteam do?" | H2 "What does Fullsteam do?" + lede (**systems of record** with **AI, payments, operational excellence**). Three steps: **Acquire** (we buy + keep buying) → **Grow/Build** (AI + payments; links to Offerings) → **Lead** (our software powers industries; links to Vertical Software). Then a banded **founder CTA** ("A home for the business you built.") and the **founder voice** quote. | Built |
+| 4 | **Impressive stats** | Scale, for investors (`#investors`) | Dark band cycling/count-up: **11** vertical markets · **100+** specialty software businesses · **2,000+** people · **$75B+** processed on Fullsteam Pay* (`[placeholder]` pending OI-5) + a placeholder note. | Built |
+| 5 | **Verticals** | Beat **03** — moved up; the client-liked filmstrip | Square filmstrip: five revenue-ordered panels with a featured overlay (KPI **cycles** 11 / 100+ / 2,000+); all 11 verticals as text links. | Built |
+| 6 | **AI** | Beat **04** — use cases first | H2 use-case headline + lede; three **example cards** (forecasting, back-office, support); link to AI at Fullsteam. Never a headcount story. | Built |
+| 7 | **Great place to work** | Beat **05** — humanize the company | H2 "A great place to work." + three **real-image placeholders** captioned **"Real team photo — not stock"**; "See Careers." Then the LinkedIn lo-fi strip. | Built |
+| 8 | **Closing CTA** | Explore, founders as coda | Beat **06**. "Ready to see where your business can go next?" Primary CTA + quiet For Founders. | Built |
+| 9 | **Footer** | Utility + full tree recovery | Company / Explore / Connect / Legal columns | Built |
+
+**Removed 2026-10-01 (homepage only):** the persona door ("Find the part that is for you"), the two-up
+"who we are," the **Software** scene (old 04), and the **Offerings** scene (old 05). **Kept:** the
+opening's Axis A/B two-state model, the founder voice, the filmstrip, the stats, the LinkedIn strip,
+the close, and the footer. The **Embedded Offerings page + nav node stay** (sitemap lock).
 
 ### Deliberate choices in this wireframe
 
@@ -105,28 +113,33 @@ your vertical" finder lives in the overlay / Vertical Software page.
   **"Explore our vertical solutions"** (full form); header uses the short form
   "Explore vertical solutions."
 - **"Embedded Offerings"** is the axis label (client-preferred; short form "Offerings" in body copy; never "Platform").
-- **Verticals** appear as a **flat 11-name
-  row** in the proof band — Square’s “seamless verticals,” without brand logos. (Hero marquee removed 2026-09-23.)
+- **Verticals** appear as the **filmstrip** (five revenue-ordered panels + all 11 as text links) —
+  Square's "seamless verticals," without brand logos. The client **likes this treatment**, so it is
+  kept (and moved up after "What we do"). (Hero marquee removed 2026-09-23; the 11 vertical tiles
+  left the opening 2026-10-01.)
 - **Menu overlay = the sitemap at L1**, with a note that the finder is here (not a
   header search field).
-- **Metrics** sit in a **general proof band** (`#investors`) with **[verify publishability]**
-  placeholders — same numbers for every visitor, not a founders/investors split. **For investors**
-  is an in-page anchor to that band (beat 02 card + beat 07), never a page or a nav node.
-  Persona doors live in beat 02, not as hero text links.
-- **For Founders** lives in the Menu overlay, footer, beat 03 (`#founders`), and a quiet close
-  link — not in header chrome. After the persona door the scroll is: founders → software/verticals
-  → Offerings + AI → people joining → close.
-- **The first viewport is a two-state sequence (2026-09-24):** **Axis A (Portfolio) → grow morph →
-  Axis B (Growth engine)**. Axis A's mosaic H1 carries identity/ownership; Axis B's hero H2 carries
-  the **growth model** — deliberately not the same claim (the deck's "operating system for vertical
-  markets" line is retired from the hero, G-8). The two kickers echo on purpose: mosaic = audience,
-  hero = audience + validation clause.
-- **The transition is the grow morph (restored 2026-09-24):** scrolling the pin **grows the Retail
-  tile into the hero** — an interpolated clip-path traced per frame from the tile's live rect plus
-  opacity ramps. **No CSS transition on either state**, so the per-frame writes cannot smear (the
-  jitter the same-day binary-snap interim fixed came from adding transitions, not from the grow).
-  The client read the interim discrete cut as "just snapping in place," so the morph is the rule;
-  a hard cut is a strategy change, not a polish pass.
+- **Metrics** sit in the **impressive-stats band** (`#investors`) with `[placeholder]`
+  figures — same numbers for every visitor, not a founders/investors split. **For investors**
+  is an in-page anchor to that band, never a page or a nav node. (The persona door was removed
+  2026-10-01.)
+- **For Founders** lives in the Menu overlay, footer, the **What we do** founder CTA (`#founders`),
+  and a quiet close link — not in header chrome. The scroll is: what we do (+ founder CTA & stats) →
+  verticals → AI → people joining → close.
+- **The first viewport is a two-state sequence (2026-09-24; Axis A amended 2026-10-01):**
+  **Axis A (Portfolio) → grow morph → Axis B (Growth engine)**. Axis A's mosaic H1 carries
+  identity/ownership; Axis B's hero H2 carries the **growth model** — deliberately not the same
+  claim (the deck's "operating system for vertical markets" line is retired from the hero, G-8).
+  The two kickers echo on purpose: mosaic = audience, hero = audience + validation clause.
+  **Axis A carries one identity/scale visual, not the 11 tiles** (client: "do not want 11 floating
+  vertical bubbles"); the 11 verticals live in the filmstrip.
+- **The transition is the grow morph (restored 2026-09-24; source changed 2026-10-01):** scrolling
+  the pin **grows the Axis A visual into the hero** (before 2026-10-01, the Retail tile `t3`) — an
+  interpolated clip-path traced per frame from the visual's live rect plus opacity ramps. **No CSS
+  transition on either state**, so the per-frame writes cannot smear (the jitter the same-day
+  binary-snap interim fixed came from adding transitions, not from the grow). The client read the
+  interim discrete cut as "just snapping in place," so the morph is the rule; a hard cut is a
+  strategy change, not a polish pass.
 - **Both states are content:** neither is `aria-hidden`, so AT reads the H1 (Axis A) then the hero H2
   (Axis B) at any scroll position, and with motion reduced both states appear in flow, A above B.
   **No-JS (resolved 2026-09-26):** the pin is gated by a `has-js` class on `<html>`, so without JS
@@ -135,14 +148,19 @@ your vertical" finder lives in the overlay / Vertical Software page.
 ### Known gaps & issues (do not silently fix — see open items)
 
 - ~~**G-1** "Browse all verticals →" linked to `#founders`.~~ **Resolved
-  2026-09-10:** now targets `#solutions`.
+  2026-09-10:** retargeted to `#solutions`. **Moot 2026-10-01:** the Software scene (which held
+  that link) was removed in the reorder; the Verticals filmstrip and the What-we-do "Lead" step now
+  link to `pages/vertical-software.html`.
 - ~~**G-2** Footer lists **For Investors** but the chrome does not.~~ **Resolved
   2026-09-10:** For Investors deleted from the sitemap; footer link removed.
-- **G-3** Proof-band metrics use **[verify publishability]** placeholders until
-  client confirms which scale/KPI signals can go on the site (OI-5).
+- **G-3** Stats-band metrics use **`[placeholder]`** figures until the client confirms which
+  scale/KPI signals can go on the site (OI-5). Current set: 11 / 100+ / 2,000+ / $75B+.
 - ~~**G-4** **No social-proof band** (testimonials / video) despite `design.md` §4.6.~~
-  **Partial 2026-09-23:** genericized founder quote after beat 06. Still unpublished; no video.
-- ~~**G-5** **No Our Story / Careers band**~~ **Open again 2026-09-23:** Newsroom filmstrip removed with the Newsroom page. Careers still footer-only.
+  **Partial:** genericized founder quote now sits in **What we do** (2026-10-01). Still unpublished;
+  no video (OI-6).
+- ~~**G-5** **No Our Story / Careers band**~~ **Resolved 2026-10-01:** the **Great place to work**
+  section (beat 05) carries the employer story with **real-image placeholders** ("not stock") plus the
+  LinkedIn strip. Careers is no longer footer-only. (Newsroom remains removed.)
 - ~~**G-6** "For Founders" as chrome + feature tab.~~ **Resolved 2026-09-21
   (wireframe experiment):** founders path is overlay + close (header chrome link removed 2026-09-23); scroll is general.
 - ~~**G-7** JS tabs on the feature section.~~ **Resolved 2026-09-21:** tabs removed;
@@ -261,16 +279,17 @@ Anything present on some pages but not others is drift — decide once and apply
 - ~~**OI-2 — "For Investors" placement.**~~ **Resolved 2026-09-10: deleted.**
   No investor nav node or page; investors are served by homepage scale/proof +
   Contact. (KB §14 locked.)
-- **OI-3 — Section order.** Wireframe experiment 2026-09-21: long-form Bending
-  Spoons scroll (thesis → general proof → 3 vertical chapters → offerings stack).
-  Confirm vs Alternative A’s dual-axis. **Partly resolved 2026-09-24:** the dual axis is now
-  delivered **in sequence** — Axis A (Portfolio) → grow morph → Axis B (Growth engine) — so
-  Alternative A's side-by-side `.dual` lanes are retired for the live build; the mid-page order is
-  still the 2026-09-21 experiment. `design.md` §3.1 records the opening.
-- **OI-4 — AI homepage treatment.** Dedicated page is **locked under Offerings**
-  (KB §14). Current wireframe: AI is the last row in beat 05, not a tab.
-- **OI-5 — Stat / proof strategy.** Current: one general proof band (beat 03) + the beat 06
-  KPI cycle, which still cycles **placeholders (11 / 80k+ / 2,000+)**. V2 supplies a real,
+- **OI-3 — Section order.** **Resolved 2026-10-01 (client review).** Order is now: Opening →
+  **What we do** (Acquire/Grow/Lead + founder CTA + impressive stats) → **Verticals** filmstrip →
+  **AI** → **Great place to work** → Close. The dual axis is delivered **in sequence** in the
+  opening — Axis A (Portfolio) → grow morph → Axis B (Growth engine); Alternative A's side-by-side
+  `.dual` lanes stay retired. `design.md` §3 + KB §24 record it. **Remaining:** client sign-off.
+- **OI-4 — AI homepage treatment.** **Resolved 2026-10-01:** AI gets its **own homepage section**
+  (beat 04) with **example use cases**, replacing the old Software + Offerings scenes. The dedicated
+  AI page stays **under Embedded Offerings** (KB §14).
+- **OI-5 — Stat / proof strategy.** Current: the **impressive-stats band** (`#investors`) + the
+  filmstrip **KPI cycle**, both cycling **placeholders (11 / 100+ / 2,000+ / $75B+)**. V2/Cloudmellow
+  supply a real,
   marketing-authored set — **70,000+ customers · $75B+ processed on Fullsteam Pay · 480M+
   transactions · 2,000+ employees · 100+ businesses** (KB §22.5) — so this becomes a copy
   swap, not an invention. **Half resolved 2026-09-26:** the **vertical count is settled at 11**
@@ -280,9 +299,9 @@ Anything present on some pages but not others is drift — decide once and apply
   the cycle until the customer figure and publishability are settled (KB §22.6.2).
 - **OI-6 — Social proof & video.** *Decision 2026-09-26:* hold. The genericized founder quote
   stays; no testimonials or mission video until the client supplies assets (G-4).
-- **OI-7 — Careers/company band.** *Decision 2026-09-26:* hold. The "For people joining" beat
-  (06) already carries the employer story above the footer; no further band until the client
-  provides the ~15% allocation content (G-5).
+- **OI-7 — Careers/company band.** **Resolved 2026-10-01:** the **"Great place to work"** section
+  (beat 05) carries the employer story with **real-image placeholders** + the LinkedIn strip (G-5).
+  Still needs the real photos (not stock) and the ~15% allocation content.
 - ~~**OI-8 — Feature interaction.**~~ **Wireframe experiment 2026-09-21:** JS tabs
   removed in favor of stacked long-form. Confirm with client.
 - **OI-9 — How far the grow morph reaches.** Decided 2026-09-24 for the **opening only**
@@ -293,8 +312,17 @@ Anything present on some pages but not others is drift — decide once and apply
   Two build caveats: **(i) no-JS — RESOLVED 2026-09-26.** The pin is now gated by a `has-js` class
   on `<html>`, so without JS the two states render in document order (A above B) and Axis B is never
   stranded hidden. **(ii) first frame** — the hero background is a lo-fi placeholder today, so the
-  morph starts from a flat tile, but with real artwork the Axis B frame must be preloaded or the
+  morph starts from a flat visual, but with real artwork the Axis B frame must be preloaded or the
   morph's early frames expose an empty state.
+- **OI-10 — Homepage reorder (client review 2026-10-01).** **Applied to the wireframe; awaiting
+  client sign-off.** The client asked for: a more impressive landing, no 11 floating bubbles, a
+  "What does Fullsteam do?" breakout (Acquire → Grow/Build → Lead + founder CTA + stats), the
+  filmstrip moved up, the Software + Offerings scenes replaced by AI, and a humanized Great place to
+  work. Applied per KB **§24** / `design.md` §3. **Open:** (a) the **opening visual's treatment**
+  ("design/animation TBD") and whether it becomes video; (b) **founder-CTA placement** (applied
+  after the triad; the client listed it after Acquire); (c) whether to **spotlight the marquee
+  backers** (Aquiline / Sixth Street / ADIA) as an "impressive" signal; (d) client sign-off on
+  replacing Axis A's tiles.
 - **Legal pages (Privacy / Terms / Complaints).** *Decision 2026-09-26:* remain footer labels
   only. They are outside the content-writing scope and require client-supplied legal copy; not
   built as pages.
@@ -374,22 +402,29 @@ Anything present on some pages but not others is drift — decide once and apply
 | 2026-09-26 | **Homepage transition reconciled — the opening is the grow morph, not the binary snap.** The docs had split from the build. `homepage.html` has only ever run the **grow morph** (the Retail tile `t3` grows into the hero; per-frame `clip-path` + opacity ramps; its own comment says "restored 2026-09-24 at the client's request"), and `AGENTS.md`'s opening bullet + same-day amendment agree — but `design.md` §3.1/§4.1, KB **§23/§23.6** ("do not re-introduce interpolation"), and this file all still mandated the **binary snap** and called the morph removed. An agent following the canonical docs would have deleted the client-requested transition. **Decision:** the grow morph is current; the binary snap was the same-day interim the client rejected as "just snapping in place." Reconciled `design.md` §3.1 (heading + both transition bullets) and §4.1, KB §23 (§23.1, §23.2, §23.3, §23.5 vocabulary, §23.6 guardrail 1), and `AGENTS.md`. The two states, the two headlines, the Axis A→B order, both-states-are-content, and reduced-motion flow are unchanged. The 2026-09-24 rows here and in KB are kept and marked superseded. Also fixed in the build: the morph's scroll math still used a hard-coded `57` (now reads the pinned frame's own top) and `--chrome` was a single 62px value while the ≤768 bar is 56px (added a mobile `:root` override) — the seam is now 0.2px at every breakpoint. `design.md` edited (it is the spec of record). |
 | 2026-09-26 | **Autonomous decisions pass.** (a) **No-JS hero — fixed.** The Axis A/B pin is gated by a `has-js` class on `<html>`; with JS off the two states render in document order (A above B) instead of stranding Axis B hidden (`.hero` defaults to `opacity:0; clip-path:inset(100% 0 0 0)`). Resolves the OI-9 no-JS caveat. (b) **Vertical count settled at 11** — the locked IA carries 11 tiles and 11 tabs, so the site states 11; only the **customer count** (80k+ vs V2's 70,000+) and proof **publishability** remain open under OI-5. (c) **Chrome stays B revised** (already on every page) pending client sign-off; no code change. (d) **Legal pages** (Privacy / Terms / Complaints) stay footer labels — outside content scope, client-supplied copy. (e) **OI-6 social proof / video** and **OI-7 careers band** unchanged — no assets exist to add. (f) **Repo/public-docs posture:** kept public (the Pages review site depends on it). The client-doc leak at old SHA `33c60f5` — **5 files still return 200, re-verified 2026-09-26** — is recorded with a drafted GitHub Support purge request in KB §22.7; the support request and any repo-visibility change need the owner's GitHub access, not the repo. No structural or copy change. |
 | 2026-09-26 | **Placeholders made unmistakable + copy handoff added.** The proof strip's figures read close to final in review, so the two undecided ones now read `[placeholder]` (the settled 11 stays untagged) and a dashed `.proof-note` says they are for layout only and pending verification. The KPI cycle's `vertical markets [verify]` tag was dropped (the 11 count is settled) and its two figures now read `[placeholder]`; no `[verify]` remains anywhere. Added **`content-slots.md`** at the repo root — a slot-by-slot inventory of every place copy goes across the homepage, the 7 subpages, and the shared chrome, each marked **Locked / Draft / Placeholder** with the constraint it must respect, plus the cross-cutting rules from KB §20–§22. It is the handoff to the content team (the wireframes show structure only) and is excluded from the Pages allowlist. Referenced from `AGENTS.md` and this file's header. |
+| 2026-10-01 | **Homepage reordered from client review — Axis A replaced, page rebuilt (KB §24).** Client feedback: make the landing feel *more impressive* (scale, modern tech/AI, US/Canada reach); **"do not want 11 floating vertical bubbles"**; animation on scroll is fine. **Opening:** keep the locked **Axis A → grow morph → Axis B** model, but **Axis A is now one identity/scale visual** instead of the 11 scattered tiles; the grow morph's source is that visual (was the Retail tile `t3`). The two headlines, A→B order, both-states-are-content, and reduced-motion/no-JS flow are unchanged. **Page order:** removed the persona door, the two-up "who we are," the **Software** scene (old 04), and the **Offerings** scene (old 05); added **02 What we do** ("What does Fullsteam do?" — Acquire / Grow-Build (AI + payments) / Lead + founder CTA + founder voice), the **impressive-stats band** (`#investors`; 11 / 100+ / 2,000+ / $75B+ placeholders), **03 Verticals** (filmstrip moved up; the client-liked treatment kept), **04 AI** (use cases/examples first; replaces Offerings on the homepage), **05 Great place to work** (real-image placeholders, "not stock," + LinkedIn), **06 Close**. The **Embedded Offerings page + nav node stay** (sitemap lock). Reconciled `design.md` §3/§3.1/§4/§8, `content-slots.md` §2, KB (amended §23; added §24 + §25 for the new Cloudmellow *Strategic Positioning 2026* deck), and `AGENTS.md`. Verified in-browser at 1440 and 390 (desktop + mobile), reduced-motion flow, and a JS-disabled context (A above B). |
 
 ---
 
-## 9. Interior pages (2026-09-25)
+## 9. Interior pages (2026-09-25 · messaging pass 2026-10-01)
 
 Same chrome on every page: Logo · Menu · Explore vertical solutions. The Menu overlay and footer reach the locked tree. Body copy is placeholder. Headlines carry the locked job of the page.
 
+**Messaging pass (2026-10-01, "apply to all pages"):** every page now reflects the new narrative —
+**system-of-record software first**, with **AI, payments, and operational excellence** built in;
+**software ≈ ¾ of the business** and payments the embedded growth; **AI use cases, never headcount**;
+"a home for your business," never "exit"; **real people, not stock photos**; **implied scale**
+(placeholders). The sitemap is unchanged (**Embedded Offerings page + nav stay**). KB §24 / §25.
+
 | Page | Structure |
 |------|-----------|
-| **For Founders** | Why Fullsteam → how it works (4 steps) → what we look for → talk to us. Never frames the sale as an exit. |
-| **FAQ** | Six founder questions. Answers record the constraints (software before payments, brands stay, no announcement at close). |
-| **Vertical Software** | Contained hero at the top: one page headline for the verticals, one line, and the Read the story control (no hero image). Eleven taller name tiles sit under the hero — gray image fields with the name overlaid; hover lifts a tile; the open tile is yellow. A tile opens that vertical’s story in a window — title, story paragraphs, an overlapping icon collage, and fact chips. Arrows move through all 11. On a narrow screen the window fills the page, the story scrolls inside it, and Previous / Next sit at the bottom. A swipe moves to the next vertical. The menu’s vertical names use the same hash and open that window. No category labels, no child pages, no search field. |
-| **Embedded Offerings** | Contained hero at the top: one page headline, one line (integrations live here), and the Read the story control (no hero image). Four taller name tiles sit under the hero — Payments, Lending, Insurance, AI at Fullsteam — gray image fields with the name overlaid; hover lifts a tile; the open tile is yellow. A tile opens that offering’s story in a window. Arrows move through all four. On a narrow screen the window fills the page, the story scrolls inside it, and Previous / Next sit at the bottom. A swipe moves to the next offering. The menu’s offering names use the same hash and open that window. Hardware folds into Payments. Integrations live in this overview. AI is use cases first, never a headcount story. No category labels, no child pages, no search field. |
-| **Our Story** | Localyzer `/about` order, wireframe skin: hero (who we are, Explore + Leadership) → image band → KPI-label proof strip → split intro and staggered images → leadership teaser → chapter cards (`Year [placeholder]`, no invented timeline) → open-role rows → close (“A home for your business” + Explore + Contact). Links to Leadership, Careers, Embedded Offerings. |
-| **Leadership** | Six placeholder leader cards. Leaders only. |
-| **Careers** | How it feels → who thrives → open-role table (placeholder rows). |
+| **For Founders** | Why Fullsteam → how it works (4 steps) → what we look for → talk to us. Hero lede states the new line (systems of record + AI/payments/operational excellence; software first). "What we look for" leads with the industry and frames the software as a system of record, AI/payments added after. Never frames the sale as an exit. |
+| **FAQ** | **Eight** founder questions (was six). Adds **"What does Fullsteam actually buy?"** (system-of-record software; software ~¾) and **"Does AI replace my team?"** (no — use cases first, never headcount). Answers record the constraints (software before payments, brands stay, no announcement at close). |
+| **Vertical Software** | Contained hero with a software-first lede ("the system of record for each; AI and payments added after the close"). Eleven taller name tiles; a tile opens that vertical's story in a window — title, story paragraphs, an icon collage, and **four fact chips** now including **"What we add" (AI and payments)**. Arrows move through all 11. No category labels, no child pages, no search field. |
+| **Embedded Offerings** | Contained hero re-framed **software-first / AI-forward** ("Software comes first. Then we build in the things that grow it — AI, payments, lending, insurance"). Four tiles (Payments, Lending, Insurance, AI at Fullsteam); a tile opens that offering's story. Payments is framed as **"invisible, embedded"** infrastructure; **AI is use cases first, never a headcount story**. Ordered Payments→AI; the anno flags **promoting AI to the first tile** as an option. Hardware folds into Payments; integrations live here. |
+| **Our Story** | Hero lede states the new line. **KPI strip now carries placeholder figures** — 100+ businesses · 2,000+ people · 70,000+ customers · $75B+ on Fullsteam Pay* (all `[placeholder]`, no revenue/run-rate/profitability). Adds a **marquee-backers** line (Aquiline · Sixth Street · ADIA) as a trust signal pending publishability, and a **real-imagery** note. Chapter cards unchanged (`Year [placeholder]`, no invented timeline). Links to Leadership, Careers, Embedded Offerings. |
+| **Leadership** | Six placeholder leader cards. Leaders only. **Real portraits, not stock.** |
+| **Careers** | Hero carries **2,000+ people across 11 verticals**. How it feels → who thrives → open-role table (placeholder rows). **Real employee imagery, not stock.** AI is never a replacing-the-team story. |
 | **Contact** | Conversation form. Reasons: software business, work here, something else. No investor page and no investor option. |
 
 Privacy, Terms, and Complaints stay footer labels only. They are outside the content-writing scope.

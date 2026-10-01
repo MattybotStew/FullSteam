@@ -1665,6 +1665,12 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
 > plus opacity ramps — because the cut "read as just snapping in place." The **two-state model,
 > the two headlines, and the Axis A→B order are unchanged**; only the **transition** changed. The
 > snap is retained below as interim history, not the current rule.
+> **Amended 2026-10-01 (client homepage review):** Axis A is **no longer the 11 scattered vertical
+> tiles** ("do not want 11 floating vertical bubbles"). It is now **one identity/scale visual**,
+> and the 11 verticals live in the **filmstrip** section the client likes. The **two-state model,
+> the two headlines, the Axis A→B order, and the grow morph are unchanged** — only **what Axis A
+> carries** and the **grow's source** changed. The full review and the new page order are in **§24**;
+> `design.md` §3.1/§4.1 and `wireframes.md` carry the reconciled spec + build.
 > **Spec of record:** `design.md` §3.1 (the sequence) + §4.1 (hero-level rules).
 > **Build + fixed defects:** `wireframes.md` §2 table row 2 and the changelog entries 2026-09-24
 > (morph → snap) and 2026-09-26 (snap → morph reconciliation).
@@ -1688,8 +1694,13 @@ client-facing framing available for sign-off: *"your two-axis model, delivered i
 
 | | State | Job | Carries | Beat |
 |---|---|---|---|---|
-| **Axis A** | **Portfolio** | identity / ownership | Mosaic **H1** ("Whatever the industry, we own the software it runs on.") + **audience kicker** + the **11 verticals** as labeled scattered tiles | **01** |
+| **Axis A** | **Portfolio** | identity / ownership | Mosaic **H1** ("Whatever the industry, we own the software it runs on.") + **audience kicker** + **one identity/scale visual** (revised 2026-10-01 — was the 11 scattered vertical tiles; see §24) | **01** |
 | **Axis B** | **Growth engine** | the growth model | **Audience kicker** + hero **H2** (**"Software first. Then we grow it."**) + the Offerings sub-line | **01**, proved at **04** |
+
+> **Revised 2026-10-01:** Axis A's 11-tile mosaic was **replaced by one identity/scale visual** at
+> the client's request ("do not want 11 floating vertical bubbles"). The 11 verticals now live in
+> the **filmstrip** section (§24). The grow morph's source is that single visual instead of the
+> Retail tile (`t3`); the model, the two headlines, the A→B order, and the morph are unchanged.
 
 - **Both states are content, not decoration** — neither is `aria-hidden`. Assistive tech reads
   the H1 (Axis A) then the H2 (Axis B) at any scroll position, and nothing on the page depends
@@ -1826,4 +1837,185 @@ cost of reaching Axis B was reduced, plus a measured defect in Axis A itself.
   homepage. §14 and §19.1 retain their dated update blocks as history and link here.
 - **Still needs client sign-off:** the framing language *"your two-axis model, delivered in
   sequence"* and **"the growth engine"** as the name of Axis B (see §22 for the V2 relationship).
+
+---
+
+## 24. Homepage Client Review — reordered homepage (2026-10-01)
+
+> **Status:** Client feedback recorded and applied to the wireframe (2026-10-01). The homepage
+> structure was rebuilt, `design.md` reconciled, and `wireframes.md` / `content-slots.md` updated.
+> **Not yet a formal client sign-off** — this section is the record of the review and the three
+> decisions taken when applying it.
+> **Supersedes (homepage only):** the beat order in §22.4/§23 as it applies to sections **after**
+> the opening. The opening model itself (§23) is amended by §24.1, not replaced.
+> **Spec of record:** `design.md` §3 / §3.1 / §4 (UX intent) · **Build:** `wireframes.md` §2 +
+> changelog 2026-10-01 · **Copy handoff:** `content-slots.md` §2.
+
+### 24.1 What the client asked for (verbatim themes)
+
+- **First impression:** "Fullsteam is way more impressive than you thought" — **scale, modern
+  technology & AI, influence on the US/Canadian economy, profitable.** "[Do] not want 11 floating
+  vertical bubbles." **Animated on scroll is OK**; the vertical treatment is TBD.
+- **Message 1 (content):** "Our software companies are all **systems of record** and have **AI,
+  Payments, and Operational Excellence**."
+- **Message 2 — "What does Fullsteam do?"** a breakout "what we do": **Acquire** (we've acquired
+  these companies and continue to acquire) → **Founder call to action** → **Grow/Build** (AI +
+  Payments focus) → **Lead** (our software powers industries) → **impressive stats**.
+- **Message 3 — Verticals & information:** move **4b (the filmstrip) up to right after "What we
+  do."** The client **likes the current verticals animation/design**.
+- **Message 4 — AI:** **kill section 4 (The software)**; **remove Embedded Offerings [from the
+  homepage] in favor of focusing on AI**; **pick between section 5 and 5b**; **highlight examples
+  of AI.**
+- **Message 5 — Great place to work:** **humanizing / actual images**, not stock photos.
+
+### 24.2 Decisions taken when applying it (2026-10-01)
+
+1. **Opening — keep the two-state model, replace Axis A.** The locked **Axis A → grow morph →
+   Axis B** model (§23) is preserved; **what Axis A carries** changes. Axis A is no longer the 11
+   scattered tiles — it is **one identity/scale visual**, and the 11 verticals move to the
+   **filmstrip** the client likes. The grow morph's source is that visual (was the Retail tile
+   `t3`). The two headlines, the A→B order, both-states-are-content, and reduced-motion/no-JS flow
+   are **unchanged**.
+2. **Embedded Offerings — keep the page + nav, drop the homepage section.** The locked L1 page
+   (`/embedded-offerings`) and its nav node **stay**. The homepage stops carrying a dedicated
+   Offerings scene; **Payments folds into "What we do → Grow"** (AI + payments) and **AI gets its
+   own section**. This keeps the sitemap lock (`plans/sitemap-lock.md`) intact.
+3. **Full reconcile now.** Record here, amend `design.md`, rebuild `homepage.html`, update
+   `wireframes.md` + `content-slots.md`.
+
+### 24.3 New homepage order (beat map)
+
+| New beat | Section | Source |
+|---|---|---|
+| — | **Opening** — Axis A (identity/scale visual) → grow morph → Axis B (growth model) | §23 (amended; Axis A visual replaces tiles) |
+| **02** | **What we do** — *What does Fullsteam do?* · Acquire → Grow/Build (AI + payments) → Lead → founder CTA → founder voice | Message 2 + Message 1 |
+| — | **Impressive stats** (`#investors`) — 11 / 100+ / 2,000+ / $75B+ *(placeholders, OI-5)* | Message 2 |
+| **03** | **Verticals** — the filmstrip (kept; the client likes it) | Message 3 (4b moved up) |
+| **04** | **AI** — use cases / examples first; never a headcount story | Message 4 |
+| **05** | **Great place to work** — humanizing, real imagery (not stock) + LinkedIn strip | Message 5 |
+| **06** | **Close** — Explore + For Founders | unchanged |
+
+- **Removed from the homepage:** the persona door (old beat 02), the two-up "who we are," the
+  **Software scene (old 04)**, and the **Offerings scene (old 05)** — folded into "What we do"
+  and AI. **Kept:** the proof/stats strip (now the section's impressive stats), the founder voice,
+  the filmstrip, the LinkedIn strip, the close, and the footer.
+
+### 24.4 Guardrails for this revision (all agents)
+
+1. **§23 still holds for the opening** except the Axis A *carry*: two states, two headlines, the
+   A→B order, the grow morph (no discrete cut), both states = content. Do not merge headlines or
+   add a third state.
+2. **"Embedded Offerings" stays the axis label** — even though the homepage no longer has an
+   Offerings section, and even though V2/V4 copy may lean on AI. **Never "Platform"** (§23.5,
+   §22.6.3).
+3. **Payments is not the lead.** Message 1 and the AI emphasis must not invert §20.1's order
+   (Software → Verticals → Integrate Payments; software ≈ ¾ of revenue, payments ≈ ¼ and currently
+   over-indexed).
+4. **"Profitable" is a *feeling*, not a published claim.** §20.4 / §20.7 forbid publishing
+   revenue, run-rate, or explicit profitability. Carry the impression with **inferable KPIs**
+   (scale, headcount, volume, retention) — not a profitability statement.
+5. **AI is use cases first; never a headcount story** (§20.5). "Operational Excellence" and
+   "system of record" are new **content** inputs — use plain language; do not lift V2's internal
+   pillar titles (§22.6.4).
+6. **Stats stay placeholders pending OI-5.** The vertical count is **11** (settled); the customer
+   count, `$75B+`, and `100+` are **not publishable until cleared** (§22.5 / §22.6.2). Keep the
+   `[placeholder]` tags and the `*cumulative` note.
+7. **Imagery:** real Fullsteam people, **not stock** (§20.8, `design.md` §7). Wireframes show
+   labelled placeholders.
+
+### 24.5 Open items from this review
+
+- **Client sign-off** on the reordered homepage and the replacement of Axis A.
+- **The hero's "impressive" delivery.** The client wants the landing to *feel* bigger. Axis A is
+  now one visual; whether that visual is a film/video, a product collage, or a scale graphic is a
+  **design/animation decision** ("design/animation TBD") — not yet specified.
+- **Founder-CTA placement.** Applied as a banded callout after the Acquire/Grow/Lead triad; the
+  client listed it between Acquire and Grow/Build. Confirm final position.
+- **Stats roster** (OI-5): which of 11 / 100+ / 2,000+ / $75B+ / 70,000+ are publishable.
+- **AI examples** are placeholder use cases; the client asked to "highlight examples" — needs the
+  real, publishable ones (no named acquisitions until cleared, §20.7).
+
+### 24.6 Applied to all pages (2026-10-01)
+
+**Decision:** propagate the messaging/UX direction to every interior page — **keep the sitemap**
+(the Embedded Offerings page + nav stay). Done in all 8 interior wireframes + docs.
+
+- **For Founders** — hero lede states systems of record + AI/payments/operational excellence,
+  software-first; "What we look for" frames the software as a system of record with AI/payments
+  added after the close.
+- **FAQ** — added **"What does Fullsteam actually buy?"** and **"Does AI replace my team?"** (no —
+  use cases first, never headcount).
+- **Vertical Software** — software-first lede; every vertical's fact chips gain a **"What we add"
+  (AI + payments)** chip.
+- **Embedded Offerings** — hero re-framed **software-first / AI-forward**; payments positioned as
+  **invisible, embedded**; AI use cases first. Ordered Payments→AI; noted the option to promote AI
+  to the first tile.
+- **Our Story** — software-first lede; KPI strip now carries **placeholder figures**
+  (100+ / 2,000+ / 70,000+ / $75B+); added a **marquee-backers** line (Aquiline · Sixth Street ·
+  ADIA, pending publishability) and a **real-imagery** note.
+- **Leadership** — real portraits, not stock; leaders only.
+- **Careers** — hero carries **2,000+ people across 11 verticals**; real employee imagery, not
+  stock; AI never a replacing-the-team story.
+- **Contact** — unchanged (already validation-not-funnel).
+
+**Guardrails unchanged** on every page: system-of-record software first; **never "Platform"**;
+never "exit"; AI never headcount; no named acquisitions or revenue/profitability; stats stay
+`[placeholder]` until OI-5 clears; the **11** vertical count is the only settled one.
+
+---
+
+## 25. Strategic Positioning 2026 (Cloudmellow deck) — source material
+
+> **Source:** `Fullsteam Strategic Positioning.pdf` (35 slides, prepared by **Cloudmellow**, 2026).
+> **Status:** Client-authored strategy deliverable. Read locally; **not tracked** (the repo is
+> public — it lives outside `clientDocs/`, and nothing here may be committed).
+> **Relationship to §22:** this is the **fuller deck** behind the V2 "Strategic Messaging
+> Architecture" distillate. The pillars, personas, matrix, and authority signals match §22; this deck
+> adds the **SWOT, stakeholder-interview themes, global takeaways, and website recommendations**.
+> Where the two differ, neither is ratified — treat §22.1's caveat as standing.
+
+### 25.1 What it confirms (why the homepage restructure holds)
+
+- **Weakness: "Unclear & Complex Core Narrative."** "Difficult to quickly understand *What Fullsteam
+  Does*," leaving visitors unsure if Fullsteam is a SaaS vendor, a PE fund, a payment processor, or a
+  "real" company. → backs the client's **"What does Fullsteam do?"** breakout (homepage beat 02; §24).
+- **Rebalance software vs. payments.** Revenue is roughly **3:1 software:payments**, yet the current
+  narrative overweights payments. Show **AI strengthening the software side**. → backs the homepage
+  **AI** section and folding Payments into "Grow/Build" (§24).
+- **AI = efficiency, never staff reduction.** → matches §20.5 and the homepage AI guardrail.
+- **Humanize the holding company.** "Real leaders, founders, and employees carrying the story instead
+  of corporate word-walls." → backs **Great place to work** with real imagery (not stock).
+- **Validation, not lead-gen; implied scale, not disclosed financials.** → matches §20.2/§20.4.
+- **"Certainty of close," "a home for your business," never "exit."** → matches §20.4.
+- **Graduated, case-by-case acquisition storytelling** (announce post-"graduation"). → matches
+  §20.7 (do not name acquisitions at close).
+
+### 25.2 Net-new material worth keeping
+
+- **Marquee financial backers (underused trust signal):** **Aquiline Capital Partners**, **Sixth
+  Street**, and the **Abu Dhabi Investment Authority**. The deck names these as a "show of financial
+  strength" for investors. → **opportunity**: a credible "impressive" signal for the opening / proof
+  (§24.5). Confirm publishability.
+- **Target universe is limited — ~1,000 viable acquisition targets**, so brand reputation compounds
+  (the same targets are re-engaged for years). → supports long-cycle trust content.
+- **Payments as "invisible, embedded" infrastructure** — "like the water or electric company";
+  concrete vertical example (salon software with deposit/no-show/tipping). → the signature payments
+  message for the Embedded Offerings page.
+- **Named acquisitions cited internally:** **Floranext** (contacted 2020, engaged 2022, quarterly
+  follow-up for years), **ISI**, **Storage Commander**. §20.7 still forbids naming these on the site
+  until the client confirms — **genericize**.
+- **Authority signals supplied:** **70,000+ customers · $75B+ processed on Fullsteam Pay* · 480M+
+  transactions* · 2,000+ employees** (*cumulative). Same set as §22.5; still gated by OI-5.
+- **SWOT, 6 interview themes, 10 global takeaways, 5 prioritized website recommendations** — the
+  deck's supporting analysis (§20 already synthesizes the interviews; this is the Cloudmellow view).
+
+### 25.3 Conflicts it re-raises (unchanged from §22.6)
+
+1. **"13+ specialized market sectors/industries" vs the locked 11 verticals.** Ship **11** (§14);
+   needs a client answer, §22.6.2.
+2. **"Predictable fintech revenue growth"** (investor outcome) is a financial forecast — **do not
+   ship** (§20.4; §22.6.5).
+3. **"Platform"** resurfaces ("the financial leverage of a large platform") — banned as the axis
+   label; site stays **"Embedded Offerings"** (§14; §22.6.3).
+4. **Pillar titles are internal labels** — rewrite before use (this is what beat 01 does; §22.6.4).
 
