@@ -305,12 +305,28 @@
 
   .band{ padding:96px 0 88px; background:var(--bg); }
   .band.tan{ background:var(--tan); }
-  .band-head{ text-align:center; width:min(960px, 100%); max-width:960px; margin:0 auto 48px; }
+  .band-head{
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center; width:min(960px, 100%); max-width:960px;
+    margin:0 auto 48px; padding:0 24px; box-sizing:border-box;
+  }
   .band-head h2{
     font-size:clamp(32px,5vw,56px); font-weight:700; letter-spacing:-.03em; line-height:1.08;
     margin-bottom:12px;
   }
   .band-head p{ font-size:18px; line-height:1.5; }
+  .band-head .anno{
+    margin-left:auto;
+    margin-right:auto;
+  }
+  #what-we-do .anno{
+    margin-left:auto;
+    margin-right:auto;
+  }
+  #what-we-do > .anno{
+    width:min(62ch, calc(100% - 48px));
+    margin-bottom:8px;
+  }
 
   /* 02 What we do — Acquire / Grow / Lead */
   .steps{
@@ -382,7 +398,12 @@
     text-align:left;
   }
   .grow .beat{ color:var(--white); }
-  .grow-head{ max-width:1280px; margin:0 auto 28px; }
+  .grow-head{
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center; max-width:1280px; margin:0 auto 28px; padding:0 24px;
+    box-sizing:border-box;
+  }
+  .grow-head .anno{ margin-left:auto; margin-right:auto; }
   .grow h2{
     font-size:clamp(32px,5vw,56px); font-weight:700; letter-spacing:-.03em;
     line-height:1.08; max-width:16ch; margin:0;
@@ -465,7 +486,8 @@
     background:var(--tan);
   }
   .li-feed .wrap{ max-width:1280px; padding:0 24px; }
-  .li-feed .beat{ margin-bottom:20px; }
+  .li-feed .beat{ margin-bottom:20px; text-align:center; width:100%; }
+  .li-feed .wrap > .anno{ margin-left:auto; margin-right:auto; }
   .li-posts{
     display:flex; gap:8px;
     overflow-x:auto;
