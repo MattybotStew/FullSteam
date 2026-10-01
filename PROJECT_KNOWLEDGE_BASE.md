@@ -2113,3 +2113,12 @@ This resolves nothing about the **open conflicts** (§25.3), which still need a 
 style added); `content-slots.md` — homepage rows marked **Intent** and the pass recorded at the top
 of §2. **Nothing above the fold changed**; the two locked headlines and the A→B order are intact.
 
+**Extended 2026-10-01 — headlines become intent too.** At the client's request, **every homepage
+heading (h1/h2/h3) now reads as a short intent statement**, not example copy (heading tags kept).
+First pass wrote the full intent into the headings; the client found it **too long**, so the detail
+was moved back into a small `.anno` note beneath each heading (e.g. H1 → *"Intent: establish what
+Fullsteam owns — and its scale."* + a note carrying the lens and *"Locked line: 'Whatever the
+industry, we own the software it runs on.'"*). Untouched: section **beat markers**, audience
+kickers, structural labels (Acquire/Grow/Lead, vertical names, stats), CTAs, and nav. Locked opening
+and A→B order still intact.
+

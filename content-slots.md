@@ -69,13 +69,16 @@ The opening is a **two-state pinned sequence** (Axis A → grow morph → Axis B
 content. See KB §23 (and **§24** for the 2026-10-01 client review) before touching anything above
 the fold. **The page was reordered 2026-10-01** — this table reflects the new order.
 
-**2026-10-01 messaging pass (intent-first):** the wireframe's supporting copy is replaced by
-**section intent notes** (`.anno` — the same convention the interior pages use). The wireframe now
-records *what each section must do and for whom*, not final wording; the final copy is written
-here. **Primary lens: investors**, founders secondary. This is a **lens change only** — the locked
-Axis A/B opening is unchanged (it still addresses founders first), and no IA/order changed.
-Messaging themes: forward-thinking, a repeatable process, best stewards of the products (for
-founders), and *acquire and make the software companies run better* (for investors).
+**2026-10-01 messaging pass (intent-first):** the wireframe records *what each section must do and
+for whom*, not final wording; the final copy is written here. Both the **supporting copy** and the
+**headlines (h1/h2/h3)** now read as intent statements — supporting copy as `.anno` notes, headings
+as intent text with the locked lines quoted inside (`homepage.html`). Section **beat markers**
+(`02 — What we do`), the audience kickers, structural labels (Acquire/Grow/Lead, vertical names),
+CTAs, and the stat placeholders remain. **Primary lens: investors**, founders secondary. This is a
+**lens change only** — the locked Axis A/B opening is unchanged (still founder-first visible
+framing), and no IA/order changed. Messaging themes: forward-thinking, a repeatable process, best
+stewards of the products (for founders), and *acquire and make the software companies run better*
+(for investors).
 
 | # | Slot | Role | Status | Note |
 |---|---|---|---|---|
