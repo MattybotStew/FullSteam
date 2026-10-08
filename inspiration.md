@@ -307,8 +307,18 @@ Reduced-motion skips the pin.
 rather than a feature tour. Our beat numbering (01–07) and the stacked-chapter
 approach to offering detail come from here.
 
-**What was dropped:** the deal-card portfolio treatment and the founder/investor
-story split, both removed from the scroll on 2026-09-21.
+**What was dropped from the homepage scroll (2026-09-21):** the deal-card portfolio
+treatment and the founder/investor story split.
+
+**Partial revival (2026-10-08, Vertical Software page only):** the **acquired-business
+card** pattern — logo row, acquisition date, 2–3 milestone/stat lines, large product
+screenshot — returns as a **horizontal row of 3–4 display-only cards per vertical
+panel** (`vertical-software.html`; **no card CTA** in the wireframe — FS Design’s
+story pill dropped until client approves interaction; see `wireframes.md` OI-11).
+Structure aligned to FS Design (`node-id=11215-120`). **Guardrails:** no named brands,
+logos, or real KPIs in wireframes until client publishability (KB §20); cards are
+credibility/exploration, not a lead funnel; **not** on the homepage filmstrip unless
+explicitly scoped.
 
 **Client note (KB §9):** "unique, engaging experience; premium product feel."
 

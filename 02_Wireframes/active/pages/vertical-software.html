@@ -192,9 +192,51 @@
     line-height:1.05; max-width:16ch;
   }
   .v-hero .pill{ margin:24px 0 8px; }
-  .facts{ grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:22px; }
-  .facts div{ border:1px solid var(--ink); padding:12px; background:#fff; }
+  .facts{ grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:22px; align-items:stretch; }
+  .facts div{
+    border:1px solid var(--ink); padding:12px; background:#fff; box-sizing:border-box;
+    display:flex; flex-direction:column; min-height:6rem;
+  }
   .facts span{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
+  /* Acquired-business cards (FS Design / Bending Spoons–style) — 3–4 per vertical */
+  .portfolio{ grid-column:1 / -1; margin-top:36px; min-width:0; }
+  .portfolio-title{
+    font-size:clamp(20px,2.4vw,26px); font-weight:700; letter-spacing:-.02em;
+    margin-bottom:14px;
+  }
+  .portfolio-track{
+    display:flex; gap:16px; overflow-x:auto; padding-bottom:8px;
+    overscroll-behavior-x:contain; scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+  }
+  .acq-card{
+    flex:0 0 min(300px, 82vw); scroll-snap-align:start;
+    border:1px solid var(--ink); border-radius:28px; background:var(--tan);
+    display:flex; flex-direction:column; overflow:hidden; min-height:420px;
+  }
+  .acq-head{ padding:20px 20px 0; }
+  .acq-logo{
+    height:44px; max-width:160px;
+    background:#fff; border:1px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:10px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--ph);
+  }
+  .acq-meta{ padding:16px 20px 0; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+  .acq-stats{
+    list-style:none; margin:12px 20px 0; padding:0 0 0 18px;
+    font-size:14px; line-height:1.45;
+  }
+  .acq-stats li{ margin-bottom:8px; position:relative; }
+  .acq-stats li::before{
+    content:""; position:absolute; left:-14px; top:.55em;
+    width:6px; height:6px; border:1px solid var(--ink); border-radius:50%; background:var(--tan);
+  }
+  .acq-shot{
+    margin-top:auto; min-height:180px; border-radius:0;
+    border-top:1px solid var(--ink);
+  }
+  .acq-shot::after{ width:40px; height:40px; }
   .cards{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:8px; }
   .card{ border:1px solid var(--ink); background:#fff; }
   .card .img-ph{ min-height:180px; }
@@ -323,7 +365,7 @@
               <button type="button" role="tab" data-tab="association-management" id="tab-association-management" aria-selected="false" aria-controls="panel-association-management">Association Management</button>
               <button type="button" role="tab" data-tab="erp" id="tab-erp" aria-selected="false" aria-controls="panel-erp">ERP</button>
             </div>
-            <p class="anno" style="margin-top:20px">Intent: the sidebar is the list; selecting one swaps the story inline. No modal. Each vertical leads with the software — the system of record — then AI and payments as what we add. Featured businesses stay generic until publishability is confirmed.</p>
+            <p class="anno" style="margin-top:20px">Intent: the sidebar is the list; selecting one swaps the story inline. No modal. Each vertical leads with the software — the system of record — then AI and payments as what we add. Below the story, a horizontal row of 3–4 acquired-business cards (logo, quick stats, product shot) — structure from FS Design / Bending Spoons; generic names and stats until publishability is confirmed.</p>
           </nav>
           <div class="v-content" id="vContent">
         <article class="panel is-active" data-panel="hospitality" id="panel-hospitality" role="tabpanel" aria-labelledby="tab-hospitality">
@@ -344,6 +386,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="weddings-events" id="panel-weddings-events" role="tabpanel" aria-labelledby="tab-weddings-events">
           <h2>Intent: tell the Weddings & Events story.</h2>
@@ -363,6 +454,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="wine" id="panel-wine" role="tabpanel" aria-labelledby="tab-wine">
           <h2>Intent: tell the Wine story.</h2>
@@ -382,6 +522,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="retail" id="panel-retail" role="tabpanel" aria-labelledby="tab-retail">
           <h2>Intent: tell the Retail story.</h2>
@@ -401,6 +590,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="storage-marina" id="panel-storage-marina" role="tabpanel" aria-labelledby="tab-storage-marina">
           <h2>Intent: tell the Storage & Marina story.</h2>
@@ -420,6 +658,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="health-wellness" id="panel-health-wellness" role="tabpanel" aria-labelledby="tab-health-wellness">
           <h2>Intent: tell the Health & Wellness story.</h2>
@@ -439,6 +726,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="field-services" id="panel-field-services" role="tabpanel" aria-labelledby="tab-field-services">
           <h2>Intent: tell the Field Services story.</h2>
@@ -458,6 +794,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="transportation" id="panel-transportation" role="tabpanel" aria-labelledby="tab-transportation">
           <h2>Intent: tell the Transportation story.</h2>
@@ -477,6 +862,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="automotive" id="panel-automotive" role="tabpanel" aria-labelledby="tab-automotive">
           <h2>Intent: tell the Automotive story.</h2>
@@ -496,6 +930,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="association-management" id="panel-association-management" role="tabpanel" aria-labelledby="tab-association-management">
           <h2>Intent: tell the Association Management story.</h2>
@@ -515,6 +998,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
         <article class="panel" data-panel="erp" id="panel-erp" role="tabpanel" aria-labelledby="tab-erp">
           <h2>Intent: tell the ERP story.</h2>
@@ -534,6 +1066,55 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="portfolio" aria-label="Businesses in this vertical">
+            <h3 class="portfolio-title">Businesses in this vertical</h3>
+            <div class="portfolio-track">
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+              <article class="acq-card">
+                <div class="acq-head">
+                  <div class="acq-logo">Logo [placeholder]</div>
+                </div>
+                <p class="acq-meta">Acquired [placeholder]</p>
+                <ul class="acq-stats">
+                  <li>Growth stat [placeholder]</li>
+                  <li>Product milestone [placeholder]</li>
+                </ul>
+                <div class="acq-shot img-ph" aria-hidden="true"></div>
+              </article>
+            </div>
+          </section>
         </article>
           </div>
         </div>
