@@ -1148,16 +1148,20 @@
       font-style: italic;
       color: #0A66C2;
     }
-    /* optional media block in place of a real photo/video */
+    /* optional media block in place of a real photo/video.
+       --photo is set per card (see markup); the gradient underneath is the
+       no-image fallback, so a card still reads if Unsplash is unreachable. */
     .li-card__art {
       margin: 12px -16px 0;
       height: 132px;
-      background:
-        radial-gradient(90% 120% at 12% 0%, #00587a 0%, rgba(0,88,122,0) 60%),
-        linear-gradient(155deg, #00435c 0%, #00222f 100%);
+      background-color: #00435c;
+      background-image: var(--photo);
+      background-size: cover;
+      background-position: center;
     }
     .li-card__art--data {
-      background:
+      background-color: #05202c;
+      background-image:
         repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, rgba(255,255,255,0) 1px 22px),
         linear-gradient(155deg, #123b4d 0%, #05202c 100%);
     }
@@ -1685,7 +1689,11 @@ for a company's posts (and their old embed.js now 404s), so there is nothing to
 pull: these stand in for a live feed. Post bodies, dates and reaction counts are
 all invented and marked [placeholder] — none of it is a company claim. To swap
 in a real post, use that post's ... menu -> "Embed this post" and paste the
-iframe in place of a .li-card. -->
+iframes in place of a .li-card.
+         Unsplash art (hotlinked · Unsplash License · attribution appreciated):
+           Post 1 — kitchen, photo-1556910103-1c02745aae4d
+           Post 2 — open office, photo-1497366216548-37526070297c
+         Post 3 uses a CSS "data" block standing in for a chart; post 4 is text-only. -->
       <div class="careers__posts" id="careersPosts">
         <div class="careers__posts-head">
           <p class="careers__posts-label">From LinkedIn</p>
@@ -1710,7 +1718,9 @@ iframe in place of a .li-card. -->
               </div>
             </div>
             <p class="li-card__text">Every vertical runs on software that was <em>built for it</em>. Not adapted. [placeholder]</p>
-            <div class="li-card__art" aria-hidden="true"></div>
+            <div class="li-card__art"
+                 style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=70')"
+                 role="img" aria-label="Placeholder stock photo: a working kitchen"></div>
             <div class="li-card__foot">
               <p class="li-card__stats"><span>128 reactions</span><span>14 comments</span></p>
               <div class="li-card__actions">
@@ -1730,6 +1740,9 @@ iframe in place of a .li-card. -->
               </div>
             </div>
             <p class="li-card__text">We’re hiring across engineering and product. Small teams, real ownership. [placeholder]</p>
+            <div class="li-card__art"
+                 style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=70')"
+                 role="img" aria-label="Placeholder stock photo: an open office"></div>
             <div class="li-card__foot">
               <p class="li-card__stats"><span>96 reactions</span><span>31 comments</span></p>
               <div class="li-card__actions">
@@ -1749,7 +1762,8 @@ iframe in place of a .li-card. -->
               </div>
             </div>
             <p class="li-card__text">Hospitality, wine, ERP, transportation — eleven verticals, one home. [placeholder]</p>
-            <div class="li-card__art li-card__art--data" aria-hidden="true"></div>
+            <div class="li-card__art li-card__art--data"
+                 role="img" aria-label="Placeholder: a chart standing in for a post graphic"></div>
             <div class="li-card__foot">
               <p class="li-card__stats"><span>214 reactions</span><span>22 comments</span></p>
               <div class="li-card__actions">
