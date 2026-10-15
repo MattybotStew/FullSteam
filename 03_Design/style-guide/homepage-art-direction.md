@@ -1,7 +1,8 @@
 # Homepage Art Direction — v1
 
 > **Version:** 1.0 (first visual direction — homepage only)
-> **Status:** Draft for review. Not yet applied to any wireframe.
+> **Status:** Draft for review. **Applied to one band** — homepage 03 Verticals
+> (type + white canvas), 2026-10-15, at the CD's direction; see §7.4 and §10.
 > **Owner:** Matt Stewart (Creative Director) · **Wireframe:** Bionic
 > **Track:** This is the **visual design** pass. It is the companion to, not a rewrite
 > of, the UX spec in [`design.md`](../../design.md). It does **not** change structure,
@@ -85,7 +86,7 @@ accent color active at a time.
 
 1. **Canvas alternation carries the narrative.** The page rhythm is light → dark → light
    → dark: *Opening (light identity → dark growth) · What we do (light/tan tint) · Stats
-   (black) · Verticals filmstrip (black) · AI (light) · Great place to work (warm tint) ·
+   (black) · Verticals (white — was black, §7.4) · AI (light) · Great place to work (warm tint) ·
    Close (black or blue).* The dark bands are where scale and proof live.
 2. **Blue anchors, never fills.** Bio Blue is for CTAs, links, and small identity marks —
    not full-bleed blue sections (keeps it from reading as a corporate SaaS template).
@@ -195,8 +196,9 @@ rare* — a seasoning, not the body.
    (~400ms). No bounces, no elastic, no decorative parallax.
 3. **Count-up numerals** on the stats band (already scaffolded in the wireframe) — the
    numbers *tick* as they enter. This is motion *in service of the scale feeling*.
-4. **The verticals filmstrip** expand/shrink (client-liked — KB §24.1) is kept; treat its
-   easing as smooth and heavy, not springy.
+4. **The verticals cards** expand/shrink (client-liked — KB §24.1) is kept; treat its easing as
+   smooth and heavy, not springy. In the 2026-10-15 build the selected card **un-dims** in place
+   rather than enlarging (§7.4).
 5. **Reduced motion collapses everything to in-flow.** The pin is skipped, states render
    A above B, numerals render final value, no reveals. (KB §23.3 / `prefers-reduced-motion`.)
 6. **No motion without intent.** Every animation must map to a meaning (scale, growth,
@@ -238,11 +240,22 @@ rare* — a seasoning, not the body.
 - **Optional (flag §9):** a "Backed by leading institutional capital" lockup — Aquiline /
   Sixth Street / ADIA wordmarks in a quiet mono strip. Do **not** ship until cleared (KB §25.2).
 
-### 7.4 Verticals filmstrip (KB §24.1 — client-liked, keep)
+### 7.4 Verticals — Square's "audience moment" (rebuilt 2026-10-15)
 
-- **Black band** (already in the wireframe). Keep the featured-panel expand treatment the
-  client likes. Real vertical imagery in the cards (identity grade, §4.1). Vertical names
-  in the display face; KPI in tabular numerals. All 11 text links beneath in mono/small.
+- **White band** *(changed from "black band" 2026-10-15, at the CD's direction)*. This band is
+  the one place where the art direction is **already applied in the wireframe**: eyebrow +
+  headline, then a row of equal cards where the selected card **un-dims** and reveals
+  **name → rule → figure → descriptor → link**, the rest behind a **50% scrim**. The client-liked
+  **expand** interaction is kept; the mechanism is un-dim, not enlarge (Square §2.2).
+- **Type is live here:** Instrument Sans + Fragment Mono (§3) — the first applied
+  visual-direction moment, and the proof that the type system reads as intended. Every other
+  band still runs the wireframe skin.
+- Vertical names in the display face; per-card figures in tabular numerals; the descriptor and
+  the 11 links in mono. Real vertical imagery in the cards (identity grade, §4.1).
+- **Deployment note:** with the band white, the page rhythm becomes
+  `… stats (black) → verticals (white) → AI (white) → people (tint) …`. If two adjacent light
+  bands read as one, the alternative is a **10% Bio Blue tint** for this band (§2.1) rather than
+  returning it to black. *(Open until the client sees it.)*
 
 ### 7.5 AI at Fullsteam (KB §24.4)
 
@@ -321,6 +334,13 @@ before production. Flag it first (§9).*
   (its "future home"); the wireframe skin is then replaced deliberately, with a changelog
   entry in `wireframes.md` §8.
 - **Do not** restyle a wireframe from this document before sign-off (AGENTS.md track rule).
+
+**Exception on record (2026-10-15):** the CD directed the homepage's **03 Verticals** band to be
+rebuilt as Square's "audience moment" **on a white canvas and in this document's type** (§3, §7.4)
+before the art direction is signed off. That is a deliberate, logged crossing of the track
+boundary: this doc was reconciled the same day (§2.1, §6.4, §7.4), the build is recorded in
+`wireframes.md` §8, and **every other band still runs the wireframe skin**. The typefaces remain a
+`[proposal]` (§9 item 2) — applying them here is a visual test, not a sign-off.
 
 *Visual direction grounded in KB §15 (palette), §18 (references), §20 (discovery), §23/§24
 (opening + order), §25 (strategic positioning). Locked items are marked; proposals are

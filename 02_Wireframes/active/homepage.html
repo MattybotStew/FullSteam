@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homepage Wireframe — Fullsteam</title>
+<!-- Design typefaces (art direction §3: Instrument Sans + Fragment Mono). Loaded for the
+     03 Verticals section only — the rest of the wireframe keeps the lo-fi legibility stack.
+     See 03_Design/style-guide/homepage-art-direction.md §3 (faces are a [proposal] pending sign-off). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 <script>/* Progressive enhancement: the Axis A/B pin only exists with JS. Without this
    class the two states render in document order (A above B). */document.documentElement.classList.add("has-js");</script>
 <style>
@@ -25,6 +31,9 @@
     --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
     --mono:ui-monospace, "SFMono-Regular", Menlo, monospace;
     --img-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8C8C8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='1.5'/%3E%3Ccircle cx='8.5' cy='9.5' r='1.6'/%3E%3Cpath d='M4 17.5 9 12.5l3.5 3.5L16 12l5 5.5'/%3E%3C/svg%3E");
+    /* Locked brand palette (KB §15) — deployment per art direction §2.
+       Bio Blue anchors identity/links/focus; gold is already --yellow above. */
+    --blue:#00587C;
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; overflow-x:hidden; }
@@ -56,16 +65,20 @@
   }
 
   /* Header: option B revised — Logo · Menu · Explore vertical solutions */
+  /* Header is transparent over the opening (Axis A -> hero) and only takes a
+     100% opaque background once the hero is scrolled out — toggled by the
+     headerState() scroll handler below. No-JS keeps the solid bar, since
+     nothing would toggle it. */
   header{
     position:sticky; top:0; z-index:100;
-    background:var(--white);
+    background:transparent;
     border-bottom:1px solid var(--line);
     transition: background 0.3s ease;
   }
   header.is-scrolled{
-    background:var(--tan);
-    border-bottom:2px solid var(--ink);
+    background:var(--white);
   }
+  html:not(.has-js) header{ background:var(--white); }
   .nav{
     display:flex;
     align-items:center;
@@ -134,7 +147,7 @@
      AXIS A (Portfolio) -> grow morph -> AXIS B (Growth engine).
      Axis A is no longer the 11 floating vertical tiles (client rejected the
      "floating bubbles"); it is now one identity/scale visual. The client liked
-     the verticals filmstrip, so the 11 verticals live there instead. The
+     the verticals cards, so the 11 verticals live there instead. The
      two-state model, the two headlines, the Axis A -> B order, and the grow
      morph are unchanged. See design.md §3.1 + KB §23/§24. */
   /* 200vh, not 280vh (2026-09-28): measured, the pin was 2,520px — 46% of the
@@ -390,91 +403,111 @@
     font-family:var(--mono); font-size:12px;
   }
 
-  /* 03 Verticals filmstrip (kept — client likes this treatment) */
-  .grow{
-    padding:72px 24px 88px;
-    background:var(--ink);
-    color:var(--white);
-    text-align:left;
+  /* ============================================================
+     03 VERTICALS — Square "audience moment", white canvas.
+     Pattern borrowed 2026-10-15 (Square §2.2 inspiration.md): eyebrow + headline,
+     then one expandable card per featured vertical — the selected card un-dims and
+     reveals name -> rule -> stat -> descriptor -> link; the others sit behind a 50%
+     scrim. Structure/IA unchanged: five revenue-ordered featured verticals + all 11
+     as links. Treatment: this is the one band carrying the art-direction type
+     (Instrument Sans + Fragment Mono) and the light canvas — the black band of art
+     direction §7.4 was changed to white at the CD's direction, 2026-10-15.
+     ============================================================ */
+  .verts{
+    --sans-d:"Instrument Sans", var(--sans);
+    --mono-d:"Fragment Mono", var(--mono);
+    padding:88px 0 84px;
+    background:var(--white);
+    color:var(--ink);
+    font-family:var(--sans-d);
   }
-  .grow .beat{ color:var(--white); }
-  .grow-head{
+  .verts-head{
     display:flex; flex-direction:column; align-items:center;
-    text-align:center; max-width:1280px; margin:0 auto 28px; padding:0 24px;
-    box-sizing:border-box;
+    text-align:center; max-width:1280px; margin:0 auto 34px; padding:0 24px;
   }
-  .grow-head .anno{ margin-left:auto; margin-right:auto; }
-  .grow h2{
+  .verts-head .beat{ font-family:var(--mono-d); }
+  .verts-head .anno{ margin-left:auto; margin-right:auto; }
+  .verts h2{
+    font-family:var(--sans-d);
     font-size:clamp(32px,5vw,56px); font-weight:700; letter-spacing:-.03em;
-    line-height:1.08; max-width:16ch; margin:0;
-    color:var(--white);
+    line-height:1.06; max-width:18ch; margin:0;
   }
-  .film{
-    display:flex; gap:8px;
-    height:min(58vh, 520px);
-    max-width:1280px; margin:0 auto;
+  .verts-stage{
+    display:flex; gap:10px;
+    height:min(62vh, 560px);
+    max-width:1280px; margin:0 auto; padding:0 24px;
   }
-  .film-card{
+  .vert-card{
     position:relative;
     flex:1 1 0;
     min-width:0;
     overflow:hidden;
-    border:0; padding:0;
+    border:0; padding:0; margin:0;
     background:var(--ph);
     color:var(--white);
-    text-align:left;
-    cursor:pointer;
-    font:inherit;
-    transition:flex .4s ease;
+    text-align:left; font:inherit; cursor:pointer;
+    transition:flex .45s cubic-bezier(.4,0,.2,1);
   }
-  .film-card.is-feature{ flex:2.35; }
-  .film-card .img-ph{ height:100%; min-height:0; }
-  .film-card .img-ph::after{ width:40px; height:40px; }
-  .film-name{
-    position:absolute; left:16px; bottom:16px; z-index:2;
-    font-size:clamp(16px,2vw,28px); font-weight:700;
-    letter-spacing:-.02em; color:var(--white);
-    text-shadow:0 1px 8px rgba(0,0,0,.45);
+  /* Unselected cards dim behind a 50% scrim; the selected one un-dims. */
+  .vert-card::after{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:rgba(0,0,0,.5); opacity:1; pointer-events:none;
+    transition:opacity .45s ease;
   }
-  .film-card.is-feature .film-name{ display:none; }
-  .film-overlay{
+  .vert-card.is-feature::after{ opacity:0; }
+  .vert-card:focus-visible{ outline:2px solid var(--blue); outline-offset:-2px; }
+  .vert-card .img-ph{ position:absolute; inset:0; height:100%; min-height:0; }
+  .vert-card .img-ph::after{ width:40px; height:40px; }
+  /* Every card names itself; the selected card repeats the name in its body. */
+  .vert-name{
+    position:absolute; left:18px; right:18px; bottom:18px; z-index:2;
+    font-family:var(--sans-d); font-size:clamp(15px,1.7vw,24px); font-weight:600;
+    letter-spacing:-.02em; line-height:1.15; color:var(--white);
+    text-shadow:0 1px 8px rgba(0,0,0,.5);
+  }
+  .vert-card.is-feature .vert-name{ display:none; }
+  .vert-body{
     display:none;
-    position:absolute; inset:auto 0 0 0; z-index:2;
-    padding:28px 28px 24px;
-    background:linear-gradient(transparent, rgba(0,0,0,.55));
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    padding:30px 26px 24px;
+    background:linear-gradient(transparent, rgba(0,0,0,.6) 42%);
     color:var(--white);
   }
-  .film-card.is-feature .film-overlay{ display:block; }
-  .film-overlay .film-kicker{
-    display:block;
-    font-size:clamp(28px,3.5vw,44px); font-weight:700;
-    letter-spacing:-.03em; margin-bottom:12px;
+  .vert-card.is-feature .vert-body{ display:block; }
+  .vert-h{
+    font-family:var(--sans-d); font-size:clamp(26px,3vw,40px); font-weight:700;
+    letter-spacing:-.03em; line-height:1.05; margin-bottom:14px;
   }
-  .film-overlay .num{
-    display:block;
-    font-size:clamp(28px,3.2vw,40px); font-weight:700; letter-spacing:-.04em;
+  .vert-rule{ border:0; border-top:1px solid rgba(255,255,255,.75); margin:0 0 14px; }
+  .vert-stat{
+    font-family:var(--sans-d); font-size:clamp(30px,3.4vw,44px); font-weight:700;
+    letter-spacing:-.04em; line-height:1; font-variant-numeric:tabular-nums;
   }
-  .film-overlay .lbl{ display:block; font-size:14px; margin:4px 0 16px; max-width:28ch; }
-  .film-overlay a{
-    display:inline-block;
-    color:var(--white); font-size:13px; font-weight:600;
-    border-bottom:1px solid var(--white); padding-bottom:2px;
+  .vert-desc{
+    font-family:var(--mono-d); font-size:12px; letter-spacing:.01em;
+    line-height:1.45; margin:9px 0 18px; max-width:26ch;
   }
-  .grow-foot{
-    max-width:1280px; margin:20px auto 0; padding:0 24px; box-sizing:border-box;
-    display:flex; flex-direction:column; align-items:stretch; gap:20px;
+  .vert-link{
+    display:inline-block; color:var(--white);
+    font-family:var(--mono-d); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    border-bottom:1px solid var(--white); padding-bottom:3px;
   }
-  .grow-foot .anno{
-    margin-left:auto;
-    margin-right:auto;
-    align-self:center;
+  .verts-foot{
+    max-width:1280px; margin:26px auto 0; padding:0 24px;
+    display:flex; flex-direction:column; align-items:center; gap:18px;
   }
-  .grow-verts{
-    display:flex; flex-wrap:wrap; gap:10px 22px;
-    font-size:13px;
+  .verts-foot .anno{ margin-left:auto; margin-right:auto; }
+  .verts-all{
+    display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:center;
+    font-family:var(--mono-d); font-size:12px; letter-spacing:.02em;
   }
-  .grow-verts a{ color:var(--white); border-bottom:1px solid rgba(255,255,255,.45); padding-bottom:2px; }
-  .grow .note{ font-family:var(--mono); font-size:11px; color:var(--white); }
+  .verts-all a{
+    color:var(--ink); border-bottom:1px solid rgba(0,0,0,.3); padding-bottom:3px;
+  }
+  .verts-all a:hover{ border-bottom-color:var(--blue); color:var(--blue); }
+  @media (prefers-reduced-motion: reduce){
+    .vert-card, .vert-card::after{ transition:none; }
+  }
 
   .close{
     padding:120px 24px 100px; text-align:center; background:var(--bg);
@@ -539,8 +572,21 @@
     .site-overlay .ov-inner{ grid-template-columns:1fr 1fr; }
     .solutions-split{ grid-template-columns:1fr; gap:16px; }
     .steps, .ai-grid, .work-gallery{ grid-template-columns:1fr; }
-    .film{ height:380px; }
-    .film-card:not(.is-feature) .film-name{ font-size:16px; }
+  }
+  /* Verticals stack below 1024px (Square's own breakpoint): the selected card
+     expands, the rest collapse to a name bar. Above it, five cards in a row. */
+  @media (max-width:1023px){
+    .verts-stage{
+      flex-direction:column; gap:8px; height:auto;
+    }
+    .vert-card{
+      flex:0 0 auto; height:78px;
+      transition:height .4s cubic-bezier(.4,0,.2,1);
+    }
+    .vert-card.is-feature{ height:min(58svh, 460px); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .vert-card, .vert-card::after{ transition:none; }
   }
 
   /* Reduced motion OR no JS: skip the pin; mosaic then settled hero in flow.
@@ -686,7 +732,7 @@
   <!-- ============================================================
        OPENING (revised 2026-10-01, client review): AXIS A (Portfolio) -> GROW -> AXIS B (Growth engine).
        Axis A is now one identity/scale visual, NOT the 11 floating vertical tiles (client rejected the
-       "floating bubbles"); the 11 verticals now live in the filmstrip below (the client likes that).
+       "floating bubbles"); the 11 verticals now live in the cards below (the client likes that).
        The two-state model, the two headlines, the A -> B order, and the grow morph are unchanged.
        Mechanics + rationale: design.md §3.1 / §4.1 · KB §23 / §24 · build notes: wireframes.md changelog.
        ============================================================ -->
@@ -787,64 +833,77 @@
   </section>
 
   <!-- ============================================================
-       03 — VERTICALS (client review Message 3: moved up, kept as-is — the
-       client likes this treatment).
+       03 — VERTICALS (client review Message 3: moved up; treated as Square's
+       "audience moment" — eyebrow, headline, one expandable card per featured
+       vertical). The client liked the expand treatment; the band moved from black
+       to white and carries the art-direction type, 2026-10-15. IA unchanged:
+       five revenue-ordered verticals + all eleven as links.
        ============================================================ -->
-  <section class="grow" id="verticals">
-    <div class="grow-head">
-      <p class="beat">03 — The verticals</p>
+  <section class="verts" id="verticals">
+    <div class="verts-head">
+      <p class="beat">03 — Built for every industry</p>
       <h2>Intent: show breadth and variety.</h2>
-      <p class="anno">Five featured verticals plus all eleven links; the software is the system of record — a scale signal. Primary lens: investors.</p>
+      <p class="anno">The verticals. Five featured verticals plus all eleven links; the software is the system of record — a scale signal. Primary lens: investors. Featured businesses stay generic until publishability is confirmed.</p>
     </div>
-    <div class="film" id="film">
-      <div class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Hospitality">
+    <div class="verts-stage" id="vertStage">
+      <article class="vert-card" role="button" tabindex="0" aria-pressed="false" data-name="Hospitality">
         <span class="img-ph" aria-hidden="true"></span>
-        <span class="film-name">Hospitality</span>
-        <span class="film-overlay">
-          <span class="film-kicker">Hospitality</span>
-          <span class="kpi-cycle"><span class="num">70,000+</span><span class="lbl">business customers [placeholder]</span></span>
-          <a href="pages/vertical-software.html#hospitality">Learn more</a>
-        </span>
-      </div>
-      <div class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="ERP">
+        <h3 class="vert-name">Hospitality</h3>
+        <div class="vert-body">
+          <h3 class="vert-h">Hospitality</h3>
+          <hr class="vert-rule">
+          <p class="vert-stat">70,000+</p>
+          <p class="vert-desc">business customers [placeholder]</p>
+          <a class="vert-link" href="pages/vertical-software.html#hospitality">Learn more</a>
+        </div>
+      </article>
+      <article class="vert-card" role="button" tabindex="0" aria-pressed="false" data-name="ERP">
         <span class="img-ph" aria-hidden="true"></span>
-        <span class="film-name">ERP</span>
-        <span class="film-overlay">
-          <span class="film-kicker">ERP</span>
-          <span class="kpi-cycle"><span class="num">70,000+</span><span class="lbl">business customers [placeholder]</span></span>
-          <a href="pages/vertical-software.html#erp">Learn more</a>
-        </span>
-      </div>
-      <div class="film-card is-feature" role="button" tabindex="0" aria-pressed="true" data-name="Retail">
+        <h3 class="vert-name">ERP</h3>
+        <div class="vert-body">
+          <h3 class="vert-h">ERP</h3>
+          <hr class="vert-rule">
+          <p class="vert-stat">2,000+</p>
+          <p class="vert-desc">people [placeholder]</p>
+          <a class="vert-link" href="pages/vertical-software.html#erp">Learn more</a>
+        </div>
+      </article>
+      <article class="vert-card is-feature" role="button" tabindex="0" aria-pressed="true" data-name="Retail">
         <span class="img-ph" aria-hidden="true"></span>
-        <span class="film-name">Retail</span>
-        <span class="film-overlay">
-          <span class="film-kicker">Retail</span>
-          <span class="kpi-cycle"><span class="num">70,000+</span><span class="lbl">business customers [placeholder]</span></span>
-          <a href="pages/vertical-software.html#retail">Learn more</a>
-        </span>
-      </div>
-      <div class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Transportation">
+        <h3 class="vert-name">Retail</h3>
+        <div class="vert-body">
+          <h3 class="vert-h">Retail</h3>
+          <hr class="vert-rule">
+          <p class="vert-stat">$75B+</p>
+          <p class="vert-desc">processed on Fullsteam Pay* [placeholder]</p>
+          <a class="vert-link" href="pages/vertical-software.html#retail">Learn more</a>
+        </div>
+      </article>
+      <article class="vert-card" role="button" tabindex="0" aria-pressed="false" data-name="Transportation">
         <span class="img-ph" aria-hidden="true"></span>
-        <span class="film-name">Transportation</span>
-        <span class="film-overlay">
-          <span class="film-kicker">Transportation</span>
-          <span class="kpi-cycle"><span class="num">70,000+</span><span class="lbl">business customers [placeholder]</span></span>
-          <a href="pages/vertical-software.html#transportation">Learn more</a>
-        </span>
-      </div>
-      <div class="film-card" role="button" tabindex="0" aria-pressed="false" data-name="Wine">
+        <h3 class="vert-name">Transportation</h3>
+        <div class="vert-body">
+          <h3 class="vert-h">Transportation</h3>
+          <hr class="vert-rule">
+          <p class="vert-stat">480M+</p>
+          <p class="vert-desc">transactions processed* [placeholder]</p>
+          <a class="vert-link" href="pages/vertical-software.html#transportation">Learn more</a>
+        </div>
+      </article>
+      <article class="vert-card" role="button" tabindex="0" aria-pressed="false" data-name="Wine">
         <span class="img-ph" aria-hidden="true"></span>
-        <span class="film-name">Wine</span>
-        <span class="film-overlay">
-          <span class="film-kicker">Wine</span>
-          <span class="kpi-cycle"><span class="num">70,000+</span><span class="lbl">business customers [placeholder]</span></span>
-          <a href="pages/vertical-software.html#wine">Learn more</a>
-        </span>
-      </div>
+        <h3 class="vert-name">Wine</h3>
+        <div class="vert-body">
+          <h3 class="vert-h">Wine</h3>
+          <hr class="vert-rule">
+          <p class="vert-stat">11</p>
+          <p class="vert-desc">vertical markets owned</p>
+          <a class="vert-link" href="pages/vertical-software.html#wine">Learn more</a>
+        </div>
+      </article>
     </div>
-    <div class="grow-foot">
-      <div class="grow-verts">
+    <div class="verts-foot">
+      <div class="verts-all">
         <a href="pages/vertical-software.html#hospitality">Hospitality</a>
         <a href="pages/vertical-software.html#weddings-events">Weddings &amp; Events</a>
         <a href="pages/vertical-software.html#wine">Wine</a>
@@ -857,7 +916,7 @@
         <a href="pages/vertical-software.html#association-management">Association Management</a>
         <a href="pages/vertical-software.html#erp">ERP</a>
       </div>
-      <p class="anno">Intent: featured panels plus all eleven links; the software is the system of record. No category labels, and featured businesses stay generic until publishability is confirmed.</p>
+      <p class="anno">Intent: the selected card un-dims and reveals name → rule → scale figure → descriptor → link; the other four stay dimmed behind a 50% scrim but keep their name. Figures are the allowlisted placeholder set (OI-5) — no revenue, run-rate, or profitability. No category labels; featured businesses stay generic. All eleven verticals stay one tap below.</p>
     </div>
   </section>
 
@@ -1044,6 +1103,24 @@
       const open = overlay.classList.toggle("is-open");
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
     });
+
+    (function headerState(){
+      /* The header only earns a 100% opaque background after the user scrolls out
+         of the hero (the #top pin); over Axis A and the hero it stays transparent.
+         Separate from mosaicToHero so it still runs in reduced-motion/flow mode,
+         where that handler early-returns. Toggling a class (not a per-frame write)
+         keeps the 0.3s background fade off the morph's frame path. */
+      const header = document.querySelector("header");
+      const pin = document.querySelector(".hero-pin");
+      if (!header || !pin) return;
+      const tick = () => {
+        const pastHero = pin.getBoundingClientRect().bottom <= header.offsetHeight;
+        header.classList.toggle("is-scrolled", pastHero);
+      };
+      window.addEventListener("scroll", tick, { passive: true });
+      window.addEventListener("resize", tick);
+      tick();
+    })();
 
     (function mosaicToHero(){
       /* Opening (revised 2026-10-01, client review): AXIS A (Portfolio) -> GROW -> AXIS B (Growth engine).
@@ -1243,10 +1320,11 @@
       io.observe(strip);
     })();
 
-    (function filmStrip(){
-      const film = document.getElementById("film");
-      if (!film) return;
-      const cards = [...film.querySelectorAll(".film-card")];
+    (function vertCards(){
+      /* 03 Verticals — one card un-dims at a time (Square "audience moment"). */
+      const stage = document.getElementById("vertStage");
+      if (!stage) return;
+      const cards = [...stage.querySelectorAll(".vert-card")];
       const select = (card) => {
         cards.forEach((c) => {
           const on = c === card;
@@ -1266,30 +1344,6 @@
           }
         });
       });
-    })();
-
-    (function kpiCycle(){
-      const slots = document.querySelectorAll(".kpi-cycle");
-      if (!slots.length) return;
-      const kpis = [
-        { num: "70,000+", lbl: "business customers [placeholder]" },
-        { num: "$75B+", lbl: "processed on Fullsteam Pay* [placeholder]" },
-        { num: "480M+", lbl: "transactions processed* [placeholder]" },
-        { num: "2,000+", lbl: "people [placeholder]" }
-      ];
-      let i = 0;
-      const paint = () => {
-        const k = kpis[i % kpis.length];
-        slots.forEach((slot) => {
-          const n = slot.querySelector(".num");
-          const l = slot.querySelector(".lbl");
-          if (n) n.textContent = k.num;
-          if (l) l.textContent = k.lbl;
-        });
-      };
-      paint();
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      setInterval(() => { i += 1; paint(); }, 3200);
     })();
   </script>
 </body>

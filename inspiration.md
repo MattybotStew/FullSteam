@@ -51,7 +51,7 @@ patterns, a **take** list, and an **ignore** list.
 
 | Site | Type | Status | What we took | Where it landed |
 |------|------|--------|--------------|-----------------|
-| [squareup.com](https://squareup.com/us/en) *(aspirational, client-flagged)* | Layout guide — current | **Active** | Full-bleed overlay hero, mosaic-of-verticals opening, two-up pair, image+copy scenes, industry filmstrip | `homepage-bendingspoons-style.html` (2026-09-21) |
+| [squareup.com](https://squareup.com/us/en) *(aspirational, client-flagged)* | Layout guide — current | **Active** | Full-bleed overlay hero, mosaic-of-verticals opening, two-up pair, image+copy scenes, industry filmstrip, **"audience moment" (eyebrow + un-dim card row)** | `homepage-bendingspoons-style.html` (2026-09-21); card row → homepage 03 Verticals (2026-10-15) |
 | [bendingspoons.com](https://bendingspoons.com) *(client-flagged)* | Layout guide — superseded | Superseded | Long-form chapter stack; portfolio-as-homepage; premium sparse feel | Partly retained (long-form chapters, 2026-09-21); portfolio cards removed |
 | [localyzer.io](https://www.localyzer.io/) | Layout study | **Partial — about layout 2026-09-25** | Homepage: kicker, proof strip, KPI cycle, quote. About: hero, image band, proof strip, split intro, team row, chapter cards, roles, close | Homepage patterns in `homepage-bendingspoons-style.html`; about structure in `02_Wireframes/active/pages/our-story.html` |
 | [quiltsoftware.com](https://quiltsoftware.com) *(client-flagged)* | Layout study | Not yet studied | — | — |
@@ -292,10 +292,71 @@ list — this entry records only why Square was chosen.
 **Still open on this reference:** the verticals marquee was removed 2026-09-23, so
 the mosaic now carries vertical naming alone. See `wireframes.md` §8 changelog.
 
+**Local copy of the hero video (pulled 2026-10-12):** the live hero is the
+`hero.primary.media` entry — *"Homepage_Edit-updated"* — served from
+`pw-assets-production-c.squarecdn.com` (webm + mp4, one breakpoint only; no separate
+mobile cut). Downloaded to `03_Design/assets/reference/square/`:
+`square-hero-homepage-edit-updated-1440x1080.mp4` (18.41s, H.264/AAC, 1440×1080 —
+**4:3, not 16:9**), the matching `.webm`, and the first-frame poster. That directory
+is **gitignored** — Square's footage is copyrighted, unlicensed for our build, and
+this repo is public. Study it locally; do not commit it or ship it.
+
 **Desktop vs mobile split (layout pattern, 2026-09-23):** Square’s pinned mosaic +
 **Retail tile grow-hero** runs on **every width**. On small screens the scatter stays
 centered and tiles are **slightly smaller** (`32vw`, not a tab list). No in-flow swap.
 Reduced-motion skips the pin.
+
+#### "Audience moment" — `BUILT FOR EVERY INDUSTRY / Keep your business growing` (studied 2026-10-15)
+
+**Status: implemented the same day** in the homepage's 03 Verticals band
+(`02_Wireframes/active/homepage.html`; `wireframes.md` §8, 2026-10-15). Studied because the
+client already points at Square for "a seamless way of introducing broad verticals" (KB §9).
+
+**What the section actually is, verified in the served markup:** not a stacked list. It is
+`HomePageV3AudienceMoment` — an **eyebrow + headline**, then **N equal, full-height cards**
+(`--collapsed-height: 5rem`, `--expanded-height: 60svh`, `--card-max-height: 73.6rem`) in one
+row. Each card is a `role="tab"` (`aria-selected`, `aria-controls`) and carries its **own name
+always**; selecting one **un-dims it** and reveals its content block — an `<hr>`, the figure
+(`450,000+`), a one-line descriptor (`food and beverage sellers using Square globally`), and a
+**Learn more** link. The unselected cards sit behind an overlay at
+`--inactive-overlay-opacity: 0.5`. A cursor-following decoration (`audience-card__cursor`)
+tracks the pointer. Under `63.9375rem` (1024px) the card row becomes a **stack**: `5rem`
+collapsed bars with the selected one expanded to `80svh`.
+
+**Take (each with its guardrail):**
+
+1. **The eyebrow does the framing job.** *BUILT FOR EVERY INDUSTRY* answers "is this for me?"
+   before the headline. **Fullsteam analog:** the band's beat reads *"Built for every industry"*
+   (terminology check: "industry" is fine — it is **"Platform"** that is banned, G1; the
+   collective noun for our portfolio stays **verticals**, so the note beneath says "the
+   verticals"). **Constraint:** the eyebrow is a label, not a claim — no scale claim, no CTA (G3).
+2. **One card per vertical, equally sized, name always legible.** The reader sees the *breadth*
+   before interacting with anything — that is the section's whole job (KB §24.3 scale signal).
+   **Constraint:** no brand names or logos (G5); the featured businesses stay generic until
+   publishability is confirmed.
+3. **Un-dim rather than enlarge.** Square keeps every card the same width and simply removes the
+   50% scrim from the selected one. This is the interaction delta against our old filmstrip
+   (which grew the featured panel to `flex:2.35`) and it is the calmer, more institutional read —
+   the art direction's "premium = restraint" (art direction §1). **Constraint:** the expansion
+   easing stays smooth and heavy; the client-liked *expand* interaction is kept, only its
+   mechanism changed.
+4. **A figure inside the card, not only in a stats band.** Name → rule → figure → descriptor →
+   link is an editorial rhythm that puts proof next to the vertical it proves. **Constraint —
+   the trap:** Square can publish `450,000+ sellers` and `$39 billion+` per industry. Our
+   equivalent per-vertical numbers are **not publishable** (G4). Any figure here must be the
+   allowlisted placeholder set (customers, payment volume, transactions, people, the settled 11)
+   and must carry `[placeholder]` until OI-5 resolves. **Never** revenue, run-rate, or
+   profitability — and never invent a per-vertical metric to make the layout look better.
+
+**Ignore:** the **cursor-following decoration** (decorative clutter — art direction §1 anti-goal);
+Square's **four-industry taxonomy** (ours is the locked 11, five featured — `wireframes.md` §2);
+their **stat per industry** as real copy (see constraint 4); their palette/type (rule 1 — the
+faces we apply come from *our* art direction §3, and the band's canvas is white per the CD's
+2026-10-15 call, not because Square is white).
+
+**Track note:** this pattern arrived as a **treatment** change, not an IA change — the sitemap,
+the five featured verticals, the order, and the single `/vertical-software` destination are
+unchanged (`wireframes.md` §2 + §8 carry the record).
 
 ---
 

@@ -100,7 +100,7 @@ replaced. Beats renumber after the opening.
 | 2 | **Opening** | Beat **01 — The model**: **Axis A (Portfolio) → grow morph → Axis B (Growth engine)**. Axis A carries identity/ownership; Axis B carries the growth model (software-first) | Axis A = mosaic **H1** ("Whatever the industry, we own the software it runs on.") + kicker + **one identity/scale visual** (a centered media block; **no 11 floating tiles** — removed 2026-10-01) = what Fullsteam owns. Scrolling the pin **grows that visual into the full-bleed hero** = Axis B: audience kicker + **"Software first. Then we grow it."** + the Offerings sub-line. **The transition is interpolated — clip-path + opacity, no CSS transition.** Reduced-motion: in-flow mosaic then settled hero (sequence kept, morph skipped). | Built |
 | 3 | **What we do** | Beat **02** — answer "What does Fullsteam do?" | H2 "What does Fullsteam do?" + lede (**systems of record** with **AI, payments, operational excellence**). Three steps: **Acquire** (we buy + keep buying) → **Grow/Build** (AI + payments; links to Offerings) → **Lead** (our software powers industries; links to Vertical Software). Then a banded **founder CTA** ("A home for the business you built.") and the **founder voice** quote. | Built |
 | 4 | **Impressive stats** | Scale, for investors (`#investors`) | Dark band cycling/count-up: **11** vertical markets · **100+** specialty software businesses · **2,000+** people · **$75B+** processed on Fullsteam Pay* (`[placeholder]` pending OI-5) + a placeholder note. | Built |
-| 5 | **Verticals** | Beat **03** — moved up; the client-liked filmstrip | Square filmstrip: five revenue-ordered panels with a featured overlay (KPI **cycles** 11 / 100+ / 2,000+); all 11 verticals as text links. | Built |
+| 5 | **Verticals** | Beat **03** — moved up; Square's "audience moment" (2026-10-15) | Eyebrow (**"Built for every industry"**, mono) + intent headline. **Five revenue-ordered cards, equal width**; the selected card un-dims and reveals **name → hairline rule → scale figure → descriptor → Learn more**; the other four sit behind a **50% scrim** with their name showing. All 11 verticals as text links beneath. **White band**; art-direction type (Instrument Sans + Fragment Mono) — the only band carrying it. | Built |
 | 6 | **AI** | Beat **04** — use cases first | H2 use-case headline + lede; three **example cards** (forecasting, back-office, support); link to AI at Fullsteam. Never a headcount story. | Built |
 | 7 | **Great place to work** | Beat **05** — humanize the company | H2 "A great place to work." + three **real-image placeholders** captioned **"Real team photo — not stock"**; "See Careers." Then the LinkedIn lo-fi strip. | Built |
 | 8 | **Closing CTA** | Explore, founders as coda | Beat **06**. "Ready to see where your business can go next?" Primary CTA + quiet For Founders. | Built |
@@ -108,7 +108,8 @@ replaced. Beats renumber after the opening.
 
 **Removed 2026-10-01 (homepage only):** the persona door ("Find the part that is for you"), the two-up
 "who we are," the **Software** scene (old 04), and the **Offerings** scene (old 05). **Kept:** the
-opening's Axis A/B two-state model, the founder voice, the filmstrip, the stats, the LinkedIn strip,
+opening's Axis A/B two-state model, the founder voice, the filmstrip (rebuilt 2026-10-15 as the
+verticals card row), the stats, the LinkedIn strip,
 the close, and the footer. The **Embedded Offerings page + nav node stay** (sitemap lock).
 
 ### Deliberate choices in this wireframe
@@ -117,10 +118,12 @@ the close, and the footer. The **Embedded Offerings page + nav node stay** (site
   **"Explore our vertical solutions"** (full form); header uses the short form
   "Explore vertical solutions."
 - **"Embedded Offerings"** is the axis label (client-preferred; short form "Offerings" in body copy; never "Platform").
-- **Verticals** appear as the **filmstrip** (five revenue-ordered panels + all 11 as text links) —
-  Square's "seamless verticals," without brand logos. The client **likes this treatment**, so it is
-  kept (and moved up after "What we do"). (Hero marquee removed 2026-09-23; the 11 vertical tiles
-  left the opening 2026-10-01.)
+- **Verticals** appear as an **expandable card row** (five revenue-ordered cards + all 11 as text
+  links) — Square's "seamless verticals," without brand logos. Rebuilt 2026-10-15 as Square's
+  **"audience moment"** (eyebrow + headline + one card un-dimmed at a time, name → rule → figure →
+  descriptor → link) on a **white** band with the art-direction type; it **replaced** the black
+  filmstrip the client had previously liked (the expand interaction itself is kept). (Hero marquee
+  removed 2026-09-23; the 11 vertical tiles left the opening 2026-10-01.)
 - **Menu overlay = the sitemap at L1**, with a note that the finder is here (not a
   header search field).
 - **Metrics** sit in the **impressive-stats band** (`#investors`) with `[placeholder]`
@@ -294,7 +297,8 @@ Anything present on some pages but not others is drift — decide once and apply
   (beat 04) with **example use cases**, replacing the old Software + Offerings scenes. The dedicated
   AI page stays **under Embedded Offerings** (KB §14).
 - **OI-5 — Stat / proof strategy.** Current: the **impressive-stats band** (`#investors`) + the
-  filmstrip **KPI cycle**, both cycling **placeholders (11 / 100+ / 2,000+ / $75B+)**. V2/Cloudmellow
+  **per-card figures in the verticals cards** (2026-10-15 — replaced the filmstrip KPI cycle), both
+  using **placeholders (11 / 70,000+ / $75B+ / 480M+ / 2,000+)**. V2/Cloudmellow
   supply a real,
   marketing-authored set — **70,000+ customers · $75B+ processed on Fullsteam Pay · 480M+
   transactions · 2,000+ employees · 100+ businesses** (KB §22.5) — so this becomes a copy
@@ -302,7 +306,7 @@ Anything present on some pages but not others is drift — decide once and apply
   — the locked IA carries 11 tiles and 11 tabs, so the site states 11, not V2's "13+ industries."
   **Still open:** the **customer count** (placeholder 80k+ vs V2's 70,000+) and **publishability**
   (§20.7 / G-3; the "*cumulative totals" asterisk must ride along with $75B / 480M). Do not patch
-  the cycle until the customer figure and publishability are settled (KB §22.6.2).
+  the per-card figures until the customer figure and publishability are settled (KB §22.6.2).
 - **OI-6 — Social proof & video.** *Decision 2026-09-26:* hold. The genericized founder quote
   stays; no testimonials or mission video until the client supplies assets (G-4).
 - **OI-7 — Careers/company band.** **Resolved 2026-10-01:** the **"Great place to work"** section
@@ -432,6 +436,8 @@ Anything present on some pages but not others is drift — decide once and apply
 | 2026-10-08 | **Vertical Software — acquired-business cards: "See the story" removed.** Dropped the `.acq-link` pill from all 44 cards (11 panels × 4); `.acq-head` is logo-only. Cards remain display-only until **OI-11** resolves. |
 | 2026-10-08 | **Vertical Software — fact chips layout.** The four `.facts` chips use a **2×2 grid** (not 3+1). **Equal height** via CSS **`min-height: 6rem`** on cells (wireframe floor for placeholder copy; no equalize JS). Bump min-height or revisit when final copy lands. |
 | 2026-10-01 | **Embedded Offerings — filmstrip → same sticky sidebar.** **Overrides the same-day 2026-10-01 filmstrip decision** at the client's request. Four offerings (Payments · Lending · Insurance · AI at Fullsteam) in a **sticky sidebar** that swaps content **inline** on a white background; **no modal**. The offering tabs are removed (the sidebar is the list). Hash deep links and Menu links select. **Flag for client ratification** — it reverses a client-approved layout from earlier the same day. |
+| 2026-10-14 | **Homepage header — transparent over the opening, 100% opaque once past the hero.** The header no longer carries a solid bar across the whole scroll. It is `background:transparent` while the opening pin (`#top`: Axis A → grow morph → Axis B) is on screen and takes the solid white background (`header.is-scrolled`) only after the pin's bottom clears the header. The unused `is-scrolled` rule — it had never been applied by any script, and still held the old tan/2px-border palette — is now the white solid state and is toggled by a small `headerState()` scroll handler, kept separate from `mosaicToHero()` so it still runs in reduced-motion/flow mode, where that handler early-returns. Toggling a class (not per-frame writes) keeps the 0.3s background fade off the morph's frame path (KB §23.6 rule 2). No-JS keeps the solid bar (`html:not(.has-js) header`), since nothing would toggle it. Chrome, structure, and order unchanged; the homepage only — the interior pages have no hero pin. Verified at 1440×900: transparent through the pin, opaque within ~10px of the pin clearing the header, both end states confirmed by computed style. `design.md` not edited. |
+| 2026-10-15 | **Homepage 03 Verticals — rebuilt as Square's "audience moment", on a white band, in the art-direction type.** The black filmstrip is gone. The band is now **eyebrow + intent headline + a row of five equal cards**, one per featured vertical; the **selected card un-dims** and reveals **name → hairline rule → scale figure → descriptor → Learn more**, while the other four sit behind a **50% scrim** with their name still showing. On mobile the cards stack and the selected one expands (others collapse to a 78px bar). All **11 verticals stay as text links** beneath. **IA unchanged** — same five revenue-ordered verticals (Hospitality / ERP / **Retail** default / Transportation / Wine), same order, same single Vertical Software destination; `#verticals` anchor unchanged. The per-card figures replace the retired **KPI cycle** and are the allowlisted placeholder set (**70,000+ / $75B+ / 480M+ / 2,000+ / 11** — OI-5; the undecided ones carry `[placeholder]`, the settled **11** stays untagged; no revenue/run-rate/profitability). Two deliberate track crossings, both CD-directed: **(a) the band moved from black to white** (art direction §7.4 said black; reconciled there the same day) and **(b) the band now carries the design type — Instrument Sans + Fragment Mono** (art direction §3, loaded from Google Fonts with the lo-fi stack as fallback) as the **first applied visual-direction moment**; every other band keeps the wireframe skin. Keyboard (Enter/Space), `aria-pressed`, and link-guard behaviour kept from the old filmstrip; `focus-visible` ring added in Bio Blue. Verified 1440 + 390: five 238px cards / no page overflow, click swaps the un-dimmed card, no console errors. `design.md` not edited. |
 
 ---
 
