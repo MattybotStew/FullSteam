@@ -409,10 +409,13 @@ Replaced the equal-width **un-dim** "audience moment" cards with a Square-style
 Pages had no video because Square's `hero-video.*` must stay gitignored
 (`inspiration.md` §2.2). Shipped a Mixkit free clip instead:
 
-- **`assets/hero-stock.mp4`** (~2.4 MB, Mixkit 4242 — chef in restaurant kitchen).
+- **`assets/hero-stock.mp4`** (Mixkit 4240 — busy shopping mall; was 4242 kitchen).
   Tracked + copied by `.github/workflows/pages.yml`. Square files stay ignored.
 - `<video>` sources point at `hero-stock.mp4` only (no 404 spam on deploy).
 - Local Square reference files remain on disk for study; they are not autoplayed.
+- **Tint lowered** (load ~55% → ~30%, was 80%→38%) so the stock clip isn't
+  buried under brand blue on Pages (pause control was on, footage looked like
+  the fallback plate).
 
 ## Changelog — 2026-10-15 (hero fallback: designed for the no-asset deploy)
 
