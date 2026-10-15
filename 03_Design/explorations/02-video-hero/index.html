@@ -871,10 +871,10 @@ Square-style expanding accordion (white canvas). -->
         <p class="sent-line" id="sentLine">
           <span class="sent-w">We</span>
           <span class="sent-w">serve</span>
-          <span class="sent-w"><span class="sent-num" data-count="70000" data-suffix="+">70,000+</span></span>
+          <span class="sent-w"><span class="sent-num">70,000+</span></span>
           <span class="sent-w">businesses</span>
           <span class="sent-w">across</span>
-          <span class="sent-w"><span class="sent-num" data-count="11">11</span></span>
+          <span class="sent-w"><span class="sent-num">11</span></span>
           <span class="sent-w">industries,</span>
           <span class="sent-w">from</span>
           <span class="sent-w">Hospitality</span>
@@ -884,7 +884,7 @@ Square-style expanding accordion (white canvas). -->
           <span class="sent-w">ERP,</span>
           <span class="sent-w">and</span>
           <span class="sent-w">move</span>
-          <span class="sent-w"><span class="sent-num" data-count="75" data-prefix="$" data-suffix="B">$75B</span></span>
+          <span class="sent-w"><span class="sent-num">$75B</span></span>
           <span class="sent-w">through</span>
           <span class="sent-w">Fullsteam</span>
           <span class="sent-w">Pay.</span>
@@ -1289,18 +1289,8 @@ Square-style expanding accordion (white canvas). -->
       if (!section) return;
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-      function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
-
-      function paintNum(el, n) {
-        var prefix = el.getAttribute('data-prefix') || '';
-        var suffix = el.getAttribute('data-suffix') || '';
-        el.textContent = prefix + fmt(n) + suffix;
-      }
-      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-
       var line = document.getElementById('sentLine');
       var words = line ? line.querySelectorAll('.sent-w') : [];
-      var nums = line ? line.querySelectorAll('.sent-num[data-count]') : [];
       // the playhead: a word is lit as it rises past this line of the viewport
       var FOCUS = 0.72;
 
@@ -1334,50 +1324,18 @@ Square-style expanding accordion (white canvas). -->
         }
       }
 
-      /* ---- inline count-up ----------------------------------------------- */
-      var counted = [];
-
-      function countUp(el) {
-        var target = Number(el.getAttribute('data-count'));
-        var t0 = performance.now();
-        function frame(now) {
-          var t = Math.min(1, (now - t0) / 1100);
-          paintNum(el, target * easeOut(t));
-          if (t < 1) requestAnimationFrame(frame);
-        }
-        requestAnimationFrame(frame);
-      }
-
-      function counts() {
-        var focus = window.innerHeight * FOCUS;
-        for (var i = 0; i < nums.length; i++) {
-          if (counted[i]) continue;
-          var r = nums[i].getBoundingClientRect();
-          if (r.top < focus && r.bottom > 0) { counted[i] = true; countUp(nums[i]); }
-        }
-      }
-
       function onScroll() {
         if (ticking) return;
         ticking = true;
-        requestAnimationFrame(function () { ticking = false; scrub(); counts(); });
+        requestAnimationFrame(function () { ticking = false; scrub(); });
       }
 
       /* ---- init ----------------------------------------------------------- */
-      for (var i = 0; i < nums.length; i++) {
-        if (reduce.matches) {
-          paintNum(nums[i], Number(nums[i].getAttribute('data-count')));
-          counted[i] = true;
-        } else {
-          paintNum(nums[i], 0);
-        }
-      }
+      // the numbers are static — they read their values straight from the markup
+      // and the word scrub carries the whole reveal.
       if (words.length && !reduce.matches) {
         scrub();
-      }
-      if (!reduce.matches) {
         window.addEventListener('scroll', onScroll, { passive: true });
-        counts();
       }
 
       /* Expanding accordion: hover/click opens one strip; first panel open by default.

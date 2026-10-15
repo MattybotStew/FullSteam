@@ -326,7 +326,7 @@ exploration's own language. Two canvases inside `#investors`:
 - **Stats — white, the live sentence.** See the entry below for the scrub.
 
 Type: Instrument Sans for the verticals headline; **Instrument Serif italic** for
-the sentence; brand teal (`--blue`) on the counting numbers (gold fails WCAG on white).
+the sentence. The inline figures are static text in the markup.
 
 **Removed:** the `.vstrip` filmstrip and the `.scale-fallback` / `.scale-sr`
 reduced-motion and no-JS scaffolding. Numbers are written into the markup, so
@@ -436,3 +436,18 @@ Verified with the video requests stubbed to 404 (the Pages condition): 0 JS
 errors, no horizontal overflow 320/390/768/1024/1440/1920, reduced-motion
 disables the drift and renders the sentence fully lit, unchanged with the video
 present.
+## Changelog — 2026-10-15 (sentence: no counter)
+
+CD decision — **the count-up is removed from the sentence.** Two things were
+animating at once in the same 19 words; only the scrub should.
+
+- Deleted `paintNum` / `countUp` / `counts` / `counted`, the `data-count`,
+  `data-prefix` and `data-suffix` attributes, and the now-dead `fmt` / `easeOut`
+  helpers. Nothing rewrites the numbers any more.
+- The three figures — **70,000+ · 11 · $75B** — are now static text read straight
+  from the markup, so they read final from first paint instead of starting at `0`.
+- The scroll **scrub is unchanged** and is now the only motion in the band: one
+  rAF scroll handler that lights the 19 words in reading order.
+
+Verified: identical values at scroll 0 / 1200 / 2000 / 2800 / 3080 / 3400 · scrub
+ramp still reads `###########+.......` at the playhead · 0 JS errors.
