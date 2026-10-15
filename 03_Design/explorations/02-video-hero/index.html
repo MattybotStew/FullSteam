@@ -17,6 +17,8 @@
       --ink:    #00202B;  /* text on gold = brand blue #003F55 at 50% (50% darker) */
       --white:  #FFFFFF;
       --menu-bg: #002C3C; /* dropdown panel — shared with the open header */
+      --careers-canvas: color-mix(in srgb, var(--blue) 80%, black); /* #003244 — careers + LinkedIn band */
+      --close-canvas: color-mix(in srgb, var(--careers-canvas) 70%, black); /* ~30% darker than careers */
       --bar-h:  68px;     /* header height; re-measured in JS for the menu offset */
       --cube-size: clamp(140px, 17vw, 210px);
       --cube-pad-y: clamp(90px, 12vh, 120px); /* 180–240px band around the cube */
@@ -187,10 +189,51 @@
     }
     .menu[hidden] { display: none; }
     @keyframes menu-in { from { opacity: 0; } to { opacity: 1; } }
-    .menu__panel {
+    .menu__panel,
+    .site-footer {
       background: var(--menu-bg);
+    }
+    .menu__panel {
       border-bottom: 1px solid rgba(255,255,255,.10);
       box-shadow: 0 30px 70px rgba(0,0,0,.5);
+    }
+    .site-footer {
+      position: relative; z-index: 2;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+    .site-footer__legal {
+      max-width: 1160px; margin: 0 auto;
+      padding: 18px 20px 28px;
+      border-top: 1px solid rgba(255,255,255,.14);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .site-footer__copy {
+      margin: 0;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: .04em;
+      color: rgba(255, 255, 255, .55);
+    }
+    .site-footer__li-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; color: rgba(255, 255, 255, .82);
+      font-size: 13px; font-weight: 500;
+      transition: color .2s ease;
+    }
+    .site-footer__li-link:hover { color: var(--gold); }
+    .site-footer__li-mark {
+      flex: 0 0 auto;
+      display: grid; place-items: center;
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      background: #0A66C2; color: #fff;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 16px; font-weight: 700; line-height: 1;
+      transition: filter .2s ease, box-shadow .2s ease;
+    }
+    .site-footer__li-link:hover .site-footer__li-mark {
+      filter: brightness(1.08);
+      box-shadow: 0 4px 14px rgba(10, 102, 194, .35);
     }
     .menu__inner {
       max-width: 1160px; margin: 0 auto; padding: 34px 20px 42px;
@@ -849,7 +892,7 @@
     /* 3-col employee testimonial grid; careers band ~20% darker than --blue; Unsplash headshots [placeholder]. */
     .careers {
       position: relative; z-index: 2;
-      background: color-mix(in srgb, var(--blue) 80%, black); /* #003244 vs --blue #003F55 */
+      background: var(--careers-canvas);
       color: var(--white);
       border-top: 1px solid rgba(254, 197, 10, .22);
       padding: 96px 24px 104px;
@@ -968,17 +1011,28 @@
        follower or engagement counts. Swap the body for LinkedIn's official
        swap the body for LinkedIn's official per-post embed snippet once one exists. */
     .careers__linkedin {
+      --li-inset: clamp(16px, 3.5vw, 40px);
       margin-top: clamp(44px, 6vw, 64px);
-      display: grid;
-      gap: 24px;
-      align-items: center;
-      padding: clamp(22px, 3vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: var(--li-inset);
+      padding-bottom: calc(var(--li-inset) + 24px);
       border: 1px solid rgba(255, 255, 255, .16);
       border-radius: 16px;
       background: rgba(255, 255, 255, .05);
+      overflow: hidden; /* clip peeking post cards to rounded panel */
+    }
+    .careers__linkedin-top {
+      display: grid;
+      gap: 20px;
+      align-items: center;
     }
     @media (min-width: 860px) {
-      .careers__linkedin { grid-template-columns: minmax(0, 1fr) auto; gap: 40px; }
+      .careers__linkedin-top {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 32px 40px;
+      }
     }
     .careers__linkedin-id {
       display: flex;
@@ -1036,7 +1090,11 @@
        These cards exist to judge the layout. Every post body, date and reaction
        count below is invented for design purposes and is marked [placeholder];
        none of it is a claim about the company. */
-    .careers__posts { margin-top: 16px; }
+    .careers__posts {
+      margin-top: clamp(20px, 3vw, 28px);
+      padding-top: clamp(16px, 2.5vw, 24px);
+      border-top: 1px solid rgba(255, 255, 255, .12);
+    }
 
     /* header: label, honest note, and the scroll controls */
     .careers__posts-head {
@@ -1044,7 +1102,7 @@
       align-items: center;
       gap: 16px;
       flex-wrap: wrap;
-      margin: 0 0 14px;
+      margin: 0 0 18px;
     }
     .careers__posts-label {
       margin: 0;
@@ -1075,13 +1133,15 @@
     .careers__posts-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
 
     /* the scroller itself */
-    .li-scroller {
+    .careers__linkedin .li-scroller {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       overflow-x: auto;
       overscroll-behavior-x: contain;
       scroll-snap-type: x mandatory;
-      padding: 2px 2px 14px;          /* room for the scrollbar + focus ring */
+      /* Left edge = intro copy; right clips at panel (parent overflow: hidden). */
+      margin: 0;
+      padding: 0 0 clamp(18px, 4vw, 32px);
       scrollbar-width: thin;
       scrollbar-color: rgba(254, 197, 10, .5) rgba(255, 255, 255, .08);
     }
@@ -1099,7 +1159,7 @@
       background: #fff;
       color: #1a1a1a;
       border-radius: 10px;
-      padding: 16px 16px 10px;
+      padding: 16px 16px 14px;
     }
     .li-card__head {
       display: flex;
@@ -1162,12 +1222,12 @@
     /* engagement footer — LinkedIn's two rules, verbatim in shape */
     .li-card__foot {
       margin: auto 0 0;
-      padding-top: 10px;
+      padding-top: 12px;
     }
     .li-card__stats {
       display: flex; align-items: center; justify-content: space-between;
-      margin: 0 0 6px;
-      padding-bottom: 8px;
+      margin: 0 0 8px;
+      padding-bottom: 10px;
       border-bottom: 1px solid #e4e4e4;
       font-family: "Fragment Mono", ui-monospace, monospace;
       font-size: 10px; color: #666;
@@ -1179,7 +1239,7 @@
     }
     .li-card__act {
       display: flex; align-items: center; gap: 5px;
-      padding: 5px 4px;
+      padding: 8px 6px 4px;
       font-family: "Instrument Sans", system-ui, sans-serif;
       font-size: 11.5px; font-weight: 600;
       color: #666;
@@ -1192,9 +1252,56 @@
       .careers__posts-btn { transition: none; }
     }
 
+    /* ---- Close / bottom CTA (Figma 11304:33 · content-slots §2 row 07) -------- */
+    .close {
+      position: relative; z-index: 2;
+      padding: clamp(80px, 10vw, 120px) 24px clamp(72px, 8vw, 100px);
+      text-align: center;
+      background: var(--close-canvas);
+      color: var(--white);
+      border-top: 1px solid rgba(255, 255, 255, .1);
+    }
+    .close__inner {
+      width: min(960px, 100%);
+      margin: 0 auto;
+    }
+    .close__title {
+      margin: 0 auto 28px;
+      max-width: 960px;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.08;
+      text-wrap: balance;
+      color: var(--white);
+    }
+    .close__cta { margin: 0 0 20px; }
+    .close__founders {
+      margin: 0;
+      font-size: 13px; font-weight: 500; line-height: 1.4;
+    }
+    .close__founders a {
+      color: rgba(255, 255, 255, .88);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, .32);
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .close__founders a:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
     @media (max-width: 899px) {
-      .careers { padding: 76px 24px 88px; }
+      .careers { padding: 76px 20px 88px; }
       .careers__head { margin-bottom: 36px; }
+      .careers__linkedin {
+        --li-inset: 16px;
+        padding-bottom: calc(var(--li-inset) + 16px);
+        border-radius: 12px;
+      }
+      .careers__posts-head { margin-bottom: 14px; }
+      .careers__linkedin .li-scroller {
+        padding-bottom: 16px;
+        gap: 14px;
+      }
     }
 
     /* ---- responsive ------------------------------------------------------ */
@@ -1656,39 +1763,31 @@ Square-style expanding accordion (white canvas). -->
         </blockquote>
       </div>
 
-      <!-- LinkedIn module. Links to the company page; LinkedIn's own post embed
-           needs a specific post permalink, so this stays a company card until one
-           exists. No fabricated post body or follower counts. -->
+      <!-- LinkedIn module + MOCK post cards (self-contained). Company card links to
+           the page; post bodies/dates/counts are [placeholder] layout mocks only. -->
       <aside class="careers__linkedin" aria-labelledby="careersLinkedinName">
-        <div>
-          <div class="careers__linkedin-id">
-            <span class="careers__linkedin-mark" aria-hidden="true">in</span>
-            <div>
-              <p class="careers__linkedin-name" id="careersLinkedinName">Fullsteam</p>
-              <p class="careers__linkedin-meta">Company page</p>
+        <div class="careers__linkedin-top">
+          <div>
+            <div class="careers__linkedin-id">
+              <span class="careers__linkedin-mark" aria-hidden="true">in</span>
+              <div>
+                <p class="careers__linkedin-name" id="careersLinkedinName">Fullsteam</p>
+                <p class="careers__linkedin-meta">Company page</p>
+              </div>
             </div>
+            <p class="careers__linkedin-body">Roles, team news and what we’re building — follow the company page for the running commentary.</p>
           </div>
-          <p class="careers__linkedin-body">Roles, team news and what we’re building — follow the company page for the running commentary.</p>
+          <p class="careers__linkedin-cta">
+            <a class="pill pill--ghost" href="https://www.linkedin.com/company/fullsteam-llc"
+               target="_blank" rel="noopener noreferrer">
+              Follow on LinkedIn<span class="careers__li-sr"> (opens in a new tab)</span>
+            </a>
+          </p>
         </div>
-        <p class="careers__linkedin-cta">
-          <a class="pill pill--ghost" href="https://www.linkedin.com/company/fullsteam-llc"
-             target="_blank" rel="noopener noreferrer">
-            Follow on LinkedIn<span class="careers__li-sr"> (opens in a new tab)</span>
-          </a>
-        </p>
-      </aside>
 
-      <!-- LinkedIn posts — MOCK CARDS for layout review only. LinkedIn offers no API
-for a company's posts (and their old embed.js now 404s), so there is nothing to
-pull: these stand in for a live feed. Post bodies, dates and reaction counts are
-all invented and marked [placeholder] — none of it is a company claim. To swap
-in a real post, use that post's ... menu -> "Embed this post" and paste the
-iframes in place of a .li-card.
-         Unsplash art (hotlinked · Unsplash License · attribution appreciated):
-           Post 1 — kitchen, photo-1556910103-1c02745aae4d
-           Post 2 — open office, photo-1497366216548-37526070297c
-         Post 3 uses a CSS "data" block standing in for a chart; post 4 is text-only. -->
-      <div class="careers__posts" id="careersPosts">
+        <!-- MOCK CARDS — Unsplash: post 1 photo-1556910103-1c02745aae4d;
+             post 2 photo-1497366216548-37526070297c; post 3 CSS chart; post 4 text-only. -->
+        <div class="careers__posts" id="careersPosts">
         <div class="careers__posts-head">
           <p class="careers__posts-label">From LinkedIn</p>
           <p class="careers__posts-ctl">
@@ -1786,9 +1885,90 @@ iframes in place of a .li-card.
             </div>
           </article>
         </div>
-      </div>
+        </div>
+      </aside>
     </div>
   </section>
+
+  <!-- Close — Figma node 11304:33 · content-slots §2 row 07 -->
+  <section class="close" id="close" aria-labelledby="closeTitle">
+    <div class="close__inner">
+      <h2 class="close__title" id="closeTitle">Ready to see where your business can go next?</h2>
+      <p class="close__cta">
+        <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore our vertical solutions</a>
+      </p>
+      <p class="close__founders">
+        <a href="../../../02_Wireframes/active/pages/for-founders.html">For Founders — a home for your business</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site footer — same IA + chrome as the open Menu overlay (KB §14) -->
+  <footer class="site-footer" id="siteFooter">
+    <nav class="menu__inner" aria-label="Footer">
+      <div class="menu__col">
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/vertical-software.html">Vertical Software</a></h3>
+        <div class="menu__split">
+          <ul class="menu__list" aria-label="Verticals">
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Hospitality</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#weddings-events">Weddings &amp; Events</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Wine</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Retail</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#storage-marina">Storage &amp; Marina</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#health-wellness">Health &amp; Wellness</a></li>
+          </ul>
+          <ul class="menu__list" aria-label="Verticals">
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#field-services">Field Services</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Transportation</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Automotive</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="menu__col">
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/embedded-offerings.html">Embedded Offerings</a></h3>
+        <ul class="menu__list">
+          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#payments">Payments</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#lending">Lending</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#insurance">Insurance</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">AI at Fullsteam</a></li>
+        </ul>
+      </div>
+
+      <div class="menu__col">
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></h3>
+        <ul class="menu__list">
+          <li><a href="../../../02_Wireframes/active/pages/leadership.html">Leadership</a></li>
+        </ul>
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></h3>
+        <ul class="menu__list">
+          <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li>
+        </ul>
+      </div>
+
+      <div class="menu__col">
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></h3>
+        <ul class="menu__list">
+          <li><a href="../../../02_Wireframes/active/pages/contact.html">Talk to us</a></li>
+        </ul>
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/for-founders.html">For Founders</a></h3>
+        <ul class="menu__list">
+          <li><a href="../../../02_Wireframes/active/pages/for-founders.html">A home for your business</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="site-footer__legal">
+      <p class="site-footer__copy">© 2026 All Rights Reserved | Fullsteam</p>
+      <a class="site-footer__li-link" href="https://www.linkedin.com/company/fullsteam-llc"
+         target="_blank" rel="noopener noreferrer">
+        <span class="site-footer__li-mark" aria-hidden="true">in</span>
+        Follow on LinkedIn
+      </a>
+    </div>
+  </footer>
 
   <!-- navigation dropdown — the locked L1 (KB §14 / plans/sitemap-lock.md).
        Option B revised: For Founders lives here, not in the header strip. -->

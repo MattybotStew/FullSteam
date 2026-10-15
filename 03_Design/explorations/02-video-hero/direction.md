@@ -505,3 +505,86 @@ Removed the mono **Put AI to work** kicker above the accordion (`.ai__work-label
 ## Changelog — 2026-10-15 (AI · CTA in intro column)
 
 Moved **See AI at Fullsteam** (`.ai__foot`) from `.ai__main` to `.ai__head` after `.ai__lede` (left desktop / centered mobile; 28px below lede).
+
+## Changelog — 2026-10-15 (Careers / Great place to work band)
+
+**`#careers`** after `#ai`, before the menu block — content-slots **§2 row 06** (intent-level copy + placeholders).
+
+- **Canvas:** warm brand-green tint `#eef6e0` (`--green` `#84BD00` in `:root`); top hairline; square-corner cards (matches AI accordion).
+- **Layout:** 3-col desktop — flanking **layered `--blue` proof stacks** (Fragment Mono labels; no counterfeit GPTW / Glassdoor claims) + center **white card** (“What our team says”, decorative gold star row, three stacked quote cards with fade). Mobile: headline → center → flanks (`order`).
+- **Type:** H2 + green **Instrument Serif italic** on *work.*; 8th-grade lede.
+- **CTA:** **See Careers** → `careers.html` via new **`.pill--blue`** (dark `--blue`, white text).
+- **a11y:** `aria-labelledby` on section + card; decorative stacks / rear quotes `aria-hidden`; only top quote in tab order.
+- **Static:** no JS.
+
+## Changelog — 2026-10-15 (Careers band · dark blue + gold)
+
+Restyled **`#careers`** from warm green tint `#eef6e0` to **`--blue` (`#003F55`)** canvas with **gold-forward type** (matches hero / What we do accent vocabulary).
+
+- **Canvas:** `var(--blue)` fill; top hairline `rgba(254, 197, 10, .22)` (replaces green hairline).
+- **Type:** H2 **`--gold`**; **Instrument Serif italic** on *work.* in **`--white`**; lede **`rgba(254, 197, 10, .82)`**. Center white card unchanged (dark quote copy inside).
+- **Proof stacks:** semi-transparent panels + **`--gold`** border (no blue-on-blue stacks); mono labels **`--cyan`**, values **`--gold`**.
+- **CTA:** **See Careers** → **`.pill--gold`** (`.pill--blue` was illegible on blue).
+
+## Changelog — 2026-10-15 (Careers · testimonial grid)
+
+Replaced GPTW-style **proof stacks + center white quote card** with a single **3-column testimonial grid** on the dark **`--blue`** band.
+
+- **Removed:** `.careers-stack`, `.careers__flank`, `.careers__card`, `.careers-quotes` (HTML + CSS).
+- **Added:** `.careers-testimonial` — circular Unsplash headshot (`400×400` crop, same hotlink pattern as `#ai` `.ai__photo`), headline with **Instrument Serif italic `--gold`** + **white Instrument Sans**, body copy in white sans, Fragment Mono `[placeholder]` attribution.
+- **Layout:** `repeat(3, 1fr)` from **900px**; **≤899px** single column, centered text + avatars.
+- **Unchanged:** section H2/lede gold styling, **See Careers** `.pill--gold` CTA, static HTML/CSS only.
+
+## Changelog — 2026-10-15 (Careers · middle testimonial avatar)
+
+- Middle `.careers-testimonial__avatar` Unsplash URL **`photo-1472099645785`** returned **404**; swapped to **`photo-1507003211169-0a1dd7228f2d`** (same `?auto=format&fit=crop&w=400&h=400&q=70`). First and third avatars verified **200**, unchanged.
+
+## Changelog — 2026-10-15 (Careers · lede white)
+
+- `.careers__lede` color gold tint → **`rgba(255, 255, 255, .88)`** (matches `.careers-testimonial__text`).
+
+## Changelog — 2026-10-15 (Careers · title color flip)
+
+- `.careers__title` **white** sans; `.careers__title em` **gold** serif italic (*work.*).
+
+## Changelog — 2026-10-15 (Careers · darker band)
+
+- **`#careers` canvas:** `var(--blue)` → **`color-mix(in srgb, var(--blue) 80%, black)`** (computed **`#003244`**, ~20% darker than `#003F55`); `:root --blue` unchanged. Gold top hairline **`rgba(254, 197, 10, .22)`** and white/gold type unchanged.
+
+## Changelog — 2026-10-15 (Careers · head left-align)
+
+- **`.careers__head`:** dropped `max-width: 36em`, `margin: 0 auto`, and `text-align: center` — block is flush left with **`.careers__grid`** inside **`.careers__inner`**.
+- **`.careers__lede`:** readable width via **`max-width: 36em`** on the lede only (head spans full inner width).
+- **≤899px:** removed centered testimonials (avatar auto margins + `text-align: center`) so head and grid share the same left edge on mobile.
+
+## Changelog — 2026-10-15 (Careers · grid column dividers)
+
+- **≥900px `.careers__grid`:** vertical hairlines between the three `.careers-testimonial` columns — copied from **`.menu__col`** (`.menu__inner` `gap: 0`; `padding: 0 32px` with first/last flush; adjacent sibling `border-left: 1px solid rgba(255,255,255,.14)`). Grid uses `align-items: stretch` so rules span the full row height.
+- **≤899px:** unchanged single-column stack (`gap` + no vertical rules).
+
+## Changelog — 2026-10-15 (Careers · CTA in head)
+
+Moved **See Careers** (`.careers__cta` / `.pill--gold`) from below the testimonial grid into **`.careers__head`** after `.careers__lede` — same pattern as AI intro CTA. Left-aligned; `margin: 28px 0 0` (was centered `48px` top after grid). Link unchanged.
+
+## Changelog — 2026-10-15 (Careers · head row / CTA baseline)
+
+- **`.careers__head-row`** wraps `.careers__lede` + `.careers__cta` (h2 stays above).
+- **≥900px:** flex row, `align-items: baseline`, `justify-content: space-between`, lede `max-width: 36em` left, **See Careers** right (`margin-left: auto`, `text-align: right`).
+- **≤899px:** flex wrap; lede then CTA with `gap: 24px`, both left-aligned.
+- Lede top spacing moves to **`margin-top: 18px`** on the row (lede `margin` reset).
+
+## Changelog — 2026-10-15 (Footer · menu chrome)
+
+- **`#siteFooter.site-footer`** after `#close` — duplicates the open **Menu** overlay IA (four columns, verticals split, dividers, type). Reuses **`.menu__inner` / `.menu__col` / `.menu__list`** styles; **`--menu-bg`** fill + top hairline (no dropdown shadow).
+- **`.site-footer__legal`:** `© 2026 All Rights Reserved | Fullsteam` + **Follow on LinkedIn** (blue **in** mark, company page URL).
+
+## Changelog — 2026-10-15 (Close band · Figma 11304:33)
+
+- **`#close`** after `#careers` — H2 “Ready to see where your business can go next?”, gold **Explore our vertical solutions**, **For Founders** text link (content-slots §2 row 07).
+- **Canvas:** `--close-canvas` = `color-mix(in srgb, var(--careers-canvas) 70%, black)` (~**30% darker** than careers / LinkedIn `--careers-canvas`). Shared tokens in `:root`.
+
+## Changelog — 2026-10-15 (Careers · LinkedIn self-contained)
+
+- **`.careers__posts`** (mock horizontal cards + scroller) moved **inside** **`.careers__linkedin`** so company header, Follow CTA, and feed share one bordered panel.
+- **`.careers__linkedin-top`:** company id + body | Follow pill (860px+ two-column row).
+- Posts band: top hairline, padding; **`.li-scroller`** negative horizontal margin so cards scroll edge-to-edge within the panel padding.
