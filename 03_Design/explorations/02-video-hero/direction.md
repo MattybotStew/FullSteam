@@ -450,6 +450,38 @@ Verified with the video requests stubbed to 404 (the Pages condition): 0 JS
 errors, no horizontal overflow 320/390/768/1024/1440/1920, reduced-motion
 disables the drift and renders the sentence fully lit, unchanged with the video
 present.
+
+## Changelog — 2026-10-15 (AI band · Claude /overview layout)
+
+Figma **`11294:2`** content (H2 + three use cases + **See AI at Fullsteam**), placed
+after `#investors` / verticals. Layout reference: **[Claude product overview](https://claude.com/product/overview)** — mono **Put AI to work** label, horizontal use-case pills, **one product panel at a time** (UI schematic frame + title + short descriptor). Not the Figma three-grey-card grid.
+
+- **Canvas:** `#f2f7f9` tint + top hairline so the band separates from white verticals.
+- **Type:** Instrument Sans headline; gold **Instrument Serif italic** on *knows the business.*; Fragment Mono kicker; locked H3 strings from Figma.
+- **Motion:** panel swap only (short fade-in); no scroll scrub. `prefers-reduced-motion` drops tab transition animation. No-JS stacks all three panels.
+- **a11y:** `role="tablist"` / `tabpanel`; arrow keys + Home/End on tabs.
+
+## Changelog — 2026-10-15 (AI panels · Unsplash, square corners)
+
+- Replaced schematic UI frames with **Unsplash cover** + light scrim (same `--photo` pattern as verticals).
+- **`border-radius: 0`** on panel images and tab buttons (Square-like sharp edges).
+- **Fix:** Support Unsplash id `1556767544…` returned **404** (flat `--blue` frame). Swapped to `1573496359142…`; panels use `<img class="ai__photo">` + scrim `::after` instead of CSS `var(--photo)` on an empty span.
+
+## Changelog — 2026-10-15 (AI tabs · Claude cells, Fullsteam chrome)
+
+Tabs match **Claude /overview** role row (bold name + muted hint, shared baseline rule, active **3px `--blue` underline**) — not filled pills. **Instrument Sans**, square corners, hairline dividers; horizontal scroll on narrow viewports.
+
+## Changelog — 2026-10-15 (AI · vertical accordion)
+
+Horizontal tabs → **vertical accordion** (`.ai-acc`): name + hint triggers, **inset `--blue` rule** + chevron, image + copy in body. One open at a time; **Arrow Up/Down / Home / End** open target + focus trigger; click always selects. No-JS: all bodies expanded. *(Supersedes tab `tablist`.)*
+
+## Changelog — 2026-10-15 (AI · two-column swap + centered intro)
+
+*(Superseded below — was accordion left / centered intro right via `order`.)*
+
+## Changelog — 2026-10-15 (AI · intro left, accordion right)
+
+Desktop **≥900px:** natural DOM order — intro (`.ai__head`) **left** (`5fr`), accordion (`.ai__main`) **right** (`7fr`); no grid `order`. Intro: `text-align: left`, no auto horizontal margins; `max-width: 26em`. Row `align-items: center`. Mobile unchanged: single column, intro on top (centered), accordion below.
 ## Changelog — 2026-10-15 (sentence: no counter)
 
 CD decision — **the count-up is removed from the sentence.** Two things were
@@ -465,3 +497,11 @@ animating at once in the same 19 words; only the scrub should.
 
 Verified: identical values at scroll 0 / 1200 / 2000 / 2800 / 3080 / 3400 · scrub
 ramp still reads `###########+.......` at the playhead · 0 JS errors.
+
+## Changelog — 2026-10-15 (AI · drop “Put AI to work” label)
+
+Removed the mono **Put AI to work** kicker above the accordion (`.ai__work-label` / `#aiAccLabel`) and its CSS. `#aiAcc` now names the region via `aria-labelledby="aiTitle"` (section H2) instead of the deleted label.
+
+## Changelog — 2026-10-15 (AI · CTA in intro column)
+
+Moved **See AI at Fullsteam** (`.ai__foot`) from `.ai__main` to `.ai__head` after `.ai__lede` (left desktop / centered mobile; 28px below lede).

@@ -671,6 +671,171 @@
       .vpanel, .vpanel__label, .vpanel__body { transition: none; }
     }
 
+    /* ---- AI — Figma 11294:2 content · Claude /overview layout (static) ---- */
+    /* Reference: claude.com/product/overview — “Put AI to work” label + use-case
+       rows; here as a vertical accordion (one panel open, no scroll motion). */
+    .ai {
+      position: relative; z-index: 2;
+      background: #f2f7f9;
+      color: #0d1a20;
+      border-top: 1px solid rgba(0, 63, 85, .08);
+      padding: 96px 24px 104px;
+    }
+    .ai__inner { width: min(1120px, 100%); margin: 0 auto; }
+    .ai__layout {
+      display: grid;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .ai__layout {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: clamp(32px, 4vw, 64px);
+        align-items: center;
+      }
+    }
+    .ai__head {
+      margin: 0;
+      max-width: 26em;
+      text-align: left;
+    }
+    @media (max-width: 899px) {
+      .ai__head {
+        max-width: 720px;
+        margin: 0 auto;
+        text-align: center;
+      }
+    }
+    .ai__title {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.05;
+      text-wrap: balance;
+    }
+    .ai__title em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      color: var(--gold);
+    }
+    .ai__lede {
+      margin: 18px 0 0;
+      font-size: clamp(17px, 2vw, 20px); line-height: 1.45;
+      color: rgba(13, 26, 32, .72);
+      text-wrap: balance;
+    }
+    .ai__main { min-width: 0; }
+    .ai__work { margin-top: 0; }
+    /* Claude-style labels → vertical accordion (one open; square corners). */
+    .ai-acc {
+      border: 1px solid rgba(0, 63, 85, .14);
+      background: #fff;
+      box-shadow: 0 24px 60px rgba(0, 32, 43, .08);
+    }
+    .ai-acc__item + .ai-acc__item { border-top: 1px solid rgba(0, 63, 85, .12); }
+    .ai-acc__heading { margin: 0; font: inherit; }
+    .ai-acc__trigger {
+      width: 100%;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      border: 0; border-radius: 0;
+      background: rgba(255, 255, 255, .55);
+      cursor: pointer;
+      text-align: left;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      color: #0d1a20;
+      transition: background .2s ease, box-shadow .2s ease;
+    }
+    .ai-acc__trigger:hover { background: #fff; }
+    .ai-acc__item.is-open > .ai-acc__trigger {
+      background: #fff;
+      box-shadow: inset 3px 0 0 var(--blue);
+    }
+    .ai-acc__labels { display: block; min-width: 0; }
+    .ai-acc__name {
+      display: block;
+      font-size: 15px; font-weight: 700;
+      letter-spacing: -.02em; line-height: 1.2;
+      color: rgba(13, 26, 32, .88);
+    }
+    .ai-acc__hint {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px; font-weight: 400; line-height: 1.35;
+      color: rgba(13, 26, 32, .52);
+    }
+    .ai-acc__item.is-open .ai-acc__name { color: var(--blue); }
+    .ai-acc__item.is-open .ai-acc__hint { color: rgba(13, 26, 32, .68); }
+    .ai-acc__chev {
+      flex-shrink: 0;
+      width: 10px; height: 10px; margin-top: 5px;
+      border-right: 2px solid rgba(13, 26, 32, .45);
+      border-bottom: 2px solid rgba(13, 26, 32, .45);
+      transform: rotate(45deg);
+      transition: transform .2s ease, margin .2s ease;
+    }
+    .ai-acc__item.is-open .ai-acc__chev {
+      transform: rotate(-135deg);
+      margin-top: 10px;
+    }
+    .ai-acc__trigger:focus-visible {
+      outline: 2px solid var(--cyan); outline-offset: -2px; z-index: 1;
+    }
+    .ai-acc__body { display: none; }
+    .ai-acc__item.is-open .ai-acc__body { display: block; }
+    .ai-acc__body-inner {
+      padding: 0 22px 24px;
+      display: grid;
+      gap: 20px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ai-acc__trigger, .ai-acc__chev { transition: none; }
+    }
+    .ai__frame {
+      position: relative; overflow: hidden;
+      min-height: clamp(220px, 32vw, 320px);
+      border-radius: 0;
+      background: var(--blue);
+      box-shadow: 0 24px 60px rgba(0, 32, 43, .12);
+    }
+    .ai__photo {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    .ai__frame::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(0,12,20,.35) 0%, rgba(0,12,20,.22) 50%, rgba(0,12,20,.55) 100%);
+    }
+    .ai__panel-copy { max-width: none; margin: 0; text-align: left; }
+    .ai__panel-title {
+      margin: 0 0 10px;
+      font-size: clamp(20px, 2.4vw, 24px); font-weight: 700;
+      letter-spacing: -.02em;
+    }
+    .ai__panel-desc {
+      margin: 0;
+      font-size: 17px; line-height: 1.45;
+      color: rgba(13, 26, 32, .75);
+    }
+    .ai__foot { margin: 28px 0 0; text-align: left; }
+    @media (max-width: 899px) {
+      .ai__foot { text-align: center; }
+    }
+    .ai__foot a {
+      font-weight: 700; font-size: 15px;
+      color: #0d1a20; text-decoration: none;
+      border-bottom: 1px solid #0d1a20;
+      padding-bottom: 2px;
+    }
+    .ai__foot a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+    /* no-JS: every use case expanded */
+    html:not(.has-js) .ai-acc__body { display: block !important; }
+    html:not(.has-js) .ai-acc__chev { display: none; }
+    html:not(.has-js) .ai-acc__trigger { pointer-events: none; cursor: default; }
+
     /* ---- responsive ------------------------------------------------------ */
     @media (max-width: 900px) {
       .hero { padding: 96px 0; gap: 36px; min-height: 100svh; }
@@ -679,6 +844,7 @@
       .what-we-do { padding: 80px 24px 120px; }
       .what-we-do__inner { gap: 72px; }
       .stats { padding: 76px 24px 72px; }
+      .ai { padding: 76px 24px 88px; }
     }
     @media (max-width: 560px) {
       /* short header CTA so the gold pill fits at 390px */
@@ -982,6 +1148,107 @@ Square-style expanding accordion (white canvas). -->
         <a href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Automotive</a>
         <a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a>
         <a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI — Figma FS-Design 11294:2 (content). Layout ref: Claude product overview.
+       Unsplash (hotlinked · Unsplash License):
+       Forecasting — analytics, photo-1551288049-bebda4e38f71 (Luke Chesser)
+       Back office — laptop work, photo-1486312338219-ce68d2c6f44d (Glenn Carstens-Peters)
+       Support — photo-1573496359142-b8d87734a5a2 (Christina @ wocintechchat.com) -->
+  <section class="ai" id="ai" aria-labelledby="aiTitle">
+    <div class="ai__inner">
+      <div class="ai__layout">
+        <header class="ai__head">
+          <h2 class="ai__title" id="aiTitle">AI that already <em>knows the business.</em></h2>
+          <p class="ai__lede">Use cases first — built on the data your vertical software already holds, not generic models.</p>
+          <p class="ai__foot">
+            <a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">See AI at Fullsteam</a>
+          </p>
+        </header>
+
+        <div class="ai__main">
+      <div class="ai__work">
+        <div class="ai-acc" id="aiAcc" role="region" aria-labelledby="aiTitle">
+          <article class="ai-acc__item is-open">
+            <h3 class="ai-acc__heading">
+              <button type="button" class="ai-acc__trigger" id="ai-acc-btn-0"
+                aria-expanded="true" aria-controls="ai-acc-body-0">
+                <span class="ai-acc__labels">
+                  <span class="ai-acc__name">Forecasting</span>
+                  <span class="ai-acc__hint">Plans that fit the trade.</span>
+                </span>
+                <span class="ai-acc__chev" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="ai-acc__body" id="ai-acc-body-0" role="region" aria-labelledby="ai-acc-btn-0">
+              <div class="ai-acc__body-inner">
+                <div class="ai__frame" aria-hidden="true">
+                  <img class="ai__photo" alt=""
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70"
+                    width="1600" height="1000" loading="lazy" decoding="async">
+                </div>
+                <div class="ai__panel-copy">
+                  <h4 class="ai__panel-title">Forecasting that fits the trade.</h4>
+                  <p class="ai__panel-desc">Plans that respect how each vertical actually buys, staffs, and seasons — not a one-size spreadsheet.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="ai-acc__item">
+            <h3 class="ai-acc__heading">
+              <button type="button" class="ai-acc__trigger" id="ai-acc-btn-1"
+                aria-expanded="false" aria-controls="ai-acc-body-1">
+                <span class="ai-acc__labels">
+                  <span class="ai-acc__name">Back office</span>
+                  <span class="ai-acc__hint">Close and reconcile, faster.</span>
+                </span>
+                <span class="ai-acc__chev" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="ai-acc__body" id="ai-acc-body-1" role="region" aria-labelledby="ai-acc-btn-1" hidden>
+              <div class="ai-acc__body-inner">
+                <div class="ai__frame" aria-hidden="true">
+                  <img class="ai__photo" alt=""
+                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70"
+                    width="1600" height="1000" loading="lazy" decoding="async">
+                </div>
+                <div class="ai__panel-copy">
+                  <h4 class="ai__panel-title">Back office, handled.</h4>
+                  <p class="ai__panel-desc">Repeatable ops work accelerated with context from the system of record — people stay on judgment calls.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="ai-acc__item">
+            <h3 class="ai-acc__heading">
+              <button type="button" class="ai-acc__trigger" id="ai-acc-btn-2"
+                aria-expanded="false" aria-controls="ai-acc-body-2">
+                <span class="ai-acc__labels">
+                  <span class="ai-acc__name">Support</span>
+                  <span class="ai-acc__hint">Answers in industry context.</span>
+                </span>
+                <span class="ai-acc__chev" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="ai-acc__body" id="ai-acc-body-2" role="region" aria-labelledby="ai-acc-btn-2" hidden>
+              <div class="ai-acc__body-inner">
+                <div class="ai__frame" aria-hidden="true">
+                  <img class="ai__photo" alt=""
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70"
+                    width="1600" height="1000" loading="lazy" decoding="async">
+                </div>
+                <div class="ai__panel-copy">
+                  <h4 class="ai__panel-title">Support that knows the industry.</h4>
+                  <p class="ai__panel-desc">Answers grounded in how that business runs day to day — not a generic help bot.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1386,6 +1653,45 @@ Square-style expanding accordion (white canvas). -->
       }
 
       initVertStage();
+    })();
+
+    // AI use-case accordion (Claude-style row labels → vertical stack)
+    (function () {
+      var acc = document.getElementById('aiAcc');
+      if (!acc || !document.documentElement.classList.contains('has-js')) return;
+      var items = acc.querySelectorAll('.ai-acc__item');
+      if (!items.length) return;
+
+      function openItem(item) {
+        items.forEach(function (el) {
+          var on = el === item;
+          el.classList.toggle('is-open', on);
+          var btn = el.querySelector('.ai-acc__trigger');
+          var body = el.querySelector('.ai-acc__body');
+          if (btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+          if (body) body.hidden = !on;
+        });
+      }
+
+      items.forEach(function (item, idx) {
+        var btn = item.querySelector('.ai-acc__trigger');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          openItem(item);
+        });
+        btn.addEventListener('keydown', function (e) {
+          var next = -1;
+          if (e.key === 'ArrowDown') next = (idx + 1) % items.length;
+          if (e.key === 'ArrowUp') next = (idx - 1 + items.length) % items.length;
+          if (e.key === 'Home') next = 0;
+          if (e.key === 'End') next = items.length - 1;
+          if (next < 0) return;
+          e.preventDefault();
+          openItem(items[next]);
+          var target = items[next].querySelector('.ai-acc__trigger');
+          if (target) target.focus();
+        });
+      });
     })();
 
     // navigation dropdown
