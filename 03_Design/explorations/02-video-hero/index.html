@@ -75,6 +75,21 @@
       transform: translate(-50%, -50%) scale(calc(1 + 0.03 * var(--pVideo, 0) * (1 - var(--cube, 0))));
       transform-origin: center center;
       transition: none;
+      /* Shrink first (~0–0.72), then fade out so no cube silhouette remains at --cube 1 */
+      opacity: calc(1 - max(0, (var(--cube, 0) - 0.72) / 0.28));
+      visibility: visible;
+      pointer-events: none;
+    }
+    /* Settled: fully gone (belt-and-suspenders vs float precision at pCube ≈ 0.999) */
+    .hero.is-cubed .hero__media {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .hero.is-cubing .hero__media-ctrl,
+    .hero.is-cubed .hero__media-ctrl {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     /* base color overlay — the #003F55 fill under the video.
@@ -466,7 +481,7 @@
     /* Brand gold on the counting numbers; sentence copy stays #0d1a20 */
     .sent-num { color: var(--gold); font-weight: 700; }
 
-    /* ---- Verticals — Square "audience moment": white band, one card un-dimmed */
+    /* ---- Verticals — Square expanding accordion on white ----------------- */
     .verts {
       background: #fff; color: #0d1a20;
       padding: 96px 0 92px;
@@ -480,75 +495,106 @@
       font-size: clamp(32px, 5vw, 56px); font-weight: 700;
       letter-spacing: -.03em; line-height: 1.06;
     }
+    /* Full-bleed stage — edge-to-edge; title stays in readable measure above */
     .verts__stage {
-      display: flex; gap: 10px;
-      width: min(1160px, 100%); margin: 0 auto; padding: 0 24px;
+      --strip: 72px;
+      display: flex; gap: 0;
+      width: 100%; margin: 0; padding: 0;
       height: min(62vh, 560px);
     }
-    .vcard {
-      position: relative; flex: 1 1 0; min-width: 0;
-      overflow: hidden; border-radius: 16px;
+    /* Collapsed = narrow strip; open = takes the remaining row width. */
+    .vpanel {
+      position: relative;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: var(--strip);
+      overflow: hidden; border-radius: 0;
       border: 0; padding: 0; margin: 0;
-      background: #232323; color: #fff;
-      text-align: left; font: inherit; cursor: pointer;
-      transition: flex .45s cubic-bezier(.4,0,.2,1);
+      color: #fff; text-align: left; font: inherit; cursor: pointer;
+      transition:
+        flex-grow .5s cubic-bezier(.4, 0, .2, 1),
+        flex-basis .5s cubic-bezier(.4, 0, .2, 1);
     }
-    /* unselected cards sit behind a 50% scrim; the selected one un-dims */
-    .vcard::after {
-      content: ""; position: absolute; inset: 0; z-index: 1;
-      background: rgba(0,0,0,.5); opacity: 1; pointer-events: none;
-      transition: opacity .45s ease;
+    .vpanel.is-open {
+      flex-grow: 1;
+      flex-basis: 0;
+      min-width: 0;
     }
-    .vcard.is-feature::after { opacity: 0; }
-    .vcard:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-    .vcard__img {
+    .vpanel:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    /* Unsplash cover + dark scrim (collapsed label + expanded copy) */
+    .vpanel__img {
       position: absolute; inset: 0;
-      background: #2e2e2e
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 48'%3E%3Cpath fill='%236b6b6b' d='M8 36 L24 18 L36 28 L48 14 L56 36 Z'/%3E%3Ccircle cx='46' cy='14' r='5' fill='%237d7d7d'/%3E%3C/svg%3E")
-        center 40% / 52px no-repeat;
+      background-color: var(--panel, var(--blue));
+      background-image:
+        linear-gradient(180deg, rgba(0,12,20,.45) 0%, rgba(0,12,20,.28) 42%, rgba(0,12,20,.78) 100%),
+        var(--photo);
+      background-size: cover;
+      background-position: center;
     }
-    .vcard__name {
-      position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 2;
-      margin: 0;
-      font-size: clamp(15px, 1.7vw, 24px); font-weight: 600;
-      letter-spacing: -.02em; line-height: 1.15; color: #fff;
-      text-shadow: 0 1px 8px rgba(0,0,0,.5);
-    }
-    .vcard.is-feature .vcard__name { display: none; }
-    .vcard__body {
-      display: none;
-      position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
-      padding: 34px 26px 26px;
-      background: linear-gradient(transparent, rgba(0,0,0,.62) 42%);
+    .vpanel[data-tone="0"] { --panel: #003F55; }
+    .vpanel[data-tone="1"] { --panel: #005978; }
+    .vpanel[data-tone="2"] { --panel: #002C3C; }
+    .vpanel[data-tone="3"] { --panel: #0a4a5c; }
+    .vpanel[data-tone="4"] { --panel: #1a4554; }
+
+    /* Rotated / centered label — visible only while collapsed */
+    .vpanel__label {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0; padding: 12px 0;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 14px; font-weight: 600;
+      letter-spacing: .04em; line-height: 1;
       color: #fff;
+      opacity: 1;
+      transition: opacity .25s ease;
+      pointer-events: none;
+      white-space: nowrap;
     }
-    .vcard.is-feature .vcard__body { display: block; }
-    .vcard__h {
+    .vpanel.is-open .vpanel__label { opacity: 0; }
+
+    /* Expanded content — photo plane + big title + shared placeholder stat */
+    .vpanel__body {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+      padding: 36px 28px 28px;
+      background: linear-gradient(transparent, rgba(0,12,20,.72) 48%);
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease .1s;
+    }
+    .vpanel.is-open .vpanel__body {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .vpanel__h {
       margin: 0 0 14px;
-      font-size: clamp(26px, 3vw, 40px); font-weight: 700;
+      font-size: clamp(28px, 3.2vw, 44px); font-weight: 700;
       letter-spacing: -.03em; line-height: 1.05;
     }
-    .vcard__rule { border: 0; border-top: 1px solid rgba(255,255,255,.75); margin: 0 0 14px; }
-    .vcard__stat {
+    .vpanel__rule { border: 0; border-top: 1px solid rgba(255,255,255,.75); margin: 0 0 14px; }
+    .vpanel__stat {
       margin: 0;
       font-size: clamp(30px, 3.4vw, 44px); font-weight: 700;
       letter-spacing: -.04em; line-height: 1;
       font-variant-numeric: tabular-nums;
       color: var(--gold);
     }
-    .vcard__desc {
-      margin: 9px 0 18px; max-width: 26ch;
+    .vpanel__desc {
+      margin: 9px 0 18px; max-width: 28ch;
       font-family: var(--mono-d); font-size: 12px; line-height: 1.45;
       color: rgba(255,255,255,.8);
     }
-    .vcard__link {
+    .vpanel__link {
       display: inline-block;
       font-family: var(--mono-d); font-size: 12px;
       letter-spacing: .08em; text-transform: uppercase;
       color: #fff; text-decoration: none;
       border-bottom: 1px solid rgba(255,255,255,.7); padding-bottom: 3px;
     }
-    .vcard__link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+    .vpanel__link:hover { color: var(--gold); border-bottom-color: var(--gold); }
 
     /* all eleven, as links */
     .verts__all {
@@ -558,28 +604,37 @@
     }
     .verts__all a { color: #0d1a20; text-decoration: none; border-bottom: 1px solid rgba(13,26,32,.3); padding-bottom: 3px; }
     .verts__all a:hover { color: var(--blue); border-bottom-color: var(--blue); }
-    .verts__note {
-      width: min(1160px, 100%); margin: 30px auto 0; padding: 0 24px;
-      display: flex; justify-content: center;
-    }
-    .verts__note span {
-      display: inline-block; padding: 11px 15px; max-width: 66ch;
-      border: 1px dashed rgba(13,26,32,.35);
-      font-family: var(--mono-d); font-size: 11px; line-height: 1.6;
-      color: rgba(13,26,32,.75);
-    }
 
-    /* ---- verticals: stack below 1024px (matches the built section) -------- */
+    /* ---- verticals: stack below 1024px ----------------------------------- */
     @media (max-width: 1023px) {
       .verts { padding: 76px 0 72px; }
-      .verts__stage { flex-direction: column; gap: 8px; height: auto; }
-      .vcard { flex: 0 0 auto; height: 78px; transition: height .4s cubic-bezier(.4,0,.2,1); }
-      .vcard.is-feature { height: min(58svh, 460px); }
-      .vcard__name { font-size: 17px; }
-      .vcard__body { padding: 30px 22px 22px; }
+      .verts__stage {
+        flex-direction: column; gap: 0; height: auto;
+        --strip: 64px;
+      }
+      .vpanel {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto;
+        width: 100%;
+        min-width: 0;
+        height: var(--strip);
+        transition: height .45s cubic-bezier(.4, 0, .2, 1);
+      }
+      .vpanel.is-open {
+        height: min(58svh, 460px);
+      }
+      .vpanel__label {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 16px; letter-spacing: -.01em;
+        justify-content: flex-start;
+        padding: 0 22px;
+      }
+      .vpanel__body { padding: 30px 22px 22px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .vcard, .vcard::after { transition: none; }
+      .vpanel, .vpanel__label, .vpanel__body { transition: none; }
     }
 
     /* ---- responsive ------------------------------------------------------ */
@@ -597,7 +652,6 @@
       .hero__bar .pill__full { display: none; }
       .hero__bar .pill__short { display: inline; }
       .hero__logo img { width: 120px; height: auto; }
-      .verts__note span { font-size: 10.5px; }
     }
     @media (max-width: 480px) {
       .hero__headlines { --title-max: clamp(41px, 12.6vw, 65px); }
@@ -778,7 +832,7 @@
   </section>
 
   <!-- Scale → verticals — live italic sentence scrubbed word by word, then
-Square's "audience moment" filmstrip. White band throughout. -->
+Square-style expanding accordion (white canvas). -->
   <section class="scale" id="investors" aria-label="Scale and verticals">
     <div class="stats" id="statsBand">
       <div class="stats__inner">
@@ -810,60 +864,73 @@ Square's "audience moment" filmstrip. White band throughout. -->
       <div class="verts__head">
         <h2 class="verts__title">Keep the businesses growing.</h2>
       </div>
-      <div class="verts__stage" id="vertStage">
-        <article class="vcard" role="button" tabindex="0" aria-pressed="false" data-name="Hospitality">
-          <span class="vcard__img" aria-hidden="true"></span>
-          <h3 class="vcard__name">Hospitality</h3>
-          <div class="vcard__body">
-            <h3 class="vcard__h">Hospitality</h3>
-            <hr class="vcard__rule">
-            <p class="vcard__stat">70,000+</p>
-            <p class="vcard__desc">business customers [placeholder]</p>
-            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Explore →</a>
+      <!--
+        Unsplash panel photos (hotlinked · Unsplash License · attribution appreciated):
+        Hospitality — kitchen, photo-1556910103-1c02745aae4d (Jason Briscoe)
+        ERP — office, photo-1497366216548-37526070297c (Nastuh Abootalebi)
+        Retail — store, photo-1441986300917-64674bd600d8 (Christian Wiediger)
+        Transportation — warehouse, photo-1586528116311-ad8dd3c8310d (CHUTTERSNAP)
+        Wine — wine, photo-1516594915697-87eb3b1c14ea (Unsplash)
+      -->
+      <div class="verts__stage" id="vertStage" role="list">
+        <article class="vpanel is-open" role="listitem" tabindex="0" aria-expanded="true" data-tone="0"
+          style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Hospitality</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Hospitality</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">70,000+</p>
+            <p class="vpanel__desc">businesses served [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Learn more</a>
           </div>
         </article>
-        <article class="vcard" role="button" tabindex="0" aria-pressed="false" data-name="ERP">
-          <span class="vcard__img" aria-hidden="true"></span>
-          <h3 class="vcard__name">ERP</h3>
-          <div class="vcard__body">
-            <h3 class="vcard__h">ERP</h3>
-            <hr class="vcard__rule">
-            <p class="vcard__stat">2,000+</p>
-            <p class="vcard__desc">people [placeholder]</p>
-            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#erp">Explore →</a>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="1"
+          style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">ERP</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">ERP</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">11</p>
+            <p class="vpanel__desc">vertical markets owned [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#erp">Learn more</a>
           </div>
         </article>
-        <article class="vcard is-feature" role="button" tabindex="0" aria-pressed="true" data-name="Retail">
-          <span class="vcard__img" aria-hidden="true"></span>
-          <h3 class="vcard__name">Retail</h3>
-          <div class="vcard__body">
-            <h3 class="vcard__h">Retail</h3>
-            <hr class="vcard__rule">
-            <p class="vcard__stat">$75B+</p>
-            <p class="vcard__desc">processed on Fullsteam Pay* [placeholder]</p>
-            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Explore →</a>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="2"
+          style="--photo: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Retail</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Retail</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">$75B</p>
+            <p class="vpanel__desc">moved through Fullsteam Pay [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Learn more</a>
           </div>
         </article>
-        <article class="vcard" role="button" tabindex="0" aria-pressed="false" data-name="Transportation">
-          <span class="vcard__img" aria-hidden="true"></span>
-          <h3 class="vcard__name">Transportation</h3>
-          <div class="vcard__body">
-            <h3 class="vcard__h">Transportation</h3>
-            <hr class="vcard__rule">
-            <p class="vcard__stat">480M+</p>
-            <p class="vcard__desc">transactions processed* [placeholder]</p>
-            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Explore →</a>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="3"
+          style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Transportation</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Transportation</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">70,000+</p>
+            <p class="vpanel__desc">businesses served [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Learn more</a>
           </div>
         </article>
-        <article class="vcard" role="button" tabindex="0" aria-pressed="false" data-name="Wine">
-          <span class="vcard__img" aria-hidden="true"></span>
-          <h3 class="vcard__name">Wine</h3>
-          <div class="vcard__body">
-            <h3 class="vcard__h">Wine</h3>
-            <hr class="vcard__rule">
-            <p class="vcard__stat">11</p>
-            <p class="vcard__desc">vertical markets owned</p>
-            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Explore →</a>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="4"
+          style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Wine</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Wine</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">11</p>
+            <p class="vpanel__desc">vertical markets owned [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Learn more</a>
           </div>
         </article>
       </div>
@@ -880,7 +947,6 @@ Square's "audience moment" filmstrip. White band throughout. -->
         <a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a>
         <a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a>
       </div>
-      <div class="verts__note"><span>Five featured verticals, revenue-ordered, plus all eleven as links. Figures are the shared placeholder set from the scale band above — no named businesses and no revenue, run-rate, or profitability until publishability is confirmed.</span></div>
     </div>
   </section>
 
@@ -1178,7 +1244,7 @@ Square's "audience moment" filmstrip. White band throughout. -->
       }
     })();
 
-    // Scale (stats) → verticals: KPI count-up + one card un-dimmed at a time
+    // Scale (stats) → verticals: KPI count-up + expanding accordion
     (function () {
       var section = document.getElementById('investors');
       if (!section) return;
@@ -1275,27 +1341,45 @@ Square's "audience moment" filmstrip. White band throughout. -->
         counts();
       }
 
+      /* Expanding accordion: hover/click opens one strip; first panel open by default.
+         Reduced-motion still switches panels — only the width animation is off (CSS). */
       function initVertStage() {
         var stage = document.getElementById('vertStage');
         if (!stage) return;
-        var cards = Array.prototype.slice.call(stage.querySelectorAll('.vcard'));
+        var panels = Array.prototype.slice.call(stage.querySelectorAll('.vpanel'));
+        var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
 
-        // the selected card un-dims and reveals name → rule → figure → descriptor → link
-        function select(card) {
-          cards.forEach(function (c) {
-            var on = c === card;
-            c.classList.toggle('is-feature', on);
-            c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        function select(panel) {
+          panels.forEach(function (p) {
+            var on = p === panel;
+            p.classList.toggle('is-open', on);
+            p.setAttribute('aria-expanded', on ? 'true' : 'false');
           });
         }
 
-        cards.forEach(function (card) {
-          card.addEventListener('click', function (e) {
-            if (e.target.closest('a')) return;   // let the Explore link navigate
-            select(card);
+        panels.forEach(function (panel, idx) {
+          panel.addEventListener('click', function (e) {
+            if (e.target.closest('a')) return;
+            select(panel);
           });
-          card.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(card); }
+          if (fine.matches) {
+            panel.addEventListener('mouseenter', function () { select(panel); });
+          }
+          panel.addEventListener('keydown', function (e) {
+            var next = -1;
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              select(panel);
+              return;
+            }
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (idx + 1) % panels.length;
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (idx - 1 + panels.length) % panels.length;
+            if (e.key === 'Home') next = 0;
+            if (e.key === 'End') next = panels.length - 1;
+            if (next < 0) return;
+            e.preventDefault();
+            select(panels[next]);
+            panels[next].focus();
           });
         });
       }

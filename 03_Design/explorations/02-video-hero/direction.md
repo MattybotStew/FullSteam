@@ -373,3 +373,34 @@ carry the section alone.
 - `#statsBand` / `.scale` stay **white** with dark sentence text (`#0d1a20`) and
   teal count numbers. Kept `h2.verts__title` and the filmstrip.
 
+## Changelog — 2026-10-15 (verticals → expanding accordion)
+
+Replaced the equal-width **un-dim** "audience moment" cards with a Square-style
+**expanding accordion** (width grow), on the same white canvas:
+
+- Five revenue-ordered featured strips (Hospitality → ERP → Retail →
+  Transportation → Wine). Collapsed = narrow strip + rotated centered label;
+  open = wide panel with brand-tint plane, big title, shared placeholder figure
+  (`70,000+` / `11` / `$75B` from the scale sentence), descriptor, **Learn more**.
+- Hover (fine pointer) or click expands one strip and collapses the previous;
+  first panel open by default. Arrow / Home / End keys move focus.
+- Stacks below 1024px (horizontal label on collapsed rows).
+- `prefers-reduced-motion`: no width transition; panel switch still works.
+- All eleven verticals remain as links under the accordion.
+- Deleted the dashed `.verts__note` annotation. No Square photos — navy tonal
+  panels only. Cursor-following decoration still rejected (`inspiration.md`).
+
+## Changelog — 2026-10-15 (verticals Unsplash + full-bleed; cube fade-out)
+
+- **Accordion photos.** Featured panels use Unsplash cover backgrounds (hotlinked
+  `images.unsplash.com`, crop `w=1600&h=1000&q=70`) + dark scrim for white labels.
+  Credits in an HTML comment above `#vertStage`. Hospitality / ERP / Retail /
+  Transportation / Wine. Navy `--panel` remains the no-image fallback.
+- **Full-bleed stage.** `.verts__stage` is `width: 100%`, no max-width / side
+  padding / gap; title stays in the readable centered measure. Panels:
+  `border-radius: 0` (sharp, Square-like).
+- **Cube disappears.** After the shrink ramp, `.hero__media` opacity falls to 0
+  in the last ~28% of `--cube` (`0.72 → 1`); `.is-cubed` forces
+  `opacity: 0; visibility: hidden` so no leftover silhouette. Pause control
+  hides with cubing/cubed. Pin / handoff / `--cube` size math unchanged.
+
