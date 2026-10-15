@@ -15,8 +15,8 @@ _site/
 # never reach the public repo (raw.githubusercontent.com) or the Pages
 # allowlist. See 03_Design/explorations/README.md for the rules + promotion path.
 # Exception: 02-video-hero/ is tracked for an internal GH Pages preview (HTML +
-# logo only). Square reference media inside it stays ignored — copyrighted,
-# unlicensed; see inspiration.md §2.2 and 03_Design/assets/reference/.
+# logo + royalty-free hero-stock.mp4). Square reference media stays ignored —
+# copyrighted, unlicensed; see inspiration.md §2.2 and 03_Design/assets/reference/.
 03_Design/explorations/*
 !03_Design/explorations/README.md
 !03_Design/explorations/02-video-hero/
@@ -25,6 +25,7 @@ _site/
 03_Design/explorations/02-video-hero/assets/hero-video.webm
 03_Design/explorations/02-video-hero/assets/hero-poster.jpg
 03_Design/explorations/02-video-hero/assets/hero-bg.png
+# hero-stock.mp4 is tracked (Mixkit free license) — do not add Square files here.
 
 
 

@@ -38,12 +38,14 @@ jobs:
           cp index.html _site/
           cp 404.html _site/
           cp -R 02_Wireframes _site/
-          # Internal preview only — HTML + logo. No .md, no Square reference media
-          # (hero-video.*, hero-poster.jpg, hero-bg.png stay gitignored / local).
+          # Internal preview — HTML + logo + royalty-free hero-stock.mp4.
+          # Square reference media (hero-video.*, hero-poster.jpg, hero-bg.png)
+          # stays gitignored / local — never stage those.
           mkdir -p _site/03_Design/explorations/02-video-hero/assets
           cp 03_Design/explorations/02-video-hero/index.html \
              _site/03_Design/explorations/02-video-hero/
           cp 03_Design/explorations/02-video-hero/assets/fullsteam-logo.svg \
+             03_Design/explorations/02-video-hero/assets/hero-stock.mp4 \
              _site/03_Design/explorations/02-video-hero/assets/
           echo "--- published ---"
           find _site -type f | sort

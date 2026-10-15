@@ -59,10 +59,9 @@
     }
 
     /* ---- background: VIDEO, with an owned fallback ------------------------ */
-    /* Local: Square clip + poster under assets/ (gitignored — copyrighted, so
-       it must never ship to a public repo). On Pages those files are absent, so
-       .hero__fallback — a brand-owned CSS visual — carries the background and
-       the video only takes over once it genuinely plays (.has-media). */
+    /* Pages ships a royalty-free Mixkit stock clip (hero-stock.mp4). The Square
+       reference clip stays gitignored under hero-video.* — copyrighted, local
+       study only. .hero__fallback covers the frame until .has-media. */
     .hero__media,
     .hero__fallback {
       position: absolute; left: 50%; top: 50%; z-index: 0;
@@ -785,14 +784,13 @@
   <div class="hero-stage" id="heroStage">
     <section class="hero" id="hero" aria-label="Homepage hero">
       <!-- background video — autoplays at LOAD (muted + loop + playsinline).
-           Local assets only (gitignored — copyrighted, never shipped). No poster
-           attribute on purpose: it would 404 on every paint. The brand-owned
-           fallback underneath covers the frame until the video actually plays. -->
+           hero-stock.mp4 = Mixkit free stock (shipped to Pages). Square's
+           hero-video.* stays gitignored for local study only — do not commit.
+           No poster attribute (avoids 404 spam). Fallback until .has-media. -->
       <div class="hero__fallback" aria-hidden="true"></div>
       <video class="hero__media" id="heroVideo" autoplay muted loop playsinline preload="metadata"
              aria-hidden="true" tabindex="-1">
-        <source src="assets/hero-video.webm" type="video/webm">
-        <source src="assets/hero-video.mp4" type="video/mp4">
+        <source src="assets/hero-stock.mp4" type="video/mp4">
       </video>
 
       <div class="hero__tint" aria-hidden="true"></div>
