@@ -510,16 +510,22 @@
     .sent-num { color: var(--gold); font-weight: 700; }
 
     /* ---- Verticals — Square expanding accordion on white ----------------- */
+    /* CD: 10% left/right margins. One --gutter drives every row, so the head,
+       the stage and the eleven links all align on the same line. */
     .verts {
+      --gutter: 10%;
       background: #fff; color: #0d1a20;
-      padding: 96px 0 92px;
+      padding: 96px var(--gutter) 92px;
     }
     .verts__head {
-      width: min(1160px, 100%); margin: 0 auto 36px; padding: 0 24px;
+      width: 100%; margin: 0 auto 36px; padding: 0;
       text-align: center;
     }
     .verts__title {
-      margin: 0;
+      margin: 0 auto;
+      /* readable measure lives on the text, not the container, so the head,
+         stage and links still share one gutter at every width */
+      max-width: 1160px;
       font-size: clamp(32px, 5vw, 56px); font-weight: 700;
       letter-spacing: -.03em; line-height: 1.06;
     }
@@ -626,7 +632,7 @@
 
     /* all eleven, as links */
     .verts__all {
-      width: min(1160px, 100%); margin: 32px auto 0; padding: 0 24px;
+      width: 100%; margin: 32px auto 0; padding: 0;
       display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: center;
       font-family: var(--mono-d); font-size: 12px;
     }
@@ -635,7 +641,7 @@
 
     /* ---- verticals: stack below 1024px ----------------------------------- */
     @media (max-width: 1023px) {
-      .verts { padding: 76px 0 72px; }
+      .verts { padding: 76px var(--gutter) 72px; }
       .verts__stage {
         flex-direction: column; gap: 0; height: auto;
         --strip: 120px;
