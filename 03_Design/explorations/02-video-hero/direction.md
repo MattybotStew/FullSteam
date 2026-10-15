@@ -409,8 +409,9 @@ Replaced the equal-width **un-dim** "audience moment" cards with a Square-style
 Pages had no video because Square's `hero-video.*` must stay gitignored
 (`inspiration.md` §2.2). Shipped a Mixkit free clip instead:
 
-- **`assets/hero-stock.mp4`** (Mixkit 4240 — busy shopping mall; was 4242 kitchen).
-  Tracked + copied by `.github/workflows/pages.yml`. Square files stay ignored.
+- **`assets/hero-stock.mp4`** (Mixkit **15875** — professional chefs in a restaurant
+  kitchen, normal speed). Earlier IDs 4240/4242 were mis-mapped Mixkit slugs and
+  shipped **highway traffic** — replaced. Square files stay ignored.
 - `<video>` sources point at `hero-stock.mp4` only (no 404 spam on deploy).
 - Local Square reference files remain on disk for study; they are not autoplayed.
 - **Tint lowered** (load ~55% → ~30%, was 80%→38%) so the stock clip isn't
