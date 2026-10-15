@@ -117,15 +117,16 @@
     }
 
     /* base color overlay — the #003F55 fill under the video.
-       ~55% on load → ~30% on the software headline (was 80%→38%). The heavier
-       tint made the Pages stock clip read as a flat blue plate. White type still
-       holds. No-footage fallback lifts --media-tint so it isn't flattened. */
-    .hero { --media-tint: 1; }
+       ~72% on load → ~30% on the software headline (was 80%→38%, then 55%→30%).
+       CD: the load screen was reading too light over the Pages stock clip, so the
+       opening tint is darker again; the scrolled Desktop-2 end is left at 30% so
+       the handoff state is unchanged. No-footage fallback lifts --media-tint. */
+.hero { --media-tint: 1; }
     .hero:not(.has-media) { --media-tint: .42; }
     .hero__tint {
       position: absolute; inset: 0; z-index: 2; pointer-events: none;
       background: var(--blue);
-      opacity: calc((.55 - .25 * var(--pTint, 0)) * (1 - var(--cube, 0)) * var(--media-tint, 1));
+      opacity: calc((.72 - .42 * var(--pTint, 0)) * (1 - var(--cube, 0)) * var(--media-tint, 1));
     }
     /* Desktop-2 overlay — Figma gradient (starts before headline handoff) */
     .hero__overlay {
