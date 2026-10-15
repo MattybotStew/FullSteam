@@ -10,6 +10,12 @@
 # Pages staging dir (built by .github/workflows/pages.yml, never committed)
 _site/
 
+# Design exploration sandbox — LOCAL ONLY. Unreviewed visual/interaction
+# explorations live here and must not be client-facing. Ignored so they can
+# never reach the public repo (raw.githubusercontent.com) or the Pages
+# allowlist. See 03_Design/explorations/README.md for the rules + promotion path.
+03_Design/explorations/
+
 # Confidential client source docs — do NOT commit to this public repo
 # This repo is PUBLIC. Since 2026-09-25 Pages publishes an explicit allowlist
 # (index.html + 02_Wireframes/, staged in the workflow) rather than the repo root,
@@ -21,6 +27,14 @@ clientDocs/
 clientDocs/Fullsteam Overview_Confidential - redacted.pdf
 clientDocs/Fullsteam User Interview Template.xlsx
 clientDocs/Fullsteam Strategic Messaging Architecture V2.docx
+
+# Third-party reference media — LOCAL ONLY, never commit.
+# Pulled from reference sites (e.g. the Square hero video) for layout study only.
+# This repo is PUBLIC and raw.githubusercontent.com serves any tracked file, so
+# someone else's copyrighted video must not be committed here. Reference media is
+# for internal study; it is not licensed for reuse in the Fullsteam build.
+# See inspiration.md §2.2 for the source URL of each pull.
+03_Design/assets/reference/
 
 # HISTORY NOTE: the 5 clientDocs files that were committed before these rules existed
 # (Fullsteam Kickoff Presentation.pdf, Fullsteam Web Brief (1).docx, Fullsteam Website

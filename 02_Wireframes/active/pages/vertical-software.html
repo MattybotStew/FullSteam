@@ -263,6 +263,50 @@
   .foot a{ display:block; padding:4px 0; }
   .foot a:hover{ text-decoration:underline; }
   .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
+
+  /* ============================================================
+     PANEL LAYOUTS S / M / L (prototype, 2026-10-15).
+     The three vertical-panel bodies are interchangeable: a panel
+     declares data-layout="s|m|l" and the matching <template> is
+     cloned in. Same slots, different weight — for verticals with
+     little, typical, or a lot to say. The dev bar below forces any
+     layout onto the active panel so all three can be compared on
+     the same vertical. NOT production chrome.
+     ============================================================ */
+  .layout-bar{
+    position:sticky; top:57px; z-index:60; background:var(--ink); color:#fff;
+    font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  }
+  .layout-bar .wrap{ display:flex; align-items:center; gap:12px; padding:8px 24px; flex-wrap:wrap; }
+  .layout-bar b{ font-weight:700; }
+  .layout-bar button{
+    background:none; color:#fff; border:1px solid #fff; padding:4px 10px;
+    font:inherit; text-transform:inherit; letter-spacing:inherit;
+  }
+  .layout-bar button[aria-pressed="true"]{ background:var(--yellow); color:#000; border-color:var(--yellow); }
+  .layout-note{ opacity:.7; text-transform:none; letter-spacing:0; }
+
+  /* S — compact: one idea + two chips + two businesses */
+  .panel[data-layout="s"] .prose p + p{ display:none; }
+  .panel[data-layout="s"] .facts{ grid-template-columns:1fr 1fr; }
+  .panel[data-layout="s"] .facts div:nth-child(n+3){ display:none; }
+  .panel[data-layout="s"] .acq-card{ flex-basis:min(340px, 88vw); min-height:300px; }
+  .panel[data-layout="s"] .acq-card:nth-child(n+3){ display:none; }
+  .panel[data-layout="s"] .acq-shot{ min-height:110px; }
+  .panel[data-layout="s"] .v-mosaic{ height:280px; }
+
+  /* L — rich: longer narrative, the "what we add" trio, six businesses on a grid */
+  .panel[data-layout="l"] .v-mosaic{ height:420px; }
+  .adds{ grid-column:1 / -1; margin-top:34px; }
+  .adds-title{ font-size:clamp(20px,2.4vw,26px); font-weight:700; letter-spacing:-.02em; margin-bottom:14px; }
+  .adds-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .adds-grid article{ border:1px solid var(--ink); background:#fff; padding:18px; }
+  .adds-grid span{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
+  .adds-grid h4{ font-size:18px; margin-bottom:6px; }
+  .adds-grid p{ font-size:15px; }
+  .panel[data-layout="l"] .portfolio-track{ display:grid; grid-template-columns:repeat(3,1fr); overflow:visible; }
+  .panel[data-layout="l"] .acq-card{ min-height:380px; }
+  @media (max-width:900px){ .adds-grid{ grid-template-columns:1fr; } }
   @media (max-width:900px){
     .ov-inner{ grid-template-columns:1fr 1fr; }
     .solutions-split, .split{ grid-template-columns:1fr; }
@@ -347,6 +391,16 @@
     </div>
   </div>
 </section>
+<div class="layout-bar" role="group" aria-label="Prototype layout switcher">
+  <div class="wrap">
+    <b>Panel layout</b>
+    <button type="button" data-force="s" aria-pressed="false">S - compact</button>
+    <button type="button" data-force="m" aria-pressed="false">M - baseline</button>
+    <button type="button" data-force="l" aria-pressed="false">L - rich</button>
+    <button type="button" data-force="" aria-pressed="true">As assigned</button>
+    <span class="layout-note">Wireframe control, not production chrome. Forces any layout onto the active vertical so all three can be compared on the same story.</span>
+  </div>
+</div>
 <section class="block">
       <div class="wrap">
           <div class="v-layout">
@@ -368,9 +422,9 @@
             <p class="anno" style="margin-top:20px">Intent: the sidebar is the list; selecting one swaps the story inline. No modal. Each vertical leads with the software — the system of record — then AI and payments as what we add. Below the story, a horizontal row of 3–4 acquired-business cards (logo, quick stats, product shot) — structure from FS Design / Bending Spoons; generic names and stats until publishability is confirmed.</p>
           </nav>
           <div class="v-content" id="vContent">
-        <article class="panel is-active" data-panel="hospitality" id="panel-hospitality" role="tabpanel" aria-labelledby="tab-hospitality">
-          <h2>Intent: tell the Hospitality story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
+        <template id="tpl-s">
+          <h2>Intent: tell the {{V}} story - compact.</h2>
+          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
             <span class="md"></span>
@@ -389,56 +443,35 @@
           <section class="portfolio" aria-label="Businesses in this vertical">
             <h3 class="portfolio-title">Businesses in this vertical</h3>
             <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
             </div>
+            <p class="anno">Layout S: two paragraphs (second trimmed by CSS), two facts, two businesses. For a vertical we can say least about - the short read stays short.</p>
           </section>
-        </article>
-        <article class="panel" data-panel="weddings-events" id="panel-weddings-events" role="tabpanel" aria-labelledby="tab-weddings-events">
-          <h2>Intent: tell the Weddings & Events story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
+        </template>
+        <template id="tpl-m">
+          <h2>Intent: tell the {{V}} story.</h2>
+          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
             <span class="md"></span>
@@ -457,56 +490,57 @@
           <section class="portfolio" aria-label="Businesses in this vertical">
             <h3 class="portfolio-title">Businesses in this vertical</h3>
             <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
             </div>
+            <p class="anno">Layout M (baseline): two paragraphs, four facts, a scrollable row of 3-4 businesses. The default for a vertical with a normal amount to say.</p>
           </section>
-        </article>
-        <article class="panel" data-panel="wine" id="panel-wine" role="tabpanel" aria-labelledby="tab-wine">
-          <h2>Intent: tell the Wine story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
+        </template>
+        <template id="tpl-l">
+          <h2>Intent: tell the {{V}} story - in full.</h2>
+          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p><p>Third paragraph — placeholder. Narrative first, data second: who we are before what we do (KB 20). Placeholder.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
             <span class="md"></span>
@@ -522,600 +556,98 @@
             <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
             <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
           </div>
+          <section class="adds" aria-label="What Fullsteam adds after the close">
+            <h3 class="adds-title">What we add after the close</h3>
+            <div class="adds-grid">
+              <article><span>01 - AI</span><h4>Use cases first</h4><p>Placeholder. Never implies staff reduction; the differentiator is the proprietary vertical data (KB 20).</p></article>
+              <article><span>02 - Payments</span><h4>Embedded, not bolted on</h4><p>Placeholder. Payments is roughly a quarter of revenue and is currently over-indexed in the narrative.</p></article>
+              <article><span>03 - Capital</span><h4>A bigger org that scales the founder</h4><p>Placeholder. Lending and insurance where the vertical needs them. Never framed as an exit.</p></article>
+            </div>
+          </section>
           <section class="portfolio" aria-label="Businesses in this vertical">
             <h3 class="portfolio-title">Businesses in this vertical</h3>
             <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
+            <article class="acq-card">
+              <div class="acq-head">
+                <div class="acq-logo">Logo [placeholder]</div>
+              </div>
+              <p class="acq-meta">Acquired [placeholder]</p>
+              <ul class="acq-stats">
+                <li>Growth stat [placeholder]</li>
+                <li>Product milestone [placeholder]</li>
+              </ul>
+              <div class="acq-shot img-ph" aria-hidden="true"></div>
+            </article>
             </div>
+            <p class="anno">Layout L: the full narrative, the what-we-add trio, and six businesses on a grid. For a flagship vertical that has to carry the scale argument.</p>
           </section>
-        </article>
-        <article class="panel" data-panel="retail" id="panel-retail" role="tabpanel" aria-labelledby="tab-retail">
-          <h2>Intent: tell the Retail story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
-          <div class="v-mosaic" aria-hidden="true">
-            <span class="lg"></span>
-            <span class="md"></span>
-            <span class="card"></span>
-            <span class="round"></span>
-            <span class="smile"></span>
-            <span class="clock"></span>
-            <span class="heart"></span>
-          </div>
-          <div class="facts">
-            <div><span>The software</span>What this industry already runs. Placeholder.</div>
-            <div><span>Who it serves</span>The businesses in this vertical. Placeholder.</div>
-            <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
-            <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
-          </div>
-          <section class="portfolio" aria-label="Businesses in this vertical">
-            <h3 class="portfolio-title">Businesses in this vertical</h3>
-            <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-            </div>
-          </section>
-        </article>
-        <article class="panel" data-panel="storage-marina" id="panel-storage-marina" role="tabpanel" aria-labelledby="tab-storage-marina">
-          <h2>Intent: tell the Storage & Marina story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
-          <div class="v-mosaic" aria-hidden="true">
-            <span class="lg"></span>
-            <span class="md"></span>
-            <span class="card"></span>
-            <span class="round"></span>
-            <span class="smile"></span>
-            <span class="clock"></span>
-            <span class="heart"></span>
-          </div>
-          <div class="facts">
-            <div><span>The software</span>What this industry already runs. Placeholder.</div>
-            <div><span>Who it serves</span>The businesses in this vertical. Placeholder.</div>
-            <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
-            <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
-          </div>
-          <section class="portfolio" aria-label="Businesses in this vertical">
-            <h3 class="portfolio-title">Businesses in this vertical</h3>
-            <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-            </div>
-          </section>
-        </article>
-        <article class="panel" data-panel="health-wellness" id="panel-health-wellness" role="tabpanel" aria-labelledby="tab-health-wellness">
-          <h2>Intent: tell the Health & Wellness story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
-          <div class="v-mosaic" aria-hidden="true">
-            <span class="lg"></span>
-            <span class="md"></span>
-            <span class="card"></span>
-            <span class="round"></span>
-            <span class="smile"></span>
-            <span class="clock"></span>
-            <span class="heart"></span>
-          </div>
-          <div class="facts">
-            <div><span>The software</span>What this industry already runs. Placeholder.</div>
-            <div><span>Who it serves</span>The businesses in this vertical. Placeholder.</div>
-            <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
-            <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
-          </div>
-          <section class="portfolio" aria-label="Businesses in this vertical">
-            <h3 class="portfolio-title">Businesses in this vertical</h3>
-            <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-            </div>
-          </section>
-        </article>
-        <article class="panel" data-panel="field-services" id="panel-field-services" role="tabpanel" aria-labelledby="tab-field-services">
-          <h2>Intent: tell the Field Services story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
-          <div class="v-mosaic" aria-hidden="true">
-            <span class="lg"></span>
-            <span class="md"></span>
-            <span class="card"></span>
-            <span class="round"></span>
-            <span class="smile"></span>
-            <span class="clock"></span>
-            <span class="heart"></span>
-          </div>
-          <div class="facts">
-            <div><span>The software</span>What this industry already runs. Placeholder.</div>
-            <div><span>Who it serves</span>The businesses in this vertical. Placeholder.</div>
-            <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
-            <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
-          </div>
-          <section class="portfolio" aria-label="Businesses in this vertical">
-            <h3 class="portfolio-title">Businesses in this vertical</h3>
-            <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-            </div>
-          </section>
-        </article>
-        <article class="panel" data-panel="transportation" id="panel-transportation" role="tabpanel" aria-labelledby="tab-transportation">
-          <h2>Intent: tell the Transportation story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
-          <div class="v-mosaic" aria-hidden="true">
-            <span class="lg"></span>
-            <span class="md"></span>
-            <span class="card"></span>
-            <span class="round"></span>
-            <span class="smile"></span>
-            <span class="clock"></span>
-            <span class="heart"></span>
-          </div>
-          <div class="facts">
-            <div><span>The software</span>What this industry already runs. Placeholder.</div>
-            <div><span>Who it serves</span>The businesses in this vertical. Placeholder.</div>
-            <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
-            <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
-          </div>
-          <section class="portfolio" aria-label="Businesses in this vertical">
-            <h3 class="portfolio-title">Businesses in this vertical</h3>
-            <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-            </div>
-          </section>
-        </article>
-        <article class="panel" data-panel="automotive" id="panel-automotive" role="tabpanel" aria-labelledby="tab-automotive">
-          <h2>Intent: tell the Automotive story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
-          <div class="v-mosaic" aria-hidden="true">
-            <span class="lg"></span>
-            <span class="md"></span>
-            <span class="card"></span>
-            <span class="round"></span>
-            <span class="smile"></span>
-            <span class="clock"></span>
-            <span class="heart"></span>
-          </div>
-          <div class="facts">
-            <div><span>The software</span>What this industry already runs. Placeholder.</div>
-            <div><span>Who it serves</span>The businesses in this vertical. Placeholder.</div>
-            <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
-            <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
-          </div>
-          <section class="portfolio" aria-label="Businesses in this vertical">
-            <h3 class="portfolio-title">Businesses in this vertical</h3>
-            <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-            </div>
-          </section>
-        </article>
-        <article class="panel" data-panel="association-management" id="panel-association-management" role="tabpanel" aria-labelledby="tab-association-management">
-          <h2>Intent: tell the Association Management story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
-          <div class="v-mosaic" aria-hidden="true">
-            <span class="lg"></span>
-            <span class="md"></span>
-            <span class="card"></span>
-            <span class="round"></span>
-            <span class="smile"></span>
-            <span class="clock"></span>
-            <span class="heart"></span>
-          </div>
-          <div class="facts">
-            <div><span>The software</span>What this industry already runs. Placeholder.</div>
-            <div><span>Who it serves</span>The businesses in this vertical. Placeholder.</div>
-            <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
-            <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
-          </div>
-          <section class="portfolio" aria-label="Businesses in this vertical">
-            <h3 class="portfolio-title">Businesses in this vertical</h3>
-            <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-            </div>
-          </section>
-        </article>
-        <article class="panel" data-panel="erp" id="panel-erp" role="tabpanel" aria-labelledby="tab-erp">
-          <h2>Intent: tell the ERP story.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div>
-          <div class="v-mosaic" aria-hidden="true">
-            <span class="lg"></span>
-            <span class="md"></span>
-            <span class="card"></span>
-            <span class="round"></span>
-            <span class="smile"></span>
-            <span class="clock"></span>
-            <span class="heart"></span>
-          </div>
-          <div class="facts">
-            <div><span>The software</span>What this industry already runs. Placeholder.</div>
-            <div><span>Who it serves</span>The businesses in this vertical. Placeholder.</div>
-            <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
-            <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
-          </div>
-          <section class="portfolio" aria-label="Businesses in this vertical">
-            <h3 class="portfolio-title">Businesses in this vertical</h3>
-            <div class="portfolio-track">
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-              <article class="acq-card">
-                <div class="acq-head">
-                  <div class="acq-logo">Logo [placeholder]</div>
-                </div>
-                <p class="acq-meta">Acquired [placeholder]</p>
-                <ul class="acq-stats">
-                  <li>Growth stat [placeholder]</li>
-                  <li>Product milestone [placeholder]</li>
-                </ul>
-                <div class="acq-shot img-ph" aria-hidden="true"></div>
-              </article>
-            </div>
-          </section>
-        </article>
+        </template>
+            <article class="panel is-active" data-panel="hospitality" id="panel-hospitality" data-layout="m" data-name="Hospitality" role="tabpanel" aria-labelledby="tab-hospitality"></article>
+            <article class="panel" data-panel="weddings-events" id="panel-weddings-events" data-layout="m" data-name="Weddings & Events" role="tabpanel" aria-labelledby="tab-weddings-events"></article>
+            <article class="panel" data-panel="wine" id="panel-wine" data-layout="m" data-name="Wine" role="tabpanel" aria-labelledby="tab-wine"></article>
+            <article class="panel" data-panel="retail" id="panel-retail" data-layout="l" data-name="Retail" role="tabpanel" aria-labelledby="tab-retail"></article>
+            <article class="panel" data-panel="storage-marina" id="panel-storage-marina" data-layout="m" data-name="Storage & Marina" role="tabpanel" aria-labelledby="tab-storage-marina"></article>
+            <article class="panel" data-panel="health-wellness" id="panel-health-wellness" data-layout="m" data-name="Health & Wellness" role="tabpanel" aria-labelledby="tab-health-wellness"></article>
+            <article class="panel" data-panel="field-services" id="panel-field-services" data-layout="s" data-name="Field Services" role="tabpanel" aria-labelledby="tab-field-services"></article>
+            <article class="panel" data-panel="transportation" id="panel-transportation" data-layout="m" data-name="Transportation" role="tabpanel" aria-labelledby="tab-transportation"></article>
+            <article class="panel" data-panel="automotive" id="panel-automotive" data-layout="m" data-name="Automotive" role="tabpanel" aria-labelledby="tab-automotive"></article>
+            <article class="panel" data-panel="association-management" id="panel-association-management" data-layout="m" data-name="Association Management" role="tabpanel" aria-labelledby="tab-association-management"></article>
+            <article class="panel" data-panel="erp" id="panel-erp" data-layout="m" data-name="ERP" role="tabpanel" aria-labelledby="tab-erp"></article>
           </div>
         </div>
       </div>
@@ -1232,6 +764,59 @@
       });
       const hash = location.hash.slice(1);
       show(isVertical(hash) ? hash : buttons[0].dataset.tab);
+    })();
+  </script>
+
+  <script>
+    (function () {
+      /* Panel bodies: three interchangeable layouts (S / M / L).
+         Each panel declares data-layout; the matching <template> is
+         cloned in on every show, so a layout can be swapped at any time.
+         The bar forces a layout onto the active panel for comparison.
+         NOTE: panel bodies are JS-rendered in this prototype - with JS
+         off the panels are empty. Flagged as an open item, not an
+         intended production behaviour. */
+      const content = document.getElementById("vContent");
+      if (!content) return;
+      const panels = [...content.querySelectorAll("[data-panel]")];
+      const templates = {
+        s: document.getElementById("tpl-s"),
+        m: document.getElementById("tpl-m"),
+        l: document.getElementById("tpl-l"),
+      };
+      let forced = ""; // "" = keep each vertical's assigned layout
+
+      const render = (panel) => {
+        const key = forced || panel.dataset.layout || "m";
+        const tpl = templates[key];
+        if (!tpl) return;
+        const frag = tpl.content.cloneNode(true);
+        frag.querySelectorAll("h2").forEach((h) => {
+          h.textContent = h.textContent.replace("{{V}}", panel.dataset.name || "");
+        });
+        panel.replaceChildren(frag);
+      };
+
+      const bar = document.querySelector(".layout-bar");
+      bar.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-force]");
+        if (!btn) return;
+        forced = btn.dataset.force;
+        bar.querySelectorAll("[data-force]").forEach((b) =>
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false")
+        );
+        const active = content.querySelector(".panel.is-active");
+        if (active) render(active);
+      });
+
+      // Re-render whenever a panel becomes active (the tab script toggles .is-active).
+      new MutationObserver((muts) => {
+        muts.forEach((m) => {
+          if (m.target.classList && m.target.classList.contains("is-active")) render(m.target);
+        });
+      }).observe(content, { attributes: true, attributeFilter: ["class"], subtree: true });
+
+      panels.forEach(render);
     })();
   </script>
 

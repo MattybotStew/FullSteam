@@ -228,6 +228,12 @@ rules that survive any restyle or refactor:
 
 ## Conventions
 
+- **Multiple agent CLIs.** This project is worked by more than one agent CLI —
+  `opencode` (this harness) and `qwen` (Qwen CLI, added 2026-10-15). Both read the
+  same root files, so treat `AGENTS.md`, `PROJECT_KNOWLEDGE_BASE.md`, `wireframes.md`,
+  `design.md`, `content-slots.md`, and `inspiration.md` as **re-read-before-edit**:
+  another agent may have changed them since your last look. Do not assume your view
+  of a file is current, and do not overwrite another agent's edit — diff first.
 - All shared knowledge for this project lives at this root so any agent with
   the FullSteam project (or its subfolders, e.g. `clientDocs`) as its workspace
   can reach it.

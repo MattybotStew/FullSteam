@@ -1,0 +1,79 @@
+{
+  "direction": "Dark cinematic",
+  "runnerUp": "Crisp and modern",
+  "directionPalette": [
+    "#0d1020",
+    "#eef0ff",
+    "#3df5c6",
+    "#6b5bff"
+  ],
+  "type": "A tight sans with strong contrast and a single accent.",
+  "words": [
+    "Trustworthy",
+    "Modern",
+    "Premium"
+  ],
+  "goals": {
+    "audience": "Software founders and sellers (owners of vertical software companies), and investors — large private-equity firms and sovereign wealth funds. Secondary audiences: customers of Fullsteam's vertical software companies, and employees/candidates. Primary lens: investors, founders secondary.",
+    "tech": 3,
+    "action": "Explore our vertical solutions, then take the next step and start a conversation with Fullsteam (Contact). The site is a credibility/validation destination, not a lead-gen funnel — its core job is helping a warm visitor understand who Fullsteam is before a meeting.",
+    "success": "A founder or investor leaves understanding Fullsteam's scale and its two-part model — we acquire and grow vertical software companies, and we grow them through Embedded Offerings (payments, lending, insurance, AI) — and reaches out. Success is measured by exploration depth and credibility, not form fills."
+  },
+  "brand": {
+    "assets": "We have a logo and some guidance",
+    "comfort": 2,
+    "a11y": "Important to us"
+  },
+  "customColors": [
+    "#00587c",
+    "#ffc600",
+    "#84bd00",
+    "#000000",
+    "#ffffff"
+  ],
+  "voiceLine": "Whatever the industry, we own the software it runs on. A permanent home for each software business we buy — plus the Offerings that help it grow.",
+  "buttonStyle": {
+    "type": "solid",
+    "radius": 14,
+    "space": 55,
+    "shadow": 35,
+    "anim": "lift"
+  },
+  "inspiration": {
+    "love": "Quilt Software (quiltsoftware.com) — brand consistency, a premium feel, prominent company stats, and strong use of video (mission video + customer video testimonials). Bending Spoons (bendingspoons.com) — a unique, engaging experience with a premium product feel on the homepage. Square (squareup.com) — overall look and feel and a seamless way of introducing broad verticals. TogetherWork (togetherwork.com) — clean look and feel; introducing verticals directly on the homepage without a page per industry. DaySmart (daysmart.com) — how they showcase the product portfolio and talk about mission and values. Frontier Growth (frontiergrowth.com) — use of video (including hero video) and well-structured homepage content blocks (not their font). Investor-brand feel: silverlake.com and thomabravo.com. AI presentation: banyansoftware.com/ai-at-banyan and ecisolutions.com/ai-strategy.",
+    "avoid": "Stock photography; dated typography and look & feel (the Frontier Growth font); talking-head-only video and \"word walls\"; an over-GTM, product-led portfolio framing (DaySmart); framing an acquisition as an \"exit\" (it's \"a home for your business\"); the label \"Platform\" (use \"Embedded Offerings\"); publishing revenue, run-rate, or explicit profitability; floating/scattered vertical \"bubbles\"; and PPC/lead-gen funnels."
+  },
+  "answers": [
+    {
+      "question": "Which headline style feels closer to your organization?",
+      "choice": "Big, confident sans-serif"
+    },
+    {
+      "question": "Which palette feels closest to your brand?",
+      "choice": "Your brand colors (#00587c #ffc600 #84bd00 #000000 #ffffff) [from entered hex codes]"
+    },
+    {
+      "question": "How much room should the layout have?",
+      "choice": "Open, with generous whitespace"
+    },
+    {
+      "question": "Which button style feels right?",
+      "choice": "Solid button, rounded corners (14px), comfortable spacing, soft shadow, hover: lift"
+    },
+    {
+      "question": "What kind of imagery should the site lean on?",
+      "choice": "People and real moments + Product and interface"
+    },
+    {
+      "question": "Which voices sound like your organization?",
+      "choice": "Warm + Expert"
+    }
+  ],
+  "scores": [
+    0.1077380952380952,
+    0.01190476190476189,
+    -0.25000000000000006,
+    -0.30803571428571436,
+    0.4976190476190477
+  ]
+}
