@@ -286,14 +286,8 @@
   .layout-bar button[aria-pressed="true"]{ background:var(--yellow); color:#000; border-color:var(--yellow); }
   .layout-note{ opacity:.7; text-transform:none; letter-spacing:0; }
 
-  /* S — compact: one idea + two chips + two businesses */
-  .panel[data-layout="s"] .prose p + p{ display:none; }
-  .panel[data-layout="s"] .facts{ grid-template-columns:1fr 1fr; }
-  .panel[data-layout="s"] .facts div:nth-child(n+3){ display:none; }
-  .panel[data-layout="s"] .acq-card{ flex-basis:min(340px, 88vw); min-height:300px; }
-  .panel[data-layout="s"] .acq-card:nth-child(n+3){ display:none; }
-  .panel[data-layout="s"] .acq-shot{ min-height:110px; }
-  .panel[data-layout="s"] .v-mosaic{ height:280px; }
+  /* S — compact: one paragraph and the image, nothing else */
+  .panel[data-layout="s"] .v-mosaic{ height:340px; }
 
   /* L — rich: longer narrative, the "what we add" trio, six businesses on a grid */
   .panel[data-layout="l"] .v-mosaic{ height:420px; }
@@ -424,7 +418,7 @@
           <div class="v-content" id="vContent">
         <template id="tpl-s">
           <h2>Intent: tell the {{V}} story - compact.</h2>
-          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p></div>
+          <div class="prose"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></div>
           <div class="v-mosaic" aria-hidden="true">
             <span class="lg"></span>
             <span class="md"></span>
@@ -434,40 +428,7 @@
             <span class="clock"></span>
             <span class="heart"></span>
           </div>
-          <div class="facts">
-            <div><span>The software</span>What this industry already runs. Placeholder.</div>
-            <div><span>Who it serves</span>The businesses in this vertical. Placeholder.</div>
-            <div><span>A business here</span>Generic example only. Unpublished until confirmed.</div>
-            <div><span>What we add</span>AI and payments, built into the software after the close. Placeholder.</div>
-          </div>
-          <section class="portfolio" aria-label="Businesses in this vertical">
-            <h3 class="portfolio-title">Businesses in this vertical</h3>
-            <div class="portfolio-track">
-            <article class="acq-card">
-              <div class="acq-head">
-                <div class="acq-logo">Logo [placeholder]</div>
-              </div>
-              <p class="acq-meta">Acquired [placeholder]</p>
-              <ul class="acq-stats">
-                <li>Growth stat [placeholder]</li>
-                <li>Product milestone [placeholder]</li>
-              </ul>
-              <div class="acq-shot img-ph" aria-hidden="true"></div>
-            </article>
-            <article class="acq-card">
-              <div class="acq-head">
-                <div class="acq-logo">Logo [placeholder]</div>
-              </div>
-              <p class="acq-meta">Acquired [placeholder]</p>
-              <ul class="acq-stats">
-                <li>Growth stat [placeholder]</li>
-                <li>Product milestone [placeholder]</li>
-              </ul>
-              <div class="acq-shot img-ph" aria-hidden="true"></div>
-            </article>
-            </div>
-            <p class="anno">Layout S: two paragraphs (second trimmed by CSS), two facts, two businesses. For a vertical we can say least about - the short read stays short.</p>
-          </section>
+          <p class="anno">Layout S: one paragraph and the image, nothing else. For a vertical we can say least about - no facts, no businesses. The short read stays short.</p>
         </template>
         <template id="tpl-m">
           <h2>Intent: tell the {{V}} story.</h2>
