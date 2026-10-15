@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exploration 02 · Video hero — INTERNAL, not client-facing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('has-js');</script>
+  <style>
+    :root {
+      --blue:   #003F55;  /* Figma hero base fill */
+      --gold:   #FEC50A;  /* CTA + serif accent */
+      --cyan:   #00BDFF;  /* What we do title + 34px support copy (Figma 11264:332) */
+      --ink:    #00202B;  /* text on gold = brand blue #003F55 at 50% (50% darker) */
+      --white:  #FFFFFF;
+      --menu-bg: #002C3C; /* dropdown panel — shared with the open header */
+      --bar-h:  68px;     /* header height; re-measured in JS for the menu offset */
+      --cube-size: clamp(140px, 17vw, 210px);
+      --cube-pad-y: clamp(90px, 12vh, 120px); /* 180–240px band around the cube */
+      --cube-band: calc(var(--cube-size) + 2 * var(--cube-pad-y));
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--white); color: #0d1a20;
+      font-family: "Instrument Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    /* ---- hero stage: the pin that drives the overlay change --------------- */
+    .hero-stage { height: auto; }              /* no-JS / reduced-motion: static */
+    .has-js .hero-stage { height: 250vh; }     /* pinned scroll — handoff + cube collapse */
+    .has-js .hero-stage.is-cubed { background: var(--blue); } /* seam under short cube band */
+
+    .hero {
+      position: relative; isolation: isolate; overflow: hidden;
+      background: var(--blue);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 50px;                    /* Figma gap 50px */
+      height: 100svh; min-height: 620px;
+      padding: 160px 0;             /* Figma padding 160px 0 */
+    }
+    .has-js .hero { position: sticky; top: 0; }
+    /* During collapse: cap the pin to the Figma hero band (~1059) on tall screens. */
+    .has-js .hero.is-cubing { height: min(100svh, 1059px); min-height: 0; }
+    /* Settled cube: short in-flow band so the pin releases a cube-block, not 100svh. */
+    .has-js .hero.is-cubed {
+      height: var(--cube-band);
+      min-height: 0;
+      padding: 0;
+      gap: 0;
+    }
+    /* Pull What we do up by the leftover viewport so cube + title share a frame. */
+    .has-js .hero-stage.is-cubed {
+      margin-bottom: calc(var(--cube-band) - 100svh);
+    }
+
+    /* ---- background: VIDEO (autoplays at load) ---------------------------- */
+    /* Local: Square clip + poster under assets/ (gitignored — copyrighted).
+       On Pages those files are absent; brand blue is the fallback so the hero
+       still reads without shipping third-party media. */
+    .hero__media {
+      position: absolute; left: 50%; top: 50%; z-index: 0;
+      /* full-bleed at --cube 0; collapses to a small rounded cube at --cube 1 */
+      width:  calc(100% - (100% - var(--cube-size)) * var(--cube, 0));
+      height: calc(100% - (100% - var(--cube-size)) * var(--cube, 0));
+      object-fit: cover; display: block;
+      background: var(--blue) url("assets/hero-poster.jpg") center / cover no-repeat;
+      border-radius: calc(28px * var(--cube, 0));
+      box-shadow: 0 34px 80px rgba(0, 12, 20, calc(.5 * var(--cube, 0)));
+      /* translate centres it; the scroll zoom fades out as it collapses, so the cube is exact */
+      transform: translate(-50%, -50%) scale(calc(1 + 0.03 * var(--pVideo, 0) * (1 - var(--cube, 0))));
+      transform-origin: center center;
+      transition: none;
+    }
+
+    /* base color overlay — the #003F55 fill under the video.
+       80% on load (Desktop-1) → ~38% on the software headline screen (Desktop-2).
+       Floored above the old 20% so white type holds on bright footage. */
+    .hero__tint {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: var(--blue);
+      opacity: calc((.8 - .42 * var(--pTint, 0)) * (1 - var(--cube, 0)));
+    }
+    /* Desktop-2 overlay — Figma gradient (starts before headline handoff) */
+    .hero__overlay {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(180deg, rgba(0,89,120,.7) 0%, rgba(0,165,222,0) 62%);
+      opacity: calc(var(--pOverlay, 0) * (1 - var(--cube, 0)));
+    }
+    /* Soft center scrim behind the headline block — fades in with the software handoff */
+    .hero__scrim {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: radial-gradient(ellipse 70% 55% at 50% 48%,
+        rgba(0,32,43,.55) 0%, rgba(0,32,43,.22) 45%, rgba(0,32,43,0) 72%);
+      opacity: calc(var(--pScrim, 0) * (1 - var(--cube, 0)));
+    }
+
+    /* ---- overlay header (Figma "home" frame, absolute at 0,0) ------------ */
+    /* Transparent over the hero; solid only after the hero has scrolled past. */
+    .hero__bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 20px;   /* Figma "home" frame — full-bleed */
+      gap: 12px;
+      background: transparent;
+      transition: background-color .25s ease;
+    }
+    .hero__bar.is-solid { background: var(--blue); }
+    /* open menu: the header becomes the top of the panel, so they read as one surface */
+    .hero__bar:has(.menu-btn[aria-expanded="true"]) { background: var(--menu-bg); }
+    .hero__logo { display: block; flex-shrink: 0; }
+    .hero__logo img { display: block; width: 177px; height: 48px; }
+    .hero__actions { display: flex; align-items: center; gap: 12px; min-width: 0; }
+
+    .menu-btn {
+      appearance: none; width: 44px; height: 44px; border-radius: 4px; padding: 0;
+      background: transparent; border: 0; cursor: pointer; position: relative; flex-shrink: 0;
+    }
+    .menu-btn__line {
+      position: absolute; left: 12px; width: 20px; height: 2px;
+      background: var(--white); border-radius: 1px;
+    }
+    .menu-btn__line:nth-child(1) { top: 15px; }
+    .menu-btn__line:nth-child(2) { top: 21.5px; }
+    .menu-btn__line:nth-child(3) { top: 28px; }
+    .menu-btn:hover { background: rgba(255,255,255,.12); }
+    /* hamburger → X while the menu is open */
+    .menu-btn__line { transition: transform .2s ease, top .2s ease, opacity .2s ease; }
+    .menu-btn[aria-expanded="true"] .menu-btn__line:nth-child(1) { top: 21.5px; transform: rotate(45deg); }
+    .menu-btn[aria-expanded="true"] .menu-btn__line:nth-child(2) { opacity: 0; }
+    .menu-btn[aria-expanded="true"] .menu-btn__line:nth-child(3) { top: 21.5px; transform: rotate(-45deg); }
+
+    /* ---- navigation dropdown (locked L1 — KB §14) ------------------------ */
+    .menu {
+      position: fixed; left: 0; right: 0; top: var(--bar-h); bottom: 0; z-index: 45;
+      background: rgba(0,16,26,.55);
+      overflow-y: auto;
+      animation: menu-in .2s ease both;
+    }
+    .menu[hidden] { display: none; }
+    @keyframes menu-in { from { opacity: 0; } to { opacity: 1; } }
+    .menu__panel {
+      background: var(--menu-bg);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 30px 70px rgba(0,0,0,.5);
+    }
+    .menu__inner {
+      max-width: 1160px; margin: 0 auto; padding: 34px 20px 42px;
+      display: grid; gap: 0;                        /* dividers replace the column gap */
+      grid-template-columns: 1.7fr 1fr 1fr 1fr;
+    }
+    /* column dividers — padding on each side keeps the rule optically centred */
+    .menu__col { padding: 0 32px; }
+    .menu__col:first-child { padding-left: 0; }
+    .menu__col:last-child { padding-right: 0; }
+    .menu__col + .menu__col { border-left: 1px solid rgba(255,255,255,.14); }
+    .menu__h {
+      margin: 0 0 12px; font-size: 12px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+    }
+    .menu__h a { color: var(--white); text-decoration: none; }
+    .menu__h a:hover { color: var(--gold); }
+    .menu__col .menu__h ~ .menu__h { margin-top: 26px; }
+    .menu__split { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+    .menu__list { list-style: none; margin: 0; padding: 0; }
+    .menu__list a {
+      display: inline-block; padding: 5px 0; font-size: 15px;
+      color: rgba(238,240,255,.72); text-decoration: none;
+    }
+    .menu__list a:hover { color: var(--gold); }
+    @media (max-width: 1000px) {
+      .menu__inner { grid-template-columns: 1fr 1fr; }
+      .menu__col:nth-child(odd) { padding-left: 0; border-left: 0; }
+      .menu__col:nth-child(even) { padding-right: 0; }
+      .menu__col:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.14); padding-top: 26px; }
+    }
+    @media (max-width: 560px) {
+      .menu__inner { grid-template-columns: 1fr; padding: 26px 20px 34px; }
+      .menu__split { gap: 0 20px; }
+      .menu__col { padding: 0; }
+      .menu__col + .menu__col {
+        border-left: 0;                              /* stacked: horizontal rules only */
+        border-top: 1px solid rgba(255,255,255,.14);
+        margin-top: 22px; padding-top: 22px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) { .menu { animation: none; } }
+
+    /* ---- content --------------------------------------------------------- */
+    .hero__inner {
+      position: relative; z-index: 3;
+      width: 100%; max-width: 1100px;   /* hero container — 1100px */
+      padding: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 50px;
+    }
+    /* keep content off the edges once the 1100px container stops binding */
+    @media (max-width: 1148px) { .hero__inner { padding: 0 24px; } }
+    /* cube phase: the copy is fading out — don't let it catch clicks */
+    .hero.is-cubing .hero__inner,
+    .hero.is-cubed .hero__inner { pointer-events: none; }
+    /* Two headline states — phased vertical handoff (scroll vars from JS) */
+    .hero__headlines {
+      position: relative;
+      /* One size for BOTH headlines — they must stay identical */
+      --title-max: clamp(50px, 8.34vw, 120px);
+      /* Centred display type. Line 1 is the only long one; at 120px it measures
+         ~740px, so the authored breaks fit the 1100px column. */
+      width: min(1100px, calc(100vw - 48px)); max-width: none;
+      /* floor for the 3-line stack + serif descenders — fixed so scale shrink
+         can't collapse the box and pull the CTAs up */
+      min-height: clamp(8.4rem, 22.8vw, 18.6rem);
+      margin: 0; font-weight: 700; text-align: center; text-wrap: balance;
+      /* cube phase — the copy fades and drifts up as the video collapses */
+      opacity: calc(1 - var(--cube, 0));
+      transform: translateY(calc(-34px * var(--cube, 0)));
+      transition: none;
+    }
+    .hero__title {
+      --lh: 0.95;                  /* tight display leading */
+      margin: 0; line-height: var(--lh); color: var(--white);
+      text-shadow: 0 2px 40px rgba(0,20,32,.45);
+      transition: none; /* scroll-driven --p only */
+    }
+    .hero__title em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400; letter-spacing: 0;
+      color: var(--gold);
+      /* 0 so the serif's taller content box can't inflate the line box —
+         keeps every line's advance identical */
+      line-height: 0;
+    }
+    /* line stack — leading is set by --lh, no extra padding or min-height */
+    .hero__title .line {
+      line-height: var(--lh);
+      margin: 0;
+    }
+    /* Desktop-1 · 11256:591 — load state, lines exit up (mirror of software in).
+       Shrink via transform (not font-size) so the CTA row never reflows. */
+    .hero__title--portfolio {
+      font-size: var(--title-max);
+      letter-spacing: -0.045em;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.02em;
+      transform: scale(calc(1 - 0.17 * var(--pPortShrink, 0)));
+      transform-origin: center center;
+    }
+    .hero__title--portfolio .line {
+      display: block; width: 100%;
+      opacity: calc(1 - var(--line-exit, 0));
+      transform: translateY(calc(-1.25em * var(--line-exit, 0)));
+      /* blur capped — opacity + translate already carry the exit */
+      filter: blur(calc(0.04em * var(--line-exit, 0)));
+    }
+    .hero__title--portfolio .line:nth-child(1) { --line-exit: var(--pPortLine1, 0); }
+    .hero__title--portfolio .line:nth-child(2) { --line-exit: var(--pPortLine2, 0); }
+    .hero__title--portfolio .line:nth-child(3) { --line-exit: var(--pPortLine3, 0); }
+    .hero__title--portfolio .line--single { white-space: nowrap; }
+    /* Desktop-2 · 11256:658 — software headline after scroll */
+    .hero__title--software {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: var(--title-max);               /* identical to the portfolio headline */
+      letter-spacing: -0.045em;
+      gap: 0.02em;
+      pointer-events: none;
+    }
+    .hero__title--software .line {
+      display: block; width: 100%;
+      opacity: var(--line-op, 0);
+      transform: translateY(calc(1.25em * (1 - var(--line-op, 0))));
+      filter: blur(calc(0.04em * (1 - var(--line-op, 0))));
+    }
+    /* the gold serif accent settles last, so the eye rides it through the swap */
+    .hero__title--software .line em {
+      display: inline-block;
+      transform: scale(calc(0.9 + 0.1 * var(--line-op, 0)));
+    }
+    .hero__title--software .line:nth-child(1) { --line-op: var(--pSoftIn, 0); }
+    .hero__title--software .line:nth-child(2) { --line-op: var(--pLine2, 0); }
+    .hero__title--software .line:nth-child(3) { --line-op: var(--pLine3, 0); }
+    /* when the gold word IS the whole line it needs a real line box
+       (the global em rule above zeroes it so inline ems can't inflate the rhythm) */
+    .hero__title .line em:only-child { line-height: var(--lh); }
+
+    /* ---- buttons (Figma pill, height 44, padding 0 28px) ----------------- */
+    .hero__cta {
+      display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+      /* cube phase — the CTAs leave with the copy */
+      opacity: calc(1 - var(--cube, 0));
+      transform: translateY(calc(-18px * var(--cube, 0)));
+      transition: none;
+    }
+    .pill {
+      position: relative; display: inline-flex; align-items: center; justify-content: center;
+      height: 44px; padding: 0 28px; border-radius: 999px;
+      font-family: inherit; font-weight: 700; font-size: 13px; line-height: 20.8px;
+      text-decoration: none; white-space: nowrap; cursor: pointer;
+      /* hover: a fill wipes up from the bottom and flips the colours */
+      background-repeat: no-repeat; background-position: 50% 100%; background-size: 100% 0%;
+      transition: background-size .34s cubic-bezier(.22,1,.36,1), color .28s ease,
+                  border-color .28s ease, transform .18s ease, box-shadow .34s ease;
+    }
+    .pill--gold {
+      background-color: var(--gold); background-image: linear-gradient(var(--ink), var(--ink));
+      color: var(--ink); border: 1px solid var(--gold);
+    }
+    .pill--gold:hover {
+      background-size: 100% 100%; color: var(--gold);
+      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(254,197,10,.30);
+    }
+    .pill--ghost {
+      background-color: transparent; background-image: linear-gradient(var(--gold), var(--gold));
+      color: var(--white); border: 1px solid var(--white);
+    }
+    .pill--ghost:hover {
+      background-size: 100% 100%; color: var(--ink); border-color: var(--gold);
+      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(254,197,10,.22);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pill { transition: none; }
+      .pill:hover { transform: none; }
+    }
+    .pill--sm { padding: 0 18px; }   /* Figma header CTA: padding 0 18px */
+    .pill__short { display: none; }
+
+    /* ---- scroll cue (state 1 only) --------------------------------------- */
+    .hero__cue {
+      position: absolute; left: 50%; bottom: 28px; z-index: 3;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.78);
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+      pointer-events: none;
+      opacity: calc(1 - var(--pCue, 0));
+    }
+    .hero__cue-chevron {
+      width: 14px; height: 14px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      animation: cue-bob 1.6s ease-in-out infinite;
+    }
+    @keyframes cue-bob {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 5px; }
+    }
+
+    /* ---- video pause / play (WCAG 2.2.2) --------------------------------- */
+    .hero__media-ctrl {
+      position: absolute; right: 16px; bottom: 16px; z-index: 4;
+      appearance: none; width: 40px; height: 40px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.45);
+      background: rgba(0,32,43,.55); color: var(--white);
+      cursor: pointer; display: grid; place-items: center; padding: 0;
+      backdrop-filter: blur(6px);
+    }
+    .hero__media-ctrl:hover { background: rgba(0,32,43,.75); border-color: var(--gold); }
+    .hero__media-ctrl:focus-visible {
+      outline: 2px solid var(--gold); outline-offset: 2px;
+    }
+    .hero__media-ctrl svg { display: block; width: 14px; height: 14px; }
+    .hero__media-ctrl[aria-pressed="true"] .icon-pause { display: none; }
+    .hero__media-ctrl[aria-pressed="false"] .icon-play { display: none; }
+    .hero__media-ctrl[aria-pressed="true"] .icon-play { display: block; }
+    .hero__media-ctrl[aria-pressed="false"] .icon-pause { display: block; }
+
+    /* ---- What we do (Figma 11264:332, restyle 2026-10-14) --------------- */
+    /* Stacked Acquire / Grow / Lead / Founders. Scroll reads like Bending
+       Spoons: words at/above the focus line are sharp; words below blur out. */
+    .what-we-do {
+      position: relative; z-index: 1;
+      background: var(--blue);
+      color: var(--white);
+      padding: 100px 24px 200px; /* top 80–120: title sits under the cube band */
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .what-we-do__inner {
+      width: min(1100px, 100%);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 100px; text-align: center;
+    }
+    .what-we-do__title {
+      margin: 0;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: clamp(32px, 4.2vw, 60px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: var(--cyan);
+      text-wrap: balance;
+    }
+    .what-we-do__beat {
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 30px;
+    }
+    .what-we-do__verb {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(64px, 8.34vw, 120px);
+      line-height: 0.95;
+      color: var(--gold);
+      letter-spacing: 0;
+    }
+    .what-we-do__copy {
+      margin: 0;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: clamp(20px, 2.36vw, 34px);
+      line-height: 1;
+      letter-spacing: 0;
+      color: var(--cyan);
+      text-wrap: balance;
+    }
+    .what-we-do__cta {
+      display: flex; align-items: center; justify-content: center; min-height: 44px;
+      will-change: opacity, filter;
+    }
+    /* per-word readout — JS writes opacity + filter; no CSS transitions */
+    .wwd-w {
+      display: inline-block;
+      will-change: opacity, filter;
+    }
+    /* ---- Scale (stats) — white band: live sentence → verticals ---------- */
+    .scale {
+      --mono-d: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      position: relative; z-index: 2;
+      background: #fff;
+      color: #0d1a20;
+    }
+    .stats {
+      padding: 104px 24px 92px;
+      background: #fff;
+      color: #0d1a20;
+    }
+    .stats__inner { width: min(1000px, 100%); margin: 0 auto; text-align: center; }
+
+    /* The live sentence, in italic serif, scrubbed word by word by scroll:
+       words behind the playhead are lit, words ahead of it are dimmed and
+       blurred. Per-frame writes carry no CSS transition (KB §23.6 rule 2). */
+    .sent-line {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(30px, 4.6vw, 62px);
+      line-height: 1.2;
+      letter-spacing: -.01em;
+      text-wrap: pretty;
+      color: #0d1a20;
+    }
+    .sent-w {
+      display: inline-block;
+      opacity: .12;
+    }
+    /* no-JS and reduced motion: the sentence is simply there */
+    html:not(.has-js) .sent-w { opacity: 1 !important; filter: none !important; }
+    @media (prefers-reduced-motion: reduce) {
+      .sent-w { opacity: 1 !important; filter: none !important; }
+    }
+    /* Brand gold on the counting numbers; sentence copy stays #0d1a20 */
+    .sent-num { color: var(--gold); font-weight: 700; }
+
+    /* ---- Verticals — Square "audience moment": white band, one card un-dimmed */
+    .verts {
+      background: #fff; color: #0d1a20;
+      padding: 96px 0 92px;
+    }
+    .verts__head {
+      width: min(1160px, 100%); margin: 0 auto 36px; padding: 0 24px;
+      text-align: center;
+    }
+    .verts__title {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.06;
+    }
+    .verts__stage {
+      display: flex; gap: 10px;
+      width: min(1160px, 100%); margin: 0 auto; padding: 0 24px;
+      height: min(62vh, 560px);
+    }
+    .vcard {
+      position: relative; flex: 1 1 0; min-width: 0;
+      overflow: hidden; border-radius: 16px;
+      border: 0; padding: 0; margin: 0;
+      background: #232323; color: #fff;
+      text-align: left; font: inherit; cursor: pointer;
+      transition: flex .45s cubic-bezier(.4,0,.2,1);
+    }
+    /* unselected cards sit behind a 50% scrim; the selected one un-dims */
+    .vcard::after {
+      content: ""; position: absolute; inset: 0; z-index: 1;
+      background: rgba(0,0,0,.5); opacity: 1; pointer-events: none;
+      transition: opacity .45s ease;
+    }
+    .vcard.is-feature::after { opacity: 0; }
+    .vcard:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .vcard__img {
+      position: absolute; inset: 0;
+      background: #2e2e2e
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 48'%3E%3Cpath fill='%236b6b6b' d='M8 36 L24 18 L36 28 L48 14 L56 36 Z'/%3E%3Ccircle cx='46' cy='14' r='5' fill='%237d7d7d'/%3E%3C/svg%3E")
+        center 40% / 52px no-repeat;
+    }
+    .vcard__name {
+      position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 2;
+      margin: 0;
+      font-size: clamp(15px, 1.7vw, 24px); font-weight: 600;
+      letter-spacing: -.02em; line-height: 1.15; color: #fff;
+      text-shadow: 0 1px 8px rgba(0,0,0,.5);
+    }
+    .vcard.is-feature .vcard__name { display: none; }
+    .vcard__body {
+      display: none;
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+      padding: 34px 26px 26px;
+      background: linear-gradient(transparent, rgba(0,0,0,.62) 42%);
+      color: #fff;
+    }
+    .vcard.is-feature .vcard__body { display: block; }
+    .vcard__h {
+      margin: 0 0 14px;
+      font-size: clamp(26px, 3vw, 40px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.05;
+    }
+    .vcard__rule { border: 0; border-top: 1px solid rgba(255,255,255,.75); margin: 0 0 14px; }
+    .vcard__stat {
+      margin: 0;
+      font-size: clamp(30px, 3.4vw, 44px); font-weight: 700;
+      letter-spacing: -.04em; line-height: 1;
+      font-variant-numeric: tabular-nums;
+      color: var(--gold);
+    }
+    .vcard__desc {
+      margin: 9px 0 18px; max-width: 26ch;
+      font-family: var(--mono-d); font-size: 12px; line-height: 1.45;
+      color: rgba(255,255,255,.8);
+    }
+    .vcard__link {
+      display: inline-block;
+      font-family: var(--mono-d); font-size: 12px;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: #fff; text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.7); padding-bottom: 3px;
+    }
+    .vcard__link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* all eleven, as links */
+    .verts__all {
+      width: min(1160px, 100%); margin: 32px auto 0; padding: 0 24px;
+      display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: center;
+      font-family: var(--mono-d); font-size: 12px;
+    }
+    .verts__all a { color: #0d1a20; text-decoration: none; border-bottom: 1px solid rgba(13,26,32,.3); padding-bottom: 3px; }
+    .verts__all a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+    .verts__note {
+      width: min(1160px, 100%); margin: 30px auto 0; padding: 0 24px;
+      display: flex; justify-content: center;
+    }
+    .verts__note span {
+      display: inline-block; padding: 11px 15px; max-width: 66ch;
+      border: 1px dashed rgba(13,26,32,.35);
+      font-family: var(--mono-d); font-size: 11px; line-height: 1.6;
+      color: rgba(13,26,32,.75);
+    }
+
+    /* ---- verticals: stack below 1024px (matches the built section) -------- */
+    @media (max-width: 1023px) {
+      .verts { padding: 76px 0 72px; }
+      .verts__stage { flex-direction: column; gap: 8px; height: auto; }
+      .vcard { flex: 0 0 auto; height: 78px; transition: height .4s cubic-bezier(.4,0,.2,1); }
+      .vcard.is-feature { height: min(58svh, 460px); }
+      .vcard__name { font-size: 17px; }
+      .vcard__body { padding: 30px 22px 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .vcard, .vcard::after { transition: none; }
+    }
+
+    /* ---- responsive ------------------------------------------------------ */
+    @media (max-width: 900px) {
+      .hero { padding: 96px 0; gap: 36px; min-height: 100svh; }
+      .hero__inner { gap: 36px; }
+      .hero__logo img { width: 143px; height: auto; }
+      .what-we-do { padding: 80px 24px 120px; }
+      .what-we-do__inner { gap: 72px; }
+      .stats { padding: 76px 24px 72px; }
+    }
+    @media (max-width: 560px) {
+      /* short header CTA so the gold pill fits at 390px */
+      .hero__bar .pill--sm { padding: 0 14px; font-size: 12px; }
+      .hero__bar .pill__full { display: none; }
+      .hero__bar .pill__short { display: inline; }
+      .hero__logo img { width: 120px; height: auto; }
+      .verts__note span { font-size: 10.5px; }
+    }
+    @media (max-width: 480px) {
+      .hero__headlines { --title-max: clamp(41px, 12.6vw, 65px); }
+      .hero__title--portfolio .line--single { white-space: normal; text-wrap: balance; }
+      .hero__cta { width: 100%; }
+      .hero__cta .pill { flex: 1 1 auto; }
+      .hero__cue { bottom: 20px; }
+    }
+
+    /* no-JS / reduced motion: both headlines in document order (A above B) */
+    html:not(.has-js) .hero__headlines,
+    .hero-stage.is-flow .hero__headlines {
+      display: flex; flex-direction: column; gap: 2.4rem;
+      min-height: 0;
+    }
+    html:not(.has-js) .hero__title--software,
+    .hero-stage.is-flow .hero__title--software {
+      position: relative; inset: auto; pointer-events: auto;
+    }
+    html:not(.has-js) .hero__title--software .line,
+    .hero-stage.is-flow .hero__title--software .line {
+      opacity: 1; transform: none; filter: none;
+    }
+    html:not(.has-js) .hero__title--software .line em,
+    .hero-stage.is-flow .hero__title--software .line em {
+      transform: none;
+    }
+    html:not(.has-js) .hero__title--portfolio,
+    .hero-stage.is-flow .hero__title--portfolio {
+      transform: none;
+    }
+    html:not(.has-js) .hero__title--portfolio .line,
+    .hero-stage.is-flow .hero__title--portfolio .line {
+      opacity: 1; transform: none; filter: none;
+    }
+    html:not(.has-js) .hero__cue,
+    .hero-stage.is-flow .hero__cue,
+    html:not(.has-js) .hero__media-ctrl,
+    .hero-stage.is-flow .hero__media-ctrl { display: none; }
+    html:not(.has-js) .hero__scrim,
+    .hero-stage.is-flow .hero__scrim { opacity: 0; }
+    html:not(.has-js) .hero__tint,
+    .hero-stage.is-flow .hero__tint { opacity: 0.8; }
+    html:not(.has-js) .hero__overlay,
+    .hero-stage.is-flow .hero__overlay { opacity: 0; }
+
+    html:not(.has-js) .wwd-w,
+    .what-we-do.is-flow .wwd-w { opacity: 1 !important; filter: none !important; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .has-js .hero-stage { height: auto; }
+      .has-js .hero { position: relative; }
+      .has-js .hero__overlay { opacity: 0 !important; }
+      .has-js .hero__tint { opacity: 0.8 !important; }
+      .has-js .hero__scrim { opacity: 0 !important; }
+      .has-js .hero__media { transform: translate(-50%, -50%) !important; }
+      .has-js .hero__cue { display: none; }
+      .has-js .hero__cue-chevron { animation: none; }
+      /* stack both headlines — both states are content */
+      .has-js .hero__headlines {
+        display: flex; flex-direction: column; gap: 2.4rem; min-height: 0;
+      }
+      .has-js .hero__title--software {
+        position: relative; inset: auto; pointer-events: auto;
+      }
+      .has-js .hero__title--software .line,
+      .has-js .hero__title--portfolio .line {
+        opacity: 1; transform: none; filter: none;
+      }
+      .has-js .hero__title--software .line em,
+      .has-js .hero__title--portfolio {
+        transform: none;
+      }
+      .has-js .wwd-w { opacity: 1 !important; filter: none !important; }
+      /* stats: no reveal, no count — values render final */
+      .has-js .sent-w { opacity: 1 !important; filter: none !important; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Sticky site bar — fixed to the viewport in the hero's blue. Kept OUT of
+       .hero so it isn't clipped by the hero's overflow / stacking context and
+       stays pinned while the pinned hero scrolls and collapses into a cube. -->
+  <header class="hero__bar">
+    <a class="hero__logo" href="#" aria-label="Fullsteam home">
+      <img src="assets/fullsteam-logo.svg" alt="Fullsteam" width="177" height="48" decoding="async">
+    </a>
+    <div class="hero__actions">
+      <button type="button" class="menu-btn" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="siteMenu">
+        <span class="menu-btn__line" aria-hidden="true"></span>
+        <span class="menu-btn__line" aria-hidden="true"></span>
+        <span class="menu-btn__line" aria-hidden="true"></span>
+      </button>
+      <a class="pill pill--gold pill--sm" href="#">
+        <span class="pill__full">Explore vertical solutions</span>
+        <span class="pill__short">Explore</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="hero-stage" id="heroStage">
+    <section class="hero" id="hero" aria-label="Homepage hero">
+      <!-- background video — autoplays at LOAD (muted + loop + playsinline).
+           Poster (and CSS background) = the matching Square still. -->
+      <video class="hero__media" id="heroVideo" autoplay muted loop playsinline preload="metadata"
+             poster="assets/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+        <source src="assets/hero-video.webm" type="video/webm">
+        <source src="assets/hero-video.mp4" type="video/mp4">
+      </video>
+
+      <div class="hero__tint" aria-hidden="true"></div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__scrim" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <div class="hero__headlines">
+          <!-- Both headlines stay in the a11y tree (KB §23.6 rule 5). Visual opacity handles the swap. -->
+          <h1 class="hero__title hero__title--portfolio" id="heroTitlePortfolio">
+            <span class="line line--single">Any industry,</span>
+            <span class="line">we own the</span>
+            <span class="line"><em>software.</em></span>
+          </h1>
+          <h2 class="hero__title hero__title--software" id="heroTitleSoftware">
+            <span class="line">Then we build</span>
+            <span class="line">what makes it</span>
+            <span class="line"><em>grow.</em></span>
+          </h2>
+        </div>
+        <div class="hero__cta">
+          <a class="pill pill--gold" href="#">Explore vertical solutions</a>
+          <a class="pill pill--ghost" href="#">Careers</a>
+        </div>
+      </div>
+
+      <div class="hero__cue" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="hero__cue-chevron"></span>
+      </div>
+
+      <button type="button" class="hero__media-ctrl" id="heroMediaCtrl"
+              aria-label="Pause background video" aria-pressed="false">
+        <svg class="icon-pause" viewBox="0 0 14 14" aria-hidden="true">
+          <rect x="3" y="2" width="3" height="10" fill="currentColor"/>
+          <rect x="8" y="2" width="3" height="10" fill="currentColor"/>
+        </svg>
+        <svg class="icon-play" viewBox="0 0 14 14" aria-hidden="true">
+          <path d="M3.5 2.2v9.6L12 7z" fill="currentColor"/>
+        </svg>
+      </button>
+    </section>
+  </div>
+
+  <!-- What we do — Figma FS-Design node 11264:332. Word-blur readout on scroll. -->
+  <section class="what-we-do" id="what-we-do" aria-labelledby="whatWeDoTitle">
+    <div class="what-we-do__inner">
+      <h2 class="what-we-do__title" id="whatWeDoTitle">What does Fullsteam do?</h2>
+      <div class="what-we-do__beat">
+        <p class="what-we-do__verb">Acquire</p>
+        <p class="what-we-do__copy">We buy great vertical software companies.</p>
+      </div>
+      <div class="what-we-do__beat">
+        <p class="what-we-do__verb">Grow</p>
+        <p class="what-we-do__copy">We help them grow with AI and payments.</p>
+      </div>
+      <div class="what-we-do__beat">
+        <p class="what-we-do__verb">Lead</p>
+        <p class="what-we-do__copy">Our software powers entire industries.</p>
+      </div>
+      <div class="what-we-do__beat">
+        <p class="what-we-do__verb">Founders</p>
+        <p class="what-we-do__copy">A home for the business you built.</p>
+        <div class="what-we-do__cta">
+          <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/for-founders.html">Talk to us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scale → verticals — live italic sentence scrubbed word by word, then
+Square's "audience moment" filmstrip. White band throughout. -->
+  <section class="scale" id="investors" aria-label="Scale and verticals">
+    <div class="stats" id="statsBand">
+      <div class="stats__inner">
+        <p class="sent-line" id="sentLine">
+          <span class="sent-w">We</span>
+          <span class="sent-w">serve</span>
+          <span class="sent-w"><span class="sent-num" data-count="70000" data-suffix="+">70,000+</span></span>
+          <span class="sent-w">businesses</span>
+          <span class="sent-w">across</span>
+          <span class="sent-w"><span class="sent-num" data-count="11">11</span></span>
+          <span class="sent-w">industries,</span>
+          <span class="sent-w">from</span>
+          <span class="sent-w">Hospitality</span>
+          <span class="sent-w">to</span>
+          <span class="sent-w">Wine</span>
+          <span class="sent-w">to</span>
+          <span class="sent-w">ERP,</span>
+          <span class="sent-w">and</span>
+          <span class="sent-w">move</span>
+          <span class="sent-w"><span class="sent-num" data-count="75" data-prefix="$" data-suffix="B">$75B</span></span>
+          <span class="sent-w">through</span>
+          <span class="sent-w">Fullsteam</span>
+          <span class="sent-w">Pay.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="verts">
+      <div class="verts__head">
+        <h2 class="verts__title">Keep the businesses growing.</h2>
+      </div>
+      <div class="verts__stage" id="vertStage">
+        <article class="vcard" role="button" tabindex="0" aria-pressed="false" data-name="Hospitality">
+          <span class="vcard__img" aria-hidden="true"></span>
+          <h3 class="vcard__name">Hospitality</h3>
+          <div class="vcard__body">
+            <h3 class="vcard__h">Hospitality</h3>
+            <hr class="vcard__rule">
+            <p class="vcard__stat">70,000+</p>
+            <p class="vcard__desc">business customers [placeholder]</p>
+            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Explore →</a>
+          </div>
+        </article>
+        <article class="vcard" role="button" tabindex="0" aria-pressed="false" data-name="ERP">
+          <span class="vcard__img" aria-hidden="true"></span>
+          <h3 class="vcard__name">ERP</h3>
+          <div class="vcard__body">
+            <h3 class="vcard__h">ERP</h3>
+            <hr class="vcard__rule">
+            <p class="vcard__stat">2,000+</p>
+            <p class="vcard__desc">people [placeholder]</p>
+            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#erp">Explore →</a>
+          </div>
+        </article>
+        <article class="vcard is-feature" role="button" tabindex="0" aria-pressed="true" data-name="Retail">
+          <span class="vcard__img" aria-hidden="true"></span>
+          <h3 class="vcard__name">Retail</h3>
+          <div class="vcard__body">
+            <h3 class="vcard__h">Retail</h3>
+            <hr class="vcard__rule">
+            <p class="vcard__stat">$75B+</p>
+            <p class="vcard__desc">processed on Fullsteam Pay* [placeholder]</p>
+            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Explore →</a>
+          </div>
+        </article>
+        <article class="vcard" role="button" tabindex="0" aria-pressed="false" data-name="Transportation">
+          <span class="vcard__img" aria-hidden="true"></span>
+          <h3 class="vcard__name">Transportation</h3>
+          <div class="vcard__body">
+            <h3 class="vcard__h">Transportation</h3>
+            <hr class="vcard__rule">
+            <p class="vcard__stat">480M+</p>
+            <p class="vcard__desc">transactions processed* [placeholder]</p>
+            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Explore →</a>
+          </div>
+        </article>
+        <article class="vcard" role="button" tabindex="0" aria-pressed="false" data-name="Wine">
+          <span class="vcard__img" aria-hidden="true"></span>
+          <h3 class="vcard__name">Wine</h3>
+          <div class="vcard__body">
+            <h3 class="vcard__h">Wine</h3>
+            <hr class="vcard__rule">
+            <p class="vcard__stat">11</p>
+            <p class="vcard__desc">vertical markets owned</p>
+            <a class="vcard__link" href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Explore →</a>
+          </div>
+        </article>
+      </div>
+      <div class="verts__all">
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Hospitality</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#weddings-events">Weddings &amp; Events</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Wine</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Retail</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#storage-marina">Storage &amp; Marina</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#health-wellness">Health &amp; Wellness</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#field-services">Field Services</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Transportation</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Automotive</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a>
+      </div>
+      <div class="verts__note"><span>Five featured verticals, revenue-ordered, plus all eleven as links. Figures are the shared placeholder set from the scale band above — no named businesses and no revenue, run-rate, or profitability until publishability is confirmed.</span></div>
+    </div>
+  </section>
+
+  <!-- navigation dropdown — the locked L1 (KB §14 / plans/sitemap-lock.md).
+       Option B revised: For Founders lives here, not in the header strip. -->
+  <div class="menu" id="siteMenu" hidden>
+    <nav class="menu__panel" aria-label="Site">
+      <div class="menu__inner">
+        <div class="menu__col">
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/vertical-software.html">Vertical Software</a></h3>
+          <div class="menu__split">
+            <ul class="menu__list" aria-label="Verticals">
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Hospitality</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#weddings-events">Weddings &amp; Events</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Wine</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Retail</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#storage-marina">Storage &amp; Marina</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#health-wellness">Health &amp; Wellness</a></li>
+            </ul>
+            <ul class="menu__list" aria-label="Verticals">
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#field-services">Field Services</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Transportation</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Automotive</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="menu__col">
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/embedded-offerings.html">Embedded Offerings</a></h3>
+          <ul class="menu__list">
+            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#payments">Payments</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#lending">Lending</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#insurance">Insurance</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">AI at Fullsteam</a></li>
+          </ul>
+        </div>
+
+        <div class="menu__col">
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></h3>
+          <ul class="menu__list">
+            <li><a href="../../../02_Wireframes/active/pages/leadership.html">Leadership</a></li>
+          </ul>
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></h3>
+          <ul class="menu__list">
+            <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li>
+          </ul>
+        </div>
+
+        <div class="menu__col">
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></h3>
+          <ul class="menu__list">
+            <li><a href="../../../02_Wireframes/active/pages/contact.html">Talk to us</a></li>
+          </ul>
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/for-founders.html">For Founders</a></h3>
+          <ul class="menu__list">
+            <li><a href="../../../02_Wireframes/active/pages/for-founders.html">A home for your business</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/faq.html">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    (function () {
+      var stage = document.getElementById('heroStage');
+      var hero = document.getElementById('hero');
+      var wwd = document.getElementById('what-we-do');
+      var bar = document.querySelector('.hero__bar');
+      if (!stage || !hero) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      /* Split title / verbs / copy into word spans for the Bending Spoons readout. */
+      var wwdWords = [];
+      if (wwd) {
+        var splitRoots = wwd.querySelectorAll('.what-we-do__title, .what-we-do__verb, .what-we-do__copy');
+        for (var si = 0; si < splitRoots.length; si++) {
+          var el = splitRoots[si];
+          var raw = el.textContent;
+          el.textContent = '';
+          var parts = raw.split(/(\s+)/);
+          for (var pi = 0; pi < parts.length; pi++) {
+            var tok = parts[pi];
+            if (!tok) continue;
+            if (/^\s+$/.test(tok)) { el.appendChild(document.createTextNode(tok)); continue; }
+            var span = document.createElement('span');
+            span.className = 'wwd-w';
+            span.textContent = tok;
+            el.appendChild(span);
+            wwdWords.push(span);
+          }
+        }
+        var cta = wwd.querySelector('.what-we-do__cta');
+        if (cta) wwdWords.push(cta);
+      }
+
+      function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+      /* Header stays clear over the hero; solid only once the stage has left the viewport. */
+      function syncBarSolid() {
+        if (!bar) return;
+        var past = stage.getBoundingClientRect().bottom <= bar.offsetHeight;
+        bar.classList.toggle('is-solid', past);
+      }
+      function segment(t, a, b) {
+        if (t <= a) return 0;
+        if (t >= b) return 1;
+        return (t - a) / (b - a);
+      }
+      function smoothstep(x) {
+        x = clamp01(x);
+        return x * x * (3 - 2 * x);
+      }
+
+      var cubing = false;
+      var cubeSettled = false;
+      function clearWwdWords() {
+        for (var i = 0; i < wwdWords.length; i++) {
+          wwdWords[i].style.opacity = '';
+          wwdWords[i].style.filter = '';
+          wwdWords[i].style.pointerEvents = '';
+        }
+      }
+      function paintWwd(el, op, blurPx) {
+        el.style.opacity = String(op);
+        el.style.filter = blurPx < 0.6 ? 'none' : ('blur(' + blurPx.toFixed(2) + 'px)');
+        if (el.classList.contains('what-we-do__cta')) {
+          el.style.pointerEvents = op > 0.55 ? 'auto' : 'none';
+        }
+      }
+      function renderWwdWords() {
+        /* Focus band ~42% down the viewport. Words (and the Talk to us pill)
+           below it fade + blur. Words above stay sharp. */
+        var focus = window.innerHeight * 0.42;
+        var band = Math.max(140, window.innerHeight * 0.26);
+        for (var i = 0; i < wwdWords.length; i++) {
+          var r = wwdWords[i].getBoundingClientRect();
+          if (r.bottom < -40 || r.top > window.innerHeight + 40) {
+            if (r.top > window.innerHeight) paintWwd(wwdWords[i], 0.08, 14);
+            else paintWwd(wwdWords[i], 1, 0);
+            continue;
+          }
+          var mid = (r.top + r.bottom) * 0.5;
+          var t = clamp01((mid - focus) / band);
+          t = t * t * (3 - 2 * t);
+          paintWwd(wwdWords[i], 1 - t * 0.94, t * 16);
+        }
+      }
+      function syncMode() {
+        if (reduce.matches) {
+          stage.classList.add('is-flow');
+          if (wwd) wwd.classList.add('is-flow');
+          hero.classList.remove('is-cubing', 'is-cubed');
+          stage.classList.remove('is-cubed');
+          cubing = false;
+          cubeSettled = false;
+          clearWwdWords();
+          return true;
+        }
+        stage.classList.remove('is-flow');
+        if (wwd) wwd.classList.remove('is-flow');
+        return false;
+      }
+
+      var ticking = false;
+      function render() {
+        ticking = false;
+        syncBarSolid();
+        if (syncMode()) return;
+
+        var total = stage.offsetHeight - window.innerHeight;
+        var p = total > 0 ? clamp01(-stage.getBoundingClientRect().top / total) : 0;
+        /* Phase 1 — the headline handoff fully animates in by ~0.55 of the pin. */
+        var t = clamp01(p / 0.55);
+
+        var pOverlay = smoothstep(segment(t, 0.12, 0.72));
+        var pTint = smoothstep(segment(t, 0, 0.72));
+        /* Overlapping exit/enter — a headline stays majority-visible through the swap */
+        var pPortLine1 = smoothstep(segment(t, 0.18, 0.34));
+        var pPortLine2 = smoothstep(segment(t, 0.24, 0.40));
+        var pPortLine3 = smoothstep(segment(t, 0.30, 0.48));
+        var pPortExit = Math.max(pPortLine1, pPortLine2, pPortLine3);
+        var pPortShrink = smoothstep(segment(pPortExit, 0.75, 1));
+        var pSoftIn = smoothstep(segment(t, 0.36, 0.54));
+        var pLine2 = smoothstep(segment(t, 0.44, 0.64));
+        var pLine3 = smoothstep(segment(t, 0.52, 0.76));
+        var pVideo = smoothstep(segment(t, 0.18, 0.72));
+        var pScrim = smoothstep(segment(t, 0.34, 0.58));
+        var pCue = smoothstep(segment(t, 0.06, 0.22));
+
+        hero.style.setProperty('--pOverlay', pOverlay.toFixed(4));
+        hero.style.setProperty('--pTint', pTint.toFixed(4));
+        hero.style.setProperty('--pPortLine1', pPortLine1.toFixed(4));
+        hero.style.setProperty('--pPortLine2', pPortLine2.toFixed(4));
+        hero.style.setProperty('--pPortLine3', pPortLine3.toFixed(4));
+        hero.style.setProperty('--pPortShrink', pPortShrink.toFixed(4));
+        hero.style.setProperty('--pSoftIn', pSoftIn.toFixed(4));
+        hero.style.setProperty('--pLine2', pLine2.toFixed(4));
+        hero.style.setProperty('--pLine3', pLine3.toFixed(4));
+        hero.style.setProperty('--pVideo', pVideo.toFixed(4));
+        hero.style.setProperty('--pScrim', pScrim.toFixed(4));
+        hero.style.setProperty('--pCue', pCue.toFixed(4));
+
+        /* Phase 2 — only AFTER the second message has settled (t = 1 at p = 0.55),
+           the hero collapses into a small cube and the copy fades: 0.62 → 0.92,
+           then a short hold before the pin releases. The video keeps playing. */
+        var pCube = smoothstep(segment(p, 0.62, 0.92));
+        hero.style.setProperty('--cube', pCube.toFixed(4));
+        var nowCubing = pCube > 0.001 && pCube < 0.999;
+        var nowSettled = pCube >= 0.999;
+        if (nowCubing !== cubing) {
+          cubing = nowCubing;
+          hero.classList.toggle('is-cubing', cubing);
+        }
+        if (nowSettled !== cubeSettled) {
+          cubeSettled = nowSettled;
+          hero.classList.toggle('is-cubed', cubeSettled);
+          stage.classList.toggle('is-cubed', cubeSettled);
+        }
+
+        if (wwdWords.length) renderWwdWords();
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(render); } }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      if (reduce.addEventListener) reduce.addEventListener('change', onScroll);
+      else if (reduce.addListener) reduce.addListener(onScroll);
+      render();
+    })();
+
+    // background video: play from load, pause off-screen, respect reduced motion, pause control
+    (function () {
+      var v = document.getElementById('heroVideo');
+      var ctrl = document.getElementById('heroMediaCtrl');
+      var stage = document.getElementById('heroStage');
+      if (!v) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var userPaused = false;
+
+      function setCtrl(playing) {
+        if (!ctrl) return;
+        ctrl.setAttribute('aria-pressed', playing ? 'false' : 'true');
+        ctrl.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
+      }
+      function play() {
+        if (reduce.matches || userPaused) return;
+        var pr = v.play();
+        if (pr && pr.catch) pr.catch(function () {});
+        setCtrl(true);
+      }
+      function pause() {
+        v.pause();
+        setCtrl(false);
+      }
+
+      if (reduce.matches) {
+        pause();
+        v.removeAttribute('autoplay');
+      } else if (v.readyState >= 2) {
+        play();
+      }
+      v.addEventListener('loadeddata', play, { once: true });
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) play();
+      }, { passive: true });
+
+      if (ctrl) {
+        ctrl.addEventListener('click', function () {
+          if (v.paused) {
+            userPaused = false;
+            play();
+          } else {
+            userPaused = true;
+            pause();
+          }
+        });
+      }
+
+      if ('IntersectionObserver' in window && stage) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) play();
+            else pause();
+          });
+        }, { threshold: 0.05 });
+        io.observe(stage);
+      }
+
+      if (reduce.addEventListener) {
+        reduce.addEventListener('change', function () {
+          if (reduce.matches) pause();
+          else play();
+        });
+      }
+    })();
+
+    // Scale (stats) → verticals: KPI count-up + one card un-dimmed at a time
+    (function () {
+      var section = document.getElementById('investors');
+      if (!section) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+
+      function paintNum(el, n) {
+        var prefix = el.getAttribute('data-prefix') || '';
+        var suffix = el.getAttribute('data-suffix') || '';
+        el.textContent = prefix + fmt(n) + suffix;
+      }
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+      var line = document.getElementById('sentLine');
+      var words = line ? line.querySelectorAll('.sent-w') : [];
+      var nums = line ? line.querySelectorAll('.sent-num[data-count]') : [];
+      // the playhead: a word is lit as it rises past this line of the viewport
+      var FOCUS = 0.72;
+
+      /* ---- the scrub ----------------------------------------------------- */
+      var lastQ = [], ticking = false;
+
+      function scrub() {
+        if (!words.length) return;
+        // Read live every frame — only two rects, and it has to be live: the
+        // pinned hero above collapses as you scroll, which moves the sentence
+        // up the document, so any cached offset drifts by hundreds of pixels.
+        var a = words[0].getBoundingClientRect();
+        var b = words[words.length - 1].getBoundingClientRect();
+        // the sweep is spread over the sentence's travel, plus slack so it lingers
+        var span = Math.max(b.bottom - a.top + a.height, window.innerHeight * 0.55);
+        // one global progress, then handed out per word in reading order —
+        // this is the screenshot's behaviour: line 1, then line 2, word by word
+        var g = (window.innerHeight * FOCUS - a.top) / span;
+        g = g < 0 ? 0 : (g > 1 ? 1 : g);
+        var n = words.length;
+        var pos = g * n;
+        for (var i = 0; i < n; i++) {
+          var p = pos - i;
+          p = p < 0 ? 0 : (p > 1 ? 1 : p);
+          var q = Math.round(p * 40);          // quantise — only write real changes
+          if (lastQ[i] === q) continue;
+          lastQ[i] = q;
+          var t = q / 40;
+          words[i].style.opacity = (0.08 + 0.92 * t).toFixed(3);
+          words[i].style.filter = t >= 1 ? 'none' : 'blur(' + ((1 - t) * 6).toFixed(2) + 'px)';
+        }
+      }
+
+      /* ---- inline count-up ----------------------------------------------- */
+      var counted = [];
+
+      function countUp(el) {
+        var target = Number(el.getAttribute('data-count'));
+        var t0 = performance.now();
+        function frame(now) {
+          var t = Math.min(1, (now - t0) / 1100);
+          paintNum(el, target * easeOut(t));
+          if (t < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }
+
+      function counts() {
+        var focus = window.innerHeight * FOCUS;
+        for (var i = 0; i < nums.length; i++) {
+          if (counted[i]) continue;
+          var r = nums[i].getBoundingClientRect();
+          if (r.top < focus && r.bottom > 0) { counted[i] = true; countUp(nums[i]); }
+        }
+      }
+
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () { ticking = false; scrub(); counts(); });
+      }
+
+      /* ---- init ----------------------------------------------------------- */
+      for (var i = 0; i < nums.length; i++) {
+        if (reduce.matches) {
+          paintNum(nums[i], Number(nums[i].getAttribute('data-count')));
+          counted[i] = true;
+        } else {
+          paintNum(nums[i], 0);
+        }
+      }
+      if (words.length && !reduce.matches) {
+        scrub();
+      }
+      if (!reduce.matches) {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        counts();
+      }
+
+      function initVertStage() {
+        var stage = document.getElementById('vertStage');
+        if (!stage) return;
+        var cards = Array.prototype.slice.call(stage.querySelectorAll('.vcard'));
+
+        // the selected card un-dims and reveals name → rule → figure → descriptor → link
+        function select(card) {
+          cards.forEach(function (c) {
+            var on = c === card;
+            c.classList.toggle('is-feature', on);
+            c.setAttribute('aria-pressed', on ? 'true' : 'false');
+          });
+        }
+
+        cards.forEach(function (card) {
+          card.addEventListener('click', function (e) {
+            if (e.target.closest('a')) return;   // let the Explore link navigate
+            select(card);
+          });
+          card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(card); }
+          });
+        });
+      }
+
+      initVertStage();
+    })();
+
+    // navigation dropdown
+    (function () {
+      var btn = document.querySelector('.menu-btn');
+      var menu = document.getElementById('siteMenu');
+      var bar = document.querySelector('.hero__bar');
+      if (!btn || !menu || !bar) return;
+
+      function syncBarH() {
+        document.documentElement.style.setProperty('--bar-h', bar.offsetHeight + 'px');
+      }
+      function openMenu() {
+        menu.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';   // keep the page behind locked
+        syncBarH();
+        var first = menu.querySelector('a');
+        if (first) first.focus({ preventScroll: true });
+      }
+      function closeMenu() {
+        menu.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', function () {
+        if (menu.hidden) openMenu(); else { closeMenu(); btn.focus({ preventScroll: true }); }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !menu.hidden) { closeMenu(); btn.focus({ preventScroll: true }); }
+      });
+      // click the scrim, or any link, closes it
+      menu.addEventListener('click', function (e) {
+        if (e.target === menu || e.target.closest('a')) closeMenu();
+      });
+      window.addEventListener('resize', syncBarH);
+      syncBarH();
+    })();
+  </script>
+</body>
+</html>

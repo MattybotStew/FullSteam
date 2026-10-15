@@ -10,11 +10,23 @@
 # Pages staging dir (built by .github/workflows/pages.yml, never committed)
 _site/
 
-# Design exploration sandbox — LOCAL ONLY. Unreviewed visual/interaction
+# Design exploration sandbox — LOCAL ONLY by default. Unreviewed visual/interaction
 # explorations live here and must not be client-facing. Ignored so they can
 # never reach the public repo (raw.githubusercontent.com) or the Pages
 # allowlist. See 03_Design/explorations/README.md for the rules + promotion path.
-03_Design/explorations/
+# Exception: 02-video-hero/ is tracked for an internal GH Pages preview (HTML +
+# logo only). Square reference media inside it stays ignored — copyrighted,
+# unlicensed; see inspiration.md §2.2 and 03_Design/assets/reference/.
+03_Design/explorations/*
+!03_Design/explorations/README.md
+!03_Design/explorations/02-video-hero/
+!03_Design/explorations/02-video-hero/**
+03_Design/explorations/02-video-hero/assets/hero-video.mp4
+03_Design/explorations/02-video-hero/assets/hero-video.webm
+03_Design/explorations/02-video-hero/assets/hero-poster.jpg
+03_Design/explorations/02-video-hero/assets/hero-bg.png
+
+
 
 # Confidential client source docs — do NOT commit to this public repo
 # This repo is PUBLIC. Since 2026-09-25 Pages publishes an explicit allowlist

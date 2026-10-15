@@ -38,12 +38,21 @@ jobs:
           cp index.html _site/
           cp 404.html _site/
           cp -R 02_Wireframes _site/
+          # Internal preview only — HTML + logo. No .md, no Square reference media
+          # (hero-video.*, hero-poster.jpg, hero-bg.png stay gitignored / local).
+          mkdir -p _site/03_Design/explorations/02-video-hero/assets
+          cp 03_Design/explorations/02-video-hero/index.html \
+             _site/03_Design/explorations/02-video-hero/
+          cp 03_Design/explorations/02-video-hero/assets/fullsteam-logo.svg \
+             _site/03_Design/explorations/02-video-hero/assets/
           echo "--- published ---"
           find _site -type f | sort
           echo "--- confirm nothing internal leaked in ---"
           if find _site -type f \
                \( -name '*.md' -o -path '*plans*' -o -path '*01_Discovery*' \
-                  -o -path '*clientDocs*' -o -name '.git*' \) | grep -q .; then
+                  -o -path '*clientDocs*' -o -name '.git*' \
+                  -o -name 'hero-video.*' -o -name 'hero-poster.jpg' \
+                  -o -name 'hero-bg.png' \) | grep -q .; then
             echo "::error::internal file staged for publication - check the allowlist"
             exit 1
           fi

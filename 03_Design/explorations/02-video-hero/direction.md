@@ -1,0 +1,375 @@
+# Exploration 02 — "Video hero"
+
+> **Status:** INTERNAL · UNREVIEWED · **unofficial.** Not client-facing.
+> Lives in the gitignored sandbox — see [`../README.md`](../README.md).
+> **Companion:** [`index.html`](./index.html) — the visual exploration.
+> **Board:** [`../index.html`](../index.html).
+
+## Where this came from
+
+Built 2026-10-12 from Figma **`FS-Design`** → canvas **`6-124`** (`✅ Design [WIP]`).
+The canvas holds two hero frames, which are **the two states of this scroll interaction**:
+
+| | State 1 — `Desktop - 1` (load) | State 2 — `Desktop - 2` (scroll) |
+|---|---|---|
+| Node | `11256:591` (hero `11256:618`) | `11256:658` (hero `11256:659`) |
+| Overlay | **none** (build: `#003F55` tint @ 80%) | `linear-gradient(180deg, rgba(0,89,120,.7) 0%, rgba(0,165,222,0) 62%)`; build thins the tint 80 → ~38% |
+| Headline | **120px** — “Any industry, / we own the / *software.*” (rewritten 2026-10-12, was “Whatever the *industry,* / we own the software / it runs on.”) | **120px** — “Then we build / what makes it / *grow.*” (rewritten 2026-10-12, was Figma's “Software *first.* / Then we *grow* it.”, which restated punch 1 — one gold italic word each now: *software.* then *grow.*) |
+
+Buttons / header are identical in both. Scroll uses a **phased vertical handoff** (portfolio out/up → software in/up, staggered second line)—not a linear crossfade.
+Assets: `assets/hero-video.mp4` + `.webm` and `assets/hero-poster.jpg` — the Square hero clip
+(1440×1080), plus `assets/fullsteam-logo.svg` (white/gold lockup).
+
+## The behaviour (as specified by the CD)
+
+> “the overlay changes on scroll but the video starts at load”
+
+- **Video starts at load** — `<video autoplay muted loop playsinline>`, no interaction,
+  and it keeps playing through the scroll.
+- **Overlay changes on scroll** — the hero pins (`180vh` as specified; **`250vh`** in the
+  2026-10-14 build — see *The cube collapse* below); scroll progress drives `--p` `0 → 1`
+  and the whole sequence now spans that pin (2026-10-12: remapped — it previously completed at 52%
+  of the pin, leaving ~48% dead scroll). Tint/gradient ease first (gradient 19→77%), then the
+  portfolio exits line-by-line (35→77%: fade + translate up; shrink only in the last 20% of exit)
+  while the software headline enters from below (line 1 at 50→77%, line 2 lags to 65→92%). Subtle
+  video scale (1 → 1.03) runs alongside. ~8% hold at the end.
+- **Fallbacks** — no JS → no pin, static hero showing the portfolio headline. `prefers-reduced-motion`
+  → same static hero, no scroll-linked change.
+
+## Typography (2026-10-12)
+
+- **One size for both headlines** — `--title-max` lives on `.hero__headlines` and both `.hero__title`
+  variants read it, so they can never drift: `clamp(50px, 8.34vw, 120px)` (mobile
+  `clamp(41px, 12.6vw, 65px)`). Portfolio is +20% on the old 100px; software now matches it at
+  120px (was 100px / 83px before the +20% pass). Both blocks are therefore the **same height**
+  (350px @1440) and the swap is a clean 1:1 replacement in the same space.
+  *The portfolio still shrinks to 83% of that while it exits — a transition effect, not a size.*
+- **Leading `0.95em`** (`--lh`), down from an effective ~1.26em — the old stack had
+  `line-height: 1` **plus** `padding-block: .06em` **plus** `gap: .14em`. Those are gone;
+  the gap is now `0.02em`, so line rhythm is set by `--lh` alone.
+- **Tracking `-0.045em`** (was `-0.02em`). Display type wants tighter tracking, and it is what
+  makes the +20% size fit the column.
+- **`em { line-height: 0 }`** — Instrument Serif's taller content box was inflating the line box on
+  any line containing the gold accent (portfolio line 1 measured 117px vs 114px, so its advance was
+  119.4 vs 116.4). Zeroing it makes every advance identical.
+- **Headline box is back to 1100px** — the shortened copy fits the column at every breakpoint
+  (widest line is “Any industry,” at 681px / 120px), so no override is needed.
+- **Portfolio copy rewritten (2026-10-12)** to mirror the software headline's shape — 3 words /
+  3 words / one gold word:
+
+  | | line 1 | line 2 | line 3 |
+  |---|---|---|---|
+  | before | Whatever the *industry,* | we own the software | it runs on. |
+  | **after** | Any industry, | we own the | ***software.*** |
+  | software | Then we build | what makes it | ***grow.*** |
+
+  The gold accent moved from mid-line-1 to the **payoff line**, matching the software headline.
+  Widths now descend in both (portfolio 681 / 593 / 389; software 601 / 595 / 198).
+  `em:only-child` (not `nth-child(3)`) grants a real line box to a whole-line payoff.
+
+  ⚠ **Copy note:** “Any industry,” drops the KB's established voice opener
+  (*“Whatever the industry, we own the software it runs on.”*). Flag to the CD if that line is
+  still considered signature.
+- **Button text `#00202B`** (2026-10-12) — was the Figma's `#005978`. It is now the brand blue
+  `#003F55` at 50% (50% darker), so it reads as deep navy on the gold. Applies to `--ink`, i.e.
+  every `.pill--gold` (header CTA **and** hero CTA); the ghost “Careers” pill stays white.
+  Contrast on gold improves from **4.95:1 → 10.6:1**. Flag if `#005978` was deliberate.
+
+## Chrome: navigation + buttons (2026-10-12 · bar 2026-10-14)
+
+- **Sticky blue bar (2026-10-14).** The header is now `position: fixed; top: 0` (was `absolute`
+  inside the hero, so it scrolled away), with a **`--blue` `#003F55` background** — the same blue the
+  hero uses — so it reads as a solid bar and matches the hero behind it. It's kept **outside `.hero`**
+  (a direct child of `<body>`, `z-index: 60`) so the hero's `overflow: hidden` + `isolation: isolate`
+  can't clip it and the `.after-hero` band (which has its own `z-index: 1`) can't paint over it. It
+  stays pinned through the whole scroll: the pinned hero → the cube collapse → “What we do”.
+  *(The hero copy stays centred in `100svh`, so with a 68px bar it sits ~34px below the visible
+  area's centre — flagged, not yet compensated.)*
+- **Navigation dropdown built** — the hamburger now opens a panel below the header (`.menu`,
+  `position: fixed; top: var(--bar-h)`), so the chrome stays visible and the toggle becomes an **X**.
+  `--bar-h` is measured from the real header, so the offset is right at every breakpoint
+  (68px desktop / 64px mobile).
+- **Contents = the locked L1**, taken from the homepage wireframe's `#siteOverlay` (Option B
+  revised): **Vertical Software** (with all 11 verticals, two columns) · **Embedded Offerings**
+  (Payments/Lending/Insurance/AI) · **Our Story** (Leadership) + **Careers** · **Contact** +
+  **For Founders** (A home for your business / FAQ). For Founders sits **here**, not in the header
+  strip, per the 2026-09-23 chrome decision. Links point at the real wireframe pages
+  (`../../../02_Wireframes/active/pages/*`) — all verified 200.
+- **Behaviour:** toggles `aria-expanded`, locks body scroll while open, focuses the first link,
+  closes on **Escape**, on a link click, or on a click outside the panel (the scrim).
+- **Button hover** — replaced the flat `brightness()` + 1px lift with a **fill that wipes up from
+  the bottom and flips the colours**: gold pill → ink fill with gold text; ghost pill → gold fill
+  with ink text. Both get a −2px lift and a gold glow. Disabled under `prefers-reduced-motion`.
+- **Menu dividers** — hairline rules (`rgba(255,255,255,.14)`) separate the columns, with 32px of
+  padding either side so each rule sits optically centred. They re-orient with the layout:
+  **vertical** rules in the 4-column layout, vertical + a horizontal rule between rows at 2 columns,
+  and **horizontal only** when the columns stack at ≤560px.
+- **Panel colour is shared** — the bar is `--blue` `#003F55` by default and takes `--menu-bg`
+  `#002C3C` while the menu is open (`.hero__bar:has(.menu-btn[aria-expanded="true"])`), which is the
+  dropdown panel's colour. The header's bottom edge meets the panel's top edge with **0px seam**, so
+  the two read as one continuous surface.
+
+## The cube collapse (2026-10-14, internal)
+
+After the software headline has **fully settled**, scrolling on collapses the whole hero into a
+small rounded cube: the video shrinks to a centred square, the copy fades and drifts up, and the
+blue stays full-bleed behind it. The video **keeps playing** inside the cube. The pin then releases
+and the hero (blue + cube) scrolls away as “What we do” rises — the cube collapses in place, then
+leaves with the hero.
+
+- **Trigger.** Only *after* phase 1 (the headline handoff) has completed — the cube ramps from
+  `p = 0.62 → 0.92` of the pin, so the second message is fully in (line 3 settles at `p ≈ 0.42`)
+  well before the collapse starts.
+- **Geometry.** `.hero__media` goes from `100%`/`100%` → `clamp(140px, 17vw, 210px)` square via a
+  `--cube` `0 → 1` variable
+  (`width/height: calc(100% - (100% - var(--cube-size)) * var(--cube))`), centred with
+  `left/top: 50%` + `translate(-50%,-50%)`, plus `border-radius` `0 → 28px` and a drop shadow. The
+  subtle scroll zoom fades out so the cube measures exactly `--cube-size`.
+- **Copy fade.** `.hero__headlines` and `.hero__cta` fade to 0 (`opacity: 1 − --cube`) and drift
+  up; the tint / gradient / scrim each multiply by `(1 − --cube)` so nothing tints the cube.
+  `.hero.is-cubing` drops `pointer-events` on the inner content.
+- **Pin.** `250vh` (was `200vh`) to buy the collapse travel; `total` travel at 1440×900 is 1350px.
+- **Fallbacks.** Unchanged — no JS / reduced motion never set `--cube` (default `0`), so the hero
+  stays full-bleed and the two headlines stack in document order.
+- **Pin release (option 1, 2026-10-14).** Once `--cube ≈ 1`, `.hero` drops from `100svh` to
+  `--cube-band` (cube size + 180–240px pad). `.is-cubing` = collapse in progress (height
+  `min(100svh, 1059px)`); `.is-cubed` = settled. `.hero-stage.is-cubed` uses a negative
+  `margin-bottom` so What we do shares the laptop frame with the cube instead of waiting
+  behind a leftover viewport of `#003F55`. What we do `padding-top` is 100px (80px under 900px).
+
+⚠ **This is still not the locked grow morph.** A video that collapses into a cube is a new
+mechanic layered on the video-pin experiment — promoting it is an explicit **strategy** decision
+(KB §23/§24), not a polish pass.
+
+## Read this before judging it
+
+1. **This is a strategy change, not a restyle.** The homepage opening is **locked** as the
+   **Axis A (Portfolio) → grow morph → Axis B (Growth engine)** sequence (KB §23 + §24,
+   `design.md` §3.1). This exploration uses a **video pin + headline crossfade** (portfolio
+   line → software line), plus an internal **cube collapse** on exit (2026-10-14), not the locked
+   grow morph. It still **sequences** two messages but
+   is a **strategy change** if promoted — needs an explicit decision, not a polish pass.
+2. **Palette is on-brand**, but note the blue is the *chrome* `#003F55`, not the KB §15
+   Bio Blue `#00587C` — reconcile which is canonical.
+3. **Type move.** Instrument Serif **italic** in gold (`#FEC50A`) as the accent on
+   “*software.*” / “*grow.*”. New; confirm it's an approved direction.
+4. **Photography/video.** KB §18 says **avoid stock**; homepage + careers copy call for
+   **real imagery**. The clip should be Fullsteam's own — see the sourcing keywords note.
+
+## Open flags
+
+- **Color overlay: 80% → 20% across the scroll (the CD's target).** The `#003F55` tint over the video
+  starts at **80%** on load (`Desktop - 1` — legible without a gradient) and thins toward the
+  software-headline screen (`Desktop - 2`). The build **floors it at ~38%**
+  (`calc((.8 − .42·--pTint) × (1 − --cube))`, smoothstepped) rather than a flat 20%, so white type
+  holds on bright footage (2026-10-14). Flag if the CD needs the full 20%.
+- **First screen on load = `Desktop - 1` (locked).** Nothing extra renders at `p = 0`. The header strip
+  and the internal “video slot” chip I had added are **removed**.
+- **Internal banner removed (2026-10-12, at the CD's request).** The red
+  *“INTERNAL EXPLORATION — UNREVIEWED — NOT CLIENT-FACING”* bar is gone from the page.
+  ⚠ This **deviates from sandbox rule 3** (`../README.md`), which asks every exploration page to carry
+  the label. The hero now starts at `y = 0`, so the first screen is the design exactly. The folder is
+  still gitignored — but with the on-page label gone, **don't screenshot or forward this page without
+  re-adding it**, since nothing on screen marks it as internal.
+- **Video is in.** `assets/hero-video.mp4` (7.3 MB) + `.webm` (3.2 MB) + `hero-poster.jpg`, copied from
+  `03_Design/assets/reference/square/`. Chromium/Firefox take the webm; the mp4 is the fallback.
+  Verified: plays from load (muted/loop/playsinline), 1440×1080, `object-fit: cover`.
+- **Button case.** Figma style is `textCase: TITLE`; rendered sentence case to match the locked
+  CTA copy.
+- **Hero height.** Figma is a fixed 844px; the pinned build uses `100svh` (min 620px) so the
+  hero stays full-bleed while stuck.
+- **`Careers` second CTA** competes with the primary “Explore vertical solutions” action.
+
+## What to test in this set
+
+- Does the **video + scroll overlay** read as “premium, alive” — and does the hero still work
+  when the clip is slow or absent (poster path)?
+- Both headlines are now the same size (120px), so the handoff is a clean 1:1 swap — does the
+  swap read as one message handing off to the next, or as two separate headlines?
+- Does white type hold up at **1440 / 1024 / 390** across the whole `0 → 1` overlay range?
+- Does the **cube collapse** read as the hero shrinking into a small card, or as the footage
+  “zooming out”? Is the blue full-bleed behind it the right call, or should it hand off to the page?
+
+## Changelog — 2026-10-14 (polish pass)
+
+Internal polish of the scroll handoff and a11y. Still an exploration — not a strategy
+promotion (video pin + headline crossfade ≠ the locked grow morph).
+
+### Fixed
+- **Empty mid-scroll window.** Retimed the line ramps so portfolio exit and software
+  enter overlap; a headline stays majority-visible through the swap. Sequence remapped
+  to finish by ~80% of the pin, with a settled hold to 100%.
+- **CTA jump.** Portfolio shrink is now `transform: scale(...)` on the title (not
+  `font-size`), so the CTA row no longer reflows (~26px jump removed). Headline box
+  min-height stays fixed.
+- **State-2 contrast.** Tint floors at ~38% (was 20%). Added a soft radial `.hero__scrim`
+  that fades in with the software handoff.
+- **End hold + release.** Pin is `250vh` (was `200vh`, `180vh` before that; +50vh for the cube
+  phase). What we do section (Figma `11264:332`) follows the pin so the release can be judged.
+- **Scroll cue.** “Scroll” + chevron at the bottom of state 1; fades out as the handoff
+  begins (`--pCue`).
+- **a11y.** Both headlines stay in the a11y tree (no `aria-hidden` toggle). Reduced-
+  motion and no-JS stack both headlines in document order. Video pause/play control
+  (WCAG 2.2.2); video pauses off-screen via IntersectionObserver and under
+  `prefers-reduced-motion`.
+- **Mobile header.** At ≤560px the header CTA shortens to “Explore” so it fits at 390px.
+- **Perf.** Blur capped at `0.04em`. Video `preload="metadata"` (was `auto`).
+
+### Still open (needs CD / assets)
+- **Footage sync.** Montage still cuts on its own clock — “…grow.” can land on the
+  googly-eye hydrant. Options to explore: one continuous shot, one clip per state with
+  a scroll crossfade, or scrub `currentTime` from `--p`. Cut the hydrant googly-eye
+  frame from the edit either way.
+- **Careers secondary CTA** still competes with the primary (flagged earlier).
+- **“Any industry,”** still drops the signature “Whatever the industry…” opener.
+
+### Docs synced (2026-10-14)
+Brought the surrounding docs back in line with the build (they still described the pre-polish
+state): the exploration board card (`../index.html`) no longer says “gradient + 100→83px
+headline”; the README structure lists the two real set folders (`01-dark-cinematic`,
+`02-video-hero`); and above — the state table now shows both headlines at **120px** with the
+current copy, the overlay row notes the `#003F55` tint (80 → ~38%), the “Type move” note cites
+“*software.*” / “*grow.*”, the `KG §18` typo is fixed to **KB §18**, and the headline-scale test
+question was rewritten for the 1:1 swap.
+
+## Changelog — 2026-10-14 (cube collapse)
+
+- **Hero collapses into a cube after the handoff.** New phase 2 in `render()`: `--cube` drives the
+  media geometry, the copy fade, and the overlay fade-out, gated to `p = 0.62 → 0.92` so it only
+  runs once the second message has fully settled. Pin `200vh → 250vh`. Full spec above
+  (*The cube collapse*). Verified at **1440×900** (collapse → `210×210px`, centred, copy opacity 0)
+  and **390px** (→ `140×140`); no console errors.
+- **Still an exploration** — video pin + headline crossfade + cube collapse ≠ the locked grow morph.
+
+## Changelog — 2026-10-14 (sticky blue bar)
+
+- **Header pinned + transparent over the hero.** `.hero__bar` moved from `position: absolute`
+  **inside** `.hero` to a `position: fixed` direct child of `<body>` (`z-index: 60`). Background is
+  **transparent on load** and gains `.is-solid` (`background: var(--blue)`) only once
+  `.hero-stage` has scrolled past the bar. Reason it had to leave `.hero`: the hero's
+  `overflow: hidden` + `isolation: isolate` trapped it.
+- **Menu unchanged** — still swaps the bar to `--menu-bg` while open (`:has(...)`), so the bar and
+  panel stay seamless.
+
+## Changelog — 2026-10-14 (What we do)
+
+- Replaced the stub `.after-hero` band with Figma **`11264:332`** (*What does Fullsteam do?* /
+  Acquire · Grow · Lead · **Founders**). `--blue` stage; cyan section title; gold Instrument
+  Serif italic verbs at 120px; 100px stack gap / 30px verb→copy / 200px padding. Founders
+  ends with **Talk to us**.
+
+## Changelog — 2026-10-14 (cube pin → What we do, option 1)
+
+After `--cube` hit 1 the sticky hero was still `100svh`, so a full extra viewport of `#003F55`
+sat between the 210px cube and “What does Fullsteam do?”. Figma `11264:200` is a ~1059px hero
+band, then What we do on the same blue.
+
+- **`.is-cubing` / `.is-cubed`.** Collapse animation vs settled cube (no longer one class).
+- **Settled height.** `.hero.is-cubed` → `--cube-band` (`--cube-size` + ~180–240px pad). During
+  collapse only: `min(100svh, 1059px)`.
+- **Pin.** `.hero-stage.is-cubed { margin-bottom: calc(var(--cube-band) - 100svh) }` pulls What
+  we do up so the pin releases a cube-block. Handoff / video / `--cube` ramp unchanged until
+  `pCube ≈ 1`.
+- **What we do.** `padding-top` 200 → 100px (80px <900px) so the title sits under the cube.
+- **Fallbacks.** Reduced-motion / no-JS still stacked, no cube.
+
+## Changelog — 2026-10-14 (What we do — Figma restyle + Bending Spoons readout)
+
+Figma **`11264:332` was restyled** (same node). Motion is no longer a one-slot swap.
+
+- **Visual.** Title + support copy are **`#00BDFF`**. Support copy is **34px** (was 60px white).
+  All four beats stay **stacked** as in Figma (Acquire, Grow, Lead, Founders + Talk to us).
+- **Motion (Bending Spoons).** Words in the title, verbs, and copy are wrapped in `.wwd-w`.
+  Scroll maps each word to a focus line ~42% down the viewport: words at/above it stay
+  sharp; words below fade and blur out (the “Not to sell on…” readout). Same rAF `render()`
+  as the hero. No pin, no overlay slot.
+- **Fallbacks.** `prefers-reduced-motion` / no-JS: no per-word filter; the stacked Figma
+  layout is fully readable.
+
+## Changelog — 2026-10-15 (Square-style type counters)
+
+White band, **no cards**. Three equal columns of black type: big metric + one-line
+caption (Square retail-stats pattern). 70,000+ customers · $75 billion Pay volume
+(not revenue) · 11 verticals. Count-up 1.2s cubic ease-out still on intersection.
+Stacks at ≤768.
+
+## Changelog — 2026-10-15 (Scale → verticals · four concepts)
+
+Replaced the Square `#investors` band with a dark **scale → verticals** section
+(`#0a0a0a`). Four switchable explorations (bars / dots / odometer / sentence)
+shared stats, 11 verticals, and a filmstrip; compared via `?stats=` or an
+INTERNAL chip. **Superseded same day** — only sentence remains (below).
+
+## Changelog — 2026-10-15 (Scale → verticals · sentence only)
+
+Kept **only the live-sentence** concept. Removed bars, dots, odometer, the
+INTERNAL `?stats=` switcher chip, and all URL-param / `data-variant` switching.
+
+- **sentence** — live sentence with inline count-up on the focus band (~42%
+  viewport); vertical chips expand card previews near focus / on hover; hands
+  off to the filmstrip.
+- **Shared (kept)** — `.vstrip` filmstrip (all 11 → wireframe anchors);
+  reduced-motion / no-JS → static fallback row + filmstrip (`is-flow`);
+  placeholders marked; Pay volume ≠ revenue.
+
+## Changelog — 2026-10-15 (stats + verticals redesign)
+
+The section the CD called *"the exact same as before"* — it was, because both
+halves were older scaffolding. Rebuilt as the **new design pass**, in this
+exploration's own language. Two canvases inside `#investors`:
+
+- **Verticals — white, Square's "audience moment".** Headline
+  *Keep the businesses growing.* → five equal cards; the selected card **un-dims**
+  (the other four sit behind a 50% scrim) and reveals name → rule → figure →
+  descriptor → **Explore →**. Retail is featured by default. **Stacks below 1024px**
+  — collapsed 78px rows, featured card opens to `min(58svh, 460px)`.
+- **Stats — white, the live sentence.** See the entry below for the scrub.
+
+Type: Instrument Sans for the verticals headline; **Instrument Serif italic** for
+the sentence; brand teal (`--blue`) on the counting numbers (gold fails WCAG on white).
+
+**Removed:** the `.vstrip` filmstrip and the `.scale-fallback` / `.scale-sr`
+reduced-motion and no-JS scaffolding. Numbers are written into the markup, so
+**no-JS and `prefers-reduced-motion` both render the final state.**
+
+**Open tension:** the KPI figures recur in the featured cards, because the
+allowlist only carries five publishable numbers — a card cannot have its own.
+Flagged for the CD: either accept the recurrence, or give the cards no figure
+(Square's pattern loses its stat) — or supply per-vertical figures.
+
+## Changelog — 2026-10-15 (the sentence comes back, scrubbed by scroll)
+
+CD decision: the four-KPI grid is replaced by **the live sentence again**, set in
+**Instrument Serif italic**, and **controlled by scrolling** — the reveal is a
+scrub, not a timer, modelled on the CD's reference screenshot.
+
+- **Reading order, not line order.** One global progress drives the 19 words
+  handed out in order, so line 1 lights, then line 2, word by word — the sweep
+  advances *across* each line rather than revealing a whole line at once.
+- **Words ramp opacity `0.08 → 1` and blur `6px → 0`.** Unlit words stay legible
+  as ghosts, so the sentence reads as present-but-unwritten.
+- **Travel:** spread over `max(sentence height, 55vh)`, so the reveal lingers
+  instead of snapping past.
+- Per-frame writes are **quantised to 1/40** and skipped when unchanged, and carry
+  **no CSS transition** (KB §23.6 rule 2).
+- **Rects are read live every frame, deliberately not cached.** The pinned hero
+  above collapses as you scroll and drags the sentence ~474px up the document, so
+  a cached document offset drifts and the reveal never fires. Two rect reads a
+  frame is the cheap price of correctness.
+- Inline count-up on the three teal numbers, triggered at the same playhead.
+- `prefers-reduced-motion` and no-JS: all 19 words render lit, no blur, numbers
+  final — verified in both.
+
+Verified: 0 console errors · no horizontal overflow 320→1920 · the ramp reads
+`...................` → `########+..........` → `#################.` → all lit.
+
+## Changelog — 2026-10-15 (chrome strip)
+
+CD pass: remove the surrounding labels so the sentence and verticals headline
+carry the section alone.
+
+- Deleted `stats__kicker` (*For investors*), `stats__note` (publishability
+  disclaimer), and `verts__beat` (*03 — Built for every industry*), plus unused CSS.
+- `#statsBand` / `.scale` stay **white** with dark sentence text (`#0d1a20`) and
+  teal count numbers. Kept `h2.verts__title` and the filmstrip.
+
