@@ -13,6 +13,7 @@
       --blue:   #003F55;  /* Figma hero base fill */
       --gold:   #FEC50A;  /* CTA + serif accent */
       --cyan:   #00BDFF;  /* What we do title + 34px support copy (Figma 11264:332) */
+      --green:  #84BD00;  /* proof / culture accent (KB) */
       --ink:    #00202B;  /* text on gold = brand blue #003F55 at 50% (50% darker) */
       --white:  #FFFFFF;
       --menu-bg: #002C3C; /* dropdown panel — shared with the open header */
@@ -362,6 +363,14 @@
     .pill--ghost:hover {
       background-size: 100% 100%; color: var(--ink); border-color: var(--gold);
       transform: translateY(-2px); box-shadow: 0 12px 26px rgba(254,197,10,.22);
+    }
+    .pill--blue {
+      background-color: var(--blue); background-image: linear-gradient(var(--gold), var(--gold));
+      color: var(--white); border: 1px solid var(--blue);
+    }
+    .pill--blue:hover {
+      background-size: 100% 100%; color: var(--ink); border-color: var(--gold);
+      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0, 63, 85, .22);
     }
     @media (prefers-reduced-motion: reduce) {
       .pill { transition: none; }
@@ -836,6 +845,196 @@
     html:not(.has-js) .ai-acc__chev { display: none; }
     html:not(.has-js) .ai-acc__trigger { pointer-events: none; cursor: default; }
 
+    /* ---- Careers / Great place to work (content-slots §2 row 06) ---------- */
+    /* 3-col employee testimonial grid; careers band ~20% darker than --blue; Unsplash headshots [placeholder]. */
+    .careers {
+      position: relative; z-index: 2;
+      background: color-mix(in srgb, var(--blue) 80%, black); /* #003244 vs --blue #003F55 */
+      color: var(--white);
+      border-top: 1px solid rgba(254, 197, 10, .22);
+      padding: 96px 24px 104px;
+    }
+    .careers__inner { width: min(1120px, 100%); margin: 0 auto; }
+    .careers__head {
+      margin: 0 0 48px;
+      text-align: left;
+    }
+    .careers__title {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.05;
+      text-wrap: balance;
+      color: var(--white);
+    }
+    .careers__title em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      color: var(--gold);
+    }
+    .careers__head-row {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 24px;
+    }
+    @media (min-width: 900px) {
+      .careers__head-row {
+        justify-content: space-between;
+        flex-wrap: nowrap;
+      }
+    }
+    .careers__lede {
+      margin: 0;
+      max-width: 36em;
+      flex: 1 1 auto;
+      min-width: 0;
+      font-size: clamp(17px, 2vw, 20px); line-height: 1.45;
+      color: rgba(255, 255, 255, .88);
+      text-wrap: balance;
+    }
+    .careers__grid {
+      display: grid;
+      gap: clamp(28px, 4vw, 40px);
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .careers__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;                         /* dividers replace the column gap — mirror .menu__inner */
+        align-items: stretch;           /* hairlines span full row — mirror .menu__col */
+      }
+      /* column dividers — same pattern as .menu__col (mega nav overlay) */
+      .careers-testimonial { padding: 0 32px; }
+      .careers-testimonial:first-child { padding-left: 0; }
+      .careers-testimonial:last-child { padding-right: 0; }
+      .careers-testimonial + .careers-testimonial {
+        border-left: 1px solid rgba(255,255,255,.14);
+      }
+    }
+    .careers-testimonial {
+      margin: 0;
+      min-width: 0;
+    }
+    .careers-testimonial__avatar {
+      display: block;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(254, 197, 10, .45);
+      margin: 0 0 16px;
+    }
+    .careers-testimonial__headline {
+      margin: 0 0 12px;
+      font-size: clamp(20px, 2.4vw, 24px); font-weight: 700;
+      letter-spacing: -.02em; line-height: 1.2;
+      text-wrap: balance;
+      color: var(--white);
+    }
+    .careers-testimonial__headline em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      color: var(--gold);
+    }
+    .careers-testimonial__text {
+      margin: 0;
+      font-size: 16px; line-height: 1.5;
+      color: rgba(255, 255, 255, .88);
+    }
+    .careers-testimonial__attr {
+      display: block;
+      margin-top: 14px;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: .03em;
+      color: rgba(254, 197, 10, .62);
+    }
+    .careers__cta {
+      margin: 0;
+      flex-shrink: 0;
+      text-align: left;
+    }
+    @media (min-width: 900px) {
+      .careers__cta {
+        margin-left: auto;
+        text-align: right;
+      }
+    }
+
+    /* ---- LinkedIn module (under the 3-column row) ------------------------ */
+    /* Links to the company page. LinkedIn has no generic "latest post" embed —
+       their embed needs a specific post permalink — so this is a company card,
+       NOT a rendered post. Nothing here is invented: no fake post body, no
+       follower or engagement counts. Swap the body for LinkedIn's official
+       embed.js block once a post permalink exists. */
+    .careers__linkedin {
+      margin-top: clamp(44px, 6vw, 64px);
+      display: grid;
+      gap: 24px;
+      align-items: center;
+      padding: clamp(22px, 3vw, 32px);
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .05);
+    }
+    @media (min-width: 860px) {
+      .careers__linkedin { grid-template-columns: minmax(0, 1fr) auto; gap: 40px; }
+    }
+    .careers__linkedin-id {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+    /* "in" mark — text glyph in a brand-blue tile, as a link affordance */
+    .careers__linkedin-mark {
+      flex: 0 0 auto;
+      display: grid; place-items: center;
+      width: 48px; height: 48px;
+      border-radius: 8px;
+      background: #0A66C2;
+      color: #fff;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 22px; font-weight: 700; letter-spacing: -.02em;
+      line-height: 1;
+    }
+    .careers__linkedin-name {
+      margin: 0 0 4px;
+      font-size: 19px; font-weight: 700;
+      letter-spacing: -.02em; line-height: 1.2;
+      color: var(--white);
+    }
+    .careers__linkedin-meta {
+      margin: 0;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255, 255, 255, .55);
+    }
+    .careers__linkedin-body {
+      margin: 14px 0 0;
+      max-width: 52ch;
+      font-size: 16px; line-height: 1.5;
+      color: rgba(255, 255, 255, .82);
+    }
+    .careers__linkedin-cta {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    @media (min-width: 860px) {
+      .careers__linkedin-cta { justify-content: flex-end; }
+    }
+    .careers__li-sr {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    @media (max-width: 899px) {
+      .careers { padding: 76px 24px 88px; }
+      .careers__head { margin-bottom: 36px; }
+    }
+
     /* ---- responsive ------------------------------------------------------ */
     @media (max-width: 900px) {
       .hero { padding: 96px 0; gap: 36px; min-height: 100svh; }
@@ -1250,6 +1449,72 @@ Square-style expanding accordion (white canvas). -->
       </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Careers / Great place to work — content-slots §2 row 06.
+       3-col testimonial grid on --blue; Unsplash headshots [placeholder] until
+       client supplies real team photography. No third-party award claims. -->
+  <section class="careers" id="careers" aria-labelledby="careersTitle">
+    <div class="careers__inner">
+      <header class="careers__head">
+        <h2 class="careers__title" id="careersTitle">A great place to <em>work.</em></h2>
+        <div class="careers__head-row">
+          <p class="careers__lede">Real people building software for real industries — mostly remote, small teams, and room to grow.</p>
+          <p class="careers__cta">
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/careers.html">See Careers</a>
+          </p>
+        </div>
+      </header>
+
+      <div class="careers__grid" aria-label="Employee voices">
+        <blockquote class="careers-testimonial">
+          <img class="careers-testimonial__avatar" alt=""
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=70"
+            width="400" height="400" loading="lazy" decoding="async">
+          <h3 class="careers-testimonial__headline"><em>Trusted</em> to learn the vertical</h3>
+          <p class="careers-testimonial__text">You’re trusted to solve problems for an industry you can actually learn — not a generic ticket queue.</p>
+          <cite class="careers-testimonial__attr">Product · [placeholder]</cite>
+        </blockquote>
+        <blockquote class="careers-testimonial">
+          <img class="careers-testimonial__avatar" alt=""
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=70"
+            width="400" height="400" loading="lazy" decoding="async">
+          <h3 class="careers-testimonial__headline">Small teams, <em>clear goals</em></h3>
+          <p class="careers-testimonial__text">We talk to customers and ship — ownership without the chaos of a giant org chart.</p>
+          <cite class="careers-testimonial__attr">Engineering · [placeholder]</cite>
+        </blockquote>
+        <blockquote class="careers-testimonial">
+          <img class="careers-testimonial__avatar" alt=""
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=70"
+            width="400" height="400" loading="lazy" decoding="async">
+          <h3 class="careers-testimonial__headline">Mostly remote, <em>real people</em></h3>
+          <p class="careers-testimonial__text">The work is distributed, but the team is real — room to grow without losing the human side.</p>
+          <cite class="careers-testimonial__attr">Operations · [placeholder]</cite>
+        </blockquote>
+      </div>
+
+      <!-- LinkedIn module. Links to the company page; LinkedIn's own post embed
+           needs a specific post permalink, so this stays a company card until one
+           exists. No fabricated post body or follower counts. -->
+      <aside class="careers__linkedin" aria-labelledby="careersLinkedinName">
+        <div>
+          <div class="careers__linkedin-id">
+            <span class="careers__linkedin-mark" aria-hidden="true">in</span>
+            <div>
+              <p class="careers__linkedin-name" id="careersLinkedinName">Fullsteam</p>
+              <p class="careers__linkedin-meta">Company page</p>
+            </div>
+          </div>
+          <p class="careers__linkedin-body">Roles, team news and what we’re building — follow the company page for the running commentary.</p>
+        </div>
+        <p class="careers__linkedin-cta">
+          <a class="pill pill--ghost" href="https://www.linkedin.com/company/fullsteam-llc"
+             target="_blank" rel="noopener noreferrer">
+            Follow on LinkedIn<span class="careers__li-sr"> (opens in a new tab)</span>
+          </a>
+        </p>
+      </aside>
     </div>
   </section>
 
