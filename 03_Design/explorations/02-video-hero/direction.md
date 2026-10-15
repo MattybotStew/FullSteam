@@ -404,3 +404,35 @@ Replaced the equal-width **un-dim** "audience moment" cards with a Square-style
   `opacity: 0; visibility: hidden` so no leftover silhouette. Pause control
   hides with cubing/cubed. Pin / handoff / `--cube` size math unchanged.
 
+## Changelog — 2026-10-15 (hero fallback: designed for the no-asset deploy)
+
+The deployed hero read as a **flat brand-blue plate**, because the only background
+was the video plus a `poster` that does not exist on Pages. Both are gitignored
+(the Square clip is copyrighted and must never reach a public repo), so the
+deployed page had nothing to show. Fixed without shipping third-party media.
+
+- **`.hero__fallback` — a brand-owned CSS visual.** Layered dark brand blues
+  (two corner blooms + a floor bloom + a diagonal base) over a faint 84px hairline
+  grid, with a 48s `background-position` drift so it isn't a dead plate. Drift is
+  disabled under `prefers-reduced-motion`.
+- **The video now only takes over if it really plays.** `.hero` gains
+  `has-media` on the video's `playing` event; only then does the fallback fade.
+  So local runs still get the clip, and the deploy gets the fallback.
+- **Geometry is shared, not duplicated.** `.hero__media, .hero__fallback` carry
+  the same cube rules, so the fallback collapses into the cube identically
+  (verified: 1440x900 -> scroll-zoom -> 210x210 at `--cube` 1) and
+  `.is-cubed` hides both.
+- **The tint lifts when there is no footage.** `--media-tint` is `1` normally and
+  `.42` on `.hero:not(.has-media)`, so the overlay stops flattening the fallback
+  into the plate it replaced. Unchanged when media is present.
+- **404 spam stopped.** The `poster` attribute is gone (it re-fetched on every
+  paint - ~20 failed requests per load); the CSS `url()` to the same file is gone
+  too. A no-asset deploy now makes exactly **2** requests (one per `<source>`)
+  instead of 20+.
+- **The pause control hides** when there is no video, rather than offering a
+  control that cannot do anything.
+
+Verified with the video requests stubbed to 404 (the Pages condition): 0 JS
+errors, no horizontal overflow 320/390/768/1024/1440/1920, reduced-motion
+disables the drift and renders the sentence fully lit, unchanged with the video
+present.

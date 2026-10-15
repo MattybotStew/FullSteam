@@ -58,17 +58,17 @@
       margin-bottom: calc(var(--cube-band) - 100svh);
     }
 
-    /* ---- background: VIDEO (autoplays at load) ---------------------------- */
-    /* Local: Square clip + poster under assets/ (gitignored — copyrighted).
-       On Pages those files are absent; brand blue is the fallback so the hero
-       still reads without shipping third-party media. */
-    .hero__media {
+    /* ---- background: VIDEO, with an owned fallback ------------------------ */
+    /* Local: Square clip + poster under assets/ (gitignored — copyrighted, so
+       it must never ship to a public repo). On Pages those files are absent, so
+       .hero__fallback — a brand-owned CSS visual — carries the background and
+       the video only takes over once it genuinely plays (.has-media). */
+    .hero__media,
+    .hero__fallback {
       position: absolute; left: 50%; top: 50%; z-index: 0;
       /* full-bleed at --cube 0; collapses to a small rounded cube at --cube 1 */
       width:  calc(100% - (100% - var(--cube-size)) * var(--cube, 0));
       height: calc(100% - (100% - var(--cube-size)) * var(--cube, 0));
-      object-fit: cover; display: block;
-      background: var(--blue) url("assets/hero-poster.jpg") center / cover no-repeat;
       border-radius: calc(28px * var(--cube, 0));
       box-shadow: 0 34px 80px rgba(0, 12, 20, calc(.5 * var(--cube, 0)));
       /* translate centres it; the scroll zoom fades out as it collapses, so the cube is exact */
@@ -80,8 +80,33 @@
       visibility: visible;
       pointer-events: none;
     }
+    .hero__media { object-fit: cover; display: block; }
+
+    /* The owned fallback: dark brand blues only, so white type holds at any tint. */
+    .hero__fallback {
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, rgba(255,255,255,0) 1px 84px),
+        radial-gradient(90% 70% at 8% -6%, #00719b 0%, rgba(0,113,155,0) 58%),
+        radial-gradient(70% 60% at 96% 12%, #0089bd 0%, rgba(0,137,189,0) 52%),
+        radial-gradient(80% 70% at 50% 108%, #004a68 0%, rgba(0,74,104,0) 62%),
+        linear-gradient(158deg, #004b68 0%, #002b3d 56%, #001821 100%);
+    }
+    /* a very slow drift, so the fallback isn't a dead plate */
+    @keyframes heroFallbackDrift {
+      from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+      to   { background-position: 0 0, 7% 4%, -6% 3%, 0 -3%, 0 0; }
+    }
+    .hero__fallback { animation: heroFallbackDrift 48s ease-in-out infinite alternate; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero__fallback { animation: none; }
+    }
+    /* video really playing → hand the background over */
+    .hero.has-media .hero__fallback { opacity: 0; }
+    /* no video to control — the pause button would be a dead control */
+    .hero:not(.has-media) .hero__media-ctrl { display: none; }
     /* Settled: fully gone (belt-and-suspenders vs float precision at pCube ≈ 0.999) */
-    .hero.is-cubed .hero__media {
+    .hero.is-cubed .hero__media,
+    .hero.is-cubed .hero__fallback {
       opacity: 0;
       visibility: hidden;
     }
@@ -94,11 +119,15 @@
 
     /* base color overlay — the #003F55 fill under the video.
        80% on load (Desktop-1) → ~38% on the software headline screen (Desktop-2).
-       Floored above the old 20% so white type holds on bright footage. */
+       Floored above the old 20% so white type holds on bright footage.
+       With no footage the fallback is already dark brand blue, so the tint
+       lifts (--media-tint) to keep that visual legible instead of flattening it. */
+    .hero { --media-tint: 1; }
+    .hero:not(.has-media) { --media-tint: .42; }
     .hero__tint {
       position: absolute; inset: 0; z-index: 2; pointer-events: none;
       background: var(--blue);
-      opacity: calc((.8 - .42 * var(--pTint, 0)) * (1 - var(--cube, 0)));
+      opacity: calc((.8 - .42 * var(--pTint, 0)) * (1 - var(--cube, 0)) * var(--media-tint, 1));
     }
     /* Desktop-2 overlay — Figma gradient (starts before headline handoff) */
     .hero__overlay {
@@ -756,9 +785,12 @@
   <div class="hero-stage" id="heroStage">
     <section class="hero" id="hero" aria-label="Homepage hero">
       <!-- background video — autoplays at LOAD (muted + loop + playsinline).
-           Poster (and CSS background) = the matching Square still. -->
+           Local assets only (gitignored — copyrighted, never shipped). No poster
+           attribute on purpose: it would 404 on every paint. The brand-owned
+           fallback underneath covers the frame until the video actually plays. -->
+      <div class="hero__fallback" aria-hidden="true"></div>
       <video class="hero__media" id="heroVideo" autoplay muted loop playsinline preload="metadata"
-             poster="assets/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+             aria-hidden="true" tabindex="-1">
         <source src="assets/hero-video.webm" type="video/webm">
         <source src="assets/hero-video.mp4" type="video/mp4">
       </video>
@@ -1186,6 +1218,13 @@ Square-style expanding accordion (white canvas). -->
       if (!v) return;
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
       var userPaused = false;
+      var hero = document.getElementById('hero');
+
+      // the fallback carries the background until the video really plays, so a
+      // deploy with no local assets shows a designed hero instead of a flat plate
+      v.addEventListener('playing', function () {
+        if (hero) hero.classList.add('has-media');
+      }, { once: true });
 
       function setCtrl(playing) {
         if (!ctrl) return;
