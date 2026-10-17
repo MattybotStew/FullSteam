@@ -117,6 +117,20 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - Homepage wireframe is `02_Wireframes/active/homepage.html`; interior pages sit in
   `02_Wireframes/active/pages/`. Superseded low-fi explorations are in
   `02_Wireframes/archive/`.
+- **Figma `FS-Design` is now the source of truth for design TOKENS** (palette variables,
+  text styles, the Button component). The repo remains the source of truth for
+  **decisions**. Canonical record: **KB §27** — read it before touching anything visual.
+  - **`Design System` page = OFFICIAL, client-safe.** Holds `Fullsteam Brand` (20 colour
+    variables, KB §15 values + computed tints) and 5 text styles (Instrument Sans +
+    Fragment Mono, **promoted 2026-10-17**).
+  - **`Explorations (internal)` page = QUARANTINED, never client-facing.** Holds the
+    off-brand exploration palette. **Never point a client `FS-Design` link at it.**
+  - **⚠ Three Button specs exist.** Figma has the exploration-02 pill (`radius 999px`);
+    the wireframe HTML still ships `radius 0`. They disagree — **OI-12**. The wireframe
+    skin has *not* been restyled; that is still a deliberate track crossing.
+  - **⚠ Exploration palette drift** — the exploration HTML runs on `#003F55` / `#FEC50A`
+    / `#00202B`, none of which are KB §15 (**OI-13**). Do not copy those values into
+    anything official.
 - Wireframe HTML files are static — preview by opening the file or with a static
   server from the repo root:
   `python3 -m http.server 8000` → http://localhost:8000/02_Wireframes/...
@@ -125,6 +139,16 @@ This file is the canonical agent entry point (works with Cursor, which reads
 
 - Keep the Fullsteam brand identity unchanged — this is a content/IA/UX
   reorganization, not a rebrand.
+- **Palette is LOCKED (KB §15):** Bio Blue `#00587C`, Gold `#FFC600`, Green
+  `#84BD00`, Black, White. Now also encoded as Figma variables in the
+  `Fullsteam Brand` collection. Tints at 10/30/50/70/90 are **computed**
+  (p% colour + (100−p)% white), not transcribed from the cheat-sheet PDF —
+  verify before treating them as final.
+- **Typography promoted 2026-10-17** (Instrument Sans display/body + Fragment
+  Mono). The `[proposal]` flag is retired; **client sign-off on the faces is
+  still open.** A third voice, **Instrument Serif**, appears in the
+  explorations but is **not** sanctioned — do not introduce it without a
+  decision (KB §27.4).
 - Two core stories: (1) acquire & grow vertical software, (2) expand via
   embedded offerings (payments, lending, insurance, hardware, integrations).
 - **The two stories are two axes, and the homepage names them:** (1) = **Axis A

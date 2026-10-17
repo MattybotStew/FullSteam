@@ -101,11 +101,19 @@ accent color active at a time.
 
 ---
 
-## 3. Typography `[proposal — faces need sign-off]`
+## 3. Typography `[PROMOTED 2026-10-17 — no longer a proposal]`
 
-The wireframes currently run Helvetica + a system mono for **legibility only** (AGENTS.md).
-This section defines the *character* the type system must have; the named faces are a
-recommendation to confirm with the client before applying.
+> **Promoted 2026-10-17** at the CD's direction, from `03_Design/explorations/02-video-hero`
+> (`index.html` 296 / 310-332 / 432). Instrument Sans + Fragment Mono are now **official** and
+> exist as 5 text styles in `FS-Design` → `Design System` (KB §27.2). **Client sign-off on the
+> faces themselves has still not happened** — what changed is that they are no longer blocked
+> internally. §9 item 2 remains open on that basis.
+>
+> ⚠ **One gap:** the explorations also set the gold payoff word in **Instrument Serif italic**,
+> which this section does **not** sanction. It was deliberately not promoted — see §9 item 10.
+>
+> The wireframes still run Helvetica + a system mono for **legibility only** (AGENTS.md); the
+> 2026-10-15 exception (§7.4) applied the design type to the Verticals band only.
 
 ### 3.1 Three voices, one system
 
@@ -316,13 +324,15 @@ before production. Flag it first (§9).*
 | # | Item | Status |
 |---|---|---|
 | 1 | **Axis A visual = film (recommended) vs. image montage vs. scale graphic** (KB §24.5) | **Needs client decision — first** |
-| 2 | **Typefaces** (Instrument Sans + Fragment Mono proposal, §3) | Sign-off |
+| 2 | **Typefaces** (Instrument Sans + Fragment Mono proposal, §3) | **Promoted internally 2026-10-17** (KB §27.2). Client sign-off still open. |
 | 3 | **Stat set publishability** — 11 · 70,000+ · $75B+ · 480M+ · 2,000+ (KB §22.5 / OI-5) | Publishability |
 | 4 | **Marquee backers** — Aquiline · Sixth Street · ADIA (KB §25.2) | Publishability |
 | 5 | **Video production scope** (hero/mission + testimonials) (KB §18) | Planning / SOW §21 |
 | 6 | **Founder-CTA position** (after triad vs. between Acquire and Grow — KB §24.5) | Confirm |
 | 7 | **Real imagery sourcing** from operating companies (KB §24.7) | Assets |
 | 8 | **Accent deployment** — gold=growth / green=proof (this doc §2.4) | Sign-off |
+| 9 | **Exploration palette drift** — `03_Design/explorations/` runs on `#003F55` (hero canvas + header bar), `#FEC50A`, `#00202B`. None are KB §15. Reconcile the explorations to the locked palette, or get the darkened blue signed off. | **Needs client decision** (KB §27.3) |
+| 10 | **Instrument Serif** — a **third** type voice, used by the explorations for the gold payoff word but not sanctioned by §3.1. It was not promoted, so the official type system cannot reproduce the exploration hero as built. Promote it, or re-cut the hero in sans. | **Needs client decision** (KB §27.4) |
 
 ---
 
@@ -341,6 +351,14 @@ before the art direction is signed off. That is a deliberate, logged crossing of
 boundary: this doc was reconciled the same day (§2.1, §6.4, §7.4), the build is recorded in
 `wireframes.md` §8, and **every other band still runs the wireframe skin**. The typefaces remain a
 `[proposal]` (§9 item 2) — applying them here is a visual test, not a sign-off.
+
+**Second exception on record (2026-10-17):** **typography was promoted to official** (§3) and the
+**Button was promoted from exploration 02**, superseding the wireframe `.pill`
+(`wireframes.md` §8, 2026-10-17). Both now exist as real tokens in `FS-Design` → `Design System`
+(KB §27). Note what did **not** happen: the wireframe HTML still ships the radius-0 `.pill`, the
+exploration palette drift is unresolved (§9 item 9), and Instrument Serif remains unsanctioned
+(§9 item 10). Figma is the source of truth for the **tokens**; this repo is still the source of
+truth for **decisions** — keep both, and log every promotion in both.
 
 *Visual direction grounded in KB §15 (palette), §18 (references), §20 (discovery), §23/§24
 (opening + order), §25 (strategic positioning). Locked items are marked; proposals are

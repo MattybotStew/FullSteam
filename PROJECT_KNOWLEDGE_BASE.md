@@ -2162,3 +2162,126 @@ Changed: `02_Wireframes/active/homepage.html`, all 8 `02_Wireframes/active/pages
 vertical/offering sidebar selection swaps the panel inline and updates the hash (`#retail`,
 `#insurance`), no `v-modal` remains, and no console errors. `design.md` not edited.
 
+
+---
+
+## 27. Figma design system — `FS-Design` (2026-10-17)
+
+> **Why this section exists:** the repo remains the record of decisions; `FS-Design` now holds
+> them as executable tokens. Before this section the two could disagree with nothing recording
+> it. Anything promoted into Figma must be logged here, in `wireframes.md` §8, or in
+> `03_Design/style-guide/homepage-art-direction.md` — otherwise the next agent reads the docs,
+> finds the old state, and reverts the work.
+> **Owner:** Matt Stewart (CD). Built via `figma-console` MCP against the Desktop Bridge.
+
+### 27.1 Two pages, and the boundary between them
+
+| Page | Status | Rule |
+|---|---|---|
+| **`Design System`** | **Official.** Client-safe. | Holds only KB §15-locked values. |
+| **`Explorations (internal)`** | **Quarantined. Never client-facing.** | Off-brand by design; every variable description says so. |
+
+This split is the mechanism `03_Design/explorations/README.md` rule 2 asks for: *"Figma access is
+the sharing boundary, not this repo."* Keep client `FS-Design` links pointed at `Design System`
+only. Note the sandbox HTML itself is gitignored and the repo is **public** — see KB §22.7 for
+the still-open client-doc exposure at `33c60f5`.
+
+### 27.2 `Design System` — what is in it
+
+**Collection `Fullsteam Brand`** — mode `Base`, **20 `COLOR` variables**:
+
+- `color/brand/blue` `#00587C` · `color/brand/gold` `#FFC600` · `color/brand/green` `#84BD00`
+- `color/support/black` `#000000` · `color/support/white` `#FFFFFF`
+- `color/brand/{blue,gold,green}/{10,30,50,70,90}` — **15 tints**
+
+> ⚠ **The tints are computed, not transcribed.** KB §15 says the cheat-sheet PDF "provides"
+> tints at 10/30/50/70/90; we derived them as *p% colour + (100−p)% white*. Every variable
+> description records this. Mathematically sound placeholders with an audit trail — verify
+> against `~/Downloads/Fullsteam Color Palette Cheat sheet.pdf` before treating them as final.
+
+**5 text styles — promoted 2026-10-17** (source: `03_Design/explorations/02-video-hero`,
+`index.html` 296 / 310-332 / 432):
+
+| Style | Face | Size | Line height | Tracking |
+|---|---|---|---|---|
+| `Display/Hero` | Instrument Sans Bold | 120 | 114 | −5.4px |
+| `Display/Accent` | Instrument Sans Bold | 46 | 49 | −1.38px |
+| `Body/Default` | Instrument Sans Regular | 16 | 24 | 0 |
+| `Mono/Kicker` | Fragment Mono Regular | 11 | 16 | +1.54px |
+| `Mono/Caption` | Fragment Mono Regular | 11 | 16 | 0 |
+
+> **Figma text styles are FILE-level, not page-level.** They appear in the Styles panel and
+> belong to no page. A `Type` section on `Design System` shows specimens bound to the real style
+> IDs so they can be reviewed where you'd look for them.
+
+**Component set `Button`** — 12 variants: `Variant` (Gold · Ghost · Blue) × `Size` (Default ·
+Small) × `State` (Default · Hover). All Auto Layout, all fills bound to `Fullsteam Brand`.
+Spec: `height 44px`, `padding 0 28px` (Small `0 18px`), `border-radius 999px`, `700 / 13px`.
+
+### 27.3 ⚠ Palette drift — the explorations are NOT on KB §15
+
+`03_Design/explorations/` runs on colours nobody signed off. None of these are brand values:
+
+| Where | Token | Value | KB §15 says | Note |
+|---|---|---|---|---|
+| `02-video-hero`, `homev2` | `--blue` | `#003F55` | `#00587C` | described in-file as *"brand blue at 50%"*; also the **hero canvas + header bar** — the first colour the client sees |
+| `02-video-hero`, `homev2` | `--gold` | `#FEC50A` | `#FFC600` | |
+| `02-video-hero`, `homev2` | `--ink` | `#00202B` | `#000000` | |
+| `01-dark-cinematic` | whole palette | `#0D1020` `#EEF0FF` `#3DF5C6` `#6B5BFF` | — | the **questionnaire's algorithm output**; its own `direction.md` says *"The palette is off-brand"* |
+
+The Button was rebindsed to the official palette on promotion (34 aliases, verified 34/34 with
+zero quarantine references). **The exploration HTML still uses the drifted values.** Reconciling
+them is a client decision — see `homepage-art-direction.md` §9 item 9.
+
+Contrast on the official values, measured: black-on-gold **13.33:1**, gold-on-black **13.33:1**,
+white-on-Bio-Blue **7.82:1** (was 11.40:1 on `#003F55`). All clear WCAG AA; the button pairs are AAA.
+
+### 27.4 ⚠ Instrument Serif — a third voice, unsanctioned
+
+`03_Design/style-guide/homepage-art-direction.md` §3.1 defines **two** voices: Instrument Sans
+(display/body) + Fragment Mono. Explorations `02-video-hero` and `homev2` additionally set the
+gold payoff word in **Instrument Serif italic** (`index.html:315-319`), which carries the whole
+two-headline handoff.
+
+**It was deliberately NOT promoted.** The official type system is Sans-only and therefore
+**cannot reproduce exploration 02's hero as built**. Either promote the serif as a sanctioned
+third voice, or the hero needs re-cutting in sans. This is a client-facing visual decision, not
+a technicality — logged in `homepage-art-direction.md` §9 item 10.
+
+### 27.5 Three competing Button specs — two now resolved
+
+| Spec | Radius | Hover | Status |
+|---|---|---|---|
+| Wireframe `.pill` | **0** | `brightness(1.04)` | **Superseded 2026-10-17.** Deleted from Figma (0 live instances first verified). Still what ships in `02_Wireframes`. |
+| **Exploration 02 `.pill`** | **999px** | fill wipe + colour flip, −2px, gold glow | **Official.** Promoted to `Design System`. |
+| Questionnaire | 14px | lift + soft shadow | Never built. Same unreviewed source as the off-brand palette — weight lowest. |
+
+Figma cannot express the CSS `background-size: 0% → 100%` wipe, so hover is rendered as its
+**settled** state. Hover lift/glow are disabled under `prefers-reduced-motion` in the source.
+
+### 27.6 Legacy paint styles — audited, detached, safe
+
+`FS-Design` carried **11 paint styles** (`mainBlue #1347A4`, `Teal Blue #0BBECA`,
+`green #24B28F`, `yellow #F8BC22`, `hero Grad`, …) from an unrelated source
+(`agriculture.elementra.themerex.net` also sits there as a variable collection).
+
+**Audit result:** across **7,320 nodes** on all 11 pages, **zero** nodes carry a local
+`styleId`. Only one foreign style is referenced (a published-library style, 16 uses). The 11 are
+**detached ghosts** — nothing to rebind, and nothing that could break. `OLD` (3,829 nodes),
+`⚠️ WF v2` (2,442), `✅ Design [WIP]` (504), `BIN` (324) are all painted with raw fills.
+
+> ⚠ `figma.getLocalPaintStylesAsync()` returned all 11 on first call then **empty on four
+> consecutive calls** — a flaky API in this plugin runtime. Eyeball the Styles panel in the UI
+> before deleting. **Left untouched pending that check.**
+
+### 27.7 Practical notes for agents driving the MCP
+
+- **Sections do not auto-fit.** After reparenting a node into a Section, resize the Section
+  explicitly or the child floats outside its bounds.
+- **Text box size must be set AFTER applying a text style**, or the box keeps its pre-style
+  height and the specimen clips.
+- Under `dynamic-page` document access, use `getMainComponentAsync` /
+  `setTextStyleIdAsync`; the sync variants throw.
+- `figma.createComponent()` / `createText()` parent to the **currently active page** — always
+  `page.appendChild()` before `combineAsVariants`, and sweep up orphans after any throw.
+- `combineAsVariants` requires all grouped nodes on the same page as the parent.
