@@ -50,7 +50,6 @@ jobs:
           # homev2 — load-time hero entrance + sticky rail (shares hero assets with 02)
           mkdir -p _site/03_Design/explorations/homev2/assets
           cp 03_Design/explorations/homev2/index.html \
-             03_Design/explorations/homev2/direction.md \
              _site/03_Design/explorations/homev2/
           cp 03_Design/explorations/02-video-hero/assets/fullsteam-logo.svg \
              03_Design/explorations/02-video-hero/assets/hero-stock.mp4 \
