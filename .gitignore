@@ -14,14 +14,19 @@ _site/
 # explorations live here and must not be client-facing. Ignored so they can
 # never reach the public repo (raw.githubusercontent.com) or the Pages
 # allowlist. See 03_Design/explorations/README.md for the rules + promotion path.
-# Exception: 02-video-hero/ is tracked for an internal GH Pages preview (HTML +
-# logo + royalty-free hero-stock.mp4). Square reference media stays ignored —
-# copyrighted, unlicensed; see inspiration.md §2.2 and 03_Design/assets/reference/.
+# Exception: 02-video-hero/ and homev2/ are tracked for internal GH Pages previews
+# (HTML + direction.md; hero media staged from 02-video-hero/assets at deploy).
+# Square reference media stays ignored — copyrighted, unlicensed; see
+# inspiration.md §2.2 and 03_Design/assets/reference/.
 03_Design/explorations/*
 !03_Design/explorations/README.md
 !03_Design/explorations/02-video-hero/
 !03_Design/explorations/02-video-hero/index.html
 !03_Design/explorations/02-video-hero/direction.md
+!03_Design/explorations/homev2/
+!03_Design/explorations/homev2/index.html
+!03_Design/explorations/homev2/direction.md
+03_Design/explorations/homev2/assets/*
 # assets/ is an ALLOW-list, not a deny-list: everything in it is ignored except
 # the two files that must ship. This fails CLOSED — a Square reference clip (or
 # any other media) dropped in here under a name not listed below stays out of the

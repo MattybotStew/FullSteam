@@ -1,0 +1,2983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>homev2 · video hero + sticky image rail — INTERNAL, not client-facing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('has-js');</script>
+  <style>
+    :root {
+      --blue:   #003F55;  /* Figma hero base fill */
+      --gold:   #FEC50A;  /* CTA + serif accent */
+      --cyan:   #00BDFF;  /* What we do title + 34px support copy (Figma 11264:332) */
+      --green:  #84BD00;  /* proof / culture accent (KB) */
+      --ink:    #00202B;  /* text on gold = brand blue #003F55 at 50% (50% darker) */
+      --white:  #FFFFFF;
+      --menu-bg: #002C3C; /* dropdown panel — shared with the open header */
+      --careers-canvas: color-mix(in srgb, var(--blue) 80%, black); /* #003244 — careers + LinkedIn band */
+      --close-canvas: color-mix(in srgb, var(--careers-canvas) 70%, black); /* ~30% darker than careers */
+      --bar-h:  68px;     /* header height; re-measured in JS for the menu offset */
+      --cube-size: clamp(140px, 17vw, 210px);
+      --cube-pad-y: clamp(90px, 12vh, 120px); /* 180–240px band around the cube */
+      --cube-band: calc(var(--cube-size) + 2 * var(--cube-pad-y));
+      /* homev2: the SETTLED band is almost empty by definition — the cube has
+         already faded to 0 by the time .is-cubed lands — and section 02 is brand
+         blue too, so there is no seam for the band to hide. The inherited 426px
+         was ~580px of pinned dead scroll plus 426px of scroll-away with nothing
+         in it. Kept as a short blue tail so the release still reads as a release
+         rather than a snap. The cube overflows this height, but it is fully
+         transparent at that point and .hero clips it. */
+      --cube-band-settled: 120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--white); color: #0d1a20;
+      font-family: "Instrument Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    /* ---- hero stage: the pin that drives the overlay change --------------- */
+    .hero-stage { height: auto; }              /* no-JS / reduced-motion: static */
+    .has-js .hero-stage { height: 250vh; }     /* pinned scroll — handoff + cube collapse */
+    /* the band under the settled cube is brand blue, matching the section that
+       follows it — there is no colour change at the hero hand-off at all */
+    .has-js .hero-stage.is-cubed { background: var(--blue); }
+
+    .hero {
+      position: relative; isolation: isolate; overflow: hidden;
+      background: var(--blue);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 50px;                    /* Figma gap 50px */
+      height: 100svh; min-height: 620px;
+      padding: 160px 0;             /* Figma padding 160px 0 */
+    }
+    .has-js .hero { position: sticky; top: 0; }
+    /* During collapse: cap the pin to the Figma hero band (~1059) on tall screens. */
+    .has-js .hero.is-cubing { height: min(100svh, 1059px); min-height: 0; }
+    /* Settled cube: short in-flow band so the pin releases a cube-block, not 100svh. */
+    .has-js .hero.is-cubed {
+      height: var(--cube-band-settled);
+      min-height: 0;
+      padding: 0;
+      gap: 0;
+    }
+    /* ---- THE SEAM: blue hero → white section 02 --------------------------
+       homev2 dissolves the hero canvas blue → white across the collapse (see the
+       .hero background above), so the band left behind by the settled cube is
+       already white and matches the section that follows. No negative margin is
+       needed here any more — with nothing to align the cube against, a pull
+       would only shave space off the top of the white section for nothing. */
+    .has-js .hero-stage.is-cubed {
+      margin-bottom: 0;
+    }
+
+    /* ---- background: VIDEO, with an owned fallback ------------------------ */
+    /* Pages ships a royalty-free Mixkit stock clip (hero-stock.mp4). The Square
+       reference clip stays gitignored under hero-video.* — copyrighted, local
+       study only. .hero__fallback covers the frame until .has-media. */
+    .hero__media,
+    .hero__fallback {
+      position: absolute;
+      /* homev2 MORPH: the collapse anchor travels from the viewport centre to the
+         right rail's centre, so the cube shrinks TOWARD the photo that is about to
+         open out of the same point. Defaults keep the original centred behaviour.
+         --hero-ax/--hero-ay come from the scroll morph; --hero-x (Scene 2 parallax)
+         and --hero-zoom (load-time 1.15 → 1) are the timed entrance. They compose. */
+      left: var(--hero-ax, 50%); top: var(--hero-ay, 50%); z-index: 0;
+      /* full-bleed at --cube 0; collapses to a small rounded cube at --cube 1 */
+      width:  calc(100% - (100% - var(--cube-size)) * var(--cube, 0));
+      height: calc(100% - (100% - var(--cube-size)) * var(--cube, 0));
+      border-radius: calc(28px * var(--cube, 0));
+      box-shadow: 0 34px 80px rgba(0, 12, 20, calc(.5 * var(--cube, 0)));
+      /* translate centres it; the scroll zoom fades out as it collapses, so the cube is exact.
+         --hero-zoom is the load-time 1.15 → 1; --hero-x is the Scene 2 parallax. */
+      transform:
+        translate(calc(-50% + var(--hero-x, 0%)), -50%)
+        scale(calc(var(--hero-zoom, 1) * (1 + 0.03 * var(--pVideo, 0) * (1 - var(--cube, 0)))));
+      transform-origin: center center;
+      transition: none;
+      /* homev2 MORPH: the cube no longer fades itself out. It travels to the
+         right rail's centre (see --hero-ax / --hero-ay, written per frame) and
+         hands off to the section's photo, which opens out of exactly that point.
+         --cube-fade is driven by the handoff, not by --cube. */
+      opacity: var(--cube-fade, 1);
+      visibility: visible;
+      pointer-events: none;
+    }
+    .hero__media { object-fit: cover; display: block; }
+
+    /* The owned fallback: dark brand blues only, so white type holds at any tint. */
+    .hero__fallback {
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, rgba(255,255,255,0) 1px 84px),
+        radial-gradient(90% 70% at 8% -6%, #00719b 0%, rgba(0,113,155,0) 58%),
+        radial-gradient(70% 60% at 96% 12%, #0089bd 0%, rgba(0,137,189,0) 52%),
+        radial-gradient(80% 70% at 50% 108%, #004a68 0%, rgba(0,74,104,0) 62%),
+        linear-gradient(158deg, #004b68 0%, #002b3d 56%, #001821 100%);
+    }
+    /* a very slow drift, so the fallback isn't a dead plate */
+    @keyframes heroFallbackDrift {
+      from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+      to   { background-position: 0 0, 7% 4%, -6% 3%, 0 -3%, 0 0; }
+    }
+    .hero__fallback { animation: heroFallbackDrift 48s ease-in-out infinite alternate; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero__fallback { animation: none; }
+    }
+    /* video really playing → hand the background over */
+    .hero.has-media .hero__fallback { opacity: 0; }
+    /* no video to control — the pause button would be a dead control */
+    .hero:not(.has-media) .hero__media-ctrl { display: none; }
+    /* homev2 MORPH: the cube must stay on screen to hand off to the section's photo,
+       so it is NOT hidden on .is-cubed any more (exploration 02 did that, because
+       there was nothing to hand to). Visibility is driven by --cube-fade. */
+    /* During the collapse and the handoff the hero paints ABOVE section 02, so
+       the cube is visible where it lands — inside the rail's frame. Without this
+       the section (z-index 1) covers it. Both canvases are brand blue, so the
+       overlap itself is invisible; only the cube reads. */
+    .has-js .hero.is-cubing,
+    .has-js .hero.is-cubed { z-index: 2; }
+    .hero.is-cubing .hero__media-ctrl,
+    .hero.is-cubed .hero__media-ctrl {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* base color overlay — the #003F55 fill under the video.
+       ~72% on load → ~30% on the software headline (was 80%→38%, then 55%→30%).
+       CD: the load screen was reading too light over the Pages stock clip, so the
+       opening tint is darker again; the scrolled Desktop-2 end is left at 30% so
+       the handoff state is unchanged. No-footage fallback lifts --media-tint. */
+.hero { --media-tint: 1; }
+    .hero:not(.has-media) { --media-tint: .42; }
+    .hero__tint {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: var(--blue);
+      opacity: calc((.72 - .42 * var(--pTint, 0)) * (1 - var(--cube, 0)) * var(--media-tint, 1));
+    }
+    /* Desktop-2 overlay — Figma gradient (starts before headline handoff) */
+    .hero__overlay {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(180deg, rgba(0,89,120,.7) 0%, rgba(0,165,222,0) 62%);
+      opacity: calc(var(--pOverlay, 0) * (1 - var(--cube, 0)));
+    }
+    /* Soft center scrim behind the headline block — fades in with the software handoff */
+    .hero__scrim {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: radial-gradient(ellipse 70% 55% at 50% 48%,
+        rgba(0,32,43,.55) 0%, rgba(0,32,43,.22) 45%, rgba(0,32,43,0) 72%);
+      opacity: calc(var(--pScrim, 0) * (1 - var(--cube, 0)));
+    }
+
+    /* ---- overlay header (Figma "home" frame, absolute at 0,0) ------------ */
+    /* Transparent over the hero; solid only after the hero has scrolled past. */
+    .hero__bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 20px;   /* Figma "home" frame — full-bleed */
+      gap: 12px;
+      background: transparent;
+      transition: background-color .25s ease;
+    }
+    .hero__bar.is-solid { background: var(--blue); }
+    /* open menu: the header becomes the top of the panel, so they read as one surface */
+    .hero__bar:has(.menu-btn[aria-expanded="true"]) { background: var(--menu-bg); }
+    .hero__logo { display: block; flex-shrink: 0; }
+    .hero__logo img { display: block; width: 177px; height: 48px; }
+    .hero__actions { display: flex; align-items: center; gap: 12px; min-width: 0; }
+
+    .menu-btn {
+      appearance: none; width: 44px; height: 44px; border-radius: 4px; padding: 0;
+      background: transparent; border: 0; cursor: pointer; position: relative; flex-shrink: 0;
+    }
+    .menu-btn__line {
+      position: absolute; left: 12px; width: 20px; height: 2px;
+      background: var(--white); border-radius: 1px;
+    }
+    .menu-btn__line:nth-child(1) { top: 15px; }
+    .menu-btn__line:nth-child(2) { top: 21.5px; }
+    .menu-btn__line:nth-child(3) { top: 28px; }
+    .menu-btn:hover { background: rgba(255,255,255,.12); }
+    /* hamburger → X while the menu is open */
+    .menu-btn__line { transition: transform .2s ease, top .2s ease, opacity .2s ease; }
+    .menu-btn[aria-expanded="true"] .menu-btn__line:nth-child(1) { top: 21.5px; transform: rotate(45deg); }
+    .menu-btn[aria-expanded="true"] .menu-btn__line:nth-child(2) { opacity: 0; }
+    .menu-btn[aria-expanded="true"] .menu-btn__line:nth-child(3) { top: 21.5px; transform: rotate(-45deg); }
+
+    /* ---- navigation dropdown (locked L1 — KB §14) ------------------------ */
+    .menu {
+      position: fixed; left: 0; right: 0; top: var(--bar-h); bottom: 0; z-index: 45;
+      background: rgba(0,16,26,.55);
+      overflow-y: auto;
+      animation: menu-in .2s ease both;
+    }
+    .menu[hidden] { display: none; }
+    @keyframes menu-in { from { opacity: 0; } to { opacity: 1; } }
+    .menu__panel,
+    .site-footer {
+      background: var(--menu-bg);
+    }
+    .menu__panel {
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 30px 70px rgba(0,0,0,.5);
+    }
+    .site-footer {
+      position: relative; z-index: 2;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+    .site-footer__legal {
+      max-width: 1160px; margin: 0 auto;
+      padding: 18px 20px 28px;
+      border-top: 1px solid rgba(255,255,255,.14);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .site-footer__copy {
+      margin: 0;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: .04em;
+      color: rgba(255, 255, 255, .55);
+    }
+    .site-footer__li-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; color: rgba(255, 255, 255, .82);
+      font-size: 13px; font-weight: 500;
+      transition: color .2s ease;
+    }
+    .site-footer__li-link:hover { color: var(--gold); }
+    .site-footer__li-mark {
+      flex: 0 0 auto;
+      display: grid; place-items: center;
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      background: #0A66C2; color: #fff;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 16px; font-weight: 700; line-height: 1;
+      transition: filter .2s ease, box-shadow .2s ease;
+    }
+    .site-footer__li-link:hover .site-footer__li-mark {
+      filter: brightness(1.08);
+      box-shadow: 0 4px 14px rgba(10, 102, 194, .35);
+    }
+    .menu__inner {
+      max-width: 1160px; margin: 0 auto; padding: 34px 20px 42px;
+      display: grid; gap: 0;                        /* dividers replace the column gap */
+      grid-template-columns: 1.7fr 1fr 1fr 1fr;
+    }
+    /* column dividers — padding on each side keeps the rule optically centred */
+    .menu__col { padding: 0 32px; }
+    .menu__col:first-child { padding-left: 0; }
+    .menu__col:last-child { padding-right: 0; }
+    .menu__col + .menu__col { border-left: 1px solid rgba(255,255,255,.14); }
+    .menu__h {
+      margin: 0 0 12px; font-size: 12px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+    }
+    .menu__h a { color: var(--white); text-decoration: none; }
+    .menu__h a:hover { color: var(--gold); }
+    .menu__col .menu__h ~ .menu__h { margin-top: 26px; }
+    .menu__split { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+    .menu__list { list-style: none; margin: 0; padding: 0; }
+    .menu__list a {
+      display: inline-block; padding: 5px 0; font-size: 15px;
+      color: rgba(238,240,255,.72); text-decoration: none;
+    }
+    .menu__list a:hover { color: var(--gold); }
+    @media (max-width: 1000px) {
+      .menu__inner { grid-template-columns: 1fr 1fr; }
+      .menu__col:nth-child(odd) { padding-left: 0; border-left: 0; }
+      .menu__col:nth-child(even) { padding-right: 0; }
+      .menu__col:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.14); padding-top: 26px; }
+    }
+    @media (max-width: 560px) {
+      .menu__inner { grid-template-columns: 1fr; padding: 26px 20px 34px; }
+      .menu__split { gap: 0 20px; }
+      .menu__col { padding: 0; }
+      .menu__col + .menu__col {
+        border-left: 0;                              /* stacked: horizontal rules only */
+        border-top: 1px solid rgba(255,255,255,.14);
+        margin-top: 22px; padding-top: 22px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) { .menu { animation: none; } }
+
+    /* ---- content --------------------------------------------------------- */
+    .hero__inner {
+      position: relative; z-index: 3;
+      width: 100%; max-width: 1100px;   /* hero container — 1100px */
+      padding: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 50px;
+    }
+    /* keep content off the edges once the 1100px container stops binding */
+    @media (max-width: 1148px) { .hero__inner { padding: 0 24px; } }
+    /* cube phase: the copy is fading out — don't let it catch clicks */
+    .hero.is-cubing .hero__inner,
+    .hero.is-cubed .hero__inner { pointer-events: none; }
+    /* Two headline states — phased vertical handoff (scroll vars from JS) */
+    .hero__headlines {
+      position: relative;
+      /* One size for BOTH headlines — they must stay identical */
+      --title-max: clamp(50px, 8.34vw, 120px);
+      /* Centred display type. Line 1 is the only long one; at 120px it measures
+         ~740px, so the authored breaks fit the 1100px column. */
+      width: min(1100px, calc(100vw - 48px)); max-width: none;
+      /* floor for the 3-line stack + serif descenders — fixed so scale shrink
+         can't collapse the box and pull the CTAs up */
+      min-height: clamp(8.4rem, 22.8vw, 18.6rem);
+      margin: 0; font-weight: 700; text-align: center; text-wrap: balance;
+      /* cube phase — the copy fades and drifts up as the video collapses */
+      opacity: calc(1 - var(--cube, 0));
+      transform: translateY(calc(-34px * var(--cube, 0)));
+      transition: none;
+    }
+    .hero__title {
+      --lh: 0.95;                  /* tight display leading */
+      margin: 0; line-height: var(--lh); color: var(--white);
+      text-shadow: 0 2px 40px rgba(0,20,32,.45);
+      transition: none; /* scroll-driven --p only */
+    }
+    .hero__title em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400; letter-spacing: 0;
+      color: var(--gold);
+      /* 0 so the serif's taller content box can't inflate the line box —
+         keeps every line's advance identical */
+      line-height: 0;
+    }
+    /* line stack — leading is set by --lh, no extra padding or min-height */
+    .hero__title .line {
+      /* masked line reveal: each line sits in an overflow:hidden wrapper (added by
+         JS) and slides up from behind it. The mask is removed once the entrance
+         finishes — it must NOT clip the scroll exit, which moves lines UP. */
+      display: block;
+      line-height: var(--lh);
+      margin: 0;
+      will-change: transform;
+    }
+    .hero__line-mask {
+      display: block;
+      overflow: hidden;
+    }
+    /* Desktop-1 · 11256:591 — load state, lines exit up (mirror of software in).
+       Shrink via transform (not font-size) so the CTA row never reflows. */
+    .hero__title--portfolio {
+      font-size: var(--title-max);
+      letter-spacing: -0.045em;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.02em;
+      transform: scale(calc(1 - 0.17 * var(--pPortShrink, 0)))
+        translateY(calc(-40px * var(--h1-lift, 0)));
+      /* Screen 2 arrival lifts Axis A and dims it — but NOT to zero, because it
+         still has to hand off to Axis B on scroll (KB §23). Floor is 0.6. */
+      opacity: calc(1 - 0.4 * var(--h1-lift, 0));
+      transform-origin: center center;
+    }
+    .hero__title--portfolio .line {
+      display: block; width: 100%;
+      opacity: calc(1 - var(--line-exit, 0));
+      /* exit (scroll) + masked-reveal (load) compose on one transform */
+      transform:
+        translateY(calc(-1.25em * var(--line-exit, 0)))
+        translate3d(0, var(--ly, 0%), 0);
+      /* blur capped — opacity + translate already carry the exit */
+      filter: blur(calc(0.04em * var(--line-exit, 0)));
+    }
+    /* Indexed by data-li, NOT :nth-child — the masked reveal wraps each line in
+       its own single-child span, which would make every line :nth-child(1) and
+       collapse the three staggered exit ramps into one. JS stamps data-li up
+       front, before any wrapping. */
+    .hero__title--portfolio .line[data-li="1"] { --line-exit: var(--pPortLine1, 0); }
+    .hero__title--portfolio .line[data-li="2"] { --line-exit: var(--pPortLine2, 0); }
+    .hero__title--portfolio .line[data-li="3"] { --line-exit: var(--pPortLine3, 0); }
+    .hero__title--portfolio .line--single { white-space: nowrap; }
+    /* Desktop-2 · 11256:658 — software headline after scroll */
+    .hero__title--software {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: var(--title-max);               /* identical to the portfolio headline */
+      letter-spacing: -0.045em;
+      gap: 0.02em;
+      pointer-events: none;
+    }
+    .hero__title--software .line {
+      display: block; width: 100%;
+      opacity: var(--line-op, 0);
+      transform: translateY(calc(1.25em * (1 - var(--line-op, 0))));
+      filter: blur(calc(0.04em * (1 - var(--line-op, 0))));
+    }
+    /* the gold serif accent settles last, so the eye rides it through the swap */
+    .hero__title--software .line em {
+      display: inline-block;
+      transform: scale(calc(0.9 + 0.1 * var(--line-op, 0)));
+    }
+    .hero__title--software .line[data-li="1"] { --line-op: var(--pSoftIn, 0); }
+    .hero__title--software .line[data-li="2"] { --line-op: var(--pLine2, 0); }
+    .hero__title--software .line[data-li="3"] { --line-op: var(--pLine3, 0); }
+    /* when the gold word IS the whole line it needs a real line box
+       (the global em rule above zeroes it so inline ems can't inflate the rhythm) */
+    .hero__title .line em:only-child { line-height: var(--lh); }
+
+    /* ---- Screen 2: subtext + rule + CTA (timed entrance) -------------------
+       All of it is driven by JS-written vars so the load sequence and the scroll
+       sequence never fight over the same property. Default (no JS, reduced
+       motion) is the FINISHED state — everything visible, no offset. */
+    .hero__scene2 { will-change: transform, opacity; }
+    .hero__sub {
+      margin: 0;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-weight: 400;
+      font-size: clamp(17px, 1.45vw, 21px);
+      line-height: 1.45;
+      color: rgba(255, 255, 255, .84);
+      text-wrap: balance;
+      max-width: 34ch;
+      margin-inline: auto;
+    }
+    .hero__rule {
+      display: block;
+      width: 62px; height: 2px;
+      margin: 22px auto 0;
+      background: var(--gold);
+      transform-origin: left center;
+    }
+    /* ---- buttons (Figma pill, height 44, padding 0 28px) ----------------- */
+    .hero__cta {
+      display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+      /* cube phase — the CTAs leave with the copy */
+      opacity: calc((1 - var(--cube, 0)) * var(--cta-in, 1));
+      transform: translateY(calc(-18px * var(--cube, 0))) scale(var(--cta-scale, 1));
+      transition: none;
+    }
+    .pill {
+      position: relative; display: inline-flex; align-items: center; justify-content: center;
+      height: 44px; padding: 0 28px; border-radius: 999px;
+      font-family: inherit; font-weight: 700; font-size: 13px; line-height: 20.8px;
+      text-decoration: none; white-space: nowrap; cursor: pointer;
+      /* hover: a fill wipes up from the bottom and flips the colours */
+      background-repeat: no-repeat; background-position: 50% 100%; background-size: 100% 0%;
+      transition: background-size .34s cubic-bezier(.22,1,.36,1), color .28s ease,
+                  border-color .28s ease, transform .18s ease, box-shadow .34s ease;
+    }
+    .pill--gold {
+      background-color: var(--gold); background-image: linear-gradient(var(--ink), var(--ink));
+      color: var(--ink); border: 1px solid var(--gold);
+    }
+    .pill--gold:hover {
+      background-size: 100% 100%; color: var(--gold);
+      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(254,197,10,.30);
+    }
+    .pill--ghost {
+      background-color: transparent; background-image: linear-gradient(var(--gold), var(--gold));
+      color: var(--white); border: 1px solid var(--white);
+    }
+    .pill--ghost:hover {
+      background-size: 100% 100%; color: var(--ink); border-color: var(--gold);
+      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(254,197,10,.22);
+    }
+    .pill--blue {
+      background-color: var(--blue); background-image: linear-gradient(var(--gold), var(--gold));
+      color: var(--white); border: 1px solid var(--blue);
+    }
+    .pill--blue:hover {
+      background-size: 100% 100%; color: var(--ink); border-color: var(--gold);
+      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0, 63, 85, .22);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pill { transition: none; }
+      .pill:hover { transform: none; }
+    }
+    .pill--sm { padding: 0 18px; }   /* Figma header CTA: padding 0 18px */
+    .pill__short { display: none; }
+
+    /* ---- scroll cue (state 1 only) --------------------------------------- */
+    .hero__cue {
+      position: absolute; left: 50%; bottom: 28px; z-index: 3;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.78);
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+      pointer-events: none;
+      opacity: calc(1 - var(--pCue, 0));
+    }
+    .hero__cue-chevron {
+      width: 14px; height: 14px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      animation: cue-bob 1.6s ease-in-out infinite;
+    }
+    @keyframes cue-bob {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 5px; }
+    }
+
+    /* ---- video pause / play (WCAG 2.2.2) --------------------------------- */
+    .hero__media-ctrl {
+      position: absolute; right: 16px; bottom: 16px; z-index: 4;
+      appearance: none; width: 40px; height: 40px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.45);
+      background: rgba(0,32,43,.55); color: var(--white);
+      cursor: pointer; display: grid; place-items: center; padding: 0;
+      backdrop-filter: blur(6px);
+    }
+    .hero__media-ctrl:hover { background: rgba(0,32,43,.75); border-color: var(--gold); }
+    .hero__media-ctrl:focus-visible {
+      outline: 2px solid var(--gold); outline-offset: 2px;
+    }
+    .hero__media-ctrl svg { display: block; width: 14px; height: 14px; }
+    .hero__media-ctrl[aria-pressed="true"] .icon-pause { display: none; }
+    .hero__media-ctrl[aria-pressed="false"] .icon-play { display: none; }
+    .hero__media-ctrl[aria-pressed="true"] .icon-play { display: block; }
+    .hero__media-ctrl[aria-pressed="false"] .icon-pause { display: block; }
+
+    /* ---- Section 02: "who we are" + sticky image rail (2026-10-16) ------
+       Replaces the stacked Acquire/Grow/Lead/Founders band. Left column is
+       four content blocks; the right rail is position:sticky and its photo +
+       caption cross-fade to whichever block is active, holding through the last
+       block and then releasing with the section.
+
+       NOTE: no overflow:hidden anywhere in this section's ancestry — it kills
+       position:sticky, and because it also clips, the rail just looks like an
+       ordinary scrolling column. Containment lives on .who__frame alone. */
+    .who {
+      position: relative; z-index: 1;
+      /* homev2: brand blue, continuing the hero's canvas. This is what makes the
+         hero hand-off clean — there is no longer a blue→white cut to make clean,
+         because there is no longer a colour change. */
+      background: var(--blue);
+      color: var(--white);
+      padding: 110px 24px;
+    }
+    /* No contact shadow here. The cube fades out before the seam (as it always did),
+       so there is no object resting on this section's top edge to seat. */
+    /* Content 45% / rail 55% of the canvas, and the grid spans the full padded canvas
+       rather than a centred max-width box — so the rail's right edge lands flush
+       on the canvas edge instead of floating ~100px inside it at desktop widths.
+
+       The gap is taken off the CONTENT column, not split between both. With
+       `45fr 55fr` the fr units divide the space remaining after the gap, so the
+       rail lands at ~52% of the canvas, not 55%. Taking the gap off the left
+       column makes (45% − gap) + gap + 55% = 100%, so the rail is exactly 55%. */
+    .who__grid {
+      --who-gap: clamp(40px, 5vw, 80px);
+      width: 100%;
+      margin: 0;
+      display: grid;
+      grid-template-columns: calc(45% - var(--who-gap)) 55%;
+      gap: var(--who-gap);
+      align-items: start;
+    }
+    /* the rail — sticky, holds position while the left column scrolls.
+       `top: 0` goes with the 100vh frame: at the old 104px offset a full-viewport
+       image would hang 104px below the fold and its caption would never be seen.
+       At 0 the frame fills the viewport exactly, and it passes under the fixed
+       header bar, which is normal for sticky content. */
+    .who__rail { position: sticky; top: 0; }
+    /* Full-viewport-height image, 55% of the canvas wide. svh, not vh: identical
+       on desktop (where the rail is sticky) but won't outgrow the fold on mobile
+       browsers with a collapsing URL bar. */
+    .who__frame {
+      position: relative; width: 100%; height: 100svh;
+      /* radius is driven down to 0 by the JS reveal, so the photo opens out of the
+         hero's 28px-rounded cube. Default 0 = fully open, which is also the
+         no-JS / reduced-motion state. */
+      border-radius: 0;
+      background: var(--blue); overflow: hidden;
+    }
+    /* per-frame writes below; no CSS transitions (KB §23.6 rule 2) */
+    .who__rise { will-change: transform, opacity; }
+    .who__shot {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity .55s cubic-bezier(.4, 0, .2, 1);
+    }
+    .who__shot.is-on { opacity: 1; }
+    .who__tint {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(0,63,85,0) 55%, rgba(0,63,85,.55) 100%);
+    }
+    .who__cap {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+      margin: 0; padding: 22px 24px;
+      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
+      font-size: 11px; letter-spacing: .09em; text-transform: uppercase;
+      color: var(--white);
+    }
+    .who__cap b { color: var(--gold); font-weight: 500; }
+
+    /* the blocks — normal flow; they drive the rail */
+    /* trailing pad is deliberate: a sticky element only travels
+       (column height − rail height). Without it the rail runs out of travel and
+       releases before the final block has been read. */
+    .who__steps { min-width: 0; padding-bottom: 46vh; }
+    .who__step {
+      min-height: 60vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 48px 0;
+    }
+    .who__step:first-child { padding-top: 0; }
+    .who__step:last-child {
+      min-height: 54vh; padding-bottom: 0; justify-content: flex-start;
+    }
+    .who__kicker {
+      margin: 0 0 18px;
+      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(255, 255, 255, .58);
+    }
+    .who__title {
+      margin: 0 0 22px;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: clamp(28px, 3.3vw, 46px);
+      line-height: 1.06; letter-spacing: -0.03em;
+      color: var(--white);
+      text-wrap: balance;
+    }
+    .who__title em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400; color: var(--gold);
+    }
+    .who__body {
+      margin: 0 0 20px;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-weight: 400;
+      font-size: 18px; line-height: 1.6; color: rgba(255, 255, 255, .88);
+      max-width: 44ch;
+    }
+    .who__rule { width: 56px; height: 3px; border: 0; margin: 8px 0 24px; background: var(--gold); }
+    .who__note {
+      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
+      font-size: 12px !important; color: rgba(255, 255, 255, .52) !important;
+    }
+    /* mobile fallback: the rail goes static and every block carries its own
+       image inline, so nothing is lost and the swap JS isn't needed */
+    .who__mob { display: none; margin: 0 0 26px; }
+    .who__mob img {
+      display: block; width: 100%; aspect-ratio: 4 / 3;
+      object-fit: cover; background: var(--blue);
+    }
+    /* ---- Scale (stats) — white band: live sentence → verticals ---------- */
+    .scale {
+      --mono-d: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      position: relative; z-index: 2;
+      background: #fff;
+      color: #0d1a20;
+    }
+    .stats {
+      padding: 104px 24px 92px;
+      background: #fff;
+      color: #0d1a20;
+    }
+    .stats__inner { width: min(1000px, 100%); margin: 0 auto; text-align: center; }
+
+    /* The live sentence, in italic serif, scrubbed word by word by scroll:
+       words behind the playhead are lit, words ahead of it are dimmed and
+       blurred. Per-frame writes carry no CSS transition (KB §23.6 rule 2). */
+    .sent-line {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(30px, 4.6vw, 62px);
+      line-height: 1.2;
+      letter-spacing: -.01em;
+      text-wrap: pretty;
+      color: #0d1a20;
+    }
+    .sent-w {
+      display: inline-block;
+      opacity: .12;
+    }
+    /* no-JS and reduced motion: the sentence is simply there */
+    html:not(.has-js) .sent-w { opacity: 1 !important; filter: none !important; }
+    @media (prefers-reduced-motion: reduce) {
+      .sent-w { opacity: 1 !important; filter: none !important; }
+    }
+    /* Brand gold on the counting numbers; sentence copy stays #0d1a20 */
+    .sent-num { color: var(--gold); font-weight: 700; }
+
+    /* ---- Verticals — Square expanding accordion on white ----------------- */
+    /* CD: 10% left/right margins. One --gutter drives every row, so the head,
+       the stage and the eleven links all align on the same line. */
+    .verts {
+      --gutter: 10%;
+      background: #fff; color: #0d1a20;
+      padding: 96px var(--gutter) 92px;
+    }
+    .verts__head {
+      width: 100%; margin: 0 auto 36px; padding: 0;
+      text-align: center;
+    }
+    .verts__title {
+      margin: 0 auto;
+      /* readable measure lives on the text, not the container, so the head,
+         stage and links still share one gutter at every width */
+      max-width: 1160px;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.06;
+    }
+    /* Full-bleed stage — edge-to-edge; title stays in readable measure above */
+    .verts__stage {
+      --strip: 140px;
+      display: flex; gap: 0;
+      width: 100%; margin: 0; padding: 0;
+      height: min(62vh, 560px);
+    }
+    /* Collapsed = narrow strip; open = takes the remaining row width. */
+    .vpanel {
+      position: relative;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: var(--strip);
+      overflow: hidden; border-radius: 0;
+      border: 0; padding: 0; margin: 0;
+      color: #fff; text-align: left; font: inherit; cursor: pointer;
+      transition:
+        flex-grow .5s cubic-bezier(.4, 0, .2, 1),
+        flex-basis .5s cubic-bezier(.4, 0, .2, 1);
+    }
+    .vpanel.is-open {
+      flex-grow: 1;
+      flex-basis: 0;
+      min-width: 0;
+    }
+    .vpanel:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    /* Unsplash cover + dark scrim (collapsed label + expanded copy) */
+    .vpanel__img {
+      position: absolute; inset: 0;
+      background-color: var(--panel, var(--blue));
+      background-image:
+        linear-gradient(180deg, rgba(0,12,20,.45) 0%, rgba(0,12,20,.28) 42%, rgba(0,12,20,.78) 100%),
+        var(--photo);
+      background-size: cover;
+      background-position: center;
+    }
+    .vpanel[data-tone="0"] { --panel: #003F55; }
+    .vpanel[data-tone="1"] { --panel: #005978; }
+    .vpanel[data-tone="2"] { --panel: #002C3C; }
+    .vpanel[data-tone="3"] { --panel: #0a4a5c; }
+    .vpanel[data-tone="4"] { --panel: #1a4554; }
+
+    /* Rotated / centered label — visible only while collapsed */
+    .vpanel__label {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0; padding: 12px 0;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 14px; font-weight: 600;
+      letter-spacing: .04em; line-height: 1;
+      color: #fff;
+      opacity: 1;
+      transition: opacity .25s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .vpanel.is-open .vpanel__label { opacity: 0; }
+
+    /* Expanded content — photo plane + big title + shared placeholder stat */
+    .vpanel__body {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+      padding: 36px 28px 28px;
+      background: linear-gradient(transparent, rgba(0,12,20,.72) 48%);
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease .1s;
+    }
+    .vpanel.is-open .vpanel__body {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .vpanel__h {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 3.2vw, 44px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.05;
+    }
+    .vpanel__rule { border: 0; border-top: 1px solid rgba(255,255,255,.75); margin: 0 0 14px; }
+    .vpanel__stat {
+      margin: 0;
+      font-size: clamp(30px, 3.4vw, 44px); font-weight: 700;
+      letter-spacing: -.04em; line-height: 1;
+      font-variant-numeric: tabular-nums;
+      color: var(--gold);
+    }
+    .vpanel__desc {
+      margin: 9px 0 18px; max-width: 28ch;
+      font-family: var(--mono-d); font-size: 12px; line-height: 1.45;
+      color: rgba(255,255,255,.8);
+    }
+    .vpanel__link {
+      display: inline-block;
+      font-family: var(--mono-d); font-size: 12px;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: #fff; text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.7); padding-bottom: 3px;
+    }
+    .vpanel__link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* all eleven, as links */
+    .verts__all {
+      width: 100%; margin: 32px auto 0; padding: 0;
+      display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: center;
+      font-family: var(--mono-d); font-size: 12px;
+    }
+    .verts__all a { color: #0d1a20; text-decoration: none; border-bottom: 1px solid rgba(13,26,32,.3); padding-bottom: 3px; }
+    .verts__all a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+    /* ---- verticals: stack below 1024px ----------------------------------- */
+    @media (max-width: 1023px) {
+      .verts { padding: 76px var(--gutter) 72px; }
+      .verts__stage {
+        flex-direction: column; gap: 0; height: auto;
+        --strip: 120px;
+      }
+      .vpanel {
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto;
+        width: 100%;
+        min-width: 0;
+        height: var(--strip);
+        transition: height .45s cubic-bezier(.4, 0, .2, 1);
+      }
+      .vpanel.is-open {
+        height: min(58svh, 460px);
+      }
+      .vpanel__label {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 16px; letter-spacing: -.01em;
+        justify-content: flex-start;
+        padding: 0 22px;
+      }
+      .vpanel__body { padding: 30px 22px 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .vpanel, .vpanel__label, .vpanel__body { transition: none; }
+    }
+
+    /* ---- AI — Figma 11294:2 content · Claude /overview layout (static) ---- */
+    /* Reference: claude.com/product/overview — “Put AI to work” label + use-case
+       rows; here as a vertical accordion (one panel open, no scroll motion). */
+    .ai {
+      position: relative; z-index: 2;
+      background: #f2f7f9;
+      color: #0d1a20;
+      border-top: 1px solid rgba(0, 63, 85, .08);
+      padding: 96px 24px 104px;
+    }
+    .ai__inner { width: min(1120px, 100%); margin: 0 auto; }
+    .ai__layout {
+      display: grid;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .ai__layout {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: clamp(32px, 4vw, 64px);
+        align-items: center;
+      }
+    }
+    .ai__head {
+      margin: 0;
+      max-width: 26em;
+      text-align: left;
+    }
+    @media (max-width: 899px) {
+      .ai__head {
+        max-width: 720px;
+        margin: 0 auto;
+        text-align: center;
+      }
+    }
+    .ai__title {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.05;
+      text-wrap: balance;
+    }
+    .ai__title em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      color: var(--gold);
+    }
+    .ai__lede {
+      margin: 18px 0 0;
+      font-size: clamp(17px, 2vw, 20px); line-height: 1.45;
+      color: rgba(13, 26, 32, .72);
+      text-wrap: balance;
+    }
+    .ai__main { min-width: 0; }
+    .ai__work { margin-top: 0; }
+    /* Claude-style labels → vertical accordion (one open; square corners). */
+    .ai-acc {
+      border: 1px solid rgba(0, 63, 85, .14);
+      background: #fff;
+      box-shadow: 0 24px 60px rgba(0, 32, 43, .08);
+    }
+    .ai-acc__item + .ai-acc__item { border-top: 1px solid rgba(0, 63, 85, .12); }
+    .ai-acc__heading { margin: 0; font: inherit; }
+    .ai-acc__trigger {
+      width: 100%;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+      border: 0; border-radius: 0;
+      background: rgba(255, 255, 255, .55);
+      cursor: pointer;
+      text-align: left;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      color: #0d1a20;
+      transition: background .2s ease, box-shadow .2s ease;
+    }
+    .ai-acc__trigger:hover { background: #fff; }
+    .ai-acc__item.is-open > .ai-acc__trigger {
+      background: #fff;
+      box-shadow: inset 3px 0 0 var(--blue);
+    }
+    .ai-acc__labels { display: block; min-width: 0; }
+    .ai-acc__name {
+      display: block;
+      font-size: 15px; font-weight: 700;
+      letter-spacing: -.02em; line-height: 1.2;
+      color: rgba(13, 26, 32, .88);
+    }
+    .ai-acc__hint {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px; font-weight: 400; line-height: 1.35;
+      color: rgba(13, 26, 32, .52);
+    }
+    .ai-acc__item.is-open .ai-acc__name { color: var(--blue); }
+    .ai-acc__item.is-open .ai-acc__hint { color: rgba(13, 26, 32, .68); }
+    .ai-acc__chev {
+      flex-shrink: 0;
+      width: 10px; height: 10px; margin-top: 5px;
+      border-right: 2px solid rgba(13, 26, 32, .45);
+      border-bottom: 2px solid rgba(13, 26, 32, .45);
+      transform: rotate(45deg);
+      transition: transform .2s ease, margin .2s ease;
+    }
+    .ai-acc__item.is-open .ai-acc__chev {
+      transform: rotate(-135deg);
+      margin-top: 10px;
+    }
+    .ai-acc__trigger:focus-visible {
+      outline: 2px solid var(--cyan); outline-offset: -2px; z-index: 1;
+    }
+    .ai-acc__body { display: none; }
+    .ai-acc__item.is-open .ai-acc__body { display: block; }
+    .ai-acc__body-inner {
+      padding: 0 22px 24px;
+      display: grid;
+      gap: 20px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ai-acc__trigger, .ai-acc__chev { transition: none; }
+    }
+    .ai__frame {
+      position: relative; overflow: hidden;
+      min-height: clamp(220px, 32vw, 320px);
+      border-radius: 0;
+      background: var(--blue);
+      box-shadow: 0 24px 60px rgba(0, 32, 43, .12);
+    }
+    .ai__photo {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    .ai__frame::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(0,12,20,.35) 0%, rgba(0,12,20,.22) 50%, rgba(0,12,20,.55) 100%);
+    }
+    .ai__panel-copy { max-width: none; margin: 0; text-align: left; }
+    .ai__panel-title {
+      margin: 0 0 10px;
+      font-size: clamp(20px, 2.4vw, 24px); font-weight: 700;
+      letter-spacing: -.02em;
+    }
+    .ai__panel-desc {
+      margin: 0;
+      font-size: 17px; line-height: 1.45;
+      color: rgba(13, 26, 32, .75);
+    }
+    .ai__foot { margin: 28px 0 0; text-align: left; }
+    @media (max-width: 899px) {
+      .ai__foot { text-align: center; }
+    }
+    .ai__foot a {
+      font-weight: 700; font-size: 15px;
+      color: #0d1a20; text-decoration: none;
+      border-bottom: 1px solid #0d1a20;
+      padding-bottom: 2px;
+    }
+    .ai__foot a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+    /* no-JS: every use case expanded */
+    html:not(.has-js) .ai-acc__body { display: block !important; }
+    html:not(.has-js) .ai-acc__chev { display: none; }
+    html:not(.has-js) .ai-acc__trigger { pointer-events: none; cursor: default; }
+
+    /* ---- Careers / Great place to work (content-slots §2 row 06) ---------- */
+    /* 3-col employee testimonial grid; careers band ~20% darker than --blue; Unsplash headshots [placeholder]. */
+    .careers {
+      position: relative; z-index: 2;
+      background: var(--careers-canvas);
+      color: var(--white);
+      border-top: 1px solid rgba(254, 197, 10, .22);
+      padding: 96px 24px 104px;
+    }
+    .careers__inner { width: min(1120px, 100%); margin: 0 auto; }
+    .careers__head {
+      margin: 0 0 48px;
+      text-align: left;
+    }
+    .careers__title {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.05;
+      text-wrap: balance;
+      color: var(--white);
+    }
+    .careers__title em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      color: var(--gold);
+    }
+    .careers__head-row {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 24px;
+    }
+    @media (min-width: 900px) {
+      .careers__head-row {
+        justify-content: space-between;
+        flex-wrap: nowrap;
+      }
+    }
+    .careers__lede {
+      margin: 0;
+      max-width: 36em;
+      flex: 1 1 auto;
+      min-width: 0;
+      font-size: clamp(17px, 2vw, 20px); line-height: 1.45;
+      color: rgba(255, 255, 255, .88);
+      text-wrap: balance;
+    }
+    .careers__grid {
+      display: grid;
+      gap: clamp(28px, 4vw, 40px);
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .careers__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;                         /* dividers replace the column gap — mirror .menu__inner */
+        align-items: stretch;           /* hairlines span full row — mirror .menu__col */
+      }
+      /* column dividers — same pattern as .menu__col (mega nav overlay) */
+      .careers-testimonial { padding: 0 32px; }
+      .careers-testimonial:first-child { padding-left: 0; }
+      .careers-testimonial:last-child { padding-right: 0; }
+      .careers-testimonial + .careers-testimonial {
+        border-left: 1px solid rgba(255,255,255,.14);
+      }
+    }
+    .careers-testimonial {
+      margin: 0;
+      min-width: 0;
+    }
+    .careers-testimonial__avatar {
+      display: block;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(254, 197, 10, .45);
+      margin: 0 0 16px;
+    }
+    .careers-testimonial__headline {
+      margin: 0 0 12px;
+      font-size: clamp(20px, 2.4vw, 24px); font-weight: 700;
+      letter-spacing: -.02em; line-height: 1.2;
+      text-wrap: balance;
+      color: var(--white);
+    }
+    .careers-testimonial__headline em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      color: var(--gold);
+    }
+    .careers-testimonial__text {
+      margin: 0;
+      font-size: 16px; line-height: 1.5;
+      color: rgba(255, 255, 255, .88);
+    }
+    .careers-testimonial__attr {
+      display: block;
+      margin-top: 14px;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: .03em;
+      color: rgba(254, 197, 10, .62);
+    }
+    .careers__cta {
+      margin: 0;
+      flex-shrink: 0;
+      text-align: left;
+    }
+    @media (min-width: 900px) {
+      .careers__cta {
+        margin-left: auto;
+        text-align: right;
+      }
+    }
+
+    /* ---- LinkedIn module (under the 3-column row) ------------------------ */
+    /* Links to the company page. LinkedIn has no generic "latest post" embed —
+       their embed needs a specific post permalink — so this is a company card,
+       NOT a rendered post. Nothing here is invented: no fake post body, no
+       follower or engagement counts. Swap the body for LinkedIn's official
+       swap the body for LinkedIn's official per-post embed snippet once one exists. */
+    .careers__linkedin {
+      --li-inset: clamp(16px, 3.5vw, 40px);
+      margin-top: clamp(44px, 6vw, 64px);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: var(--li-inset);
+      padding-bottom: calc(var(--li-inset) + 24px);
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .05);
+      overflow: hidden; /* clip peeking post cards to rounded panel */
+    }
+    .careers__linkedin-top {
+      display: grid;
+      gap: 20px;
+      align-items: center;
+    }
+    @media (min-width: 860px) {
+      .careers__linkedin-top {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 32px 40px;
+      }
+    }
+    .careers__linkedin-id {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+    /* "in" mark — text glyph in a brand-blue tile, as a link affordance */
+    .careers__linkedin-mark {
+      flex: 0 0 auto;
+      display: grid; place-items: center;
+      width: 48px; height: 48px;
+      border-radius: 8px;
+      background: #0A66C2;
+      color: #fff;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 22px; font-weight: 700; letter-spacing: -.02em;
+      line-height: 1;
+    }
+    .careers__linkedin-name {
+      margin: 0 0 4px;
+      font-size: 19px; font-weight: 700;
+      letter-spacing: -.02em; line-height: 1.2;
+      color: var(--white);
+    }
+    .careers__linkedin-meta {
+      margin: 0;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255, 255, 255, .55);
+    }
+    .careers__linkedin-body {
+      margin: 14px 0 0;
+      max-width: 52ch;
+      font-size: 16px; line-height: 1.5;
+      color: rgba(255, 255, 255, .82);
+    }
+    .careers__linkedin-cta {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    @media (min-width: 860px) {
+      .careers__linkedin-cta { justify-content: flex-end; }
+    }
+    .careers__li-sr {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    /* ---- LinkedIn posts — horizontal scroller of MOCK cards ---------------- */
+    /* DESIGN MOCK, not real LinkedIn data. LinkedIn only offers per-post embeds
+       (no API, and their old embed.js now 404s), so there is nothing to pull.
+       These cards exist to judge the layout. Every post body, date and reaction
+       count below is invented for design purposes and is marked [placeholder];
+       none of it is a claim about the company. */
+    .careers__posts {
+      margin-top: clamp(20px, 3vw, 28px);
+      padding-top: clamp(16px, 2.5vw, 24px);
+      border-top: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    /* header: label, honest note, and the scroll controls */
+    .careers__posts-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 0 0 18px;
+    }
+    .careers__posts-label {
+      margin: 0;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255, 255, 255, .85);
+    }
+    .careers__posts-ctl {
+      margin: 0 0 0 auto;
+      display: flex;
+      gap: 8px;
+    }
+    .careers__posts-btn {
+      display: grid; place-items: center;
+      width: 38px; height: 38px;
+      padding: 0; margin: 0;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 50%;
+      background: transparent; color: #fff;
+      cursor: pointer;
+      transition: border-color .2s ease, background .2s ease, opacity .2s ease;
+    }
+    .careers__posts-btn:hover:not(:disabled) {
+      border-color: var(--gold); background: rgba(254, 197, 10, .14);
+    }
+    .careers__posts-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .careers__posts-btn:disabled { opacity: .3; cursor: default; }
+    .careers__posts-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    /* the scroller itself */
+    .careers__linkedin .li-scroller {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      /* Left edge = intro copy; right clips at panel (parent overflow: hidden). */
+      margin: 0;
+      padding: 0 0 clamp(18px, 4vw, 32px);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(254, 197, 10, .5) rgba(255, 255, 255, .08);
+    }
+    .li-scroller::-webkit-scrollbar { height: 6px; }
+    .li-scroller::-webkit-scrollbar-track { background: rgba(255, 255, 255, .08); border-radius: 999px; }
+    .li-scroller::-webkit-scrollbar-thumb { background: rgba(254, 197, 10, .5); border-radius: 999px; }
+    .li-scroller:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+    /* one post card — white, like LinkedIn's own card, on the dark band */
+    .li-card {
+      flex: 0 0 clamp(268px, 30vw, 344px);
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      color: #1a1a1a;
+      border-radius: 10px;
+      padding: 16px 16px 14px;
+    }
+    .li-card__head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .li-card__mark {
+      flex: 0 0 auto;
+      display: grid; place-items: center;
+      width: 40px; height: 40px;
+      border-radius: 6px;
+      background: #0A66C2;
+      color: #fff;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 18px; font-weight: 700; line-height: 1;
+    }
+    .li-card__who { min-width: 0; }
+    .li-card__name {
+      margin: 0;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 14px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2;
+      color: #1a1a1a;
+    }
+    .li-card__meta {
+      margin: 1px 0 0;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 10px; letter-spacing: .03em;
+      color: #666;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .li-card__text {
+      margin: 12px 0 0;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 13.5px; line-height: 1.45;
+      color: #1a1a1a;
+    }
+    .li-card__text em {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-style: italic;
+      color: #0A66C2;
+    }
+    /* optional media block in place of a real photo/video.
+       --photo is set per card (see markup); the gradient underneath is the
+       no-image fallback, so a card still reads if Unsplash is unreachable. */
+    .li-card__art {
+      margin: 12px -16px 0;
+      height: 132px;
+      background-color: #00435c;
+      background-image: var(--photo);
+      background-size: cover;
+      background-position: center;
+    }
+    .li-card__art--data {
+      background-color: #05202c;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, rgba(255,255,255,0) 1px 22px),
+        linear-gradient(155deg, #123b4d 0%, #05202c 100%);
+    }
+    /* engagement footer — LinkedIn's two rules, verbatim in shape */
+    .li-card__foot {
+      margin: auto 0 0;
+      padding-top: 12px;
+    }
+    .li-card__stats {
+      display: flex; align-items: center; justify-content: space-between;
+      margin: 0 0 8px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e4e4e4;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 10px; color: #666;
+    }
+    .li-card__actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .li-card__act {
+      display: flex; align-items: center; gap: 5px;
+      padding: 8px 6px 4px;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 11.5px; font-weight: 600;
+      color: #666;
+      border: 0; background: none; border-radius: 4px; cursor: default;
+    }
+    .li-card__act svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .li-scroller { scroll-behavior: auto; }
+      .careers__posts-btn { transition: none; }
+    }
+
+    /* ---- Close / bottom CTA (Figma 11304:33 · content-slots §2 row 07) -------- */
+    .close {
+      position: relative; z-index: 2;
+      padding: clamp(80px, 10vw, 120px) 24px clamp(72px, 8vw, 100px);
+      text-align: center;
+      background: var(--close-canvas);
+      color: var(--white);
+      border-top: 1px solid rgba(255, 255, 255, .1);
+    }
+    .close__inner {
+      width: min(960px, 100%);
+      margin: 0 auto;
+    }
+    .close__title {
+      margin: 0 auto 28px;
+      max-width: 960px;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
+      letter-spacing: -.03em; line-height: 1.08;
+      text-wrap: balance;
+      color: var(--white);
+    }
+    .close__cta { margin: 0 0 20px; }
+    .close__founders {
+      margin: 0;
+      font-size: 13px; font-weight: 500; line-height: 1.4;
+    }
+    .close__founders a {
+      color: rgba(255, 255, 255, .88);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, .32);
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .close__founders a:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    @media (max-width: 899px) {
+      .careers { padding: 76px 20px 88px; }
+      .careers__head { margin-bottom: 36px; }
+      .careers__linkedin {
+        --li-inset: 16px;
+        padding-bottom: calc(var(--li-inset) + 16px);
+        border-radius: 12px;
+      }
+      .careers__posts-head { margin-bottom: 14px; }
+      .careers__linkedin .li-scroller {
+        padding-bottom: 16px;
+        gap: 14px;
+      }
+    }
+
+    /* ---- responsive ------------------------------------------------------ */
+    @media (max-width: 900px) {
+      .hero { padding: 96px 0; gap: 36px; min-height: 100svh; }
+      .hero__inner { gap: 36px; }
+      .hero__logo img { width: 143px; height: auto; }
+      .who { padding: 80px 24px; }
+      .who__grid { grid-template-columns: 1fr; gap: 0; }
+      .who__rail { position: static; margin-bottom: 36px; }
+      /* the rail is in flow here, so it must NOT stay 100svh tall */
+      .who__frame { height: auto; aspect-ratio: 4 / 3; }
+      .who__steps { padding-bottom: 0; }
+      .who__step { min-height: 0; padding: 40px 0; }
+      .who__step:last-child { min-height: 0; }
+      .who__mob { display: block; }
+      .stats { padding: 76px 24px 72px; }
+      .ai { padding: 76px 24px 88px; }
+    }
+    @media (max-width: 560px) {
+      /* short header CTA so the gold pill fits at 390px */
+      .hero__bar .pill--sm { padding: 0 14px; font-size: 12px; }
+      .hero__bar .pill__full { display: none; }
+      .hero__bar .pill__short { display: inline; }
+      .hero__logo img { width: 120px; height: auto; }
+    }
+    @media (max-width: 480px) {
+      .hero__headlines { --title-max: clamp(41px, 12.6vw, 65px); }
+      .hero__title--portfolio .line--single { white-space: normal; text-wrap: balance; }
+      .hero__cta { width: 100%; }
+      .hero__cta .pill { flex: 1 1 auto; }
+      .hero__cue { bottom: 20px; }
+    }
+
+    /* no-JS / reduced motion: both headlines in document order (A above B) */
+    html:not(.has-js) .hero__headlines,
+    .hero-stage.is-flow .hero__headlines {
+      display: flex; flex-direction: column; gap: 2.4rem;
+      min-height: 0;
+    }
+    html:not(.has-js) .hero__title--software,
+    .hero-stage.is-flow .hero__title--software {
+      position: relative; inset: auto; pointer-events: auto;
+    }
+    html:not(.has-js) .hero__title--software .line,
+    .hero-stage.is-flow .hero__title--software .line {
+      opacity: 1; transform: none; filter: none;
+    }
+    html:not(.has-js) .hero__title--software .line em,
+    .hero-stage.is-flow .hero__title--software .line em {
+      transform: none;
+    }
+    html:not(.has-js) .hero__title--portfolio,
+    .hero-stage.is-flow .hero__title--portfolio {
+      transform: none;
+    }
+    html:not(.has-js) .hero__title--portfolio .line,
+    .hero-stage.is-flow .hero__title--portfolio .line {
+      opacity: 1; transform: none; filter: none;
+    }
+    html:not(.has-js) .hero__cue,
+    .hero-stage.is-flow .hero__cue,
+    html:not(.has-js) .hero__media-ctrl,
+    .hero-stage.is-flow .hero__media-ctrl { display: none; }
+    html:not(.has-js) .hero__scrim,
+    .hero-stage.is-flow .hero__scrim { opacity: 0; }
+    html:not(.has-js) .hero__tint,
+    .hero-stage.is-flow .hero__tint { opacity: 0.8; }
+    html:not(.has-js) .hero__overlay,
+    .hero-stage.is-flow .hero__overlay { opacity: 0; }
+
+    /* no-JS: the rail can't swap, so show the first photo statically rather than
+       an empty blue plate */
+    html:not(.has-js) .who__shot { transition: none; }
+    html:not(.has-js) .who__shot:first-of-type { opacity: 1; }
+    html:not(.has-js) .who__cap { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .has-js .hero-stage { height: auto; }
+      .has-js .hero { position: relative; }
+      .has-js .hero__overlay { opacity: 0 !important; }
+      .has-js .hero__tint { opacity: 0.8 !important; }
+      .has-js .hero__scrim { opacity: 0 !important; }
+      .has-js .hero__media { transform: translate(-50%, -50%) !important; }
+      .has-js .hero__cue { display: none; }
+      .has-js .hero__cue-chevron { animation: none; }
+      /* stack both headlines — both states are content */
+      .has-js .hero__headlines {
+        display: flex; flex-direction: column; gap: 2.4rem; min-height: 0;
+      }
+      .has-js .hero__title--software {
+        position: relative; inset: auto; pointer-events: auto;
+      }
+      .has-js .hero__title--software .line,
+      .has-js .hero__title--portfolio .line {
+        opacity: 1; transform: none; filter: none;
+      }
+      .has-js .hero__title--software .line em,
+      .has-js .hero__title--portfolio {
+        transform: none;
+      }
+      /* who-we-are: no cross-fade, the first photo simply stays on */
+      .who__shot { transition: none !important; }
+      /* stats: no reveal, no count — values render final */
+      .has-js .sent-w { opacity: 1 !important; filter: none !important; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Sticky site bar — fixed to the viewport in the hero's blue. Kept OUT of
+       .hero so it isn't clipped by the hero's overflow / stacking context and
+       stays pinned while the pinned hero scrolls and collapses into a cube. -->
+  <header class="hero__bar">
+    <a class="hero__logo" href="#" aria-label="Fullsteam home">
+      <img src="assets/fullsteam-logo.svg" alt="Fullsteam" width="177" height="48" decoding="async">
+    </a>
+    <div class="hero__actions">
+      <button type="button" class="menu-btn" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="siteMenu">
+        <span class="menu-btn__line" aria-hidden="true"></span>
+        <span class="menu-btn__line" aria-hidden="true"></span>
+        <span class="menu-btn__line" aria-hidden="true"></span>
+      </button>
+      <a class="pill pill--gold pill--sm" href="#">
+        <span class="pill__full">Explore vertical solutions</span>
+        <span class="pill__short">Explore</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="hero-stage" id="heroStage">
+    <section class="hero" id="hero" aria-label="Homepage hero">
+      <!-- background video — autoplays at LOAD (muted + loop + playsinline).
+           hero-stock.mp4 = Mixkit free stock (shipped to Pages). Square's
+           hero-video.* stays gitignored for local study only — do not commit.
+           No poster attribute (avoids 404 spam). Fallback until .has-media. -->
+      <div class="hero__fallback" aria-hidden="true"></div>
+      <video class="hero__media" id="heroVideo" autoplay muted loop playsinline preload="metadata"
+             aria-hidden="true" tabindex="-1">
+        <source src="assets/hero-stock.mp4" type="video/mp4">
+      </video>
+
+      <div class="hero__tint" aria-hidden="true"></div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__scrim" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <div class="hero__headlines">
+          <!-- Both headlines stay in the a11y tree (KB §23.6 rule 5). Visual opacity handles the swap. -->
+          <h1 class="hero__title hero__title--portfolio" id="heroTitlePortfolio">
+            <span class="line line--single">Any industry,</span>
+            <span class="line">we own the</span>
+            <span class="line"><em>software.</em></span>
+          </h1>
+          <h2 class="hero__title hero__title--software" id="heroTitleSoftware">
+            <span class="line">Then we build</span>
+            <span class="line">what makes it</span>
+            <span class="line"><em>grow.</em></span>
+          </h2>
+        </div>
+        <div class="hero__scene2" id="heroScene2">
+          <p class="hero__sub">We buy them. We keep them growing.</p>
+          <span class="hero__rule" aria-hidden="true"></span>
+        </div>
+        <div class="hero__cta" id="heroCta">
+          <a class="pill pill--gold" href="#">Explore vertical solutions</a>
+          <a class="pill pill--ghost" href="#">Careers</a>
+        </div>
+      </div>
+
+      <div class="hero__cue" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="hero__cue-chevron"></span>
+      </div>
+
+      <button type="button" class="hero__media-ctrl" id="heroMediaCtrl"
+              aria-label="Pause background video" aria-pressed="false">
+        <svg class="icon-pause" viewBox="0 0 14 14" aria-hidden="true">
+          <rect x="3" y="2" width="3" height="10" fill="currentColor"/>
+          <rect x="8" y="2" width="3" height="10" fill="currentColor"/>
+        </svg>
+        <svg class="icon-play" viewBox="0 0 14 14" aria-hidden="true">
+          <path d="M3.5 2.2v9.6L12 7z" fill="currentColor"/>
+        </svg>
+      </button>
+    </section>
+  </div>
+
+  <!-- Section 02 — "who we are" with a sticky image rail (2026-10-16).
+       Replaces the stacked Acquire/Grow/Lead/Founders band.
+       STRATEGY CHANGE, not a polish pass: the four-beat model is gone from the
+       homepage opening, and "Lead" is dropped entirely. See direction.md.
+
+       The rail is aria-hidden: the images are decorative support for copy that
+       stands on its own, and the caption is a visual label, not content.
+       Mobile renders each block's own image inline instead. -->
+  <section class="who" id="who-we-are" aria-label="Who we are">
+    <div class="who__grid">
+
+      <div class="who__steps">
+        <article class="who__step" data-cap="Who we are">
+          <figure class="who__mob who__rise">
+            <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
+                 src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
+          </figure>
+          <p class="who__kicker who__rise">Who we are</p>
+          <h2 class="who__title who__rise">A home for the business you <em>built.</em></h2>
+          <p class="who__body who__rise">We buy vertical software companies and we run them for the long haul.
+            The product keeps its name. The team keeps its people.</p>
+        </article>
+
+        <article class="who__step" data-cap="Acquire">
+          <figure class="who__mob">
+            <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
+                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
+          </figure>
+          <p class="who__kicker">Acquire</p>
+          <h3 class="who__title">We keep <em>buying.</em></h3>
+          <p class="who__body">Great vertical software, one company after another, all kept running.
+            Not bought and shelved — bought and looked after.</p>
+        </article>
+
+        <article class="who__step" data-cap="Grow">
+          <figure class="who__mob">
+            <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
+                 src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
+          </figure>
+          <p class="who__kicker">Grow</p>
+          <h3 class="who__title">What changes is what's <em>behind it.</em></h3>
+          <p class="who__body">Payments, infrastructure, AI and a back office that already works.
+            The company does more, because there is a much larger company holding it up.</p>
+        </article>
+
+        <article class="who__step" data-cap="Founders">
+          <figure class="who__mob">
+            <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
+                 src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
+          </figure>
+          <p class="who__kicker">Founders</p>
+          <h3 class="who__title">It keeps <em>growing.</em></h3>
+          <hr class="who__rule">
+          <blockquote class="who__body" style="margin:0 0 14px;">“We stopped asking what to build
+            next and started asking where everything we had built could go.”</blockquote>
+          <p class="who__body who__note">[placeholder — founder voice, genericized, unpublishable
+            as written]</p>
+          <p style="margin:20px 0 0;">
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/for-founders.html">Talk to us</a>
+          </p>
+        </article>
+      </div>
+
+      <div class="who__rail" aria-hidden="true">
+        <div class="who__frame">
+          <img class="who__shot is-on" decoding="async"
+               src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
+          <img class="who__shot" decoding="async"
+               src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
+          <img class="who__shot" decoding="async"
+               src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
+          <img class="who__shot" decoding="async"
+               src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
+          <div class="who__tint"></div>
+          <p class="who__cap"><b>01</b> &nbsp;Who we are</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Scale → verticals — live italic sentence scrubbed word by word, then
+Square-style expanding accordion (white canvas). -->
+  <section class="scale" id="investors" aria-label="Scale and verticals">
+    <div class="stats" id="statsBand">
+      <div class="stats__inner">
+        <p class="sent-line" id="sentLine">
+          <span class="sent-w">We</span>
+          <span class="sent-w">serve</span>
+          <span class="sent-w"><span class="sent-num">70,000+</span></span>
+          <span class="sent-w">businesses</span>
+          <span class="sent-w">across</span>
+          <span class="sent-w"><span class="sent-num">11</span></span>
+          <span class="sent-w">industries,</span>
+          <span class="sent-w">from</span>
+          <span class="sent-w">Hospitality</span>
+          <span class="sent-w">to</span>
+          <span class="sent-w">Wine</span>
+          <span class="sent-w">to</span>
+          <span class="sent-w">ERP,</span>
+          <span class="sent-w">and</span>
+          <span class="sent-w">move</span>
+          <span class="sent-w"><span class="sent-num">$75B</span></span>
+          <span class="sent-w">through</span>
+          <span class="sent-w">Fullsteam</span>
+          <span class="sent-w">Pay.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="verts">
+      <div class="verts__head">
+        <h2 class="verts__title">Keep the businesses growing.</h2>
+      </div>
+      <!--
+        Unsplash panel photos (hotlinked · Unsplash License · attribution appreciated):
+        Hospitality — kitchen, photo-1556910103-1c02745aae4d (Jason Briscoe)
+        ERP — office, photo-1497366216548-37526070297c (Nastuh Abootalebi)
+        Retail — store, photo-1441986300917-64674bd600d8 (Christian Wiediger)
+        Transportation — warehouse, photo-1586528116311-ad8dd3c8310d (CHUTTERSNAP)
+        Wine — wine, photo-1516594915697-87eb3b1c14ea (Unsplash)
+      -->
+      <div class="verts__stage" id="vertStage" role="list">
+        <article class="vpanel is-open" role="listitem" tabindex="0" aria-expanded="true" data-tone="0"
+          style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Hospitality</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Hospitality</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">70,000+</p>
+            <p class="vpanel__desc">businesses served [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Learn more</a>
+          </div>
+        </article>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="1"
+          style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">ERP</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">ERP</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">11</p>
+            <p class="vpanel__desc">vertical markets owned [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#erp">Learn more</a>
+          </div>
+        </article>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="2"
+          style="--photo: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Retail</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Retail</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">$75B</p>
+            <p class="vpanel__desc">moved through Fullsteam Pay [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Learn more</a>
+          </div>
+        </article>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="3"
+          style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Transportation</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Transportation</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">70,000+</p>
+            <p class="vpanel__desc">businesses served [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Learn more</a>
+          </div>
+        </article>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="4"
+          style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Wine</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Wine</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">11</p>
+            <p class="vpanel__desc">vertical markets owned [placeholder]</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Learn more</a>
+          </div>
+        </article>
+      </div>
+      <div class="verts__all">
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Hospitality</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#weddings-events">Weddings &amp; Events</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Wine</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Retail</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#storage-marina">Storage &amp; Marina</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#health-wellness">Health &amp; Wellness</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#field-services">Field Services</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Transportation</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Automotive</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a>
+        <a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI — Figma FS-Design 11294:2 (content). Layout ref: Claude product overview.
+       Unsplash (hotlinked · Unsplash License):
+       Forecasting — analytics, photo-1551288049-bebda4e38f71 (Luke Chesser)
+       Back office — laptop work, photo-1486312338219-ce68d2c6f44d (Glenn Carstens-Peters)
+       Support — photo-1573496359142-b8d87734a5a2 (Christina @ wocintechchat.com) -->
+  <section class="ai" id="ai" aria-labelledby="aiTitle">
+    <div class="ai__inner">
+      <div class="ai__layout">
+        <header class="ai__head">
+          <h2 class="ai__title" id="aiTitle">AI that already <em>knows the business.</em></h2>
+          <p class="ai__lede">Use cases first — built on the data your vertical software already holds, not generic models.</p>
+          <p class="ai__foot">
+            <a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">See AI at Fullsteam</a>
+          </p>
+        </header>
+
+        <div class="ai__main">
+      <div class="ai__work">
+        <div class="ai-acc" id="aiAcc" role="region" aria-labelledby="aiTitle">
+          <article class="ai-acc__item is-open">
+            <h3 class="ai-acc__heading">
+              <button type="button" class="ai-acc__trigger" id="ai-acc-btn-0"
+                aria-expanded="true" aria-controls="ai-acc-body-0">
+                <span class="ai-acc__labels">
+                  <span class="ai-acc__name">Forecasting</span>
+                  <span class="ai-acc__hint">Plans that fit the trade.</span>
+                </span>
+                <span class="ai-acc__chev" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="ai-acc__body" id="ai-acc-body-0" role="region" aria-labelledby="ai-acc-btn-0">
+              <div class="ai-acc__body-inner">
+                <div class="ai__frame" aria-hidden="true">
+                  <img class="ai__photo" alt=""
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70"
+                    width="1600" height="1000" loading="lazy" decoding="async">
+                </div>
+                <div class="ai__panel-copy">
+                  <h4 class="ai__panel-title">Forecasting that fits the trade.</h4>
+                  <p class="ai__panel-desc">Plans that respect how each vertical actually buys, staffs, and seasons — not a one-size spreadsheet.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="ai-acc__item">
+            <h3 class="ai-acc__heading">
+              <button type="button" class="ai-acc__trigger" id="ai-acc-btn-1"
+                aria-expanded="false" aria-controls="ai-acc-body-1">
+                <span class="ai-acc__labels">
+                  <span class="ai-acc__name">Back office</span>
+                  <span class="ai-acc__hint">Close and reconcile, faster.</span>
+                </span>
+                <span class="ai-acc__chev" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="ai-acc__body" id="ai-acc-body-1" role="region" aria-labelledby="ai-acc-btn-1" hidden>
+              <div class="ai-acc__body-inner">
+                <div class="ai__frame" aria-hidden="true">
+                  <img class="ai__photo" alt=""
+                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70"
+                    width="1600" height="1000" loading="lazy" decoding="async">
+                </div>
+                <div class="ai__panel-copy">
+                  <h4 class="ai__panel-title">Back office, handled.</h4>
+                  <p class="ai__panel-desc">Repeatable ops work accelerated with context from the system of record — people stay on judgment calls.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="ai-acc__item">
+            <h3 class="ai-acc__heading">
+              <button type="button" class="ai-acc__trigger" id="ai-acc-btn-2"
+                aria-expanded="false" aria-controls="ai-acc-body-2">
+                <span class="ai-acc__labels">
+                  <span class="ai-acc__name">Support</span>
+                  <span class="ai-acc__hint">Answers in industry context.</span>
+                </span>
+                <span class="ai-acc__chev" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="ai-acc__body" id="ai-acc-body-2" role="region" aria-labelledby="ai-acc-btn-2" hidden>
+              <div class="ai-acc__body-inner">
+                <div class="ai__frame" aria-hidden="true">
+                  <img class="ai__photo" alt=""
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70"
+                    width="1600" height="1000" loading="lazy" decoding="async">
+                </div>
+                <div class="ai__panel-copy">
+                  <h4 class="ai__panel-title">Support that knows the industry.</h4>
+                  <p class="ai__panel-desc">Answers grounded in how that business runs day to day — not a generic help bot.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Careers / Great place to work — content-slots §2 row 06.
+       3-col testimonial grid on --blue; Unsplash headshots [placeholder] until
+       client supplies real team photography. No third-party award claims. -->
+  <section class="careers" id="careers" aria-labelledby="careersTitle">
+    <div class="careers__inner">
+      <header class="careers__head">
+        <h2 class="careers__title" id="careersTitle">A great place to <em>work.</em></h2>
+        <div class="careers__head-row">
+          <p class="careers__lede">Real people building software for real industries — mostly remote, small teams, and room to grow.</p>
+          <p class="careers__cta">
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/careers.html">See Careers</a>
+          </p>
+        </div>
+      </header>
+
+      <div class="careers__grid" aria-label="Employee voices">
+        <blockquote class="careers-testimonial">
+          <img class="careers-testimonial__avatar" alt=""
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=70"
+            width="400" height="400" loading="lazy" decoding="async">
+          <h3 class="careers-testimonial__headline"><em>Trusted</em> to learn the vertical</h3>
+          <p class="careers-testimonial__text">You’re trusted to solve problems for an industry you can actually learn — not a generic ticket queue.</p>
+          <cite class="careers-testimonial__attr">Product · [placeholder]</cite>
+        </blockquote>
+        <blockquote class="careers-testimonial">
+          <img class="careers-testimonial__avatar" alt=""
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=70"
+            width="400" height="400" loading="lazy" decoding="async">
+          <h3 class="careers-testimonial__headline">Small teams, <em>clear goals</em></h3>
+          <p class="careers-testimonial__text">We talk to customers and ship — ownership without the chaos of a giant org chart.</p>
+          <cite class="careers-testimonial__attr">Engineering · [placeholder]</cite>
+        </blockquote>
+        <blockquote class="careers-testimonial">
+          <img class="careers-testimonial__avatar" alt=""
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=70"
+            width="400" height="400" loading="lazy" decoding="async">
+          <h3 class="careers-testimonial__headline">Mostly remote, <em>real people</em></h3>
+          <p class="careers-testimonial__text">The work is distributed, but the team is real — room to grow without losing the human side.</p>
+          <cite class="careers-testimonial__attr">Operations · [placeholder]</cite>
+        </blockquote>
+      </div>
+
+      <!-- LinkedIn module + MOCK post cards (self-contained). Company card links to
+           the page; post bodies/dates/counts are [placeholder] layout mocks only. -->
+      <aside class="careers__linkedin" aria-labelledby="careersLinkedinName">
+        <div class="careers__linkedin-top">
+          <div>
+            <div class="careers__linkedin-id">
+              <span class="careers__linkedin-mark" aria-hidden="true">in</span>
+              <div>
+                <p class="careers__linkedin-name" id="careersLinkedinName">Fullsteam</p>
+                <p class="careers__linkedin-meta">Company page</p>
+              </div>
+            </div>
+            <p class="careers__linkedin-body">Roles, team news and what we’re building — follow the company page for the running commentary.</p>
+          </div>
+          <p class="careers__linkedin-cta">
+            <a class="pill pill--ghost" href="https://www.linkedin.com/company/fullsteam-llc"
+               target="_blank" rel="noopener noreferrer">
+              Follow on LinkedIn<span class="careers__li-sr"> (opens in a new tab)</span>
+            </a>
+          </p>
+        </div>
+
+        <!-- MOCK CARDS — Unsplash: post 1 photo-1556910103-1c02745aae4d;
+             post 2 photo-1497366216548-37526070297c; post 3 CSS chart; post 4 text-only. -->
+        <div class="careers__posts" id="careersPosts">
+        <div class="careers__posts-head">
+          <p class="careers__posts-label">From LinkedIn</p>
+          <p class="careers__posts-ctl">
+            <button type="button" class="careers__posts-btn" id="liPrev" aria-label="Scroll posts left">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" class="careers__posts-btn" id="liNext" aria-label="Scroll posts right">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </p>
+        </div>
+
+        <div class="li-scroller" id="liScroller" tabindex="0" role="region" aria-label="LinkedIn posts, scrollable">
+          <article class="li-card">
+            <div class="li-card__head">
+              <span class="li-card__mark" aria-hidden="true">in</span>
+              <div class="li-card__who">
+                <p class="li-card__name">Fullsteam</p>
+                <p class="li-card__meta">2d · 🌐 [placeholder]</p>
+              </div>
+            </div>
+            <p class="li-card__text">Every vertical runs on software that was <em>built for it</em>. Not adapted. [placeholder]</p>
+            <div class="li-card__art"
+                 style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=70')"
+                 role="img" aria-label="Placeholder stock photo: a working kitchen"></div>
+            <div class="li-card__foot">
+              <p class="li-card__stats"><span>128 reactions</span><span>14 comments</span></p>
+              <div class="li-card__actions">
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11v9H4a1 1 0 01-1-1v-7a1 1 0 011-1h3zm0 0l4-7a2 2 0 013 2l-1 5h4a2 2 0 012 2l-1.6 6A2 2 0 0115.5 21H7" stroke-linecap="round" stroke-linejoin="round"/></svg>Like</span>
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z" stroke-linecap="round" stroke-linejoin="round"/></svg>Comment</span>
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9a8 8 0 0114-3l2 3m0 6a8 8 0 01-14 3l-2-3" stroke-linecap="round" stroke-linejoin="round"/></svg>Repost</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="li-card">
+            <div class="li-card__head">
+              <span class="li-card__mark" aria-hidden="true">in</span>
+              <div class="li-card__who">
+                <p class="li-card__name">Fullsteam</p>
+                <p class="li-card__meta">5d · 🌐 [placeholder]</p>
+              </div>
+            </div>
+            <p class="li-card__text">We’re hiring across engineering and product. Small teams, real ownership. [placeholder]</p>
+            <div class="li-card__art"
+                 style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=800&amp;h=400&amp;q=70')"
+                 role="img" aria-label="Placeholder stock photo: an open office"></div>
+            <div class="li-card__foot">
+              <p class="li-card__stats"><span>96 reactions</span><span>31 comments</span></p>
+              <div class="li-card__actions">
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11v9H4a1 1 0 01-1-1v-7a1 1 0 011-1h3zm0 0l4-7a2 2 0 013 2l-1 5h4a2 2 0 012 2l-1.6 6A2 2 0 0115.5 21H7" stroke-linecap="round" stroke-linejoin="round"/></svg>Like</span>
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z" stroke-linecap="round" stroke-linejoin="round"/></svg>Comment</span>
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9a8 8 0 0114-3l2 3m0 6a8 8 0 01-14 3l-2-3" stroke-linecap="round" stroke-linejoin="round"/></svg>Repost</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="li-card">
+            <div class="li-card__head">
+              <span class="li-card__mark" aria-hidden="true">in</span>
+              <div class="li-card__who">
+                <p class="li-card__name">Fullsteam</p>
+                <p class="li-card__meta">1w · 🌐 [placeholder]</p>
+              </div>
+            </div>
+            <p class="li-card__text">Hospitality, wine, ERP, transportation — eleven verticals, one home. [placeholder]</p>
+            <div class="li-card__art li-card__art--data"
+                 role="img" aria-label="Placeholder: a chart standing in for a post graphic"></div>
+            <div class="li-card__foot">
+              <p class="li-card__stats"><span>214 reactions</span><span>22 comments</span></p>
+              <div class="li-card__actions">
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11v9H4a1 1 0 01-1-1v-7a1 1 0 011-1h3zm0 0l4-7a2 2 0 013 2l-1 5h4a2 2 0 012 2l-1.6 6A2 2 0 0115.5 21H7" stroke-linecap="round" stroke-linejoin="round"/></svg>Like</span>
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z" stroke-linecap="round" stroke-linejoin="round"/></svg>Comment</span>
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9a8 8 0 0114-3l2 3m0 6a8 8 0 01-14 3l-2-3" stroke-linecap="round" stroke-linejoin="round"/></svg>Repost</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="li-card">
+            <div class="li-card__head">
+              <span class="li-card__mark" aria-hidden="true">in</span>
+              <div class="li-card__who">
+                <p class="li-card__name">Fullsteam</p>
+                <p class="li-card__meta">2w · 🌐 [placeholder]</p>
+              </div>
+            </div>
+            <p class="li-card__text">Mostly remote, deliberately small, learning a real industry. [placeholder]</p>
+            <div class="li-card__foot">
+              <p class="li-card__stats"><span>73 reactions</span><span>9 comments</span></p>
+              <div class="li-card__actions">
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11v9H4a1 1 0 01-1-1v-7a1 1 0 011-1h3zm0 0l4-7a2 2 0 013 2l-1 5h4a2 2 0 012 2l-1.6 6A2 2 0 0115.5 21H7" stroke-linecap="round" stroke-linejoin="round"/></svg>Like</span>
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z" stroke-linecap="round" stroke-linejoin="round"/></svg>Comment</span>
+                <span class="li-card__act"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9a8 8 0 0114-3l2 3m0 6a8 8 0 01-14 3l-2-3" stroke-linecap="round" stroke-linejoin="round"/></svg>Repost</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Close — Figma node 11304:33 · content-slots §2 row 07 -->
+  <section class="close" id="close" aria-labelledby="closeTitle">
+    <div class="close__inner">
+      <h2 class="close__title" id="closeTitle">Ready to see where your business can go next?</h2>
+      <p class="close__cta">
+        <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore our vertical solutions</a>
+      </p>
+      <p class="close__founders">
+        <a href="../../../02_Wireframes/active/pages/for-founders.html">For Founders — a home for your business</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Site footer — same IA + chrome as the open Menu overlay (KB §14) -->
+  <footer class="site-footer" id="siteFooter">
+    <nav class="menu__inner" aria-label="Footer">
+      <div class="menu__col">
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/vertical-software.html">Vertical Software</a></h3>
+        <div class="menu__split">
+          <ul class="menu__list" aria-label="Verticals">
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Hospitality</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#weddings-events">Weddings &amp; Events</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Wine</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Retail</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#storage-marina">Storage &amp; Marina</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#health-wellness">Health &amp; Wellness</a></li>
+          </ul>
+          <ul class="menu__list" aria-label="Verticals">
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#field-services">Field Services</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Transportation</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Automotive</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="menu__col">
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/embedded-offerings.html">Embedded Offerings</a></h3>
+        <ul class="menu__list">
+          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#payments">Payments</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#lending">Lending</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#insurance">Insurance</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">AI at Fullsteam</a></li>
+        </ul>
+      </div>
+
+      <div class="menu__col">
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></h3>
+        <ul class="menu__list">
+          <li><a href="../../../02_Wireframes/active/pages/leadership.html">Leadership</a></li>
+        </ul>
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></h3>
+        <ul class="menu__list">
+          <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li>
+        </ul>
+      </div>
+
+      <div class="menu__col">
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></h3>
+        <ul class="menu__list">
+          <li><a href="../../../02_Wireframes/active/pages/contact.html">Talk to us</a></li>
+        </ul>
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/for-founders.html">For Founders</a></h3>
+        <ul class="menu__list">
+          <li><a href="../../../02_Wireframes/active/pages/for-founders.html">A home for your business</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="site-footer__legal">
+      <p class="site-footer__copy">© 2026 All Rights Reserved | Fullsteam</p>
+      <a class="site-footer__li-link" href="https://www.linkedin.com/company/fullsteam-llc"
+         target="_blank" rel="noopener noreferrer">
+        <span class="site-footer__li-mark" aria-hidden="true">in</span>
+        Follow on LinkedIn
+      </a>
+    </div>
+  </footer>
+
+  <!-- navigation dropdown — the locked L1 (KB §14 / plans/sitemap-lock.md).
+       Option B revised: For Founders lives here, not in the header strip. -->
+  <div class="menu" id="siteMenu" hidden>
+    <nav class="menu__panel" aria-label="Site">
+      <div class="menu__inner">
+        <div class="menu__col">
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/vertical-software.html">Vertical Software</a></h3>
+          <div class="menu__split">
+            <ul class="menu__list" aria-label="Verticals">
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Hospitality</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#weddings-events">Weddings &amp; Events</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Wine</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Retail</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#storage-marina">Storage &amp; Marina</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#health-wellness">Health &amp; Wellness</a></li>
+            </ul>
+            <ul class="menu__list" aria-label="Verticals">
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#field-services">Field Services</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Transportation</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Automotive</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a></li>
+              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="menu__col">
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/embedded-offerings.html">Embedded Offerings</a></h3>
+          <ul class="menu__list">
+            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#payments">Payments</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#lending">Lending</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#insurance">Insurance</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">AI at Fullsteam</a></li>
+          </ul>
+        </div>
+
+        <div class="menu__col">
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></h3>
+          <ul class="menu__list">
+            <li><a href="../../../02_Wireframes/active/pages/leadership.html">Leadership</a></li>
+          </ul>
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></h3>
+          <ul class="menu__list">
+            <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li>
+          </ul>
+        </div>
+
+        <div class="menu__col">
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></h3>
+          <ul class="menu__list">
+            <li><a href="../../../02_Wireframes/active/pages/contact.html">Talk to us</a></li>
+          </ul>
+          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/for-founders.html">For Founders</a></h3>
+          <ul class="menu__list">
+            <li><a href="../../../02_Wireframes/active/pages/for-founders.html">A home for your business</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/faq.html">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    (function () {
+      var stage = document.getElementById('heroStage');
+      var hero = document.getElementById('hero');
+      var wwd = document.getElementById('who-we-are');
+      var bar = document.querySelector('.hero__bar');
+      if (!stage || !hero) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      /* Section 02 — sticky rail. The photo + caption follow whichever content block
+         is active on the left. The rail itself is CSS `position: sticky`, so this
+         only has to decide WHICH block is current. */
+      var railShots = wwd ? wwd.querySelectorAll('.who__shot') : [];
+      var railCap = wwd ? wwd.querySelector('.who__cap') : null;
+      var railSteps = wwd ? wwd.querySelectorAll('.who__step') : [];
+      var railActive = -1;
+
+      function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+      /* Header stays clear over the hero; solid only once the stage has left the viewport. */
+      function syncBarSolid() {
+        if (!bar) return;
+        var past = stage.getBoundingClientRect().bottom <= bar.offsetHeight;
+        bar.classList.toggle('is-solid', past);
+      }
+      function segment(t, a, b) {
+        if (t <= a) return 0;
+        if (t >= b) return 1;
+        return (t - a) / (b - a);
+      }
+      function smoothstep(x) {
+        x = clamp01(x);
+        return x * x * (3 - 2 * x);
+      }
+
+      var cubing = false;
+      var cubeSettled = false;
+      /* Which block is "current"? The focus line sits just below centre, so the rail
+         changes as the next block's heading arrives rather than after you have
+         started reading it. NB: the caller clears `ticking` before calling this,
+         so an early return here can never leave the scroll queue latched. */
+      function renderRail() {
+        if (!railSteps.length) return;
+        var line = window.innerHeight * 0.55;
+        var idx = 0;
+        for (var i = 0; i < railSteps.length; i++) {
+          if (railSteps[i].getBoundingClientRect().top <= line) idx = i;
+        }
+        if (idx === railActive) return;
+        railActive = idx;
+        for (var s = 0; s < railShots.length; s++) {
+          railShots[s].classList.toggle('is-on', s === idx);
+        }
+        if (railCap) {
+          railCap.innerHTML = '<b>' + String(idx + 1 < 10 ? '0' + (idx + 1) : idx + 1) +
+            '</b> &nbsp;' + (railSteps[idx].dataset.cap || '');
+        }
+      }
+      /* ---- LOAD-TIME ENTRANCE (the brief) -------------------------------------
+           Timed, plays once on load; the scroll sequence (handoff → cube → morph →
+           section) is unchanged and takes over as soon as you scroll. Hybrid by
+           design — a fully timed handoff would replace the locked Axis A → Axis B
+           model in KB §23.
+
+           Screen 1 — headline: masked line reveal, 130ms stagger, video 1.15 → 1.
+           Screen 2 — subtext + rule + CTA: fades/rises in, rule draws scaleX 0→1,
+           CTA pops 0.9 → 1 with an overshoot, video parallaxes x −5%.
+
+           DEVIATION, deliberate: the brief says Screen 1 fades to opacity 0. It must
+           not — Axis A has to survive on screen to hand off to Axis B on scroll
+           (KB §23). The headline lifts y −40 and dims to a floor instead.
+
+           Runs only with JS and NOT under prefers-reduced-motion; the default CSS
+           state is the finished state, so no-JS and reduced-motion are unaffected. */
+      var intro = (function () {
+        /* Reduced motion / no JS: the default CSS state is already the FINISHED
+           state, so there is nothing to run. */
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var scene2 = document.getElementById('heroScene2');
+        var rule = document.querySelector('.hero__rule');
+        var cta = document.getElementById('heroCta');
+        var port = document.querySelector('.hero__title--portfolio');
+        if (!scene2 || !cta || !port) return;
+
+        /* Stamp data-li on EVERY line first — the CSS indexes its exit/opacity
+           ramps by data-li now, and that must be in place before any wrapping. */
+        [].slice.call(document.querySelectorAll('.hero__title')).forEach(function (t) {
+          [].slice.call(t.querySelectorAll('.line')).forEach(function (ln, i) {
+            ln.dataset.li = String(i + 1);
+          });
+        });
+
+        /* Only Axis A (the headline visible on load) gets the masked reveal.
+           Axis B stays hidden until scroll, driven by --line-op. */
+        var lines = [].slice.call(port.querySelectorAll('.line'));
+        lines.forEach(function (ln) {
+          var m = document.createElement('span');
+          m.className = 'hero__line-mask';
+          ln.parentNode.insertBefore(m, ln);
+          m.appendChild(ln);
+        });
+        var masked = lines;
+
+        var STAGGER = 130, LINE = 900;
+        var ZOOM_DUR = 1500;
+        var S2_AT = 1450, SUB_DUR = 700, RULE_DUR = 640, CTA_AT = 1650, CTA_DUR = 820;
+        var TOTAL = CTA_AT + CTA_DUR + 60;
+
+        function ease(t) { return t < 0 ? 0 : t > 1 ? 1 : t; }
+        function seg(now, at, dur) { return ease((now - at) / dur); }
+
+        /* spring-ish overshoot: rises past 1 then settles */
+        function overshoot(t) {
+          if (t <= 0) return 0;
+          if (t >= 1) return 1;
+          var c = 1.7;
+          return 1 - Math.pow(2, -9 * t) * Math.cos(t * c * Math.PI * 2);
+        }
+
+        var t0 = performance.now();
+        /* prime the hidden state so the first paint isn't a flash of final state */
+        masked.forEach(function (ln) { ln.style.setProperty('--ly', '100%'); });
+        scene2.style.opacity = '0';
+        rule.style.transform = 'scaleX(0)';
+        cta.style.setProperty('--cta-in', '0');
+        cta.style.setProperty('--cta-scale', '0.9');
+
+        function frame(now) {
+          var el = now - t0;
+          /* Screen 1 */
+          masked.forEach(function (ln, i) {
+            var k = seg(el, 120 + i * STAGGER, LINE);
+            ln.style.setProperty('--ly', ((1 - k) * 100).toFixed(2) + '%');
+          });
+          hero.style.setProperty('--hero-zoom', (1.15 - 0.15 * seg(el, 0, ZOOM_DUR)).toFixed(4));
+
+          /* Screen 2 */
+          var s2 = seg(el, S2_AT, SUB_DUR);
+          scene2.style.opacity = s2.toFixed(3);
+          scene2.style.transform = 'translate3d(0,' + ((1 - s2) * 18).toFixed(1) + 'px,0)';
+          rule.style.transform = 'scaleX(' + seg(el, S2_AT + 120, RULE_DUR).toFixed(3) + ')';
+          /* headline lifts as Screen 2 arrives — but does NOT vanish (see header) */
+          hero.style.setProperty('--h1-lift', s2.toFixed(3));
+          var ct = seg(el, CTA_AT, CTA_DUR);
+          cta.style.setProperty('--cta-in', ct.toFixed(3));
+          cta.style.setProperty('--cta-scale', (0.9 + 0.1 * overshoot(ct)).toFixed(4));
+
+          /* video parallax for "new scene" */
+          hero.style.setProperty('--hero-x', (-5 * s2).toFixed(2) + '%');
+
+          if (el < TOTAL) { requestAnimationFrame(frame); return; }
+
+          /* settle: hand the stylesheet back rather than pinning them forever */
+          masked.forEach(function (ln) { ln.style.removeProperty('--ly'); });
+          [].concat(scene2).forEach(function (e2) { e2.style.opacity = ''; e2.style.transform = ''; });
+          rule.style.transform = '';
+          cta.style.removeProperty('--cta-in');
+          cta.style.removeProperty('--cta-scale');
+          hero.style.removeProperty('--hero-zoom');
+          hero.style.removeProperty('--hero-x');
+          hero.style.removeProperty('--h1-lift');
+          /* drop the masks — the scroll exit must not be clipped */
+          masked.forEach(function (ln) {
+            var m = ln.parentNode;
+            if (m && m.classList.contains('hero__line-mask')) {
+              m.parentNode.insertBefore(ln, m); m.parentNode.removeChild(m);
+            }
+          });
+        }
+        requestAnimationFrame(frame);
+      })();
+
+      /* ---- the morph: video → cube → the rail's photo -------------------------
+           The cube used to die where it was born (viewport centre) and the rail's
+           photo opened out of the rail's own centre — two unrelated places. Now
+           the collapse ANCHOR travels from the viewport centre to the rail's live
+           centre as --cube goes 0.78 → 1, so by the time the reveal starts the
+           cube is sitting exactly on the point the photo opens from.
+
+           The anchor follows the rail's *live* rect, because the rail sticks part
+           way through and its on-screen centre moves (680 → 560 at 1440×900);
+           following it live keeps the two coincident for the whole handoff.
+
+           No change was needed to the reveal itself: once ease = 1 the anchor IS
+           the frame's centre, which is already where the clip-path seeds. */
+      var whoP = -1;   /* hoisted from renderWho's scope so the morph can read it */
+
+      function renderMorph(pCube) {
+        var vw = window.innerWidth, vh = window.innerHeight;
+        var rx = vw * 0.5, ry = vh * 0.5;
+        if (whoFrame) {
+          var fr = whoFrame.getBoundingClientRect();
+          if (fr.width && fr.height) { rx = fr.left + fr.width / 2; ry = fr.top + fr.height / 2; }
+        }
+        var ease = smoothstep(segment(pCube, 0.78, 1));
+        /* Clamp the TARGET to keep the cube on screen. While the section is still
+           rising its rail centre is below the fold, and an unclamped anchor dives
+           the cube off the bottom of the screen and back up again. Once the rail
+           centre is inside [half, vh−half] the clamp goes inert and the two track
+           exactly — which is all that matters, since the handoff only happens
+           once the section is actually on screen. */
+        var half = CUBE / 2 + 8;
+        var tx = Math.min(Math.max(rx, half), Math.max(vw - half, half));
+        var ty = Math.min(Math.max(ry, half), Math.max(vh - half, half));
+        var ax = vw * 0.5 + (tx - vw * 0.5) * ease;
+        var ay = vh * 0.5 + (ty - vh * 0.5) * ease;
+        hero.style.setProperty('--hero-ax', ax.toFixed(1) + 'px');
+        hero.style.setProperty('--hero-ay', ay.toFixed(1) + 'px');
+
+        /* Hold the cube at full strength until the reveal actually starts, then
+           hand off over its first ~28%. Fading on --cube instead would kill the
+           cube before it reached the rail. */
+        var fade = 1 - clamp01((whoP < 0 ? 0 : whoP) / 0.28);
+        hero.style.setProperty('--cube-fade', fade.toFixed(3));
+      }
+
+      /* ---- section 02 entry: the photo opens from the cube, the type rises with it --
+       Two things share ONE scroll progress so they read as a single event:
+         · .who__frame reveals via an expanding clip-path, seeded to a square the
+           same size as the hero's settled cube (210px) and rounded to the same 28px,
+           so the photo opens out of the object the hero just dissolved.
+         · the first block's kicker / heading / body fade up on a short stagger.
+
+       Clip-path goes on .who__frame ONLY. Putting it on .who or .who__rail would
+       break position:sticky for the rail — the same class of bug as the
+       overflow:hidden ancestor that killed it earlier. The frame already has
+       overflow:hidden and is inside the sticky element, so it is safe.
+
+       Driven by the SECTION's own entry, not by --cube: the cube settles and fades
+       at scrollY ≈1242 (p=0.92), but section 02's top only reaches the fold around
+       scrollY ≈1350. They do not overlap, so a --cube-driven reveal would finish
+       before the section was ever on screen. */
+      var whoSec = document.getElementById('who-we-are');
+      var whoFrame = whoSec && whoSec.querySelector('.who__frame');
+      var whoRise = whoSec
+        ? [].slice.call(whoSec.querySelectorAll('.who__rise'))
+        : [];
+      var whoCap = whoSec && whoSec.querySelector('.who__cap');
+      var whoSettled = false, whoStart = null;
+      var CUBE = 210; /* matches --cube-size on desktop */
+
+      /* Measured from DOCUMENT position, never the live rect. Once the rail goes
+         sticky its on-screen top freezes at 0, so any rect-based progress would
+         stall halfway and the reveal would never finish. `.who` itself is not
+         sticky, so its document offset is stable. */
+      function measureWho() {
+        if (!whoFrame) return;
+        var padTop = parseFloat(getComputedStyle(whoSec).paddingTop) || 0;
+        var fh = whoFrame.offsetHeight || window.innerHeight;
+        var docTop = whoSec.getBoundingClientRect().top + window.scrollY;
+        /* p = 0 when the frame's centre reaches the fold; p = 1 a further 0.85vh
+           down — which is entirely inside the range where the rail is pinned */
+        whoStart = docTop + padTop + fh / 2 - window.innerHeight * 0.5;
+        whoP = -1; whoSettled = false;
+      }
+
+      function renderWho() {
+        if (!whoFrame || reduce.matches) return;
+        if (whoStart === null) measureWho();
+        var vh = window.innerHeight;
+        var p = clamp01((window.scrollY - whoStart) / (vh * 0.85));
+
+        /* settled: hand the styles back to the stylesheet rather than pinning
+           them inline forever */
+        if (p >= 1) {
+          if (whoSettled) return;
+          whoSettled = true; whoP = 1;
+          whoFrame.style.clipPath = '';
+          for (var k = 0; k < whoRise.length; k++) {
+            whoRise[k].style.opacity = '';
+            whoRise[k].style.transform = '';
+          }
+          if (whoCap) whoCap.style.opacity = '';
+          return;
+        }
+        whoSettled = false;
+        if (Math.abs(p - whoP) < 0.004) return;  /* quantise; skip unchanged */
+        whoP = p;
+
+        var fw = whoFrame.offsetWidth, fh = whoFrame.offsetHeight;
+        if (!fw || !fh) return;
+        /* HALF margins, per side. The inset is applied to top AND bottom (and left
+           AND right), so using the full margin over-constrains the box: at p = 0
+           the two insets sum to >100% and the clip region is EMPTY — the reveal
+           then appears to do nothing until halfway through. 50 gives an exact
+           CUBE-sized square at p = 0. */
+        var ix = (1 - Math.min(CUBE, fw) / fw) * 50;
+        var iy = (1 - Math.min(CUBE, fh) / fh) * 50;
+        var k2 = 1 - p;
+
+        whoFrame.style.clipPath = 'inset(' +
+          (iy * k2).toFixed(2) + '% ' + (ix * k2).toFixed(2) + '% ' +
+          (iy * k2).toFixed(2) + '% ' + (ix * k2).toFixed(2) + '% round ' +
+          (28 * k2).toFixed(1) + 'px)';
+
+        for (var i = 0; i < whoRise.length; i++) {
+          var d = i * 0.12;
+          var q = clamp01((p - d) / Math.max(0.001, 1 - d));
+          var e = q * q * (3 - 2 * q);
+          whoRise[i].style.opacity = e.toFixed(3);
+          /* text enters from x:-40 → 0 and y:22 → 0 (the brief's Section B rule) */
+          whoRise[i].style.transform =
+            'translate3d(' + ((-40 * (1 - e)).toFixed(1)) + 'px,' +
+            ((1 - e) * 22).toFixed(1) + 'px,0)';
+        }
+
+        /* The caption sits at the BOTTOM of the full frame, so the expanding clip
+           hides it until the bottom inset is nearly gone (p ≈ 0.92). Starting its
+           fade any earlier just fades an element that is still clipped away. */
+        if (whoCap) {
+          var cq = clamp01((p - 0.86) / 0.14);
+          whoCap.style.opacity = (cq * cq * (3 - 2 * cq)).toFixed(3);
+        }
+      }
+
+      function syncMode() {
+        if (reduce.matches) {
+          stage.classList.add('is-flow');
+          hero.classList.remove('is-cubing', 'is-cubed');
+          stage.classList.remove('is-cubed');
+          cubing = false;
+          cubeSettled = false;
+          return true;
+        }
+        stage.classList.remove('is-flow');
+        return false;
+      }
+
+      var ticking = false;
+      function render() {
+        ticking = false;
+        syncBarSolid();
+        /* the rail runs even when the hero pin is disabled (reduced motion) —
+           swapping which photo is showing is content, not motion */
+        /* ---- the dead-blue lift ----------------------------------------------------
+           A sticky hero must travel a full viewport before it can unstick, so
+           however short the pin is, the band left behind after the cube dissolves
+           is always ≈ pEnd·vh (~828px at 900). That dead zone cannot be tuned
+           away — shortening the pin moves it by ~50px.
+
+           Instead of shrinking the pin (which edits the client-reviewed cube
+           collapse), the NEXT SECTION slides up over it. Both are brand blue, so
+           the overlap is invisible and the only thing the reader sees is content
+           arriving sooner.
+
+           At p = 1 the pin has travelled exactly (S − vh), so the section's top
+           lands at vh − margin. To put it just under the settled band (B):
+             vh − margin = B   →   margin = vh − B
+           Ramp it in over p 0.86 → 1 so it overlaps the cube's fade (0.72 → 1)
+           rather than snapping when the class flips. Reversible — scrolling back
+           up returns the margin to 0 and the hero re-expands. */
+      var liftLast = null, liftMeasured = false;
+
+      function renderLift(p) {
+        var vh = window.innerHeight;
+        var S = stage.offsetHeight;
+        var B = 120; /* --cube-band-settled; kept in step with the CSS token */
+        var k = smoothstep(segment(p, 0.86, 1));
+        /* quantised to 2px: this is a layout write, so don't thrash it per frame */
+        var px = Math.round((-(vh - B) * k) / 2) * 2;
+        if (px !== liftLast) {
+          liftLast = px;
+          stage.style.marginBottom = px + 'px';
+          liftMeasured = false;          /* geometry moved — re-measure the reveal */
+        }
+        if (k >= 0.999 && !liftMeasured) { measureWho(); liftMeasured = true; }
+      }
+
+      renderRail();
+        if (syncMode()) return;
+
+        var total = stage.offsetHeight - window.innerHeight;
+        var p = total > 0 ? clamp01(-stage.getBoundingClientRect().top / total) : 0;
+        /* Phase 1 — the headline handoff fully animates in by ~0.55 of the pin. */
+        var t = clamp01(p / 0.55);
+
+        var pOverlay = smoothstep(segment(t, 0.12, 0.72));
+        var pTint = smoothstep(segment(t, 0, 0.72));
+        /* Overlapping exit/enter — a headline stays majority-visible through the swap */
+        var pPortLine1 = smoothstep(segment(t, 0.18, 0.34));
+        var pPortLine2 = smoothstep(segment(t, 0.24, 0.40));
+        var pPortLine3 = smoothstep(segment(t, 0.30, 0.48));
+        var pPortExit = Math.max(pPortLine1, pPortLine2, pPortLine3);
+        var pPortShrink = smoothstep(segment(pPortExit, 0.75, 1));
+        var pSoftIn = smoothstep(segment(t, 0.36, 0.54));
+        var pLine2 = smoothstep(segment(t, 0.44, 0.64));
+        var pLine3 = smoothstep(segment(t, 0.52, 0.76));
+        var pVideo = smoothstep(segment(t, 0.18, 0.72));
+        var pScrim = smoothstep(segment(t, 0.34, 0.58));
+        var pCue = smoothstep(segment(t, 0.06, 0.22));
+
+        hero.style.setProperty('--pOverlay', pOverlay.toFixed(4));
+        hero.style.setProperty('--pTint', pTint.toFixed(4));
+        hero.style.setProperty('--pPortLine1', pPortLine1.toFixed(4));
+        hero.style.setProperty('--pPortLine2', pPortLine2.toFixed(4));
+        hero.style.setProperty('--pPortLine3', pPortLine3.toFixed(4));
+        hero.style.setProperty('--pPortShrink', pPortShrink.toFixed(4));
+        hero.style.setProperty('--pSoftIn', pSoftIn.toFixed(4));
+        hero.style.setProperty('--pLine2', pLine2.toFixed(4));
+        hero.style.setProperty('--pLine3', pLine3.toFixed(4));
+        hero.style.setProperty('--pVideo', pVideo.toFixed(4));
+        hero.style.setProperty('--pScrim', pScrim.toFixed(4));
+        hero.style.setProperty('--pCue', pCue.toFixed(4));
+
+        /* Phase 2 — only AFTER the second message has settled (t = 1 at p = 0.55),
+           the hero collapses into a small cube and the copy fades: 0.62 → 0.92,
+           then a short hold before the pin releases. The video keeps playing. */
+        var pCube = smoothstep(segment(p, 0.62, 0.92));
+        hero.style.setProperty('--cube', pCube.toFixed(4));
+        var nowCubing = pCube > 0.001 && pCube < 0.999;
+        var nowSettled = pCube >= 0.999;
+        if (nowCubing !== cubing) {
+          cubing = nowCubing;
+          hero.classList.toggle('is-cubing', cubing);
+        }
+        if (nowSettled !== cubeSettled) {
+          cubeSettled = nowSettled;
+          hero.classList.toggle('is-cubed', cubeSettled);
+          stage.classList.toggle('is-cubed', cubeSettled);
+        }
+
+        /* Lift + reveal run LAST — both depend on `p`, which is assigned above.
+           Calling them earlier passes `undefined` into segment() and the margin
+           silently resolves to "NaNpx", which the browser then drops. */
+        renderLift(p);
+        renderWho();
+        renderMorph(pCube);
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(render); } }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      if (reduce.addEventListener) reduce.addEventListener('change', onScroll);
+      else if (reduce.addListener) reduce.addListener(onScroll);
+      measureWho();
+        render();
+      /* the reveal is measured from the section's real position, which the lift
+         changes — reset both when the window changes */
+      var onResize = function () { liftLast = null; liftMeasured = false; measureWho(); onScroll(); };
+      window.addEventListener('resize', onResize);
+    })();
+
+    // background video: play from load, pause off-screen, respect reduced motion, pause control
+    (function () {
+      var v = document.getElementById('heroVideo');
+      var ctrl = document.getElementById('heroMediaCtrl');
+      var stage = document.getElementById('heroStage');
+      if (!v) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var userPaused = false;
+      var hero = document.getElementById('hero');
+
+      // the fallback carries the background until the video really plays, so a
+      // deploy with no local assets shows a designed hero instead of a flat plate
+      v.addEventListener('playing', function () {
+        if (hero) hero.classList.add('has-media');
+      }, { once: true });
+
+      function setCtrl(playing) {
+        if (!ctrl) return;
+        ctrl.setAttribute('aria-pressed', playing ? 'false' : 'true');
+        ctrl.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
+      }
+      function play() {
+        if (reduce.matches || userPaused) return;
+        var pr = v.play();
+        if (pr && pr.catch) pr.catch(function () {});
+        setCtrl(true);
+      }
+      function pause() {
+        v.pause();
+        setCtrl(false);
+      }
+
+      if (reduce.matches) {
+        pause();
+        v.removeAttribute('autoplay');
+      } else if (v.readyState >= 2) {
+        play();
+      }
+      v.addEventListener('loadeddata', play, { once: true });
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) play();
+      }, { passive: true });
+
+      if (ctrl) {
+        ctrl.addEventListener('click', function () {
+          if (v.paused) {
+            userPaused = false;
+            play();
+          } else {
+            userPaused = true;
+            pause();
+          }
+        });
+      }
+
+      if ('IntersectionObserver' in window && stage) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) play();
+            else pause();
+          });
+        }, { threshold: 0.05 });
+        io.observe(stage);
+      }
+
+      if (reduce.addEventListener) {
+        reduce.addEventListener('change', function () {
+          if (reduce.matches) pause();
+          else play();
+        });
+      }
+    })();
+
+    // Scale (stats) → verticals: KPI count-up + expanding accordion
+    (function () {
+      var section = document.getElementById('investors');
+      if (!section) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      var line = document.getElementById('sentLine');
+      var words = line ? line.querySelectorAll('.sent-w') : [];
+      // the playhead: a word is lit as it rises past this line of the viewport
+      var FOCUS = 0.72;
+
+      /* ---- the scrub ----------------------------------------------------- */
+      var lastQ = [], ticking = false;
+
+      function scrub() {
+        if (!words.length) return;
+        // Read live every frame — only two rects, and it has to be live: the
+        // pinned hero above collapses as you scroll, which moves the sentence
+        // up the document, so any cached offset drifts by hundreds of pixels.
+        var a = words[0].getBoundingClientRect();
+        var b = words[words.length - 1].getBoundingClientRect();
+        // the sweep is spread over the sentence's travel, plus slack so it lingers
+        var span = Math.max(b.bottom - a.top + a.height, window.innerHeight * 0.55);
+        // one global progress, then handed out per word in reading order —
+        // this is the screenshot's behaviour: line 1, then line 2, word by word
+        var g = (window.innerHeight * FOCUS - a.top) / span;
+        g = g < 0 ? 0 : (g > 1 ? 1 : g);
+        var n = words.length;
+        var pos = g * n;
+        for (var i = 0; i < n; i++) {
+          var p = pos - i;
+          p = p < 0 ? 0 : (p > 1 ? 1 : p);
+          var q = Math.round(p * 40);          // quantise — only write real changes
+          if (lastQ[i] === q) continue;
+          lastQ[i] = q;
+          var t = q / 40;
+          words[i].style.opacity = (0.08 + 0.92 * t).toFixed(3);
+          words[i].style.filter = t >= 1 ? 'none' : 'blur(' + ((1 - t) * 6).toFixed(2) + 'px)';
+        }
+      }
+
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () { ticking = false; scrub(); });
+      }
+
+      /* ---- init ----------------------------------------------------------- */
+      // the numbers are static — they read their values straight from the markup
+      // and the word scrub carries the whole reveal.
+      if (words.length && !reduce.matches) {
+        scrub();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+
+      /* Expanding accordion: hover/click opens one strip; first panel open by default.
+         Reduced-motion still switches panels — only the width animation is off (CSS). */
+      function initVertStage() {
+        var stage = document.getElementById('vertStage');
+        if (!stage) return;
+        var panels = Array.prototype.slice.call(stage.querySelectorAll('.vpanel'));
+        var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+        function select(panel) {
+          panels.forEach(function (p) {
+            var on = p === panel;
+            p.classList.toggle('is-open', on);
+            p.setAttribute('aria-expanded', on ? 'true' : 'false');
+          });
+        }
+
+        panels.forEach(function (panel, idx) {
+          panel.addEventListener('click', function (e) {
+            if (e.target.closest('a')) return;
+            select(panel);
+          });
+          if (fine.matches) {
+            panel.addEventListener('mouseenter', function () { select(panel); });
+          }
+          panel.addEventListener('keydown', function (e) {
+            var next = -1;
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              select(panel);
+              return;
+            }
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (idx + 1) % panels.length;
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (idx - 1 + panels.length) % panels.length;
+            if (e.key === 'Home') next = 0;
+            if (e.key === 'End') next = panels.length - 1;
+            if (next < 0) return;
+            e.preventDefault();
+            select(panels[next]);
+            panels[next].focus();
+          });
+        });
+      }
+
+      initVertStage();
+    })();
+
+    // AI use-case accordion (Claude-style row labels → vertical stack)
+    (function () {
+      var acc = document.getElementById('aiAcc');
+      if (!acc || !document.documentElement.classList.contains('has-js')) return;
+      var items = acc.querySelectorAll('.ai-acc__item');
+      if (!items.length) return;
+
+      function openItem(item) {
+        items.forEach(function (el) {
+          var on = el === item;
+          el.classList.toggle('is-open', on);
+          var btn = el.querySelector('.ai-acc__trigger');
+          var body = el.querySelector('.ai-acc__body');
+          if (btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+          if (body) body.hidden = !on;
+        });
+      }
+
+      items.forEach(function (item, idx) {
+        var btn = item.querySelector('.ai-acc__trigger');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          openItem(item);
+        });
+        btn.addEventListener('keydown', function (e) {
+          var next = -1;
+          if (e.key === 'ArrowDown') next = (idx + 1) % items.length;
+          if (e.key === 'ArrowUp') next = (idx - 1 + items.length) % items.length;
+          if (e.key === 'Home') next = 0;
+          if (e.key === 'End') next = items.length - 1;
+          if (next < 0) return;
+          e.preventDefault();
+          openItem(items[next]);
+          var target = items[next].querySelector('.ai-acc__trigger');
+          if (target) target.focus();
+        });
+      });
+    })();
+
+    // LinkedIn post cards — horizontal scroller with prev/next
+    (function () {
+      var scroller = document.getElementById('liScroller');
+      var prev = document.getElementById('liPrev');
+      var next = document.getElementById('liNext');
+      if (!scroller) return;
+
+      // one "page" = the first card that isn't already fully visible
+      function step() {
+        var cards = scroller.querySelectorAll('.li-card');
+        var gap = 16;
+        var left = scroller.scrollLeft;
+        var w = scroller.clientWidth;
+        for (var i = 0; i < cards.length; i++) {
+          var l = cards[i].offsetLeft - scroller.offsetLeft;
+          if (l > left + 1) return Math.min(l - left, cards[i].offsetWidth + gap);
+        }
+        return w;
+      }
+
+      function sync() {
+        var max = scroller.scrollWidth - scroller.clientWidth;
+        // 1px slack so a sub-pixel remainder doesn't leave a live button
+        if (prev) prev.disabled = scroller.scrollLeft <= 1;
+        if (next) next.disabled = max <= 1 || scroller.scrollLeft >= max - 1;
+      }
+
+      function go(dir) {
+        var s = step();
+        var d = dir < 0 ? -s : s;
+        scroller.scrollBy({ left: d, behavior: 'smooth' });
+      }
+
+      if (prev) prev.addEventListener('click', function () { go(-1); });
+      if (next) next.addEventListener('click', function () { go(1); });
+      scroller.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      // clientWidth is 0 or wrong on the first synchronous pass, so the buttons
+      // would latch in the wrong state — re-sync once the element really has a box.
+      if ('ResizeObserver' in window) new ResizeObserver(sync).observe(scroller);
+      window.addEventListener('load', sync);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+      sync();
+    })();
+
+    // navigation dropdown
+    (function () {
+      var btn = document.querySelector('.menu-btn');
+      var menu = document.getElementById('siteMenu');
+      var bar = document.querySelector('.hero__bar');
+      if (!btn || !menu || !bar) return;
+
+      function syncBarH() {
+        document.documentElement.style.setProperty('--bar-h', bar.offsetHeight + 'px');
+      }
+      function openMenu() {
+        menu.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';   // keep the page behind locked
+        syncBarH();
+        var first = menu.querySelector('a');
+        if (first) first.focus({ preventScroll: true });
+      }
+      function closeMenu() {
+        menu.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+      btn.addEventListener('click', function () {
+        if (menu.hidden) openMenu(); else { closeMenu(); btn.focus({ preventScroll: true }); }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !menu.hidden) { closeMenu(); btn.focus({ preventScroll: true }); }
+      });
+      // click the scrim, or any link, closes it
+      menu.addEventListener('click', function (e) {
+        if (e.target === menu || e.target.closest('a')) closeMenu();
+      });
+      window.addEventListener('resize', syncBarH);
+      syncBarH();
+    })();
+  </script>
+</body>
+</html>
