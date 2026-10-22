@@ -26,7 +26,7 @@
       --accent: currentColor;
       --bar-h:  68px;     /* header height; re-measured in JS for the menu offset */
       /* ---- motion tokens (2026-10-22) — one easing/duration system, so the
-         reveals, rail, accordion and marquee all feel like one machine rather
+         reveals, rail and accordion all feel like one machine rather
          than many hand-tuned cubic-beziers. */
       --ease-out:    cubic-bezier(.22, 1, .36, 1);   /* enter / rise / settle */
       --ease-inout:  cubic-bezier(.4, 0, .2, 1);     /* crossfades + accordion */
@@ -1502,9 +1502,7 @@
       .careers__posts-btn { transition: none; }
     }
 
-    /* ---- Close / bottom CTA (Figma 11304:33 · content-slots §2 row 07) --------
-       The closing marquee is folded in here (2026-10-22), so the page no longer
-       ends on a stack of separate dark/blue bands. */
+    /* ---- Close / bottom CTA (Figma 11304:33 · content-slots §2 row 07) -------- */
     .close {
       position: relative; z-index: 2;
       padding: 0 24px clamp(72px, 8vw, 100px);
@@ -1542,41 +1540,6 @@
       border-bottom-color: var(--white);
     }
 
-    /* ---- Closing marquee — the 11 verticals --------------------------------
-       Square's "closing trail" (HomePageClosing__trail + marquee): a continuous
-       horizontal scroll of the breadth signal, as a finale before the CTA. Folded
-       into the close (transparent, on the close canvas) so it isn't a band of its
-       own. The verticals are already named in the footer and the verts band, so
-       the marquee is aria-hidden — decorative repetition, not a nav. */
-    .marquee {
-      position: relative; z-index: 2;
-      overflow: hidden;
-      margin: 0 -24px;              /* full-bleed — escape the close's padding */
-      padding: clamp(56px, 8vw, 84px) 0 40px;
-      border-bottom: 1px solid rgba(255, 255, 255, .12);
-    }
-    .marquee__track {
-      display: flex; width: max-content;
-      animation: marquee-scroll 38s linear infinite;
-    }
-    .marquee__group {
-      display: flex; align-items: center;
-      flex: 0 0 auto; white-space: nowrap;
-    }
-    .marquee__item {
-      display: inline-flex; align-items: center;
-      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
-      font-size: clamp(26px, 3vw, 40px);
-      letter-spacing: -.02em; line-height: 1.1;
-      color: rgba(255, 255, 255, .9);
-    }
-    .marquee__item::after {
-      content: "·"; margin: 0 40px; color: rgba(255, 255, 255, .35);
-    }
-    .marquee__item em {
-      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
-      font-style: italic; font-weight: 400; color: var(--green);
-    }
     /* Italic display accents — one gold → green gradient on every band.
        Sits after the flat color rules so it wins. Weight 600 (semi-bold);
        Instrument Serif has no 600 file, so the browser synthesizes it lighter than 700. */
@@ -1586,7 +1549,6 @@
     .careers__title em,
     .careers-testimonial__headline em,
     .founders__title em,
-    .marquee__item em,
     .sent-num {
       font-weight: 600;
       background-image: linear-gradient(100deg, #FFC600 0%, #84BD00 100%);
@@ -1595,14 +1557,6 @@
       color: transparent;
       -webkit-text-fill-color: transparent;
     }
-    @keyframes marquee-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .marquee__track { animation: none; }
-    }
-
     /* ---- Scroll-reveal (Square's RevealAnimations) --------------------------
        A single utility: content rises + fades as it enters the viewport, driven
        by IntersectionObserver (`.is-in`). The default state IS visible, so
@@ -2286,42 +2240,8 @@ Square-style expanding accordion (white canvas). -->
     </div>
   </section>
 
-  <!-- Close — Figma node 11304:33 · content-slots §2 row 07. The closing marquee
-       (the 11 verticals, Square "closing trail" pattern) is folded in here as a
-       decorative full-bleed strip — aria-hidden, since the verticals are already
-       reachable via the footer and the verts band. -->
+  <!-- Close — Figma node 11304:33 · content-slots §2 row 07. -->
   <section class="close" id="close" aria-labelledby="closeTitle">
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-      <div class="marquee__group">
-        <span class="marquee__item">Hospitality</span>
-        <span class="marquee__item">Weddings &amp; Events</span>
-        <span class="marquee__item">Wine</span>
-        <span class="marquee__item">Retail</span>
-        <span class="marquee__item">Storage &amp; Marina</span>
-        <span class="marquee__item">Health &amp; Wellness</span>
-        <span class="marquee__item">Field Services</span>
-        <span class="marquee__item">Transportation</span>
-        <span class="marquee__item">Automotive</span>
-        <span class="marquee__item">Association Management</span>
-        <span class="marquee__item">ERP</span>
-      </div>
-      <div class="marquee__group">
-        <span class="marquee__item">Hospitality</span>
-        <span class="marquee__item">Weddings &amp; Events</span>
-        <span class="marquee__item">Wine</span>
-        <span class="marquee__item">Retail</span>
-        <span class="marquee__item">Storage &amp; Marina</span>
-        <span class="marquee__item">Health &amp; Wellness</span>
-        <span class="marquee__item">Field Services</span>
-        <span class="marquee__item">Transportation</span>
-        <span class="marquee__item">Automotive</span>
-        <span class="marquee__item">Association Management</span>
-        <span class="marquee__item">ERP</span>
-      </div>
-    </div>
-    </div>
-
     <div class="close__inner rv">
       <h2 class="close__title" id="closeTitle">Ready to see where your business can go next?</h2>
       <p class="close__cta">
