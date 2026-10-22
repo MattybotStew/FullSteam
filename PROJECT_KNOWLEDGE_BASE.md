@@ -377,21 +377,24 @@ how these sites created a dedicated page to showcase their use of AI:
 > still allowed per SOW (3 rounds per phase).
 > **Supersedes:** the earlier audience-led draft (2026-08-25).
 >
-> **2026-10-22 — not a re-lock.** Client feedback asked to rename **Embedded Offerings → Our Advantage** and **For Founders → Acquisitions**, and to list **AI at Fullsteam** as a nav wayfinder to the Our Advantage `#ai` panel (no new AI page). Interior wireframes now use those labels. The same day, the wireframe menu trigger became a hamburger and the open menu a single column. This section still records the 2026-09 lock until a formal re-lock. Homepage strategy (§23 / §24) is unchanged.
+> **2026-10-22 — not a re-lock.** Client feedback asked to rename **Embedded Offerings → Our Advantage** and **For Founders → Acquisitions**, and to list **AI at Fullsteam** as a nav wayfinder to the Our Advantage `#ai` panel (no new AI page). Interior wireframes now use those labels, and on **2026-10-22** the label was propagated through every repo doc — **labels only**; the tree, page inventory, and lock date are unchanged. The same day, the wireframe menu trigger became a hamburger and the open menu a single column. This section still records the 2026-09 lock until a formal re-lock. Homepage strategy (§23 / §24) is unchanged.
 
 ### Locked decisions
 
 **Nav terminology.**
 - **Portfolio axis = "Vertical Software"** (renamed from "Solutions", 2026-09-10).
-- **Embedded-expansion axis = "Embedded Offerings"** (client-preferred, 2026-09-10;
-  short form "Offerings" in body copy/CTAs). The client rejected "Platform" as too
-  abstract and tech-forward; "Embedded Offerings" matches the brief's own language
-  ("embedded offerings"). Alternatives considered (Capabilities, Products, Services,
-  How We Grow, Expansion, Growth) are detailed in `01_Discovery/synthesis/sitemap-rationale.html` §9.
+- **Embedded-expansion axis = "Our Advantage"** (client rename, 2026-10-22; was
+  "Embedded Offerings", client-preferred 2026-09-10). **"Offerings" survives only as
+  the on-page group name** for Payments / Lending / Insurance + AI — it is no longer a
+  nav short form. The client rejected "Platform" as too abstract and tech-forward.
+  *History:* the 2026-09 choice of "Embedded Offerings" (it matched the brief's own
+  language, "embedded offerings") and the full alternatives list (Capabilities,
+  Products, Services, How We Grow, Expansion, Growth) are preserved in
+  `01_Discovery/synthesis/sitemap-rationale.html` §9.
 
 **Two-axis primary navigation (portfolio + growth engine).** The L1 tree is led
 by the two branching stories — **Vertical Software** (Acquire & Grow) and
-**Embedded Offerings** (Embedded Expansion) — plus the audience path **For
+**Our Advantage** (Embedded Expansion) — plus the audience path **For
 Founders**, **Our Story**, and **Careers**. This is no longer a two-audience nav: **"For
 Investors" was removed from the sitemap and chrome** (2026-09-10). Investors are
 served through the portfolio/scale proof on the homepage and via Contact — there
@@ -410,17 +413,17 @@ is no investor nav node or dedicated investor page.
   11 verticals and swaps a **tabbed panel** in place; **no child pages**, no category
   labels. The find-your-vertical type-ahead filters the sidebar. Supersedes the
   2026-09-10 "11 vertical detail pages from one reusable template."
-- **Embedded Offerings is a single page** (clarified 2026-09-28 · layout changed
+- **Our Advantage is a single page** (clarified 2026-09-28 · layout changed
   2026-10-01) — all four offerings (**Payments, Lending, Insurance, AI at Fullsteam**)
   live on one page, now presented as a **horizontal filmstrip on a white background**
   that mirrors the homepage's "03 — The verticals" section (**one card featured; click a
   card to open its story**; was a tile grid + story window); **no child pages**.
   **Hardware and Integrations were dropped as separate pages** (2026-09-10);
   hardware is folded into Payments (POS & devices) and integrations into the
-  Embedded Offerings overview.
+  Our Advantage overview.
 - **AI at Fullsteam is NOT its own page** (re-decided 2026-09-28, superseding the
   2026-09-10 "own page nested under Embedded Offerings"). It is the **fourth tile on
-  the single Embedded Offerings page**, and its content is a story inside the
+  the single Our Advantage page**, and its content is a story inside the
   filmstrip card — use cases first, never a headcount story. This is the only reading
   consistent with "a single page / no child pages," and it matches the shipped
   `pages/embedded-offerings.html` (4-card filmstrip; no `ai.html` exists). **This is a
@@ -486,7 +489,7 @@ Privacy · Terms
 
 1. **For Founders**
 2. **Vertical Software** (hub)
-3. **Embedded Offerings** (hub)
+3. **Our Advantage** (hub)
 4. **Our Story** (+ Leadership)
 5. **Careers** · **Contact** (utility)
 
@@ -497,7 +500,7 @@ Privacy · Terms
 
 Budget is manageable because most interior pages are **reusable templates**:
 Vertical Software (single tabbed page), Offering Detail (×3), Story, Leadership, Careers, Contact — plus bespoke pages (Home, For
-Founders, Embedded Offerings Hub, AI at Fullsteam). Offering detail pages share a
+Founders, Our Advantage Hub, AI at Fullsteam). Offering detail pages share a
 template, and the 11 verticals now live inside the Vertical Software page rather
 than as 11 pages, so the count is low (~13 designed pages against the 25-page cap,
 leaving ~12 slots for e.g. Digital Marketing, 404, or future pages).
@@ -1061,8 +1064,9 @@ durable, AI-resilient demand.
   **across many verticals** even if not yet in a prospect's specific vertical.
 - **Investor framing:** payments enhances profitability of each acquired business and
   is the margin/expansion story — but keep explicit profitability off the public site.
-- **Axis label:** now **"Embedded Offerings"** (client-preferred, 2026-09-10; short
-  form "Offerings"). "Platform" was rejected by the client.
+- **Axis label:** **"Our Advantage"** (client rename 2026-10-22; was "Embedded
+  Offerings", 2026-09-10). "Offerings" is the page's group name only. "Platform" was
+  rejected by the client.
   Dom's team internally calls it "payments and platform" — do not surface "Platform"
   on the site.
 
@@ -1111,7 +1115,7 @@ durable, AI-resilient demand.
 | H1 | Audience-led nav (founders + investors top) | **Validated** — three distinct messaging tracks confirmed by careers team and leadership |
 | H2 | Grouped verticals mega-menu | Superseded — flat vertical list locked 2026-09-10 |
 | H3 | No page-per-industry | Reinforced — "tell the story of impactful companies, not all 100" |
-| H4 | Offerings axis + AI placement | **"Embedded Offerings" label confirmed**; AI = own page nested under it |
+| H4 | Offerings axis + AI placement | **"Embedded Offerings" label confirmed** (renamed **"Our Advantage"**, 2026-10-22); AI = own page nested under it |
 | H5 | Conversion goal = exploration/credibility | **Resolved** — site is validation/credibility, not lead-gen |
 | H6 | Flat nav / human tone | **Validated** — 8th-grade, conversational, humanize |
 
@@ -1121,8 +1125,8 @@ durable, AI-resilient demand.
       but no revenue/run-rate on the site).
 - [x] ~~Decide AI placement: dedicated page vs. acquisition-side/general info vs. Offerings
       sub-section~~ — **resolved 2026-09-10:** AI at Fullsteam is its own page nested
-      under Embedded Offerings (§14). **Re-decided 2026-09-28:** AI is *not* a page —
-      it is the fourth tile on the single Embedded Offerings page, consistent with
+      under Our Advantage (§14). **Re-decided 2026-09-28:** AI is *not* a page —
+      it is the fourth tile on the single Our Advantage page, consistent with
       "no child pages" (§14). The earlier resolution is superseded, not deleted.
 - [ ] Confirm the ~15% employer/careers content allocation and where it lives.
 - [ ] Confirm the founder/testimonial and case-study roster permitted for public use
@@ -1253,7 +1257,7 @@ conversational, implied scale):
 | Home | `/` |
 | About | **Our Story** `/our-story` (not `/about`; `/about` migrates here) |
 | Verticals | **Vertical Software** `/vertical-software` (single tabbed page) |
-| Embedded Offerings | `/offerings` hub |
+| Our Advantage | `/offerings` hub |
 
 The remaining slots in the 10-page budget are not named in the brief. Natural
 candidates against the locked tree (confirm in outline approval): **For
@@ -1295,7 +1299,7 @@ follow the **locked sitemap**, not invent a parallel IA.
 - [x] Confirm the exact **10 pages** in the content budget against the locked tree.
   **Resolved 2026-09-26:** the brief's "10 pages" does **not** map 1:1 to routes.
   Vertical Software is one page holding all 11 verticals (§14, client-confirmed
-  2026-09-26 — no child pages, no per-vertical routes), and Embedded Offerings is
+  2026-09-26 — no child pages, no per-vertical routes), and Our Advantage is
   one page holding four offerings, so no tenth route is available without breaking
   the lock. The budget is therefore read as **content deliverables, not URLs**:
   9 routes (8 content pages + Contact) with the 11 vertical stories counted as
@@ -1514,7 +1518,7 @@ Publishable-candidate scale indicators (**all still subject to §20.7 publishabi
 3. **"Platform" resurfaces** ("the financial leverage of a large platform"). §14/§20.6
    reject "Platform" as the **axis label** — the V2 phrase is not a nav label, but any
    hero/section copy built from V2 must avoid the word. On the homepage the axis stays
-   **Embedded Offerings**.
+   **Our Advantage**.
 4. **Pillar titles are internal labels, not headlines.** "Software-First, Payments-Native,
    AI-Accelerated" is a strategy-deck header (three hyphenated compounds); V2's own
    execution guidance says to use plain first-person speech instead. **Rewrite pillar
@@ -1765,11 +1769,12 @@ does not cut.
 | **Axis A** | Portfolio — *what Fullsteam owns* | "the portfolio page", "Solutions" |
 | **Axis B** | Growth engine — *how those businesses get bigger* | "the payments story", "Platform" |
 | **grow morph** (the grow) | the interpolated A→B transition — the Retail tile growing to fill the frame | "the snap", "crossfade", "morph" as a vague metaphor |
-| **Offerings** | Embedded Offerings, short form in body copy | "Platform" |
+| **Our Advantage** | the embedded-expansion axis label (client rename 2026-10-22; was "Embedded Offerings") | "Platform", "Capabilities", "Services" |
+| **Offerings** | the group name used on the Our Advantage page — Payments / Lending / Insurance + AI | a nav label or a short form of the axis |
 | **vertical** | the portfolio unit (**11**) | "industry", "niche", "specialty" in site copy (§22.6) |
 
 **Two vocabularies, two jobs — do not mix them:** the **axes** (Axis A / Axis B) name the
-homepage's *model*; the **nav labels** (Vertical Software / Embedded Offerings) name the
+homepage's *model*; the **nav labels** (Vertical Software / Our Advantage) name the
 *sitemap* (§14). "The growth engine" is an axis label and never a headline.
 
 ### 23.6 Guardrails — all agents
@@ -1880,7 +1885,7 @@ cost of reaching Axis B was reduced, plus a measured defect in Axis A itself.
    **filmstrip** the client likes. The grow morph's source is that visual (was the Retail tile
    `t3`). The two headlines, the A→B order, both-states-are-content, and reduced-motion/no-JS flow
    are **unchanged**.
-2. **Embedded Offerings — keep the page + nav, drop the homepage section.** The locked L1 page
+2. **Our Advantage — keep the page + nav, drop the homepage section.** The locked L1 page
    (`/embedded-offerings`) and its nav node **stay**. The homepage stops carrying a dedicated
    Offerings scene; **Payments folds into "What we do → Grow"** (AI + payments) and **AI gets its
    own section**. This keeps the sitemap lock (`plans/sitemap-lock.md`) intact.
@@ -1909,7 +1914,7 @@ cost of reaching Axis B was reduced, plus a measured defect in Axis A itself.
 1. **§23 still holds for the opening** except the Axis A *carry*: two states, two headlines, the
    A→B order, the grow morph (no discrete cut), both states = content. Do not merge headlines or
    add a third state.
-2. **"Embedded Offerings" stays the axis label** — even though the homepage no longer has an
+2. **"Our Advantage" stays the axis label** — even though the homepage no longer has an
    Offerings section, and even though V2/V4 copy may lean on AI. **Never "Platform"** (§23.5,
    §22.6.3).
 3. **Payments is not the lead.** Message 1 and the AI emphasis must not invert §20.1's order
@@ -1942,7 +1947,7 @@ cost of reaching Axis B was reduced, plus a measured defect in Axis A itself.
 ### 24.6 Applied to all pages (2026-10-01)
 
 **Decision:** propagate the messaging/UX direction to every interior page — **keep the sitemap**
-(the Embedded Offerings page + nav stay). Done in all 8 interior wireframes + docs.
+(the Our Advantage page + nav stay). Done in all 8 interior wireframes + docs.
 
 - **For Founders** — hero lede states systems of record + AI/payments/operational excellence,
   software-first; "What we look for" frames the software as a system of record with AI/payments
@@ -1951,7 +1956,7 @@ cost of reaching Axis B was reduced, plus a measured defect in Axis A itself.
   use cases first, never headcount).
 - **Vertical Software** — software-first lede; every vertical's fact chips gain a **"What we add"
   (AI + payments)** chip.
-- **Embedded Offerings** — hero re-framed **software-first / AI-forward**; payments positioned as
+- **Our Advantage** — hero re-framed **software-first / AI-forward**; payments positioned as
   **invisible, embedded**; AI use cases first. Layout changed to a **horizontal filmstrip on a
   white background** mirroring the homepage "03 — The verticals" section (one card featured,
   clicked to open). Ordered Payments→AI; noted the option to promote AI to the first card.
@@ -2005,7 +2010,7 @@ never "exit"; AI never headcount; no named acquisitions or revenue/profitability
   (the same targets are re-engaged for years). → supports long-cycle trust content.
 - **Payments as "invisible, embedded" infrastructure** — "like the water or electric company";
   concrete vertical example (salon software with deposit/no-show/tipping). → the signature payments
-  message for the Embedded Offerings page.
+  message for the Our Advantage page.
 - **Named acquisitions cited internally:** **Floranext** (contacted 2020, engaged 2022, quarterly
   follow-up for years), **ISI**, **Storage Commander**. §20.7 still forbids naming these on the site
   until the client confirms — **genericize**.
@@ -2021,7 +2026,7 @@ never "exit"; AI never headcount; no named acquisitions or revenue/profitability
 2. **"Predictable fintech revenue growth"** (investor outcome) is a financial forecast — **do not
    ship** (§20.4; §22.6.5).
 3. **"Platform"** resurfaces ("the financial leverage of a large platform") — banned as the axis
-   label; site stays **"Embedded Offerings"** (§14; §22.6.3).
+   label; site stays **"Our Advantage"** (§14; §22.6.3).
 4. **Pillar titles are internal labels** — rewrite before use (this is what beat 01 does; §22.6.4).
 
 ### 25.4 Homepage review against the deck (2026-10-01)
@@ -2149,7 +2154,7 @@ the story **inline**. The centered story window/modal (`v-modal`, backdrop, arro
 **removed entirely**. Hash deep links (`#retail`) and Menu links still select. Panel titles are intent
 lines; the software-first story, icon collage, and four fact chips stay.
 
-### 26.3 Embedded Offerings — filmstrip replaced by the same sticky sidebar
+### 26.3 Our Advantage — filmstrip replaced by the same sticky sidebar
 
 **⚠ Overrides a client-approved decision.** Earlier the same day (2026-10-01) the site was rebuilt as
 a **horizontal filmstrip** (KB §24.6; `wireframes.md` 2026-10-01). At the client's request it is now

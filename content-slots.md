@@ -41,10 +41,12 @@ From KB §20–§22 (`PROJECT_KNOWLEDGE_BASE.md`). These are hard constraints, n
 - **AI:** use cases first; **never** imply staff reduction.
 - **Counts:** state **11 verticals** (settled — the locked IA). Do **not** state a customer
   count until OI-5 clears (see `wireframes.md` §7).
-- **Vocabulary:** the embedded axis is **"Embedded Offerings"** (short form "Offerings"),
-  **never "Platform."** The primary CTA is **"Explore our vertical solutions."**
-- **Axes vs nav:** *Axis A / Axis B* name the homepage model; *Vertical Software / Embedded
-  Offerings* name the sitemap. Do not mix them in copy.
+- **Vocabulary:** the embedded axis is **"Our Advantage"** (client rename 2026-10-22),
+  **never "Platform."** **"Offerings"** survives only as the on-page group name for the
+  Payments / Lending / Insurance + AI block — it is not a nav short form.
+  The primary CTA is **"Explore our vertical solutions."**
+- **Axes vs nav:** *Axis A / Axis B* name the homepage model; *Vertical Software / Our
+  Advantage* name the sitemap. Do not mix them in copy.
 
 ---
 
@@ -55,7 +57,7 @@ From KB §20–§22 (`PROJECT_KNOWLEDGE_BASE.md`). These are hard constraints, n
 | Logo wordmark | Home link | Locked | `FULLSTEAM` |
 | Menu button | Opens the menu | Locked | Hamburger (three bars). Accessible name "Menu". `aria-expanded` reflects open/closed |
 | "Explore vertical solutions" pill | Primary CTA (short form) | Locked | Header uses the short form; body uses the full form |
-| Menu rows | Sitemap L1 | Draft — 2026-10-22 client request, pending re-lock | Single column, one item per line: Vertical Software · Our Advantage · AI at Fullsteam (`embedded-offerings.html#ai`, not a new page) · Our Story · Acquisitions · Careers. Lock still says Embedded Offerings / For Founders |
+| Menu rows | Sitemap L1 | Draft — 2026-10-22 client request, applied; formal re-lock pending | Single column, one item per line: Vertical Software · Our Advantage · AI at Fullsteam (`embedded-offerings.html#ai`, not a new page) · Our Story · Acquisitions · Careers. Labels now match the docs; structure unchanged |
 | Menu children | Recovery | Locked | Indented in the same column: Leadership under Our Story · FAQ under Acquisitions · Open roles under Careers. The 11 verticals stay on the Vertical Software page, not in this menu |
 | Menu "Open roles" | Workday job search | Locked | External: `https://fullsteam.wd1.myworkdayjobs.com/External` · `target="_blank"` · not `careers.html#roles` |
 | Finder line | "find your vertical" | Draft | Not in the single-column menu. Type-ahead stays on the Vertical Software page |
@@ -111,7 +113,7 @@ stewards of the products (for founders), and *acquire and make the software comp
 | 04 | Per-card figure (`70,000+` / `$75B+` / `480M+` / `2,000+` / `11`) | Scale, in context | **Placeholder** | Replaced the KPI cycle; same allowlisted deck p28 set as the stats band, and the settled **11** stays untagged. No revenue/run-rate/profitability |
 | 05 | Beat + H2 "AI that already knows the business." + lede | AI | **Intent** | Use cases first; never a headcount story; investor-primary lens (AI strengthens the software side) |
 | 05 | Three AI example cards (forecasting / back office / support) | AI examples | **Intent** | Headline labels only; client asked to "highlight examples of AI"; genericize the final copy |
-| 05 | Link "See AI at Fullsteam" | Cross-link | Draft | → Embedded Offerings#ai |
+| 05 | Link "See AI at Fullsteam" | Cross-link | Draft | → Our Advantage#ai |
 | 06 | Beat + H2 "A great place to work." + lede | Employer story | **Intent** | Humanizing (2026-10-01); employer-brand track (tertiary) |
 | 06 | Three real-image placeholders + "Real team photo — not stock" captions | Culture imagery | **Placeholder** | **Actual people, not stock photos** |
 | 06 | Link "See Careers" + LinkedIn strip (cards + follow) | Careers + feed | Placeholder | No real feed data |
@@ -167,7 +169,7 @@ One page, 11 verticals, no child pages.
 
 ## 6. Our Advantage — `pages/embedded-offerings.html`
 
-On-page name is **Our Advantage** (2026-10-22). File name is unchanged. Sitemap lock still says Embedded Offerings. Sticky sidebar swaps content inline. No new AI page — `#ai` is the panel.
+On-page name is **Our Advantage** (client rename 2026-10-22, propagated repo-wide). File name stays `embedded-offerings.html` so the URL and all cross-links hold. Sticky sidebar swaps content inline. No new AI page — `#ai` is the panel.
 
 | Slot | Role | Status | Note |
 |---|---|---|---|

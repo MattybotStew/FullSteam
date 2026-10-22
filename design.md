@@ -43,7 +43,7 @@ crowd out the other:
 
 1. **Acquire & Grow** — Fullsteam acquires and grows vertical-specific software companies into
    market leaders (the *portfolio / Vertical Software* story).
-2. **Embedded Expansion** — those businesses expand beyond SaaS through **Embedded Offerings**:
+2. **Embedded Expansion** — those businesses expand beyond SaaS through **Our Advantage**:
    payments, lending, insurance, hardware, and integrations (the *growth-engine* story).
 
 ### Core UX principles
@@ -61,9 +61,10 @@ crowd out the other:
    representative brands, and outcome-led teasers.
 5. **No page-per-industry on the homepage.** Verticals appear as a revenue-ordered subset on the
    homepage; the Vertical Software page and Menu overlay list all 11 flat — no category labels (KB §14).
-6. **"Embedded Offerings," never "Platform."** The embedded-expansion axis is labeled
-   **Embedded Offerings** (client-preferred 2026-09-10; short form "Offerings" in body copy).
-   This must hold everywhere on the homepage.
+6. **"Our Advantage," never "Platform."** The embedded-expansion axis is labeled
+   **Our Advantage** (client rename 2026-10-22; was "Embedded Offerings", 2026-09-10).
+   "Offerings" survives only as the on-page group name for Payments / Lending /
+   Insurance + AI. This must hold everywhere on the homepage.
 7. **Validation over conversion.** The homepage exists to confirm credibility and get a
    warm visitor to take a meeting/call — not to run a lead-gen funnel. CTAs invite
    exploration and contact; proof and trust signals outrank conversion pressure (§20.2).
@@ -121,7 +122,7 @@ ask the question the *next* block answers.
 > *more impressive* — scale, modern tech/AI, US/Canada reach — and drop the "11 floating vertical
 > bubbles"; (b) lead with a **"What does Fullsteam do?"** breakout (Acquire → Grow/Build → Lead +
 > founder CTA + impressive stats); (c) move the **verticals filmstrip up** after it; (d) **kill the
-> Software section and the homepage Offerings section in favor of AI** (the Embedded Offerings
+> Software section and the homepage Offerings section in favor of AI** (the Our Advantage
 > *page* stays); (e) make **Great place to work** humanizing with **real images**. Full record:
 > KB **§24**. The opening model (§3.1 / §4.1) is amended, not replaced.
 
@@ -198,7 +199,7 @@ two states of the pinned opening:
     (§20.1 #4). Agreed line (2026-09-24): **"Software first. Then we grow it."**
   - **Sub-line = who we are, then what we do** — agreed line (2026-09-24): *"A permanent home for each
     software business we buy — plus the Offerings that help it grow: payments, lending, insurance,
-    and AI."* Uses the short form **Offerings**; never "Platform."
+    and AI."* Uses **Offerings** as the page's group name; never "Platform."
   - **Single primary CTA:** "Explore our vertical solutions."
   - A **secondary, quieter CTA** for founders/investors ("Selling your business?" / "For investors") —
     present but not competing with the primary CTA.
@@ -223,10 +224,10 @@ two states of the pinned opening:
   embedded-growth story register.
 - **Content needs:** Two clearly-labeled story lanes —
   1. **Acquire & Grow** (the portfolio / vertical software / "system of record").
-  2. **Embedded Expansion / Embedded Offerings** (payments, lending, insurance, hardware, integrations, AI).
+  2. **Embedded Expansion / Our Advantage** (payments, lending, insurance, hardware, integrations, AI).
 - **UX intent:** This is the conceptual spine. It makes Fullsteam legible to investors (who care about
-  the growth model) and to customers/founders (who care about the software). Use the **Embedded
-  Offerings** label, never "Platform."
+  the growth model) and to customers/founders (who care about the software). Use the **Our
+  Advantage** label, never "Platform."
 - **Lane naming (decided 2026-09-24):** lane 2's plain name is **"the growth engine"** — it names
   **Axis B** in the opening (§3.1), and the **What we do → Grow/Build** block plus the **AI** section
   pay it off. The hero (beat 01) *states* the model without borrowing the axis label. The homepage
@@ -257,13 +258,13 @@ two states of the pinned opening:
   - **AI at Fullsteam** introduced with **2–3 example use cases** (forecasting, back-office
     automation, grounded support — genericized). **Use cases first; never a headcount story** (§20.5).
   - **Payments** acknowledged as part of "Grow/Build" in **§4-section "What we do"**, not a separate
-    homepage scene. The full **Embedded Offerings** story (payments, lending, insurance, AI) lives on
+    homepage scene. The full **Our Advantage** story (payments, lending, insurance, AI) lives on
     its **locked L1 page** — the homepage no longer duplicates it (2026-10-01).
 - **UX intent:** Converts "they're a holding company" into "they make their software companies
   *grow*." Particularly persuasive for **investors** (the growth story) and reassures **customers**
   that AI and payments are built into the software they already run.
-- **Note (2026-10-01).** The client **removed the homepage Embedded Offerings section in favor of AI**.
-  The **Embedded Offerings page and nav node stay** (sitemap lock); only the homepage emphasis changed.
+- **Note (2026-10-01).** The client **removed the homepage Our Advantage section in favor of AI**.
+  The **Our Advantage page and nav node stay** (sitemap lock); only the homepage emphasis changed.
 
 ### 4.5 What we do — Acquire / Grow / Lead (added 2026-10-01)
 - **UX goal:** Answer the plain question the client wants answered first: **"What does Fullsteam do?"**
@@ -349,8 +350,8 @@ two states of the pinned opening:
 - **Find-your-vertical picker.** Lives on the Vertical Software page and in the header **Menu overlay** — not as a header search field. Lightweight filter/type-ahead; must work on mobile. Feeds the   exploratory feel (KB §14). Header chrome is sparse (option B revised on the homepage wire: For Founders + Menu + CTA); the traditional sitemap L1 is reached via overlay and footer.
 - **Flat vertical navigation.** All 11 verticals on the Vertical Software page and in the Menu overlay (two
   columns) plus find-your-vertical filter — **not** 11 chrome nav items and **not** category labels.
-- **Embedded Offerings label enforcement.** The axis label is "Embedded Offerings" (short form
-  "Offerings" in body copy/CTAs). No "Platform," no "Capabilities," no "Services" as the axis name.
+- **Our Advantage label enforcement.** The axis label is "Our Advantage"
+  (client rename 2026-10-22). No "Platform," no "Capabilities," no "Services" as the axis name.
 - **Responsive behavior.** All interactions (picker, accordions for vertical groups if used, video,
   video testimonials) must degrade cleanly to mobile; test the filter and sticky behaviors.
 - **Sticky header interplay.** If the header is sticky, ensure the homepage doesn't present two competing
@@ -377,7 +378,7 @@ and the rate of visitors who reach an interior audience or vertical page from th
 ## 7. Constraints & Ground Rules
 
 - **Brand identity unchanged** — reorganization of content/IA/UX only (KB §2). Not a rebrand.
-- **Use "Embedded Offerings"** for the embedded-expansion axis everywhere (short form "Offerings" in body copy; KB §14 / nav terminology note).
+- **Use "Our Advantage"** for the embedded-expansion axis everywhere (client rename 2026-10-22; KB §14 / nav terminology note). "Offerings" stays only as that page's group name.
 - **Primary CTA** = "Explore our vertical solutions" (brief + KB §4/§8).
 - **No page-per-industry** on the homepage; use a revenue-ordered subset + representative proof (KB §4/§14).
 - **CMS is Duda** (likely retained) — homepage components should be Duda-friendly/reusable.
@@ -409,7 +410,7 @@ and the rate of visitors who reach an interior audience or vertical page from th
       inline vs. link to the hub. (KB §14 open item.)
 - [x] ~~**AI homepage treatment**~~ **Resolved 2026-10-01:** AI gets its **own homepage section**
       (use cases/examples first). The Software and homepage Offerings scenes were removed; the
-      Embedded Offerings page stays. (§4.4; KB §24.)
+      Our Advantage page stays. (§4.4; KB §24.)
 - [ ] Sticky-header vs. in-content hero CTA dominance when scrolled (§5).
 - [ ] **Marquee backers.** The Strategic Positioning 2026 deck (KB §25) names **Aquiline Capital
       Partners, Sixth Street, and the Abu Dhabi Investment Authority** as an underused trust signal.
@@ -420,7 +421,7 @@ and the rate of visitors who reach an interior audience or vertical page from th
 - [x] ~~Confirm the **conversion goal** framing (exploration vs. lead-gen)~~ — **resolved
       in discovery:** the site is validation/credibility, not lead-gen (§20.2). CTAs stay
       exploration/contact-led.
-- [x] ~~**AI placement**~~ — **resolved:** dedicated page nested under Embedded Offerings (KB §14).
+- [x] ~~**AI placement**~~ — **resolved:** dedicated page nested under Our Advantage (KB §14).
 - [x] ~~**"For Investors" as a nav destination**~~ — **resolved 2026-09-10: deleted.**
       No investor nav node or page; served via homepage scale/proof + Contact (KB §14).
 - [ ] Confirm which **scale/KPI signals** are publishable and where the ~15% employer/careers

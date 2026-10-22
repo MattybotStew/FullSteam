@@ -301,7 +301,7 @@ management, financial control, reporting and planning.
   (eleven verticals here vs "13+ industries" in V2, §22.6.2) — **if the client
   settles on a count, it goes in the hero or a kicker, not scattered through the
   copy.** One page, one number.
-- **Embedded Offerings is named but not itemised.** Payments, lending,
+- **Our Advantage is named but not itemised.** Payments, lending,
   insurance, and AI are referred to functionally because they cut across all
   eleven. The dedicated explanations stay on `/offerings`, per §14.
 - **Hardware appears only where it is genuinely load-bearing** — gates in

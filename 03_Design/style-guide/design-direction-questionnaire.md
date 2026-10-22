@@ -41,7 +41,7 @@ locked decision are listed under "What is decided vs. inferred" at the bottom.
   is before a meeting.
 - **Success looks like:** A founder or investor leaves understanding Fullsteam's scale and
   its two-part model — we acquire and grow vertical software companies, and we grow them
-  through Embedded Offerings (payments, lending, insurance, AI) — and reaches out. Success
+  through Our Advantage (payments, lending, insurance, AI) — and reaches out. Success
   is measured by exploration depth and credibility, not form fills.
 
 ### Brand
@@ -64,7 +64,7 @@ locked decision are listed under "What is decided vs. inferred" at the bottom.
 - **Avoid:** Stock photography; dated typography and look & feel (the Frontier Growth
   font); talking-head-only video and "word walls"; an over-GTM, product-led portfolio
   framing (DaySmart); framing an acquisition as an "exit" (it's "a home for your
-  business"); the label "Platform" (use "Embedded Offerings"); publishing revenue,
+  business"); the label "Platform" (use "Our Advantage"); publishing revenue,
   run-rate, or explicit profitability; floating/scattered vertical "bubbles"; and
   PPC/lead-gen funnels.
 

@@ -13,7 +13,7 @@ placeholders and is **not** the source for these drafts.
 | Vertical Software | `/vertical-software` | [vertical-software.md](./vertical-software.md) | first draft, all 11 verticals |
 | Home | `/` | — | not started |
 | FAQ | `/for-founders/faq` | — | not started |
-| Embedded Offerings | `/offerings` | — | not started |
+| Our Advantage | `/offerings` | — | not started |
 | Our Story | `/our-story` | — | not started |
 | Leadership | `/our-story/leadership` | — | not started |
 | Careers | `/careers` | — | not started |

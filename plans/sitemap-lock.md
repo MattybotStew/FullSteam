@@ -1,6 +1,6 @@
 ---
 name: Sitemap lock
-overview: Lock the Fullsteam.com L1 tree and page inventory (For Investors deleted; Vertical Software a single tabbed page with a sticky sidebar — no child pages; Embedded Offerings = Payments/Lending/Insurance/AI; Leadership under Our Story; Newsroom removed), then reconcile every sitemap/chrome/design artifact to the locked tree.
+overview: Lock the Fullsteam.com L1 tree and page inventory (For Investors deleted; Vertical Software a single tabbed page with a sticky sidebar — no child pages; Our Advantage = Payments/Lending/Insurance/AI; Leadership under Our Story; Newsroom removed), then reconcile every sitemap/chrome/design artifact to the locked tree.
 todos:
   - id: lock-decisions
     content: "Confirm lock decisions: delete For Investors, AI page under Offerings, all 11 vertical pages (one template), Vertical Software hub with find-your-vertical"
@@ -37,12 +37,18 @@ todos:
     status: completed
 authored: 2026-09-10
 finalized: 2026-09-14
-revised: 2026-09-23
+revised: 2026-10-22 (label only)
 ---
 
-# Sitemap lock (2026-09-10 · finalized 2026-09-14 · revised 2026-09-23)
+# Sitemap lock (2026-09-10 · finalized 2026-09-14 · revised 2026-09-23 · label revised 2026-10-22)
 
-**2026-10-22 — pending formal re-lock.** Client feedback asked the wireframes to say **Our Advantage** (was Embedded Offerings), **Acquisitions** (was For Founders), and **AI at Fullsteam** as a nav item that wayfinds to the Our Advantage AI panel — not a new page. Interior wireframes and shared menu/footer labels now show that set. Menu chrome the same day: hamburger trigger, single-column list. The tree below is still the lock. Do not treat this note as an amendment.
+**2026-10-22 — label rename applied; formal re-lock still pending.** Client feedback asked the
+site to say **Our Advantage** (was Embedded Offerings), **Acquisitions** (was For Founders), and
+**AI at Fullsteam** as a nav item that wayfinds to the AI panel on Our Advantage — not a new page.
+Those labels are now applied **across the wireframes and the repo docs** (propagated 2026-10-22).
+The menu chrome that day became a hamburger trigger with a single-column list. The **tree and page
+inventory below are unchanged** — this is a **label revision, not a re-lock**, so the lock date
+stays 2026-09-14 and no structural decision moves.
 
 ## Locked tree
 
@@ -53,7 +59,7 @@ HOME                                      (/)
 ├─ VERTICAL SOFTWARE                     (/vertical-software) SINGLE PAGE
 │   └─ Sticky sidebar lists all 11 verticals; tabs swap the panel
 │      (no category labels, no child pages, find-your-vertical type-ahead)
-├─ EMBEDDED OFFERINGS                    (/offerings)         [SINGLE PAGE]
+├─ OUR ADVANTAGE                         (/offerings)         [SINGLE PAGE]
 │   └─ Sticky sidebar lists Payments · Lending · Insurance · AI; tabs swap the panel
 │      (no child pages, no separate AI page)
 ├─ Our Story                             (/our-story)
@@ -76,11 +82,13 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
   all verticals (weaker per-vertical SEO); deep links use `#<vertical>` anchors.
 - **All 11 verticals shown as in-page tabs** — the sidebar/Menu list stays flat;
   **no category labels** (2026-09-10).
-- **Embedded-expansion axis = "Embedded Offerings"** (client-preferred, 2026-09-10;
-  short form "Offerings" in body copy). **Embedded Offerings = Payments, Lending,
-  Insurance + AI.** **Hardware & Integrations dropped as separate pages** (Figma
-  comments #8/#9), folded into Payments / the Embedded Offerings overview.
-- **AI at Fullsteam is its own page nested under Embedded Offerings** (not
+- **Embedded-expansion axis = "Our Advantage"** (client rename, 2026-10-22; was
+  "Embedded Offerings", client-preferred 2026-09-10). **"Offerings" survives only as the
+  on-page group name** for Payments · Lending · Insurance + AI — not as a nav short form.
+  **Our Advantage = Payments, Lending, Insurance + AI.** **Hardware & Integrations dropped
+  as separate pages** (Figma comments #8/#9), folded into Payments / the Our Advantage
+  page.
+- **AI at Fullsteam is its own page nested under Our Advantage** (not
   top-level, not a section).
 - **Leadership is a page under Our Story** at `/our-story/leadership`
   (2026-09-14) — leaders only, per the confidentiality rule (no full staff listing).

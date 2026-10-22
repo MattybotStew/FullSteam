@@ -107,14 +107,15 @@ replaced. Beats renumber after the opening.
 "who we are," the **Software** scene (old 04), and the **Offerings** scene (old 05). **Kept:** the
 opening's Axis A/B two-state model, the founder voice, the filmstrip (rebuilt 2026-10-15 as the
 verticals card row), the stats, the LinkedIn strip,
-the close, and the footer. The **Embedded Offerings page + nav node stay** (sitemap lock).
+the close, and the footer. The **Our Advantage page + nav node stay** (sitemap lock).
 
 ### Deliberate choices in this wireframe
 
 - **Primary CTA** appears in header, hero, and closing — always
   **"Explore our vertical solutions"** (full form); header uses the short form
   "Explore vertical solutions."
-- **"Embedded Offerings"** is the axis label (client-preferred; short form "Offerings" in body copy; never "Platform").
+- **"Our Advantage"** is the axis label (client rename 2026-10-22; never "Platform").
+  **"Offerings"** survives only as the on-page group name for Payments / Lending / Insurance + AI.
 - **Verticals** appear as an **expandable card row** (five revenue-ordered cards + all 11 as text
   links) — Square's "seamless verticals," without brand logos. Rebuilt 2026-10-15 as Square's
   **"audience moment"** (eyebrow + headline + one card un-dimmed at a time, name → rule → figure →
@@ -222,13 +223,13 @@ pick: B revised** — pending client sign-off (OI-1). Option 0 is labeled legacy
 ## 5. Sitemap reference
 
 **Locked L1 (2026-09-10 · finalized 2026-09-14 · revised 2026-09-23):** For
-Founders · **Vertical Software** · **Embedded Offerings** · Our Story · Careers.
+Founders · **Vertical Software** · **Our Advantage** · Our Story · Careers.
 **For Investors was deleted.** **Vertical Software is a single page** — a sticky
 sidebar lists all 11 verticals and swaps the panel **inline** (no modal); **no child
-pages**, no category labels. **Embedded Offerings is a single page** using the same
+pages**, no category labels. **Our Advantage is a single page** using the same
 sticky-sidebar pattern (Payments · Lending · Insurance · AI at Fullsteam), swapped
 inline. **Hardware & Integrations were dropped** as separate pages (folded into
-Embedded Offerings / Payments). **AI at Fullsteam is a card/panel, not its own page.**
+Our Advantage / Payments). **AI at Fullsteam is a card/panel, not its own page.**
 Under Our Story: **Leadership** (`/our-story/leadership`, leaders only).
 **Newsroom was removed** (2026-09-23). **For Founders is a single-page leaf.** See
 `PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
@@ -254,7 +255,7 @@ not L1 tree nodes.
 - This is a **wireframe skin only** — not an approved visual direction (see
   boundary rule 2). Sitemap / rationale docs may stay as IA diagrams.
 - Keep copy short and obviously provisional; mark locked copy explicitly.
-- Preserve the constraint words: **"Embedded Offerings"** (never Platform), hero CTA
+- Preserve the constraint words: **"Our Advantage"** (never Platform), hero CTA
   **"Explore our vertical solutions."**
 - If you change structure or order, update the section table in §2 and the
   changelog in §8.
@@ -295,7 +296,7 @@ Anything present on some pages but not others is drift — decide once and apply
   `.dual` lanes stay retired. `design.md` §3 + KB §24 record it. **Remaining:** client sign-off.
 - **OI-4 — AI homepage treatment.** **Resolved 2026-10-01:** AI gets its **own homepage section**
   (beat 04) with **example use cases**, replacing the old Software + Offerings scenes. The dedicated
-  AI page stays **under Embedded Offerings** (KB §14).
+  AI page stays **under Our Advantage** (KB §14).
 - **OI-5 — Stat / proof strategy.** Current: the **impressive-stats band** (`#investors`) + the
   **per-card figures in the verticals cards** (2026-10-15 — replaced the filmstrip KPI cycle), both
   using **placeholders (11 / 70,000+ / $75B+ / 480M+ / 2,000+)**. V2/Cloudmellow
@@ -350,7 +351,7 @@ Anything present on some pages but not others is drift — decide once and apply
   questionnaire's 14px radius (never built). Exploration 02 won by default, not by decision.
   **Needs an explicit call**, because the wireframes and Figma currently disagree and someone
   will eventually build from the wrong one. See KB §27.5.
-- **OI-14 — Interior rename, pending re-lock.** *(raised 2026-10-22)* Client feedback asked the wireframes to say **Our Advantage** (was Embedded Offerings), **Acquisitions** (was For Founders), and a six-item menu: Vertical Software · Our Advantage · AI at Fullsteam · Our Story · Acquisitions · Careers. AI at Fullsteam wayfinds to the Our Advantage `#ai` panel — no new page. Interior pages and the shared menu/footer (including the homepage chrome labels only) now show that set. `plans/sitemap-lock.md` and KB §14 still record the 2026-09 lock. Files stay `embedded-offerings.html` and `for-founders.html`. Homepage sections were not rebuilt. Payment stats on the Payments panel are client-supplied and **unreconciled** with KB §22.5 (`$75B+ processed on Fullsteam Pay*`, cumulative; no “top 20 payment processor”).
+- **OI-14 — Interior rename, applied; formal re-lock pending.** *(raised 2026-10-22)* Client feedback asked the site to say **Our Advantage** (was Embedded Offerings), **Acquisitions** (was For Founders), and a six-item menu: Vertical Software · Our Advantage · AI at Fullsteam · Our Story · Acquisitions · Careers. AI at Fullsteam wayfinds to the Our Advantage `#ai` panel — no new page. Interior pages and the shared menu/footer (including the homepage chrome labels only) show that set, and the label is **propagated through every repo doc** (2026-10-22): `plans/sitemap-lock.md`, KB §14, `design.md`, this file, and the root README. The **sitemap structure is not re-locked** — labels only, lock date still 2026-09-14. Files stay `embedded-offerings.html` and `for-founders.html`. Homepage sections were not rebuilt. Payment stats on the Payments panel are client-supplied and **unreconciled** with KB §22.5 (`$75B+ processed on Fullsteam Pay*`, cumulative; no “top 20 payment processor”).
 - **OI-13 — Exploration palette drift.** *(raised 2026-10-17)* `03_Design/explorations/` runs on
   `#003F55` / `#FEC50A` / `#00202B`, none of which are KB §15. `#003F55` is the hero canvas and
   header bar — the first colour the client sees. Either reconcile the explorations to KB §15 or
@@ -457,6 +458,7 @@ Anything present on some pages but not others is drift — decide once and apply
 | 2026-10-15 | **Homepage 03 Verticals — rebuilt as Square's "audience moment", on a white band, in the art-direction type.** The black filmstrip is gone. The band is now **eyebrow + intent headline + a row of five equal cards**, one per featured vertical; the **selected card un-dims** and reveals **name → hairline rule → scale figure → descriptor → Learn more**, while the other four sit behind a **50% scrim** with their name still showing. On mobile the cards stack and the selected one expands (others collapse to a 78px bar). All **11 verticals stay as text links** beneath. **IA unchanged** — same five revenue-ordered verticals (Hospitality / ERP / **Retail** default / Transportation / Wine), same order, same single Vertical Software destination; `#verticals` anchor unchanged. The per-card figures replace the retired **KPI cycle** and are the allowlisted placeholder set (**70,000+ / $75B+ / 480M+ / 2,000+ / 11** — OI-5; the undecided ones carry `[placeholder]`, the settled **11** stays untagged; no revenue/run-rate/profitability). Two deliberate track crossings, both CD-directed: **(a) the band moved from black to white** (art direction §7.4 said black; reconciled there the same day) and **(b) the band now carries the design type — Instrument Sans + Fragment Mono** (art direction §3, loaded from Google Fonts with the lo-fi stack as fallback) as the **first applied visual-direction moment**; every other band keeps the wireframe skin. Keyboard (Enter/Space), `aria-pressed`, and link-guard behaviour kept from the old filmstrip; `focus-visible` ring added in Bio Blue. Verified 1440 + 390: five 238px cards / no page overflow, click swaps the un-dimmed card, no console errors. `design.md` not edited. |
 
 | 2026-10-17 | **Wireframe `.pill` Button SUPERSEDED — Figma is now the source of truth for the button.** The homepage's `.pill` (`border-radius: 0`, `padding 9px 18px` / `14px 28px`, `:hover{filter:brightness(1.04)}`, no lift, no glow) has been **replaced** by the exploration-02 spec: `height 44px`, `padding 0 28px` (Small `0 18px`), `border-radius 999px`, three variants (Gold / Ghost / Blue), and a hover that wipes an ink fill up from the bottom, flips ink↔gold, lifts −2px and casts a gold glow `0 12 26`. **This is a visual change to the wireframe skin only — no structure, IA, copy, or order change.** Source: `03_Design/explorations/02-video-hero/index.html` 384-422. Promoted to the `Design System` page in `FS-Design` as a 12-variant component set (Variant × Size × State), all fills bound to the `Fullsteam Brand` collection (KB §27). The wireframe HTML **still ships the radius-0 `.pill`** — it has not been restyled. Per the track rule this is not a licence to restyle the wireframes; it is logged so the two stops are reconciled deliberately in the design pass. Typefaces promoted the same day (Instrument Sans + Fragment Mono — KB §27.2), retiring the `[proposal]` flag on art direction §3. `design.md` not edited. |
+| 2026-10-22 | **Axis label propagated repo-wide — "Embedded Offerings" → "Our Advantage".** Client request. **Labels only:** no IA, structure, order, or copy change, and **no file rename** — `embedded-offerings.html` stays, so every cross-link and deep link holds. Applied to the chrome drawings, the root `index.html`, `plans/sitemap-lock.md` (tree + decisions), KB §14, `design.md` (label rules), `content-slots.md`, `inspiration.md`, the style-guide questionnaire, and `04_Content`. The legacy name is kept where it is **history** — earlier rows in this changelog, `01_Discovery/synthesis/*`, and the struck-through/resolved notes — and appears as a dated `(was …)` parenthetical in current records. **"Offerings" survives only as the on-page group name** for Payments / Lending / Insurance + AI, not as a nav short form. **No re-lock:** the tree and lock date (2026-09-14) are unchanged — OI-14 stays open for the formal re-lock. `design.md` **was** edited the same day (label enforcement only). |
 
 ---
 
@@ -468,7 +470,7 @@ Same chrome on every page: Logo · hamburger · Explore vertical solutions. The 
 **system-of-record software first**, with **AI, payments, and operational excellence** built in;
 **software ≈ ¾ of the business** and payments the embedded growth; **AI use cases, never headcount**;
 "a home for your business," never "exit"; **real people, not stock photos**; **implied scale**
-(placeholders). **2026-10-22:** interior labels now follow the client’s requested names (Our Advantage, Acquisitions, AI at Fullsteam as a wayfinder). The sitemap lock is not re-locked — see OI-14. KB §24 / §25 still describe the prior homepage order.
+(placeholders). **2026-10-22:** interior labels now follow the client’s requested names (Our Advantage, Acquisitions, AI at Fullsteam as a wayfinder), and those labels are propagated through every repo doc. The sitemap structure is not re-locked — see OI-14. KB §24 / §25 still describe the prior homepage order.
 
 | Page | Structure |
 |------|-----------|
@@ -500,7 +502,7 @@ Same chrome on every page: Logo · hamburger · Explore vertical solutions. The 
 - **OI-5 — Stat/proof strategy:** figures like 70,000+ customers, $75B+/$480M+/2,000+/100+ need publishability review. Our Advantage fact grids and homepage stats use placeholders. Payments panel stats are client-supplied and **unreconciled** with KB §22.5 (`$75B+ processed on Fullsteam Pay*` cumulative; no "top 20 payment processor").
 - **OI-12 — Button spec:** wireframe `.pill` still ships **radius 0**; Figma `Design System` promotes radius **999px** (exploration-02). Needs explicit decision — currently out of sync.
 - **OI-13 — Exploration palette drift:** explorations use `#003F55` / `#FEC50A` / `#00202B` (not KB §15). Needs reconciliation or sign-off.
-- **OI-14 — Interior rename, pending re-lock:** "Our Advantage" (was Embedded Offerings) and "Acquisips" (was For Founders) used in menus/labels; `plans/sitemap-lock.md` and KB §14 still record 2026-09 lock. Files remain `embedded-offerings.html` and `for-founders.html`. AI at Fullsteam wayfinds to Our Advantage `#ai` (no new page).
+- **OI-14 — Interior rename, applied; formal re-lock pending:** "Our Advantage" (was Embedded Offerings) and "Acquisitions" (was For Founders) used in menus/labels and propagated through every repo doc (2026-10-22); `plans/sitemap-lock.md` and KB §14 record the **labels**, not a new lock — structure and lock date unchanged. Files remain `embedded-offerings.html` and `for-founders.html`. AI at Fullsteam wayfinds to Our Advantage `#ai` (no new page).
 
 ### Notes on structure
 - **Our Advantage:** sidebar is **embedded fintech** (Payments, Lending, Insurance) + **AI at Fullsteam** only; **Sales & Marketing**, **Talent**, and **Vertical Expertise** are full-width sections below the Offerings block (not sidebar tabs). Hashes `#sales-marketing`, `#talent`, `#vertical-expertise` scroll to sections.

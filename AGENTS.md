@@ -66,7 +66,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
   current source of client intent; use **§21** for the content track (10 pages,
   voice, copy pillars, dates through 2026-11-11).
 - **Sitemap locked (2026-09-10, finalized 2026-09-14):** L1 = For Founders ·
-  **Vertical Software** · **Embedded Offerings** · Our Story · Careers. **For
+  **Vertical Software** · **Our Advantage** · Our Story · Careers. **For
   Investors removed** (no nav node, no page). Under Our Story: **Leadership**.
   **Newsroom removed** (2026-09-23). For Founders is a single-page leaf; no
   category landing pages. See `plans/sitemap-lock.md` and KB §14.
@@ -86,7 +86,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Homepage reordered from client review (2026-10-01).** Order is now Opening → **What we do**
   (Acquire/Grow/Lead + founder CTA + impressive stats) → **Verticals** filmstrip → **AI** →
   **Great place to work** → Close. The old persona door, two-up "who we are," **Software** scene,
-  and homepage **Offerings** scene were removed; the **Embedded Offerings page + nav node stay**.
+  and homepage **Offerings** scene were removed; the **Our Advantage page + nav node stay**.
   Full record: KB **§24**; canonical section table: `wireframes.md` §2. **The same messaging was
   applied across all 8 interior pages (2026-10-01, KB §24.6)** — a messaging/UX pass, not a
   sitemap change.
@@ -151,14 +151,15 @@ This file is the canonical agent entry point (works with Cursor, which reads
   explorations but is **not** sanctioned — do not introduce it without a
   decision (KB §27.4).
 - Two core stories: (1) acquire & grow vertical software, (2) expand via
-  embedded offerings (payments, lending, insurance, hardware, integrations).
+  **Our Advantage** (payments, lending, insurance, hardware, integrations).
 - **The two stories are two axes, and the homepage names them:** (1) = **Axis A
   (Portfolio)**, (2) = **Axis B (Growth engine)**. Keep the vocabularies separate —
-  **axes** name the homepage's model; **nav labels** (Vertical Software / Embedded
-  Offerings) name the sitemap. "The growth engine" is an axis label, never a headline.
-- **Nav terminology:** the embedded-expansion axis is labeled **"Embedded
-  Offerings"** (client-preferred, 2026-09-10; short form "Offerings" in body copy).
-  The client rejected "Platform." See the alternatives considered in
+  **axes** name the homepage's model; **nav labels** (Vertical Software / Our
+  Advantage) name the sitemap. "The growth engine" is an axis label, never a headline.
+- **Nav terminology:** the embedded-expansion axis is labeled **"Our Advantage"**
+  (client rename 2026-10-22; was "Embedded Offerings", client-preferred 2026-09-10).
+  **"Offerings" survives only as that page's group name** (Payments / Lending / Insurance + AI),
+  not as a nav short form. The client rejected "Platform." See the alternatives considered in
   `PROJECT_KNOWLEDGE_BASE.md` §14 (nav terminology note) and
   `01_Discovery/synthesis/sitemap-rationale.html` §9.
 - Primary audiences: software sellers/founders and investors. Secondary:
@@ -172,13 +173,13 @@ This file is the canonical agent entry point (works with Cursor, which reads
   **no child pages**, no category labels. The Menu overlay lists the same 11 flat (two columns).
   Homepage shows a revenue-ordered subset only. **find-your-vertical** type-ahead filters the
   sidebar (not header search).
-- **Embedded Offerings is a single page** (clarified 2026-09-28 · layout changed 2026-10-01):
+- **Our Advantage is a single page** (clarified 2026-09-28 · layout changed 2026-10-01):
   all four offerings (**Payments, Lending, Insurance, AI at Fullsteam**) sit on one page as a
   **sticky sidebar that swaps content inline** on a **white background** — the same pattern as
   Vertical Software (this **replaced** the earlier 2026-10-01 horizontal filmstrip; **flag for
   client ratification**). **No child pages** — **AI is a card/panel, not its own page** (supersedes
   the 2026-09-10 "AI is its own page"). **Hardware and Integrations are not separate pages** (folded
-  into Payments / the Embedded Offerings overview), 2026-09-10.
+  into Payments / the Our Advantage page), 2026-09-10.
 - **Wireframe headlines are intent, not copy (2026-10-01):** every content `h1/h2/h3` across the
   homepage and the 8 interior pages reads as a short **`Intent:`** statement, with a dashed `.anno`
   note carrying detail/constraints; final copy lives in `content-slots.md`. **Primary lens:

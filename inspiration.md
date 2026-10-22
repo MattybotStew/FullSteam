@@ -36,7 +36,7 @@ patterns, a **take** list, and an **ignore** list.
 
 | # | Guardrail | Source |
 |---|-----------|--------|
-| G1 | **Terminology:** the embedded-expansion axis is **"Embedded Offerings"**. Never "Platform" — the client rejected it. Portfolio axis is **"Vertical Software"**. | KB §14 |
+| G1 | **Terminology:** the embedded-expansion axis is **"Our Advantage"**. Never "Platform" — the client rejected it. Portfolio axis is **"Vertical Software"**. | KB §14 |
 | G2 | **Never frame the sale as an "exit."** Fullsteam is *"a home for your business"* — values fit, certainty of close, a bigger org that scales the founder. | KB §20 |
 | G3 | **Validation/credibility destination, not lead-gen.** No PPC, no funnels, no demo walls. CTA stays **"Explore our vertical solutions"** + Contact. | KB §20.2 |
 | G4 | **KPI allowlist.** Allowed: growth, retention, margins, employee/customer counts, payment volume. **Never publish** revenue, run-rate, or explicit profitability. | KB §20, §19 |
@@ -209,7 +209,7 @@ what we add*, never as a feature matrix.
    Contact (G3). This is the single largest thing to leave behind.
 2. **"Platform" language.** They use it hard — it's the section heading, the hero
    tagline, the recurring product frame. The client **rejected** this term (G1). Use
-   **Embedded Offerings**, verticals, software.
+   **Our Advantage**, verticals, software.
 3. **The six-up SaaS feature mosaic as the story.** Their feature grid *is* their
    value proposition. Ours is not a feature set — a product mosaic must never
    replace "who we are" or displace the Software → Verticals → Payments order (G6).
