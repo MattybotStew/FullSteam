@@ -49,7 +49,7 @@
     .hero-stage { height: auto; }              /* no-JS / reduced-motion: static */
     /* Pinned for the HEADLINE HANDOFF ONLY (2026-10-22 — the shrinking video
        hero and its cube were removed). 160vh = 60vh of pin travel for the
-       Axis A → Axis B swap, plus the hero's own 100svh, which it then scrolls
+       Axis A → Axis B swap, plus the hero's own 100vh, which it then scrolls
        out of. Tightened from 180vh so section 02 arrives sooner. The stage is
        brand blue, so the space the hero leaves behind as it scrolls away is
        the same blue as the hero and section 02 — no seam, no white band. */
@@ -60,7 +60,7 @@
       background: var(--blue);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 50px;                    /* Figma gap 50px */
-      height: 100svh; min-height: 620px;
+      height: 100vh; max-height: 100vh;
       padding: 160px 0;             /* Figma padding 160px 0 */
     }
     .has-js .hero { position: sticky; top: 0; }
@@ -1591,7 +1591,7 @@
 
     /* ---- responsive ------------------------------------------------------ */
     @media (max-width: 900px) {
-      .hero { padding: 96px 0; gap: 36px; min-height: 100svh; }
+      .hero { padding: 96px 0; gap: 36px; height: 100vh; max-height: 100vh; }
       .hero__inner { gap: 36px; }
       .hero__logo img { width: 143px; height: auto; }
       .who { padding: 48px 24px; }
