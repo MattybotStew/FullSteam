@@ -374,27 +374,18 @@
     }
     /* line stack — leading is set by --lh; horizontal padding only, for italic sidebearings */
     .hero__title .line {
-      /* masked line reveal: each line sits in an overflow:hidden wrapper (added by
-         JS) and slides up from behind it. The mask is removed once the entrance
-         finishes — it must NOT clip the scroll exit, which moves lines UP. */
+      /* Axis A paints in its final position. Scroll exit still translates lines
+         up; there is no load-time mask. */
       display: block;
       line-height: var(--lh);
       margin: 0;
       overflow: visible;
-      /* room for italic sidebearings. A transform on the line (exit / --ly)
+      /* room for italic sidebearings. A transform on the line (scroll exit)
          clips ink that paints outside the border box, so the padding has to
          live on the line itself — the negative margin keeps the measure. */
       padding-inline: 0.14em;
       margin-inline: -0.14em;
       will-change: transform;
-    }
-    .hero__line-mask {
-      display: block;
-      overflow: hidden;
-      /* the line's padding box sticks out past its negative margin; the mask
-         has to include that or the entrance clips the same swash */
-      padding-inline: 0.16em;
-      margin-inline: -0.16em;
     }
     /* Desktop-1 · 11256:591 — load state, lines exit up (mirror of software in).
        Shrink via transform (not font-size) so the CTA row never reflows. */
@@ -414,17 +405,13 @@
     .hero__title--portfolio .line {
       display: block; width: 100%;
       opacity: calc(1 - var(--line-exit, 0));
-      /* exit (scroll) + masked-reveal (load) compose on one transform */
-      transform:
-        translateY(calc(-1.25em * var(--line-exit, 0)))
-        translate3d(0, var(--ly, 0%), 0);
+      /* scroll exit only — no load-time --ly reveal */
+      transform: translateY(calc(-1.25em * var(--line-exit, 0)));
       /* blur capped — opacity + translate already carry the exit */
       filter: blur(calc(0.04em * var(--line-exit, 0)));
     }
-    /* Indexed by data-li, NOT :nth-child — the masked reveal wraps each line in
-       its own single-child span, which would make every line :nth-child(1) and
-       collapse the three staggered exit ramps into one. JS stamps data-li up
-       front, before any wrapping. */
+    /* Indexed by data-li. JS stamps it on load so the three staggered scroll
+       exit ramps stay independent. */
     .hero__title--portfolio .line[data-li="1"] { --line-exit: var(--pPortLine1, 0); }
     .hero__title--portfolio .line[data-li="2"] { --line-exit: var(--pPortLine2, 0); }
     .hero__title--portfolio .line[data-li="3"] { --line-exit: var(--pPortLine3, 0); }
@@ -694,7 +681,7 @@
       font-size: clamp(44px, 4.8vw, 68px);
       font-weight: 500; letter-spacing: -.045em; line-height: .95;
       font-variant-numeric: lining-nums tabular-nums;
-      color: #FFC600;
+      color: #84BD00;
     }
     .who__metric small {
       display: block; margin-top: 12px;
@@ -2413,45 +2400,31 @@ Square-style expanding accordion (white canvas). -->
            you scroll. Hybrid by design — a fully timed handoff would replace the
            locked Axis A → Axis B model in KB §23.
 
-           Screen 1 — headline: masked line reveal, 130ms stagger, video 1.15 → 1.
-           Screen 2 — CTA pops 0.9 → 1 with an overshoot, video parallaxes x −5%.
-
-           DEVIATION, deliberate: the brief says Screen 1 fades to opacity 0. It must
-           not — Axis A has to survive on screen to hand off to Axis B on scroll
-           (KB §23). The headline lifts y −40 and dims to a floor instead.
+           Axis A ("Any industry, we own the software.") paints in its final
+           position — no masked line reveal, no --ly, no load-time lift/fade.
+           Scroll still exits those lines as Axis B arrives.
+           Screen 1 — video 1.15 → 1. Screen 2 — CTA pops 0.9 → 1 with an
+           overshoot, video parallaxes x −5%.
 
            Runs only with JS and NOT under prefers-reduced-motion; the default CSS
            state is the finished state, so no-JS and reduced-motion are unaffected. */
       var intro = (function () {
-        /* Reduced motion / no JS: the default CSS state is already the FINISHED
-           state, so there is nothing to run. */
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        var scene2 = document.getElementById('heroScene2');
-        var rule = document.querySelector('.hero__rule');
-        var cta = document.getElementById('heroCta');
-        var port = document.querySelector('.hero__title--portfolio');
-        if (!cta || !port) return;
-
-        /* Stamp data-li on EVERY line first — the CSS indexes its exit/opacity
-           ramps by data-li now, and that must be in place before any wrapping. */
+        /* data-li drives the scroll handoff ramps and must exist even when the
+           load entrance is skipped. */
         [].slice.call(document.querySelectorAll('.hero__title')).forEach(function (t) {
           [].slice.call(t.querySelectorAll('.line')).forEach(function (ln, i) {
             ln.dataset.li = String(i + 1);
           });
         });
 
-        /* Only Axis A (the headline visible on load) gets the masked reveal.
-           Axis B stays hidden until scroll, driven by --line-op. */
-        var lines = [].slice.call(port.querySelectorAll('.line'));
-        lines.forEach(function (ln) {
-          var m = document.createElement('span');
-          m.className = 'hero__line-mask';
-          ln.parentNode.insertBefore(m, ln);
-          m.appendChild(ln);
-        });
-        var masked = lines;
+        /* Reduced motion / no JS: the default CSS state is already the FINISHED
+           state, so there is nothing to run. */
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var scene2 = document.getElementById('heroScene2');
+        var rule = document.querySelector('.hero__rule');
+        var cta = document.getElementById('heroCta');
+        if (!cta) return;
 
-        var STAGGER = 130, LINE = 900;
         var ZOOM_DUR = 1500;
         var S2_AT = 1450, SUB_DUR = 700, RULE_DUR = 640, CTA_AT = 1650, CTA_DUR = 820;
         var TOTAL = CTA_AT + CTA_DUR + 60;
@@ -2468,8 +2441,6 @@ Square-style expanding accordion (white canvas). -->
         }
 
         var t0 = performance.now();
-        /* prime the hidden state so the first paint isn't a flash of final state */
-        masked.forEach(function (ln) { ln.style.setProperty('--ly', '100%'); });
         if (scene2) scene2.style.opacity = '0';
         if (rule) rule.style.transform = 'scaleX(0)';
         cta.style.setProperty('--cta-in', '0');
@@ -2477,22 +2448,15 @@ Square-style expanding accordion (white canvas). -->
 
         function frame(now) {
           var el = now - t0;
-          /* Screen 1 */
-          masked.forEach(function (ln, i) {
-            var k = seg(el, 120 + i * STAGGER, LINE);
-            ln.style.setProperty('--ly', ((1 - k) * 100).toFixed(2) + '%');
-          });
           hero.style.setProperty('--hero-zoom', (1.15 - 0.15 * seg(el, 0, ZOOM_DUR)).toFixed(4));
 
-          /* Screen 2 */
+          /* Screen 2 — CTA and video only. Axis A is not lifted or faded. */
           var s2 = seg(el, S2_AT, SUB_DUR);
           if (scene2) {
             scene2.style.opacity = s2.toFixed(3);
             scene2.style.transform = 'translate3d(0,' + ((1 - s2) * 18).toFixed(1) + 'px,0)';
           }
           if (rule) rule.style.transform = 'scaleX(' + seg(el, S2_AT + 120, RULE_DUR).toFixed(3) + ')';
-          /* headline lifts as Screen 2 arrives — but does NOT vanish (see header) */
-          hero.style.setProperty('--h1-lift', s2.toFixed(3));
           var ct = seg(el, CTA_AT, CTA_DUR);
           cta.style.setProperty('--cta-in', ct.toFixed(3));
           cta.style.setProperty('--cta-scale', (0.9 + 0.1 * overshoot(ct)).toFixed(4));
@@ -2503,21 +2467,12 @@ Square-style expanding accordion (white canvas). -->
           if (el < TOTAL) { requestAnimationFrame(frame); return; }
 
           /* settle: hand the stylesheet back rather than pinning them forever */
-          masked.forEach(function (ln) { ln.style.removeProperty('--ly'); });
           if (scene2) { scene2.style.opacity = ''; scene2.style.transform = ''; }
           if (rule) rule.style.transform = '';
           cta.style.removeProperty('--cta-in');
           cta.style.removeProperty('--cta-scale');
           hero.style.removeProperty('--hero-zoom');
           hero.style.removeProperty('--hero-x');
-          hero.style.removeProperty('--h1-lift');
-          /* drop the masks — the scroll exit must not be clipped */
-          masked.forEach(function (ln) {
-            var m = ln.parentNode;
-            if (m && m.classList.contains('hero__line-mask')) {
-              m.parentNode.insertBefore(ln, m); m.parentNode.removeChild(m);
-            }
-          });
         }
         requestAnimationFrame(frame);
       })();
