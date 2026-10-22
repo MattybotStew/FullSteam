@@ -1577,6 +1577,22 @@
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400; color: var(--green);
     }
+    /* Italic display accents + stats numerals — one green→gold gradient.
+       Sits after the flat color rules so it wins on both dark and white bands. */
+    .hero__title em,
+    .who__title em,
+    .ai__title em,
+    .careers__title em,
+    .careers-testimonial__headline em,
+    .founders__title em,
+    .marquee__item em,
+    .sent-num {
+      background-image: linear-gradient(100deg, #84BD00 0%, #FFC600 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
     @keyframes marquee-scroll {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
