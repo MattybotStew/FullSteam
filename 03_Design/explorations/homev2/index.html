@@ -11,14 +11,17 @@
   <style>
     :root {
       --blue:   #003F55;  /* Figma hero base fill */
-      --gold:   #FEC50A;  /* CTA + serif accent */
+      --gold:   #FEC50A;  /* primary CTA fill only */
       --cyan:   #00BDFF;  /* What we do title + 34px support copy (Figma 11264:332) */
-      --green:  #84BD00;  /* proof / culture accent (KB) */
-      --ink:    #00202B;  /* text on gold = brand blue #003F55 at 50% (50% darker) */
+      --ink:    #00202B;  /* text on gold/green = brand blue #003F55 at 50% (50% darker) */
       --white:  #FFFFFF;
       --menu-bg: #002C3C; /* dropdown panel — shared with the open header */
       --careers-canvas: color-mix(in srgb, var(--blue) 80%, black); /* #003244 — careers + LinkedIn band */
       --close-canvas: color-mix(in srgb, var(--careers-canvas) 70%, black); /* ~30% darker than careers */
+      /* Type accents carry no colour of their own (Square-style restraint): the
+         serif italic does the emphasis, in whatever colour its band sets. Gold
+         is reserved for the primary CTA fill. */
+      --accent: currentColor;
       --bar-h:  68px;     /* header height; re-measured in JS for the menu offset */
       /* ---- motion tokens (2026-10-22) — one easing/duration system, so the
          reveals, rail, accordion and marquee all feel like one machine rather
@@ -34,6 +37,8 @@
     body {
       margin: 0; background: var(--white); color: #0d1a20;
       font-family: "Instrument Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+      text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
@@ -134,7 +139,9 @@
       background: var(--blue);
       /* the tint rides the media's scroll-out fade, so nothing is left hanging
          over the brand-blue stage the hero scrolls into */
-      opacity: calc((.72 - .42 * var(--pTint, 0)) * var(--media-tint, 1) * var(--hero-media-fade, 1));
+      /* the blue plate sits lighter than before so the footage carries the hero
+         and the colour doesn't flatten it. ~48% on load, ~26% after the handoff. */
+      opacity: calc((.48 - .22 * var(--pTint, 0)) * var(--media-tint, 1) * var(--hero-media-fade, 1));
     }
     /* Desktop-2 overlay — Figma gradient (starts before headline handoff) */
     .hero__overlay {
@@ -204,6 +211,8 @@
     }
     .site-footer {
       position: relative; z-index: 2;
+      /* same canvas as the close, so the page ends on its darkest note */
+      background: var(--close-canvas);
       border-top: 1px solid rgba(255,255,255,.10);
     }
     .site-footer__legal {
@@ -225,7 +234,7 @@
       font-size: 13px; font-weight: 500;
       transition: color .2s ease;
     }
-    .site-footer__li-link:hover { color: var(--gold); }
+    .site-footer__li-link:hover { color: var(--white); }
     .site-footer__li-mark {
       flex: 0 0 auto;
       display: grid; place-items: center;
@@ -255,7 +264,7 @@
       letter-spacing: .1em; text-transform: uppercase;
     }
     .menu__h a { color: var(--white); text-decoration: none; }
-    .menu__h a:hover { color: var(--gold); }
+    .menu__h a:hover { color: var(--white); }
     .menu__col .menu__h ~ .menu__h { margin-top: 26px; }
     .menu__split { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
     .menu__list { list-style: none; margin: 0; padding: 0; }
@@ -263,7 +272,7 @@
       display: inline-block; padding: 5px 0; font-size: 15px;
       color: rgba(238,240,255,.72); text-decoration: none;
     }
-    .menu__list a:hover { color: var(--gold); }
+    .menu__list a:hover { color: var(--white); }
     /* The OPEN MENU is a single column of six rows (2026-10-22 — the mega-menu
        was too busy). The footer keeps the multi-column `.menu__inner`; this
        override only reshapes the `.menu__panel` copy of it. */
@@ -282,12 +291,12 @@
       font-size: 22px; font-weight: 700; line-height: 1.2;
       color: var(--white); text-decoration: none;
     }
-    .menu__row > a:hover { color: var(--gold); }
+    .menu__row > a:hover { color: var(--white); }
     .menu__row > a::after {
       content: "→"; float: right;
       font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
       font-size: 16px; font-weight: 400;
-      color: var(--gold);
+      color: rgba(255, 255, 255, .5);
     }
     .menu__sub {
       display: flex; flex-wrap: wrap; gap: 8px 28px;
@@ -297,7 +306,7 @@
       font-size: 15px; font-weight: 500;
       color: rgba(238, 240, 255, .72); text-decoration: none;
     }
-    .menu__sub a:hover { color: var(--gold); }
+    .menu__sub a:hover { color: var(--white); }
     @media (max-width: 1000px) {
       .menu__inner { grid-template-columns: 1fr 1fr; }
       .menu__col:nth-child(odd) { padding-left: 0; border-left: 0; }
@@ -338,7 +347,7 @@
       /* floor for the 3-line stack + serif descenders — fixed so scale shrink
          can't collapse the box and pull the CTAs up */
       min-height: clamp(8.4rem, 22.8vw, 18.6rem);
-      margin: 0; font-weight: 700; text-align: center; text-wrap: balance;
+      margin: 0; font-weight: 500; text-align: center; text-wrap: balance;
       transition: none;
     }
     .hero__title {
@@ -350,7 +359,7 @@
     .hero__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400; letter-spacing: 0;
-      color: var(--gold);
+      color: var(--accent);
       /* 0 so the serif's taller content box can't inflate the line box —
          keeps every line's advance identical */
       line-height: 0;
@@ -373,7 +382,8 @@
        Shrink via transform (not font-size) so the CTA row never reflows. */
     .hero__title--portfolio {
       font-size: var(--title-max);
-      letter-spacing: -0.045em;
+      letter-spacing: -0.035em;
+      font-feature-settings: "kern" 1, "liga" 1, "ss01" 1;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 0.02em;
       transform: scale(calc(1 - 0.17 * var(--pPortShrink, 0)))
@@ -406,7 +416,8 @@
       position: absolute; inset: 0;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       font-size: var(--title-max);               /* identical to the portfolio headline */
-      letter-spacing: -0.045em;
+      letter-spacing: -0.035em;
+      font-feature-settings: "kern" 1, "liga" 1, "ss01" 1;
       gap: 0.02em;
       pointer-events: none;
     }
@@ -448,7 +459,7 @@
       display: block;
       width: 62px; height: 2px;
       margin: 22px auto 0;
-      background: var(--gold);
+      background: rgba(255, 255, 255, .4);
       transform-origin: left center;
     }
     /* ---- buttons (Figma pill, height 44, padding 0 28px) ----------------- */
@@ -475,22 +486,22 @@
     }
     .pill--gold:hover {
       background-size: 100% 100%; color: var(--gold);
-      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(254,197,10,.30);
+      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0, 0, 0, .18);
     }
     .pill--ghost {
-      background-color: transparent; background-image: linear-gradient(var(--gold), var(--gold));
+      background-color: transparent; background-image: linear-gradient(var(--white), var(--white));
       color: var(--white); border: 1px solid var(--white);
     }
     .pill--ghost:hover {
-      background-size: 100% 100%; color: var(--ink); border-color: var(--gold);
-      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(254,197,10,.22);
+      background-size: 100% 100%; color: var(--ink);
+      transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0, 0, 0, .18);
     }
     .pill--blue {
-      background-color: var(--blue); background-image: linear-gradient(var(--gold), var(--gold));
+      background-color: var(--blue); background-image: linear-gradient(var(--ink), var(--ink));
       color: var(--white); border: 1px solid var(--blue);
     }
     .pill--blue:hover {
-      background-size: 100% 100%; color: var(--ink); border-color: var(--gold);
+      background-size: 100% 100%; border-color: var(--ink);
       transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0, 63, 85, .22);
     }
     @media (prefers-reduced-motion: reduce) {
@@ -532,9 +543,9 @@
       cursor: pointer; display: grid; place-items: center; padding: 0;
       backdrop-filter: blur(6px);
     }
-    .hero__media-ctrl:hover { background: rgba(0,32,43,.75); border-color: var(--gold); }
+    .hero__media-ctrl:hover { background: rgba(0,32,43,.75); border-color: var(--white); }
     .hero__media-ctrl:focus-visible {
-      outline: 2px solid var(--gold); outline-offset: 2px;
+      outline: 2px solid var(--white); outline-offset: 2px;
     }
     .hero__media-ctrl svg { display: block; width: 14px; height: 14px; }
     .hero__media-ctrl[aria-pressed="true"] .icon-pause { display: none; }
@@ -629,7 +640,7 @@
       font-size: 11px; letter-spacing: .09em; text-transform: uppercase;
       color: var(--white);
     }
-    .who__cap b { color: var(--gold); font-weight: 500; }
+    .who__cap b { color: var(--accent); font-weight: 500; }
 
     /* the blocks — normal flow; they drive the rail */
     /* trailing pad is deliberate: a sticky element only travels
@@ -654,21 +665,22 @@
     .who__title {
       margin: 0 0 22px;
       font-family: "Instrument Sans", system-ui, sans-serif;
-      font-weight: 700;
-      font-size: clamp(28px, 3.3vw, 46px);
-      line-height: 1.06; letter-spacing: -0.03em;
+      font-weight: 500;
+      font-size: clamp(30px, 3.5vw, 52px);
+      line-height: 1.02; letter-spacing: -0.03em;
       color: var(--white);
       text-wrap: balance;
     }
     .who__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
-      font-style: italic; font-weight: 400; color: var(--gold);
+      font-style: italic; font-weight: 400; color: var(--accent);
     }
     .who__body {
       margin: 0 0 20px;
       font-family: "Instrument Sans", system-ui, sans-serif;
       font-weight: 400;
-      font-size: 18px; line-height: 1.6; color: rgba(255, 255, 255, .88);
+      font-size: 17px; line-height: 1.55; letter-spacing: -0.011em;
+      color: rgba(255, 255, 255, .82);
       max-width: 44ch;
     }
     /* the step metric — the number that used to be buried in the paragraph,
@@ -676,10 +688,10 @@
        lose their punch") */
     .who__metric {
       margin: 0 0 18px;
-      font-size: clamp(40px, 4.4vw, 60px);
-      font-weight: 700; letter-spacing: -.04em; line-height: 1;
-      color: var(--gold);
-      font-variant-numeric: tabular-nums;
+      font-size: clamp(44px, 4.8vw, 68px);
+      font-weight: 500; letter-spacing: -.045em; line-height: .95;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--accent);
     }
     .who__metric small {
       display: block; margin-top: 12px;
@@ -687,7 +699,7 @@
       font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
       color: rgba(255, 255, 255, .62);
     }
-    .who__rule { width: 56px; height: 3px; border: 0; margin: 8px 0 24px; background: var(--gold); }
+    .who__rule { width: 56px; height: 3px; border: 0; margin: 8px 0 24px; background: rgba(255, 255, 255, .3); }
     .who__note {
       font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
       font-size: 12px !important; color: rgba(255, 255, 255, .52) !important;
@@ -723,13 +735,13 @@
     }
     .founders__title {
       margin: 0 auto 24px;
-      font-size: clamp(36px, 5.5vw, 64px);
-      font-weight: 700; letter-spacing: -.03em; line-height: 1.05;
+      font-size: clamp(40px, 5.6vw, 72px);
+      font-weight: 500; letter-spacing: -.035em; line-height: 1.02;
       text-wrap: balance; color: var(--ink);
     }
     .founders__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
-      font-style: italic; font-weight: 400; color: var(--blue);
+      font-style: italic; font-weight: 400; color: var(--accent);
     }
     .founders__lede {
       margin: 0 auto 30px; max-width: 46ch;
@@ -768,9 +780,9 @@
       margin: 0;
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400;
-      font-size: clamp(30px, 4.6vw, 62px);
-      line-height: 1.2;
-      letter-spacing: -.01em;
+      font-size: clamp(32px, 4.8vw, 68px);
+      line-height: 1.16;
+      letter-spacing: -.02em;
       text-wrap: pretty;
       color: #0d1a20;
     }
@@ -783,8 +795,8 @@
     @media (prefers-reduced-motion: reduce) {
       .sent-w { opacity: 1 !important; filter: none !important; }
     }
-    /* Brand gold on the counting numbers; sentence copy stays #0d1a20 */
-    .sent-num { color: var(--gold); font-weight: 700; }
+    /* the counting numbers are set apart by weight, not colour */
+    .sent-num { color: var(--accent); font-weight: 500; }
 
     /* ---- Verticals — Square expanding accordion on white ----------------- */
     /* CD: 10% left/right margins. One --gutter drives every row, so the head,
@@ -803,8 +815,8 @@
       /* readable measure lives on the text, not the container, so the head,
          stage and links still share one gutter at every width */
       max-width: 1160px;
-      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
-      letter-spacing: -.03em; line-height: 1.06;
+      font-size: clamp(34px, 4.4vw, 60px); font-weight: 500;
+      letter-spacing: -.032em; line-height: 1.04;
     }
     /* Full-bleed stage — edge-to-edge; title stays in readable measure above */
     .verts__stage {
@@ -891,7 +903,7 @@
       font-size: clamp(30px, 3.4vw, 44px); font-weight: 700;
       letter-spacing: -.04em; line-height: 1;
       font-variant-numeric: tabular-nums;
-      color: var(--gold);
+      color: var(--accent);
     }
     .vpanel__desc {
       margin: 9px 0 18px; max-width: 28ch;
@@ -905,7 +917,7 @@
       color: #fff; text-decoration: none;
       border-bottom: 1px solid rgba(255,255,255,.7); padding-bottom: 3px;
     }
-    .vpanel__link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+    .vpanel__link:hover { border-bottom-color: #fff; }
 
     /* sixth tile — "Explore all verticals" (revision item 5, preferred). A link,
        not a .vpanel, so the accordion ignores it and it just navigates. */
@@ -921,7 +933,7 @@
       writing-mode: vertical-rl; transform: rotate(180deg);
       font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1; white-space: nowrap;
     }
-    .verts__all-box .va-arrow { color: var(--gold); font-size: 18px; line-height: 1; }
+    .verts__all-box .va-arrow { color: var(--accent); font-size: 18px; line-height: 1; }
     .verts__all-box:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
     /* ---- verticals: stack below 1024px ----------------------------------- */
@@ -966,7 +978,8 @@
        rows; here as a vertical accordion (one panel open, no scroll motion). */
     .ai {
       position: relative; z-index: 2;
-      background: #f2f7f9;
+      /* brand green at low opacity over white — a wash, not a green section */
+      background: color-mix(in srgb, #84BD00 9%, white);
       color: #0d1a20;
       border-top: 1px solid rgba(0, 63, 85, .08);
       padding: 96px 24px 104px;
@@ -996,16 +1009,22 @@
         text-align: center;
       }
     }
+    .ai__kicker {
+      margin: 0 0 16px;
+      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(13, 26, 32, .55);
+    }
     .ai__title {
       margin: 0;
-      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
-      letter-spacing: -.03em; line-height: 1.05;
+      font-size: clamp(34px, 4.6vw, 64px); font-weight: 500;
+      letter-spacing: -.034em; line-height: 1.02;
       text-wrap: balance;
     }
     .ai__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400;
-      color: var(--gold);
+      color: var(--accent);
     }
     .ai__lede {
       margin: 18px 0 0;
@@ -1113,13 +1132,6 @@
     @media (max-width: 899px) {
       .ai__foot { text-align: center; }
     }
-    .ai__foot a {
-      font-weight: 700; font-size: 15px;
-      color: #0d1a20; text-decoration: none;
-      border-bottom: 1px solid #0d1a20;
-      padding-bottom: 2px;
-    }
-    .ai__foot a:hover { color: var(--blue); border-bottom-color: var(--blue); }
 
     /* no-JS: every use case expanded */
     html:not(.has-js) .ai-acc__body { display: block !important; }
@@ -1132,7 +1144,6 @@
       position: relative; z-index: 2;
       background: var(--careers-canvas);
       color: var(--white);
-      border-top: 1px solid rgba(254, 197, 10, .22);
       padding: 96px 24px 104px;
     }
     .careers__inner { width: min(1120px, 100%); margin: 0 auto; }
@@ -1142,15 +1153,15 @@
     }
     .careers__title {
       margin: 0;
-      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
-      letter-spacing: -.03em; line-height: 1.05;
+      font-size: clamp(34px, 4.6vw, 64px); font-weight: 500;
+      letter-spacing: -.034em; line-height: 1.02;
       text-wrap: balance;
       color: var(--white);
     }
     .careers__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400;
-      color: var(--gold);
+      color: var(--accent);                 /* culture accent — the brand green */
     }
     .careers__head-row {
       margin-top: 18px;
@@ -1202,7 +1213,7 @@
       width: 56px; height: 56px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid rgba(254, 197, 10, .45);
+      border: 2px solid rgba(255, 255, 255, .28);
       margin: 0 0 16px;
     }
     .careers-testimonial__headline {
@@ -1215,7 +1226,7 @@
     .careers-testimonial__headline em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400;
-      color: var(--gold);
+      color: var(--accent);                 /* culture accent — the brand green */
     }
     .careers-testimonial__text {
       margin: 0;
@@ -1228,7 +1239,7 @@
       font-family: "Fragment Mono", ui-monospace, monospace;
       font-size: 11px;
       letter-spacing: .03em;
-      color: rgba(254, 197, 10, .62);
+      color: rgba(255, 255, 255, .62);
     }
     .careers__cta {
       margin: 0;
@@ -1364,9 +1375,9 @@
       transition: border-color .2s ease, background .2s ease, opacity .2s ease;
     }
     .careers__posts-btn:hover:not(:disabled) {
-      border-color: var(--gold); background: rgba(254, 197, 10, .14);
+      border-color: var(--white); background: rgba(255, 255, 255, .1);
     }
-    .careers__posts-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .careers__posts-btn:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
     .careers__posts-btn:disabled { opacity: .3; cursor: default; }
     .careers__posts-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
 
@@ -1381,12 +1392,12 @@
       margin: 0;
       padding: 0 0 clamp(18px, 4vw, 32px);
       scrollbar-width: thin;
-      scrollbar-color: rgba(254, 197, 10, .5) rgba(255, 255, 255, .08);
+      scrollbar-color: rgba(255, 255, 255, .35) rgba(255, 255, 255, .08);
     }
     .li-scroller::-webkit-scrollbar { height: 6px; }
     .li-scroller::-webkit-scrollbar-track { background: rgba(255, 255, 255, .08); border-radius: 999px; }
-    .li-scroller::-webkit-scrollbar-thumb { background: rgba(254, 197, 10, .5); border-radius: 999px; }
-    .li-scroller:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+    .li-scroller::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .35); border-radius: 999px; }
+    .li-scroller:focus-visible { outline: 2px solid var(--white); outline-offset: 4px; }
 
     /* one post card — white, like LinkedIn's own card, on the dark band */
     .li-card {
@@ -1509,8 +1520,8 @@
     .close__title {
       margin: 0 auto 28px;
       max-width: 960px;
-      font-size: clamp(32px, 5vw, 56px); font-weight: 700;
-      letter-spacing: -.03em; line-height: 1.08;
+      font-size: clamp(34px, 4.8vw, 68px); font-weight: 500;
+      letter-spacing: -.034em; line-height: 1.04;
       text-wrap: balance;
       color: var(--white);
     }
@@ -1526,8 +1537,8 @@
       transition: color .2s ease, border-color .2s ease;
     }
     .close__founders a:hover {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
+      color: var(--white);
+      border-bottom-color: var(--white);
     }
 
     /* ---- Closing marquee — the 11 verticals --------------------------------
@@ -1559,11 +1570,11 @@
       color: rgba(255, 255, 255, .9);
     }
     .marquee__item::after {
-      content: "·"; margin: 0 40px; color: var(--gold);
+      content: "·"; margin: 0 40px; color: rgba(255, 255, 255, .35);
     }
     .marquee__item em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
-      font-style: italic; font-weight: 400; color: var(--gold);
+      font-style: italic; font-weight: 400; color: var(--accent);
     }
     @keyframes marquee-scroll {
       from { transform: translateX(0); }
@@ -1980,10 +1991,11 @@ Square-style expanding accordion (white canvas). -->
     <div class="ai__inner">
       <div class="ai__layout">
         <header class="ai__head rv">
+          <p class="ai__kicker">AI at Fullsteam</p>
           <h2 class="ai__title" id="aiTitle">AI that already <em>knows the business.</em></h2>
           <p class="ai__lede">Use cases first — built on the data your vertical software already holds, not generic models.</p>
           <p class="ai__foot">
-            <a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">See AI at Fullsteam</a>
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">See AI at Fullsteam</a>
           </p>
         </header>
 
