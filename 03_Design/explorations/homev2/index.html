@@ -6,7 +6,7 @@
   <title>homev2 · video hero + sticky image rail — INTERNAL, not client-facing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;700&family=Instrument+Serif:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;700&family=Instrument+Serif:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add('has-js');</script>
   <style>
     :root {
@@ -1577,26 +1577,19 @@
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400; color: var(--green);
     }
-    /* Italic display accents — on-brand pair, split by band.
-       Dark bands: white → gold. Light bands: body ink → Bio Blue.
-       Sits after the flat color rules so it wins. Weight 700 so the gradient reads. */
+    /* Italic display accents — one gold → green gradient on every band.
+       Sits after the flat color rules so it wins. Weight 600 (semi-bold);
+       Instrument Serif has no 600 file, so the browser synthesizes it lighter than 700. */
     .hero__title em,
     .who__title em,
+    .ai__title em,
     .careers__title em,
     .careers-testimonial__headline em,
-    .marquee__item em {
-      font-weight: 700;
-      background-image: linear-gradient(100deg, #FFFFFF 0%, #FFC600 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-    }
-    .ai__title em,
     .founders__title em,
+    .marquee__item em,
     .sent-num {
-      font-weight: 700;
-      background-image: linear-gradient(100deg, #0d1a20 0%, #00587C 100%);
+      font-weight: 600;
+      background-image: linear-gradient(100deg, #FFC600 0%, #84BD00 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
