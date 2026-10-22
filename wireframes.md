@@ -83,7 +83,7 @@ then industries + general proof. Low-fi skin: white / tan, black type (hero
 overlay is white on the placeholder for contrast), yellow CTAs, image-icon
 placeholders. One general story — not audience tabs.
 
-**Chrome (Option B revised, 2026-09-23 · menu simplified 2026-10-22):** `Logo · hamburger · Explore vertical solutions`. The trigger is a three-bar button (accessible name "Menu"). Open, the menu is a **320px right-side drawer** (100% only under 320px) with a scrim behind it — one column, not a full-width overlay. Vertical Software · Our Advantage · AI at Fullsteam are links. Our Story and Acquisitions are links to their pages; the chevron still opens Leadership and FAQ. Careers stays an accordion (`details`/`summary`); Open roles stays hidden until that parent is opened. Contact stays in the footer. No header search; the finder stays on the Vertical Software page.
+**Chrome (Option B revised, 2026-09-23 · menu simplified 2026-10-22):** `Logo · hamburger · Explore vertical solutions`. The trigger is a three-bar button (accessible name "Menu"). Open, the menu is a **320px right-side drawer** (100% only under 320px) with a scrim behind it — one column, not a full-width overlay. Vertical Software · Our Advantage · AI at Fullsteam are links. Our Story, Acquisitions, and Careers are links to their pages; the chevron still opens Leadership, FAQ, and Open roles. Contact stays in the footer. No header search; the finder stays on the Vertical Software page.
 
 ### Section-by-section
 
@@ -121,7 +121,7 @@ the close, and the footer. The **Embedded Offerings page + nav node stay** (site
   descriptor → link) on a **white** band with the art-direction type; it **replaced** the black
   filmstrip the client had previously liked (the expand interaction itself is kept). (Hero marquee
   removed 2026-09-23; the 11 vertical tiles left the opening 2026-10-01.)
-- **Menu = 320px right drawer** (hamburger trigger, 2026-10-22). Six rows. Vertical Software, Our Advantage, AI at Fullsteam, Our Story, and Acquisitions are links. The Our Story and Acquisitions chevrons still open Leadership and FAQ. Careers stays an accordion; Open roles stays closed until that parent opens. The finder is on the Vertical Software page, not a header search field.
+- **Menu = 320px right drawer** (hamburger trigger, 2026-10-22). Six rows. Vertical Software, Our Advantage, AI at Fullsteam, Our Story, Acquisitions, and Careers are links. The chevrons still open Leadership, FAQ, and Open roles. The finder is on the Vertical Software page, not a header search field.
 - **Metrics** sit in the **impressive-stats band** (`#investors`) with `[placeholder]`
   figures — same numbers for every visitor, not a founders/investors split. **For investors**
   is an in-page anchor to that band, never a page or a nav node. (The persona door was removed
@@ -215,7 +215,7 @@ Use this as the counterpoint to the current direction when deciding section orde
 **Current homepage implements B revised** (For Investors removed; For Founders left the strip 2026-09-23). **Provisional
 pick: B revised** — pending client sign-off (OI-1). Option 0 is labeled legacy/rejected.
 
-**Menu shape (2026-10-22):** hamburger trigger; the open menu is a 320px right-side drawer (one column, not a full-width overlay or a multi-column mega-menu). Parents with children are accordions. `header-wireframe.html` Option B revised is drawn that way. Options 0, A, and C stay earlier comparisons.
+**Menu shape (2026-10-22):** hamburger trigger; the open menu is a 320px right-side drawer (one column, not a full-width overlay or a multi-column mega-menu). Our Story, Acquisitions, and Careers are links; the chevron opens the child. `header-wireframe.html` Option B revised is drawn that way. Options 0, A, and C stay earlier comparisons.
 
 ---
 
@@ -362,6 +362,7 @@ Anything present on some pages but not others is drift — decide once and apply
 
 | Date | Change |
 |------|--------|
+| 2026-10-22 | **Menu — Careers label links to the Careers page.** The word navigates (`careers.html`; `pages/careers.html` from the homepage; `aria-current="page"` on `careers.html`). The chevron still opens Open roles, which stays the Workday URL. Same pattern as Our Story and Acquisitions. `design.md` not edited. |
 | 2026-10-22 | **Menu — Our Story and Acquisitions labels link to their pages.** The words navigate (`our-story.html`, `for-founders.html`; `pages/…` from the homepage). The chevron still opens Leadership and FAQ. Careers stays an accordion. `design.md` not edited. |
 | 2026-10-22 | **Our Advantage — Sales & Marketing, Talent, and Vertical Expertise moved below the block.** The three operational-advantage blocks are now **full-width sections below the Offerings block**, not sidebar tabs. Sidebar reduced to **embedded fintech** (Payments, Lending, Insurance) and **AI at Fullsteam** only. Each of the three sections carries the same pattern: intent H2 + overview → three cards → **2×2 fact grid** (`.facts-4`) → photo slot → constraint `.anno`. Talent adds an optional **See open roles** CTA (Workday, new tab). Hash links (`#sales-marketing`, `#talent`, `#vertical-expertise`) scroll to the sections; no horizontal overflow at 1440/390. `content-slots.md` updated. `design.md` not edited. |
 | 2026-10-22 | **Menu chrome — 320px drawer, accordions.** The open menu is a right-side drawer (320px; 100% under 320px) with a scrim, not a full-width column. Our Story, Acquisitions, and Careers are `details`/`summary` accordion controls; Leadership, FAQ, and Open roles stay closed until that parent opens (one open at a time; the current parent or child may start open, and `aria-current` stays on that row or link). Vertical Software, Our Advantage, and AI at Fullsteam stay links. The scrim, the hamburger, and Escape close it; Escape returns focus to the hamburger when focus was inside. No-JS still reaches the list through native `details`. Applied to the homepage header only and every active interior page, plus Option B revised in `header-wireframe.html`. Homepage sections were not edited. `design.md` not edited. |
@@ -504,4 +505,4 @@ Same chrome on every page: Logo · hamburger · Explore vertical solutions. The 
 ### Notes on structure
 - **Our Advantage:** sidebar is **embedded fintech** (Payments, Lending, Insurance) + **AI at Fullsteam** only; **Sales & Marketing**, **Talent**, and **Vertical Expertise** are full-width sections below the Offerings block (not sidebar tabs). Hashes `#sales-marketing`, `#talent`, `#vertical-expertise` scroll to sections.
 - **Vertical Software:** 11 verticals, sticky sidebar, inline swap — no child pages, acquired-business card row removed (see OI-11).
-- **Chrome:** 320px right drawer menu with accordions (Our Story/Acquisitions/Careers), hamburger trigger. No header search.
+- **Chrome:** 320px right drawer menu. Our Story, Acquisitions, and Careers are links; the chevron opens Leadership, FAQ, and Open roles. Hamburger trigger. No header search.

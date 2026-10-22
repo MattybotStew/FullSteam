@@ -179,6 +179,13 @@
   .site-overlay summary[aria-current="page"] .ov-acc-label{
     text-decoration:underline; text-underline-offset:3px;
   }
+
+  .ov-list > li.ov-parent > a{ width:calc(100% - 48px); padding-right:16px; }
+  .ov-list > li.ov-parent{ position:relative; }
+  .ov-list > li.ov-parent > .ov-acc > summary{
+    position:absolute; top:0; right:0; z-index:1;
+    width:48px; height:55px; padding:0; justify-content:center;
+  }
   .pill{
     display:inline-flex; align-items:center; justify-content:center;
     background:var(--yellow); color:var(--ink);
@@ -737,25 +744,28 @@
           <li><a href="pages/vertical-software.html">Vertical Software</a></li>
           <li><a href="pages/embedded-offerings.html">Our Advantage</a></li>
           <li><a href="pages/embedded-offerings.html#ai">AI at Fullsteam</a></li>
-          <li>
+          <li class="ov-parent">
+            <a href="pages/our-story.html">Our Story</a>
             <details class="ov-acc">
-              <summary><span class="ov-acc-label">Our Story</span></summary>
+              <summary aria-label="Show pages under Our Story"></summary>
               <ul>
                 <li><a href="pages/leadership.html">Leadership</a></li>
               </ul>
             </details>
           </li>
-          <li>
+          <li class="ov-parent">
+            <a href="pages/for-founders.html">Acquisitions</a>
             <details class="ov-acc">
-              <summary><span class="ov-acc-label">Acquisitions</span></summary>
+              <summary aria-label="Show pages under Acquisitions"></summary>
               <ul>
                 <li><a href="pages/faq.html">FAQ</a></li>
               </ul>
             </details>
           </li>
-          <li>
+          <li class="ov-parent">
+            <a href="pages/careers.html">Careers</a>
             <details class="ov-acc">
-              <summary><span class="ov-acc-label">Careers</span></summary>
+              <summary aria-label="Show pages under Careers"></summary>
               <ul>
                 <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li>
               </ul>
