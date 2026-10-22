@@ -190,8 +190,10 @@ On-page name is **Our Advantage** (2026-10-22). File name is unchanged. Sitemap 
 | **Talent — three cards** | Detail | **Intent** | Hiring (a deeper bench) · Mobility (move between the businesses Fullsteam owns without leaving) · Support (group-level finance, legal, HR, compliance). Body detail is `[placeholder]` |
 | **Talent — 2×2 fact grid** | Proof | Placeholder | Scale (“2,000+ colleagues” — publishability-gated, OI-5) · Culture (“a big company that doesn't operate like one”) · Proof (no attrition, hiring, or retention figures) · Constraint (never headcount reduction) |
 | **Talent — photo + text** | Imagery | Placeholder | Real colleagues, not stock. No asset supplied |
-| **Talent — “See open roles” CTA** | CTA | Draft | Optional. Workday, new tab. The employee lens — secondary on this page |
-| **Vertical Expertise panel** | Detail | Placeholder | Still a one-line placeholder — not built |
+| **Vertical Expertise — overview** | Detail | **Intent** | Industry knowledge stays with the software; shared learnings without homogenizing brands. Keep distinction from the Vertical Software portfolio clear |
+| **Vertical Expertise — three cards** | Detail | **Intent** | Industry knowledge · Shared learnings · Product fit (why horizontal isn't the same). Body detail is `[placeholder]` |
+| **Vertical Expertise — 2×2 fact grid** | Proof | Placeholder | Focus (software first) · Scale (“11 verticals” settled; “100+ businesses” publishability-gated, OI-5) · Proof (no cross-vertical metrics) · Constraint (never a one-size-fits-all playbook; keep identity) |
+| **Vertical Expertise — photo + text** | Imagery | Placeholder | Real examples from the portfolio, not stock. No asset supplied |
 
 ---
 
