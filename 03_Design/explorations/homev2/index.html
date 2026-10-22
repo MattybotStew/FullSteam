@@ -361,12 +361,18 @@
     .hero__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400; letter-spacing: 0;
-      color: var(--green);
+      /* solid gold — the gold→green gradient stays on the other bands */
+      color: #FFC600;
+      background-image: none;
+      -webkit-text-fill-color: #FFC600;
       /* 0 so the serif's taller content box can't inflate the line box —
          keeps every line's advance identical */
       line-height: 0;
+      /* sidebearings (the g swash, the period) paint outside the em box */
+      padding-inline: 0.12em;
+      margin-inline: -0.12em;
     }
-    /* line stack — leading is set by --lh, no extra padding or min-height */
+    /* line stack — leading is set by --lh; horizontal padding only, for italic sidebearings */
     .hero__title .line {
       /* masked line reveal: each line sits in an overflow:hidden wrapper (added by
          JS) and slides up from behind it. The mask is removed once the entrance
@@ -374,11 +380,21 @@
       display: block;
       line-height: var(--lh);
       margin: 0;
+      overflow: visible;
+      /* room for italic sidebearings. A transform on the line (exit / --ly)
+         clips ink that paints outside the border box, so the padding has to
+         live on the line itself — the negative margin keeps the measure. */
+      padding-inline: 0.14em;
+      margin-inline: -0.14em;
       will-change: transform;
     }
     .hero__line-mask {
       display: block;
       overflow: hidden;
+      /* the line's padding box sticks out past its negative margin; the mask
+         has to include that or the entrance clips the same swash */
+      padding-inline: 0.16em;
+      margin-inline: -0.16em;
     }
     /* Desktop-1 · 11256:591 — load state, lines exit up (mirror of software in).
        Shrink via transform (not font-size) so the CTA row never reflows. */
@@ -438,8 +454,12 @@
     .hero__title--software .line[data-li="2"] { --line-op: var(--pLine2, 0); }
     .hero__title--software .line[data-li="3"] { --line-op: var(--pLine3, 0); }
     /* when the gold word IS the whole line it needs a real line box
-       (the global em rule above zeroes it so inline ems can't inflate the rhythm) */
-    .hero__title .line em:only-child { line-height: var(--lh); }
+       (the global em rule above zeroes it so inline ems can't inflate the rhythm).
+       Slightly looser than --lh so the italic's body isn't sliced by the mask. */
+    .hero__title .line em:only-child {
+      line-height: 1.05;
+      overflow: visible;
+    }
 
     /* ---- Screen 2: subtext + rule + CTA (timed entrance) -------------------
        All of it is driven by JS-written vars so the load sequence and the scroll
@@ -693,7 +713,7 @@
       font-size: clamp(44px, 4.8vw, 68px);
       font-weight: 500; letter-spacing: -.045em; line-height: .95;
       font-variant-numeric: lining-nums tabular-nums;
-      color: var(--accent);
+      color: #FFC600;
     }
     .who__metric small {
       display: block; margin-top: 12px;
@@ -1540,10 +1560,9 @@
       border-bottom-color: var(--white);
     }
 
-    /* Italic display accents — one gold → green gradient on every band.
-       Sits after the flat color rules so it wins. Weight 500 (medium);
+    /* Italic display accents — gold → green on every band except the hero
+       (hero ems are solid #FFC600). Weight 500 (medium);
        Instrument Serif may only ship 400, so the browser synthesizes 500 lighter than 600. */
-    .hero__title em,
     .who__title em,
     .ai__title em,
     .careers__title em,
