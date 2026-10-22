@@ -6,7 +6,7 @@
   <title>homev2 · video hero + sticky image rail — INTERNAL, not client-facing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;700&family=Instrument+Serif:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;700&family=Instrument+Serif:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add('has-js');</script>
   <style>
     :root {
@@ -1541,8 +1541,8 @@
     }
 
     /* Italic display accents — one gold → green gradient on every band.
-       Sits after the flat color rules so it wins. Weight 600 (semi-bold);
-       Instrument Serif has no 600 file, so the browser synthesizes it lighter than 700. */
+       Sits after the flat color rules so it wins. Weight 500 (medium);
+       Instrument Serif may only ship 400, so the browser synthesizes 500 lighter than 600. */
     .hero__title em,
     .who__title em,
     .ai__title em,
@@ -1550,7 +1550,7 @@
     .careers-testimonial__headline em,
     .founders__title em,
     .sent-num {
-      font-weight: 600;
+      font-weight: 500;
       background-image: linear-gradient(100deg, #FFC600 0%, #84BD00 100%);
       -webkit-background-clip: text;
       background-clip: text;
