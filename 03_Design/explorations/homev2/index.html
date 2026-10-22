@@ -83,21 +83,14 @@
     .hero__fallback {
       position: absolute;
       /* The video NEVER shrinks (2026-10-22 — the cube collapse was removed).
-         It stays full-bleed for the whole hero and simply fades as the hero
-         scrolls away, so the hero's bottom edge never cuts a hard line across
-         the brand-blue stage it scrolls into.
-         --hero-x is the Scene 2 parallax and --hero-zoom the load-time
-         1.15 → 1; they compose. --hero-media-fade is written per frame by the
-         scroll-out. */
+         It stays full-bleed and centered for the whole hero — no load-time
+         parallax or zoom, and no sideways drift during the headline handoff —
+         and simply fades as the hero scrolls away, so the hero's bottom edge
+         never cuts a hard line across the brand-blue stage it scrolls into.
+         --hero-media-fade is written per frame by the scroll-out. */
       left: 50%; top: 50%; z-index: 0;
       width: 100%; height: 100%;
-      /* A subtle push during the A→B handoff (2026-10-22): the video zooms ~5%
-         and drifts ~3% left as Axis B lands, so the swap has a subject again
-         without reintroducing the cube. --pVideo ramps 0→1 over the handoff;
-         --hero-x (Scene 2 parallax) and --hero-zoom (load-time 1.15→1) compose. */
-      transform:
-        translate(calc(-50% + var(--hero-x, 0%) - 3% * var(--pVideo, 0)), -50%)
-        scale(calc(var(--hero-zoom, 1) * (1 + 0.05 * var(--pVideo, 0))));
+      transform: translate(-50%, -50%);
       transform-origin: center center;
       transition: none;
       opacity: var(--hero-media-fade, 1);
@@ -2433,8 +2426,8 @@ Square-style expanding accordion (white canvas). -->
         var port = document.querySelector('.hero__title--portfolio');
         if (!cta || !port) return;
 
-        /* Axis A is on screen in its resting position. No masked reveal. */
-        var ZOOM_DUR = 1500;
+        /* Axis A is on screen in its resting position. No masked reveal.
+           The video stays still — no load-time zoom or sideways parallax. */
         var S2_AT = 1450, SUB_DUR = 700, RULE_DUR = 640, CTA_AT = 1650, CTA_DUR = 820;
         var TOTAL = CTA_AT + CTA_DUR + 60;
 
@@ -2457,9 +2450,9 @@ Square-style expanding accordion (white canvas). -->
 
         function frame(now) {
           var el = now - t0;
-          hero.style.setProperty('--hero-zoom', (1.15 - 0.15 * seg(el, 0, ZOOM_DUR)).toFixed(4));
 
-          /* Screen 2 — CTA and video only. Axis A stays in its resting box. */
+          /* Screen 2 — CTA only. Axis A stays in its resting box. The video
+             is not moved. */
           var s2 = seg(el, S2_AT, SUB_DUR);
           if (scene2) {
             scene2.style.opacity = s2.toFixed(3);
@@ -2470,19 +2463,14 @@ Square-style expanding accordion (white canvas). -->
           cta.style.setProperty('--cta-in', ct.toFixed(3));
           cta.style.setProperty('--cta-scale', (0.9 + 0.1 * overshoot(ct)).toFixed(4));
 
-          /* video parallax for "new scene" */
-          hero.style.setProperty('--hero-x', (-5 * s2).toFixed(2) + '%');
-
           if (el < TOTAL) { requestAnimationFrame(frame); return; }
 
-          /* settle: hand the stylesheet back. Cleared values match the CSS
-             defaults (zoom 1, hero-x 0%). Axis A was never moved. */
+          /* settle: hand the stylesheet back. Axis A was never moved, and the
+             video is never written. */
           if (scene2) { scene2.style.opacity = ''; scene2.style.transform = ''; }
           if (rule) rule.style.transform = '';
           cta.style.removeProperty('--cta-in');
           cta.style.removeProperty('--cta-scale');
-          hero.style.removeProperty('--hero-zoom');
-          hero.style.removeProperty('--hero-x');
         }
         requestAnimationFrame(frame);
       })();
@@ -2621,7 +2609,6 @@ Square-style expanding accordion (white canvas). -->
         var pSoftIn = smoothstep(segment(t, 0.36, 0.54));
         var pLine2 = smoothstep(segment(t, 0.44, 0.64));
         var pLine3 = smoothstep(segment(t, 0.52, 0.76));
-        var pVideo = smoothstep(segment(t, 0.18, 0.72));
         var pScrim = smoothstep(segment(t, 0.34, 0.58));
         var pCue = smoothstep(segment(t, 0.06, 0.22));
 
@@ -2634,7 +2621,6 @@ Square-style expanding accordion (white canvas). -->
         hero.style.setProperty('--pSoftIn', pSoftIn.toFixed(4));
         hero.style.setProperty('--pLine2', pLine2.toFixed(4));
         hero.style.setProperty('--pLine3', pLine3.toFixed(4));
-        hero.style.setProperty('--pVideo', pVideo.toFixed(4));
         hero.style.setProperty('--pScrim', pScrim.toFixed(4));
         hero.style.setProperty('--pCue', pCue.toFixed(4));
 
