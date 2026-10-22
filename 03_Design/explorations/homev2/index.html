@@ -461,29 +461,10 @@
       overflow: visible;
     }
 
-    /* ---- Screen 2: subtext + rule + CTA (timed entrance) -------------------
-       All of it is driven by JS-written vars so the load sequence and the scroll
-       sequence never fight over the same property. Default (no JS, reduced
-       motion) is the FINISHED state — everything visible, no offset. */
-    .hero__scene2 { will-change: transform, opacity; }
-    .hero__sub {
-      margin: 0;
-      font-family: "Instrument Sans", system-ui, sans-serif;
-      font-weight: 400;
-      font-size: clamp(17px, 1.45vw, 21px);
-      line-height: 1.45;
-      color: rgba(255, 255, 255, .84);
-      text-wrap: balance;
-      max-width: 34ch;
-      margin-inline: auto;
-    }
-    .hero__rule {
-      display: block;
-      width: 62px; height: 2px;
-      margin: 22px auto 0;
-      background: rgba(255, 255, 255, .4);
-      transform-origin: left center;
-    }
+    /* ---- Screen 2: CTA (timed entrance) ------------------------------------
+       Driven by JS-written vars so the load sequence and the scroll sequence
+       never fight over the same property. Default (no JS, reduced motion) is
+       the FINISHED state — everything visible, no offset. */
     /* ---- buttons (Figma pill, height 44, padding 0 28px) ----------------- */
     .hero__cta {
       display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
@@ -1766,10 +1747,6 @@
             <span class="line"><em>grow.</em></span>
           </h2>
         </div>
-        <div class="hero__scene2" id="heroScene2">
-          <p class="hero__sub">We buy them. We keep them growing.</p>
-          <span class="hero__rule" aria-hidden="true"></span>
-        </div>
         <div class="hero__cta" id="heroCta">
           <a class="pill pill--gold" href="#">Explore vertical solutions</a>
         </div>
@@ -2437,8 +2414,7 @@ Square-style expanding accordion (white canvas). -->
            locked Axis A → Axis B model in KB §23.
 
            Screen 1 — headline: masked line reveal, 130ms stagger, video 1.15 → 1.
-           Screen 2 — subtext + rule + CTA: fades/rises in, rule draws scaleX 0→1,
-           CTA pops 0.9 → 1 with an overshoot, video parallaxes x −5%.
+           Screen 2 — CTA pops 0.9 → 1 with an overshoot, video parallaxes x −5%.
 
            DEVIATION, deliberate: the brief says Screen 1 fades to opacity 0. It must
            not — Axis A has to survive on screen to hand off to Axis B on scroll
@@ -2454,7 +2430,7 @@ Square-style expanding accordion (white canvas). -->
         var rule = document.querySelector('.hero__rule');
         var cta = document.getElementById('heroCta');
         var port = document.querySelector('.hero__title--portfolio');
-        if (!scene2 || !cta || !port) return;
+        if (!cta || !port) return;
 
         /* Stamp data-li on EVERY line first — the CSS indexes its exit/opacity
            ramps by data-li now, and that must be in place before any wrapping. */
@@ -2494,8 +2470,8 @@ Square-style expanding accordion (white canvas). -->
         var t0 = performance.now();
         /* prime the hidden state so the first paint isn't a flash of final state */
         masked.forEach(function (ln) { ln.style.setProperty('--ly', '100%'); });
-        scene2.style.opacity = '0';
-        rule.style.transform = 'scaleX(0)';
+        if (scene2) scene2.style.opacity = '0';
+        if (rule) rule.style.transform = 'scaleX(0)';
         cta.style.setProperty('--cta-in', '0');
         cta.style.setProperty('--cta-scale', '0.9');
 
@@ -2510,9 +2486,11 @@ Square-style expanding accordion (white canvas). -->
 
           /* Screen 2 */
           var s2 = seg(el, S2_AT, SUB_DUR);
-          scene2.style.opacity = s2.toFixed(3);
-          scene2.style.transform = 'translate3d(0,' + ((1 - s2) * 18).toFixed(1) + 'px,0)';
-          rule.style.transform = 'scaleX(' + seg(el, S2_AT + 120, RULE_DUR).toFixed(3) + ')';
+          if (scene2) {
+            scene2.style.opacity = s2.toFixed(3);
+            scene2.style.transform = 'translate3d(0,' + ((1 - s2) * 18).toFixed(1) + 'px,0)';
+          }
+          if (rule) rule.style.transform = 'scaleX(' + seg(el, S2_AT + 120, RULE_DUR).toFixed(3) + ')';
           /* headline lifts as Screen 2 arrives — but does NOT vanish (see header) */
           hero.style.setProperty('--h1-lift', s2.toFixed(3));
           var ct = seg(el, CTA_AT, CTA_DUR);
@@ -2526,8 +2504,8 @@ Square-style expanding accordion (white canvas). -->
 
           /* settle: hand the stylesheet back rather than pinning them forever */
           masked.forEach(function (ln) { ln.style.removeProperty('--ly'); });
-          [].concat(scene2).forEach(function (e2) { e2.style.opacity = ''; e2.style.transform = ''; });
-          rule.style.transform = '';
+          if (scene2) { scene2.style.opacity = ''; scene2.style.transform = ''; }
+          if (rule) rule.style.transform = '';
           cta.style.removeProperty('--cta-in');
           cta.style.removeProperty('--cta-scale');
           hero.style.removeProperty('--hero-zoom');
