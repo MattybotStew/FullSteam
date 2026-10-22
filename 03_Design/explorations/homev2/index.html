@@ -20,17 +20,6 @@
       --careers-canvas: color-mix(in srgb, var(--blue) 80%, black); /* #003244 — careers + LinkedIn band */
       --close-canvas: color-mix(in srgb, var(--careers-canvas) 70%, black); /* ~30% darker than careers */
       --bar-h:  68px;     /* header height; re-measured in JS for the menu offset */
-      --cube-size: clamp(140px, 17vw, 210px);
-      --cube-pad-y: clamp(90px, 12vh, 120px); /* 180–240px band around the cube */
-      --cube-band: calc(var(--cube-size) + 2 * var(--cube-pad-y));
-      /* homev2: the SETTLED band is almost empty by definition — the cube has
-         already faded to 0 by the time .is-cubed lands — and section 02 is brand
-         blue too, so there is no seam for the band to hide. The inherited 426px
-         was ~580px of pinned dead scroll plus 426px of scroll-away with nothing
-         in it. Kept as a short blue tail so the release still reads as a release
-         rather than a snap. The cube overflows this height, but it is fully
-         transparent at that point and .hero clips it. */
-      --cube-band-settled: 120px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -43,10 +32,13 @@
 
     /* ---- hero stage: the pin that drives the overlay change --------------- */
     .hero-stage { height: auto; }              /* no-JS / reduced-motion: static */
-    .has-js .hero-stage { height: 250vh; }     /* pinned scroll — handoff + cube collapse */
-    /* the band under the settled cube is brand blue, matching the section that
-       follows it — there is no colour change at the hero hand-off at all */
-    .has-js .hero-stage.is-cubed { background: var(--blue); }
+    /* Pinned for the HEADLINE HANDOFF ONLY (2026-10-22 — the shrinking video
+       hero and its cube were removed). 180vh = 80vh of pin travel, which the
+       Axis A → Axis B swap uses, plus the hero's own 100svh, which it then
+       scrolls out of. The stage is brand blue, so the space the hero leaves
+       behind as it scrolls away is the same blue as the hero and section 02 —
+       no seam, no white band, and section 02 simply rises into it. */
+    .has-js .hero-stage { height: 180vh; background: var(--blue); }
 
     .hero {
       position: relative; isolation: isolate; overflow: hidden;
@@ -57,23 +49,15 @@
       padding: 160px 0;             /* Figma padding 160px 0 */
     }
     .has-js .hero { position: sticky; top: 0; }
-    /* During collapse: cap the pin to the Figma hero band (~1059) on tall screens. */
-    .has-js .hero.is-cubing { height: min(100svh, 1059px); min-height: 0; }
-    /* Settled cube: short in-flow band so the pin releases a cube-block, not 100svh. */
-    .has-js .hero.is-cubed {
-      height: var(--cube-band-settled);
-      min-height: 0;
-      padding: 0;
-      gap: 0;
-    }
-    /* ---- THE SEAM: blue hero → white section 02 --------------------------
-       homev2 dissolves the hero canvas blue → white across the collapse (see the
-       .hero background above), so the band left behind by the settled cube is
-       already white and matches the section that follows. No negative margin is
-       needed here any more — with nothing to align the cube against, a pull
-       would only shave space off the top of the white section for nothing. */
-    .has-js .hero-stage.is-cubed {
-      margin-bottom: 0;
+    /* Bottom scrim: the footage dissolves into the brand blue at the hero's foot.
+       Without it the video's bottom edge cuts a hard line across the blue the
+       hero scrolls into. The scrim is unconditional, so the edge never appears —
+       pinned, scrolling out, no-JS or reduced motion. */
+    .hero::after {
+      content: "";
+      position: absolute; left: 0; right: 0; bottom: 0; height: 190px;
+      z-index: 2; pointer-events: none;
+      background: linear-gradient(180deg, rgba(0,63,85,0) 0%, var(--blue) 92%);
     }
 
     /* ---- background: VIDEO, with an owned fallback ------------------------ */
@@ -83,29 +67,21 @@
     .hero__media,
     .hero__fallback {
       position: absolute;
-      /* homev2 MORPH: the collapse anchor travels from the viewport centre to the
-         right rail's centre, so the cube shrinks TOWARD the photo that is about to
-         open out of the same point. Defaults keep the original centred behaviour.
-         --hero-ax/--hero-ay come from the scroll morph; --hero-x (Scene 2 parallax)
-         and --hero-zoom (load-time 1.15 → 1) are the timed entrance. They compose. */
-      left: var(--hero-ax, 50%); top: var(--hero-ay, 50%); z-index: 0;
-      /* full-bleed at --cube 0; collapses to a small rounded cube at --cube 1 */
-      width:  calc(100% - (100% - var(--cube-size)) * var(--cube, 0));
-      height: calc(100% - (100% - var(--cube-size)) * var(--cube, 0));
-      border-radius: calc(28px * var(--cube, 0));
-      box-shadow: 0 34px 80px rgba(0, 12, 20, calc(.5 * var(--cube, 0)));
-      /* translate centres it; the scroll zoom fades out as it collapses, so the cube is exact.
-         --hero-zoom is the load-time 1.15 → 1; --hero-x is the Scene 2 parallax. */
+      /* The video NEVER shrinks (2026-10-22 — the cube collapse was removed).
+         It stays full-bleed for the whole hero and simply fades as the hero
+         scrolls away, so the hero's bottom edge never cuts a hard line across
+         the brand-blue stage it scrolls into.
+         --hero-x is the Scene 2 parallax and --hero-zoom the load-time
+         1.15 → 1; they compose. --hero-media-fade is written per frame by the
+         scroll-out. */
+      left: 50%; top: 50%; z-index: 0;
+      width: 100%; height: 100%;
       transform:
         translate(calc(-50% + var(--hero-x, 0%)), -50%)
-        scale(calc(var(--hero-zoom, 1) * (1 + 0.03 * var(--pVideo, 0) * (1 - var(--cube, 0)))));
+        scale(calc(var(--hero-zoom, 1) * (1 + 0.03 * var(--pVideo, 0))));
       transform-origin: center center;
       transition: none;
-      /* homev2 MORPH: the cube no longer fades itself out. It travels to the
-         right rail's centre (see --hero-ax / --hero-ay, written per frame) and
-         hands off to the section's photo, which opens out of exactly that point.
-         --cube-fade is driven by the handoff, not by --cube. */
-      opacity: var(--cube-fade, 1);
+      opacity: var(--hero-media-fade, 1);
       visibility: visible;
       pointer-events: none;
     }
@@ -133,21 +109,6 @@
     .hero.has-media .hero__fallback { opacity: 0; }
     /* no video to control — the pause button would be a dead control */
     .hero:not(.has-media) .hero__media-ctrl { display: none; }
-    /* homev2 MORPH: the cube must stay on screen to hand off to the section's photo,
-       so it is NOT hidden on .is-cubed any more (exploration 02 did that, because
-       there was nothing to hand to). Visibility is driven by --cube-fade. */
-    /* During the collapse and the handoff the hero paints ABOVE section 02, so
-       the cube is visible where it lands — inside the rail's frame. Without this
-       the section (z-index 1) covers it. Both canvases are brand blue, so the
-       overlap itself is invisible; only the cube reads. */
-    .has-js .hero.is-cubing,
-    .has-js .hero.is-cubed { z-index: 2; }
-    .hero.is-cubing .hero__media-ctrl,
-    .hero.is-cubed .hero__media-ctrl {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
 
     /* base color overlay — the #003F55 fill under the video.
        ~72% on load → ~30% on the software headline (was 80%→38%, then 55%→30%).
@@ -159,20 +120,22 @@
     .hero__tint {
       position: absolute; inset: 0; z-index: 2; pointer-events: none;
       background: var(--blue);
-      opacity: calc((.72 - .42 * var(--pTint, 0)) * (1 - var(--cube, 0)) * var(--media-tint, 1));
+      /* the tint rides the media's scroll-out fade, so nothing is left hanging
+         over the brand-blue stage the hero scrolls into */
+      opacity: calc((.72 - .42 * var(--pTint, 0)) * var(--media-tint, 1) * var(--hero-media-fade, 1));
     }
     /* Desktop-2 overlay — Figma gradient (starts before headline handoff) */
     .hero__overlay {
       position: absolute; inset: 0; z-index: 2; pointer-events: none;
       background: linear-gradient(180deg, rgba(0,89,120,.7) 0%, rgba(0,165,222,0) 62%);
-      opacity: calc(var(--pOverlay, 0) * (1 - var(--cube, 0)));
+      opacity: calc(var(--pOverlay, 0) * var(--hero-media-fade, 1));
     }
     /* Soft center scrim behind the headline block — fades in with the software handoff */
     .hero__scrim {
       position: absolute; inset: 0; z-index: 2; pointer-events: none;
       background: radial-gradient(ellipse 70% 55% at 50% 48%,
         rgba(0,32,43,.55) 0%, rgba(0,32,43,.22) 45%, rgba(0,32,43,0) 72%);
-      opacity: calc(var(--pScrim, 0) * (1 - var(--cube, 0)));
+      opacity: calc(var(--pScrim, 0) * var(--hero-media-fade, 1));
     }
 
     /* ---- overlay header (Figma "home" frame, absolute at 0,0) ------------ */
@@ -313,12 +276,11 @@
       width: 100%; max-width: 1100px;   /* hero container — 1100px */
       padding: 0;
       display: flex; flex-direction: column; align-items: center; gap: 50px;
+      /* the copy dissolves as it scrolls out of the hero (--hero-copy-fade) */
+      opacity: var(--hero-copy-fade, 1);
     }
     /* keep content off the edges once the 1100px container stops binding */
     @media (max-width: 1148px) { .hero__inner { padding: 0 24px; } }
-    /* cube phase: the copy is fading out — don't let it catch clicks */
-    .hero.is-cubing .hero__inner,
-    .hero.is-cubed .hero__inner { pointer-events: none; }
     /* Two headline states — phased vertical handoff (scroll vars from JS) */
     .hero__headlines {
       position: relative;
@@ -331,9 +293,6 @@
          can't collapse the box and pull the CTAs up */
       min-height: clamp(8.4rem, 22.8vw, 18.6rem);
       margin: 0; font-weight: 700; text-align: center; text-wrap: balance;
-      /* cube phase — the copy fades and drifts up as the video collapses */
-      opacity: calc(1 - var(--cube, 0));
-      transform: translateY(calc(-34px * var(--cube, 0)));
       transition: none;
     }
     .hero__title {
@@ -449,9 +408,9 @@
     /* ---- buttons (Figma pill, height 44, padding 0 28px) ----------------- */
     .hero__cta {
       display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
-      /* cube phase — the CTAs leave with the copy */
-      opacity: calc((1 - var(--cube, 0)) * var(--cta-in, 1));
-      transform: translateY(calc(-18px * var(--cube, 0))) scale(var(--cta-scale, 1));
+      /* --cta-in / --cta-scale are the load-time entrance (fade + spring pop) */
+      opacity: var(--cta-in, 1);
+      transform: scale(var(--cta-scale, 1));
       transition: none;
     }
     .pill {
@@ -555,8 +514,8 @@
       color: var(--white);
       padding: 110px 24px;
     }
-    /* No contact shadow here. The cube fades out before the seam (as it always did),
-       so there is no object resting on this section's top edge to seat. */
+    /* No contact shadow here: nothing rests on this section's top edge any more —
+       the hero scrolls away above it, and both canvases are the same brand blue. */
     /* Content 45% / rail 55% of the canvas, and the grid spans the full padded canvas
        rather than a centred max-width box — so the rail's right edge lands flush
        on the canvas edge instead of floating ~100px inside it at desktop widths.
@@ -585,10 +544,12 @@
        browsers with a collapsing URL bar. */
     .who__frame {
       position: relative; width: 100%; height: 100svh;
-      /* radius is driven down to 0 by the JS reveal, so the photo opens out of the
-         hero's 28px-rounded cube. Default 0 = fully open, which is also the
-         no-JS / reduced-motion state. */
-      border-radius: 0;
+      /* The frame fades up as the section arrives (--who-fade is written per
+         frame by the reveal). No clip-path and no radius any more: with the
+         hero's cube gone there is no object for the photo to open out of.
+         Default opacity 1 = fully open, which is also the no-JS /
+         reduced-motion state. */
+      opacity: var(--who-fade, 1);
       background: var(--blue); overflow: hidden;
     }
     /* per-frame writes below; no CSS transitions (KB §23.6 rule 2) */
@@ -1432,6 +1393,66 @@
       border-bottom-color: var(--gold);
     }
 
+    /* ---- Closing marquee — the 11 verticals --------------------------------
+       Square's "closing trail" (HomePageClosing__trail + marquee): a continuous
+       horizontal scroll of the breadth signal, as a finale before the CTA.
+       The verticals are already named in the footer and the verts band, so the
+       marquee is aria-hidden — decorative repetition, not a nav. */
+    .marquee {
+      position: relative; z-index: 2;
+      background: var(--blue);
+      color: var(--white);
+      border-top: 1px solid rgba(255, 255, 255, .12);
+      overflow: hidden;
+      padding: 64px 0;
+    }
+    .marquee__track {
+      display: flex; width: max-content;
+      animation: marquee-scroll 38s linear infinite;
+    }
+    .marquee__group {
+      display: flex; align-items: center;
+      flex: 0 0 auto; white-space: nowrap;
+    }
+    .marquee__item {
+      display: inline-flex; align-items: center;
+      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
+      font-size: clamp(26px, 3vw, 40px);
+      letter-spacing: -.02em; line-height: 1.1;
+      color: rgba(255, 255, 255, .9);
+    }
+    .marquee__item::after {
+      content: "·"; margin: 0 40px; color: var(--gold);
+    }
+    .marquee__item em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400; color: var(--gold);
+    }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee__track { animation: none; flex-wrap: wrap; }
+    }
+
+    /* ---- Scroll-reveal (Square's RevealAnimations) --------------------------
+       A single utility: content rises + fades as it enters the viewport, driven
+       by IntersectionObserver (`.is-in`). The default state IS visible, so
+       no-JS and reduced-motion readers see everything — the reveal is a
+       progressive enhancement layered on by the observer. */
+    .has-js .rv {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .8s cubic-bezier(.22, 1, .36, 1),
+                  transform .8s cubic-bezier(.22, 1, .36, 1);
+      transition-delay: var(--rv-d, 0ms);
+    }
+    .has-js .rv.is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .has-js .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
     @media (max-width: 899px) {
       .careers { padding: 76px 20px 88px; }
       .careers__head { margin-bottom: 36px; }
@@ -1557,7 +1578,7 @@
 <body>
   <!-- Sticky site bar — fixed to the viewport in the hero's blue. Kept OUT of
        .hero so it isn't clipped by the hero's overflow / stacking context and
-       stays pinned while the pinned hero scrolls and collapses into a cube. -->
+       stays pinned while the pinned hero scrolls away. -->
   <header class="hero__bar">
     <a class="hero__logo" href="#" aria-label="Fullsteam home">
       <img src="assets/fullsteam-logo.svg" alt="Fullsteam" width="177" height="48" decoding="async">
@@ -2279,8 +2300,6 @@ Square-style expanding accordion (white canvas). -->
         return x * x * (3 - 2 * x);
       }
 
-      var cubing = false;
-      var cubeSettled = false;
       /* Which block is "current"? The focus line sits just below centre, so the rail
          changes as the next block's heading arrives rather than after you have
          started reading it. NB: the caller clears `ticking` before calling this,
@@ -2303,10 +2322,10 @@ Square-style expanding accordion (white canvas). -->
         }
       }
       /* ---- LOAD-TIME ENTRANCE (the brief) -------------------------------------
-           Timed, plays once on load; the scroll sequence (handoff → cube → morph →
-           section) is unchanged and takes over as soon as you scroll. Hybrid by
-           design — a fully timed handoff would replace the locked Axis A → Axis B
-           model in KB §23.
+           Timed, plays once on load; the scroll sequence (headline handoff →
+           hero scrolls out → section 02) is unchanged and takes over as soon as
+           you scroll. Hybrid by design — a fully timed handoff would replace the
+           locked Axis A → Axis B model in KB §23.
 
            Screen 1 — headline: masked line reveal, 130ms stagger, video 1.15 → 1.
            Screen 2 — subtext + rule + CTA: fades/rises in, rule draws scaleX 0→1,
@@ -2416,66 +2435,27 @@ Square-style expanding accordion (white canvas). -->
         requestAnimationFrame(frame);
       })();
 
-      /* ---- the morph: video → cube → the rail's photo -------------------------
-           The cube used to die where it was born (viewport centre) and the rail's
-           photo opened out of the rail's own centre — two unrelated places. Now
-           the collapse ANCHOR travels from the viewport centre to the rail's live
-           centre as --cube goes 0.78 → 1, so by the time the reveal starts the
-           cube is sitting exactly on the point the photo opens from.
+      /* ---- the morph: video → cube → the rail's photo — REMOVED 2026-10-22 ----
+           The video no longer shrinks into a cube, so there is nothing to hand off
+           to the section's photo and no anchor to travel. The hero is now a plain
+           full-bleed video that scrolls away; the section's photo fades up as the
+           section arrives. See renderWho() below and direction.md. */
 
-           The anchor follows the rail's *live* rect, because the rail sticks part
-           way through and its on-screen centre moves (680 → 560 at 1440×900);
-           following it live keeps the two coincident for the whole handoff.
-
-           No change was needed to the reveal itself: once ease = 1 the anchor IS
-           the frame's centre, which is already where the clip-path seeds. */
-      var whoP = -1;   /* hoisted from renderWho's scope so the morph can read it */
-
-      function renderMorph(pCube) {
-        var vw = window.innerWidth, vh = window.innerHeight;
-        var rx = vw * 0.5, ry = vh * 0.5;
-        if (whoFrame) {
-          var fr = whoFrame.getBoundingClientRect();
-          if (fr.width && fr.height) { rx = fr.left + fr.width / 2; ry = fr.top + fr.height / 2; }
-        }
-        var ease = smoothstep(segment(pCube, 0.78, 1));
-        /* Clamp the TARGET to keep the cube on screen. While the section is still
-           rising its rail centre is below the fold, and an unclamped anchor dives
-           the cube off the bottom of the screen and back up again. Once the rail
-           centre is inside [half, vh−half] the clamp goes inert and the two track
-           exactly — which is all that matters, since the handoff only happens
-           once the section is actually on screen. */
-        var half = CUBE / 2 + 8;
-        var tx = Math.min(Math.max(rx, half), Math.max(vw - half, half));
-        var ty = Math.min(Math.max(ry, half), Math.max(vh - half, half));
-        var ax = vw * 0.5 + (tx - vw * 0.5) * ease;
-        var ay = vh * 0.5 + (ty - vh * 0.5) * ease;
-        hero.style.setProperty('--hero-ax', ax.toFixed(1) + 'px');
-        hero.style.setProperty('--hero-ay', ay.toFixed(1) + 'px');
-
-        /* Hold the cube at full strength until the reveal actually starts, then
-           hand off over its first ~28%. Fading on --cube instead would kill the
-           cube before it reached the rail. */
-        var fade = 1 - clamp01((whoP < 0 ? 0 : whoP) / 0.28);
-        hero.style.setProperty('--cube-fade', fade.toFixed(3));
-      }
-
-      /* ---- section 02 entry: the photo opens from the cube, the type rises with it --
+      /* ---- section 02 entry: the photo fades up as the section arrives --------
        Two things share ONE scroll progress so they read as a single event:
-         · .who__frame reveals via an expanding clip-path, seeded to a square the
-           same size as the hero's settled cube (210px) and rounded to the same 28px,
-           so the photo opens out of the object the hero just dissolved.
+         · .who__frame fades up (opacity), so the photo is simply there as the
+           section arrives.
          · the first block's kicker / heading / body fade up on a short stagger.
 
-       Clip-path goes on .who__frame ONLY. Putting it on .who or .who__rail would
-       break position:sticky for the rail — the same class of bug as the
-       overflow:hidden ancestor that killed it earlier. The frame already has
-       overflow:hidden and is inside the sticky element, so it is safe.
+       2026-10-22: the expanding clip-path is gone. It was seeded to a square the
+       same size as the hero's settled cube, so the photo "opened out of the
+       object the hero just dissolved" — and the cube no longer exists. With
+       nothing to open out of, an open would have been theatre; the section
+       now just arrives.
 
-       Driven by the SECTION's own entry, not by --cube: the cube settles and fades
-       at scrollY ≈1242 (p=0.92), but section 02's top only reaches the fold around
-       scrollY ≈1350. They do not overlap, so a --cube-driven reveal would finish
-       before the section was ever on screen. */
+       Driven by the SECTION's own entry. The frame's TOP reaching the fold
+       (not its centre) is the start, because that is the moment the photo
+       actually comes on screen. */
       var whoSec = document.getElementById('who-we-are');
       var whoFrame = whoSec && whoSec.querySelector('.who__frame');
       var whoRise = whoSec
@@ -2483,7 +2463,7 @@ Square-style expanding accordion (white canvas). -->
         : [];
       var whoCap = whoSec && whoSec.querySelector('.who__cap');
       var whoSettled = false, whoStart = null;
-      var CUBE = 210; /* matches --cube-size on desktop */
+      var whoP = -1;
 
       /* Measured from DOCUMENT position, never the live rect. Once the rail goes
          sticky its on-screen top freezes at 0, so any rect-based progress would
@@ -2492,11 +2472,9 @@ Square-style expanding accordion (white canvas). -->
       function measureWho() {
         if (!whoFrame) return;
         var padTop = parseFloat(getComputedStyle(whoSec).paddingTop) || 0;
-        var fh = whoFrame.offsetHeight || window.innerHeight;
         var docTop = whoSec.getBoundingClientRect().top + window.scrollY;
-        /* p = 0 when the frame's centre reaches the fold; p = 1 a further 0.85vh
-           down — which is entirely inside the range where the rail is pinned */
-        whoStart = docTop + padTop + fh / 2 - window.innerHeight * 0.5;
+        /* p = 0 when the frame's top reaches the fold; p = 1 a further 0.6vh down */
+        whoStart = docTop + padTop - window.innerHeight;
         whoP = -1; whoSettled = false;
       }
 
@@ -2504,14 +2482,14 @@ Square-style expanding accordion (white canvas). -->
         if (!whoFrame || reduce.matches) return;
         if (whoStart === null) measureWho();
         var vh = window.innerHeight;
-        var p = clamp01((window.scrollY - whoStart) / (vh * 0.85));
+        var p = clamp01((window.scrollY - whoStart) / (vh * 0.6));
 
         /* settled: hand the styles back to the stylesheet rather than pinning
            them inline forever */
         if (p >= 1) {
           if (whoSettled) return;
           whoSettled = true; whoP = 1;
-          whoFrame.style.clipPath = '';
+          whoFrame.style.opacity = '';
           for (var k = 0; k < whoRise.length; k++) {
             whoRise[k].style.opacity = '';
             whoRise[k].style.transform = '';
@@ -2523,21 +2501,8 @@ Square-style expanding accordion (white canvas). -->
         if (Math.abs(p - whoP) < 0.004) return;  /* quantise; skip unchanged */
         whoP = p;
 
-        var fw = whoFrame.offsetWidth, fh = whoFrame.offsetHeight;
-        if (!fw || !fh) return;
-        /* HALF margins, per side. The inset is applied to top AND bottom (and left
-           AND right), so using the full margin over-constrains the box: at p = 0
-           the two insets sum to >100% and the clip region is EMPTY — the reveal
-           then appears to do nothing until halfway through. 50 gives an exact
-           CUBE-sized square at p = 0. */
-        var ix = (1 - Math.min(CUBE, fw) / fw) * 50;
-        var iy = (1 - Math.min(CUBE, fh) / fh) * 50;
-        var k2 = 1 - p;
-
-        whoFrame.style.clipPath = 'inset(' +
-          (iy * k2).toFixed(2) + '% ' + (ix * k2).toFixed(2) + '% ' +
-          (iy * k2).toFixed(2) + '% ' + (ix * k2).toFixed(2) + '% round ' +
-          (28 * k2).toFixed(1) + 'px)';
+        var e = p * p * (3 - 2 * p);   /* smoothstep */
+        whoFrame.style.opacity = e.toFixed(3);
 
         for (var i = 0; i < whoRise.length; i++) {
           var d = i * 0.12;
@@ -2562,10 +2527,6 @@ Square-style expanding accordion (white canvas). -->
       function syncMode() {
         if (reduce.matches) {
           stage.classList.add('is-flow');
-          hero.classList.remove('is-cubing', 'is-cubed');
-          stage.classList.remove('is-cubed');
-          cubing = false;
-          cubeSettled = false;
           return true;
         }
         stage.classList.remove('is-flow');
@@ -2578,47 +2539,19 @@ Square-style expanding accordion (white canvas). -->
         syncBarSolid();
         /* the rail runs even when the hero pin is disabled (reduced motion) —
            swapping which photo is showing is content, not motion */
-        /* ---- the dead-blue lift ----------------------------------------------------
-           A sticky hero must travel a full viewport before it can unstick, so
-           however short the pin is, the band left behind after the cube dissolves
-           is always ≈ pEnd·vh (~828px at 900). That dead zone cannot be tuned
-           away — shortening the pin moves it by ~50px.
-
-           Instead of shrinking the pin (which edits the client-reviewed cube
-           collapse), the NEXT SECTION slides up over it. Both are brand blue, so
-           the overlap is invisible and the only thing the reader sees is content
-           arriving sooner.
-
-           At p = 1 the pin has travelled exactly (S − vh), so the section's top
-           lands at vh − margin. To put it just under the settled band (B):
-             vh − margin = B   →   margin = vh − B
-           Ramp it in over p 0.86 → 1 so it overlaps the cube's fade (0.72 → 1)
-           rather than snapping when the class flips. Reversible — scrolling back
-           up returns the margin to 0 and the hero re-expands. */
-      var liftLast = null, liftMeasured = false;
-
-      function renderLift(p) {
-        var vh = window.innerHeight;
-        var S = stage.offsetHeight;
-        var B = 120; /* --cube-band-settled; kept in step with the CSS token */
-        var k = smoothstep(segment(p, 0.86, 1));
-        /* quantised to 2px: this is a layout write, so don't thrash it per frame */
-        var px = Math.round((-(vh - B) * k) / 2) * 2;
-        if (px !== liftLast) {
-          liftLast = px;
-          stage.style.marginBottom = px + 'px';
-          liftMeasured = false;          /* geometry moved — re-measure the reveal */
-        }
-        if (k >= 0.999 && !liftMeasured) { measureWho(); liftMeasured = true; }
-      }
-
-      renderRail();
+        renderRail();
         if (syncMode()) return;
 
-        var total = stage.offsetHeight - window.innerHeight;
+        var vh = window.innerHeight;
+        var heroH = hero.offsetHeight || vh;
+        /* The pin travel: the hero is sticky inside the stage until the stage's
+           bottom catches up with it. p = 1 is exactly the moment it lets go. */
+        var total = stage.offsetHeight - heroH;
         var p = total > 0 ? clamp01(-stage.getBoundingClientRect().top / total) : 0;
-        /* Phase 1 — the headline handoff fully animates in by ~0.55 of the pin. */
-        var t = clamp01(p / 0.55);
+        /* Phase 1 — the headline handoff. It now uses the WHOLE pin and settles
+           at p = 0.82, so Axis B holds for the last fifth of the pin before the
+           hero lets go and scrolls out. */
+        var t = clamp01(p / 0.82);
 
         var pOverlay = smoothstep(segment(t, 0.12, 0.72));
         var pTint = smoothstep(segment(t, 0, 0.72));
@@ -2648,39 +2581,37 @@ Square-style expanding accordion (white canvas). -->
         hero.style.setProperty('--pScrim', pScrim.toFixed(4));
         hero.style.setProperty('--pCue', pCue.toFixed(4));
 
-        /* Phase 2 — only AFTER the second message has settled (t = 1 at p = 0.55),
-           the hero collapses into a small cube and the copy fades: 0.62 → 0.92,
-           then a short hold before the pin releases. The video keeps playing. */
-        var pCube = smoothstep(segment(p, 0.62, 0.92));
-        hero.style.setProperty('--cube', pCube.toFixed(4));
-        var nowCubing = pCube > 0.001 && pCube < 0.999;
-        var nowSettled = pCube >= 0.999;
-        if (nowCubing !== cubing) {
-          cubing = nowCubing;
-          hero.classList.toggle('is-cubing', cubing);
-        }
-        if (nowSettled !== cubeSettled) {
-          cubeSettled = nowSettled;
-          hero.classList.toggle('is-cubed', cubeSettled);
-          stage.classList.toggle('is-cubed', cubeSettled);
-        }
+        /* ---- the hero scrolls out ----------------------------------------------
+           The pin releases at scrollY = stageHeight − heroHeight. From there the
+           hero (still 100svh tall) scrolls up out of the viewport over the next
+           viewport of scrolling, and section 02 rises in behind it. The stage is
+           brand blue and so is section 02, so the whole run reads as one blue
+           field — there is no band, no cube and no colour change to hide.
 
-        /* Lift + reveal run LAST — both depend on `p`, which is assigned above.
-           Calling them earlier passes `undefined` into segment() and the margin
-           silently resolves to "NaNpx", which the browser then drops. */
-        renderLift(p);
+           Two fades ride the scroll-out:
+             · the VIDEO fades over 0.6vh, so its bottom edge never cuts a hard
+               line across the blue it is scrolling into;
+             · the COPY dissolves over 0.28vh, so the second headline is gone
+               before section 02's first block arrives. */
+        var releaseY = stage.offsetHeight - heroH;
+        var scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+        var past = scrollY - releaseY;
+        var outMedia = clamp01(past / (vh * 0.6));
+        var outCopy = clamp01(past / (vh * 0.28));
+        hero.style.setProperty('--hero-media-fade', (1 - outMedia).toFixed(3));
+        hero.style.setProperty('--hero-copy-fade', (1 - outCopy).toFixed(3));
+
         renderWho();
-        renderMorph(pCube);
       }
       function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(render); } }
       window.addEventListener('scroll', onScroll, { passive: true });
       if (reduce.addEventListener) reduce.addEventListener('change', onScroll);
       else if (reduce.addListener) reduce.addListener(onScroll);
       measureWho();
-        render();
-      /* the reveal is measured from the section's real position, which the lift
-         changes — reset both when the window changes */
-      var onResize = function () { liftLast = null; liftMeasured = false; measureWho(); onScroll(); };
+      render();
+      /* the reveal is measured from the section's real position — reset it when
+         the window changes */
+      var onResize = function () { measureWho(); onScroll(); };
       window.addEventListener('resize', onResize);
     })();
 
