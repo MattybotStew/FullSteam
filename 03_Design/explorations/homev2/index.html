@@ -18,9 +18,11 @@
       --menu-bg: #002C3C; /* dropdown panel — shared with the open header */
       --careers-canvas: color-mix(in srgb, var(--blue) 80%, black); /* #003244 — careers + LinkedIn band */
       --close-canvas: color-mix(in srgb, var(--careers-canvas) 70%, black); /* ~30% darker than careers */
-      /* Type accents carry no colour of their own (Square-style restraint): the
-         serif italic does the emphasis, in whatever colour its band sets. Gold
-         is reserved for the primary CTA fill. */
+      /* Italic display words only. Bright green on dark bands; a darker mix
+         so the same green stays readable on pale bands. Gold stays on the
+         primary CTA fill. */
+      --green: #84BD00;
+      --green-ink: color-mix(in srgb, #84BD00 74%, #00202B);
       --accent: currentColor;
       --bar-h:  68px;     /* header height; re-measured in JS for the menu offset */
       /* ---- motion tokens (2026-10-22) — one easing/duration system, so the
@@ -359,7 +361,7 @@
     .hero__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400; letter-spacing: 0;
-      color: var(--accent);
+      color: var(--green);
       /* 0 so the serif's taller content box can't inflate the line box —
          keeps every line's advance identical */
       line-height: 0;
@@ -673,7 +675,7 @@
     }
     .who__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
-      font-style: italic; font-weight: 400; color: var(--accent);
+      font-style: italic; font-weight: 400; color: var(--green);
     }
     .who__body {
       margin: 0 0 20px;
@@ -741,7 +743,7 @@
     }
     .founders__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
-      font-style: italic; font-weight: 400; color: var(--accent);
+      font-style: italic; font-weight: 400; color: var(--green-ink);
     }
     .founders__lede {
       margin: 0 auto 30px; max-width: 46ch;
@@ -795,8 +797,7 @@
     @media (prefers-reduced-motion: reduce) {
       .sent-w { opacity: 1 !important; filter: none !important; }
     }
-    /* the counting numbers are set apart by weight, not colour */
-    .sent-num { color: var(--accent); font-weight: 500; }
+    .sent-num { color: var(--green-ink); font-weight: 500; }
 
     /* ---- Verticals — Square expanding accordion on white ----------------- */
     /* CD: 10% left/right margins. One --gutter drives every row, so the head,
@@ -1024,7 +1025,7 @@
     .ai__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400;
-      color: var(--accent);
+      color: var(--green-ink);
     }
     .ai__lede {
       margin: 18px 0 0;
@@ -1161,7 +1162,7 @@
     .careers__title em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400;
-      color: var(--accent);                 /* culture accent — the brand green */
+      color: var(--green);
     }
     .careers__head-row {
       margin-top: 18px;
@@ -1226,7 +1227,7 @@
     .careers-testimonial__headline em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
       font-style: italic; font-weight: 400;
-      color: var(--accent);                 /* culture accent — the brand green */
+      color: var(--green);
     }
     .careers-testimonial__text {
       margin: 0;
@@ -1574,7 +1575,7 @@
     }
     .marquee__item em {
       font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
-      font-style: italic; font-weight: 400; color: var(--accent);
+      font-style: italic; font-weight: 400; color: var(--green);
     }
     @keyframes marquee-scroll {
       from { transform: translateX(0); }
