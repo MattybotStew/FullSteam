@@ -72,10 +72,11 @@ This file is the canonical agent entry point (works with Cursor, which reads
   category landing pages. See `plans/sitemap-lock.md` and KB §14.
 - We are in the **Sitemap/Wireframe** milestone; the **homepage** is the active
   design surface and is still being iterated.
-- **Header chrome (provisional):** Option **B revised** — Logo · Menu · Explore
-  vertical solutions. **For Founders is not in the header strip** as of 2026-09-23; it
-  lives in the Menu overlay, footer, and the closing CTA. Full L1 in the Menu overlay
-  - footer. Compare options in `02_Wireframes/active/header-wireframe.html`.
+- **Header chrome (provisional):** Option **B revised** — Logo · hamburger Menu · Explore
+  vertical solutions. The open menu is a **single column** (2026-10-22), not a mega-menu.
+  **For Founders is not in the header strip** as of 2026-09-23; Acquisitions (that page)
+  lives in the menu, footer, and the closing CTA. Compare options in
+  `02_Wireframes/active/header-wireframe.html` (B revised is the current drawing).
 - **Homepage opening = Axis A → grow morph → Axis B (locked 2026-09-24 · Axis A amended
   2026-10-01).** The first viewport is a **two-state pinned sequence**, not one hero: the
   identity/scale visual (**Axis A** — what Fullsteam owns) **grows into** the hero (**Axis B** —

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("has-js");</script>
 <title>FAQ — Wireframe · Fullsteam</title>
 <style>
 
@@ -39,27 +40,97 @@
   }
   .logo{ font-size:18px; font-weight:700; letter-spacing:.02em; }
   .nav-right{ display:flex; align-items:center; gap:16px; }
-  .menu-btn{ background:none; border:0; font:inherit; font-size:13px; font-weight:600; padding:8px 0; }
+  .menu-btn{
+    background:none; border:0; padding:0; color:inherit; cursor:pointer;
+    width:44px; height:44px; flex-shrink:0;
+    display:inline-flex; align-items:center; justify-content:center;
+  }
+  .menu-btn:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+  .menu-btn .bars{
+    display:flex; flex-direction:column; justify-content:center; gap:5px;
+    width:20px; height:16px;
+  }
+  .menu-btn .bars span{
+    display:block; height:2px; width:100%; background:currentColor;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .menu-btn .bars span{ transition:transform .15s ease, opacity .15s ease; }
+  }
+  .menu-btn[aria-expanded="true"] .bars span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .menu-btn[aria-expanded="true"] .bars span:nth-child(2){ opacity:0; }
+  .menu-btn[aria-expanded="true"] .bars span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
   .pill{
     display:inline-flex; align-items:center; justify-content:center;
     background:var(--yellow); color:var(--ink); border:0; padding:9px 18px;
     font-size:13px; font-weight:700;
   }
   .pill-lg{ padding:14px 28px; font-size:16px; }
-  .site-overlay{ display:none; border-top:1px solid var(--line); background:var(--tan); padding:28px 24px 32px; }
-  .site-overlay.is-open{ display:block; }
-  .ov-inner{
-    max-width:1280px; margin:0 auto;
-    display:grid; grid-template-columns:repeat(5,1fr); gap:24px;
+  .nav{ position:relative; z-index:3; }
+  header:has(.site-overlay.is-open){ background:#fff; }
+  .menu-scrim{
+    position:fixed; inset:0; z-index:1;
+    border:0; padding:0; margin:0;
+    background:rgba(0,0,0,.4);
+    cursor:pointer;
   }
-  .ov-solutions{ grid-column:span 2; }
-  .site-overlay h3{ font-size:14px; font-weight:600; margin-bottom:8px; }
-  .site-overlay ul{ list-style:none; }
-  .site-overlay li{ font-size:13px; padding:3px 0; }
+  .menu-scrim:not([hidden]){ display:block; }
+  .site-overlay{
+    display:none;
+    position:absolute; top:100%; right:0; left:auto;
+    width:min(320px, 100%);
+    z-index:2;
+    border-left:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:var(--tan);
+    max-height:calc(100svh - 72px);
+    overflow:auto;
+  }
+  .site-overlay.is-open{ display:block; }
+  html:not(.has-js) .site-overlay{
+    display:block; position:static; max-height:none;
+    width:min(320px, 100%);
+    margin-left:auto;
+  }
+  html:not(.has-js) .menu-scrim{ display:none !important; }
+  .ov-list{ list-style:none; margin:0; padding:0; }
+  .ov-list > li{ border-bottom:1px solid var(--line); }
+  .ov-list > li:last-child{ border-bottom:0; }
+  .ov-list > li > a,
+  .ov-acc > summary{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px;
+    font-size:18px; font-weight:700; line-height:1.3;
+    color:var(--ink); background:transparent; border:0;
+    text-align:left; width:100%;
+  }
+  .ov-acc{ margin:0; }
+  .ov-acc > summary{
+    cursor:pointer; list-style:none;
+  }
+  .ov-acc > summary::-webkit-details-marker{ display:none; }
+  .ov-acc > summary::marker{ content:none; }
+  .ov-acc > summary::after{
+    content:"";
+    width:8px; height:8px; flex-shrink:0;
+    border-right:2px solid currentColor;
+    border-bottom:2px solid currentColor;
+    transform:translateY(-2px) rotate(45deg);
+  }
+  .ov-acc[open] > summary::after{ transform:translateY(2px) rotate(-135deg); }
+  .ov-acc > summary:focus-visible{ outline:2px solid var(--ink); outline-offset:-2px; }
+  .ov-acc ul{ list-style:none; }
+  .ov-acc ul a{
+    display:block;
+    padding:12px 16px 14px 32px;
+    font-size:15px; font-weight:500; line-height:1.3;
+    color:var(--ink);
+    border-top:1px solid var(--line);
+  }
   .site-overlay a:hover{ text-decoration:underline; }
-  .site-overlay a[aria-current="page"]{ font-weight:700; border-bottom:1px solid var(--ink); }
-  .solutions-split{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
-  .ov-finder{ font-size:12px; margin-top:10px; font-family:var(--mono); }
+  .site-overlay a[aria-current="page"],
+  .site-overlay summary[aria-current="page"] .ov-acc-label{
+    text-decoration:underline; text-underline-offset:3px;
+  }
   .beat{
     font-family:var(--mono); font-size:11px; letter-spacing:.14em;
     text-transform:uppercase; margin-bottom:14px;
@@ -139,8 +210,7 @@
   .foot a:hover{ text-decoration:underline; }
   .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
   @media (max-width:900px){
-    .ov-inner{ grid-template-columns:1fr 1fr; }
-    .solutions-split, .split, .layout, .facts, .cards{ grid-template-columns:1fr; }
+    .split, .layout, .facts, .cards{ grid-template-columns:1fr; }
     .layout, .side, .layout > div{ min-width:0; }
     .side{ position:static; }
     .page-hero h1, .block h2{ max-width:100%; }
@@ -160,48 +230,44 @@
     <div class="nav">
       <a class="logo" href="../homepage.html">FULLSTEAM</a>
       <div class="nav-right">
-        <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="siteOverlay">Menu</button>
+        <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="siteOverlay" aria-label="Menu">
+          <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
         <a class="pill" href="vertical-software.html">Explore vertical solutions</a>
       </div>
     </div>
-    <div class="site-overlay" id="siteOverlay">
-      <div class="ov-inner">
-        <div class="ov-solutions">
-          <h3><a href="vertical-software.html">Vertical Software</a></h3>
-          <div class="solutions-split">
-            <ul aria-label="Verticals">
-              <li><a href="vertical-software.html#hospitality">Hospitality</a></li><li><a href="vertical-software.html#weddings-events">Weddings & Events</a></li><li><a href="vertical-software.html#wine">Wine</a></li><li><a href="vertical-software.html#retail">Retail</a></li><li><a href="vertical-software.html#storage-marina">Storage & Marina</a></li><li><a href="vertical-software.html#health-wellness">Health & Wellness</a></li>
-            </ul>
-            <div>
-              <ul aria-label="Verticals">
-                <li><a href="vertical-software.html#field-services">Field Services</a></li><li><a href="vertical-software.html#transportation">Transportation</a></li><li><a href="vertical-software.html#automotive">Automotive</a></li><li><a href="vertical-software.html#association-management">Association Management</a></li><li><a href="vertical-software.html#erp">ERP</a></li>
+    <nav class="site-overlay" id="siteOverlay" aria-label="Menu">
+      <ul class="ov-list">
+          <li><a href="vertical-software.html">Vertical Software</a></li>
+          <li><a href="embedded-offerings.html">Our Advantage</a></li>
+          <li><a href="embedded-offerings.html#ai">AI at Fullsteam</a></li>
+          <li>
+            <details class="ov-acc">
+              <summary><span class="ov-acc-label">Our Story</span></summary>
+              <ul>
+                <li><a href="leadership.html">Leadership</a></li>
               </ul>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h3><a href="embedded-offerings.html">Embedded Offerings</a></h3>
-          <ul>
-            <li><a href="embedded-offerings.html#payments">Payments</a></li><li><a href="embedded-offerings.html#lending">Lending</a></li><li><a href="embedded-offerings.html#insurance">Insurance</a></li><li><a href="embedded-offerings.html#ai">AI at Fullsteam</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3><a href="our-story.html">Our Story</a></h3>
-          <ul><li><a href="leadership.html">Leadership</a></li></ul>
-          <h3 style="margin-top:16px"><a href="careers.html">Careers</a></h3>
-          <ul><li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li></ul>
-        </div>
-        <div>
-          <h3><a href="contact.html">Contact</a></h3>
-          <ul><li><a href="contact.html">Talk to us</a></li></ul>
-          <h3 style="margin-top:16px"><a href="for-founders.html">For Founders</a></h3>
-          <ul>
-            <li><a href="for-founders.html">A home for your business</a></li>
-            <li><a href="faq.html" aria-current="page">FAQ</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+            </details>
+          </li>
+          <li>
+            <details class="ov-acc" open>
+              <summary><span class="ov-acc-label">Acquisitions</span></summary>
+              <ul>
+                <li><a href="faq.html" aria-current="page">FAQ</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="ov-acc">
+              <summary><span class="ov-acc-label">Careers</span></summary>
+              <ul>
+                <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li>
+              </ul>
+            </details>
+          </li>
+      </ul>
+    </nav>
+    <button type="button" class="menu-scrim" id="menuScrim" aria-label="Close menu" hidden></button>
   </header>
 
 
@@ -213,7 +279,7 @@
         <p class="anno">Straight answers before the call: what we buy, how a close works, team and brand, AI. Founder lens; investors read it for clarity and constraints.</p>
         <p class="lede">Straight answers on what we buy, how a close works, what happens to your team and brand, and how we use AI — before you ever take the call.</p>
         <div class="jumps">
-          <a href="for-founders.html">Back to For Founders</a>
+          <a href="for-founders.html">Back to Acquisitions</a>
           <a href="contact.html">Talk to us</a>
         </div>
       </div>
@@ -248,8 +314,9 @@
       <div>
         <div class="fh">Explore</div>
         <a href="vertical-software.html">Vertical Software</a>
-        <a href="embedded-offerings.html">Embedded Offerings</a>
-        <a href="for-founders.html">For Founders</a>
+        <a href="embedded-offerings.html">Our Advantage</a>
+        <a href="embedded-offerings.html#ai">AI at Fullsteam</a>
+        <a href="for-founders.html">Acquisitions</a>
         <a href="faq.html">FAQ</a>
       </div>
       <div>
@@ -268,13 +335,35 @@
 
 
   <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const overlay = document.getElementById("siteOverlay");
-    menuBtn.addEventListener("click", () => {
-      const open = overlay.classList.toggle("is-open");
-      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
-      menuBtn.textContent = open ? "Close" : "Menu";
-    });
+    (function () {
+      const menuBtn = document.getElementById("menuBtn");
+      const overlay = document.getElementById("siteOverlay");
+      const scrim = document.getElementById("menuScrim");
+      if (!menuBtn || !overlay) return;
+      const setOpen = (open) => {
+        overlay.classList.toggle("is-open", open);
+        menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        if (scrim) scrim.hidden = !open;
+      };
+      menuBtn.addEventListener("click", () => {
+        setOpen(menuBtn.getAttribute("aria-expanded") !== "true");
+      });
+      if (scrim) scrim.addEventListener("click", () => setOpen(false));
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape" || menuBtn.getAttribute("aria-expanded") !== "true") return;
+        const returnFocus = overlay.contains(document.activeElement) || document.activeElement === scrim;
+        setOpen(false);
+        if (returnFocus) menuBtn.focus();
+      });
+      overlay.querySelectorAll("details").forEach((d) => {
+        d.addEventListener("toggle", () => {
+          if (!d.open) return;
+          overlay.querySelectorAll("details[open]").forEach((other) => {
+            if (other !== d) other.open = false;
+          });
+        });
+      });
+    })();
   </script>
 
 

@@ -42,6 +42,8 @@ revised: 2026-09-23
 
 # Sitemap lock (2026-09-10 · finalized 2026-09-14 · revised 2026-09-23)
 
+**2026-10-22 — pending formal re-lock.** Client feedback asked the wireframes to say **Our Advantage** (was Embedded Offerings), **Acquisitions** (was For Founders), and **AI at Fullsteam** as a nav item that wayfinds to the Our Advantage AI panel — not a new page. Interior wireframes and shared menu/footer labels now show that set. Menu chrome the same day: hamburger trigger, single-column list. The tree below is still the lock. Do not treat this note as an amendment.
+
 ## Locked tree
 
 ```

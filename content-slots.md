@@ -53,15 +53,15 @@ From KB §20–§22 (`PROJECT_KNOWLEDGE_BASE.md`). These are hard constraints, n
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | Logo wordmark | Home link | Locked | `FULLSTEAM` |
-| "Menu" button | Opens overlay | Locked | Label fixed |
+| Menu button | Opens the menu | Locked | Hamburger (three bars). Accessible name "Menu". `aria-expanded` reflects open/closed |
 | "Explore vertical solutions" pill | Primary CTA (short form) | Locked | Header uses the short form; body uses the full form |
-| Menu overlay column heads | Sitemap L1 | Locked | Vertical Software · Embedded Offerings · Our Story · Careers · Contact · For Founders |
-| Menu overlay vertical list | 11 verticals | Locked | Flat list; **do not** add category labels. Includes **Association Management** |
-| Menu overlay "Open roles" | Workday job search | Locked | External: `https://fullsteam.wd1.myworkdayjobs.com/External` · `target="_blank"` · not `careers.html#roles` |
-| Overlay finder line | "find your vertical" | Draft | Type-ahead hint |
+| Menu rows | Sitemap L1 | Draft — 2026-10-22 client request, pending re-lock | Single column, one item per line: Vertical Software · Our Advantage · AI at Fullsteam (`embedded-offerings.html#ai`, not a new page) · Our Story · Acquisitions · Careers. Lock still says Embedded Offerings / For Founders |
+| Menu children | Recovery | Locked | Indented in the same column: Leadership under Our Story · FAQ under Acquisitions · Open roles under Careers. The 11 verticals stay on the Vertical Software page, not in this menu |
+| Menu "Open roles" | Workday job search | Locked | External: `https://fullsteam.wd1.myworkdayjobs.com/External` · `target="_blank"` · not `careers.html#roles` |
+| Finder line | "find your vertical" | Draft | Not in the single-column menu. Type-ahead stays on the Vertical Software page |
 | Footer columns | Tree recovery | Locked | Company · Explore · Connect · Legal |
 | Footer Company links | Tree recovery | Locked | Our Story · Leadership · Careers · **Open roles** (Workday, external) |
-| Footer Explore links | Tree recovery | Locked | Vertical Software · Embedded Offerings · For Founders · **FAQ** |
+| Footer Explore links | Tree recovery | Draft — 2026-10-22 | Vertical Software · Our Advantage · AI at Fullsteam · Acquisitions · **FAQ** |
 | Footer Connect links | Tree recovery | Locked | Contact · Partner inquiries (`#partner`) |
 | Footer legal links | Privacy · Terms · Complaints | Locked | **Privacy** → `pages/privacy.html` · **Terms** → `pages/terms.html` (lorem wireframes; client legal replaces copy) · **Complaints** label only (`#`) |
 
@@ -119,17 +119,20 @@ stewards of the products (for founders), and *acquire and make the software comp
 
 ---
 
-## 3. For Founders — `pages/for-founders.html`
+## 3. Acquisitions — `pages/for-founders.html`
+
+On-page name is **Acquisitions** (2026-10-22). File name is unchanged. Sitemap lock still says For Founders.
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
-| Beat "For founders" + **H1** "A home for the business you built." | Page promise | Locked framing | Never "exit" |
+| Beat "Acquisitions" + **H1** (intent) | Page promise | Draft — rename | Never "exit". Preferred name over For Founders; lock not amended |
 | Lede | Support | Draft | Systems of record + AI/payments/operational excellence; software first, certainty of close (2026-10-01) |
-| 01 "Why Fullsteam" + H2 "Your name stays. Your team stays." | The offer | Draft | Values fit, close, scale |
+| 01 "Why Fullsteam" + H2 (intent) | The offer | Draft | Values fit, close, scale |
+| Founder video row (3 slots) | Video | Placeholder | Multiple videos may sit here. No assets. Do not name a founder until confirmed |
 | → 4-step list (We talk → real fit → clean close → keeps going) | Process | Placeholder | Structural only: no timelines, multiples, or deal terms |
 | 03 "What we look for" + H2 "Software built for one industry." | Fit | Draft | Lead with industry, not an acquisition count; software = system of record, AI/payments added after |
 | 03 CTA "Explore our vertical solutions" | Cross-link | Locked | |
-| 04 "Talk to us" + H2 "Confirm who we are. Then ask for a conversation." + CTAs | Close | Draft | |
+| 04 Acquisitions email + mailto `acquisitions@fullsteam.com` | Close | Draft | Lead form removed. Confirm the mailbox. No form on this page |
 
 ---
 
@@ -150,24 +153,45 @@ One page, 11 verticals, no child pages.
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | H1 (page intent) | Framing | **Intent** | Investor-primary lens |
-| Lede / hero note | Support | **Intent** | 11 is the settled count; **system of record per vertical**, + AI/payments (2026-10-01) |
+| Lede / hero note | Support | **Intent** | Software-first, mission-critical, industry-specific — distinct from a general horizontal provider (2026-10-22) |
 | "Read the story" control | Jump to active story | Locked | |
-| Sidebar list (labels) | The list | Locked | Exact 11 names; **no category labels**. Sticky sidebar, inline swap (2026-10-01; was tiles/modal) |
-| Per-vertical story (title + body + fact chips) | Detail | **Intent** | Headline is an intent line; body is placeholder. Genericize; no named case studies until confirmed. Chips include **"What we add" (AI + payments)** |
+| Sidebar list (labels) | The list | Locked | Exact 11 names; **no category labels**. Sticky sidebar, inline swap. One panel shape for every vertical |
+| Per-vertical: description | Detail | **Intent** | What makes Fullsteam unique and critical in that industry. Placeholder |
+| Photo | Imagery | Placeholder | Brings the vertical to life |
+| Surprising stats | Proof | Placeholder | Vertical-specific. Not revenue or profitability |
+| Business-unit logos | Logos | Placeholder | Own row |
+| Customer and partner logos | Logos | Placeholder | Separate band from BU logos |
+| Product screenshots | Imagery | Placeholder | Own row |
 
 ---
 
-## 6. Embedded Offerings — `pages/embedded-offerings.html`
+## 6. Our Advantage — `pages/embedded-offerings.html`
 
-One page: Payments · Lending · Insurance · AI at Fullsteam. **Presented as a sticky sidebar that
-swaps content inline on a white background (2026-10-01; replaces the filmstrip)** — no modal, no tabs.
+On-page name is **Our Advantage** (2026-10-22). File name is unchanged. Sitemap lock still says Embedded Offerings. Sticky sidebar swaps content inline. No new AI page — `#ai` is the panel.
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
-| H1 (page intent) | Framing | **Intent** | 2026-10-01 |
-| Hero note (software first, then AI/payments/lending/insurance; integrations live here) | Support | **Intent** | **AI-forward; payments framed as invisible/embedded** |
-| Sidebar list (labels) | The list | Locked | Hardware folds into Payments. Ordered Payments→AI |
-| Panel (title + prose + fact chips) | Detail | **Intent** | Title is an intent line; body placeholder. No rates/terms (Lending/Insurance); **AI = use cases, never headcount**. Hash (`#payments`…) selects |
+| Beat "Our Advantage" + H1 (intent) | Framing | **Intent** | Rename pending re-lock |
+| Sidebar — Embedded fintech | The list | Draft | Payments · Lending · Insurance |
+| Sidebar — AI at Fullsteam | The list | Draft | Own group. Nav wayfinder lands on `#ai` |
+| Sidebar — Operational advantages | The list | Draft | Sales & Marketing · Talent · Vertical Expertise |
+| Payments — why embedded is better | Detail | **Intent** | |
+| Payments — key stats | Proof | **Unreconciled** | Client lines (“$75B sales processed”, “top 20 payment processor”) vs KB §22.5 “$75B+ processed on Fullsteam Pay*” (cumulative). Not settled KPIs. OI-5 |
+| Payments — hardware photo + text | Detail | Placeholder | Stays inside Payments |
+| Payments — testimonial | Proof | Placeholder | Optional. Do not publish a named quote until confirmed |
+| AI — three use-case examples | Detail | **Intent** | Modernize existing software · new customer-facing features · automate workflows. Never headcount |
+| AI — video | Video | Placeholder | Brings the three use cases together. Asset not supplied. Homepage AI block is untouched |
+| Lending / Insurance panels | Detail | **Intent** | Unchanged overviews. No rates or terms |
+| **Sales & Marketing — overview** | Detail | **Intent** | How the group's go-to-market strength grows a business after the close. An overview, not a service menu — no CRM, lead source, or campaign names |
+| **Sales & Marketing — three cards** | Detail | **Intent** | Sales (knows the vertical) · Marketing (niche campaigns, real customer stories) · Cross-sell (payments, lending, insurance into the existing base). Body detail is `[placeholder]` |
+| **Sales & Marketing — 2×2 fact grid** | Proof | Placeholder | Reach · Scale (“100+ businesses” — publishability-gated, OI-5) · Proof (no pipeline, conversion, or growth-rate figures) · Constraint (never imply the business needed a new sales team to keep running) |
+| **Sales & Marketing — photo + text** | Imagery | Placeholder | Real Fullsteam people, not stock. No asset supplied |
+| **Talent — overview** | Detail | **Intent** | The team that built the software stays and gains a much larger company behind it. Never a story about replacing the team that came with the business |
+| **Talent — three cards** | Detail | **Intent** | Hiring (a deeper bench) · Mobility (move between the businesses Fullsteam owns without leaving) · Support (group-level finance, legal, HR, compliance). Body detail is `[placeholder]` |
+| **Talent — 2×2 fact grid** | Proof | Placeholder | Scale (“2,000+ colleagues” — publishability-gated, OI-5) · Culture (“a big company that doesn't operate like one”) · Proof (no attrition, hiring, or retention figures) · Constraint (never headcount reduction) |
+| **Talent — photo + text** | Imagery | Placeholder | Real colleagues, not stock. No asset supplied |
+| **Talent — “See open roles” CTA** | CTA | Draft | Optional. Workday, new tab. The employee lens — secondary on this page |
+| **Vertical Expertise panel** | Detail | Placeholder | Still a one-line placeholder — not built |
 
 ---
 
@@ -175,12 +199,12 @@ swaps content inline on a white background (2026-10-01; replaces the filmstrip)*
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
-| H1 "Who we are, before what we do." + CTAs (Explore + Leadership) | Framing | Draft | 2026-10-01 |
+| H1 (intent) + Acquire / Grow / Lead strip | Framing | Draft | Hero restates the sequence. Homepage layout is a separate pass |
 | Image band | Supporting | — | **Real Fullsteam people, not stock** |
 | KPI strip — 100+ businesses · 2,000+ people · 70,000+ customers · $75B+ on Fullsteam Pay* | Proof | **Placeholder** | All `[placeholder]`; *cumulative; **no revenue/run-rate/profitability** |
 | Marquee backers (Aquiline · Sixth Street · ADIA) | Trust signal | Draft | **Confirm publishability** |
-| 01 "The company" + H2 "Many software businesses. One home." | Identity | Draft | |
-| Split intro + staggered image cluster | | Placeholder | |
+| 01 "The company" + H2 (intent) | Identity | Draft | |
+| Mission / vision video | Video | Placeholder | Mike and Greg will produce it. Slot only — no asset |
 | 02 "Leadership" + H2 "The people who lead." + CTA | Teaser | Draft | Leaders only |
 | 03 "Chapters" + H2 "How the home came together." | Story | Draft | **Do not invent a timeline.** Year labels stay blank |
 | 03 chapter cards (6 × year + title + body) | Chapters | Placeholder | Narratives, not a company timeline |
@@ -192,9 +216,9 @@ swaps content inline on a white background (2026-10-01; replaces the filmstrip)*
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
-| H1 "The people who lead Fullsteam." | Framing | Draft | |
-| Lede "Leaders only. This is not a staff directory." | Scope | Draft | |
-| 6 leader cards (Name / Role) | People | Placeholder | **No names until the client confirms who is public.** No bios. **Real portraits, not stock** |
+| H1 (intent) | Framing | Draft | Mirrors the live leadership page: leaders only |
+| Lede | Scope | Draft | Leaders only |
+| 6 leader cards (portrait / name / title / bio slot) | People | Placeholder | **Do not invent names or bios.** Six is a wireframe count. **Real portraits, not stock** |
 
 ---
 
@@ -205,8 +229,10 @@ swaps content inline on a white background (2026-10-01; replaces the filmstrip)*
 | H1 "A big company that does not work like one." | Framing | Draft | |
 | Lede | Support | Draft | **2,000+ people across 11 verticals**; mostly remote; close to decision-makers (2026-10-01) |
 | 01 "How it feels" + H2 "Room to own the work." | Culture | Draft | Authentic, not a recruiting poster; **real employee imagery, not stock** |
-| 02 "Who thrives" + H2 "People who pick up the problem." | Profile | Draft | AI is never a replacing-the-team story |
-| 03 "Open roles" + H2 "What is open right now." + **See open roles** pill | Roles | Locked | External Workday (`fullsteam.wd1.myworkdayjobs.com/External`); **no in-page job table** |
+| 02 "Who thrives" + H2 (intent) | Profile | Draft | AI is never a replacing-the-team story |
+| Our Values (inside Who Thrives) | Values | Placeholder | **Pending leadership confirmation.** Do not invent a finished list |
+| 03 "Open roles" + H2 (intent) + **See open roles** pill | Roles | Locked | External Workday (`fullsteam.wd1.myworkdayjobs.com/External`); **no in-page job table** |
+| 04 LinkedIn module | Social | Placeholder | Below Open Roles. Lo-fi posts + follow link (`linkedin.com/company/fullsteam`) |
 
 ---
 

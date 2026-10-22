@@ -376,6 +376,8 @@ how these sites created a dedicated page to showcase their use of AI:
 > (Vertical Software becomes a single tabbed page — no child pages). Revisions
 > still allowed per SOW (3 rounds per phase).
 > **Supersedes:** the earlier audience-led draft (2026-08-25).
+>
+> **2026-10-22 — not a re-lock.** Client feedback asked to rename **Embedded Offerings → Our Advantage** and **For Founders → Acquisitions**, and to list **AI at Fullsteam** as a nav wayfinder to the Our Advantage `#ai` panel (no new AI page). Interior wireframes now use those labels. The same day, the wireframe menu trigger became a hamburger and the open menu a single column. This section still records the 2026-09 lock until a formal re-lock. Homepage strategy (§23 / §24) is unchanged.
 
 ### Locked decisions
 
