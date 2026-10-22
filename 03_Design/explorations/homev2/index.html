@@ -20,6 +20,14 @@
       --careers-canvas: color-mix(in srgb, var(--blue) 80%, black); /* #003244 — careers + LinkedIn band */
       --close-canvas: color-mix(in srgb, var(--careers-canvas) 70%, black); /* ~30% darker than careers */
       --bar-h:  68px;     /* header height; re-measured in JS for the menu offset */
+      /* ---- motion tokens (2026-10-22) — one easing/duration system, so the
+         reveals, rail, accordion and marquee all feel like one machine rather
+         than many hand-tuned cubic-beziers. */
+      --ease-out:    cubic-bezier(.22, 1, .36, 1);   /* enter / rise / settle */
+      --ease-inout:  cubic-bezier(.4, 0, .2, 1);     /* crossfades + accordion */
+      --dur-fast:  .2s;
+      --dur-mid:   .55s;
+      --dur-slow:  .8s;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -33,12 +41,12 @@
     /* ---- hero stage: the pin that drives the overlay change --------------- */
     .hero-stage { height: auto; }              /* no-JS / reduced-motion: static */
     /* Pinned for the HEADLINE HANDOFF ONLY (2026-10-22 — the shrinking video
-       hero and its cube were removed). 180vh = 80vh of pin travel, which the
-       Axis A → Axis B swap uses, plus the hero's own 100svh, which it then
-       scrolls out of. The stage is brand blue, so the space the hero leaves
-       behind as it scrolls away is the same blue as the hero and section 02 —
-       no seam, no white band, and section 02 simply rises into it. */
-    .has-js .hero-stage { height: 180vh; background: var(--blue); }
+       hero and its cube were removed). 160vh = 60vh of pin travel for the
+       Axis A → Axis B swap, plus the hero's own 100svh, which it then scrolls
+       out of. Tightened from 180vh so section 02 arrives sooner. The stage is
+       brand blue, so the space the hero leaves behind as it scrolls away is
+       the same blue as the hero and section 02 — no seam, no white band. */
+    .has-js .hero-stage { height: 160vh; background: var(--blue); }
 
     .hero {
       position: relative; isolation: isolate; overflow: hidden;
@@ -76,9 +84,13 @@
          scroll-out. */
       left: 50%; top: 50%; z-index: 0;
       width: 100%; height: 100%;
+      /* A subtle push during the A→B handoff (2026-10-22): the video zooms ~5%
+         and drifts ~3% left as Axis B lands, so the swap has a subject again
+         without reintroducing the cube. --pVideo ramps 0→1 over the handoff;
+         --hero-x (Scene 2 parallax) and --hero-zoom (load-time 1.15→1) compose. */
       transform:
-        translate(calc(-50% + var(--hero-x, 0%)), -50%)
-        scale(calc(var(--hero-zoom, 1) * (1 + 0.03 * var(--pVideo, 0))));
+        translate(calc(-50% + var(--hero-x, 0%) - 3% * var(--pVideo, 0)), -50%)
+        scale(calc(var(--hero-zoom, 1) * (1 + 0.05 * var(--pVideo, 0))));
       transform-origin: center center;
       transition: none;
       opacity: var(--hero-media-fade, 1);
@@ -252,6 +264,40 @@
       color: rgba(238,240,255,.72); text-decoration: none;
     }
     .menu__list a:hover { color: var(--gold); }
+    /* The OPEN MENU is a single column of six rows (2026-10-22 — the mega-menu
+       was too busy). The footer keeps the multi-column `.menu__inner`; this
+       override only reshapes the `.menu__panel` copy of it. */
+    .menu__panel .menu__inner {
+      display: block;
+      max-width: 720px;
+      padding: 16px 24px 28px;
+    }
+    .menu__row {
+      border-bottom: 1px solid rgba(255, 255, 255, .14);
+    }
+    .menu__row:last-child { border-bottom: 0; }
+    .menu__row > a {
+      display: block;
+      padding: 20px 0;
+      font-size: 22px; font-weight: 700; line-height: 1.2;
+      color: var(--white); text-decoration: none;
+    }
+    .menu__row > a:hover { color: var(--gold); }
+    .menu__row > a::after {
+      content: "→"; float: right;
+      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
+      font-size: 16px; font-weight: 400;
+      color: var(--gold);
+    }
+    .menu__sub {
+      display: flex; flex-wrap: wrap; gap: 8px 28px;
+      padding: 0 0 18px;
+    }
+    .menu__sub a {
+      font-size: 15px; font-weight: 500;
+      color: rgba(238, 240, 255, .72); text-decoration: none;
+    }
+    .menu__sub a:hover { color: var(--gold); }
     @media (max-width: 1000px) {
       .menu__inner { grid-template-columns: 1fr 1fr; }
       .menu__col:nth-child(odd) { padding-left: 0; border-left: 0; }
@@ -512,10 +558,21 @@
          because there is no longer a colour change. */
       background: var(--blue);
       color: var(--white);
-      padding: 110px 24px;
+      padding: 56px 24px;
     }
     /* No contact shadow here: nothing rests on this section's top edge any more —
        the hero scrolls away above it, and both canvases are the same brand blue. */
+    /* Section intro — kicker + title above the grid, left-aligned to the content
+       column. Kept compact so it hugs the hero instead of leaving a blue gap. */
+    .who__head {
+      max-width: 720px;
+      margin: 0 0 clamp(28px, 4vh, 44px);
+    }
+    .who__head .who__title {
+      font-size: clamp(36px, 4.6vw, 60px);
+      margin-bottom: 0;
+    }
+
     /* Content 45% / rail 55% of the canvas, and the grid spans the full padded canvas
        rather than a centred max-width box — so the rail's right edge lands flush
        on the canvas edge instead of floating ~100px inside it at desktop widths.
@@ -544,12 +601,12 @@
        browsers with a collapsing URL bar. */
     .who__frame {
       position: relative; width: 100%; height: 100svh;
-      /* The frame fades up as the section arrives (--who-fade is written per
-         frame by the reveal). No clip-path and no radius any more: with the
-         hero's cube gone there is no object for the photo to open out of.
-         Default opacity 1 = fully open, which is also the no-JS /
-         reduced-motion state. */
-      opacity: var(--who-fade, 1);
+      /* The frame fades up AND grows (scale 70% → 100%) as the section arrives,
+         written per frame by the reveal (opacity + transform). The grow seeds at
+         70%, never 0. Default = no inline styles = fully open, which is also the
+         no-JS / reduced-motion state. */
+      transform-origin: center center;
+      will-change: transform, opacity;
       background: var(--blue); overflow: hidden;
     }
     /* per-frame writes below; no CSS transitions (KB §23.6 rule 2) */
@@ -558,7 +615,7 @@
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity .55s cubic-bezier(.4, 0, .2, 1);
+      transition: opacity var(--dur-mid) var(--ease-inout);
     }
     .who__shot.is-on { opacity: 1; }
     .who__tint {
@@ -614,6 +671,22 @@
       font-size: 18px; line-height: 1.6; color: rgba(255, 255, 255, .88);
       max-width: 44ch;
     }
+    /* the step metric — the number that used to be buried in the paragraph,
+       pulled out to read at a glance (revision: "stats buried in paragraphs
+       lose their punch") */
+    .who__metric {
+      margin: 0 0 18px;
+      font-size: clamp(40px, 4.4vw, 60px);
+      font-weight: 700; letter-spacing: -.04em; line-height: 1;
+      color: var(--gold);
+      font-variant-numeric: tabular-nums;
+    }
+    .who__metric small {
+      display: block; margin-top: 12px;
+      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
+      font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255, 255, 255, .62);
+    }
     .who__rule { width: 56px; height: 3px; border: 0; margin: 8px 0 24px; background: var(--gold); }
     .who__note {
       font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
@@ -626,6 +699,54 @@
       display: block; width: 100%; aspect-ratio: 4 / 3;
       object-fit: cover; background: var(--blue);
     }
+    /* ---- Founders / Acquisitions — standalone (revision item 4) ----------
+       A quiet WHITE moment (2026-10-22): the emotional beat breathes between the
+       light AI band and the dark Careers band, so the page's blue fields stay
+       separated instead of stacking. A faint photo texture sits under a
+       near-white wash; swap for real Fullsteam imagery before client use. */
+    .founders {
+      position: relative; z-index: 2;
+      color: #0d1a20;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .92) 0%, rgba(255, 255, 255, .97) 100%),
+        url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1920&h=1280&q=80') center / cover no-repeat;
+      padding: clamp(96px, 12vw, 150px) 24px;
+      text-align: center;
+      border-top: 1px solid rgba(0, 63, 85, .08);
+    }
+    .founders__inner { width: min(880px, 100%); margin: 0 auto; }
+    .founders__kicker {
+      margin: 0 0 18px;
+      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(0, 32, 43, .55);
+    }
+    .founders__title {
+      margin: 0 auto 24px;
+      font-size: clamp(36px, 5.5vw, 64px);
+      font-weight: 700; letter-spacing: -.03em; line-height: 1.05;
+      text-wrap: balance; color: var(--ink);
+    }
+    .founders__title em {
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400; color: var(--blue);
+    }
+    .founders__lede {
+      margin: 0 auto 30px; max-width: 46ch;
+      font-size: 18px; line-height: 1.6; color: #41525b;
+    }
+    .founders__quote {
+      margin: 0 auto 10px; max-width: 40ch;
+      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(24px, 3vw, 34px); line-height: 1.3; color: #00202b;
+    }
+    .founders__note {
+      margin: 0;
+      font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
+      font-size: 12px; color: rgba(0, 32, 43, .5);
+    }
+    .founders__cta { margin-top: 32px; }
     /* ---- Scale (stats) — white band: live sentence → verticals ---------- */
     .scale {
       --mono-d: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -688,7 +809,7 @@
     /* Full-bleed stage — edge-to-edge; title stays in readable measure above */
     .verts__stage {
       --strip: 140px;
-      display: flex; gap: 0;
+      display: flex; gap: 5px;
       width: 100%; margin: 0; padding: 0;
       height: min(62vh, 560px);
     }
@@ -702,8 +823,8 @@
       border: 0; padding: 0; margin: 0;
       color: #fff; text-align: left; font: inherit; cursor: pointer;
       transition:
-        flex-grow .5s cubic-bezier(.4, 0, .2, 1),
-        flex-basis .5s cubic-bezier(.4, 0, .2, 1);
+        flex-grow var(--dur-mid) var(--ease-inout),
+        flex-basis var(--dur-mid) var(--ease-inout);
     }
     .vpanel.is-open {
       flex-grow: 1;
@@ -786,20 +907,28 @@
     }
     .vpanel__link:hover { color: var(--gold); border-bottom-color: var(--gold); }
 
-    /* all eleven, as links */
-    .verts__all {
-      width: 100%; margin: 32px auto 0; padding: 0;
-      display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: center;
-      font-family: var(--mono-d); font-size: 12px;
+    /* sixth tile — "Explore all verticals" (revision item 5, preferred). A link,
+       not a .vpanel, so the accordion ignores it and it just navigates. */
+    .verts__all-box {
+      flex-grow: 0; flex-shrink: 0; flex-basis: var(--strip);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+      background: linear-gradient(165deg, #005978, #00202b);
+      color: var(--white); text-decoration: none; overflow: hidden;
+      transition: background .3s ease;
     }
-    .verts__all a { color: #0d1a20; text-decoration: none; border-bottom: 1px solid rgba(13,26,32,.3); padding-bottom: 3px; }
-    .verts__all a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+    .verts__all-box:hover { background: linear-gradient(165deg, #00719b, #00202b); }
+    .verts__all-box .va-label {
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1; white-space: nowrap;
+    }
+    .verts__all-box .va-arrow { color: var(--gold); font-size: 18px; line-height: 1; }
+    .verts__all-box:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
     /* ---- verticals: stack below 1024px ----------------------------------- */
     @media (max-width: 1023px) {
       .verts { padding: 76px var(--gutter) 72px; }
       .verts__stage {
-        flex-direction: column; gap: 0; height: auto;
+        flex-direction: column; gap: 5px; height: auto;
         --strip: 120px;
       }
       .vpanel {
@@ -809,7 +938,7 @@
         width: 100%;
         min-width: 0;
         height: var(--strip);
-        transition: height .45s cubic-bezier(.4, 0, .2, 1);
+        transition: height var(--dur-mid) var(--ease-inout);
       }
       .vpanel.is-open {
         height: min(58svh, 460px);
@@ -822,6 +951,11 @@
         padding: 0 22px;
       }
       .vpanel__body { padding: 30px 22px 22px; }
+      .verts__all-box {
+        flex-basis: auto; width: 100%; height: var(--strip);
+        flex-direction: row; gap: 10px;
+      }
+      .verts__all-box .va-label { writing-mode: horizontal-tb; transform: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       .vpanel, .vpanel__label, .vpanel__body { transition: none; }
@@ -1356,10 +1490,12 @@
       .careers__posts-btn { transition: none; }
     }
 
-    /* ---- Close / bottom CTA (Figma 11304:33 · content-slots §2 row 07) -------- */
+    /* ---- Close / bottom CTA (Figma 11304:33 · content-slots §2 row 07) --------
+       The closing marquee is folded in here (2026-10-22), so the page no longer
+       ends on a stack of separate dark/blue bands. */
     .close {
       position: relative; z-index: 2;
-      padding: clamp(80px, 10vw, 120px) 24px clamp(72px, 8vw, 100px);
+      padding: 0 24px clamp(72px, 8vw, 100px);
       text-align: center;
       background: var(--close-canvas);
       color: var(--white);
@@ -1368,6 +1504,7 @@
     .close__inner {
       width: min(960px, 100%);
       margin: 0 auto;
+      padding-top: clamp(40px, 6vw, 64px);
     }
     .close__title {
       margin: 0 auto 28px;
@@ -1395,16 +1532,16 @@
 
     /* ---- Closing marquee — the 11 verticals --------------------------------
        Square's "closing trail" (HomePageClosing__trail + marquee): a continuous
-       horizontal scroll of the breadth signal, as a finale before the CTA.
-       The verticals are already named in the footer and the verts band, so the
-       marquee is aria-hidden — decorative repetition, not a nav. */
+       horizontal scroll of the breadth signal, as a finale before the CTA. Folded
+       into the close (transparent, on the close canvas) so it isn't a band of its
+       own. The verticals are already named in the footer and the verts band, so
+       the marquee is aria-hidden — decorative repetition, not a nav. */
     .marquee {
       position: relative; z-index: 2;
-      background: var(--blue);
-      color: var(--white);
-      border-top: 1px solid rgba(255, 255, 255, .12);
       overflow: hidden;
-      padding: 64px 0;
+      margin: 0 -24px;              /* full-bleed — escape the close's padding */
+      padding: clamp(56px, 8vw, 84px) 0 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
     }
     .marquee__track {
       display: flex; width: max-content;
@@ -1433,7 +1570,7 @@
       to   { transform: translateX(-50%); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .marquee__track { animation: none; flex-wrap: wrap; }
+      .marquee__track { animation: none; }
     }
 
     /* ---- Scroll-reveal (Square's RevealAnimations) --------------------------
@@ -1444,8 +1581,8 @@
     .has-js .rv {
       opacity: 0;
       transform: translateY(26px);
-      transition: opacity .8s cubic-bezier(.22, 1, .36, 1),
-                  transform .8s cubic-bezier(.22, 1, .36, 1);
+      transition: opacity var(--dur-slow) var(--ease-out),
+                  transform var(--dur-slow) var(--ease-out);
       transition-delay: var(--rv-d, 0ms);
     }
     .has-js .rv.is-in { opacity: 1; transform: none; }
@@ -1473,7 +1610,7 @@
       .hero { padding: 96px 0; gap: 36px; min-height: 100svh; }
       .hero__inner { gap: 36px; }
       .hero__logo img { width: 143px; height: auto; }
-      .who { padding: 80px 24px; }
+      .who { padding: 48px 24px; }
       .who__grid { grid-template-columns: 1fr; gap: 0; }
       .who__rail { position: static; margin-bottom: 36px; }
       /* the rail is in flow here, so it must NOT stay 100svh tall */
@@ -1632,7 +1769,6 @@
         </div>
         <div class="hero__cta" id="heroCta">
           <a class="pill pill--gold" href="#">Explore vertical solutions</a>
-          <a class="pill pill--ghost" href="#">Careers</a>
         </div>
       </div>
 
@@ -1654,38 +1790,32 @@
     </section>
   </div>
 
-  <!-- Section 02 — "who we are" with a sticky image rail (2026-10-16).
-       Replaces the stacked Acquire/Grow/Lead/Founders band.
-       STRATEGY CHANGE, not a polish pass: the four-beat model is gone from the
-       homepage opening, and "Lead" is dropped entirely. See direction.md.
+  <!-- Section 02 — "What we do": Acquire → Grow → Lead as a sequence, each step
+       carrying its own metric (the sticky image rail is kept; Founders moved out
+       to its own section below AI). Metrics are allowlisted/[placeholder] —
+       "$75B" is payment volume, and "top-20 processor" is flagged for the client.
 
        The rail is aria-hidden: the images are decorative support for copy that
        stands on its own, and the caption is a visual label, not content.
        Mobile renders each block's own image inline instead. -->
-  <section class="who" id="who-we-are" aria-label="Who we are">
+  <section class="who" id="who-we-are" aria-label="What we do">
+    <div class="who__head">
+      <p class="who__kicker who__rise">What we do</p>
+      <h2 class="who__title who__rise">What does Fullsteam <em>do?</em></h2>
+    </div>
     <div class="who__grid">
 
       <div class="who__steps">
-        <article class="who__step" data-cap="Who we are">
-          <figure class="who__mob who__rise">
-            <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
-                 src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
-          </figure>
-          <p class="who__kicker who__rise">Who we are</p>
-          <h2 class="who__title who__rise">A home for the business you <em>built.</em></h2>
-          <p class="who__body who__rise">We buy vertical software companies and we run them for the long haul.
-            The product keeps its name. The team keeps its people.</p>
-        </article>
-
         <article class="who__step" data-cap="Acquire">
           <figure class="who__mob">
             <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
           </figure>
-          <p class="who__kicker">Acquire</p>
-          <h3 class="who__title">We keep <em>buying.</em></h3>
-          <p class="who__body">Great vertical software, one company after another, all kept running.
-            Not bought and shelved — bought and looked after.</p>
+          <p class="who__kicker who__rise">01 — Acquire</p>
+          <h3 class="who__title who__rise">We keep <em>buying.</em></h3>
+          <p class="who__metric who__rise">70,000+<small>customers rely on our software</small></p>
+          <p class="who__body who__rise">Great vertical software, one company after another — several a year — all kept running.
+            Not bought and shelved, bought and looked after.</p>
         </article>
 
         <article class="who__step" data-cap="Grow">
@@ -1693,42 +1823,37 @@
             <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
                  src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
           </figure>
-          <p class="who__kicker">Grow</p>
+          <p class="who__kicker">02 — Grow</p>
           <h3 class="who__title">What changes is what's <em>behind it.</em></h3>
-          <p class="who__body">Payments, infrastructure, AI and a back office that already works.
-            The company does more, because there is a much larger company holding it up.</p>
+          <p class="who__metric">$75B<small>processed on Fullsteam Pay* — payment volume</small></p>
+          <p class="who__body">Embedded fintech and operational advantages layered on top —
+            payments, lending, insurance, and a back office that already works.
+            <span class="who__note">*Top-20 payment processor [placeholder — client to confirm]</span></p>
         </article>
 
-        <article class="who__step" data-cap="Founders">
+        <article class="who__step" data-cap="Lead">
           <figure class="who__mob">
             <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
-                 src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
+                 src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
           </figure>
-          <p class="who__kicker">Founders</p>
-          <h3 class="who__title">It keeps <em>growing.</em></h3>
-          <hr class="who__rule">
-          <blockquote class="who__body" style="margin:0 0 14px;">“We stopped asking what to build
-            next and started asking where everything we had built could go.”</blockquote>
-          <p class="who__body who__note">[placeholder — founder voice, genericized, unpublishable
-            as written]</p>
-          <p style="margin:20px 0 0;">
-            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/for-founders.html">Talk to us</a>
-          </p>
+          <p class="who__kicker">03 — Lead</p>
+          <h3 class="who__title">Our software <em>leads</em> its market.</h3>
+          <p class="who__metric">2,000+<small>people across 11 verticals</small></p>
+          <p class="who__body">Each business becomes the category leader in its vertical —
+            with the scale, the people and the proof to match.</p>
         </article>
       </div>
 
       <div class="who__rail" aria-hidden="true">
         <div class="who__frame">
           <img class="who__shot is-on" decoding="async"
-               src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
-          <img class="who__shot" decoding="async"
                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
           <img class="who__shot" decoding="async"
                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
           <img class="who__shot" decoding="async"
-               src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
+               src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
           <div class="who__tint"></div>
-          <p class="who__cap"><b>01</b> &nbsp;Who we are</p>
+          <p class="who__cap"><b>01</b> &nbsp;Acquire</p>
         </div>
       </div>
 
@@ -1765,91 +1890,83 @@ Square-style expanding accordion (white canvas). -->
     </div>
 
     <div class="verts">
-      <div class="verts__head">
+      <div class="verts__head rv">
         <h2 class="verts__title">Keep the businesses growing.</h2>
       </div>
       <!--
         Unsplash panel photos (hotlinked · Unsplash License · attribution appreciated):
-        Hospitality — kitchen, photo-1556910103-1c02745aae4d (Jason Briscoe)
         ERP — office, photo-1497366216548-37526070297c (Nastuh Abootalebi)
-        Retail — store, photo-1441986300917-64674bd600d8 (Christian Wiediger)
-        Transportation — warehouse, photo-1586528116311-ad8dd3c8310d (CHUTTERSNAP)
         Wine — wine, photo-1516594915697-87eb3b1c14ea (Unsplash)
+        Transportation — warehouse, photo-1586528116311-ad8dd3c8310d (CHUTTERSNAP)
+        Hospitality — kitchen, photo-1556910103-1c02745aae4d (Jason Briscoe)
+        Automotive — car, photo-1502877338535-766e1452684a (Unsplash)
+        Stats are vertical-specific [placeholder]s — never invent a real figure.
       -->
-      <div class="verts__stage" id="vertStage" role="list">
+      <div class="verts__stage rv" id="vertStage" role="list" style="--rv-d:120ms">
         <article class="vpanel is-open" role="listitem" tabindex="0" aria-expanded="true" data-tone="0"
-          style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
-          <span class="vpanel__img" aria-hidden="true"></span>
-          <h3 class="vpanel__label">Hospitality</h3>
-          <div class="vpanel__body">
-            <h3 class="vpanel__h">Hospitality</h3>
-            <hr class="vpanel__rule">
-            <p class="vpanel__stat">70,000+</p>
-            <p class="vpanel__desc">businesses served [placeholder]</p>
-            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Learn more</a>
-          </div>
-        </article>
-        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="1"
           style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
           <span class="vpanel__img" aria-hidden="true"></span>
           <h3 class="vpanel__label">ERP</h3>
           <div class="vpanel__body">
             <h3 class="vpanel__h">ERP</h3>
             <hr class="vpanel__rule">
-            <p class="vpanel__stat">11</p>
-            <p class="vpanel__desc">vertical markets owned [placeholder]</p>
+            <p class="vpanel__stat">[placeholder]</p>
+            <p class="vpanel__desc">enterprise resource planning — the system of record</p>
             <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#erp">Learn more</a>
           </div>
         </article>
-        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="2"
-          style="--photo: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
-          <span class="vpanel__img" aria-hidden="true"></span>
-          <h3 class="vpanel__label">Retail</h3>
-          <div class="vpanel__body">
-            <h3 class="vpanel__h">Retail</h3>
-            <hr class="vpanel__rule">
-            <p class="vpanel__stat">$75B</p>
-            <p class="vpanel__desc">moved through Fullsteam Pay [placeholder]</p>
-            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Learn more</a>
-          </div>
-        </article>
-        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="3"
-          style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
-          <span class="vpanel__img" aria-hidden="true"></span>
-          <h3 class="vpanel__label">Transportation</h3>
-          <div class="vpanel__body">
-            <h3 class="vpanel__h">Transportation</h3>
-            <hr class="vpanel__rule">
-            <p class="vpanel__stat">70,000+</p>
-            <p class="vpanel__desc">businesses served [placeholder]</p>
-            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Learn more</a>
-          </div>
-        </article>
-        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="4"
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="1"
           style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
           <span class="vpanel__img" aria-hidden="true"></span>
           <h3 class="vpanel__label">Wine</h3>
           <div class="vpanel__body">
             <h3 class="vpanel__h">Wine</h3>
             <hr class="vpanel__rule">
-            <p class="vpanel__stat">11</p>
-            <p class="vpanel__desc">vertical markets owned [placeholder]</p>
+            <p class="vpanel__stat">[placeholder]</p>
+            <p class="vpanel__desc">bottles of wine shipped</p>
             <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Learn more</a>
           </div>
         </article>
-      </div>
-      <div class="verts__all">
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Hospitality</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#weddings-events">Weddings &amp; Events</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Wine</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Retail</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#storage-marina">Storage &amp; Marina</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#health-wellness">Health &amp; Wellness</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#field-services">Field Services</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Transportation</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Automotive</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a>
-        <a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="2"
+          style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Transportation</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Transportation</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">[placeholder]</p>
+            <p class="vpanel__desc">black-car rides completed</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Learn more</a>
+          </div>
+        </article>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="3"
+          style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Hospitality</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Hospitality</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">[placeholder]</p>
+            <p class="vpanel__desc">covers served</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Learn more</a>
+          </div>
+        </article>
+        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="4"
+          style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+          <span class="vpanel__img" aria-hidden="true"></span>
+          <h3 class="vpanel__label">Automotive</h3>
+          <div class="vpanel__body">
+            <h3 class="vpanel__h">Automotive</h3>
+            <hr class="vpanel__rule">
+            <p class="vpanel__stat">[placeholder]</p>
+            <p class="vpanel__desc">oil changes booked</p>
+            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Learn more</a>
+          </div>
+        </article>
+        <a class="verts__all-box" href="../../../02_Wireframes/active/pages/vertical-software.html" aria-label="Explore all verticals">
+          <span class="va-label">Explore all verticals</span>
+          <span class="va-arrow" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1862,7 +1979,7 @@ Square-style expanding accordion (white canvas). -->
   <section class="ai" id="ai" aria-labelledby="aiTitle">
     <div class="ai__inner">
       <div class="ai__layout">
-        <header class="ai__head">
+        <header class="ai__head rv">
           <h2 class="ai__title" id="aiTitle">AI that already <em>knows the business.</em></h2>
           <p class="ai__lede">Use cases first — built on the data your vertical software already holds, not generic models.</p>
           <p class="ai__foot">
@@ -1870,7 +1987,7 @@ Square-style expanding accordion (white canvas). -->
           </p>
         </header>
 
-        <div class="ai__main">
+        <div class="ai__main rv" style="--rv-d:140ms">
       <div class="ai__work">
         <div class="ai-acc" id="aiAcc" role="region" aria-labelledby="aiTitle">
           <article class="ai-acc__item is-open">
@@ -1878,8 +1995,8 @@ Square-style expanding accordion (white canvas). -->
               <button type="button" class="ai-acc__trigger" id="ai-acc-btn-0"
                 aria-expanded="true" aria-controls="ai-acc-body-0">
                 <span class="ai-acc__labels">
-                  <span class="ai-acc__name">Forecasting</span>
-                  <span class="ai-acc__hint">Plans that fit the trade.</span>
+                  <span class="ai-acc__name">Modernize</span>
+                  <span class="ai-acc__hint">Bring existing software up to date.</span>
                 </span>
                 <span class="ai-acc__chev" aria-hidden="true"></span>
               </button>
@@ -1892,8 +2009,8 @@ Square-style expanding accordion (white canvas). -->
                     width="1600" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="ai__panel-copy">
-                  <h4 class="ai__panel-title">Forecasting that fits the trade.</h4>
-                  <p class="ai__panel-desc">Plans that respect how each vertical actually buys, staffs, and seasons — not a one-size spreadsheet.</p>
+                  <h4 class="ai__panel-title">Modernize the software you already run.</h4>
+                  <p class="ai__panel-desc">AI inside the existing product — smarter search, forecasting and workflows, without a rewrite.</p>
                 </div>
               </div>
             </div>
@@ -1903,8 +2020,8 @@ Square-style expanding accordion (white canvas). -->
               <button type="button" class="ai-acc__trigger" id="ai-acc-btn-1"
                 aria-expanded="false" aria-controls="ai-acc-body-1">
                 <span class="ai-acc__labels">
-                  <span class="ai-acc__name">Back office</span>
-                  <span class="ai-acc__hint">Close and reconcile, faster.</span>
+                  <span class="ai-acc__name">Customer features</span>
+                  <span class="ai-acc__hint">New AI features your customers feel.</span>
                 </span>
                 <span class="ai-acc__chev" aria-hidden="true"></span>
               </button>
@@ -1917,8 +2034,8 @@ Square-style expanding accordion (white canvas). -->
                     width="1600" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="ai__panel-copy">
-                  <h4 class="ai__panel-title">Back office, handled.</h4>
-                  <p class="ai__panel-desc">Repeatable ops work accelerated with context from the system of record — people stay on judgment calls.</p>
+                  <h4 class="ai__panel-title">New features customers can feel.</h4>
+                  <p class="ai__panel-desc">Ship AI-powered features into the product, built on the data the software already holds.</p>
                 </div>
               </div>
             </div>
@@ -1928,8 +2045,8 @@ Square-style expanding accordion (white canvas). -->
               <button type="button" class="ai-acc__trigger" id="ai-acc-btn-2"
                 aria-expanded="false" aria-controls="ai-acc-body-2">
                 <span class="ai-acc__labels">
-                  <span class="ai-acc__name">Support</span>
-                  <span class="ai-acc__hint">Answers in industry context.</span>
+                  <span class="ai-acc__name">Automate</span>
+                  <span class="ai-acc__hint">Automate the busywork.</span>
                 </span>
                 <span class="ai-acc__chev" aria-hidden="true"></span>
               </button>
@@ -1942,8 +2059,8 @@ Square-style expanding accordion (white canvas). -->
                     width="1600" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="ai__panel-copy">
-                  <h4 class="ai__panel-title">Support that knows the industry.</h4>
-                  <p class="ai__panel-desc">Answers grounded in how that business runs day to day — not a generic help bot.</p>
+                  <h4 class="ai__panel-title">Automate the workflows that eat the day.</h4>
+                  <p class="ai__panel-desc">Back-office and operational workflows that run themselves — people stay on judgment calls.</p>
                 </div>
               </div>
             </div>
@@ -1955,12 +2072,30 @@ Square-style expanding accordion (white canvas). -->
     </div>
   </section>
 
+  <!-- Founders / Acquisitions — standalone (revision: moved out of "What we do").
+       A wayfinder, not a form: the email/lead form lives only on the Acquisitions
+       page. -->
+  <section class="founders" id="founders" aria-labelledby="foundersTitle">
+    <div class="founders__inner rv">
+      <p class="founders__kicker">For founders</p>
+      <h2 class="founders__title" id="foundersTitle">A home for the business you <em>built.</em></h2>
+      <p class="founders__lede">We don't buy your business and shelve it. The product keeps its name,
+        the team keeps its people, and it keeps growing — with a much larger company behind it.</p>
+      <blockquote class="founders__quote">“We stopped asking what to build next and started
+        asking where everything we had built could go.”</blockquote>
+      <p class="founders__note">[placeholder — founder voice, genericized, unpublishable as written]</p>
+      <p class="founders__cta">
+        <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/for-founders.html">Explore Acquisitions</a>
+      </p>
+    </div>
+  </section>
+
   <!-- Careers / Great place to work — content-slots §2 row 06.
        3-col testimonial grid on --blue; Unsplash headshots [placeholder] until
        client supplies real team photography. No third-party award claims. -->
   <section class="careers" id="careers" aria-labelledby="careersTitle">
     <div class="careers__inner">
-      <header class="careers__head">
+      <header class="careers__head rv">
         <h2 class="careers__title" id="careersTitle">A great place to <em>work.</em></h2>
         <div class="careers__head-row">
           <p class="careers__lede">Real people building software for real industries — mostly remote, small teams, and room to grow.</p>
@@ -1970,7 +2105,7 @@ Square-style expanding accordion (white canvas). -->
         </div>
       </header>
 
-      <div class="careers__grid" aria-label="Employee voices">
+      <div class="careers__grid rv" aria-label="Employee voices" style="--rv-d:120ms">
         <blockquote class="careers-testimonial">
           <img class="careers-testimonial__avatar" alt=""
             src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=70"
@@ -2124,15 +2259,49 @@ Square-style expanding accordion (white canvas). -->
     </div>
   </section>
 
-  <!-- Close — Figma node 11304:33 · content-slots §2 row 07 -->
+  <!-- Close — Figma node 11304:33 · content-slots §2 row 07. The closing marquee
+       (the 11 verticals, Square "closing trail" pattern) is folded in here as a
+       decorative full-bleed strip — aria-hidden, since the verticals are already
+       reachable via the footer and the verts band. -->
   <section class="close" id="close" aria-labelledby="closeTitle">
-    <div class="close__inner">
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+      <div class="marquee__group">
+        <span class="marquee__item">Hospitality</span>
+        <span class="marquee__item">Weddings &amp; Events</span>
+        <span class="marquee__item">Wine</span>
+        <span class="marquee__item">Retail</span>
+        <span class="marquee__item">Storage &amp; Marina</span>
+        <span class="marquee__item">Health &amp; Wellness</span>
+        <span class="marquee__item">Field Services</span>
+        <span class="marquee__item">Transportation</span>
+        <span class="marquee__item">Automotive</span>
+        <span class="marquee__item">Association Management</span>
+        <span class="marquee__item">ERP</span>
+      </div>
+      <div class="marquee__group">
+        <span class="marquee__item">Hospitality</span>
+        <span class="marquee__item">Weddings &amp; Events</span>
+        <span class="marquee__item">Wine</span>
+        <span class="marquee__item">Retail</span>
+        <span class="marquee__item">Storage &amp; Marina</span>
+        <span class="marquee__item">Health &amp; Wellness</span>
+        <span class="marquee__item">Field Services</span>
+        <span class="marquee__item">Transportation</span>
+        <span class="marquee__item">Automotive</span>
+        <span class="marquee__item">Association Management</span>
+        <span class="marquee__item">ERP</span>
+      </div>
+    </div>
+    </div>
+
+    <div class="close__inner rv">
       <h2 class="close__title" id="closeTitle">Ready to see where your business can go next?</h2>
       <p class="close__cta">
         <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore our vertical solutions</a>
       </p>
       <p class="close__founders">
-        <a href="../../../02_Wireframes/active/pages/for-founders.html">For Founders — a home for your business</a>
+        <a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions — a home for your business</a>
       </p>
     </div>
   </section>
@@ -2162,7 +2331,7 @@ Square-style expanding accordion (white canvas). -->
       </div>
 
       <div class="menu__col">
-        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/embedded-offerings.html">Embedded Offerings</a></h3>
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/embedded-offerings.html">Our Advantage</a></h3>
         <ul class="menu__list">
           <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#payments">Payments</a></li>
           <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#lending">Lending</a></li>
@@ -2187,7 +2356,7 @@ Square-style expanding accordion (white canvas). -->
         <ul class="menu__list">
           <li><a href="../../../02_Wireframes/active/pages/contact.html">Talk to us</a></li>
         </ul>
-        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/for-founders.html">For Founders</a></h3>
+        <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a></h3>
         <ul class="menu__list">
           <li><a href="../../../02_Wireframes/active/pages/for-founders.html">A home for your business</a></li>
           <li><a href="../../../02_Wireframes/active/pages/faq.html">FAQ</a></li>
@@ -2204,63 +2373,37 @@ Square-style expanding accordion (white canvas). -->
     </div>
   </footer>
 
-  <!-- navigation dropdown — the locked L1 (KB §14 / plans/sitemap-lock.md).
-       Option B revised: For Founders lives here, not in the header strip. -->
+  <!-- navigation dropdown — six-item single column (2026-10-22).
+       Acquisitions (the For Founders page) lives here, not in the header strip. -->
   <div class="menu" id="siteMenu" hidden>
     <nav class="menu__panel" aria-label="Site">
       <div class="menu__inner">
-        <div class="menu__col">
-          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/vertical-software.html">Vertical Software</a></h3>
-          <div class="menu__split">
-            <ul class="menu__list" aria-label="Verticals">
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Hospitality</a></li>
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#weddings-events">Weddings &amp; Events</a></li>
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Wine</a></li>
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#retail">Retail</a></li>
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#storage-marina">Storage &amp; Marina</a></li>
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#health-wellness">Health &amp; Wellness</a></li>
-            </ul>
-            <ul class="menu__list" aria-label="Verticals">
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#field-services">Field Services</a></li>
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Transportation</a></li>
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Automotive</a></li>
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#association-management">Association Management</a></li>
-              <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a></li>
-            </ul>
+        <div class="menu__row">
+          <a href="../../../02_Wireframes/active/pages/vertical-software.html">Vertical Software</a>
+        </div>
+        <div class="menu__row">
+          <a href="../../../02_Wireframes/active/pages/embedded-offerings.html">Our Advantage</a>
+        </div>
+        <div class="menu__row">
+          <a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">AI at Fullsteam</a>
+        </div>
+        <div class="menu__row">
+          <a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a>
+          <div class="menu__sub">
+            <a href="../../../02_Wireframes/active/pages/leadership.html">Leadership</a>
           </div>
         </div>
-
-        <div class="menu__col">
-          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/embedded-offerings.html">Embedded Offerings</a></h3>
-          <ul class="menu__list">
-            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#payments">Payments</a></li>
-            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#lending">Lending</a></li>
-            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#insurance">Insurance</a></li>
-            <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">AI at Fullsteam</a></li>
-          </ul>
+        <div class="menu__row">
+          <a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a>
+          <div class="menu__sub">
+            <a href="../../../02_Wireframes/active/pages/faq.html">FAQ</a>
+          </div>
         </div>
-
-        <div class="menu__col">
-          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></h3>
-          <ul class="menu__list">
-            <li><a href="../../../02_Wireframes/active/pages/leadership.html">Leadership</a></li>
-          </ul>
-          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></h3>
-          <ul class="menu__list">
-            <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li>
-          </ul>
-        </div>
-
-        <div class="menu__col">
-          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></h3>
-          <ul class="menu__list">
-            <li><a href="../../../02_Wireframes/active/pages/contact.html">Talk to us</a></li>
-          </ul>
-          <h3 class="menu__h"><a href="../../../02_Wireframes/active/pages/for-founders.html">For Founders</a></h3>
-          <ul class="menu__list">
-            <li><a href="../../../02_Wireframes/active/pages/for-founders.html">A home for your business</a></li>
-            <li><a href="../../../02_Wireframes/active/pages/faq.html">FAQ</a></li>
-          </ul>
+        <div class="menu__row">
+          <a href="../../../02_Wireframes/active/pages/careers.html">Careers</a>
+          <div class="menu__sub">
+            <a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a>
+          </div>
         </div>
       </div>
     </nav>
@@ -2441,17 +2584,18 @@ Square-style expanding accordion (white canvas). -->
            full-bleed video that scrolls away; the section's photo fades up as the
            section arrives. See renderWho() below and direction.md. */
 
-      /* ---- section 02 entry: the photo fades up as the section arrives --------
+      /* ---- section 02 entry: the photo grows into the viewport -------------
        Two things share ONE scroll progress so they read as a single event:
-         · .who__frame fades up (opacity), so the photo is simply there as the
-           section arrives.
+         · .who__frame fades up AND grows (scale 70% → 100%), so the photo
+           expands into the viewport rather than simply appearing — but it
+           never starts from nothing, the grow begins at 70%.
          · the first block's kicker / heading / body fade up on a short stagger.
 
-       2026-10-22: the expanding clip-path is gone. It was seeded to a square the
-       same size as the hero's settled cube, so the photo "opened out of the
-       object the hero just dissolved" — and the cube no longer exists. With
-       nothing to open out of, an open would have been theatre; the section
-       now just arrives.
+       2026-10-22: the expanding clip-path (seeded to the hero's cube) is gone,
+       but the *grow* is kept — re-cast as a scale, seeded at 70% instead of the
+       old cube-sized square. The transform sits on .who__frame (inside the
+       sticky rail, never on the sticky element itself) so the rail's
+       position:sticky is untouched.
 
        Driven by the SECTION's own entry. The frame's TOP reaching the fold
        (not its centre) is the start, because that is the moment the photo
@@ -2467,14 +2611,14 @@ Square-style expanding accordion (white canvas). -->
 
       /* Measured from DOCUMENT position, never the live rect. Once the rail goes
          sticky its on-screen top freezes at 0, so any rect-based progress would
-         stall halfway and the reveal would never finish. `.who` itself is not
-         sticky, so its document offset is stable. */
+         stall halfway and the reveal would never finish. The frame's own offset
+         is measured once (at load / resize), which also accounts for the
+         .who__head that now sits above the grid. */
       function measureWho() {
         if (!whoFrame) return;
-        var padTop = parseFloat(getComputedStyle(whoSec).paddingTop) || 0;
-        var docTop = whoSec.getBoundingClientRect().top + window.scrollY;
+        var frameTop = whoFrame.getBoundingClientRect().top + window.scrollY;
         /* p = 0 when the frame's top reaches the fold; p = 1 a further 0.6vh down */
-        whoStart = docTop + padTop - window.innerHeight;
+        whoStart = frameTop - window.innerHeight;
         whoP = -1; whoSettled = false;
       }
 
@@ -2490,6 +2634,7 @@ Square-style expanding accordion (white canvas). -->
           if (whoSettled) return;
           whoSettled = true; whoP = 1;
           whoFrame.style.opacity = '';
+          whoFrame.style.transform = '';
           for (var k = 0; k < whoRise.length; k++) {
             whoRise[k].style.opacity = '';
             whoRise[k].style.transform = '';
@@ -2503,6 +2648,9 @@ Square-style expanding accordion (white canvas). -->
 
         var e = p * p * (3 - 2 * p);   /* smoothstep */
         whoFrame.style.opacity = e.toFixed(3);
+        /* grow into the viewport: the frame scales 70% → 100% as the photo
+           arrives. Seeded at 70% (not 0) so it expands rather than pops in. */
+        whoFrame.style.transform = 'scale(' + (0.7 + 0.3 * e).toFixed(4) + ')';
 
         for (var i = 0; i < whoRise.length; i++) {
           var d = i * 0.12;
@@ -2908,6 +3056,26 @@ Square-style expanding accordion (white canvas). -->
       });
       window.addEventListener('resize', syncBarH);
       syncBarH();
+    })();
+
+    // Scroll-reveal (Square's HomePageV3RevealAnimations): add `.is-in` when a
+    // `.rv` element enters the viewport, so content rises + fades in as you
+    // scroll rather than simply existing. Progressive enhancement — the default
+    // state is visible, so no-JS and reduced-motion readers are unaffected and
+    // an early return leaves everything on screen.
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var els = [].slice.call(document.querySelectorAll('.rv'));
+      if (!els.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (el) { io.observe(el); });
     })();
   </script>
 </body>

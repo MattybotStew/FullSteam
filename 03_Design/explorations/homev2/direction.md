@@ -5,6 +5,98 @@
 > Forked from [`../02-video-hero/`](../02-video-hero/) — that set is untouched and
 > still the reference for the hero itself.
 
+## Recent changes (2026-10-22)
+
+Three deliberate changes landed on top of the original build. All recorded here
+rather than left implicit:
+
+### 1. The shrinking video hero (cube) was removed
+
+The video no longer collapses into a cube, and the morph (cube → rail photo) is gone.
+The hero is now a **plain full-bleed video that pins only for the headline handoff**
+(Axis A → Axis B), then **scrolls away**, and section 02 rises in behind it.
+
+- **Stage `250vh → 180vh`** (80vh of pin travel for the handoff, then the hero's own
+  100svh scroll-out). The stage is brand blue, so there is no band, no cube, and no
+  colour change — section 02 (also brand blue) rises into it as one continuous field.
+- **Handoff now uses the whole pin** (`t = p / 0.82`, was `p / 0.55`), so Axis B holds
+  for the last fifth of the pin before the hero lets go.
+- **Two fades ride the scroll-out:** the video fades over 0.6vh (so its bottom edge never
+  cuts a hard line across the blue) and the copy dissolves over 0.28vh (so the second
+  headline is gone before section 02's first block arrives). A bottom scrim on `.hero::after`
+  makes the video's foot dissolve into the blue in every state (pinned, scrolling, no-JS,
+  reduced motion).
+- **Section 02's reveal re-cast as a grow:** the expanding `clip-path` (seeded to the cube)
+  is gone, but the *grow* is kept — the rail photo now **scales 70% → 100%** and **fades up**
+  as the section arrives (`renderWho`). The grow seeds at **70%, never 0**, so the photo
+  expands into the viewport rather than popping in from nothing. The first block's type rises
+  on the same progress. Window starts when the frame's top reaches the fold (was its centre)
+  and runs 0.6vh. The transform sits on `.who__frame` (inside the sticky rail, never on the
+  sticky element itself), so `position:sticky` is untouched.
+- **Removed:** `renderMorph`, `renderLift` (the dead-blue lift), the `--cube` / `--cube-fade` /
+  `--hero-ax/ay` writes, and all `.is-cubing` / `.is-cubed` CSS. Reduced-motion and no-JS
+  paths are unchanged in shape (in-flow hero, both headlines stacked in document order).
+
+**This is a strategy change vs KB §23** if ever promoted: the Axis A → Axis B transition is
+now a cross-fade (there is no morph object at all), and the hero no longer collapses. The
+two-state model and the two headlines are unchanged.
+
+### 2. Square movement applied (from `squareup.com/us/en`)
+
+Studied the live Square homepage's motion and applied the two cleanest transfers
+(see `inspiration.md` §2.2 for the full study):
+
+- **Closing marquee** (`HomePageClosing__trail` analog) — a continuous horizontal scroll of
+  the **11 verticals**, brand blue, placed right before the close. `aria-hidden` (decorative
+  repetition; the verticals are already in the footer and the verts band). CSS-only loop,
+  `prefers-reduced-motion` stops it.
+- **Scroll-reveal** (`HomePageV3RevealAnimations` analog) — a `.rv` utility: content rises +
+  fades in via `IntersectionObserver` (`.is-in`). Applied to `verts__head`, `verts__stage`,
+  `ai__head`, `ai__main`, `careers__head`, `careers__grid`, `close__inner`. Progressive
+  enhancement: default state is visible, so no-JS and reduced-motion readers see everything.
+
+### 3. Homepage revision pass — client 2026-10-22 list, homepage only
+
+Applied the six-item client revision list to the homepage (interior pages not touched):
+
+1. **Nav** — the mega-menu is gone; the open menu is a **single column of six rows**
+   (`Vertical Software · Our Advantage · AI at Fullsteam · Our Story · Acquisitions · Careers`),
+   with Leadership / FAQ / Open roles nested in the same column. Footer labels updated
+   (Embedded Offerings → **Our Advantage**, For Founders → **Acquisitions**). AI at Fullsteam
+   wayfinds to `embedded-offerings.html#ai`.
+2. **Hero** — the **Careers CTA is removed**; one CTA ("Explore vertical solutions").
+3. **Acquire / Grow / Lead** — section 02 keeps the **sticky image rail** but the blocks are now
+   **Acquire → Grow → Lead** (Founders moved out), each with a **big metric** pulled out of the
+   paragraph: Acquire `70,000+` · Grow `$75B` (labelled **payment volume**) · Lead `2,000+`.
+   "Top-20 payment processor" is flagged `[placeholder — client to confirm]` (KB §22.5).
+4. **Founders** — a **standalone section below AI** (`#founders`): "A home for the business you
+   built." + founder quote + **"Explore Acquisitions"** wayfinder. **No "Talk to us" / form /
+   email on the homepage** (that lives on the Acquisitions page only).
+5. **Verticals** — the featured five are now **ERP · Wine · Transportation · Hospitality ·
+   Automotive**, each with a **vertical-specific stat** (`bottles of wine shipped`, `black-car
+   rides completed`, `oil changes booked`… all `[placeholder]`, never invented figures), plus a
+   sixth **"Explore all verticals"** tile. The text list under the boxes was dropped.
+6. **AI** — the three items now introduce the three use cases: **Modernize** existing software,
+   **Customer features** (new customer-facing AI), **Automate** workflows.
+
+The `#who-we-are` section gains a `.who__head` (intro above the grid); the reveal now measures
+the frame's own offset (which accounts for the head). Verified: rail caption walks 01 → 02 → 03,
+rail stays pinned through the Lead headline, 0 JS errors, no horizontal overflow, menu renders
+as one column.
+
+### 4. Polish pass — color rhythm + hero handoff subject (2026-10-22)
+
+- **Color rhythm.** Founders is now a **quiet white** moment (a near-white wash over the photo,
+  ink title, brand-blue serif accent) instead of another blue band; the **closing marquee is
+  folded into the close** (transparent, on the close canvas, full-bleed via negative margins).
+  The page no longer ends on a stack of blue/dark bands: blue → white → light-gray → white →
+  dark → darker.
+- **Hero handoff subject.** The video now **zooms 5% and drifts 3% left** as Axis B lands
+  (tied to `--pVideo`), so the A→B swap has a subject again without the cube.
+- **Motion tokens.** Added `--ease-out` / `--ease-inout` / `--dur-fast/mid/slow` to `:root` and
+  wired them into the reveal (`.rv`), the rail crossfade (`.who__shot`) and the verticals
+  accordion (`.vpanel`) — the start of a single motion system.
+
 ## What this is
 
 A full homepage built on exploration 02's **video hero + cube collapse**, with the
