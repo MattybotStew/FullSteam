@@ -22,9 +22,11 @@
          so the same green stays readable on pale bands. Gold stays on the
          primary CTA fill. */
       --green: #84BD00;
-      --green-ink: color-mix(in srgb, #84BD00 74%, #00202B);
+      --green-ink: color-mix(in srgb, #84BD00 66%, #00202B); /* AA: 4.26:1 on white, 3.94:1 on #f2f7f9 */
       --accent: currentColor;
       --bar-h:  68px;     /* header height; re-measured in JS for the menu offset */
+      --hero-h: 100vh;    /* hero + section overlap math (keep in sync with .hero) */
+      --hero-pin: 60vh;   /* headline handoff travel inside .hero-stage */
       /* ---- motion tokens (2026-10-22) — one easing/duration system, so the
          reveals, rail and accordion all feel like one machine rather
          than many hand-tuned cubic-beziers. */
@@ -45,6 +47,25 @@
     }
     a { color: inherit; }
 
+    /* AA 2.4.1 — bypass blocks */
+    .skip-link {
+      position: absolute; left: 12px; top: -70px; z-index: 200;
+      padding: 12px 20px; border-radius: 999px;
+      background: var(--gold); color: var(--ink);
+      font-weight: 700; font-size: 14px; text-decoration: none;
+      transition: top .2s ease;
+    }
+    .skip-link:focus { top: 12px; }
+    @media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
+
+    /* AA 2.4.7 — the two most-used controls had no bespoke ring */
+    .pill:focus-visible,
+    .menu-btn:focus-visible {
+      outline: 3px solid var(--white);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 6px rgba(0, 32, 43, .55);
+    }
+
     /* ---- hero stage: the pin that drives the overlay change --------------- */
     .hero-stage { height: auto; }              /* no-JS / reduced-motion: static */
     /* Pinned for the HEADLINE HANDOFF ONLY (2026-10-22 — the shrinking video
@@ -53,14 +74,21 @@
        out of. Tightened from 180vh so section 02 arrives sooner. The stage is
        brand blue, so the space the hero leaves behind as it scrolls away is
        the same blue as the hero and section 02 — no seam, no white band. */
-    .has-js .hero-stage { height: 160vh; background: var(--blue); }
+    .has-js .hero-stage {
+      height: calc(var(--hero-h) + var(--hero-pin));
+      background: var(--blue);
+      position: relative;
+      z-index: 0;
+    }
 
     .hero {
       position: relative; isolation: isolate; overflow: hidden;
       background: var(--blue);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 50px;                    /* Figma gap 50px */
-      height: 100vh; max-height: 100vh;
+      height: var(--hero-h);
+      max-height: var(--hero-h);
+      min-height: var(--hero-h);
       padding: 160px 0;             /* Figma padding 160px 0 */
     }
     .has-js .hero { position: sticky; top: 0; }
@@ -136,7 +164,7 @@
          over the brand-blue stage the hero scrolls into */
       /* the blue plate sits lighter than before so the footage carries the hero
          and the colour doesn't flatten it. ~48% on load, ~26% after the handoff. */
-      opacity: calc((.48 - .22 * var(--pTint, 0)) * var(--media-tint, 1) * var(--hero-media-fade, 1));
+      opacity: calc((.62 - .04 * var(--pTint, 0)) * var(--media-tint, 1) * var(--hero-media-fade, 1));
     }
     /* Desktop-2 overlay — Figma gradient (starts before headline handoff) */
     .hero__overlay {
@@ -153,14 +181,13 @@
     }
 
     /* ---- overlay header (Figma "home" frame, absolute at 0,0) ------------ */
-    /* Transparent over the hero; solid only after the hero has scrolled past. */
+    /* Transparent at rest over the video; ramps to brand blue as beat 02 (Acquire) lands. */
     .hero__bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 60;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 20px;   /* Figma "home" frame — full-bleed */
+      padding: 10px 100px;
       gap: 12px;
-      background: transparent;
-      transition: background-color .25s ease;
+      background: color-mix(in srgb, var(--blue) calc(var(--bar-solid, 0) * 100%), transparent);
     }
     .hero__bar.is-solid { background: var(--blue); }
     /* open menu: the header becomes the top of the panel, so they read as one surface */
@@ -520,9 +547,10 @@
     /* ---- video pause / play (WCAG 2.2.2) --------------------------------- */
     .hero__media-ctrl {
       position: absolute; right: 16px; bottom: 16px; z-index: 4;
-      appearance: none; width: 40px; height: 40px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.45);
-      background: rgba(0,32,43,.55); color: var(--white);
+      appearance: none; width: 44px; height: 44px; border-radius: 999px;
+      /* AA 1.4.11: the control boundary must clear 3:1 over the video */
+      border: 1px solid rgba(255,255,255,.9);
+      background: rgba(0,32,43,.85); color: var(--white);
       cursor: pointer; display: grid; place-items: center; padding: 0;
       backdrop-filter: blur(6px);
     }
@@ -531,12 +559,15 @@
       outline: 2px solid var(--white); outline-offset: 2px;
     }
     .hero__media-ctrl svg { display: block; width: 14px; height: 14px; }
-    .hero__media-ctrl[aria-pressed="true"] .icon-pause { display: none; }
-    .hero__media-ctrl[aria-pressed="false"] .icon-play { display: none; }
-    .hero__media-ctrl[aria-pressed="true"] .icon-play { display: block; }
-    .hero__media-ctrl[aria-pressed="false"] .icon-pause { display: block; }
+    /* state class, not aria-pressed: the button's name already swaps to the
+       action it performs, so a toggle state on top of it double-encodes (4.1.2) */
+    .hero__media-ctrl.is-paused .icon-pause { display: none; }
+    .hero__media-ctrl:not(.is-paused) .icon-play { display: none; }
+    .hero__media-ctrl.is-paused .icon-play { display: block; }
+    .hero__media-ctrl:not(.is-paused) .icon-pause { display: block; }
 
-    /* ---- Section 02: "who we are" + sticky image rail (2026-10-16) ------
+    /* ---- Section 02 · MODULE styles (sticky image rail — archived 2026-10-23) ----
+       Live page uses .who--parallax below. Restore rail from modules/who-sticky-rail/.
        Replaces the stacked Acquire/Grow/Lead/Founders band. Left column is
        four content blocks; the right rail is position:sticky and its photo +
        caption cross-fade to whichever block is active, holding through the last
@@ -552,7 +583,7 @@
          because there is no longer a colour change. */
       background: var(--blue);
       color: var(--white);
-      padding: 56px 24px;
+      padding: 56px 100px;
     }
     /* No contact shadow here: nothing rests on this section's top edge any more —
        the hero scrolls away above it, and both canvases are the same brand blue. */
@@ -685,7 +716,8 @@
     .who__rule { width: 56px; height: 3px; border: 0; margin: 8px 0 24px; background: rgba(255, 255, 255, .3); }
     .who__note {
       font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
-      font-size: 12px !important; color: rgba(255, 255, 255, .52) !important;
+      /* AA 1.4.3: .52 measured 4.25:1 at 12px; .62 clears 5.37:1 */
+      font-size: 12px !important; color: rgba(255, 255, 255, .62) !important;
     }
     /* mobile fallback: the rail goes static and every block carries its own
        image inline, so nothing is lost and the swap JS isn't needed */
@@ -694,6 +726,164 @@
       display: block; width: 100%; aspect-ratio: 4 / 3;
       object-fit: cover; background: var(--blue);
     }
+
+    /* ---- Section 02 · Acquire / Grow / Lead ---------------------------------
+       Pulls up one viewport over the hero stage so it can cover the pinned hero
+       once scroll-out begins. While the hero is pinned (or scrolling out with
+       --who-over at 0), JS keeps translateY at hero-h so nothing peeks. After
+       releaseY, --who-over maps hero scroll-out → translateY hero-h → 0 (no CSS
+       transition on the write — KB §23.6). Acquire = full-viewport in-flow;
+       Grow + Lead sticky-stack. Rail archive: modules/who-sticky-rail/. */
+    .who--parallax {
+      padding: 0;
+      overflow: visible;
+      position: relative;
+      z-index: 5;
+      background: var(--blue);
+    }
+    .has-js .who--parallax {
+      margin-top: calc(-1 * var(--hero-h));
+    }
+    .who-para__stack {
+      width: 100%;
+      --who-panel-h: calc(var(--hero-h) - var(--bar-h));
+    }
+    .who-para__stack--sticky {
+      width: 100%;
+    }
+    .who-para__panel {
+      box-sizing: border-box;
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 32px 100px 48px;
+      scroll-margin-top: var(--bar-h);
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      background-color: var(--blue);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .who-para__panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 32, 43, .94) 0%,
+        rgba(0, 32, 43, .78) 32%,
+        rgba(0, 32, 43, .35) 62%,
+        rgba(0, 32, 43, 0) 100%
+      );
+    }
+    .who-para__panel--acquire {
+      background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&h=1080&q=80');
+    }
+    .has-js .who-para__panel--acquire {
+      position: relative;
+      top: auto;
+      z-index: 1;
+      min-height: var(--who-panel-h);
+      height: var(--who-panel-h);
+      box-shadow: none;
+    }
+    .has-js .who-para__stack--sticky .who-para__panel {
+      position: sticky;
+      top: var(--bar-h);
+      min-height: var(--who-panel-h);
+      height: var(--who-panel-h);
+      box-shadow: 0 -32px 64px rgba(0, 12, 20, .35);
+    }
+    .who-para__panel--grow {
+      z-index: 2;
+      background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1920&h=1080&q=80');
+    }
+    .who-para__panel--lead {
+      z-index: 3;
+      background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1920&h=1080&q=80');
+      border-bottom-color: rgba(255, 198, 0, .22);
+    }
+    html:not(.has-js) .who-para__panel {
+      min-height: var(--hero-h);
+      padding-top: calc(var(--bar-h) + 32px);
+    }
+    .who-para__layer-grid {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: min(640px, 52vw);
+    }
+    .who-para__link {
+      display: inline-block; margin-top: 12px;
+      font-family: var(--mono-d);
+      font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+      border-bottom: 1px solid rgba(255, 198, 0, .45);
+    }
+    .who-para__link:hover { border-bottom-color: var(--accent); }
+    .who-para__prog {
+      position: fixed;
+      right: 100px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 20;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .who-para__prog.is-visible {
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .who-para__prog-btn {
+      width: 40px; height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .5);
+      background: rgba(0, 32, 43, .85);
+      color: var(--white);
+      font-family: var(--mono-d);
+      font-size: 11px; font-weight: 600;
+      cursor: pointer;
+    }
+    .who-para__prog-btn.is-on {
+      background: var(--accent);
+      color: #00202b;
+      border-color: var(--accent);
+    }
+    .who-para__prog-btn:focus-visible {
+      outline: 2px solid var(--white);
+      outline-offset: 2px;
+    }
+    @media (max-width: 900px) {
+      .has-js .who-para__panel--acquire,
+      .has-js .who-para__stack--sticky .who-para__panel {
+        position: relative;
+        top: auto;
+        height: auto;
+        min-height: auto;
+        box-shadow: none;
+      }
+      .who-para__panel {
+        padding: calc(var(--bar-h) + 24px) 40px 56px;
+      }
+      .who-para__panel::before {
+        background: linear-gradient(
+          90deg,
+          rgba(0, 32, 43, .97) 0%,
+          rgba(0, 32, 43, .9) 45%,
+          rgba(0, 32, 43, .55) 78%,
+          rgba(0, 32, 43, .2) 100%
+        );
+      }
+      .who-para__layer-grid { max-width: none; }
+      .who-para__prog { display: none; }
+    }
+
     /* ---- Founders / Acquisitions — full-bleed photo (2026-10-22) ----------
        The photograph fills the band. A left-weighted dark scrim is only strong
        enough for the white quote to read; the photo stays visible on the right.
@@ -704,9 +894,10 @@
       min-height: 80vh;
       color: #fff;
       background:
-        linear-gradient(90deg, rgba(0, 32, 43, .72) 0%, rgba(0, 32, 43, .35) 100%),
+        /* AA 1.4.3: right-edge scrim ≥ .55 on a bright photo clears 4.5:1 for white type */
+        linear-gradient(90deg, rgba(0, 32, 43, .82) 0%, rgba(0, 32, 43, .55) 100%),
         url('https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=1920&h=1200&q=80') 72% center / cover no-repeat;
-      padding: clamp(72px, 10vh, 120px) 8vw;
+      padding: clamp(72px, 10vh, 120px) 100px;
       text-align: left;
     }
     .founders__inner { width: 100%; margin: 0; }
@@ -747,49 +938,16 @@
       font-size: 12px; color: rgba(255, 255, 255, .42);
     }
     .founders__cta { margin: 28px 0 0; }
-    /* ---- Scale (stats) — white band: live sentence → verticals ---------- */
-    .scale {
-      --mono-d: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-      position: relative; z-index: 2;
-      background: #fff;
-      color: #0d1a20;
-    }
-    .stats {
-      padding: 128px 24px 116px;
-      background: #fff;
-      color: #0d1a20;
-    }
-    .stats__inner { width: min(1000px, 100%); margin: 0 auto; text-align: center; }
-
-    /* The live sentence, in italic serif, scrubbed word by word by scroll:
-       words behind the playhead are lit, words ahead of it are dimmed and
-       blurred. Per-frame writes carry no CSS transition (KB §23.6 rule 2). */
-    .sent-line {
-      margin: 0;
-      font-family: "Instrument Serif", Georgia, "Times New Roman", serif;
-      font-style: italic; font-weight: 400;
-      font-size: clamp(32px, 4.8vw, 68px);
-      line-height: 1.16;
-      letter-spacing: -.02em;
-      text-wrap: pretty;
-      color: #0d1a20;
-    }
-    .sent-w {
-      display: inline-block;
-      opacity: .12;
-    }
-    /* no-JS and reduced motion: the sentence is simply there */
-    html:not(.has-js) .sent-w { opacity: 1 !important; filter: none !important; }
-    @media (prefers-reduced-motion: reduce) {
-      .sent-w { opacity: 1 !important; filter: none !important; }
-    }
-    .sent-num { color: var(--green-ink); font-weight: 500; }
 
     /* ---- Verticals — Square expanding accordion on white ----------------- */
-    /* CD: 10% left/right margins. One --gutter drives every row, so the head,
-       the stage and the eleven links all align on the same line. */
+    /* One --gutter drives every row, so the head, the stage and the eleven
+       links all align on the same line. 100px matches the header, the acquire
+       section and the founders band (2026-10-23); it steps down at the same
+       breakpoints — see the responsive block. */
     .verts {
-      --gutter: 10%;
+      --gutter: 100px;
+      --mono-d: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      position: relative; z-index: 2;
       background: #fff; color: #0d1a20;
       padding: 96px var(--gutter) 92px;
     }
@@ -848,36 +1006,53 @@
     .vpanel[data-tone="3"] { --panel: #0a4a5c; }
     .vpanel[data-tone="4"] { --panel: #1a4554; }
 
-    /* Rotated / centered label — visible only while collapsed */
-    .vpanel__label {
+    /* AA 4.1.2 / 2.4.3 — the disclosure lives on a real <button>. The article is no
+       longer focusable (aria-expanded isn't valid on role="listitem"), and the
+       collapsed body is visibility:hidden so its link leaves the tab order. */
+    .vpanel__toggle {
       position: absolute; inset: 0; z-index: 2;
       display: flex; align-items: center; justify-content: center;
       margin: 0; padding: 12px 0;
+      background: none; border: 0; cursor: pointer;
+      color: #fff; font: inherit;
+    }
+    .vpanel__toggle:focus-visible {
+      outline: 3px solid var(--white); outline-offset: -6px;
+    }
+    .vpanel__label {
+      display: block;
       writing-mode: vertical-rl;
       transform: rotate(180deg);
-      font-size: 14px; font-weight: 600;
-      letter-spacing: .04em; line-height: 1;
+      font-size: 18px; font-weight: 600;
+      letter-spacing: .01em; line-height: 1;
       color: #fff;
-      opacity: 1;
-      transition: opacity .25s ease;
-      pointer-events: none;
       white-space: nowrap;
+      /* AA 1.4.3: the label sits at the lightest point of the photo scrim, so it
+         carries its own plate and never depends on the image's luminance */
+      padding: 10px 7px;
+      border-radius: 4px;
+      background: rgba(0, 24, 34, .72);
+      transition: opacity .25s ease;
     }
     .vpanel.is-open .vpanel__label { opacity: 0; }
 
-    /* Expanded content — photo plane + big title + shared placeholder stat */
+    /* Expanded content — photo plane + big title + shared placeholder stat.
+       Sits above the toggle so its link stays clickable while open. */
     .vpanel__body {
-      position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
       padding: 36px 28px 28px;
-      background: linear-gradient(transparent, rgba(0,12,20,.72) 48%);
+      background: linear-gradient(rgba(0,12,20,.35), rgba(0,12,20,.80) 48%);
       color: #fff;
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
-      transition: opacity .3s ease .1s;
+      transition: opacity .3s ease .1s, visibility 0s linear .4s;
     }
     .vpanel.is-open .vpanel__body {
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
+      transition: opacity .3s ease .1s, visibility 0s linear 0s;
     }
     .vpanel__h {
       margin: 0 0 14px;
@@ -893,14 +1068,14 @@
       color: var(--accent);
     }
     .vpanel__desc {
-      margin: 9px 0 18px; max-width: 28ch;
-      font-family: var(--mono-d); font-size: 12px; line-height: 1.45;
-      color: rgba(255,255,255,.8);
+      margin: 9px 0 18px; max-width: 32ch;
+      font-size: 16px; line-height: 1.4;
+      color: #fff;
     }
     .vpanel__link {
       display: inline-block;
-      font-family: var(--mono-d); font-size: 12px;
-      letter-spacing: .08em; text-transform: uppercase;
+      font-size: 15px; font-weight: 600;
+      letter-spacing: .02em;
       color: #fff; text-decoration: none;
       border-bottom: 1px solid rgba(255,255,255,.7); padding-bottom: 3px;
     }
@@ -918,7 +1093,7 @@
     .verts__all-box:hover { background: linear-gradient(165deg, #00719b, #00202b); }
     .verts__all-box .va-label {
       writing-mode: vertical-rl; transform: rotate(180deg);
-      font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1; white-space: nowrap;
+      font-size: 18px; font-weight: 600; letter-spacing: .01em; line-height: 1; white-space: nowrap;
     }
     .verts__all-box .va-arrow { color: var(--accent); font-size: 18px; line-height: 1; }
     .verts__all-box:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
@@ -942,12 +1117,14 @@
       .vpanel.is-open {
         height: min(58svh, 460px);
       }
+      .vpanel__toggle {
+        justify-content: flex-start;
+        padding: 0 22px;
+      }
       .vpanel__label {
         writing-mode: horizontal-tb;
         transform: none;
-        font-size: 16px; letter-spacing: -.01em;
-        justify-content: flex-start;
-        padding: 0 22px;
+        font-size: 18px; letter-spacing: -.01em;
       }
       .vpanel__body { padding: 30px 22px 22px; }
       .verts__all-box {
@@ -1000,7 +1177,8 @@
       margin: 0 0 16px;
       font-family: var(--mono-d, "Fragment Mono", ui-monospace, monospace);
       font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-      color: rgba(13, 26, 32, .55);
+      /* AA 1.4.3: .55 failed at 11px; .72 clears 4.5:1 */
+      color: rgba(13, 26, 32, .72);
     }
     .ai__title {
       margin: 0;
@@ -1058,7 +1236,8 @@
       display: block;
       margin-top: 8px;
       font-size: 13px; font-weight: 400; line-height: 1.35;
-      color: rgba(13, 26, 32, .52);
+      /* AA 1.4.3: .52 measured 3.60:1 at 13px; .68 clears 4.5:1 */
+      color: rgba(13, 26, 32, .68);
     }
     .ai-acc__item.is-open .ai-acc__name { color: var(--blue); }
     .ai-acc__item.is-open .ai-acc__hint { color: rgba(13, 26, 32, .68); }
@@ -1357,7 +1536,14 @@
       margin: 0;
       font-family: "Fragment Mono", ui-monospace, monospace;
       font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(13, 26, 32, .5);
+      /* AA 1.4.3: .5 measured 3.37:1 at 11px; .68 clears 4.5:1 */
+      color: rgba(13, 26, 32, .68);
+    }
+    .careers__posts-note {
+      margin: 0 0 14px;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px; line-height: 1.45;
+      color: rgba(13, 26, 32, .68);
     }
     .careers__posts-ctl {
       margin: 0 0 0 auto;
@@ -1366,7 +1552,7 @@
     }
     .careers__posts-btn {
       display: grid; place-items: center;
-      width: 38px; height: 38px;
+      width: 44px; height: 44px;
       padding: 0; margin: 0;
       border: 1px solid rgba(13, 26, 32, .35);
       border-radius: 50%;
@@ -1544,11 +1730,13 @@
     /* Italic display accents — gold → green on every band except the hero
        (hero ems are solid #FFC600). Weight 500 (medium);
        Instrument Serif may only ship 400, so the browser synthesizes 500 lighter than 600. */
+    /* AA 1.4.3: this gold→green gradient only clears 3:1 on a DARK ground
+       (8.66 → 6.01:1 on #003244). `.ai__title em` sits on #f2f7f9, where it
+       measures 1.5–2.3:1, so it is excluded here and falls back to its solid
+       `--green-ink` (3.94:1). The KPI figures use the solid accent too. */
     .who__title em,
-    .ai__title em,
     .careers__title em,
-    .careers-testimonial__headline em,
-    .sent-num {
+    .careers-testimonial__headline em {
       font-weight: 500;
       background-image: linear-gradient(100deg, #FFC600 0%, #84BD00 100%);
       -webkit-background-clip: text;
@@ -1590,10 +1778,16 @@
 
     /* ---- responsive ------------------------------------------------------ */
     @media (max-width: 900px) {
-      .hero { padding: 96px 0; gap: 36px; height: 100vh; max-height: 100vh; }
+      .hero { padding: 96px 0; gap: 36px; height: var(--hero-h); max-height: var(--hero-h); }
       .hero__inner { gap: 36px; }
       .hero__logo img { width: 143px; height: auto; }
-      .who { padding: 48px 24px; }
+      /* 100px is a desktop measure: it would leave 120px of content at 320px,
+         so the three 100px edges step down at the same breakpoints */
+      .hero__bar { padding: 10px 40px; }
+      .who { padding: 48px 40px; }
+      .who--parallax { padding: 0; }
+      .founders { padding-left: 40px; padding-right: 40px; }
+      .verts { --gutter: 40px; }
       .who__grid { grid-template-columns: 1fr; gap: 0; }
       .who__rail { position: static; margin-bottom: 36px; }
       /* the rail is in flow here, so it must NOT stay 100svh tall */
@@ -1602,7 +1796,6 @@
       .who__step { min-height: 0; padding: 40px 0; }
       .who__step:last-child { min-height: 0; }
       .who__mob { display: block; }
-      .stats { padding: 100px 24px 96px; }
       .ai { padding: 76px 24px 88px; }
     }
     @media (max-width: 560px) {
@@ -1611,6 +1804,11 @@
       .hero__bar .pill__full { display: none; }
       .hero__bar .pill__short { display: inline; }
       .hero__logo img { width: 120px; height: auto; }
+      .hero__bar { padding: 10px 20px; }
+      .who { padding: 40px 24px; }
+      .who--parallax { padding: 0; }
+      .founders { padding-left: 24px; padding-right: 24px; }
+      .verts { --gutter: 24px; }
     }
     @media (max-width: 480px) {
       .hero__headlines { --title-max: clamp(41px, 12.6vw, 65px); }
@@ -1662,8 +1860,23 @@
     html:not(.has-js) .who__shot { transition: none; }
     html:not(.has-js) .who__shot:first-of-type { opacity: 1; }
     html:not(.has-js) .who__cap { display: none; }
+    html:not(.has-js) .who--parallax {
+      margin-top: 0;
+      background: var(--blue);
+    }
 
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .has-js .who--parallax { margin-top: 0; background: var(--blue); }
+      .has-js .who-para__panel--acquire,
+      .has-js .who-para__stack--sticky .who-para__panel {
+        position: relative;
+        top: auto;
+        height: auto;
+        min-height: auto;
+        box-shadow: none;
+        padding-top: calc(var(--bar-h) + 24px);
+      }
       .has-js .hero-stage { height: auto; }
       .has-js .hero { position: relative; }
       .has-js .hero__overlay { opacity: 0 !important; }
@@ -1689,13 +1902,12 @@
       }
       /* who-we-are: no cross-fade, the first photo simply stays on */
       .who__shot { transition: none !important; }
-      /* stats: no reveal, no count — values render final */
-      .has-js .sent-w { opacity: 1 !important; filter: none !important; }
     }
 
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <!-- Sticky site bar — fixed to the viewport in the hero's blue. Kept OUT of
        .hero so it isn't clipped by the hero's overflow / stacking context and
        stays pinned while the pinned hero scrolls away. -->
@@ -1716,6 +1928,7 @@
     </div>
   </header>
 
+  <main id="main">
   <div class="hero-stage" id="heroStage">
     <section class="hero" id="hero" aria-label="Homepage hero">
       <!-- background video — autoplays at LOAD (muted + loop + playsinline).
@@ -1757,7 +1970,7 @@
       </div>
 
       <button type="button" class="hero__media-ctrl" id="heroMediaCtrl"
-              aria-label="Pause background video" aria-pressed="false">
+              aria-label="Pause background video">
         <svg class="icon-pause" viewBox="0 0 14 14" aria-hidden="true">
           <rect x="3" y="2" width="3" height="10" fill="currentColor"/>
           <rect x="8" y="2" width="3" height="10" fill="currentColor"/>
@@ -1769,180 +1982,144 @@
     </section>
   </div>
 
-  <!-- Section 02 — "What we do": Acquire → Grow → Lead as a sequence, each step
-       carrying its own metric (the sticky image rail is kept; Founders moved out
-       to its own section below AI). Metrics are allowlisted/[placeholder] —
-       "$75B" is payment volume, and "top-20 processor" is flagged for the client.
-
-       The rail is aria-hidden: the images are decorative support for copy that
-       stands on its own, and the caption is a visual label, not content.
-       Mobile renders each block's own image inline instead. -->
-  <section class="who" id="who-we-are">
-    <div class="who__grid">
-
-      <div class="who__steps">
-        <article class="who__step" data-cap="Acquire">
-          <figure class="who__mob">
-            <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
-                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
-          </figure>
-          <p class="who__kicker who__rise">01 — Acquire</p>
-          <h3 class="who__title who__rise">We keep <em>buying.</em></h3>
-          <p class="who__metric who__rise">70,000+<small>customers rely on our software</small></p>
-          <p class="who__body who__rise">Great vertical software, one company after another — several a year — all kept running.
+  <!-- Section 02 — Acquire (in-flow) then Grow/Lead sticky stack · 2026-10-23.
+       Does not overlap the hero. Rail archive: modules/who-sticky-rail/. -->
+  <section class="who who--parallax" id="who-we-are" data-layout="fullvh-panels">
+    <nav class="who-para__prog" id="whoParaProg" aria-label="Step focus">
+      <button type="button" class="who-para__prog-btn is-on" data-step="0" aria-label="Acquire">A</button>
+      <button type="button" class="who-para__prog-btn" data-step="1" aria-label="Grow">G</button>
+      <button type="button" class="who-para__prog-btn" data-step="2" aria-label="Lead">L</button>
+    </nav>
+    <div class="who-para__stack" id="whoParaBand" role="group" aria-label="Acquire, Grow, Lead">
+      <article class="who-para__panel who-para__panel--acquire" id="whoParaAcquire" data-step="0">
+        <div class="who-para__layer-grid">
+          <p class="who__kicker">01 — Acquire</p>
+          <h3 class="who__title">We keep <em>buying.</em></h3>
+          <p class="who__metric">70,000+<small>customers rely on our software</small></p>
+          <p class="who__body">Great vertical software, one company after another — several a year — all kept running.
             Not bought and shelved, bought and looked after.</p>
-        </article>
-
-        <article class="who__step" data-cap="Grow">
-          <figure class="who__mob">
-            <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
-                 src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
-          </figure>
+        </div>
+      </article>
+      <div class="who-para__stack--sticky">
+      <article class="who-para__panel who-para__panel--grow" id="whoParaGrow" data-step="1">
+        <div class="who-para__layer-grid">
           <p class="who__kicker">02 — Grow</p>
           <h3 class="who__title">What changes is what's <em>behind it.</em></h3>
           <p class="who__metric">$75B<small>processed on Fullsteam Pay* — payment volume</small></p>
           <p class="who__body">Embedded fintech and operational advantages layered on top —
             payments, lending, insurance, and a back office that already works.
             <span class="who__note">*Top-20 payment processor [placeholder — client to confirm]</span></p>
-        </article>
-
-        <article class="who__step" data-cap="Lead">
-          <figure class="who__mob">
-            <img alt="Placeholder — a real Fullsteam photograph" decoding="async"
-                 src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=1200&amp;h=900&amp;q=70">
-          </figure>
+          <a class="who-para__link" href="../../../02_Wireframes/active/pages/embedded-offerings.html">Our Advantage</a>
+        </div>
+      </article>
+      <article class="who-para__panel who-para__panel--lead" id="whoParaLead" data-step="2">
+        <div class="who-para__layer-grid">
           <p class="who__kicker">03 — Lead</p>
           <h3 class="who__title">Our software <em>leads</em> its market.</h3>
           <p class="who__metric">2,000+<small>people across 11 verticals</small></p>
           <p class="who__body">Each business becomes the category leader in its vertical —
             with the scale, the people and the proof to match.</p>
-        </article>
-      </div>
-
-      <div class="who__rail" aria-hidden="true">
-        <div class="who__frame">
-          <img class="who__shot is-on" decoding="async"
-               src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
-          <img class="who__shot" decoding="async"
-               src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
-          <img class="who__shot" decoding="async"
-               src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&amp;fit=crop&amp;w=1200&amp;h=1200&amp;q=70">
-          <div class="who__tint"></div>
-          <p class="who__cap"><b>01</b> &nbsp;Acquire</p>
+          <a class="who-para__link" href="#investors">Vertical markets</a>
         </div>
+      </article>
       </div>
-
     </div>
   </section>
 
-  <!-- Scale → verticals — live italic sentence scrubbed word by word, then
-Square-style expanding accordion (white canvas). -->
-  <section class="scale" id="investors" aria-label="Scale and verticals">
-    <div class="stats" id="statsBand">
-      <div class="stats__inner">
-        <p class="sent-line" id="sentLine">
-          <span class="sent-w">We</span>
-          <span class="sent-w">serve</span>
-          <span class="sent-w"><span class="sent-num">70,000+</span></span>
-          <span class="sent-w">businesses</span>
-          <span class="sent-w">across</span>
-          <span class="sent-w"><span class="sent-num">11</span></span>
-          <span class="sent-w">industries,</span>
-          <span class="sent-w">from</span>
-          <span class="sent-w">Hospitality</span>
-          <span class="sent-w">to</span>
-          <span class="sent-w">Wine</span>
-          <span class="sent-w">to</span>
-          <span class="sent-w">ERP,</span>
-          <span class="sent-w">and</span>
-          <span class="sent-w">move</span>
-          <span class="sent-w"><span class="sent-num">$75B</span></span>
-          <span class="sent-w">through</span>
-          <span class="sent-w">Fullsteam</span>
-          <span class="sent-w">Pay.</span>
-        </p>
-      </div>
+  <!-- Verticals — the Square-style expanding accordion on the white canvas.
+       The three-figure stats band that stood here was removed 2026-10-23: every
+       figure it showed is already in #who-we-are (70,000+, $75B, and 2,000+
+       people across 11 verticals), and "11" is this section's own subject, so
+       the band restated the page instead of advancing it. Placeholders must
+       never be invented — see KB §20. -->
+  <section class="verts" id="investors" aria-labelledby="vertsTitle">
+    <div class="verts__head rv">
+      <h2 class="verts__title" id="vertsTitle">Keep the businesses growing.</h2>
     </div>
-
-    <div class="verts">
-      <div class="verts__head rv">
-        <h2 class="verts__title">Keep the businesses growing.</h2>
-      </div>
-      <!--
-        Unsplash panel photos (hotlinked · Unsplash License · attribution appreciated):
-        ERP — office, photo-1497366216548-37526070297c (Nastuh Abootalebi)
-        Wine — wine, photo-1516594915697-87eb3b1c14ea (Unsplash)
-        Transportation — warehouse, photo-1586528116311-ad8dd3c8310d (CHUTTERSNAP)
-        Hospitality — kitchen, photo-1556910103-1c02745aae4d (Jason Briscoe)
-        Automotive — car, photo-1502877338535-766e1452684a (Unsplash)
-        Stats are vertical-specific [placeholder]s — never invent a real figure.
-      -->
-      <div class="verts__stage rv" id="vertStage" role="list" style="--rv-d:120ms">
-        <article class="vpanel is-open" role="listitem" tabindex="0" aria-expanded="true" data-tone="0"
-          style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
-          <span class="vpanel__img" aria-hidden="true"></span>
-          <h3 class="vpanel__label">ERP</h3>
-          <div class="vpanel__body">
-            <h3 class="vpanel__h">ERP</h3>
-            <hr class="vpanel__rule">
-            <p class="vpanel__stat">[placeholder]</p>
-            <p class="vpanel__desc">enterprise resource planning — the system of record</p>
-            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#erp">Learn more</a>
-          </div>
-        </article>
-        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="1"
-          style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
-          <span class="vpanel__img" aria-hidden="true"></span>
-          <h3 class="vpanel__label">Wine</h3>
-          <div class="vpanel__body">
-            <h3 class="vpanel__h">Wine</h3>
-            <hr class="vpanel__rule">
-            <p class="vpanel__stat">[placeholder]</p>
-            <p class="vpanel__desc">bottles of wine shipped</p>
-            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Learn more</a>
-          </div>
-        </article>
-        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="2"
-          style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
-          <span class="vpanel__img" aria-hidden="true"></span>
-          <h3 class="vpanel__label">Transportation</h3>
-          <div class="vpanel__body">
-            <h3 class="vpanel__h">Transportation</h3>
-            <hr class="vpanel__rule">
-            <p class="vpanel__stat">[placeholder]</p>
-            <p class="vpanel__desc">black-car rides completed</p>
-            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Learn more</a>
-          </div>
-        </article>
-        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="3"
-          style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
-          <span class="vpanel__img" aria-hidden="true"></span>
-          <h3 class="vpanel__label">Hospitality</h3>
-          <div class="vpanel__body">
-            <h3 class="vpanel__h">Hospitality</h3>
-            <hr class="vpanel__rule">
-            <p class="vpanel__stat">[placeholder]</p>
-            <p class="vpanel__desc">covers served</p>
-            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Learn more</a>
-          </div>
-        </article>
-        <article class="vpanel" role="listitem" tabindex="0" aria-expanded="false" data-tone="4"
-          style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
-          <span class="vpanel__img" aria-hidden="true"></span>
-          <h3 class="vpanel__label">Automotive</h3>
-          <div class="vpanel__body">
-            <h3 class="vpanel__h">Automotive</h3>
-            <hr class="vpanel__rule">
-            <p class="vpanel__stat">[placeholder]</p>
-            <p class="vpanel__desc">oil changes booked</p>
-            <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Learn more</a>
-          </div>
-        </article>
-        <a class="verts__all-box" href="../../../02_Wireframes/active/pages/vertical-software.html" aria-label="Explore all verticals">
-          <span class="va-label">Explore all verticals</span>
-          <span class="va-arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
+    <!--
+      Unsplash panel photos (hotlinked · Unsplash License · attribution appreciated):
+      ERP — office, photo-1497366216548-37526070297c (Nastuh Abootalebi)
+      Wine — wine, photo-1516594915697-87eb3b1c14ea (Unsplash)
+      Transportation — warehouse, photo-1586528116311-ad8dd3c8310d (CHUTTERSNAP)
+      Hospitality — kitchen, photo-1556910103-1c02745aae4d (Jason Briscoe)
+      Automotive — car, photo-1502877338535-766e1452684a (Unsplash)
+      Stats are vertical-specific [placeholder]s — never invent a real figure.
+    -->
+    <div class="verts__stage rv" id="vertStage" role="group" aria-label="Vertical markets" style="--rv-d:120ms">
+      <article class="vpanel is-open" data-tone="0"
+        style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        <span class="vpanel__img" aria-hidden="true"></span>
+        <button type="button" class="vpanel__toggle" aria-expanded="true" aria-controls="vpanel-body-0">
+          <span class="vpanel__label">ERP</span>
+        </button>
+        <div class="vpanel__body" id="vpanel-body-0">
+          <h3 class="vpanel__h">ERP</h3>
+          <hr class="vpanel__rule">
+          <p class="vpanel__stat">[placeholder]</p>
+          <p class="vpanel__desc">enterprise resource planning — the system of record</p>
+          <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#erp">Learn more</a>
+        </div>
+      </article>
+      <article class="vpanel" data-tone="1"
+        style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        <span class="vpanel__img" aria-hidden="true"></span>
+        <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-1">
+          <span class="vpanel__label">Wine</span>
+        </button>
+        <div class="vpanel__body" id="vpanel-body-1">
+          <h3 class="vpanel__h">Wine</h3>
+          <hr class="vpanel__rule">
+          <p class="vpanel__stat">[placeholder]</p>
+          <p class="vpanel__desc">bottles of wine shipped</p>
+          <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Learn more</a>
+        </div>
+      </article>
+      <article class="vpanel" data-tone="2"
+        style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        <span class="vpanel__img" aria-hidden="true"></span>
+        <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-2">
+          <span class="vpanel__label">Transportation</span>
+        </button>
+        <div class="vpanel__body" id="vpanel-body-2">
+          <h3 class="vpanel__h">Transportation</h3>
+          <hr class="vpanel__rule">
+          <p class="vpanel__stat">[placeholder]</p>
+          <p class="vpanel__desc">black-car rides completed</p>
+          <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Learn more</a>
+        </div>
+      </article>
+      <article class="vpanel" data-tone="3"
+        style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        <span class="vpanel__img" aria-hidden="true"></span>
+        <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-3">
+          <span class="vpanel__label">Hospitality</span>
+        </button>
+        <div class="vpanel__body" id="vpanel-body-3">
+          <h3 class="vpanel__h">Hospitality</h3>
+          <hr class="vpanel__rule">
+          <p class="vpanel__stat">[placeholder]</p>
+          <p class="vpanel__desc">covers served</p>
+          <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Learn more</a>
+        </div>
+      </article>
+      <article class="vpanel" data-tone="4"
+        style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        <span class="vpanel__img" aria-hidden="true"></span>
+        <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-4">
+          <span class="vpanel__label">Automotive</span>
+        </button>
+        <div class="vpanel__body" id="vpanel-body-4">
+          <h3 class="vpanel__h">Automotive</h3>
+          <hr class="vpanel__rule">
+          <p class="vpanel__stat">[placeholder]</p>
+          <p class="vpanel__desc">oil changes booked</p>
+          <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Learn more</a>
+        </div>
+      </article>
+      <a class="verts__all-box" href="../../../02_Wireframes/active/pages/vertical-software.html" aria-label="Explore all verticals">
+        <span class="va-label">Explore all verticals</span>
+        <span class="va-arrow" aria-hidden="true">→</span>
+      </a>
     </div>
   </section>
 
@@ -2083,7 +2260,7 @@ Square-style expanding accordion (white canvas). -->
         </div>
       </header>
 
-      <div class="careers__grid rv" aria-label="Employee voices" style="--rv-d:120ms">
+      <div class="careers__grid rv" role="group" aria-label="Employee voices" style="--rv-d:120ms">
         <blockquote class="careers-testimonial">
           <img class="careers-testimonial__avatar" alt=""
             src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=70"
@@ -2147,13 +2324,14 @@ Square-style expanding accordion (white canvas). -->
           </p>
         </div>
 
+        <p class="careers__posts-note">Layout only — client to supply real LinkedIn posts (see <code>linkedin-slots.md</code>).</p>
         <div class="li-scroller" id="liScroller" tabindex="0" role="region" aria-label="LinkedIn posts, scrollable">
           <article class="li-card">
             <div class="li-card__head">
               <span class="li-card__mark" aria-hidden="true">in</span>
               <div class="li-card__who">
                 <p class="li-card__name">Fullsteam</p>
-                <p class="li-card__meta">2d · 🌐 [placeholder]</p>
+                <p class="li-card__meta">2d · <span aria-hidden="true">🌐</span> [placeholder]</p>
               </div>
             </div>
             <p class="li-card__text">Every vertical runs on software that was <em>built for it</em>. Not adapted. [placeholder]</p>
@@ -2175,7 +2353,7 @@ Square-style expanding accordion (white canvas). -->
               <span class="li-card__mark" aria-hidden="true">in</span>
               <div class="li-card__who">
                 <p class="li-card__name">Fullsteam</p>
-                <p class="li-card__meta">5d · 🌐 [placeholder]</p>
+                <p class="li-card__meta">5d · <span aria-hidden="true">🌐</span> [placeholder]</p>
               </div>
             </div>
             <p class="li-card__text">We’re hiring across engineering and product. Small teams, real ownership. [placeholder]</p>
@@ -2197,7 +2375,7 @@ Square-style expanding accordion (white canvas). -->
               <span class="li-card__mark" aria-hidden="true">in</span>
               <div class="li-card__who">
                 <p class="li-card__name">Fullsteam</p>
-                <p class="li-card__meta">1w · 🌐 [placeholder]</p>
+                <p class="li-card__meta">1w · <span aria-hidden="true">🌐</span> [placeholder]</p>
               </div>
             </div>
             <p class="li-card__text">Hospitality, wine, ERP, transportation — eleven verticals, one home. [placeholder]</p>
@@ -2218,7 +2396,7 @@ Square-style expanding accordion (white canvas). -->
               <span class="li-card__mark" aria-hidden="true">in</span>
               <div class="li-card__who">
                 <p class="li-card__name">Fullsteam</p>
-                <p class="li-card__meta">2w · 🌐 [placeholder]</p>
+                <p class="li-card__meta">2w · <span aria-hidden="true">🌐</span> [placeholder]</p>
               </div>
             </div>
             <p class="li-card__text">Mostly remote, deliberately small, learning a real industry. [placeholder]</p>
@@ -2249,6 +2427,7 @@ Square-style expanding accordion (white canvas). -->
       </p>
     </div>
   </section>
+  </main>
 
   <!-- Site footer — same IA + chrome as the open Menu overlay (KB §14) -->
   <footer class="site-footer" id="siteFooter">
@@ -2319,7 +2498,7 @@ Square-style expanding accordion (white canvas). -->
 
   <!-- navigation dropdown — six-item single column (2026-10-22).
        Acquisitions (the For Founders page) lives here, not in the header strip. -->
-  <div class="menu" id="siteMenu" hidden>
+  <div class="menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
     <nav class="menu__panel" aria-label="Site">
       <div class="menu__inner">
         <div class="menu__row">
@@ -2362,20 +2541,49 @@ Square-style expanding accordion (white canvas). -->
       if (!stage || !hero) return;
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-      /* Section 02 — sticky rail. The photo + caption follow whichever content block
-         is active on the left. The rail itself is CSS `position: sticky`, so this
-         only has to decide WHICH block is current. */
-      var railShots = wwd ? wwd.querySelectorAll('.who__shot') : [];
-      var railCap = wwd ? wwd.querySelector('.who__cap') : null;
-      var railSteps = wwd ? wwd.querySelectorAll('.who__step') : [];
+      var paraMode = wwd && wwd.classList.contains('who--parallax');
+      var paraSection = paraMode ? wwd : null;
+      var paraBand = paraMode ? document.getElementById('whoParaBand') : null;
+      var paraPanels = paraMode
+        ? [].slice.call(document.querySelectorAll('.who-para__panel'))
+        : [];
+      var paraAcquire = paraMode ? document.getElementById('whoParaAcquire') : null;
+      var paraProg = paraMode ? document.getElementById('whoParaProg') : null;
+      var paraProgBtns = paraMode
+        ? [].slice.call(document.querySelectorAll('.who-para__prog-btn'))
+        : [];
+      var paraStep = -1;
+      var paraWhoOver = 0;
+
+      /* Section 02 — sticky rail (module: modules/who-sticky-rail/). Active when
+         #who-we-are has .who--sticky-rail, not .who--parallax. */
+      var railShots = wwd && !paraMode ? wwd.querySelectorAll('.who__shot') : [];
+      var railCap = wwd && !paraMode ? wwd.querySelector('.who__cap') : null;
+      var railSteps = wwd && !paraMode ? wwd.querySelectorAll('.who__step') : [];
       var railActive = -1;
 
       function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
-      /* Header stays clear over the hero; solid only once the stage has left the viewport. */
-      function syncBarSolid() {
+      /* Full opaque header when beat-02 scroll-out completes (--who-over → 1), i.e.
+         Acquire has landed under the bar. Ramp tracks the same window (releaseY → +1vh). */
+      var BAR_SOLID_WHO_OVER = 1;
+      function syncBarSolid(whoOver) {
         if (!bar) return;
-        var past = stage.getBoundingClientRect().bottom <= bar.offsetHeight;
-        bar.classList.toggle('is-solid', past);
+        var barH = bar.offsetHeight || 68;
+        var solidP = 0;
+        if (paraMode) {
+          var over = typeof whoOver === 'number' ? whoOver : paraWhoOver;
+          var overP = BAR_SOLID_WHO_OVER > 0 ? clamp01(over / BAR_SOLID_WHO_OVER) : 0;
+          /* Acquire kicker at the sticky line (= landed); full opacity no later than this. */
+          var landP = 0;
+          if (paraAcquire && paraAcquire.getBoundingClientRect().top <= barH + 0.5) landP = 1;
+          solidP = Math.max(smoothstep(overP), landP);
+        } else if (whoSec) {
+          var secTop = whoSec.getBoundingClientRect().top;
+          solidP = secTop <= barH ? 1 : clamp01(1 - (secTop - barH) / (window.innerHeight * 0.45));
+        }
+        solidP = clamp01(solidP);
+        bar.style.setProperty('--bar-solid', solidP.toFixed(4));
+        bar.classList.toggle('is-solid', solidP >= 0.999);
       }
       function segment(t, a, b) {
         if (t <= a) return 0;
@@ -2392,7 +2600,7 @@ Square-style expanding accordion (white canvas). -->
          started reading it. NB: the caller clears `ticking` before calling this,
          so an early return here can never leave the scroll queue latched. */
       function renderRail() {
-        if (!railSteps.length) return;
+        if (paraMode || !railSteps.length) return;
         var line = window.innerHeight * 0.55;
         var idx = 0;
         for (var i = 0; i < railSteps.length; i++) {
@@ -2512,7 +2720,7 @@ Square-style expanding accordion (white canvas). -->
        Driven by the SECTION's own entry. The frame's TOP reaching the fold
        (not its centre) is the start, because that is the moment the photo
        actually comes on screen. */
-      var whoSec = document.getElementById('who-we-are');
+      var whoSec = !paraMode ? document.getElementById('who-we-are') : null;
       var whoFrame = whoSec && whoSec.querySelector('.who__frame');
       var whoRise = whoSec
         ? [].slice.call(whoSec.querySelectorAll('.who__rise'))
@@ -2520,6 +2728,37 @@ Square-style expanding accordion (white canvas). -->
       var whoCap = whoSec && whoSec.querySelector('.who__cap');
       var whoSettled = false, whoStart = null;
       var whoP = -1;
+
+      function renderPara() {
+        if (!paraMode || !wwd || !paraPanels.length) return;
+        var barH = bar ? bar.offsetHeight : 68;
+        var vh = window.innerHeight;
+        var sec = wwd.getBoundingClientRect();
+        /* A/G/L prog: not during hero-only scroll — wait until beat 02 has started
+           sliding over the hero (--who-over from render()). */
+        var inSec = paraWhoOver >= 0.35 &&
+          sec.top < vh - 24 && sec.bottom > barH + 24;
+        if (paraProg) paraProg.classList.toggle('is-visible', inSec);
+        var line = barH + (vh - barH) * 0.42;
+        var idx = 0;
+        for (var i = 0; i < paraPanels.length; i++) {
+          if (paraPanels[i].getBoundingClientRect().top <= line) idx = i;
+        }
+        if (idx === paraStep) return;
+        paraStep = idx;
+        for (var b = 0; b < paraProgBtns.length; b++) {
+          paraProgBtns[b].classList.toggle('is-on', Number(paraProgBtns[b].dataset.step) === idx);
+        }
+      }
+      function scrollToParaStep(step) {
+        if (!paraPanels[step] || reduce.matches) return;
+        paraPanels[step].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      paraProgBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          scrollToParaStep(Number(btn.dataset.step));
+        });
+      });
 
       /* Measured from DOCUMENT position, never the live rect. Once the rail goes
          sticky its on-screen top freezes at 0, so any rect-based progress would
@@ -2596,11 +2835,17 @@ Square-style expanding accordion (white canvas). -->
       var ticking = false;
       function render() {
         ticking = false;
-        syncBarSolid();
         /* the rail runs even when the hero pin is disabled (reduced motion) —
            swapping which photo is showing is content, not motion */
         renderRail();
-        if (syncMode()) return;
+        if (syncMode()) {
+          if (paraMode) {
+            paraWhoOver = 1;
+            renderPara();
+          }
+          syncBarSolid(paraMode ? 1 : 0);
+          return;
+        }
 
         var vh = window.innerHeight;
         var heroH = hero.offsetHeight || vh;
@@ -2654,22 +2899,53 @@ Square-style expanding accordion (white canvas). -->
         var releaseY = stage.offsetHeight - heroH;
         var scrollY = window.scrollY || document.documentElement.scrollTop || 0;
         var past = scrollY - releaseY;
-        var outMedia = clamp01(past / (vh * 0.6));
-        var outCopy = clamp01(past / (vh * 0.28));
+        /* Parallax section scrolls over the hero — keep footage visible longer under it. */
+        var mediaFadeVh = paraMode ? 1.05 : 0.6;
+        var copyFadeVh = paraMode ? 0.24 : 0.28;
+        var outMedia = clamp01(past / (vh * mediaFadeVh));
+        var outCopy = clamp01(past / (vh * copyFadeVh));
         hero.style.setProperty('--hero-media-fade', (1 - outMedia).toFixed(3));
         hero.style.setProperty('--hero-copy-fade', (1 - outCopy).toFixed(3));
 
-        renderWho();
+        /* Beat 02 slides up over the hero canvas only after pin release, keyed to
+           the same scroll-out window as the media/copy fades (past over one vh). */
+        if (paraMode && wwd) {
+          var whoOver = scrollY >= releaseY ? clamp01(past / vh) : 0;
+          paraWhoOver = whoOver;
+          wwd.style.setProperty('--who-over', whoOver.toFixed(4));
+          var ty = (1 - whoOver) * heroH;
+          wwd.style.transform = 'translate3d(0,' + ty.toFixed(2) + 'px,0)';
+        }
+
+        if (paraMode) renderPara();
+        if (!paraMode) renderWho();
+        syncBarSolid(paraMode ? paraWhoOver : undefined);
       }
       function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(render); } }
       window.addEventListener('scroll', onScroll, { passive: true });
       if (reduce.addEventListener) reduce.addEventListener('change', onScroll);
       else if (reduce.addListener) reduce.addListener(onScroll);
-      measureWho();
+      if (!paraMode) measureWho();
+      function syncHeroMetrics() {
+        if (!hero) return;
+        var h = hero.offsetHeight;
+        if (h > 0) {
+          document.documentElement.style.setProperty('--hero-h', h + 'px');
+        }
+        if (bar && bar.offsetHeight > 0) {
+          document.documentElement.style.setProperty('--bar-h', bar.offsetHeight + 'px');
+        }
+      }
+      syncHeroMetrics();
       render();
       /* the reveal is measured from the section's real position — reset it when
          the window changes */
-      var onResize = function () { measureWho(); onScroll(); };
+      var onResize = function () {
+        syncHeroMetrics();
+        if (!paraMode) measureWho();
+        paraStep = -1;
+        onScroll();
+      };
       window.addEventListener('resize', onResize);
     })();
 
@@ -2691,7 +2967,7 @@ Square-style expanding accordion (white canvas). -->
 
       function setCtrl(playing) {
         if (!ctrl) return;
-        ctrl.setAttribute('aria-pressed', playing ? 'false' : 'true');
+        ctrl.classList.toggle('is-paused', !playing);
         ctrl.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
       }
       function play() {
@@ -2746,60 +3022,10 @@ Square-style expanding accordion (white canvas). -->
       }
     })();
 
-    // Scale (stats) → verticals: KPI count-up + expanding accordion
+    // Verticals: expanding accordion
     (function () {
       var section = document.getElementById('investors');
       if (!section) return;
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-      var line = document.getElementById('sentLine');
-      var words = line ? line.querySelectorAll('.sent-w') : [];
-      // the playhead: a word is lit as it rises past this line of the viewport
-      var FOCUS = 0.72;
-
-      /* ---- the scrub ----------------------------------------------------- */
-      var lastQ = [], ticking = false;
-
-      function scrub() {
-        if (!words.length) return;
-        // Read live every frame — only two rects, and it has to be live: the
-        // pinned hero above collapses as you scroll, which moves the sentence
-        // up the document, so any cached offset drifts by hundreds of pixels.
-        var a = words[0].getBoundingClientRect();
-        var b = words[words.length - 1].getBoundingClientRect();
-        // the sweep is spread over the sentence's travel, plus slack so it lingers
-        var span = Math.max(b.bottom - a.top + a.height, window.innerHeight * 0.55);
-        // one global progress, then handed out per word in reading order —
-        // this is the screenshot's behaviour: line 1, then line 2, word by word
-        var g = (window.innerHeight * FOCUS - a.top) / span;
-        g = g < 0 ? 0 : (g > 1 ? 1 : g);
-        var n = words.length;
-        var pos = g * n;
-        for (var i = 0; i < n; i++) {
-          var p = pos - i;
-          p = p < 0 ? 0 : (p > 1 ? 1 : p);
-          var q = Math.round(p * 40);          // quantise — only write real changes
-          if (lastQ[i] === q) continue;
-          lastQ[i] = q;
-          var t = q / 40;
-          words[i].style.opacity = (0.08 + 0.92 * t).toFixed(3);
-          words[i].style.filter = t >= 1 ? 'none' : 'blur(' + ((1 - t) * 6).toFixed(2) + 'px)';
-        }
-      }
-
-      function onScroll() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () { ticking = false; scrub(); });
-      }
-
-      /* ---- init ----------------------------------------------------------- */
-      // the numbers are static — they read their values straight from the markup
-      // and the word scrub carries the whole reveal.
-      if (words.length && !reduce.matches) {
-        scrub();
-        window.addEventListener('scroll', onScroll, { passive: true });
-      }
 
       /* Expanding accordion: hover/click opens one strip; first panel open by default.
          Reduced-motion still switches panels — only the width animation is off (CSS). */
@@ -2809,11 +3035,16 @@ Square-style expanding accordion (white canvas). -->
         var panels = Array.prototype.slice.call(stage.querySelectorAll('.vpanel'));
         var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
 
+        /* each panel's disclosure state lives on its <button>, which is what AT
+           understands; the article itself is no longer focusable */
+        function toggleOf(panel) { return panel.querySelector('.vpanel__toggle'); }
+
         function select(panel) {
           panels.forEach(function (p) {
             var on = p === panel;
             p.classList.toggle('is-open', on);
-            p.setAttribute('aria-expanded', on ? 'true' : 'false');
+            var btn = toggleOf(p);
+            if (btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
           });
         }
 
@@ -2825,13 +3056,11 @@ Square-style expanding accordion (white canvas). -->
           if (fine.matches) {
             panel.addEventListener('mouseenter', function () { select(panel); });
           }
-          panel.addEventListener('keydown', function (e) {
+          var btn = toggleOf(panel);
+          if (!btn) return;
+          /* Enter/Space come free on a real button; only roving arrows are ours */
+          btn.addEventListener('keydown', function (e) {
             var next = -1;
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              select(panel);
-              return;
-            }
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (idx + 1) % panels.length;
             if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (idx - 1 + panels.length) % panels.length;
             if (e.key === 'Home') next = 0;
@@ -2839,7 +3068,8 @@ Square-style expanding accordion (white canvas). -->
             if (next < 0) return;
             e.preventDefault();
             select(panels[next]);
-            panels[next].focus();
+            var nb = toggleOf(panels[next]);
+            if (nb) nb.focus();
           });
         });
       }
@@ -2892,6 +3122,7 @@ Square-style expanding accordion (white canvas). -->
       var prev = document.getElementById('liPrev');
       var next = document.getElementById('liNext');
       if (!scroller) return;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
       // one "page" = the first card that isn't already fully visible
       function step() {
@@ -2916,7 +3147,7 @@ Square-style expanding accordion (white canvas). -->
       function go(dir) {
         var s = step();
         var d = dir < 0 ? -s : s;
-        scroller.scrollBy({ left: d, behavior: 'smooth' });
+        scroller.scrollBy({ left: d, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
       }
 
       if (prev) prev.addEventListener('click', function () { go(-1); });
@@ -2958,7 +3189,18 @@ Square-style expanding accordion (white canvas). -->
         if (menu.hidden) openMenu(); else { closeMenu(); btn.focus({ preventScroll: true }); }
       });
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && !menu.hidden) { closeMenu(); btn.focus({ preventScroll: true }); }
+        if (menu.hidden) return;
+        if (e.key === 'Escape') { closeMenu(); btn.focus({ preventScroll: true }); return; }
+        if (e.key !== 'Tab') return;
+        /* AA 4.1.2 / 2.4.3: aria-modal only holds if focus actually stays inside */
+        var f = Array.prototype.filter.call(
+          menu.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+          function (el) { return el.offsetParent !== null; }
+        );
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       });
       // click the scrim, or any link, closes it
       menu.addEventListener('click', function (e) {

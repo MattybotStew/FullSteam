@@ -37,6 +37,11 @@ _site/
 !03_Design/explorations/02-video-hero/assets/fullsteam-logo.svg
 !03_Design/explorations/02-video-hero/assets/hero-stock.mp4
 
+# Review screenshots for an unpromoted exploration. homev2-check/ is tracked
+# because homev2/ is tracked; homev3-check/ is not, because homev3/ is not.
+# If homev3 is ever promoted to a tracked set, promote its check folder too.
+homev3-check/
+
 
 
 # Confidential client source docs — do NOT commit to this public repo

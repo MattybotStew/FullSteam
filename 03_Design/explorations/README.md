@@ -1,5 +1,11 @@
 # Design Exploration Sandbox
 
+> **Official working design: [`homev2/`](./homev2/index.html)** — declared 2026-10-23.
+> This is the single page the project is working from: **video hero + the `who we are`
+> sticky-image-rail second section**. It is audited and fixed for **WCAG 2.1 AA**
+> (axe: 0 violations in normal and reduced-motion) — see [`homev2/ada-audit.md`](./homev2/ada-audit.md).
+> Every other set on this board is **history or a side study**, not the direction.
+
 > **Status:** Internal only · unreviewed · **NOT client-facing.**
 > **This folder is gitignored by default** (`03_Design/explorations/*`). Exception:
 > **`02-video-hero/`** is tracked for an internal GH Pages preview (HTML + logo only;
@@ -51,12 +57,11 @@ python3 -m http.server 8000
   README.md             ← this file
   _template/            ← copy this to start a new exploration set
     index.html
-  01-dark-cinematic/    ← one folder per exploration set (name: NN-topic)
-    index.html
-    direction.md
-  02-video-hero/
-    index.html
-    direction.md
+  01-dark-cinematic/    ← history: off-brand palette test
+  02-video-hero/        ← history: the original stacked-band hero
+  03-section-two-sandbox/ ← history: six candidates for section 02
+  homev2/               ← ★ OFFICIAL working design (video hero + sticky rail), AA
+  homev3/               ← side study: calm-canvas / Asana register
 ```
 
 One folder per exploration set, named `NN-topic` (e.g. `01-dark-cinematic`,

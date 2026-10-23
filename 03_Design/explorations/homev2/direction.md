@@ -1,9 +1,45 @@
 # homev2 — video hero + sticky image rail
 
-> **Status:** INTERNAL · UNREVIEWED · **unofficial.** Not client-facing.
-> **Client is still reviewing the hero design.** Nothing here is a decision.
-> Forked from [`../02-video-hero/`](../02-video-hero/) — that set is untouched and
-> still the reference for the hero itself.
+> **Status:** ★ **OFFICIAL WORKING DESIGN** (declared 2026-10-23) · INTERNAL · not client-facing.
+> This is the page the project works from — **supersedes `02-video-hero`**, which is kept
+> as history. **WCAG 2.1 AA verified** (axe 4.10.2: 0 violations, normal and
+> `prefers-reduced-motion: reduce`) — see [`ada-audit.md`](./ada-audit.md).
+> The hero design is still under client review; the accessibility work is not.
+> **Figma review (2026-10-23):** comment compile + paste blurbs in [`figma-review-2026-10-23.md`](./figma-review-2026-10-23.md).
+
+## Recent changes (2026-10-23)
+
+**Section 02 → Option 14 parallax depth stack (design pass).** Live `#who-we-are` is
+`.who--parallax` (320vh scroll, three drifting planes, A/G/L focus). The previous
+**sticky image rail** is archived, not deleted:
+[`modules/who-sticky-rail/`](./modules/who-sticky-rail/) (fragment + JS + README).
+Wireframe reference: [`02_Wireframes/active/what-we-do-parallax-depth.html`](../../02_Wireframes/active/what-we-do-parallax-depth.html).
+
+**Scale and verticals type.** Review comment: the filmstrip type was hard to read.
+Collapsed labels and “Explore all verticals” go from 14px / tracked to **18px**.
+The open panel’s description and link leave 12px Fragment Mono for **16px / 15px
+Instrument Sans** in white. Photos are unchanged — still the Unsplash stand-ins.
+
+**Founders band scrim.** Figma pin: test section above Careers for AA. Right-edge
+scrim raised **0.35 → 0.55** (left **0.72 → 0.82**) so white type clears **≥4.5:1**
+even over a bright photo at the light edge of the gradient.
+
+### Hero video (Figma review — sample footage)
+
+Client ask: hero video that reflects priority verticals (**ERP, Wine, Transportation,
+Hospitality, Automotive**) and/or **payment processing** — not generic b-roll.
+
+Until a clip is approved:
+
+- Ship target remains **`hero-stock.mp4`** (or equivalent muted loop under `#heroVideo`).
+- **Contrast is footage-dependent** — when the file changes, re-run the frame sampling
+  in [`ada-audit.md`](./ada-audit.md) (headline tint `.62 − .04·pTint`; worst case must
+  stay **≥3:1** for large type, **≥4.5:1** for body/CTA bands as measured today).
+- Prefer clips with **mid-tones behind the headline zone** (avoid blown highlights where
+  the H1 sits). If footage cannot be graded, add a plate behind copy instead of relying
+  on tint alone.
+
+**Out of repo:** licensing, brand approval, and final encode are client/production.
 
 ## Recent changes (2026-10-22)
 
@@ -97,6 +133,78 @@ as one column.
   wired them into the reveal (`.rv`), the rail crossfade (`.who__shot`) and the verticals
   accordion (`.vpanel`) — the start of a single motion system.
 
+### 5. The stats band was cut, not redesigned (2026-10-23)
+
+The band was rebuilt twice the same day — scrubbed sentence → three KPI blocks → a two-track
+"ledger" — and all three shared one flaw: **they restated the page.** Every figure in the band
+already appears in `#who-we-are`, 640–1,825px above it:
+
+| Figure | §02 `#who-we-are` | Band (removed) | Filmstrip |
+|---|---|---|---|
+| **70,000+** | step 1, 68px (`y 1707`) | 118px (`y 3532`) | — |
+| **$75B** | step 2, 68px (`y 2275`) | 118px | — |
+| **11** | step 3 caption, "across 11 verticals" | 118px | the section's whole subject |
+| **2,000+** | step 3, 68px (`y 2781`) | — | — |
+
+So the band's unique content was **zero figures**. It said 70,000+ at 68px, again at 118px
+1,825px later, and again as "11 Industries" immediately before a section whose entire subject is
+eleven verticals. It was also the only section on the page with no heading or kicker, which made
+it read as filler rather than a claim.
+
+**Removed:** `#statsBand`, `.stats`, `.stats__inner`, `.kpis`, `.kpi__num`, `.kpi__label`, and
+their 900px overrides. `.verts` absorbed the old `.scale` wrapper's stacking context and
+`--mono-d` alias; the section keeps `id="investors"` and now takes its accessible name from its
+own `h2` (`aria-labelledby="vertsTitle"`, replacing `aria-label="Scale and verticals"`).
+
+- **Measured:** page **8,700px → 8,242px** at 1440×900 (−458px). The blue `#who-we-are` block
+  now meets the white verticals section directly — a colour change is the boundary, so no gap
+  was needed. Mobile 9,486px at 390 and 9,680px at 320 (the band was 596px there); 8,965px at
+  1920.
+- **No horizontal overflow** at 320 / 390 / 768 / 1440 / 1920. The accordion still initialises —
+  five panels, one open by default, five disclosures.
+- **AA:** axe 4.10.2, WCAG 2.1 AA — **0 violations** in normal, fully-revealed, and
+  `prefers-reduced-motion: reduce` (26 rules passing). Nothing new was added; the section is the
+  filmstrip it already was.
+
+**Why not consolidate into the band instead?** That was the alternative: cut §02's three metrics
+and keep a four-figure row (adding `480M+ transactions` from the wireframe's `proof-strip`). It
+was rejected because §02's figures sit directly under the claim each one proves — *we keep
+buying* → 70,000+; *what's behind it* → $75B; *the software leads its market* → 2,000+ people
+across 11 verticals. Relocating them would cost three evidence anchors to remove one repetition,
+and `480M+` is still a placeholder pending publishability (OI-5). If the client later wants one
+scannable row for investors, that is the trade to reopen — and it belongs in the wireframe track
+first, where `proof-strip` still carries four figures.
+
+
+### 6. One 100px edge for header, acquire, founders and verticals (2026-10-23)
+
+Four edges that were within one viewport of each other and shared nothing: the header had a
+hardcoded `20px` inset (`padding: 10px 20px`, inherited from the Figma "home" frame), the acquire
+section sat on `24px`, the founders band on `8vw` (115px at 1440), and "Keep the businesses
+growing." on `10%` (144px). All four now share **100px**.
+
+- `.hero__bar` `10px 20px` → **`10px 100px`** (logo left edge and CTA pill right edge both at 100).
+- `.who` (acquire) `56px 24px` → **`56px 100px`**; the sticky rail's right edge follows to 100.
+- `.founders` `clamp(72px, 10vh, 120px) 8vw` → **`… 100px`**.
+- `.verts` (verticals) `--gutter: 10%` → **`--gutter: 100px`**. One variable drives the head, the
+  stage and the eleven links, so all three rows moved together. The stage widens 1152 → 1240 at
+  1440; the open panel goes 465 → 515. The `.verts__title` keeps its 1160px readable measure and
+  stays centred inside the wider box (140px each side at 1440), so the headline is not re-set.
+
+**100px is a desktop measure, so it steps down at the existing breakpoints.** At 320px a 100px
+inset leaves 120px of content, and the header's logo + menu + CTA need 262px of row — the CTA ran
+42px off-screen. So: **≤900px → 40px**, **≤560px → 24px** for `.who` / `.founders` / `.verts`,
+and **20px** for the header (tighter because its row is fixed-height content, not flowing text).
+
+Verified at 320 / 390 / 560 / 768 / 900 / 1023 / 1024 / 1280 / 1440 / 1920: `padding-left` reads
+20 / 24 / 40 / 100 with no horizontal overflow at any width; logo, acquire step, founders copy,
+verticals head, stage and links all land on the same 100px edge at ≥1023; the accordion still
+initialises (five panels, one open, 515 + 4×140 at 1440); and axe 2.1 AA stays at **0 violations**
+normal and fully revealed.
+
+Not touched, so the page still runs on several edges: hero `min(1100px, 100vw−48px)` centred
+(170px at 1440), `#ai`/`#careers` inner `160px`, `#close` inner `240px`, footer nav `160px`.
+
 ## What this is
 
 A full homepage built on exploration 02's **video hero + cube collapse**, with the
@@ -119,7 +227,7 @@ the Square reference clip, both local-only / gitignored).
 | Page height | 7,725px | 9,840px |
 
 Everything else is inherited unchanged: the pinned video hero, the headline handoff, the
-cube collapse, `#investors` (scale sentence + verticals), `#ai`, `#careers`, `#close`, and
+cube collapse, `#investors` (scale band + verticals), `#ai`, `#careers`, `#close`, and
 the footer.
 
 ## ⚠ This is a strategy change, not a polish pass
