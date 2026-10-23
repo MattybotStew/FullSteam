@@ -72,6 +72,18 @@ This file is the canonical agent entry point (works with Cursor, which reads
   category landing pages. See `plans/sitemap-lock.md` and KB §14.
 - We are in the **Sitemap/Wireframe** milestone; the **homepage** is the active
   design surface and is still being iterated.
+- **Two live homepage explorations (internal, unpromoted, gitignored unless
+  tracked).** `03_Design/explorations/homev2/` is the blue/video direction
+  (client's hero is under review). `03_Design/explorations/homev3/` is the
+  **"calm canvas"** pass — homev2's content model rebuilt in an Asana-style
+  system (white canvas, near-black ink, one surface band, 100/200/300ms
+  motion, no serif, no video), and it **restores the grow morph** from KB §23
+  (the surface under the identity card expands to full bleed as Axis B lands).
+  Both are sandboxes, not decisions — see each set's `direction.md`, and
+  `03_Design/explorations/README.md` for the promotion path.
+  `03_Design/explorations/homev4/` is a **Localyzer-register** layout study (pinned
+  Axis A, vertical filmstrip morph, Axis B scroll copy) on official tokens — same
+  promotion rules.
 - **Header chrome (provisional):** Option **B revised** — Logo · hamburger Menu · Explore
   vertical solutions. The open menu is a **single column** (2026-10-22), not a mega-menu.
   **For Founders is not in the header strip** as of 2026-09-23; Acquisitions (that page)

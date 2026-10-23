@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What we do — layout options (low-fi) · Fullsteam homepage §02</title>
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --tan:#F3E6D0;
+    --line:#000000;
+    --panel:#FFFFFF;
+    --text:#000000;
+    --muted:#222222;
+    --yellow:#FFC600;
+    --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    padding-bottom:80px;
+  }
+  .notice{
+    background:#000; color:#fff; font-size:12px; letter-spacing:.02em;
+    padding:8px 24px; font-weight:500;
+  }
+  .notice span{ opacity:.7; margin-left:8px; font-weight:400; }
+  .intro{
+    max-width:1200px; margin:28px auto 0; padding:0 24px;
+  }
+  .intro h1{ font-size:22px; }
+  .intro p{ font-size:13px; color:var(--muted); margin-top:6px; max-width:78ch; line-height:1.5; }
+  .intro a{ color:var(--text); }
+  .beat{
+    font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+    text-transform:uppercase; font-weight:700; margin-bottom:8px;
+  }
+  .anno{
+    font-size:12px; color:var(--muted); line-height:1.45;
+    border-left:2px dashed var(--line); padding-left:10px; margin-top:8px;
+  }
+  .option{ max-width:1200px; margin:28px auto; padding:0 24px; }
+  .option-label{
+    border:1px solid var(--line);
+    background:var(--tan);
+    padding:12px 16px;
+  }
+  .option-label b{ font-size:14px; }
+  .option-label span{ display:block; font-size:12px; color:var(--muted); margin-top:4px; line-height:1.4; }
+  .chrome{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-top:none;
+    padding:24px;
+  }
+  .section-head{
+    text-align:center; max-width:720px; margin:0 auto 28px;
+  }
+  .section-head h2{
+    font-size:clamp(22px,3vw,32px); font-weight:700; letter-spacing:-.02em;
+    margin-bottom:8px;
+  }
+  .section-head p{ font-size:15px; line-height:1.45; }
+  .ph{
+    border:1px dashed var(--line); background:var(--tan);
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px; color:var(--muted); text-align:center; padding:12px;
+  }
+  .step-k{
+    font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+    text-transform:uppercase; font-weight:700; margin-bottom:8px;
+  }
+  .metric{
+    font-size:20px; font-weight:700; margin:8px 0;
+    font-family:var(--mono);
+  }
+  .pill{
+    display:inline-block; background:var(--yellow); border:1px solid var(--line);
+    font-size:12px; font-weight:700; padding:10px 16px; text-decoration:none; color:var(--text);
+  }
+  /* Option 1 — baseline */
+  .steps-3{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+    margin-bottom:24px;
+  }
+  .step{ border-top:2px solid var(--line); padding-top:14px; }
+  .step h3{ font-size:18px; margin-bottom:6px; }
+  .founder-band{
+    display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between;
+    border:1px solid var(--line); padding:20px; margin-top:8px;
+  }
+  .voice{ margin-top:20px; padding:20px; border:1px dashed var(--line); text-align:center; }
+  /* Option 2 — sticky rail schematic */
+  .rail-grid{
+    display:grid; grid-template-columns:45% 55%; gap:20px; min-height:320px;
+  }
+  .rail-steps .block{
+    border-top:1px solid var(--line); padding:20px 0; min-height:100px;
+  }
+  .rail-photo{
+    position:relative; border:2px solid var(--line);
+    min-height:280px;
+  }
+  .rail-photo .cap{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:12px; background:var(--tan); border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:10px; text-transform:uppercase;
+  }
+  .sticky-note{
+    font-size:11px; color:var(--muted); margin-top:8px;
+    font-family:var(--mono);
+  }
+  /* Option 3 — tabs */
+  .tabs{ display:flex; gap:0; border:1px solid var(--line); margin-bottom:0; }
+  .tab{
+    flex:1; padding:12px; text-align:center; font-size:13px; font-weight:700;
+    border-right:1px solid var(--line); background:var(--bg);
+  }
+  .tab.is-on{ background:var(--tan); }
+  .tab:last-child{ border-right:0; }
+  .tab-panel{
+    border:1px solid var(--line); border-top:none;
+    display:grid; grid-template-columns:1fr 1fr; gap:20px; padding:20px;
+  }
+  /* Option 4 — horizontal accordion */
+  .acc-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .acc-card{
+    border:1px solid var(--line); padding:14px; min-height:120px;
+  }
+  .acc-card.is-open{
+    grid-column:span 3;
+    display:grid; grid-template-columns:1fr 1fr; gap:20px;
+    background:var(--tan);
+  }
+  /* Motion lab (options 5–8) */
+  .lab-divider{
+    max-width:1200px; margin:40px auto 0; padding:16px 24px;
+    border:2px solid var(--line); background:#000; color:#fff;
+  }
+  .lab-divider b{ font-size:14px; }
+  .lab-divider p{ font-size:12px; opacity:.85; margin-top:6px; line-height:1.45; max-width:72ch; }
+  .motion-spec{
+    margin-top:14px; padding:12px 14px;
+    border:1px dashed var(--line); background:#fafafa;
+    font-family:var(--mono); font-size:10px; line-height:1.55;
+  }
+  .motion-spec dt{ font-weight:700; margin-top:8px; }
+  .motion-spec dt:first-child{ margin-top:0; }
+  .timeline{
+    position:relative; margin:24px 0 80px; padding-top:8px;
+    border-top:3px solid var(--line);
+  }
+  .timeline__track{
+    display:flex; justify-content:space-between; position:relative;
+  }
+  .timeline__stop{
+    width:28%; border:1px solid var(--line); padding:12px; background:var(--bg);
+    font-size:12px;
+  }
+  .timeline__stop.is-on{ background:var(--tan); outline:2px solid var(--line); }
+  .timeline__playhead{
+    position:absolute; top:-14px; left:12%; width:14px; height:14px;
+    background:var(--yellow); border:2px solid var(--line); border-radius:50%;
+  }
+  .timeline__hint{
+    position:absolute; left:0; right:0; top:100%; margin-top:12px;
+    font-family:var(--mono); font-size:10px; color:var(--muted);
+  }
+  .deck{
+    position:relative; height:220px; max-width:420px; margin:20px auto 32px;
+  }
+  .deck__card{
+    position:absolute; left:0; right:0; margin:0 auto;
+    width:92%; border:2px solid var(--line); padding:16px; background:var(--bg);
+    font-size:13px;
+  }
+  .deck__card:nth-child(1){ top:0; z-index:3; transform:rotate(-2deg); }
+  .deck__card:nth-child(2){ top:18px; z-index:2; transform:rotate(1deg); opacity:.92; }
+  .deck__card:nth-child(3){ top:36px; z-index:1; transform:rotate(-1deg); opacity:.85; }
+  .orbit{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; align-items:center;
+    min-height:240px; margin:16px 0;
+  }
+  .orbit__hub{
+    grid-column:2; justify-self:center;
+    width:120px; height:120px; border-radius:50%;
+    border:2px solid var(--line); display:flex; align-items:center; justify-content:center;
+    text-align:center; font-size:11px; font-weight:700; padding:8px;
+    background:var(--yellow);
+  }
+  .orbit__node{
+    border:1px solid var(--line); padding:14px; text-align:center; font-size:12px;
+    min-height:88px; display:flex; flex-direction:column; justify-content:center;
+  }
+  .orbit__node.is-on{ background:var(--tan); box-shadow:4px 4px 0 var(--line); }
+  .orbit__node--tl{ grid-column:1; grid-row:1; align-self:end; }
+  .orbit__node--tr{ grid-column:3; grid-row:1; align-self:end; }
+  .orbit__node--bl{ grid-column:1; grid-row:2; }
+  .orbit__spoke{
+    grid-column:2; grid-row:1 / span 2; pointer-events:none;
+    border:1px dashed var(--muted); border-radius:50%; width:100%; height:100%;
+    min-height:200px; opacity:.35;
+  }
+  .metric-stage{
+    text-align:center; padding:32px 16px; border:2px solid var(--line);
+    margin:16px 0;
+  }
+  .metric-stage__num{
+    font-size:clamp(48px,8vw,72px); font-weight:700; font-family:var(--mono);
+    letter-spacing:-.04em;
+  }
+  .metric-stage__label{ font-size:14px; margin-top:8px; }
+  .metric-stage__steps{
+    display:flex; justify-content:center; gap:8px; margin-top:16px;
+  }
+  .metric-stage__dot{
+    width:10px; height:10px; border:1px solid var(--line); background:var(--bg);
+  }
+  .metric-stage__dot.is-on{ background:var(--yellow); }
+  .marquee{
+    overflow:hidden; border:1px solid var(--line); margin:16px 0;
+  }
+  .marquee__track{
+    display:flex; gap:0; width:max-content;
+    animation:marquee-drift 18s linear infinite;
+  }
+  @keyframes marquee-drift{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .marquee__panel{
+    flex:0 0 280px; padding:20px; border-right:1px solid var(--line);
+    min-height:140px;
+  }
+  .marquee__panel.is-focus{ background:var(--tan); }
+  .type-block{
+    font-family:var(--mono); font-size:13px; line-height:1.6;
+    border:1px solid var(--line); padding:16px; min-height:100px;
+  }
+  .type-block__cursor{
+    display:inline-block; width:8px; height:14px; background:var(--line);
+    animation:type-blink 1s step-end infinite; vertical-align:text-bottom;
+  }
+  @keyframes type-blink{ 50%{ opacity:0; } }
+  .elevator{
+    display:grid; grid-template-columns:80px 1fr; gap:16px; min-height:200px;
+  }
+  .elevator__shaft{
+    border:2px solid var(--line); display:flex; flex-direction:column;
+    justify-content:space-between; padding:8px; background:var(--tan);
+  }
+  .elevator__floor{
+    font-family:var(--mono); font-size:10px; text-align:center; padding:6px;
+    border:1px solid var(--line); background:var(--bg);
+  }
+  .elevator__floor.is-on{ background:var(--yellow); font-weight:700; }
+  .elevator__door{
+    border:2px solid var(--line); padding:20px; display:flex; align-items:center;
+  }
+  .wipe{
+    display:grid; grid-template-columns:1fr 1fr; min-height:160px;
+    border:2px solid var(--line); overflow:hidden;
+  }
+  .wipe__a, .wipe__b{ padding:16px; font-size:13px; }
+  .wipe__a{ background:var(--bg); }
+  .wipe__b{ background:var(--tan); border-left:3px solid var(--line); }
+  .wipe__label{
+    font-family:var(--mono); font-size:10px; margin-top:8px; color:var(--muted);
+  }
+  .constellation{
+    position:relative; height:200px; border:1px dashed var(--line); margin:16px 0;
+    background:radial-gradient(circle at 50% 50%, var(--tan) 0%, var(--bg) 70%);
+  }
+  .constellation__dot{
+    position:absolute; width:8px; height:8px; border-radius:50%;
+    background:var(--muted); opacity:.4;
+  }
+  .constellation__dot.is-path{
+    background:var(--yellow); opacity:1; width:12px; height:12px;
+    box-shadow:0 0 0 2px var(--line);
+  }
+  .constellation__line{
+    position:absolute; height:2px; background:var(--line); opacity:.5;
+    transform-origin:left center;
+  }
+  .ledger{
+    max-width:360px; margin:16px auto; border:1px solid var(--line);
+    background:var(--tan); padding:12px;
+    font-family:var(--mono); font-size:11px; line-height:1.5;
+  }
+  .ledger__strip{
+    border-top:1px dashed var(--muted); margin-top:8px; padding-top:8px;
+    animation:ledger-roll 4s ease-in-out infinite alternate;
+  }
+  @keyframes ledger-roll{
+    from{ transform:translateY(0); }
+    to{ transform:translateY(-12px); }
+  }
+  .parallax{
+    position:relative; height:180px; border:1px solid var(--line); overflow:hidden;
+  }
+  .parallax__layer{
+    position:absolute; left:8%; right:8%; padding:10px;
+    border:1px solid var(--line); font-size:12px; background:var(--bg);
+  }
+  .parallax__layer:nth-child(1){ top:10%; z-index:1; opacity:.7; }
+  .parallax__layer:nth-child(2){ top:35%; z-index:2; background:var(--tan); }
+  .parallax__layer:nth-child(3){ top:58%; z-index:3; font-weight:700; }
+  .radar{
+    width:160px; height:160px; margin:16px auto; border-radius:50%;
+    border:2px solid var(--line); position:relative; overflow:hidden;
+  }
+  .radar__sweep{
+    position:absolute; inset:0;
+    background:conic-gradient(from 0deg, transparent 0deg, rgba(255,198,0,.35) 40deg, transparent 80deg);
+    animation:radar-spin 3s linear infinite;
+  }
+  @keyframes radar-spin{ to{ transform:rotate(360deg); } }
+  .radar__blip{
+    position:absolute; width:10px; height:10px; border-radius:50%;
+    background:var(--yellow); border:1px solid var(--line);
+  }
+  .radar__blip:nth-child(2){ top:25%; left:60%; }
+  .radar__blip:nth-child(3){ top:55%; left:35%; }
+  .radar__blip:nth-child(4){ top:70%; left:70%; }
+  .layercake{
+    display:flex; flex-direction:column-reverse; align-items:center; gap:4px;
+    margin:16px 0;
+  }
+  .layercake__tier{
+    width:var(--w, 80%); border:2px solid var(--line); padding:10px;
+    text-align:center; font-size:12px; background:var(--bg);
+  }
+  .layercake__tier.is-new{ background:var(--yellow); }
+  .map-schem{
+    position:relative; height:160px; border:1px solid var(--line);
+    background:linear-gradient(180deg, var(--tan) 0%, var(--bg) 100%);
+  }
+  .map-schem__pin{
+    position:absolute; font-size:16px; line-height:1;
+    animation:pin-drop .6s ease-out infinite alternate;
+  }
+  @keyframes pin-drop{
+    from{ transform:translateY(-20px); opacity:0; }
+    to{ transform:translateY(0); opacity:1; }
+  }
+  .map-schem__pin:nth-child(1){ top:30%; left:25%; animation-delay:0s; }
+  .map-schem__pin:nth-child(2){ top:45%; left:55%; animation-delay:.3s; }
+  .map-schem__pin:nth-child(3){ top:35%; left:75%; animation-delay:.6s; }
+  .flap{
+    display:flex; gap:6px; justify-content:center; margin:20px 0;
+    font-family:var(--mono); font-weight:700; font-size:28px;
+  }
+  .flap__cell{
+    border:2px solid var(--line); padding:8px 12px; min-width:48px;
+    text-align:center; background:var(--bg);
+  }
+  .flap__cell.is-flip{ background:var(--yellow); }
+  .choose{
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    padding:24px; border:2px solid var(--line);
+  }
+  .choose__btn{
+    width:100%; max-width:280px; padding:14px; border:2px solid var(--line);
+    background:var(--bg); font-size:14px; font-weight:700; text-align:left;
+  }
+  .choose__btn.is-lit{ background:var(--tan); }
+  .wave{
+    display:flex; align-items:flex-end; gap:4px; height:48px; margin:12px 0;
+  }
+  .wave__bar{
+    flex:1; background:var(--line); opacity:.25;
+    animation:wave-pulse 1.2s ease-in-out infinite;
+  }
+  .wave__bar:nth-child(2){ animation-delay:.15s; height:60%; }
+  .wave__bar:nth-child(3){ animation-delay:.3s; height:90%; }
+  .wave__bar:nth-child(4){ animation-delay:.45s; height:50%; }
+  .wave__bar:nth-child(1){ height:40%; }
+  @keyframes wave-pulse{
+    0%,100%{ opacity:.25; }
+    50%{ opacity:.85; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .marquee__track{ animation:none; flex-wrap:wrap; width:100%; }
+    .type-block__cursor, .ledger__strip, .radar__sweep, .map-schem__pin, .wave__bar{ animation:none; }
+  }
+  @media (max-width:800px){
+    .steps-3, .rail-grid, .tab-panel, .acc-row, .orbit{ grid-template-columns:1fr; }
+    .acc-card.is-open{ grid-column:span 1; }
+    .orbit__hub, .orbit__spoke{ display:none; }
+    .orbit__node{ grid-column:1 !important; grid-row:auto !important; }
+  }
+</style>
+</head>
+<body>
+  <p class="notice">
+    <b>Wireframe only</b>
+    <span>Homepage beat 02 — layout lab for Figma review (FS-Design #11362:2306). Not client-facing. Canonical structure stays in <a href="homepage.html#what-we-do" style="color:#fff">homepage.html §02</a>; polished build is <code>03_Design/explorations/homev2/</code>.</span>
+  </p>
+
+  <div class="intro">
+    <h1>What we do — layout options</h1>
+    <p>
+      Eighteen structures for the same content: <strong>Acquire → Grow → Lead</strong>, optional metrics,
+      founder CTA (Acquisitions — not in header), founder voice. Options 1–4 are conventional IA;
+      <strong>5–18 are motion / “outside the box” sketches</strong> (interaction described, not built).
+      Message order: software first, then verticals, then embedded payments (KB §20). Never frame as an “exit.”
+    </p>
+    <p class="anno" style="margin-top:12px;">
+      Figma pin: “more dynamic way to share this information.” Options 3–4 are controlled layouts; 5–18 explore motion and metaphor.
+      Option 2 matches current homev2; option 1 matches <a href="homepage.html#what-we-do">homepage.html §02</a>.
+      <strong>Guardrail:</strong> beat 02 must not steal the homepage opening pin (Axis A→B lives in §01 only). Any scroll-linked motion here stays inside this section; with <code>prefers-reduced-motion</code>, show all three steps in document order with no autoplay.
+    </p>
+  </div>
+
+  <!-- Option 1 -->
+  <section class="option" aria-labelledby="opt1">
+    <div class="option-label" id="opt1">
+      <b>Option 1 — Baseline (canonical wireframe)</b>
+      <span>Three equal columns + founder band + voice quote. Same as <a href="homepage.html#what-we-do">homepage.html #what-we-do</a>.</span>
+    </div>
+    <div class="chrome">
+      <div class="section-head">
+        <p class="beat">02 — What we do</p>
+        <h2>Intent: answer the site’s #1 question.</h2>
+        <p class="anno">We acquire vertical software and make it run better. Primary lens: investors.</p>
+      </div>
+      <div class="steps-3">
+        <article class="step">
+          <p class="step-k">01 — Acquire</p>
+          <h3>Intent: Acquire.</h3>
+          <p class="metric">70,000+ [placeholder]</p>
+          <p class="anno">Buy and keep buying; not shelve.</p>
+        </article>
+        <article class="step">
+          <p class="step-k">02 — Grow</p>
+          <h3>Intent: Grow.</h3>
+          <p class="metric">$75B+ [placeholder]</p>
+          <p class="anno">AI + payments + back office. Link → Our Advantage.</p>
+        </article>
+        <article class="step">
+          <p class="step-k">03 — Lead</p>
+          <h3>Intent: Lead.</h3>
+          <p class="metric">2,000+ · 11 verticals</p>
+          <p class="anno">Category leadership. Link → Vertical Software.</p>
+        </article>
+      </div>
+      <div class="founder-band">
+        <div>
+          <p class="beat">For founders</p>
+          <h3 style="font-size:18px;margin-bottom:6px;">Intent: a home, not an exit.</h3>
+          <p class="anno">CTA → Acquisitions page.</p>
+        </div>
+        <a class="pill" href="pages/for-founders.html">Explore Acquisitions</a>
+      </div>
+      <div class="voice">
+        <p class="beat">A founder voice</p>
+        <p class="anno">One genericized quote [placeholder — client to confirm].</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Option 2 -->
+  <section class="option" aria-labelledby="opt2">
+    <div class="option-label" id="opt2">
+      <b>Option 2 — Sticky image rail (homev2 direction)</b>
+      <span>Left column scrolls three blocks; right column holds a sticky photo + caption that cross-fades per block. No video; schematic only.</span>
+    </div>
+    <div class="chrome">
+      <div class="section-head" style="text-align:left;margin-left:0;">
+        <p class="beat">02 — What we do (rail)</p>
+        <h2>Intent: narrative scroll + one visual anchor.</h2>
+      </div>
+      <div class="rail-grid">
+        <div class="rail-steps">
+          <div class="block">
+            <p class="step-k">01 — Acquire</p>
+            <h3 style="font-size:17px;">Intent: We keep buying.</h3>
+            <p class="metric">70,000+</p>
+          </div>
+          <div class="block">
+            <p class="step-k">02 — Grow</p>
+            <h3 style="font-size:17px;">Intent: What’s behind it.</h3>
+            <p class="metric">$75B+</p>
+          </div>
+          <div class="block">
+            <p class="step-k">03 — Lead</p>
+            <h3 style="font-size:17px;">Intent: Software leads its market.</h3>
+            <p class="metric">2,000+</p>
+          </div>
+          <p class="sticky-note">↓ user scrolls; rail stays pinned until section ends</p>
+        </div>
+        <div class="rail-photo">
+          <div class="ph" style="position:absolute;inset:0;border:none;">Photo slot — swaps with active step</div>
+          <p class="cap"><b>01</b> Acquire · caption follows active block</p>
+        </div>
+      </div>
+      <p class="anno" style="margin-top:16px;">Implemented in homev2 as <code>#who-we-are</code>. Stats pulled out of body copy (revision 2026-10-16).</p>
+    </div>
+  </section>
+
+  <!-- Option 3 -->
+  <section class="option" aria-labelledby="opt3">
+    <div class="option-label" id="opt3">
+      <b>Option 3 — Tabbed (one panel at a time)</b>
+      <span>Addresses Figma “more dynamic” without scroll-jacking. Acquire · Grow · Lead as tabs; one metric block + one image per state.</span>
+    </div>
+    <div class="chrome">
+      <div class="section-head">
+        <p class="beat">02 — What we do (tabs)</p>
+        <h2>Intent: same story, explicit control.</h2>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Acquire, Grow, Lead">
+        <div class="tab is-on" role="tab" aria-selected="true">Acquire</div>
+        <div class="tab" role="tab" aria-selected="false">Grow</div>
+        <div class="tab" role="tab" aria-selected="false">Lead</div>
+      </div>
+      <div class="tab-panel">
+        <div>
+          <p class="step-k">01 — Acquire</p>
+          <h3 style="font-size:18px;margin-bottom:8px;">Intent: We keep buying.</h3>
+          <p class="metric">70,000+ customers [placeholder]</p>
+          <p class="anno">Keyboard: arrow keys between tabs; photo updates with selection.</p>
+        </div>
+        <div class="ph" style="min-height:160px;">Image / illustration slot</div>
+      </div>
+      <p class="anno" style="margin-top:12px;">Figma comment addressed: more dynamic information sharing without long pinned scroll.</p>
+    </div>
+  </section>
+
+  <!-- Option 4 -->
+  <section class="option" aria-labelledby="opt4">
+    <div class="option-label" id="opt4">
+      <b>Option 4 — Horizontal accordion</b>
+      <span>Three cards in a row; one expands inline to show metric + body + image. Mobile: stack.</span>
+    </div>
+    <div class="chrome">
+      <div class="section-head">
+        <p class="beat">02 — What we do (accordion row)</p>
+        <h2>Intent: compare the three moves at a glance.</h2>
+      </div>
+      <div class="acc-row">
+        <div class="acc-card is-open">
+          <div>
+            <p class="step-k">01 — Acquire · expanded</p>
+            <p class="metric">70,000+</p>
+            <p style="font-size:14px;line-height:1.45;">Intent: buy vertical software and keep it running.</p>
+          </div>
+          <div class="ph" style="min-height:120px;">Photo slot</div>
+        </div>
+        <div class="acc-card">
+          <p class="step-k">02 — Grow</p>
+          <p style="font-size:14px;font-weight:700;">Collapsed — tap to expand</p>
+        </div>
+        <div class="acc-card">
+          <p class="step-k">03 — Lead</p>
+          <p style="font-size:14px;font-weight:700;">Collapsed — tap to expand</p>
+        </div>
+      </div>
+      <div class="founder-band" style="margin-top:20px;">
+        <p class="anno" style="border:none;padding:0;">Founder CTA band can sit below accordion (same as option 1).</p>
+        <a class="pill" href="pages/for-founders.html">Explore Acquisitions</a>
+      </div>
+      <p class="anno" style="margin-top:12px;">Figma comment addressed: dynamic layout alternative; only one expanded panel carries detail at a time.</p>
+    </div>
+  </section>
+
+  <div class="lab-divider" role="region" aria-label="Motion and experimental options">
+    <b>Motion lab — options 5–18</b>
+    <p>Unusual directions for review. Each includes a motion spec (duration, trigger, reduced-motion fallback). None are implemented in homev2; they are ideas to react to before any build cost.</p>
+  </div>
+
+  <!-- Option 5 -->
+  <section class="option" aria-labelledby="opt5">
+    <div class="option-label" id="opt5">
+      <b>Option 5 — Scrub timeline (playhead)</b>
+      <span>One horizontal “deal timeline.” Drag the playhead or scroll within the section to scrub Acquire → Grow → Lead; copy + photo cross-fade at stops.</span>
+    </div>
+    <div class="chrome">
+      <div class="section-head" style="text-align:left;margin-left:0;">
+        <p class="beat">02 — What we do (scrub)</p>
+        <h2>Intent: investor deck as an interactive strip.</h2>
+      </div>
+      <div class="timeline" aria-hidden="true">
+        <div class="timeline__playhead" title="Playhead — draggable"></div>
+        <div class="timeline__track">
+          <div class="timeline__stop is-on">
+            <p class="step-k">Acquire</p>
+            <p class="metric" style="font-size:16px;">70,000+</p>
+          </div>
+          <div class="timeline__stop">
+            <p class="step-k">Grow</p>
+            <p class="metric" style="font-size:16px;">$75B+</p>
+          </div>
+          <div class="timeline__stop">
+            <p class="step-k">Lead</p>
+            <p class="metric" style="font-size:16px;">2,000+</p>
+          </div>
+        </div>
+        <p class="timeline__hint">↔ scrub · active stop drives headline + image above the track (not shown)</p>
+      </div>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Pointer drag on playhead, or section-local scroll (not full-page pin).</dd>
+        <dt>Motion</dt><dd>Playhead snaps to 3 stops; 200–300ms cross-fade on text/photo; optional tick haptic on stop (mobile off).</dd>
+        <dt>Reduced motion</dt><dd>Three stops as vertical stack; playhead hidden; all copy visible.</dd>
+        <dt>Risk</dt><dd>Feels like a second “hero pin” if tied to viewport — keep mapping to section height only.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 6 -->
+  <section class="option" aria-labelledby="opt6">
+    <div class="option-label" id="opt6">
+      <b>Option 6 — Card deck (stack &amp; deal)</b>
+      <span>Three story cards stacked. Each scroll “tick” or swipe deals the top card away; next Acquire/Grow/Lead card fans in. Metaphor: pipeline of acquisitions.</span>
+    </div>
+    <div class="chrome">
+      <p class="beat">02 — What we do (deck)</p>
+      <div class="deck">
+        <div class="deck__card"><p class="step-k">03 — Lead · top of stack</p><p>Intent: category leader in its vertical.</p></div>
+        <div class="deck__card"><p class="step-k">02 — Grow</p><p>Intent: payments + AI behind the product.</p></div>
+        <div class="deck__card"><p class="step-k">01 — Acquire</p><p>Intent: we keep buying — card deals forward on interaction.</p></div>
+      </div>
+      <p class="anno">Order can reverse (deal from Acquire → Lead) so the story reads forward as cards leave.</p>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Wheel within section (threshold), or horizontal swipe on mobile.</dd>
+        <dt>Motion</dt><dd>Top card: translate X + rotate 8–12°, 400ms ease-out; stack compresses upward; max 3 deals then section releases.</dd>
+        <dt>Reduced motion</dt><dd>Same three cards listed; optional “Show next” button instead of swipe.</dd>
+        <dt>Outside the box</dt><dd>Playful, founder-friendly; may read too casual for sovereign-wealth lens — test with investors first.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 7 -->
+  <section class="option" aria-labelledby="opt7">
+    <div class="option-label" id="opt7">
+      <b>Option 7 — Hub &amp; spokes (focus orbit)</b>
+      <span>Center = “Vertical software portfolio”; three outer nodes = Acquire / Grow / Lead. Hover or auto-cycle brings one node forward; center copy updates. Not the Axis B headline “growth engine.”</span>
+    </div>
+    <div class="chrome">
+      <p class="beat">02 — What we do (hub)</p>
+      <div class="orbit">
+        <div class="orbit__node orbit__node--tl is-on"><p class="step-k">Acquire</p><p>Buy &amp; hold</p></div>
+        <div class="orbit__spoke" aria-hidden="true"></div>
+        <div class="orbit__node orbit__node--tr"><p class="step-k">Grow</p><p>Embed fintech</p></div>
+        <div class="orbit__hub">Portfolio<br>core</div>
+        <div class="orbit__node orbit__node--bl"><p class="step-k">Lead</p><p>Category win</p></div>
+      </div>
+      <p class="anno">Avoid literal “platform” or OS language in center label (KB / client vocab).</p>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Hover (desktop) or 5s auto-rotate with pause on focus/hover.</dd>
+        <dt>Motion</dt><dd>Active node scales 1.05, center cross-fades metric; subtle dashed orbit rotation 60s loop (optional, off by default).</dd>
+        <dt>Reduced motion</dt><dd>Static triangle diagram; three paragraphs below hub, no rotation.</dd>
+        <dt>Risk</dt><dd>Diagram-heavy; needs alt text / list duplicate for screen readers.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 8 -->
+  <section class="option" aria-labelledby="opt8">
+    <div class="option-label" id="opt8">
+      <b>Option 8 — Single metric stage + slow marquee</b>
+      <span>One oversized number morphs (70,000+ → $75B+ → 2,000+) while a slow horizontal marquee underneath carries the three narratives; hover pauses marquee (Square-style drift).</span>
+    </div>
+    <div class="chrome">
+      <p class="beat">02 — What we do (metric stage)</p>
+      <div class="metric-stage">
+        <p class="metric-stage__num">$75B+</p>
+        <p class="metric-stage__label">Intent: Grow — payment volume [placeholder]</p>
+        <div class="metric-stage__steps" aria-hidden="true">
+          <span class="metric-stage__dot"></span>
+          <span class="metric-stage__dot is-on"></span>
+          <span class="metric-stage__dot"></span>
+        </div>
+      </div>
+      <div class="marquee">
+        <div class="marquee__track">
+          <div class="marquee__panel"><p class="step-k">01 Acquire</p><p>We keep buying vertical software.</p></div>
+          <div class="marquee__panel is-focus"><p class="step-k">02 Grow</p><p>Embedded payments + AI on the stack.</p></div>
+          <div class="marquee__panel"><p class="step-k">03 Lead</p><p>Software leads its market.</p></div>
+          <div class="marquee__panel"><p class="step-k">01 Acquire</p><p>Duplicate for seamless loop.</p></div>
+        </div>
+      </div>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Marquee autoplays (CSS loop); big number advances when each panel hits center (IntersectionObserver) or every 4s.</dd>
+        <dt>Motion</dt><dd>Number: count-up or cross-fade 500ms; marquee 18s linear (lab preview animates — production must respect reduced motion).</dd>
+        <dt>Reduced motion</dt><dd>Marquee becomes 3-column grid; all metrics listed; no count-up.</dd>
+        <dt>Outside the box</dt><dd>Scale-first (investor KPI) without a third pinned hero; pairs with “narrative first, data second” when copy leads the stage label.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 9 -->
+  <section class="option" aria-labelledby="opt9">
+    <div class="option-label" id="opt9">
+      <b>Option 9 — Scroll typewriter</b>
+      <span>Each step’s body copy “types in” as its block enters the viewport; metric appears last with a cursor blink.</span>
+    </div>
+    <div class="chrome">
+      <p class="beat">02 — What we do (typewriter)</p>
+      <div class="type-block">
+        <p class="step-k">02 — Grow · in progress</p>
+        <p>Embedded fintech and operational advantages layered on top<span class="type-block__cursor" aria-hidden="true"></span></p>
+      </div>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>IntersectionObserver per block; type runs once per visit (sessionStorage optional).</dd>
+        <dt>Motion</dt><dd>Char reveal 20–35ms/char; metric fade-in after line completes; no loop.</dd>
+        <dt>Reduced motion</dt><dd>Full copy visible immediately; hide cursor.</dd>
+        <dt>Outside the box</dt><dd>Human, editorial; slow readers may feel rushed — cap line length.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 10 -->
+  <section class="option" aria-labelledby="opt10">
+    <div class="option-label" id="opt10">
+      <b>Option 10 — Elevator floors</b>
+      <span>Shaft UI: scroll “rides” from floor A1 (Acquire) → G2 (Grow) → L3 (Lead); door panel shows that floor’s story.</span>
+    </div>
+    <div class="chrome">
+      <div class="elevator">
+        <div class="elevator__shaft">
+          <span class="elevator__floor">L3</span>
+          <span class="elevator__floor is-on">G2</span>
+          <span class="elevator__floor">A1</span>
+        </div>
+        <div class="elevator__door">
+          <div>
+            <p class="step-k">Floor G2 — Grow</p>
+            <p class="metric" style="font-size:18px;">$75B+</p>
+            <p style="font-size:13px;margin-top:8px;">Intent: what changes is what’s behind the software.</p>
+          </div>
+        </div>
+      </div>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Section scroll progress maps to floor index; snap at thirds.</dd>
+        <dt>Motion</dt><dd>Floor highlight 150ms; door content cross-fade 250ms; subtle “ding” optional (muted default).</dd>
+        <dt>Reduced motion</dt><dd>Three floors listed with static copy beside shaft diagram.</dd>
+        <dt>Risk</dt><dd>Gimmick unless copy is strong; elevator metaphor ≠ “exit.”</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 11 -->
+  <section class="option" aria-labelledby="opt11">
+    <div class="option-label" id="opt11">
+      <b>Option 11 — Curtain wipe</b>
+      <span>Full-bleed photo for step N; vertical wipe reveals step N+1 (film transition). Text stays in safe zone left.</span>
+    </div>
+    <div class="chrome">
+      <div class="wipe">
+        <div class="wipe__a"><p class="step-k">Leaving · Acquire</p><p>70,000+ customers</p></div>
+        <div class="wipe__b"><p class="step-k">Entering · Grow</p><p>$75B+ processed</p></div>
+      </div>
+      <p class="wipe__label">↔ wipe edge moves with scroll · photo fills behind both halves</p>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Scroll through 3 “acts” inside section (~300vh total max).</dd>
+        <dt>Motion</dt><dd>clip-path inset or translateX wipe; per-frame writes, no CSS transition on scroll (KB §23.6 spirit).</dd>
+        <dt>Reduced motion</dt><dd>Three stacked full-width bands, no wipe.</dd>
+        <dt>Outside the box</dt><dd>Cinematic; ties to video-hero language without reusing opening pin.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 12 -->
+  <section class="option" aria-labelledby="opt12">
+    <div class="option-label" id="opt12">
+      <b>Option 12 — Constellation path</b>
+      <span>Eleven faint “vertical” stars; a bright path connects three that tell Acquire → Grow → Lead. Rest stay context only.</span>
+    </div>
+    <div class="chrome">
+      <div class="constellation" aria-hidden="true">
+        <span class="constellation__dot" style="top:20%;left:15%"></span>
+        <span class="constellation__dot" style="top:40%;left:45%"></span>
+        <span class="constellation__dot is-path" style="top:30%;left:30%"></span>
+        <span class="constellation__dot is-path" style="top:55%;left:50%"></span>
+        <span class="constellation__dot is-path" style="top:45%;left:72%"></span>
+        <span class="constellation__dot" style="top:70%;left:20%"></span>
+        <span class="constellation__dot" style="top:15%;left:80%"></span>
+        <span class="constellation__line" style="width:120px;top:32%;left:32%;transform:rotate(25deg)"></span>
+      </div>
+      <p class="anno">Links beat 02 to 11 verticals without repeating homepage filmstrip tiles (Axis A rule).</p>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Path draws on scroll (stroke-dashoffset) or on hover of each bright node.</dd>
+        <dt>Motion</dt><dd>800ms path draw; node pulse once when active; copy panel below updates.</dd>
+        <dt>Reduced motion</dt><dd>Static diagram + numbered list of three steps.</dd>
+        <dt>Risk</dt><dd>Abstract; investors may want literal stats adjacent.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 13 -->
+  <section class="option" aria-labelledby="opt13">
+    <div class="option-label" id="opt13">
+      <b>Option 13 — Ledger tape</b>
+      <span>Back-office metaphor: receipt/ledger prints three line items (Acquire, Grow, Lead) as user scrolls; paper roll animates upward.</span>
+    </div>
+    <div class="chrome">
+      <div class="ledger">
+        <p>FULLSTEAM · OPERATING MODEL</p>
+        <div class="ledger__strip">
+          <p>01 ACQUIRE · 70,000+ cust [ph]</p>
+          <p>02 GROW · $75B+ vol [ph]</p>
+          <p>03 LEAD · 2,000+ · 11 vert</p>
+        </div>
+      </div>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Each third of section scroll adds a line; haptic tick optional.</dd>
+        <dt>Motion</dt><dd>translateY roll 300ms; monospace only — matches Fragment Mono voice.</dd>
+        <dt>Reduced motion</dt><dd>All lines visible; no roll animation.</dd>
+        <dt>Outside the box</dt><dd>Payments/back-office nod without leading with payments (KB message order).</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 14 -->
+  <section class="option" aria-labelledby="opt14">
+    <div class="option-label" id="opt14">
+      <b>Option 14 — Parallax depth stack</b>
+      <span>Three text planes at different scroll speeds (foreground Lead, mid Grow, back Acquire) — depth implies time / scale. <a href="what-we-do-parallax-depth.html">Full wireframe →</a></span>
+    </div>
+    <div class="chrome">
+      <div class="parallax">
+        <div class="parallax__layer">01 Acquire · slowest drift</div>
+        <div class="parallax__layer">02 Grow · mid speed</div>
+        <div class="parallax__layer">03 Lead · fastest (foreground)</div>
+      </div>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Section-bound scroll; translateY factors 0.2 / 0.5 / 0.85.</dd>
+        <dt>Motion</dt><dd>Per-frame transform only; disable on mobile if janky.</dd>
+        <dt>Reduced motion</dt><dd>Vertical stack, no offset.</dd>
+        <dt>Risk</dt><dd>Can disorient; keep one focal headline visible at all times.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 15 -->
+  <section class="option" aria-labelledby="opt15">
+    <div class="option-label" id="opt15">
+      <b>Option 15 — Radar sweep</b>
+      <span>Radar UI cycles; each “blip” is Acquire / Grow / Lead. When sweep hits blip, side panel shows metric + one line.</span>
+    </div>
+    <div class="chrome">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center;">
+        <div class="radar">
+          <div class="radar__sweep" aria-hidden="true"></div>
+          <span class="radar__blip" title="Acquire"></span>
+          <span class="radar__blip" title="Grow"></span>
+          <span class="radar__blip" title="Lead"></span>
+        </div>
+        <div>
+          <p class="step-k">Blip active · Grow</p>
+          <p class="metric" style="font-size:18px;">$75B+</p>
+        </div>
+      </div>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Auto sweep 3s/rotation or scroll-linked angle.</dd>
+        <dt>Motion</dt><dd>Panel swap when sweep within 15° of blip; pause on focus.</dd>
+        <dt>Reduced motion</dt><dd>Static radar diagram + three text blocks.</dd>
+        <dt>Outside the box</dt><dd>“Scanning markets” — investor scale; avoid military/aggressive art.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 16 -->
+  <section class="option" aria-labelledby="opt16">
+    <div class="option-label" id="opt16">
+      <b>Option 16 — Layer cake build</b>
+      <span>Stack grows upward: base = Acquire, middle = Grow (payments/AI), top = Lead. Each scroll step “places” a tier with a thud micro-motion.</span>
+    </div>
+    <div class="chrome">
+      <div class="layercake">
+        <div class="layercake__tier is-new" style="--w:55%"><p class="step-k">03 Lead</p></div>
+        <div class="layercake__tier" style="--w:70%"><p class="step-k">02 Grow</p></div>
+        <div class="layercake__tier" style="--w:90%"><p class="step-k">01 Acquire</p></div>
+      </div>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Scroll thirds or “Add layer” button for reduced-motion parity.</dd>
+        <dt>Motion</dt><dd>scaleY 0→1 from bottom, 400ms ease-out; new tier highlighted one beat.</dd>
+        <dt>Reduced motion</dt><dd>Full stack shown; labels beside diagram.</dd>
+        <dt>Outside the box</dt><dd>Opposite of hero “grow morph” — builds model don’t inflate hero again.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 17 -->
+  <section class="option" aria-labelledby="opt17">
+    <div class="option-label" id="opt17">
+      <b>Option 17 — Map pin drop (US / Canada)</b>
+      <span>Schematic map; pins drop on scroll for offices / verticals / scale — copy beside map ties to Acquire → Grow → Lead.</span>
+    </div>
+    <div class="chrome">
+      <div class="map-schem" aria-hidden="true">
+        <span class="map-schem__pin" title="pin">📍</span>
+        <span class="map-schem__pin">📍</span>
+        <span class="map-schem__pin">📍</span>
+      </div>
+      <p class="anno">Use inferable geography only; no confidential site list until client approves.</p>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>One pin per scroll third; optional count-up beside map.</dd>
+        <dt>Motion</dt><dd>drop + bounce 500ms; cluster pins at high zoom only on desktop.</dd>
+        <dt>Reduced motion</dt><dd>Map static; pins visible; list format duplicate.</dd>
+        <dt>Outside the box</dt><dd>US/Canada reach (client review theme) without a literal geo product.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Option 18 -->
+  <section class="option" aria-labelledby="opt18">
+    <div class="option-label" id="opt18">
+      <b>Option 18 — Split-flap departure board</b>
+      <span>Airport-style flaps cycle ACQ → GRW → LED (or full words); below, one paragraph + metric syncs to displayed flap.</span>
+    </div>
+    <div class="chrome">
+      <div class="flap" aria-hidden="true">
+        <span class="flap__cell">G</span>
+        <span class="flap__cell is-flip">R</span>
+        <span class="flap__cell">W</span>
+      </div>
+      <p style="text-align:center;font-size:14px;margin-bottom:8px;">Grow — $75B+ processed [placeholder]</p>
+      <dl class="motion-spec">
+        <dt>Trigger</dt><dd>Auto cycle 2.5s or scroll-snapped index; click flap to jump (keyboard 1–3).</dd>
+        <dt>Motion</dt><dd>Flap rotateX half-flip 200ms (or opacity swap if 3D costly); sync metric cross-fade.</dd>
+        <dt>Reduced motion</dt><dd>Show “Acquire · Grow · Lead” as plain heading row; all metrics listed.</dd>
+        <dt>Outside the box</dt><dd>Transportation vertical nod without literal vehicle creative.</dd>
+      </dl>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exploration Sandbox — INTERNAL, not client-facing</title>
+  <style>
+    :root { --ink:#141821; --mut:#5c6b73; --line:#d7dee1; --panel:#fff; --bg:#f4f6f7; --warn:#b3261e; --warnbg:#fdecea; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink);
+      font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; line-height:1.55; }
+    .banner { background:var(--warnbg); color:var(--warn); border-bottom:1px solid #f3c4bf;
+      font-size:13px; font-weight:700; letter-spacing:.02em; text-align:center; padding:10px 16px; }
+    .wrap { max-width:960px; margin:0 auto; padding:40px 24px 72px; }
+    h1 { font-size:26px; margin:0 0 6px; }
+    .sub { color:var(--mut); margin:0 0 32px; font-size:15px; }
+    h2 { font-size:12px; text-transform:uppercase; letter-spacing:.12em; color:var(--mut);
+      border-bottom:1px solid var(--line); padding-bottom:8px; margin:36px 0 16px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr)); gap:16px; }
+    a.card, div.card { display:flex; flex-direction:column; gap:8px; background:var(--panel);
+      border:1px solid var(--line); border-radius:10px; padding:18px; text-decoration:none; color:inherit; }
+    a.card:hover { border-color:var(--ink); }
+    .tag { align-self:flex-start; font-size:10px; text-transform:uppercase; letter-spacing:.08em;
+      font-weight:700; padding:3px 7px; border-radius:5px; background:#eef1f3; color:var(--mut); }
+    .tag.wip { background:#fff4d6; color:#8a6100; }
+    .tag.official { background:#e3f2e7; color:#1a5c2e; border:1px solid #b9dcc4; }
+    .card h3 { margin:0; font-size:17px; }
+    .card p { margin:0; font-size:13px; color:var(--mut); }
+    .empty { color:var(--mut); font-size:14px; border:1px dashed var(--line); border-radius:10px;
+      padding:22px; text-align:center; }
+    code { background:#eef1f3; padding:1px 5px; border-radius:4px; font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    INTERNAL EXPLORATION — UNREVIEWED — NOT CLIENT-FACING. LOCAL ONLY (gitignored).
+  </div>
+  <div class="wrap">
+    <h1>Design exploration sandbox</h1>
+    <p class="sub">
+      Throw many directions at the wall before anything is proposed. Nothing here is a decision.
+      Preview with <code>python3 -m http.server 8000</code> → <code>/03_Design/explorations/</code>.
+      Read <a href="README.md">README.md</a> for the rules and the promotion path.
+    </p>
+
+    <h2>Current direction — official</h2>
+    <div class="grid">
+      <a class="card" href="homev2/index.html">
+        <span class="tag official">Official working design · WCAG 2.1 AA</span>
+        <h3>homev2 · video hero + sticky image rail</h3>
+        <p><b>This is the design we are working from</b> as of 2026-10-23. Video hero
+          + the <code>who we are</code> sticky-image-rail second section. Audited and
+          fixed for WCAG 2.1 AA (axe: 0 violations, normal and reduced-motion) —
+          <a href="homev2/ada-audit.md">ada-audit.md</a>. Everything else on this board is
+          history or a side study, not the direction.</p>
+      </a>
+    </div>
+
+    <h2>Exploration sets</h2>
+    <div class="grid">
+      <a class="card" href="_template/index.html">
+        <span class="tag">Template</span>
+        <h3>_template</h3>
+        <p>Copy this folder to start a new exploration set (<code>NN-topic</code>).</p>
+      </a>
+      <a class="card" href="01-dark-cinematic/index.html">
+        <span class="tag wip">WIP · untested</span>
+        <h3>01 · Dark cinematic</h3>
+        <p>Questionnaire-derived direction. Off-brand palette test — dark canvas, mint/violet accents.
+          Companion: <code>direction.md</code>.</p>
+      </a>
+      <a class="card" href="02-video-hero/index.html">
+        <span class="tag wip">WIP · untested</span>
+        <h3>02 · Video hero</h3>
+        <p>From Figma <code>FS-Design</code> canvas <code>6-124</code>: “Desktop - 1” (<code>11256:591</code>)
+          → “Desktop - 2” (<code>11256:658</code>). Background video autoplays at load; a 250vh pin
+          drives a tint (80→38%) + gradient overlay and a headline handoff (both headlines the same
+          size, so the swap is 1:1), then the hero collapses into a small playing cube. Companion:
+          <code>direction.md</code>.</p>
+      </a>
+      <a class="card" href="03-section-two-sandbox/index.html">
+        <span class="tag wip">WIP · internal only</span>
+        <h3>03 · Section 02 sandbox</h3>
+        <p>Six candidates for the band under the rebuilt video hero (00 baseline, A compress,
+          B “who we are”, E “who we are” + sticky image rail, C model + proof, D compress + founder).
+          Self-contained single file, so it can be forwarded without the repo. Companion:
+          <code>direction.md</code>.</p>
+      </a>
+
+      <a class="card" href="homev2/index.html">
+        <span class="tag official">Official · AA</span>
+        <h3>homev2 · video hero + sticky image rail</h3>
+        <p><b>Current direction.</b> Full homepage forked from <code>02-video-hero</code>, with the
+          second section replaced by the <code>who we are</code> sticky-image-rail band.
+          WCAG 2.1 AA verified. Companion: <code>direction.md</code> + <code>ada-audit.md</code>.</p>
+      </a>
+
+      <a class="card" href="homev3/index.html">
+        <span class="tag wip">WIP · style study</span>
+        <h3>homev3 · calm canvas (Asana register)</h3>
+        <p>homev2's content model in an Asana-style system: white canvas,
+          near-black ink, one surface band, 100/200/300ms motion. Puts the
+          <b>grow morph</b> back (KB §23) — the surface under the identity card
+          expands to full bleed as Axis B lands. No serif, no video. Companion:
+          <code>direction.md</code>.</p>
+      </a>
+
+      <a class="card" href="homev4/index.html">
+        <span class="tag wip">WIP · layout study</span>
+        <h3>homev4 · Localyzer register</h3>
+        <p>Full homepage in Localyzer’s rhythm (light canvas, cinematic overlay,
+          pinned KPI swap, bento, dark AI mosaic, oversized close) with
+          <b>official brand tokens</b> and wireframe beat order — Localyzer-style
+          hero, <b>no</b> Axis A/B grow morph. Companion: <code>direction.md</code>.</p>
+      </a>
+
+      <!-- Add one card per exploration set, e.g.
+      <a class="card" href="02-crisp-and-modern/index.html">
+        <span class="tag wip">WIP</span>
+        <h3>02 · Crisp and modern</h3>
+        <p>Runner-up register, on brand palette.</p>
+      </a>
+      -->
+    </div>
+  </div>
+</body>
+</html>
