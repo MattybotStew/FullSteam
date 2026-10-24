@@ -1123,20 +1123,21 @@
     .site-footer {
       background: var(--ink); color: rgba(255,255,255,.85); padding: 48px var(--gutter-x);
     }
-    .footer-top {
-      max-width: 1200px; margin: 0 auto 48px; padding-bottom: 40px;
-      border-bottom: 1px solid rgba(255,255,255,.14);
-      display: flex; justify-content: space-between; align-items: flex-end; gap: 32px;
-    }
-    .footer-logo { display: block; width: 190px; height: auto; margin-bottom: 18px; }
-    .footer-line { margin: 0; max-width: 44ch; color: rgba(255,255,255,.7); font-size: 15px; line-height: 1.55; text-wrap: pretty; }
-    @media (max-width: 768px) { .footer-top { flex-direction: column; align-items: flex-start; gap: 24px; } }
-
     .footer-grid {
       max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+      display: grid; grid-template-columns: 1.6fr repeat(4, 1fr);
+      gap: 32px; align-items: start;
     }
-    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    .footer-brand { min-width: 0; }
+    .footer-logo { display: block; width: 168px; height: auto; margin-bottom: 16px; }
+    .footer-line {
+      margin: 0; max-width: 30ch;
+      color: rgba(255,255,255,.7); font-size: 14px; line-height: 1.55; text-wrap: pretty;
+    }
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; margin-bottom: 8px; }
+    }
     .footer-grid h3 { font-size: 14px; margin: 0 0 12px; color: #fff; }
     .footer-grid ul { list-style: none; margin: 0; padding: 0; }
     .footer-grid li { margin: 4px 0; }
@@ -1579,13 +1580,11 @@
   </main>
 
   <footer class="site-footer">
-    <div class="footer-top">
-      <div>
+    <div class="footer-grid">
+      <div class="footer-brand">
         <img class="footer-logo" src="assets/fullsteam-logo.svg" alt="Fullsteam" width="222" height="60" loading="lazy" decoding="async">
         <p class="footer-line">A home for vertical software businesses — and the payments, lending, and AI that grow them.</p>
       </div>
-    </div>
-    <div class="footer-grid">
       <div>
         <h3><a href="../../../02_Wireframes/active/pages/vertical-software.html" style="color:#fff;text-decoration:none;">Vertical Software</a></h3>
         <ul>
