@@ -82,6 +82,24 @@
 
     ::selection { background: var(--gold); color: var(--ink); }
 
+    /* ---- act hand-off: the narrator's line at the foot of a section ---- */
+    .exit {
+      margin: clamp(44px, 6vh, 72px) 0 0; padding-top: 22px;
+      border-top: 1px solid var(--line);
+      max-width: 42ch;
+      font-family: "Instrument Serif", Georgia, serif; font-style: italic;
+      font-size: clamp(21px, 2.3vw, 32px); line-height: 1.25;
+      color: var(--mut); text-wrap: pretty;
+    }
+    .exit--dark { border-top-color: rgba(255,255,255,.16); color: rgba(255,255,255,.66); }
+    .close__payoff {
+      margin: clamp(40px, 5.5vh, 64px) 0 0; padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.22);
+      font-family: "Instrument Serif", Georgia, serif; font-style: italic;
+      font-size: clamp(21px, 2.3vw, 32px); line-height: 1.25;
+      color: var(--brand-sky);
+    }
+
     .skip-link {
       position: absolute; left: 12px; top: -70px; z-index: 200;
       padding: 14px 20px; border-radius: 999px; background: var(--gold); color: var(--ink);
@@ -869,9 +887,11 @@
     /* 2.2.2 control for the strip, same language as the verticals toggle */
     .ai__motion {
       max-width: 1200px; margin: 0 auto;
-      display: flex; justify-content: flex-end;
-      padding-bottom: 18px;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+      padding: 20px 0 18px;
+      border-top: 1px solid rgba(255,255,255,.16);
     }
+    .ai__motion .exit { margin: 0; padding: 0; border: 0; flex: 1 1 auto; }
     @media (prefers-reduced-motion: reduce) { .ai-marquee__track { animation: none; } }
     .ai__list { list-style: none; margin: 0; padding: 0; }
     .ai__list li {
@@ -1210,6 +1230,7 @@
         <ul class="kpi__proof" aria-label="The eleven verticals">
           <li>ERP</li><li>Wine</li><li>Transportation</li><li>Hospitality</li><li>Automotive</li><li>Retail</li><li>Health &amp; Wellness</li><li>Storage &amp; Marina</li><li>Weddings &amp; Events</li><li>Field Services</li><li>Associations</li>
         </ul>
+        <p class="exit exit--dark">Owning the software is only the beginning.</p>
       </div>
     </section>
 
@@ -1308,6 +1329,7 @@
         <span class="motion-toggle__label">Pause auto-advance</span>
       </button>
     </div>
+    <p class="exit">Growth needs more than ownership — it needs intelligence.</p>
   </section>
 
     <section class="ai" id="ai" aria-labelledby="aiTitle">
@@ -1344,6 +1366,7 @@
         </ol>
       </div>
       <div class="ai__motion">
+        <p class="exit exit--dark">Intelligence is people.</p>
         <button class="motion-toggle" id="marqueePause" type="button" aria-pressed="false">
           <span class="motion-toggle__icon" aria-hidden="true">❚❚</span>
           <span class="motion-toggle__label">Pause marquee</span>
@@ -1409,6 +1432,7 @@
             <span class="close__door-p">Values fit, certainty of close, and a bigger org that scales the founder.</span>
           </a>
         </div>
+        <p class="close__payoff">Any industry. One home.</p>
       </div>
     </section>
     </div>
@@ -1619,7 +1643,7 @@
          Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
          scroll, find-in-page — still reveals everything it passed. */
       (function () {
-        var sel = '.verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .close__title, .close__proof, .close__doors';
+        var sel = '.verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .close__title, .close__proof, .close__doors, .exit, .close__payoff';
         var els = Array.prototype.slice.call(document.querySelectorAll(sel));
         if (!els.length) return;
         els.forEach(function (el) {
