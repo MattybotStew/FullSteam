@@ -78,7 +78,7 @@
     @media print { .has-js .reveal { opacity: 1 !important; transform: none !important; filter: none !important; } }
 
     /* one photographic grade across every band */
-    .kpi__card::before, .vpanel__img, .ai-tile__img, .careers__photo { filter: saturate(.94) contrast(1.03); }
+    .kpi__card::before, .vpanel__img, .careers__photo { filter: saturate(.94) contrast(1.03); }
 
     ::selection { background: var(--gold); color: var(--ink); }
 
@@ -467,7 +467,7 @@
     }
 
     /* ---- key figures: Localyzer platform register ---- */
-    .kpi { position: relative; z-index: 1; isolation: isolate; background: var(--bg); padding: var(--section-y) var(--gutter-x); }
+    .kpi { position: relative; z-index: 1; isolation: isolate; background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter-x); }
     .kpi__inner {
       max-width: 1200px; margin: 0 auto;
       display: flex; flex-direction: column; gap: clamp(32px, 5vh, 56px);
@@ -502,15 +502,15 @@
     }
     .kpi__info {
       position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2;
-      background: #fff; /* concentric: outer 24px − 16px inset = 8px */
+      background: #fff; color: var(--ink); /* concentric: outer 24px − 16px inset = 8px */
       border-radius: 8px; padding: 14px 18px;
       box-shadow: 0 1px 2px rgba(13,26,32,.06), 0 4px 10px rgba(13,26,32,.07), 0 16px 32px rgba(13,26,32,.09);
     }
     .kpi__info-num { margin: 0; font-size: 1.35rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
     .kpi__info-cap { margin: 2px 0 0; color: var(--mut); font-size: 12.5px; text-wrap: pretty; }
-    .kpi__center { text-align: center; position: relative; z-index: 1; }
+    .kpi__center { text-align: left; position: relative; z-index: 1; }
     .kpi__title {
-      margin: 14px 0 0; color: var(--ink);
+      margin: 0; color: #fff;
       font-size: var(--display-m); line-height: .98; letter-spacing: -0.03em; font-weight: 700;
       text-wrap: balance;
     }
@@ -518,10 +518,23 @@
     .kpi__title .kpi__line:last-child { padding-bottom: 0.08em; }
     .kpi__title em {
       font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
-      color: var(--brand); letter-spacing: 0;
+      color: var(--gold); letter-spacing: 0;
     }
-    .kpi__sub { color: var(--mut); font-size: 1.05rem; line-height: 1.5; max-width: 36ch; margin: 22px auto 0; text-wrap: pretty; }
-    .kpi__cta { margin-top: 28px; display: flex; justify-content: center; }
+    .kpi__sub {
+      color: rgba(255,255,255,.74); font-size: clamp(18px, 1.4vw, 21px);
+      line-height: 1.5; max-width: 44ch; margin: 24px 0 0; text-wrap: pretty;
+    }
+    .kpi__cta { margin-top: 30px; display: flex; justify-content: flex-start; }
+    /* proof index: the eleven verticals, named */
+    .kpi__proof {
+      list-style: none; margin: 0; padding: 18px 0 0;
+      border-top: 1px solid rgba(255,255,255,.14);
+      display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px 20px;
+      font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.62);
+    }
+    @media (max-width: 900px) {
+      .kpi__proof { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; }
+    }
     .kpi__card-wrap { display: flex; will-change: transform; }
     .kpi__card { width: 100%; }
     /* hero-style entrance: lines rise + unblur, cards follow in stagger */
@@ -752,31 +765,37 @@
       .vpanel, .vpanel__label, .vpanel__body { transition: none; }
     }
 
-    /* ---- AI mosaic ---- */
+    /* ---- AI: an argument, not a tile grid ---- */
     .ai {
       background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter-x);
     }
-    .ai__inner { max-width: 1200px; margin: 0 auto; }
-    .ai__title { font-size: var(--display-xs); margin: 0 0 12px; max-width: 18ch; letter-spacing: -.02em; text-wrap: balance; }
-    .ai__lede { color: rgba(255,255,255,.72); max-width: 48ch; margin: 0 0 40px; line-height: 1.5; text-wrap: pretty; }
-    .ai-mosaic {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    .ai__inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(32px, 5vw, 80px); align-items: start;
     }
-    @media (max-width: 768px) { .ai-mosaic { grid-template-columns: 1fr; } }
-    .ai-tile {
-      position: relative;
-      border-radius: 16px; overflow: hidden; background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
+    .ai__title {
+      font-size: var(--display-s); margin: 0;
+      letter-spacing: -.03em; line-height: 1.05; max-width: 16ch; text-wrap: balance;
     }
-    .ai-tile__img {
-      height: 160px; background-image: var(--photo); background-size: cover; background-position: center;
-      transition: transform .6s var(--ease-out);
+    .ai__lede {
+      color: rgba(255,255,255,.72); font-size: clamp(18px, 1.4vw, 21px);
+      max-width: 40ch; margin: 22px 0 0; line-height: 1.5; text-wrap: pretty;
     }
-    .ai-tile:hover .ai-tile__img { transform: scale(1.03); }
-    .ai-tile__copy { padding: 20px; }
-    .ai-tile__h { margin: 0 0 8px; font-size: 1.1rem; }
-    .ai-tile__p { margin: 0; font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.5; text-wrap: pretty; }
-    .ai__foot { margin-top: 32px; }
+    .ai__foot { margin-top: 30px; }
+    .ai__list { list-style: none; margin: 0; padding: 0; }
+    .ai__list li {
+      display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px;
+      padding: 22px 0; border-top: 1px solid rgba(255,255,255,.14);
+    }
+    .ai__list li:last-child { border-bottom: 1px solid rgba(255,255,255,.14); }
+    .ai__num { font-size: 11px; letter-spacing: .12em; color: var(--gold); padding-top: 4px; }
+    .ai__h { margin: 0 0 8px; font-size: 1.1rem; letter-spacing: -.01em; }
+    .ai__p { margin: 0; font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.72); text-wrap: pretty; }
+    @media (max-width: 900px) {
+      .ai__inner { grid-template-columns: 1fr; gap: 36px; }
+      .ai__title { max-width: 20ch; }
+    }
 
     /* ---- careers: editorial split, not another card grid ---- */
     .careers { padding: var(--section-y) var(--gutter-x); background: var(--surface); }
@@ -796,7 +815,7 @@
     }
     .careers__lede {
       margin: 22px 0 0; color: var(--mut);
-      font-size: 1.05rem; line-height: 1.5; max-width: 40ch; text-wrap: pretty;
+      font-size: clamp(18px, 1.4vw, 21px); line-height: 1.5; max-width: 40ch; text-wrap: pretty;
     }
     .careers__cta { margin: 28px 0 0; }
     .careers__media {
@@ -888,6 +907,15 @@
     .site-footer {
       background: var(--ink); color: rgba(255,255,255,.85); padding: 48px var(--gutter-x);
     }
+    .footer-top {
+      max-width: 1200px; margin: 0 auto 48px; padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 32px;
+    }
+    .footer-logo { display: block; width: 190px; height: auto; margin-bottom: 18px; }
+    .footer-line { margin: 0; max-width: 44ch; color: rgba(255,255,255,.7); font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+    @media (max-width: 768px) { .footer-top { flex-direction: column; align-items: flex-start; gap: 24px; } }
+
     .footer-grid {
       max-width: 1200px; margin: 0 auto;
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
@@ -1027,7 +1055,7 @@
           </h2>
           <p class="kpi__sub">Eleven vertical businesses under one roof — every one a category leader in its market.</p>
           <div class="kpi__cta">
-            <a class="pill pill--brand" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore vertical solutions</a>
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore vertical solutions</a>
           </div>
         </div>
         <div class="kpi__cards">
@@ -1056,6 +1084,9 @@
             </div>
           </div></div>
         </div>
+        <ul class="kpi__proof" aria-label="The eleven verticals">
+          <li>ERP</li><li>Wine</li><li>Transportation</li><li>Hospitality</li><li>Automotive</li><li>Retail</li><li>Health &amp; Wellness</li><li>Storage &amp; Marina</li><li>Weddings &amp; Events</li><li>Field Services</li><li>Associations</li>
+        </ul>
       </div>
     </section>
 
@@ -1152,34 +1183,36 @@
 
     <section class="ai" id="ai" aria-labelledby="aiTitle">
       <div class="ai__inner">
-        <h2 class="ai__title" id="aiTitle">AI that already knows the business.</h2>
-        <p class="ai__lede">Use cases first — built on proprietary vertical data, not generic models. Never imply staff reduction.</p>
-        <div class="ai-mosaic">
-          <article class="ai-tile">
-            <div class="ai-tile__img" style="--photo: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=70')" role="img" aria-label="Analytics placeholder"></div>
-            <div class="ai-tile__copy">
-              <h3 class="ai-tile__h">Modernize in place</h3>
-              <p class="ai-tile__p">Smarter search, forecasting, and workflows inside the product customers already run.</p>
-            </div>
-          </article>
-          <article class="ai-tile">
-            <div class="ai-tile__img" style="--photo: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=70')" role="img" aria-label="Product work placeholder"></div>
-            <div class="ai-tile__copy">
-              <h3 class="ai-tile__h">Customer-facing features</h3>
-              <p class="ai-tile__p">Ship AI your end customers feel — grounded in vertical data.</p>
-            </div>
-          </article>
-          <article class="ai-tile">
-            <div class="ai-tile__img" style="--photo: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=70')" role="img" aria-label="Support placeholder"></div>
-            <div class="ai-tile__copy">
-              <h3 class="ai-tile__h">Automate busywork</h3>
-              <p class="ai-tile__p">Back-office workflows that run themselves — people stay on judgment calls.</p>
-            </div>
-          </article>
+        <div class="ai__copy">
+          <h2 class="ai__title" id="aiTitle">AI that already knows the business.</h2>
+          <p class="ai__lede">Use cases first — built on proprietary vertical data, not generic models.</p>
+          <p class="ai__foot">
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">See AI at Fullsteam</a>
+          </p>
         </div>
-        <p class="ai__foot">
-          <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">See AI at Fullsteam</a>
-        </p>
+        <ol class="ai__list" role="list">
+          <li>
+            <span class="ai__num mono">01</span>
+            <div>
+              <h3 class="ai__h">Modernize in place</h3>
+              <p class="ai__p">Smarter search, forecasting, and workflows inside the product customers already run.</p>
+            </div>
+          </li>
+          <li>
+            <span class="ai__num mono">02</span>
+            <div>
+              <h3 class="ai__h">Customer-facing features</h3>
+              <p class="ai__p">Ship AI your end customers feel — grounded in vertical data.</p>
+            </div>
+          </li>
+          <li>
+            <span class="ai__num mono">03</span>
+            <div>
+              <h3 class="ai__h">Automate busywork</h3>
+              <p class="ai__p">Back-office workflows that run themselves — people stay on judgment calls.</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -1234,6 +1267,13 @@
   </main>
 
   <footer class="site-footer">
+    <div class="footer-top">
+      <div>
+        <img class="footer-logo" src="assets/fullsteam-logo.svg" alt="Fullsteam" width="222" height="60" loading="lazy" decoding="async">
+        <p class="footer-line">A home for vertical software businesses — and the payments, lending, and AI that grow them.</p>
+      </div>
+      <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/contact.html">Talk to us</a>
+    </div>
     <div class="footer-grid">
       <div>
         <h3><a href="../../../02_Wireframes/active/pages/vertical-software.html" style="color:#fff;text-decoration:none;">Vertical Software</a></h3>
@@ -1421,7 +1461,7 @@
          Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
          scroll, find-in-page — still reveals everything it passed. */
       (function () {
-        var sel = '.verts__title, .verts__stage, .ai__title, .ai__lede, .ai-tile, .ai__foot, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .close__title, .close__actions';
+        var sel = '.verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .close__title, .close__actions';
         var els = Array.prototype.slice.call(document.querySelectorAll(sel));
         if (!els.length) return;
         els.forEach(function (el) {
