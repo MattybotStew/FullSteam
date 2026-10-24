@@ -328,6 +328,26 @@
       gap: 0.02em;
     }
     .hero__title .line em:only-child { line-height: 1.05; overflow: visible; }
+    /* ---- Opening entrance (2026-10-24, CD direction) --------------------
+       Axis A's headline arrives line by line, the gold payoff word a beat
+       later, then the filmstrip develops frame by frame. One pass on load;
+       no loop, no bounce. Matches the page's own reveal register
+       (.reveal: rise + blur), and is opacity/transform/filter only.
+
+       No clip on the lines: the last one holds the serif `em`, which is set
+       at line-height 0 and would be cut by a mask.
+       Classes are removed on animationend (see the script) so a held
+       animation can never out-rank the scroll-driven --hero-a-fade writes. */
+    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .hero__title .line{
+      animation:h4-line 780ms cubic-bezier(.16,.84,.28,1) both;
+    }
+    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .hero__title .line:nth-child(2){ animation-delay:90ms; }
+    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .hero__title .line:nth-child(3){ animation-delay:215ms; }
+    @keyframes h4-line{
+      from{ opacity:0; transform:translate3d(0,.42em,0); filter:blur(6px); }
+      60%{ filter:blur(0); }
+      to{ opacity:1; transform:none; filter:none; }
+    }
     .hero__cta {
       display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
       margin-top: clamp(24px, 4vh, 40px);
@@ -431,6 +451,32 @@
       text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
     }
     .reduce-motion .vert-film__track { transform: none !important; }
+    /* ---- Filmstrip entrance (2026-10-24, CD direction) ------------------
+       The band lifts in, then the frames fade up one after another, left to
+       right, while the marquee is already running underneath — so the strip
+       develops as it slides. Opacity on the thumbs only: the track's own
+       transform belongs to the marquee loop. */
+    html.has-js:not(.reduce-motion) .vert-film.is-enter{
+      animation:h4-film 640ms cubic-bezier(.16,.84,.28,1) 360ms both;
+    }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb{
+      animation:h4-frame 520ms cubic-bezier(.16,.84,.28,1) both;
+    }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+1){ animation-delay:400ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+2){ animation-delay:455ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+3){ animation-delay:510ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+4){ animation-delay:565ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+5){ animation-delay:620ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+6){ animation-delay:675ms; }
+    @keyframes h4-film{
+      from{ opacity:0; transform:translate3d(0,18px,0); filter:blur(4px); }
+      60%{ filter:blur(0); }
+      to{ opacity:1; transform:none; filter:none; }
+    }
+    @keyframes h4-frame{
+      from{ opacity:0; filter:blur(5px); }
+      to{ opacity:.82; filter:none; }
+    }
     /* ---- Axis B · full-bleed vertical BG rises over pinned Axis A ---- */
     .axis-b-stage {
       position: relative;
@@ -2156,6 +2202,45 @@
         window.addEventListener('resize', syncBar);
         syncBar();
       }
+
+      /* ---- Opening entrance (2026-10-24, CD direction) -------------------
+         One pass after the fonts land: Axis A's lines, then the filmstrip.
+         Skipped for reduced motion and when the page opens part-way down.
+         Both classes are removed once the last animation lands, so no held
+         animation can override the scroll-driven inline writes that follow
+         (--hero-a-fade and the marquee's track transform). */
+      (function openingEntrance() {
+        if (reduce.matches) return;
+        if (window.scrollY > 10) return;
+        var heroEl = document.getElementById('heroAxisA');
+        var filmEl = document.getElementById('vertFilm');
+        if (!heroEl || !filmEl) return;
+        var run = function () {
+          heroEl.classList.add('is-enter');
+          filmEl.classList.add('is-enter');
+          var cleanup = function () {
+            heroEl.classList.remove('is-enter');
+            filmEl.classList.remove('is-enter');
+          };
+          var thumbs = filmEl.querySelectorAll('.vert-film__thumb');
+          var lastThumb = thumbs[thumbs.length - 1];
+          if (lastThumb && lastThumb.addEventListener) {
+            lastThumb.addEventListener('animationend', function (e) {
+              if (e.target === lastThumb) cleanup();
+            }, { once: true });
+          }
+          /* belt and braces: a cancelled or never-started animation still
+             releases the classes. */
+          setTimeout(cleanup, 2400);
+        };
+        /* start after the fonts, not after `load`: this page pulls a dozen
+           remote film frames, and waiting for them would land the entrance
+           several seconds late. */
+        var start = function () { requestAnimationFrame(run); };
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
+        else if (document.readyState !== 'loading') start();
+        else document.addEventListener('DOMContentLoaded', start, { once: true });
+      })();
 
       var filmTrack = document.getElementById('vertFilmTrack');
       var filmOffset = 0;

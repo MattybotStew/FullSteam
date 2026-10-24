@@ -268,6 +268,45 @@
     color:var(--ink);
     max-width:42ch;
   }
+  /* ---- Opening entrance (2026-10-24, CD direction) --------------------
+     The Axis A text types itself in on load: kicker, then the H1 rising out
+     of its own baseline behind a clip, then the intent note, then the
+     identity visual. One pass, no loop, no bounce.
+
+     Only CHILDREN of .mosaic-head animate. The grow morph owns the per-frame
+     inline opacity of .mosaic-head and .axis-a-shot — a running CSS animation
+     out-ranks an inline write, so animating those two would freeze the morph.
+     The transient class is removed at the end for the same reason. */
+  html.has-js .mosaic.is-enter .mosaic-kicker{
+    animation:ax-in 560ms cubic-bezier(.16,.84,.28,1) both;
+  }
+  html.has-js .mosaic.is-enter .mosaic-head h1{
+    animation:ax-rise 880ms cubic-bezier(.16,.84,.28,1) 80ms both;
+  }
+  html.has-js .mosaic.is-enter .mosaic-head .anno{
+    animation:ax-in 560ms cubic-bezier(.16,.84,.28,1) 240ms both;
+  }
+  html.has-js .mosaic.is-enter .axis-a-stage{
+    animation:ax-stage 760ms cubic-bezier(.16,.84,.28,1) 320ms both;
+  }
+  @keyframes ax-in{
+    from{ opacity:0; transform:translate3d(0,10px,0); }
+    to{ opacity:1; transform:none; }
+  }
+  @keyframes ax-rise{
+    from{ opacity:0; transform:translate3d(0,.34em,0); clip-path:inset(0 0 100% 0); }
+    to{ opacity:1; transform:none; clip-path:inset(-14% 0 -14% 0); }
+  }
+  @keyframes ax-stage{
+    from{ opacity:0; transform:translate3d(0,14px,0); }
+    to{ opacity:1; transform:none; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html.has-js .mosaic.is-enter .mosaic-kicker,
+    html.has-js .mosaic.is-enter .mosaic-head h1,
+    html.has-js .mosaic.is-enter .mosaic-head .anno,
+    html.has-js .mosaic.is-enter .axis-a-stage{ animation:none; }
+  }
   /* Axis A visual: a single centered media block, not 11 scattered tiles. It is
      the source the grow morph opens from. */
   .axis-a-stage{
@@ -568,6 +607,38 @@
     color:var(--ink); border-bottom:1px solid rgba(0,0,0,.3); padding-bottom:3px;
   }
   .verts-all a:hover{ border-bottom-color:var(--blue); color:var(--blue); }
+  /* ---- Filmstrip entrance (2026-10-24, CD direction) ------------------
+     On first entry: the head types in, the five frames rise one after
+     another left→right, then the eleven links settle. Once, on scroll;
+     never a loop. JS-only (it needs the observer anyway) and skipped for
+     reduced motion, where the strip is simply there. */
+  html.has-js .verts.is-in .verts-head{
+    animation:vt-head 620ms cubic-bezier(.16,.84,.28,1) both;
+  }
+  html.has-js .verts.is-in .vert-card{
+    animation:vt-card 720ms cubic-bezier(.16,.84,.28,1) both;
+  }
+  html.has-js .verts.is-in .vert-card:nth-child(1){ animation-delay:110ms; }
+  html.has-js .verts.is-in .vert-card:nth-child(2){ animation-delay:175ms; }
+  html.has-js .verts.is-in .vert-card:nth-child(3){ animation-delay:240ms; }
+  html.has-js .verts.is-in .vert-card:nth-child(4){ animation-delay:305ms; }
+  html.has-js .verts.is-in .vert-card:nth-child(5){ animation-delay:370ms; }
+  html.has-js .verts.is-in .verts-foot{
+    animation:vt-head 620ms cubic-bezier(.16,.84,.28,1) 430ms both;
+  }
+  @keyframes vt-head{
+    from{ opacity:0; transform:translate3d(0,12px,0); }
+    to{ opacity:1; transform:none; }
+  }
+  @keyframes vt-card{
+    from{ opacity:0; transform:translate3d(0,28px,0); }
+    to{ opacity:1; transform:none; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html.has-js .verts.is-in .verts-head,
+    html.has-js .verts.is-in .vert-card,
+    html.has-js .verts.is-in .verts-foot{ animation:none; }
+  }
   @media (prefers-reduced-motion: reduce){
     .vert-card, .vert-card::after{ transition:none; }
   }
@@ -1193,6 +1264,34 @@
       tick();
     })();
 
+    (function axisAEntrance(){
+      /* Opening entrance (2026-10-24, CD direction). Runs once, after the fonts
+         have landed, so the H1 does not re-wrap mid-animation.
+         - skipped when the page is opened part-way down (anchor / restored
+           scroll): the first screen is not the first thing being seen;
+         - skipped for reduced motion, where CSS has already opted out;
+         - the class is removed at the end so no lingering animation can
+           out-rank the grow morph's per-frame inline opacity writes. */
+      const mosaic = document.getElementById("mosaic");
+      if (!mosaic) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (window.scrollY > 10) return;
+      let ran = false;
+      const run = () => {
+        if (ran) return;
+        ran = true;
+        mosaic.classList.add("is-enter");
+        const last = mosaic.querySelector(".axis-a-stage");
+        const done = () => mosaic.classList.remove("is-enter");
+        if (last && last.addEventListener) last.addEventListener("animationend", done, { once: true });
+        /* belt and braces: if the animation never fires (display:none, a
+           cancelled animation, an exotic UA), the class still comes off. */
+        setTimeout(done, 1800);
+      };
+      if (document.readyState === "complete") requestAnimationFrame(run);
+      else window.addEventListener("load", () => requestAnimationFrame(run), { once: true });
+    })();
+
     (function mosaicToHero(){
       /* Opening (revised 2026-10-01, client review): AXIS A (Portfolio) -> GROW -> AXIS B (Growth engine).
          Axis A is now one identity/scale visual (.axis-a-shot), not the 11 floating tiles. The visual
@@ -1389,6 +1488,34 @@
         });
       }, { threshold: 0.35 });
       io.observe(strip);
+    })();
+
+    (function vertsEntrance(){
+      /* Filmstrip entrance (2026-10-24, CD direction): one pass when the band
+         first comes into view. The threshold is low and the bottom margin
+         negative so the stagger starts as the band's top edge arrives, not
+         after the frames are already being read. */
+      const band = document.getElementById("verticals");
+      if (!band) return;
+      if (!("IntersectionObserver" in window)) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          band.classList.add("is-in");
+          io.disconnect();
+          /* take the class back off once the last frame has landed, so the
+             held animation cannot out-rank a future transform on the cards
+             (hover, a promotion to the design pass). */
+          const last = band.querySelectorAll(".vert-card");
+          const done = () => band.classList.remove("is-in");
+          if (last.length && last[last.length - 1].addEventListener) {
+            last[last.length - 1].addEventListener("animationend", done, { once: true });
+          }
+          setTimeout(done, 1500);
+        });
+      }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
+      io.observe(band);
     })();
 
     (function vertCards(){

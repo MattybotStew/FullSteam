@@ -49,6 +49,32 @@ Type: **Instrument Sans** + **Fragment Mono** (same as Figma promotion; no Instr
 - Placeholder figures marked `[placeholder]` where OI-5 applies.
 - **Axe:** not run in CI for this sandbox — before promotion, run axe on `index.html` (normal + reduced-motion emulation) and log results here.
 
+## Opening entrance (2026-10-24)
+
+A one-pass entrance on the first screen, at the CD's direction. No layout,
+copy, or motion-model change — the pinned Axis A, the filmstrip marquee, and
+the Axis B scroll-over are untouched.
+
+| | |
+|---|---|
+| **Headline** | The three Axis A lines arrive in sequence — 0 / 90 / 215ms, 780ms each — rising `0.42em` and resolving out of a 6px blur. The gold serif *software.* lands last, one beat after the sans lines, so the payoff word is the thing that completes the frame. |
+| **Filmstrip** | The band lifts in at 360ms (`18px` + 4px blur), while the frames fade up in a left→right wave — six steps at 55ms apart, 520ms each, applied with `:nth-child(6n+k)` so the duplicated loop copy keeps the same rhythm as the first six. |
+| **Trigger** | After `document.fonts.ready`, not `load` — the film pulls a dozen remote frames and `load` would land the entrance seconds late. Skipped when the page opens part-way down (`scrollY > 10`). |
+| **Reduced motion** | Nothing runs: the CSS is scoped to `html.has-js:not(.reduce-motion)`, and this page already puts `reduce-motion` on `<html>`. |
+| **Cleanup** | Both classes are removed on `animationend` (2.4s fallback) so no held animation can out-rank the scroll-driven inline writes that follow — `--hero-a-fade` on the copy and the marquee's `translate3d` on the track. |
+
+Deliberate choices:
+
+- **No clip on the headline lines.** The last line holds the Instrument Serif
+  `em` at `line-height: 0`; a mask would cut the italic. The rise + blur is the
+  mask's substitute and matches this page's own `.reveal` register.
+- **The thumbs animate opacity only.** Their track transform belongs to the
+  marquee loop — any CSS transform on the frames would be overwritten every
+  frame.
+- **The marquee is not paused for the entrance.** At ~27px/s it barely moves
+  across the ~1.1s the entrance runs, and having the frames already sliding
+  reads as the strip developing in motion rather than presenting.
+
 ## Open
 
 - Client logo strip under hero (currently text placeholders).
