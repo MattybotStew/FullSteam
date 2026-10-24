@@ -778,6 +778,11 @@
     .motion-toggle:hover { background: var(--surface); border-color: var(--ink); }
     .motion-toggle:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
     .motion-toggle__icon { font-size: 10px; letter-spacing: .05em; color: var(--brand); }
+    /* dark-field variant (AI band) */
+    .ai .motion-toggle { color: #fff; border-color: rgba(255,255,255,.35); }
+    .ai .motion-toggle:hover { background: rgba(255,255,255,.08); border-color: #fff; }
+    .ai .motion-toggle__icon { color: var(--green); }
+    .ai .motion-toggle:focus-visible { outline-color: #fff; }
     @media (prefers-reduced-motion: reduce) { .motion-toggle { display: none; } }
 
     /* ---- verticals: stack below 1024px ----------------------------------- */
@@ -820,7 +825,7 @@
       background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter-x) 0;
     }
     .ai__inner {
-      padding-bottom: clamp(56px, 8vh, 96px);
+      padding-bottom: clamp(24px, 3.5vh, 40px);
       max-width: 1200px; margin: 0 auto;
       display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: clamp(32px, 5vw, 80px); align-items: start;
@@ -845,7 +850,7 @@
     .ai-marquee__track {
       display: flex; width: max-content;
       animation: aiMarquee 64s linear infinite;
-      animation-play-state: paused; /* 2.2.2: nothing moves until the user asks */
+      animation-play-state: running;
     }
     .ai-marquee__item {
       display: block;
@@ -859,7 +864,14 @@
       from { transform: translate3d(0, 0, 0); }
       to { transform: translate3d(-50%, 0, 0); }
     }
-    .ai-marquee:hover .ai-marquee__track { animation-play-state: running; }
+    .ai-marquee:hover .ai-marquee__track,
+    .ai-marquee.is-paused .ai-marquee__track { animation-play-state: paused; }
+    /* 2.2.2 control for the strip, same language as the verticals toggle */
+    .ai__motion {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: flex-end;
+      padding-bottom: 18px;
+    }
     @media (prefers-reduced-motion: reduce) { .ai-marquee__track { animation: none; } }
     .ai__list { list-style: none; margin: 0; padding: 0; }
     .ai__list li {
@@ -1331,6 +1343,12 @@
           </li>
         </ol>
       </div>
+      <div class="ai__motion">
+        <button class="motion-toggle" id="marqueePause" type="button" aria-pressed="false">
+          <span class="motion-toggle__icon" aria-hidden="true">❚❚</span>
+          <span class="motion-toggle__label">Pause marquee</span>
+        </button>
+      </div>
       <div class="ai-marquee" aria-hidden="true">
         <div class="ai-marquee__track">
           <span class="ai-marquee__item">AI at Fullsteam</span><span class="ai-marquee__item">AI at Fullsteam</span><span class="ai-marquee__item">AI at Fullsteam</span><span class="ai-marquee__item">AI at Fullsteam</span>
@@ -1715,6 +1733,21 @@
           }
 
           /* 2.2.2 — an explicit, keyboard-reachable control for the 5s cycle */
+          var marqueeBtn = document.getElementById('marqueePause');
+          var marqueeEl = document.querySelector('.ai-marquee');
+          if (marqueeBtn && marqueeEl) {
+            var mLabel = marqueeBtn.querySelector('.motion-toggle__label');
+            var mIcon = marqueeBtn.querySelector('.motion-toggle__icon');
+            var mPaused = false;
+            marqueeBtn.addEventListener('click', function () {
+              mPaused = !mPaused;
+              marqueeEl.classList.toggle('is-paused', mPaused);
+              marqueeBtn.setAttribute('aria-pressed', mPaused ? 'true' : 'false');
+              if (mLabel) mLabel.textContent = mPaused ? 'Resume marquee' : 'Pause marquee';
+              if (mIcon) mIcon.textContent = mPaused ? '▶' : '❚❚';
+            });
+          }
+
           var pauseBtn = document.getElementById('vertPause');
           if (pauseBtn) {
             var pauseLabel = pauseBtn.querySelector('.motion-toggle__label');
