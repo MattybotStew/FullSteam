@@ -111,7 +111,29 @@
     @media (prefers-reduced-motion: reduce) { .site-bar { transition: none; } }
     .site-bar:has(.menu-btn[aria-expanded="true"]) { background: var(--brand); border-color: transparent; }
     .site-bar:has(.menu-btn[aria-expanded="true"]) .menu-btn__line { background: #fff; }
-    .site-bar__logo img { display: block; width: 177px; height: auto; }
+    .site-bar__logo { display: block; }
+    .logo-stack { position: relative; display: block; width: 177px; height: 48px; }
+    .logo-stack img {
+      position: absolute; top: 0; left: 0; display: block;
+      width: 177px; height: auto;
+      transition: opacity .2s var(--ease-out);
+    }
+    .logo-stack__light { opacity: 1; }              /* white mark — on dark */
+    .logo-stack__dark { opacity: 0; }               /* colour mark — on white */
+    /* colour mark only when the bar is actually white — not merely "past hero" */
+    .site-bar:not(.is-on-hero):not(.is-on-axis-b) .logo-stack__light { opacity: 0; }
+    .site-bar:not(.is-on-hero):not(.is-on-axis-b) .logo-stack__dark { opacity: 1; }
+    /* scrim so the floating header keeps the white mark legible on any frame */
+    .site-bar::before {
+      content: ""; position: fixed; left: 0; right: 0; top: 0;
+      height: calc(var(--bar-h) + 64px); pointer-events: none; z-index: -1;
+      background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 100%);
+      opacity: 0; transition: opacity .25s var(--ease-out);
+    }
+    .site-bar.is-on-axis-b::before { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) {
+      .site-bar::before, .logo-stack img { transition: none; }
+    }
     .site-bar__actions { display: flex; align-items: center; gap: 10px; }
     .menu-btn {
       appearance: none; width: 44px; height: 44px; border: 0; border-radius: 8px;
@@ -177,6 +199,13 @@
       z-index: 0;
       isolation: isolate;
       background: var(--hero-dark);
+    }
+    /* the opening's last frame melts into the ink band that follows it */
+    .opening-stage::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+      height: clamp(160px, 20vh, 260px);
+      background: linear-gradient(180deg, rgba(13,26,32,0) 0%, var(--ink) 100%);
+      pointer-events: none; z-index: 45;
     }
     .has-js:not(.reduce-motion) .opening-stage {
       height: var(--opening-h);
@@ -939,7 +968,10 @@
 
   <header class="site-bar is-on-hero" id="siteBar">
     <a class="site-bar__logo" href="#" aria-label="Fullsteam home">
-      <img src="assets/fullsteam-logo.svg" alt="Fullsteam" width="150" height="40" decoding="async" id="siteBarLogo">
+      <span class="logo-stack">
+        <img class="logo-stack__light" src="assets/fullsteam-logo.svg" alt="Fullsteam" width="177" height="48" decoding="async">
+        <img class="logo-stack__dark" src="assets/fullsteam-logo-dark.svg?v=2" alt="" aria-hidden="true" width="177" height="48" decoding="async">
+      </span>
     </a>
     <div class="site-bar__actions">
       <button type="button" class="menu-btn" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="siteMenu">
@@ -1334,7 +1366,6 @@
       var bar = document.getElementById('siteBar');
       var opening = document.getElementById('openingStage');
       var heroCenter = document.getElementById('heroCenter');
-      var barLogo = document.getElementById('siteBarLogo');
       function syncBar() {
         var y = window.scrollY || document.documentElement.scrollTop || 0;
         var openingEnd = opening ? opening.offsetTop + opening.offsetHeight : 0;
@@ -1355,9 +1386,6 @@
           }
         }
         if (bar) bar.classList.toggle('is-on-axis-b', onAxisB);
-        if (barLogo) {
-          barLogo.src = onHero ? 'assets/fullsteam-logo.svg' : 'assets/fullsteam-logo-dark.svg?v=2';
-        }
         if (bar && bar.offsetHeight) document.documentElement.style.setProperty('--bar-h', bar.offsetHeight + 'px');
       }
 
