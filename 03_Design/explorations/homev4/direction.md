@@ -75,6 +75,34 @@ Deliberate choices:
   across the ~1.1s the entrance runs, and having the frames already sliding
   reads as the strip developing in motion rather than presenting.
 
+## Axis A ground — blue → green (2026-10-24)
+
+The opening's field is now a **blue → green diagonal**: the brand's own dark at
+the top (the exact `--hero-dark` the solid header bar uses, so there is no seam
+under the bar — verified identical computed colour), brand blue through the
+middle, and a deep green at the bottom right where the filmstrip sits.
+
+```
+linear-gradient(158deg,
+  var(--hero-dark)                             0%,
+  color-mix(in srgb, var(--brand) 92%, #001018) 40%,
+  color-mix(in srgb, var(--green) 36%, #003a33) 100%)
+```
+plus the original `50% -20%` brand glow on top, which keeps the depth the flat
+linear had.
+
+Notes / open:
+
+- **In palette, but a bigger call than a shade change.** Green is a sanctioned
+  brand colour (KB §15) yet the art direction gives it the *rarest* role —
+  confirmation, one moment at a time, never a field (art direction §2). Using it
+  as half the opening's ground needs a client read, not just a CD one.
+- **The green is pulled, not painted.** It is mixed 36% into a dark teal rather
+  than used at full strength: the lime at full value is ~1.9:1 against white and
+  would wreck the headline and the white film labels.
+- **The sky headline is clear of it.** The type sits in the blue-teal band; the
+  green only arrives below the headline, behind the filmstrip.
+
 ## Open
 
 - Client logo strip under hero (currently text placeholders).

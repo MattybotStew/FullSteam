@@ -238,9 +238,17 @@
     }
     .hero--axis-a {
       min-height: 100svh;
+      /* Blue → green. The blue end is the brand's own dark (so the solid bar
+         up top still blends into it); the green is the brand lime pulled deep
+         rather than used as paint, so the field reads as a gradient of the
+         identity, not a second brand colour. Top glow keeps the depth the
+         flat linear had. */
       background:
         radial-gradient(120% 80% at 50% -20%, color-mix(in srgb, var(--brand) 40%, transparent) 0%, transparent 55%),
-        linear-gradient(165deg, var(--hero-dark) 0%, color-mix(in srgb, var(--brand) 88%, #000) 100%);
+        linear-gradient(158deg,
+          var(--hero-dark) 0%,
+          color-mix(in srgb, var(--brand) 92%, #001018) 40%,
+          color-mix(in srgb, var(--green) 36%, #003a33) 100%);
       color: #fff;
       display: flex; flex-direction: column; align-items: center; justify-content: space-between;
       text-align: center;
