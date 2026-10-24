@@ -54,6 +54,16 @@ jobs:
           cp 03_Design/explorations/02-video-hero/assets/fullsteam-logo.svg \
              03_Design/explorations/02-video-hero/assets/hero-stock.mp4 \
              _site/03_Design/explorations/homev2/assets/
+          # homev4 — the high-fidelity homepage linked from the review portal
+          # (Axis A → Axis B, vertical filmstrip, blue→green opening ground).
+          # HTML + its two logo SVGs; the film frames are hotlinked from
+          # Unsplash, so there is no media to stage.
+          mkdir -p _site/03_Design/explorations/homev4/assets
+          cp 03_Design/explorations/homev4/index.html \
+             _site/03_Design/explorations/homev4/
+          cp 03_Design/explorations/homev4/assets/fullsteam-logo.svg \
+             03_Design/explorations/homev4/assets/fullsteam-logo-dark.svg \
+             _site/03_Design/explorations/homev4/assets/
           echo "--- published ---"
           find _site -type f | sort
           echo "--- confirm nothing internal leaked in ---"
