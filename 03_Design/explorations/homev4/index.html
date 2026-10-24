@@ -65,13 +65,7 @@
     a { color: inherit; }
     .mono { font-family: "Fragment Mono", ui-monospace, monospace; font-size: .78em; letter-spacing: .06em; text-transform: uppercase; }
 
-    /* ---- system layer: kickers · reveal · media grade ---- */
-    .kicker { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; color: var(--brand); }
-    .kicker::before { content: ""; width: 40px; height: 1px; background: currentColor; opacity: .5; }
-    .kpi .kicker, .verts__head .kicker { justify-content: center; }
-    .ai .kicker { color: var(--green); }
-    .close .kicker { color: rgba(255,255,255,.9); }
-
+    /* ---- system layer: reveal · media grade ---- */
     .reveal {
       transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out), filter var(--dur-reveal) var(--ease-out);
       transition-delay: var(--reveal-d, 0ms);
@@ -521,7 +515,6 @@
     .kpi__info-num { margin: 0; font-size: 1.35rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
     .kpi__info-cap { margin: 2px 0 0; color: var(--mut); font-size: 12.5px; text-wrap: pretty; }
     .kpi__center { text-align: center; position: relative; z-index: 1; }
-    .kpi__eyebrow { color: var(--brand); margin: 0; }
     .kpi__title {
       margin: 14px 0 0; color: var(--ink);
       font-size: var(--display-m); line-height: .98; letter-spacing: -0.03em; font-weight: 700;
@@ -538,19 +531,17 @@
     .kpi__card-wrap { display: flex; will-change: transform; }
     .kpi__card { width: 100%; }
     /* hero-style entrance: lines rise + unblur, cards follow in stagger */
-    .has-js .kpi__eyebrow, .has-js .kpi__title .kpi__line, .has-js .kpi__sub, .has-js .kpi__cta, .has-js .kpi__card {
+    .has-js .kpi__title .kpi__line, .has-js .kpi__sub, .has-js .kpi__cta, .has-js .kpi__card {
       opacity: 0;
       transform: translateY(1.15em);
       filter: blur(6px);
       transition: opacity .75s cubic-bezier(.2,.7,.2,1), transform .75s cubic-bezier(.2,.7,.2,1), filter .75s cubic-bezier(.2,.7,.2,1);
     }
     .has-js .kpi__card { transform: translateY(48px) scale(.98); filter: blur(8px); }
-    .kpi.is-in .kpi__eyebrow,
     .kpi.is-in .kpi__title .kpi__line,
     .kpi.is-in .kpi__sub,
     .kpi.is-in .kpi__cta,
     .kpi.is-in .kpi__card { opacity: 1; transform: none; filter: none; }
-    .kpi.is-in .kpi__eyebrow { transition-delay: .05s; }
     .kpi.is-in .kpi__title .kpi__line:nth-child(1) { transition-delay: .10s; }
     .kpi.is-in .kpi__title .kpi__line:nth-child(2) { transition-delay: .22s; }
     .kpi.is-in .kpi__sub { transition-delay: .34s; }
@@ -559,7 +550,7 @@
     .kpi.is-in .kpi__card-wrap:nth-child(2) .kpi__card { transition-delay: .52s; }
     .kpi.is-in .kpi__card-wrap:nth-child(3) .kpi__card { transition-delay: .64s; }
     @media (prefers-reduced-motion: reduce) {
-      .kpi__eyebrow, .kpi__title .kpi__line, .kpi__sub, .kpi__cta, .kpi__card {
+      .kpi__title .kpi__line, .kpi__sub, .kpi__cta, .kpi__card {
         opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important;
       }
     }
@@ -772,7 +763,6 @@
       background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter-x);
     }
     .ai__inner { max-width: 1200px; margin: 0 auto; }
-    .ai__kicker { color: var(--green); margin: 0 0 8px; }
     .ai__title { font-size: var(--display-xs); margin: 0 0 12px; max-width: 18ch; letter-spacing: -.02em; text-wrap: balance; }
     .ai__lede { color: rgba(255,255,255,.72); max-width: 48ch; margin: 0 0 40px; line-height: 1.5; text-wrap: pretty; }
     .ai-mosaic {
@@ -801,7 +791,6 @@
       display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
       gap: clamp(28px, 5vw, 72px); align-items: end;
     }
-    .careers__eyebrow { color: var(--brand); margin: 0 0 16px; }
     .careers__title {
       margin: 0; color: var(--ink);
       font-size: var(--display-m); line-height: 1.02; letter-spacing: -.03em;
@@ -1039,7 +1028,6 @@
     <section class="kpi" id="key-figures" aria-labelledby="kpiTitle">
       <div class="kpi__inner">
         <div class="kpi__center">
-          <p class="kicker mono">Key figures</p>
           <h2 class="kpi__title" id="kpiTitle">
             <span class="kpi__line">70,000+ customers rely on</span>
             <span class="kpi__line"><em>our software.</em></span>
@@ -1080,7 +1068,6 @@
 
   <section class="verts" id="investors" aria-labelledby="vertsTitle">
     <div class="verts__head">
-      <p class="kicker mono">Verticals</p>
       <h2 class="verts__title" id="vertsTitle">Keep the businesses <em>growing.</em></h2>
     </div>
     <!--
@@ -1172,7 +1159,6 @@
 
     <section class="ai" id="ai" aria-labelledby="aiTitle">
       <div class="ai__inner">
-        <p class="kicker mono">AI at Fullsteam</p>
         <h2 class="ai__title" id="aiTitle">AI that already knows the business.</h2>
         <p class="ai__lede">Use cases first — built on proprietary vertical data, not generic models. Never imply staff reduction.</p>
         <div class="ai-mosaic">
@@ -1208,7 +1194,6 @@
       <div class="careers__inner">
         <div class="careers__top">
           <div class="careers__copy">
-            <p class="kicker mono">Careers</p>
             <h2 class="careers__title" id="careersTitle">A great place to <em>work.</em></h2>
             <p class="careers__lede">Real people building software for real industries — mostly remote, small teams, room to grow.</p>
             <p class="careers__cta"><a class="pill pill--gold" href="../../../02_Wireframes/active/pages/careers.html">See Careers</a></p>
@@ -1244,7 +1229,6 @@
     <section class="close" id="close" aria-labelledby="closeTitle">
       <div class="close__inner">
         <div class="close__copy">
-          <p class="kicker mono">Next</p>
           <h2 class="close__title" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
         </div>
         <div class="close__actions">
@@ -1444,7 +1428,7 @@
          Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
          scroll, find-in-page — still reveals everything it passed. */
       (function () {
-        var sel = '.kicker, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai-tile, .ai__foot, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .close__title, .close__actions';
+        var sel = '.verts__title, .verts__stage, .ai__title, .ai__lede, .ai-tile, .ai__foot, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .close__title, .close__actions';
         var els = Array.prototype.slice.call(document.querySelectorAll(sel));
         if (!els.length) return;
         els.forEach(function (el) {
