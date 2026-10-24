@@ -623,7 +623,7 @@
     }
     .verts__title em {
       font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
-      color: var(--brand); letter-spacing: 0;
+      color: var(--gold); letter-spacing: 0;
     }
     /* Full-bleed stage — edge-to-edge; title stays in readable measure above */
     .verts__stage {
@@ -849,7 +849,13 @@
       padding: 22px 0; border-top: 1px solid rgba(255,255,255,.14);
     }
     .ai__list li:last-child { border-bottom: 1px solid rgba(255,255,255,.14); }
-    .ai__num { font-size: 11px; letter-spacing: .12em; color: var(--gold); padding-top: 4px; }
+    .ai__num { font-size: 11px; letter-spacing: .12em; color: var(--green); padding-top: 4px; }
+    /* the 2px rule marks this as the AI/innovation band */
+    .ai__title::after {
+      content: ""; display: block; width: 64px; height: 2px;
+      background: var(--green); margin-top: 26px;
+    }
+    .ai__list li:hover { border-top-color: rgba(255,255,255,.30); }
     .ai__h { margin: 0 0 8px; font-size: 1.1rem; letter-spacing: -.01em; }
     .ai__p { margin: 0; font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.72); text-wrap: pretty; }
     @media (max-width: 900px) {
@@ -871,7 +877,7 @@
     }
     .careers__title em {
       font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
-      color: var(--brand); letter-spacing: 0;
+      color: var(--gold); letter-spacing: 0;
     }
     .careers__lede {
       margin: 22px 0 0; color: var(--mut);
@@ -935,6 +941,10 @@
     .close__title em {
       font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
       color: var(--gold); letter-spacing: 0;
+    }
+    .close__proof-flag::before {
+      content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); margin-right: 9px; vertical-align: 1px;
     }
     .close__proof {
       margin: 26px 0 0; color: rgba(255,255,255,.7);
@@ -1344,7 +1354,7 @@
     <section class="close" id="close" aria-labelledby="closeTitle">
       <div class="close__inner">
         <h2 class="close__title" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
-        <p class="close__proof">70,000+ customers · 11 vertical businesses · 2,000+ people</p>
+        <p class="close__proof">70,000+ customers · <span class="close__proof-flag">11 vertical businesses</span> · 2,000+ people</p>
         <div class="close__doors">
           <a class="close__door" href="../../../02_Wireframes/active/pages/vertical-software.html">
             <span class="close__door-k">Portfolio</span>
