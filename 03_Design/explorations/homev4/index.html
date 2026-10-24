@@ -802,18 +802,43 @@
       .careers__values { grid-template-columns: 1fr; gap: 24px; }
     }
 
-    /* ---- close ---- */
+    /* ---- close: brand finale (dark band, monumental type) ---- */
     .close {
-      padding: 100px var(--gutter-x) 120px; text-align: center;
-      background: color-mix(in srgb, var(--brand) 6%, var(--bg));
+      position: relative; overflow: hidden;
+      padding: clamp(88px, 12vh, 152px) var(--gutter-x) clamp(96px, 12vh, 144px);
+      background-color: var(--brand); color: #fff;
+      background-image: radial-gradient(85% 120% at 88% -10%, rgba(255,255,255,.12) 0%, transparent 62%);
+    }
+    .close__inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, .55fr);
+      gap: clamp(32px, 5vw, 72px); align-items: end;
     }
     .close__title {
-      font-size: clamp(2rem, 5vw, 3.25rem); max-width: 20ch; margin: 0 auto 28px;
-      line-height: 1.1; letter-spacing: -.02em; text-wrap: balance;
+      margin: 0; color: #fff;
+      font-size: clamp(2.6rem, 6.2vw, 5.4rem); line-height: 1.0;
+      letter-spacing: -.035em; font-weight: 700; text-wrap: balance;
     }
-    .close__founders { margin-top: 20px; font-size: 14px; }
-    .close__founders a { color: var(--brand); font-weight: 600; position: relative; }
+    .close__title em {
+      font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
+      color: var(--gold); letter-spacing: 0;
+    }
+    .close__actions { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+    .close__founders { margin: 0; font-size: 14px; }
+    .close__founders a {
+      color: rgba(255,255,255,.82); text-decoration: none; font-weight: 600;
+      position: relative; display: inline-block; padding-bottom: 3px;
+      border-bottom: 1px solid rgba(255,255,255,.45);
+      transition: color 150ms cubic-bezier(0,0,.2,1), border-color 150ms cubic-bezier(0,0,.2,1);
+    }
+    .close__founders a:hover { color: #fff; border-bottom-color: #fff; }
     .close__founders a::before { content: ""; position: absolute; inset: -14px -8px; }
+    /* rings must invert on the brand field */
+    .close .pill:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    .close__founders a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 2px; }
+    @media (max-width: 900px) {
+      .close__inner { grid-template-columns: 1fr; align-items: start; gap: 36px; }
+    }
 
     /* ---- footer ---- */
     .site-footer {
@@ -1155,9 +1180,13 @@
     </section>
 
     <section class="close" id="close" aria-labelledby="closeTitle">
-      <h2 class="close__title" id="closeTitle">Ready to see where your business can go next?</h2>
-      <p><a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore our vertical solutions</a></p>
-      <p class="close__founders"><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions — a home for your business</a></p>
+      <div class="close__inner">
+        <h2 class="close__title" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
+        <div class="close__actions">
+          <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore our vertical solutions</a>
+          <p class="close__founders"><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions — a home for your business</a></p>
+        </div>
+      </div>
     </section>
     </div>
   </main>
