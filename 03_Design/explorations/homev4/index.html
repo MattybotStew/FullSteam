@@ -24,6 +24,17 @@
       --bar-h: 84px;
       /* one horizontal gutter for every band; 24px matches the header on phones */
       --gutter-x: clamp(24px, 5vw, 48px);
+      /* one spacing scale for every band */
+      --section-y: clamp(72px, 10vh, 120px);
+      /* one type ladder — five display sizes, nothing else */
+      --display-xl: clamp(50px, 8.34vw, 120px);
+      --display-l: clamp(46px, 6vw, 88px);
+      --display-m: clamp(36px, 4.8vw, 72px);
+      --display-s: clamp(32px, 3.6vw, 56px);
+      --display-xs: clamp(28px, 2.8vw, 40px);
+      /* one motion language */
+      --ease-out: cubic-bezier(.2, .7, .2, 1);
+      --dur-reveal: 550ms;
       --pin-travel: 75vh;
       --pin-stage: calc(100vh + var(--pin-travel));
       --hero-dark: color-mix(in srgb, var(--brand) 72%, #001018);
@@ -53,6 +64,29 @@
     }
     a { color: inherit; }
     .mono { font-family: "Fragment Mono", ui-monospace, monospace; font-size: .78em; letter-spacing: .06em; text-transform: uppercase; }
+
+    /* ---- system layer: kickers · reveal · media grade ---- */
+    .kicker { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; color: var(--brand); }
+    .kicker::before { content: ""; width: 40px; height: 1px; background: currentColor; opacity: .5; }
+    .kpi .kicker, .verts__head .kicker { justify-content: center; }
+    .ai .kicker { color: var(--green); }
+    .close .kicker { color: rgba(255,255,255,.9); }
+
+    .reveal {
+      transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out), filter var(--dur-reveal) var(--ease-out);
+      transition-delay: var(--reveal-d, 0ms);
+    }
+    .has-js .reveal { opacity: 0; transform: translateY(22px); filter: blur(6px); }
+    .has-js .reveal.is-in { opacity: 1; transform: none; filter: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .has-js .reveal { opacity: 1; transform: none; filter: none; transition: none; }
+    }
+    @media print { .has-js .reveal { opacity: 1 !important; transform: none !important; filter: none !important; } }
+
+    /* one photographic grade across every band */
+    .kpi__card::before, .vpanel__img, .ai-tile__img, .careers__photo { filter: saturate(.94) contrast(1.03); }
+
+    ::selection { background: var(--gold); color: var(--ink); }
 
     .skip-link {
       position: absolute; left: 12px; top: -70px; z-index: 200;
@@ -178,7 +212,7 @@
     }
     /* homev2 headline system (Axis A / B copy) */
     .hero__headlines {
-      --title-max: clamp(50px, 8.34vw, 120px);
+      --title-max: var(--display-xl);
       position: relative;
       width: min(1100px, calc(100vw - 48px));
       min-height: clamp(8.4rem, 22.8vw, 18.6rem);
@@ -445,7 +479,7 @@
     }
 
     /* ---- key figures: Localyzer platform register ---- */
-    .kpi { position: relative; z-index: 1; isolation: isolate; background: var(--bg); padding: clamp(64px, 9vh, 120px) var(--gutter-x); }
+    .kpi { position: relative; z-index: 1; isolation: isolate; background: var(--bg); padding: var(--section-y) var(--gutter-x); }
     .kpi__inner {
       max-width: 1200px; margin: 0 auto;
       display: flex; flex-direction: column; gap: clamp(32px, 5vh, 56px);
@@ -456,10 +490,18 @@
     .kpi__card {
       position: relative; border-radius: 24px;
       min-height: clamp(320px, 42vh, 460px);
+      overflow: hidden;
     }
     .kpi__card::before {
       content: ""; position: absolute; inset: 0; border-radius: inherit;
       background-image: var(--photo); background-size: cover; background-position: center;
+      transition: transform .6s var(--ease-out);
+    }
+    .kpi__card:hover::before { transform: scale(1.03); }
+    /* inner hairline keeps the photo from bleeding flat into the page */
+    .kpi__card::after {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); pointer-events: none;
     }
     .kpi__pill {
       position: absolute; top: 18px; left: 18px;
@@ -482,7 +524,7 @@
     .kpi__eyebrow { color: var(--brand); margin: 0; }
     .kpi__title {
       margin: 14px 0 0; color: var(--ink);
-      font-size: clamp(2.3rem, 5.2vw, 4.5rem); line-height: .98; letter-spacing: -0.03em; font-weight: 700;
+      font-size: var(--display-m); line-height: .98; letter-spacing: -0.03em; font-weight: 700;
       text-wrap: balance;
     }
     .kpi__title .kpi__line { display: block; line-height: 1.02; }
@@ -534,7 +576,7 @@
       --mono-d: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
       position: relative; z-index: 2;
       background: #fff; color: #0d1a20;
-      padding: 96px var(--gutter) 92px;
+      padding: var(--section-y) var(--gutter);
     }
     .verts__head {
       width: 100%; margin: 0 auto 36px; padding: 0;
@@ -545,7 +587,7 @@
       /* readable measure lives on the text, not the container, so the head,
          stage and links still share one gutter at every width */
       max-width: 1160px;
-      font-size: clamp(34px, 4.4vw, 60px); font-weight: 500;
+      font-size: var(--display-s); font-weight: 500;
       letter-spacing: -.032em; line-height: 1.04;
     }
     /* Full-bleed stage — edge-to-edge; title stays in readable measure above */
@@ -682,12 +724,13 @@
       writing-mode: vertical-rl; transform: rotate(180deg);
       font-size: 18px; font-weight: 600; letter-spacing: .01em; line-height: 1; white-space: nowrap;
     }
-    .verts__all-box .va-arrow { color: var(--accent); font-size: 18px; line-height: 1; }
+    .verts__all-box .va-arrow { color: var(--accent); font-size: 18px; line-height: 1; transition: transform .25s var(--ease-out); }
+    .verts__all-box:hover .va-arrow { transform: translateX(3px); }
     .verts__all-box:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
     /* ---- verticals: stack below 1024px ----------------------------------- */
     @media (max-width: 1023px) {
-      .verts { padding: 76px var(--gutter) 72px; }
+      .verts { padding: var(--section-y) var(--gutter); }
       .verts__stage {
         flex-direction: column; gap: 5px; height: auto;
         --strip: 120px;
@@ -722,28 +765,33 @@
 
     /* ---- AI mosaic ---- */
     .ai {
-      background: var(--ink); color: #fff; padding: 80px var(--gutter-x);
+      background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter-x);
     }
     .ai__inner { max-width: 1200px; margin: 0 auto; }
     .ai__kicker { color: var(--green); margin: 0 0 8px; }
-    .ai__title { font-size: clamp(1.75rem, 3vw, 2.5rem); margin: 0 0 12px; max-width: 18ch; letter-spacing: -.02em; text-wrap: balance; }
+    .ai__title { font-size: var(--display-xs); margin: 0 0 12px; max-width: 18ch; letter-spacing: -.02em; text-wrap: balance; }
     .ai__lede { color: rgba(255,255,255,.72); max-width: 48ch; margin: 0 0 40px; line-height: 1.5; text-wrap: pretty; }
     .ai-mosaic {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
     }
     @media (max-width: 768px) { .ai-mosaic { grid-template-columns: 1fr; } }
     .ai-tile {
+      position: relative;
       border-radius: 16px; overflow: hidden; background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.12);
     }
-    .ai-tile__img { height: 160px; background-image: var(--photo); background-size: cover; background-position: center; }
+    .ai-tile__img {
+      height: 160px; background-image: var(--photo); background-size: cover; background-position: center;
+      transition: transform .6s var(--ease-out);
+    }
+    .ai-tile:hover .ai-tile__img { transform: scale(1.03); }
     .ai-tile__copy { padding: 20px; }
     .ai-tile__h { margin: 0 0 8px; font-size: 1.1rem; }
     .ai-tile__p { margin: 0; font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.5; text-wrap: pretty; }
     .ai__foot { margin-top: 32px; }
 
     /* ---- careers: editorial split, not another card grid ---- */
-    .careers { padding: clamp(72px, 10vh, 128px) var(--gutter-x); background: var(--surface); }
+    .careers { padding: var(--section-y) var(--gutter-x); background: var(--surface); }
     .careers__inner { max-width: 1200px; margin: 0 auto; }
     .careers__top {
       display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
@@ -752,7 +800,7 @@
     .careers__eyebrow { color: var(--brand); margin: 0 0 16px; }
     .careers__title {
       margin: 0; color: var(--ink);
-      font-size: clamp(2.6rem, 5.6vw, 4.6rem); line-height: 1.02; letter-spacing: -.03em;
+      font-size: var(--display-m); line-height: 1.02; letter-spacing: -.03em;
       font-weight: 700; text-wrap: balance;
     }
     .careers__title em {
@@ -805,18 +853,19 @@
     /* ---- close: brand finale (dark band, monumental type) ---- */
     .close {
       position: relative; overflow: hidden;
-      padding: clamp(88px, 12vh, 152px) var(--gutter-x) clamp(96px, 12vh, 144px);
+      padding: var(--section-y) var(--gutter-x) clamp(96px, 12vh, 144px);
       background-color: var(--brand); color: #fff;
       background-image: radial-gradient(85% 120% at 88% -10%, rgba(255,255,255,.12) 0%, transparent 62%);
     }
     .close__inner {
+      position: relative; z-index: 1;
       max-width: 1200px; margin: 0 auto;
       display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, .55fr);
       gap: clamp(32px, 5vw, 72px); align-items: end;
     }
     .close__title {
       margin: 0; color: #fff;
-      font-size: clamp(2.6rem, 6.2vw, 5.4rem); line-height: 1.0;
+      font-size: var(--display-l); line-height: 1.0;
       letter-spacing: -.035em; font-weight: 700; text-wrap: balance;
     }
     .close__title em {
@@ -839,6 +888,14 @@
     @media (max-width: 900px) {
       .close__inner { grid-template-columns: 1fr; align-items: start; gap: 36px; }
     }
+
+    /* ---- print grain on the dark bands ---- */
+    .ai, .site-footer { position: relative; }
+    .ai::after, .close::after, .site-footer::after {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .ai__inner, .close__inner, .footer-grid, .footer-legal { position: relative; z-index: 1; }
 
     /* ---- footer ---- */
     .site-footer {
@@ -896,51 +953,51 @@
             <div class="vert-film__track" id="vertFilmTrack">
               <!-- 6 unique verticals × 2 for seamless loop (even count centers better) -->
               <button type="button" class="vert-film__thumb" data-vi="0" aria-label="Hospitality"
-                style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Hospitality</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="1" aria-label="Wine"
-                style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Wine</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="2" aria-label="Transportation"
-                style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Transportation</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="3" aria-label="Automotive"
-                style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Automotive</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="4" aria-label="ERP"
-                style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">ERP</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="5" aria-label="Retail"
-                style="--photo: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Retail</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="0" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Hospitality</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="1" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Wine</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="2" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Transportation</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="3" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Automotive</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="4" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">ERP</span>
               </button>
               <button type="button" class="vert-film__thumb" data-vi="5" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&amp;fit=crop&amp;w=960&amp;h=540&amp;q=70')">
+                style="--photo: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
                 <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Retail</span>
               </button>
             </div>
@@ -978,7 +1035,7 @@
     <section class="kpi" id="key-figures" aria-labelledby="kpiTitle">
       <div class="kpi__inner">
         <div class="kpi__center">
-          <p class="kpi__eyebrow mono">Key figures</p>
+          <p class="kicker mono">Key figures</p>
           <h2 class="kpi__title" id="kpiTitle">
             <span class="kpi__line">70,000+ customers rely on</span>
             <span class="kpi__line"><em>our software.</em></span>
@@ -990,7 +1047,7 @@
         </div>
         <div class="kpi__cards">
           <div class="kpi__card-wrap"><div class="kpi__card"
-            style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=960&amp;h=1200&amp;q=70');">
+            style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=1200&amp;q=70');">
             <span class="kpi__pill">Acquire</span>
             <div class="kpi__info">
               <p class="kpi__info-num">11</p>
@@ -998,7 +1055,7 @@
             </div>
           </div></div>
           <div class="kpi__card-wrap"><div class="kpi__card"
-            style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;w=960&amp;h=1200&amp;q=70');">
+            style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=1200&amp;q=70');">
             <span class="kpi__pill">Grow</span>
             <div class="kpi__info">
               <p class="kpi__info-num">$75B</p>
@@ -1006,7 +1063,7 @@
             </div>
           </div></div>
           <div class="kpi__card-wrap"><div class="kpi__card"
-            style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=960&amp;h=1200&amp;q=70');">
+            style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=1200&amp;q=70');">
             <span class="kpi__pill">Lead</span>
             <div class="kpi__info">
               <p class="kpi__info-num">2,000+</p>
@@ -1019,6 +1076,7 @@
 
   <section class="verts" id="investors" aria-labelledby="vertsTitle">
     <div class="verts__head">
+      <p class="kicker mono">Verticals</p>
       <h2 class="verts__title" id="vertsTitle">Keep the businesses growing.</h2>
     </div>
     <!--
@@ -1032,7 +1090,7 @@
     -->
     <div class="verts__stage" id="vertStage" role="group" aria-label="Vertical markets">
       <article class="vpanel is-open" data-tone="0"
-        style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
         <button type="button" class="vpanel__toggle" aria-expanded="true" aria-controls="vpanel-body-0">
           <span class="vpanel__label">ERP</span>
@@ -1046,7 +1104,7 @@
         </div>
       </article>
       <article class="vpanel" data-tone="1"
-        style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
         <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-1">
           <span class="vpanel__label">Wine</span>
@@ -1060,7 +1118,7 @@
         </div>
       </article>
       <article class="vpanel" data-tone="2"
-        style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
         <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-2">
           <span class="vpanel__label">Transportation</span>
@@ -1074,7 +1132,7 @@
         </div>
       </article>
       <article class="vpanel" data-tone="3"
-        style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
         <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-3">
           <span class="vpanel__label">Hospitality</span>
@@ -1088,7 +1146,7 @@
         </div>
       </article>
       <article class="vpanel" data-tone="4"
-        style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;w=1600&amp;h=1000&amp;q=70')">
+        style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
         <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-4">
           <span class="vpanel__label">Automotive</span>
@@ -1110,7 +1168,7 @@
 
     <section class="ai" id="ai" aria-labelledby="aiTitle">
       <div class="ai__inner">
-        <p class="ai__kicker mono">AI at Fullsteam</p>
+        <p class="kicker mono">AI at Fullsteam</p>
         <h2 class="ai__title" id="aiTitle">AI that already knows the business.</h2>
         <p class="ai__lede">Use cases first — built on proprietary vertical data, not generic models. Never imply staff reduction.</p>
         <div class="ai-mosaic">
@@ -1146,7 +1204,7 @@
       <div class="careers__inner">
         <div class="careers__top">
           <div class="careers__copy">
-            <p class="careers__eyebrow mono">Careers</p>
+            <p class="kicker mono">Careers</p>
             <h2 class="careers__title" id="careersTitle">A great place to <em>work.</em></h2>
             <p class="careers__lede">Real people building software for real industries — mostly remote, small teams, room to grow.</p>
             <p class="careers__cta"><a class="pill pill--gold" href="../../../02_Wireframes/active/pages/careers.html">See Careers</a></p>
@@ -1181,7 +1239,10 @@
 
     <section class="close" id="close" aria-labelledby="closeTitle">
       <div class="close__inner">
-        <h2 class="close__title" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
+        <div class="close__copy">
+          <p class="kicker mono">Next</p>
+          <h2 class="close__title" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
+        </div>
         <div class="close__actions">
           <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore our vertical solutions</a>
           <p class="close__founders"><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions — a home for your business</a></p>
@@ -1375,6 +1436,62 @@
         (function kpiLoop() { renderKpiParallax(); requestAnimationFrame(kpiLoop); })();
       }
 
+      /* Motion language: every band after the opening enters the same way.
+         Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
+         scroll, find-in-page — still reveals everything it passed. */
+      (function () {
+        var sel = '.kicker, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai-tile, .ai__foot, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .close__title, .close__actions';
+        var els = Array.prototype.slice.call(document.querySelectorAll(sel));
+        if (!els.length) return;
+        els.forEach(function (el) {
+          el.classList.add('reveal');
+          var idx = Array.prototype.indexOf.call(el.parentElement.children, el);
+          el.style.setProperty('--reveal-d', Math.min(Math.max(idx, 0), 3) * 70 + 'ms');
+        });
+        function sweep() {
+          var vh = window.innerHeight;
+          for (var i = 0; i < els.length; i++) {
+            var el = els[i];
+            if (el.classList.contains('is-in')) continue;
+            var r = el.getBoundingClientRect();
+            if (r.top < vh * 0.9) el.classList.add('is-in');
+          }
+        }
+        var queued = false;
+        function onScroll() {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; sweep(); });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        window.addEventListener('load', sweep);
+        sweep();
+      })();
+
+      /* Careers photo: the same slow drift as the key figures, smaller amplitude */
+      (function () {
+        var photo = document.querySelector('.careers__photo');
+        var media = document.querySelector('.careers__media');
+        if (!photo || !media) return;
+        function render() {
+          if (reduce.matches) { photo.style.transform = ''; return; }
+          var r = media.getBoundingClientRect();
+          var mid = (r.top + r.height / 2) - window.innerHeight / 2;
+          var y = Math.max(-16, Math.min(16, mid * -0.03));
+          photo.style.transform = 'translateY(' + y.toFixed(2) + 'px) scale(1.05)';
+        }
+        var queued = false;
+        function onScroll() {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; render(); });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        render();
+      })();
+
       /* Verticals: expanding accordion (homev2 register) */
       (function () {
         var section = document.getElementById('investors');
@@ -1388,6 +1505,7 @@
 
           function toggleOf(panel) { return panel.querySelector('.vpanel__toggle'); }
 
+          var currentIdx = 0;
           function select(panel) {
             panels.forEach(function (p) {
               var on = p === panel;
@@ -1395,6 +1513,7 @@
               var btn = toggleOf(p);
               if (btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
             });
+            currentIdx = Math.max(0, panels.indexOf(panel));
           }
 
           panels.forEach(function (panel, idx) {
@@ -1420,6 +1539,44 @@
               if (nb) nb.focus();
             });
           });
+
+          /* Signature: the accordion breathes on its own — one panel every 5s.
+             Pauses on hover, focus, and while the section is off screen; never
+             runs under prefers-reduced-motion. */
+          var paused = false;
+          var inView = false;
+          var timer = null;
+
+          function tick() {
+            if (paused || !inView || reduce.matches) return;
+            select(panels[(currentIdx + 1) % panels.length]);
+          }
+          function start() {
+            if (timer || reduce.matches) return;
+            timer = window.setInterval(tick, 5000);
+          }
+          function stop() {
+            if (timer) { window.clearInterval(timer); timer = null; }
+          }
+
+          ['mouseenter', 'focusin', 'pointerdown', 'touchstart'].forEach(function (evt) {
+            stage.addEventListener(evt, function () { paused = true; }, { passive: true });
+          });
+          ['mouseleave', 'focusout'].forEach(function (evt) {
+            stage.addEventListener(evt, function () { paused = false; }, { passive: true });
+          });
+
+          if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (entries) {
+              entries.forEach(function (en) {
+                inView = en.isIntersecting;
+                if (inView) start(); else stop();
+              });
+            }, { threshold: 0.25 }).observe(stage);
+          } else {
+            inView = true;
+            start();
+          }
         }
 
         initVertStage();
