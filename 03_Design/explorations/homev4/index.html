@@ -800,9 +800,10 @@
 
     /* ---- AI: an argument, not a tile grid ---- */
     .ai {
-      background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter-x);
+      background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter-x) 0;
     }
     .ai__inner {
+      padding-bottom: clamp(56px, 8vh, 96px);
       max-width: 1200px; margin: 0 auto;
       display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: clamp(32px, 5vw, 80px); align-items: start;
@@ -816,6 +817,35 @@
       max-width: 40ch; margin: 22px 0 0; line-height: 1.5; text-wrap: pretty;
     }
     .ai__foot { margin-top: 30px; }
+    /* scrolling wordmark strip at the foot of the AI band */
+    .ai-marquee {
+      position: relative; z-index: 1;
+      overflow: hidden; margin: 0 calc(var(--gutter-x) * -1);
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding: clamp(16px, 2.4vh, 28px) 0;
+      user-select: none;
+    }
+    .ai-marquee__track {
+      display: flex; width: max-content;
+      animation: aiMarquee 42s linear infinite;
+    }
+    .ai-marquee__item {
+      display: flex; align-items: center; gap: clamp(24px, 3vw, 48px);
+      padding-right: clamp(24px, 3vw, 48px);
+      font-size: clamp(44px, 7.6vw, 104px); font-weight: 600;
+      letter-spacing: -.035em; line-height: 1; white-space: nowrap;
+      color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.40);
+    }
+    .ai-marquee__dot {
+      width: clamp(8px, .9vw, 14px); height: clamp(8px, .9vw, 14px);
+      border-radius: 50%; background: var(--gold); flex: 0 0 auto;
+    }
+    @keyframes aiMarquee {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(-50%, 0, 0); }
+    }
+    .ai-marquee:hover .ai-marquee__track { animation-play-state: paused; }
+    @media (prefers-reduced-motion: reduce) { .ai-marquee__track { animation: none; } }
     .ai__list { list-style: none; margin: 0; padding: 0; }
     .ai__list li {
       display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px;
@@ -1249,6 +1279,12 @@
             </div>
           </li>
         </ol>
+      </div>
+      <div class="ai-marquee" aria-hidden="true">
+        <div class="ai-marquee__track">
+          <span class="ai-marquee__item">AI at Fullsteam<i class="ai-marquee__dot"></i></span><span class="ai-marquee__item">AI at Fullsteam<i class="ai-marquee__dot"></i></span><span class="ai-marquee__item">AI at Fullsteam<i class="ai-marquee__dot"></i></span><span class="ai-marquee__item">AI at Fullsteam<i class="ai-marquee__dot"></i></span>
+          <span class="ai-marquee__item">AI at Fullsteam<i class="ai-marquee__dot"></i></span><span class="ai-marquee__item">AI at Fullsteam<i class="ai-marquee__dot"></i></span><span class="ai-marquee__item">AI at Fullsteam<i class="ai-marquee__dot"></i></span><span class="ai-marquee__item">AI at Fullsteam<i class="ai-marquee__dot"></i></span>
+        </div>
       </div>
     </section>
 
