@@ -143,6 +143,10 @@
     .menu-btn:focus-visible, .pill:focus-visible {
       outline: 3px solid var(--brand); outline-offset: 3px;
     }
+    /* brand-on-ink measures 2.25:1 — invert the ring on dark fields */
+    .hero .pill:focus-visible, .ai .pill:focus-visible, .kpi .pill:focus-visible {
+      outline-color: #fff;
+    }
     .pill {
       display: inline-flex; align-items: center; justify-content: center;
       min-height: 44px; padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 14px;
@@ -623,7 +627,7 @@
     }
     .verts__title em {
       font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
-      color: var(--gold); letter-spacing: 0;
+      color: var(--brand); letter-spacing: 0;
     }
     /* Full-bleed stage — edge-to-edge; title stays in readable measure above */
     .verts__stage {
@@ -701,7 +705,7 @@
     .vpanel__body {
       position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
       padding: 36px 28px 28px;
-      background: linear-gradient(rgba(0,12,20,.35), rgba(0,12,20,.80) 48%);
+      background: linear-gradient(rgba(0,12,20,.58), rgba(0,12,20,.90) 48%);
       color: #fff;
       opacity: 0;
       visibility: hidden;
@@ -762,6 +766,19 @@
     .verts__all-box .va-arrow { color: var(--accent); font-size: 18px; line-height: 1; transition: transform .25s var(--ease-out); }
     .verts__all-box:hover .va-arrow { transform: translateX(3px); }
     .verts__all-box:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    .verts__foot { display: flex; justify-content: flex-end; margin-top: 18px; }
+    .motion-toggle {
+      display: inline-flex; align-items: center; gap: 10px;
+      min-height: 44px; padding: 0 18px;
+      background: transparent; border: 1px solid var(--line); border-radius: 999px;
+      color: var(--ink); font: inherit; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out);
+    }
+    .motion-toggle:hover { background: var(--surface); border-color: var(--ink); }
+    .motion-toggle:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+    .motion-toggle__icon { font-size: 10px; letter-spacing: .05em; color: var(--brand); }
+    @media (prefers-reduced-motion: reduce) { .motion-toggle { display: none; } }
 
     /* ---- verticals: stack below 1024px ----------------------------------- */
     @media (max-width: 1023px) {
@@ -828,6 +845,7 @@
     .ai-marquee__track {
       display: flex; width: max-content;
       animation: aiMarquee 64s linear infinite;
+      animation-play-state: paused; /* 2.2.2: nothing moves until the user asks */
     }
     .ai-marquee__item {
       display: block;
@@ -841,7 +859,7 @@
       from { transform: translate3d(0, 0, 0); }
       to { transform: translate3d(-50%, 0, 0); }
     }
-    .ai-marquee:hover .ai-marquee__track { animation-play-state: paused; }
+    .ai-marquee:hover .ai-marquee__track { animation-play-state: running; }
     @media (prefers-reduced-motion: reduce) { .ai-marquee__track { animation: none; } }
     .ai__list { list-style: none; margin: 0; padding: 0; }
     .ai__list li {
@@ -877,7 +895,7 @@
     }
     .careers__title em {
       font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
-      color: var(--gold); letter-spacing: 0;
+      color: var(--brand); letter-spacing: 0;
     }
     .careers__lede {
       margin: 22px 0 0; color: var(--mut);
@@ -1055,7 +1073,7 @@
             </h1>
           </div>
         </div>
-        <div class="vert-film" id="vertFilm" aria-label="Vertical markets preview">
+        <div class="vert-film" id="vertFilm" role="group" aria-label="Vertical markets preview">
           <div class="vert-film__viewport" id="vertFilmViewport">
             <div class="vert-film__track" id="vertFilmTrack">
               <!-- 6 unique verticals × 2 for seamless loop (even count centers better) -->
@@ -1271,6 +1289,12 @@
         <span class="va-label">Explore all verticals</span>
         <span class="va-arrow" aria-hidden="true">→</span>
       </a>
+    </div>
+    <div class="verts__foot">
+      <button class="motion-toggle" id="vertPause" type="button" aria-pressed="false">
+        <span class="motion-toggle__icon" aria-hidden="true">❚❚</span>
+        <span class="motion-toggle__label">Pause auto-advance</span>
+      </button>
     </div>
   </section>
 
@@ -1683,10 +1707,25 @@
           var paused = false;
           var inView = false;
           var timer = null;
+          var autoOn = true;
 
           function tick() {
-            if (paused || !inView || reduce.matches) return;
+            if (!autoOn || paused || !inView || reduce.matches) return;
             select(panels[(currentIdx + 1) % panels.length]);
+          }
+
+          /* 2.2.2 — an explicit, keyboard-reachable control for the 5s cycle */
+          var pauseBtn = document.getElementById('vertPause');
+          if (pauseBtn) {
+            var pauseLabel = pauseBtn.querySelector('.motion-toggle__label');
+            var pauseIcon = pauseBtn.querySelector('.motion-toggle__icon');
+            pauseBtn.addEventListener('click', function () {
+              autoOn = !autoOn;
+              pauseBtn.setAttribute('aria-pressed', autoOn ? 'false' : 'true');
+              if (pauseLabel) pauseLabel.textContent = autoOn ? 'Pause auto-advance' : 'Resume auto-advance';
+              if (pauseIcon) pauseIcon.textContent = autoOn ? '❚❚' : '▶';
+              if (autoOn) start(); else stop();
+            });
           }
           function start() {
             if (timer || reduce.matches) return;
