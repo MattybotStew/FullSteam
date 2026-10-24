@@ -124,6 +124,10 @@
     }
     .site-bar.is-on-hero .menu-btn__line { background: #fff; }
     .site-bar.is-on-hero .menu-btn:focus-visible { outline-color: #fff; }
+    /* the key-figures band is ink, so the bar keeps its dark treatment there */
+    .site-bar.is-on-ink { background: var(--ink); border-bottom-color: transparent; }
+    .site-bar.is-on-ink .menu-btn__line { background: #fff; }
+    .site-bar.is-on-ink .menu-btn:focus-visible { outline-color: #fff; }
     /* over Axis B the photo is the header: no fill, no rule */
     .site-bar.is-on-axis-b { background: transparent; border-bottom-color: transparent; }
     @media (prefers-reduced-motion: reduce) { .site-bar { transition: none; } }
@@ -139,8 +143,8 @@
     .logo-stack__light { opacity: 1; }              /* white mark — on dark */
     .logo-stack__dark { opacity: 0; }               /* colour mark — on white */
     /* colour mark only when the bar is actually white — not merely "past hero" */
-    .site-bar:not(.is-on-hero):not(.is-on-axis-b) .logo-stack__light { opacity: 0; }
-    .site-bar:not(.is-on-hero):not(.is-on-axis-b) .logo-stack__dark { opacity: 1; }
+    .site-bar:not(.is-on-hero):not(.is-on-axis-b):not(.is-on-ink) .logo-stack__light { opacity: 0; }
+    .site-bar:not(.is-on-hero):not(.is-on-axis-b):not(.is-on-ink) .logo-stack__dark { opacity: 1; }
     /* scrim so the floating header keeps the white mark legible on any frame */
     .site-bar::before {
       content: ""; position: fixed; left: 0; right: 0; top: 0;
@@ -1663,7 +1667,14 @@
         var y = window.scrollY || document.documentElement.scrollTop || 0;
         var openingEnd = opening ? opening.offsetTop + opening.offsetHeight : 0;
         var onHero = opening ? y < openingEnd - window.innerHeight * 0.15 : false;
+        /* the bar stays dark over key figures; it only turns white when
+           "Keep the businesses growing." reaches it */
+        var verts = document.getElementById('investors');
+        var vertsTop = verts ? verts.getBoundingClientRect().top + y : Infinity;
+        var whiteAt = vertsTop - (bar ? bar.offsetHeight : 84);
+        var onInk = !onHero && y < whiteAt;
         if (bar) bar.classList.toggle('is-on-hero', onHero);
+        if (bar) bar.classList.toggle('is-on-ink', onInk);
         /* Axis B: the header floats on the photo instead of sitting on a bar.
            0.30 is the same threshold that makes the Axis B copy live. */
         var axisBEl = document.getElementById('axisBStage');
