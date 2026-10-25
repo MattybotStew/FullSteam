@@ -26,14 +26,8 @@ _site/
 !03_Design/explorations/homev2/
 !03_Design/explorations/homev2/index.html
 !03_Design/explorations/homev2/direction.md
-!03_Design/explorations/homev4/
-!03_Design/explorations/homev4/index.html
-!03_Design/explorations/homev4/direction.md
 !03_Design/explorations/index.html
 03_Design/explorations/homev2/assets/*
-03_Design/explorations/homev4/assets/*
-!03_Design/explorations/homev4/assets/fullsteam-logo.svg
-!03_Design/explorations/homev4/assets/fullsteam-logo-dark.svg
 # assets/ is an ALLOW-list, not a deny-list: everything in it is ignored except
 # the two files that must ship. This fails CLOSED — a Square reference clip (or
 # any other media) dropped in here under a name not listed below stays out of the
@@ -43,6 +37,14 @@ _site/
 03_Design/explorations/02-video-hero/assets/*
 !03_Design/explorations/02-video-hero/assets/fullsteam-logo.svg
 !03_Design/explorations/02-video-hero/assets/hero-stock.mp4
+
+# Client review — the OFFICIAL high-fidelity screens. Tracked and published on
+# purpose (the review portal links them). Unlike explorations/, these are
+# client-facing: no internal notes, no unreviewed directions, no third-party
+# media that is not licensed. Only the HTML + logo assets are staged for Pages.
+03_Design/client-review/homepage/assets/*
+!03_Design/client-review/homepage/assets/fullsteam-logo.svg
+!03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg
 
 # Review screenshots for an unpromoted exploration. homev2-check/ is tracked
 # because homev2/ is tracked; homev3-check/ is not, because homev3/ is not.

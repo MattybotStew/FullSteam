@@ -8,7 +8,8 @@
 > `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-09-26 (reconciled **§23 Homepage Strategy** across `design.md`, `AGENTS.md`, and `wireframes.md` to the **grow morph** — the transition restored 2026-09-24 at the client's request after the interim binary snap read as "just snapping in place"; the two states, two headlines, and Axis A→B order are unchanged. Also: §22 Strategic Messaging Architecture V2; hero copy reconciled; V2 matrix quarantined as unratified + number/count conflicts recorded; vertical count settled at 11; `clientDocs/` exposure verified and `.gitignore`d)
+> **Last updated:** 2026-10-25 (added **§28 — the official high-fidelity homepage**, promoted out of the exploration sandbox into `03_Design/client-review/homepage/`, with its divergences from the wireframe record and the open ratification items; §23's grow morph is unchanged in the spec)
+> **Prior update:** 2026-09-26 (reconciled **§23 Homepage Strategy** across `design.md`, `AGENTS.md`, and `wireframes.md` to the **grow morph** — the transition restored 2026-09-24 at the client's request after the interim binary snap read as "just snapping in place"; the two states, two headlines, and Axis A→B order are unchanged. Also: §22 Strategic Messaging Architecture V2; hero copy reconciled; V2 matrix quarantined as unratified + number/count conflicts recorded; vertical count settled at 11; `clientDocs/` exposure verified and `.gitignore`d)
 
 ---
 
@@ -2292,3 +2293,47 @@ Figma cannot express the CSS `background-size: 0% → 100%` wipe, so hover is re
 - `figma.createComponent()` / `createText()` parent to the **currently active page** — always
   `page.appendChild()` before `combineAsVariants`, and sweep up orphans after any throw.
 - `combineAsVariants` requires all grouped nodes on the same page as the parent.
+
+---
+
+## 28. Official high-fidelity homepage — `03_Design/client-review/homepage/` (2026-10-25)
+
+> **Status:** OFFICIAL · client-facing. The review portal links it and GitHub Pages publishes it.
+> This supersedes the earlier record that `03_Design/explorations/homev2/` was the "official
+> working design": the official page is no longer an exploration.
+
+**Provenance.** The page was built as `03_Design/explorations/homev4/` (an internal layout
+study) and was **promoted on 2026-10-25** at the CD's direction. The folder was moved — not
+copied — into a new `03_Design/client-review/` directory, the `homev4` and reference-site
+naming was dropped from the page, its title and footer, and its build notes. `homev2` and
+`homev3` remain explorations (internal, gitignored unless tracked).
+
+**What it is.** Pinned **Axis A** opening (“Any industry, we own the software.”) with the
+blue→green ground and the vertical filmstrip → **Axis B** image scrolls up over it
+(“Then we build what makes it grow.”) → proof band (70,000+ customers, 11 / $75B / 2,000+
+cards) → verticals accordion → AI band → careers band + LinkedIn strip → close → footer.
+Built on KB §15 tokens, Instrument Sans + Fragment Mono, with Instrument Serif italic on the
+payoff words (still unsanctioned — §27.4).
+
+**Deliberate divergences from the wireframe record** (`wireframes.md` §2):
+
+- The **“What we do” section is not on the page**; the proof band follows the opening directly.
+- The two headline lines are **this build's copy**, not the locked wireframe lines
+  (wireframe Axis A: “Whatever the industry, we own the software it runs on.”; Axis B:
+  “Software first. Then we grow it.”).
+- The opening transition is a **scroll-over**, not the KB §23 **grow morph** (clip-path
+  interpolation). The two-state model, the two jobs, and the A→B order are unchanged; the
+  mechanism differs. **Per §23.6 rule 2, swapping the morph for a scroll-over is a strategy
+  change, not a polish pass** — so this remains open for client ratification, alongside the
+  headline copy and the dropped section.
+- The careers band uses a **hotlinked Unsplash placeholder** (alt text says so); real team
+  photos are still needed (§20 / OI-7).
+
+**Deployment.** `.github/workflows/pages.yml` stages `index.html` plus the two logo SVGs
+(the film frames are hotlinked, no media is copied). `design-notes.md` and
+`linkedin-slots.md` are tracked but deliberately **not** staged. `.gitignore` treats the
+folder's `assets/` as an allow-list so an unlicensed image fails closed.
+
+**Where the record lives.** Build/motion detail: `client-review/homepage/design-notes.md`.
+LinkedIn fill slots: `client-review/homepage/linkedin-slots.md`. Structural record stays
+`wireframes.md` §2 (unchanged); this section records the visual build and its divergences.

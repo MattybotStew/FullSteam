@@ -1,4 +1,4 @@
-# LinkedIn post strip — client fill slots (homev4)
+# LinkedIn post strip — client fill slots (official homepage)
 
 **Module:** `#careersPosts` in [`index.html`](./index.html), at the foot of the careers band.
 

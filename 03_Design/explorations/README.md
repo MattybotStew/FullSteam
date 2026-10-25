@@ -1,16 +1,16 @@
 # Design Exploration Sandbox
 
-> **Official working design: [`homev2/`](./homev2/index.html)** — declared 2026-10-23.
-> This is the single page the project is working from: **video hero + the `who we are`
-> sticky-image-rail second section**. It is audited and fixed for **WCAG 2.1 AA**
-> (axe: 0 violations in normal and reduced-motion) — see [`homev2/ada-audit.md`](./homev2/ada-audit.md).
-> Every other set on this board is **history or a side study**, not the direction.
+> **The official homepage is NOT in this folder.** It was promoted on **2026-10-25** and
+> now lives in [`../client-review/homepage/`](../client-review/homepage/index.html) — the page
+> the review portal links and Pages publishes. `homev2/` (video hero + sticky rail, WCAG 2.1 AA)
+> stays here as the direction it came from, and every set on this board is **history or a side
+> study**, not the direction.
 
 > **Status:** Internal only · unreviewed · **NOT client-facing.**
-> **This folder is gitignored by default** (`03_Design/explorations/*`). Exception:
-> **`02-video-hero/`** is tracked for an internal GH Pages preview (HTML + logo only;
-> Square reference video/poster stay gitignored — see `inspiration.md` §2.2). Do not
-> add other explorations to git or the Pages allowlist without an explicit decision.
+> **This folder is gitignored by default** (`03_Design/explorations/*`). Exceptions:
+> **`02-video-hero/`** and **`homev2/`** are tracked for internal GH Pages previews (HTML +
+> direction; hero media staged from `02-video-hero/assets` at deploy — see `inspiration.md` §2.2).
+> Do not add other explorations to git or the Pages allowlist without an explicit decision.
 
 This is a scratch space for **visual / interaction exploration before anything is proposed.**
 Throw multiple directions at the wall here, compare them, and only promote a winner into the
@@ -21,8 +21,9 @@ real design track. Nothing here is a decision.
 ## The rules
 
 1. **Never client-facing.** Do not link anything in here from `index.html` (the client review
-   portal) or add it to `.github/workflows/pages.yml`. The client sees the portal and the
-   wireframes; exploration stays behind the curtain until it's chosen and approved.
+   portal) or add it to `.github/workflows/pages.yml`. The client sees the portal, the
+   wireframes, and `../client-review/`; exploration stays behind the curtain until it's chosen
+   and approved — and then it is **moved out** to `../client-review/`, not linked from here.
 2. **It is gitignored on purpose — that is the only thing keeping it private.** The repo is
    public, so a *tracked* file is world-readable even if it's not on the portal. If you want
    this folder under version control or shared with the internal team, that needs a **private**
@@ -60,9 +61,12 @@ python3 -m http.server 8000
   01-dark-cinematic/    ← history: off-brand palette test
   02-video-hero/        ← history: the original stacked-band hero
   03-section-two-sandbox/ ← history: six candidates for section 02
-  homev2/               ← ★ OFFICIAL working design (video hero + sticky rail), AA
+  homev2/               ← history: video hero + sticky rail, AA (the direction the official homepage came from)
   homev3/               ← side study: calm-canvas / Asana register
 ```
+
+The **official homepage** lives outside this folder: [`../client-review/homepage/`](../client-review/homepage/index.html).
+The exploration formerly called `homev4/` was promoted into it on 2026-10-25.
 
 One folder per exploration set, named `NN-topic` (e.g. `01-dark-cinematic`,
 `02-video-hero`). Keep each set self-contained and static (open with the
