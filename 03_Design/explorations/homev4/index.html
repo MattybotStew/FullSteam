@@ -498,19 +498,24 @@
        The band lifts in, then the frames fade up one after another, left to
        right, while the marquee is already running underneath — so the strip
        develops as it slides. Opacity on the thumbs only: the track's own
-       transform belongs to the marquee loop. */
+       transform belongs to the marquee loop.
+
+       Slow on purpose (2026-10-25, CD direction): a 900ms develop per frame on
+       a 90ms stagger, expo-out so the tail is long. The strip is still loading
+       in after the headline has settled — it is the second movement, not a
+       second entrance. */
     html.has-js:not(.reduce-motion) .vert-film.is-enter{
-      animation:h4-film 640ms cubic-bezier(.16,.84,.28,1) 1350ms both;
+      animation:h4-film 900ms cubic-bezier(.16,1,.3,1) 1350ms both;
     }
     html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb{
-      animation:h4-frame 520ms cubic-bezier(.16,.84,.28,1) both;
+      animation:h4-frame 900ms cubic-bezier(.16,1,.3,1) both;
     }
     html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+1){ animation-delay:1350ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+2){ animation-delay:1410ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+3){ animation-delay:1470ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+4){ animation-delay:1530ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+5){ animation-delay:1590ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+6){ animation-delay:1650ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+2){ animation-delay:1440ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+3){ animation-delay:1530ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+4){ animation-delay:1620ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+5){ animation-delay:1710ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+6){ animation-delay:1800ms; }
     @keyframes h4-film{
       from{ opacity:0; transform:translate3d(0,18px,0); filter:blur(4px); }
       60%{ filter:blur(0); }
