@@ -630,15 +630,22 @@
     }
     .kpi__card {
       position: relative; border-radius: 24px;
-      min-height: clamp(320px, 42vh, 460px);
+      /* Tall portrait frames: the extra height is what gives the photo room to
+         travel inside the card, so the parallax reads as depth instead of a nudge. */
+      min-height: clamp(480px, 66vh, 700px);
       overflow: hidden;
     }
+    /* The image is larger than its frame, and shifts opposite the card, so the
+       card and the photo move at different rates (the actual parallax). */
     .kpi__card::before {
-      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      content: ""; position: absolute; inset: -14% 0; border-radius: inherit;
       background-image: var(--photo); background-size: cover; background-position: center;
-      transition: transform .6s var(--ease-out);
+      transform: translate3d(0, var(--img-shift, 0px), 0);
+      scale: 1;
+      transition: scale .6s var(--ease-out);
+      will-change: transform;
     }
-    .kpi__card:hover::before { transform: scale(1.03); }
+    .kpi__card:hover::before { scale: 1.03; }
     /* inner hairline keeps the photo from bleeding flat into the page */
     .kpi__card::after {
       content: ""; position: absolute; inset: 0; border-radius: inherit;
@@ -718,7 +725,7 @@
     .post-opening { position: relative; z-index: 1; background: var(--bg); }
     @media (max-width: 900px) {
       .kpi__cards { grid-template-columns: 1fr; }
-      .kpi__card { min-height: 300px; }
+      .kpi__card { min-height: clamp(420px, 68vh, 620px); }
     }
 
     /* ---- verticals: expanding accordion (homev2 register) ---- */
@@ -1885,15 +1892,27 @@
         if (!kpiSection) return;
         /* reduced motion: no parallax, no continuous bob (WCAG 2.3.3 / skill §Performance) */
         if (reduce.matches) {
-          kpiCards.forEach(function (el) { el.style.transform = ''; });
+          kpiCards.forEach(function (el) {
+            el.style.transform = '';
+            var card = el.firstElementChild;
+            if (card) card.style.removeProperty('--img-shift');
+          });
           return;
         }
         var rect = kpiSection.getBoundingClientRect();
         var delta = (rect.top + rect.height / 2) - window.innerHeight / 2;
-        var t = Math.max(-90, Math.min(90, delta * 0.08));
-        var bob = Math.sin(Date.now() / 800) * 5;
-        var y = (t + bob).toFixed(2) + 'px';
-        kpiCards.forEach(function (el) { el.style.transform = 'translateY(' + y + ')'; });
+        var t = Math.max(-200, Math.min(200, delta * 0.20));
+        var bob = Math.sin(Date.now() / 800) * 6;
+        kpiCards.forEach(function (el, i) {
+          /* Each card travels its own distance, so the three separate vertically
+             instead of sliding as one block. The photo inside counter-moves at a
+             fraction of that, which is what sells the depth. */
+          var speed = [0.84, 1.26, 0.64][i % 3];
+          var y = t * speed + bob;
+          el.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0)';
+          var card = el.firstElementChild;
+          if (card) card.style.setProperty('--img-shift', (-y * 0.32).toFixed(2) + 'px');
+        });
       }
       function onKpiScroll() {
         if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; renderKpiParallax(); }); }

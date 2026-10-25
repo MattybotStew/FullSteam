@@ -140,6 +140,28 @@ Notes / open:
 - **The sky headline is clear of it.** The type sits in the blue-teal band; the
   green only arrives below the headline, behind the filmstrip.
 
+## Proof cards — taller frames, deeper parallax (2026-10-25)
+
+The three cards under “70,000+ customers rely on our software.” were a shallow landscape
+strip (378px at 1440×900) with a single shared nudge (±90px). They are now **portrait
+frames** — `clamp(480px, 66vh, 700px)` on desktop (594px at 900px tall), `clamp(420px,
+68vh, 620px)` under 900px — and the movement is **two layers**:
+
+- **The card** travels on its own multiplier (`[0.84, 1.26, 0.64]`), so the three
+  separate vertically instead of sliding as one block. Range is clamped to ±200px.
+- **The photo inside** is 28% oversized (`inset: -14% 0`) and counter-moves at 32% of the
+  card's travel, which is the layer that reads as depth rather than a nudge. Hover scale
+  moved from `transform` to the independent `scale` property so the per-frame write cannot
+  collide with it.
+
+Both writes are per-frame `transform` (no CSS transition on the moving values), cleared
+under `prefers-reduced-motion`, where the cards sit flat at all three. The extra height is
+what the parallax needs: without it the photo runs out of image before it can travel.
+
+**Still placeholder art.** The three photos (kitchen, wine, corridor) are generic Unsplash
+frames; they prove the motion, not the Acquire → Grow → Lead story. Real art direction
+should swap them before this reads as narrative.
+
 ## Open
 
 - Client logo strip under hero (currently text placeholders).
