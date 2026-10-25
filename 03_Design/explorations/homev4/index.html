@@ -910,6 +910,9 @@
       font-size: var(--display-s); margin: 0;
       letter-spacing: -.03em; line-height: 1.05; max-width: 16ch; text-wrap: balance;
     }
+    /* the band's accent lands on its subject: the green runs from this word into
+       the 2px rule under it and on into the marquee */
+    .ai__title .ai__mark { color: var(--green); }
     .ai__lede {
       color: rgba(255,255,255,.72); font-size: clamp(18px, 1.4vw, 21px);
       max-width: 40ch; margin: 22px 0 0; line-height: 1.5; text-wrap: pretty;
@@ -1484,7 +1487,7 @@
     <section class="ai" id="ai" aria-labelledby="aiTitle">
       <div class="ai__inner">
         <div class="ai__copy">
-          <h2 class="ai__title" id="aiTitle">AI that already knows the business.</h2>
+          <h2 class="ai__title" id="aiTitle"><span class="ai__mark">AI</span> that already knows the business.</h2>
           <p class="ai__lede">Use cases first — built on proprietary vertical data, not generic models.</p>
           <p class="ai__foot">
             <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">See AI at Fullsteam</a>
