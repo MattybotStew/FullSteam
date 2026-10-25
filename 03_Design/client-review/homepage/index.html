@@ -21,6 +21,15 @@
       --ink: #0d1a20;
       --mut: #5c6b73;
       --line: #d7dee1;
+      /* ---- one frame language for every photograph (2026-10-25) --------
+         Two radii by size class (large figure / small tile), one 1px inner
+         hairline that reads on its band, one photographic grade. Full-bleed
+         planes (.vpanel, #axisBFrame) are square on purpose — they are bands,
+         not frames. See design-notes.md "Image frames". */
+      --frame-r: 24px;
+      --frame-r-sm: 12px;
+      --frame-hair-dark: rgba(255, 255, 255, .16);
+      --frame-hair-light: rgba(13, 26, 32, .12);
       --bar-h: 84px;
       /* one horizontal gutter for every band; 24px matches the header on phones */
       --gutter-x: clamp(24px, 5vw, 48px);
@@ -78,7 +87,8 @@
     @media print { .has-js .reveal { opacity: 1 !important; transform: none !important; filter: none !important; } }
 
     /* one photographic grade across every band */
-    .kpi__card::before, .vpanel__img, .careers__photo { filter: saturate(.94) contrast(1.03); }
+    .kpi__card::before, .vpanel__img, .careers__photo,
+    .vert-film__img, .li-card__art--photo { filter: saturate(.94) contrast(1.03); }
 
     ::selection { background: var(--gold); color: var(--ink); }
 
@@ -421,8 +431,8 @@
       flex: 0 0 auto;
       width: clamp(220px, 28vw, 320px);
       aspect-ratio: 16 / 9;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 10px;
+      border: 1px solid var(--frame-hair-dark);
+      border-radius: var(--frame-r-sm);
       overflow: hidden;
       padding: 0;
       cursor: default;
@@ -445,7 +455,10 @@
       transition: none;
       visibility: hidden;
       opacity: 0;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      /* must match .vert-film__thumb exactly — this layer is the sourced
+         frame mid-morph, so a radius/border mismatch pops at the hand-off */
+      border: 1px solid var(--frame-hair-dark);
+      border-radius: var(--frame-r-sm);
     }
     .vert-grow.is-active {
       visibility: visible;
@@ -629,7 +642,7 @@
       display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.4vw, 16px);
     }
     .kpi__card {
-      position: relative; border-radius: 24px;
+      position: relative; border-radius: var(--frame-r);
       /* Tall portrait frames: the extra height is what gives the photo room to
          travel inside the card, so the parallax reads as depth instead of a nudge. */
       min-height: clamp(480px, 66vh, 700px);
@@ -649,7 +662,7 @@
     /* inner hairline keeps the photo from bleeding flat into the page */
     .kpi__card::after {
       content: ""; position: absolute; inset: 0; border-radius: inherit;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); pointer-events: none;
+      box-shadow: inset 0 0 0 1px var(--frame-hair-dark); pointer-events: none;
     }
     .kpi__pill {
       position: absolute; top: 18px; left: 18px;
@@ -662,7 +675,7 @@
     }
     .kpi__info {
       position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2;
-      background: #fff; color: var(--ink); /* concentric: outer 24px − 16px inset = 8px */
+      background: #fff; color: var(--ink); /* concentric: outer --frame-r (24) − 16px inset = 8px */
       border-radius: 8px; padding: 14px 18px;
       box-shadow: 0 1px 2px rgba(13,26,32,.06), 0 4px 10px rgba(13,26,32,.07), 0 16px 32px rgba(13,26,32,.09);
     }
@@ -1043,7 +1056,7 @@
     }
     .careers__cta { margin: 28px 0 0; }
     .careers__media {
-      position: relative; margin: 0; border-radius: 20px; overflow: hidden;
+      position: relative; margin: 0; border-radius: var(--frame-r); overflow: hidden;
       aspect-ratio: 5 / 4; background: var(--surface);
     }
     .careers__photo {
@@ -1054,7 +1067,10 @@
        darker bed at the bottom (contrast, not decoration) */
     .careers__media::after {
       content: ""; position: absolute; inset: 0; pointer-events: none;
+      border-radius: inherit;
       background: linear-gradient(180deg, rgba(0,88,124,.10) 0%, rgba(13,26,32,.30) 100%);
+      /* same hairline as the proof cards, in its light-ground value */
+      box-shadow: inset 0 0 0 1px var(--frame-hair-light);
     }
     .careers__chip {
       position: absolute; left: 16px; top: 16px; z-index: 1;
@@ -1129,7 +1145,7 @@
     .li-card__text { margin: 12px 0 0; font-size: 13.5px; line-height: 1.45; text-wrap: pretty; }
     .li-card__text em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; color: var(--brand); }
     .li-card__art {
-      position: relative; margin: 12px 0 0; height: 124px; border-radius: 8px; overflow: hidden;
+      position: relative; margin: 12px 0 0; height: 124px; border-radius: var(--frame-r-sm); overflow: hidden;
       background-color: #05202c;
       background-image:
         repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, rgba(255,255,255,0) 1px 22px),
@@ -2143,6 +2159,14 @@
       var morphStart = null;
       var morphThumb = null;
       var filmPaused = false;
+      /* The grow layer is the thumb at t=0 and a full-bleed plane at t=1, so its
+         radius runs from the small-frame token to 0. Read the token instead of
+         hard-coding it, or the source frame drifts from .vert-film__thumb and
+         the hand-off pops. */
+      var frameRSm = (function () {
+        var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--frame-r-sm'));
+        return isNaN(v) ? 12 : v;
+      })();
 
       function clearMorphState() {
         filmPaused = false;
@@ -2199,7 +2223,7 @@
         vertGrow.style.top = top.toFixed(2) + 'px';
         vertGrow.style.width = w.toFixed(2) + 'px';
         vertGrow.style.height = h.toFixed(2) + 'px';
-        vertGrow.style.borderRadius = (10 * (1 - t)).toFixed(2) + 'px';
+        vertGrow.style.borderRadius = (frameRSm * (1 - t)).toFixed(2) + 'px';
         vertGrow.style.opacity = '1';
         vertGrow.style.setProperty('--grow-full', t >= 0.98 ? '1' : '0');
 

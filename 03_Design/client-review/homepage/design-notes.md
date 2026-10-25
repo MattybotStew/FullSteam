@@ -167,6 +167,49 @@ what the parallax needs: without it the photo runs out of image before it can tr
 frames; they prove the motion, not the Acquire → Grow → Lead story. Real art direction
 should swap them before this reads as narrative.
 
+## Image frames — one border language (2026-10-25)
+
+Every photograph on the page used to carry its own edge: proof cards **24px** with a white
+inner hairline, the careers figure **20px** with no hairline at all, filmstrip thumbs **10px**
+with a *real* 1px border, LinkedIn art **8px**, and the verticals strip square. Same page,
+five edges. This pass gives them one system:
+
+| Token | Value | Applies to |
+|---|---|---|
+| `--frame-r` | `24px` | large figures — `.kpi__card`, `.careers__media` |
+| `--frame-r-sm` | `12px` | small tiles — `.vert-film__thumb`, `.vert-grow`, `.li-card__art` |
+| `--frame-hair-dark` | `rgba(255,255,255,.16)` | frames sitting on a dark band |
+| `--frame-hair-light` | `rgba(13,26,32,.12)` | frames sitting on a light band |
+
+**The rule:** one radius scale by size class, **one 1px hairline on every frame**, and the
+photographic grade on every photo surface. The two radii are deliberately unequal — a 24px arc
+on a 320×180 marquee tile with 14px gaps would collide with its neighbour, and a 12px arc on a
+594px-tall proof card reads as unrounded. `.li-card__art` takes the small radius but no
+hairline: it sits inside `.li-card`, which already draws the edge.
+
+**Planes stay square, on purpose.** `.vpanel` (the verticals stage) and `#axisBFrame` (the
+Axis B scroll-over) are 0px, edge-to-edge bands with 5px seams, not inset objects — rounding
+them would turn a stage into nine cards and pinch the seams. If the CD wants them rounded
+anyway, it is `--frame-r-sm` on `.vpanel` + `.verts__all-box` plus a wider stage gap; do not
+round them without widening the gap.
+
+**Fixed in passing:** `.vert-grow` — the layer that *is* the filmstrip thumb during the grow
+morph — had `border-radius: 0` against the thumb's 10px, so the sourced frame snapped square
+at the hand-off. It now carries the same `--frame-r-sm` / `--frame-hair-dark`, and the script
+reads the token (`frameRSm`) instead of hard-coding `10` when it interpolates
+`--frame-r-sm → 0` across the morph: the layer starts *as the thumb* and ends *as the
+full-bleed plane*, so its radius still resolves to 0 by full size. Measured at 1440×900:
+`9.28px` at 574×343, `5.28px` at 947×583, `0px` at 1440×900 — the thumb is 12px throughout.
+
+**Grade extended:** the "one photographic grade across every band" rule listed three
+surfaces and missed two. `.vert-film__img` and `.li-card__art--photo` are now graded as well,
+so the opening filmstrip and the LinkedIn strip match the proof and careers photos.
+
+Verified at 320, 390, 768, 1024, 1280 and 1440: `border-radius` and the inset hairline resolve
+on all four frame classes, no document overflow at any width, and the rounded corner clips to
+the band behind it (sampled the corner pixel — the proof card shows `--ink`, the careers figure
+shows `--surface`).
+
 ## Open
 
 - Client logo strip under hero (currently text placeholders).
