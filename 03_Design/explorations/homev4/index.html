@@ -359,21 +359,22 @@
        the longest move and the only one that scales, so "software." is the line
        that closes the frame.
 
-       Timings (ms):  line 1 120→1300 · line 2 300→1480 · line 3 520→2020.
-       Then the filmstrip at 1200, frames 1250→2070.
+       Timings (ms):  line 1 100→1280 · line 2 360→1540 · line 3 620→2120.
+       A 260ms stagger — the gap is what carries the drama, not the duration of
+       any single line. Then the filmstrip at 1350, frames 1350→2170.
 
        Masked rise needs the inner .ln — the .line itself cannot both carry the
        clip and move. The serif em sits at line-height 0, hence the extra
        padding on .line--payoff. */
     html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .hero__title .ln{
-      animation:h4-line 1180ms cubic-bezier(.16,1,.3,1) both;
+      animation:h4-line 1180ms cubic-bezier(.16,1,.3,1) 100ms both;
       will-change:transform, opacity, filter;
     }
-    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .line:nth-child(2) .ln{ animation-delay:180ms; }
+    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .line:nth-child(2) .ln{ animation-delay:360ms; }
     html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .line--payoff .ln{
       animation-name:h4-payoff;
       animation-duration:1500ms;
-      animation-delay:400ms;
+      animation-delay:620ms;
       transform-origin:50% 62%;
     }
     @keyframes h4-line{
@@ -499,17 +500,17 @@
        develops as it slides. Opacity on the thumbs only: the track's own
        transform belongs to the marquee loop. */
     html.has-js:not(.reduce-motion) .vert-film.is-enter{
-      animation:h4-film 640ms cubic-bezier(.16,.84,.28,1) 1200ms both;
+      animation:h4-film 640ms cubic-bezier(.16,.84,.28,1) 1350ms both;
     }
     html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb{
       animation:h4-frame 520ms cubic-bezier(.16,.84,.28,1) both;
     }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+1){ animation-delay:1200ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+2){ animation-delay:1260ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+3){ animation-delay:1320ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+4){ animation-delay:1380ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+5){ animation-delay:1440ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+6){ animation-delay:1500ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+1){ animation-delay:1350ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+2){ animation-delay:1410ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+3){ animation-delay:1470ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+4){ animation-delay:1530ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+5){ animation-delay:1590ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+6){ animation-delay:1650ms; }
     @keyframes h4-film{
       from{ opacity:0; transform:translate3d(0,18px,0); filter:blur(4px); }
       60%{ filter:blur(0); }
@@ -2276,7 +2277,7 @@
           }
           /* belt and braces: a cancelled or never-started animation still
              releases the classes. */
-          setTimeout(cleanup, 3400);
+          setTimeout(cleanup, 3600);
         };
         /* start after the fonts, not after `load`: this page pulls a dozen
            remote film frames, and waiting for them would land the entrance

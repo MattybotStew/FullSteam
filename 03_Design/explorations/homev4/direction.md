@@ -57,9 +57,9 @@ the Axis B scroll-over are untouched.
 
 | | |
 |---|---|
-| **Headline** | A **masked rise**, line by line: each line travels `112%` out of its own mask and resolves out of a depth-of-field blur, with the opacity landing at 30–35% of the move — so the words *arrive, then settle* instead of tracking their own fade. Line 1 `120→1300`, line 2 `300→1480`, line 3 `520→2020`; easing `cubic-bezier(.16,1,.3,1)` (expo-out). |
+| **Headline** | A **masked rise**, line by line: each line travels `112%` out of its own mask and resolves out of a depth-of-field blur, with the opacity landing at 30–35% of the move — so the words *arrive, then settle* instead of tracking their own fade. Line 1 `100→1280`, line 2 `360→1540`, line 3 `620→2120` — a **260ms stagger**; the gap between lines is what carries the drama, not the length of any one line. Easing `cubic-bezier(.16,1,.3,1)` (expo-out). |
 | **Payoff** | The serif *software.* is the only line that scales (`0.93 → 1`) and the only one with a 13px starting blur. It is the longest move and the last thing to resolve, so it closes the frame rather than merely following the other two. |
-| **Filmstrip** | Waits for the headline arc: the band lifts in at `1200ms` (`18px` + 4px blur), then the frames fade up in a left→right wave — six steps 60ms apart, 520ms each, via `:nth-child(6n+k)` so the duplicated loop copy keeps the same rhythm. Last frame lands ≈ `2070ms`. |
+| **Filmstrip** | Waits for the headline arc: the band lifts in at `1350ms` (`18px` + 4px blur), then the frames fade up in a left→right wave — six steps 60ms apart, 520ms each, via `:nth-child(6n+k)` so the duplicated loop copy keeps the same rhythm. Last frame lands ≈ `2170ms`. |
 | **Trigger** | After `document.fonts.ready`, not `load` — the film pulls a dozen remote frames and `load` would land the entrance seconds late. Skipped when the page opens part-way down (`scrollY > 10`). |
 | **Reduced motion** | Nothing runs: the CSS is scoped to `html.has-js:not(.reduce-motion)`, and this page already puts `reduce-motion` on `<html>`. |
 | **Cleanup** | Both classes are removed on `animationend` (3.4s fallback) so no held animation can out-rank the scroll-driven inline writes that follow — `--hero-a-fade` on the copy and the marquee's `translate3d` on the track. |
