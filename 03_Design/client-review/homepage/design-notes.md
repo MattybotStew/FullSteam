@@ -144,15 +144,19 @@ Notes / open:
 
 The three cards under “70,000+ customers rely on our software.” were a shallow landscape
 strip (378px at 1440×900) with a single shared nudge (±90px). They are now **portrait
-frames** — `clamp(480px, 66vh, 700px)` on desktop (594px at 900px tall), `clamp(420px,
-68vh, 620px)` under 900px — and the movement is **two layers**:
+frames** — `clamp(480px, 66vh, 700px)` on desktop (594px at 900px tall) and **45vh** under
+900px (380px on a 390×844 phone) — and the movement is **two layers**:
 
 - **The card** travels on its own multiplier (`[0.84, 1.26, 0.64]`), so the three
   separate vertically instead of sliding as one block. Range is clamped to ±200px.
-- **The photo inside** is 28% oversized (`inset: -14% 0`) and counter-moves at 32% of the
+- **The photo inside** is 36% oversized (`inset: -18% 0`) and counter-moves at 32% of the
   card's travel, which is the layer that reads as depth rather than a nudge. Hover scale
   moved from `transform` to the independent `scale` property so the per-frame write cannot
   collide with it.
+
+**Mobile is photo-only.** Under 900px the cards stack, so the per-card multipliers made them
+overlap each other (measured ~112px overlap between cards 2 and 3) and the proof list. There
+the card stays in flow and only the photo travels (clamped ±40px). Same effect, no collision.
 
 Both writes are per-frame `transform` (no CSS transition on the moving values), cleared
 under `prefers-reduced-motion`, where the cards sit flat at all three. The extra height is
