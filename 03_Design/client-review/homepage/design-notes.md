@@ -144,8 +144,9 @@ Notes / open:
 
 The three cards under “70,000+ customers rely on our software.” were a shallow landscape
 strip (378px at 1440×900) with a single shared nudge (±90px). They are now **portrait
-frames** — `clamp(480px, 66vh, 700px)` on desktop (594px at 900px tall) and **45vh** under
-900px (380px on a 390×844 phone) — and the movement is **two layers**:
+frames** — `clamp(480px, 66vh, 700px)` on desktop (594px at 900px tall) and **34vh** under
+900px — a **landscape** frame (287px on a 390×844 phone, 1.19:1) that keeps the row reading
+as a strip rather than a column of portraits — and the movement is **two layers**:
 
 - **The card** travels on its own multiplier (`[0.84, 1.26, 0.64]`), so the three
   separate vertically instead of sliding as one block. Range is clamped to ±200px.
