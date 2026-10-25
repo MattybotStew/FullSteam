@@ -57,17 +57,26 @@ the Axis B scroll-over are untouched.
 
 | | |
 |---|---|
-| **Headline** | The three Axis A lines arrive in sequence — 0 / 90 / 215ms, 780ms each — rising `0.42em` and resolving out of a 6px blur. The gold serif *software.* lands last, one beat after the sans lines, so the payoff word is the thing that completes the frame. |
-| **Filmstrip** | The band lifts in at 360ms (`18px` + 4px blur), while the frames fade up in a left→right wave — six steps at 55ms apart, 520ms each, applied with `:nth-child(6n+k)` so the duplicated loop copy keeps the same rhythm as the first six. |
+| **Headline** | A **masked rise**, line by line: each line travels `112%` out of its own mask and resolves out of a depth-of-field blur, with the opacity landing at 30–35% of the move — so the words *arrive, then settle* instead of tracking their own fade. Line 1 `120→1300`, line 2 `300→1480`, line 3 `520→2020`; easing `cubic-bezier(.16,1,.3,1)` (expo-out). |
+| **Payoff** | The serif *software.* is the only line that scales (`0.93 → 1`) and the only one with a 13px starting blur. It is the longest move and the last thing to resolve, so it closes the frame rather than merely following the other two. |
+| **Filmstrip** | Waits for the headline arc: the band lifts in at `1200ms` (`18px` + 4px blur), then the frames fade up in a left→right wave — six steps 60ms apart, 520ms each, via `:nth-child(6n+k)` so the duplicated loop copy keeps the same rhythm. Last frame lands ≈ `2070ms`. |
 | **Trigger** | After `document.fonts.ready`, not `load` — the film pulls a dozen remote frames and `load` would land the entrance seconds late. Skipped when the page opens part-way down (`scrollY > 10`). |
 | **Reduced motion** | Nothing runs: the CSS is scoped to `html.has-js:not(.reduce-motion)`, and this page already puts `reduce-motion` on `<html>`. |
-| **Cleanup** | Both classes are removed on `animationend` (2.4s fallback) so no held animation can out-rank the scroll-driven inline writes that follow — `--hero-a-fade` on the copy and the marquee's `translate3d` on the track. |
+| **Cleanup** | Both classes are removed on `animationend` (3.4s fallback) so no held animation can out-rank the scroll-driven inline writes that follow — `--hero-a-fade` on the copy and the marquee's `translate3d` on the track. |
 
 Deliberate choices:
 
-- **No clip on the headline lines.** The last line holds the Instrument Serif
-  `em` at `line-height: 0`; a mask would cut the italic. The rise + blur is the
-  mask's substitute and matches this page's own `.reveal` register.
+- **The mask needs an inner span.** A `.line` cannot both carry the clip and
+  move, so each line wraps its text in `.ln`; `.ln` animates, `.line` clips. The
+  mask is scoped to `.hero--axis-a` — the Axis B headline reuses `.line` for a
+  different scroll-driven reveal and must not be clipped.
+- **The mask is padded, not tight.** `.line` gets `0.18em` block padding with a
+  matching negative margin (`.26em` on the payoff line, whose serif sits at
+  `line-height: 0`), so the mask never cuts an ascender, the comma, or the
+  italic's descender — checked at rest at 1440 and 390.
+- **Blur is budgeted per breakpoint** through `--ln-blur` (9px, 13px on the
+  payoff; 5px / 7px under 760px) — it is the expensive part of the animation,
+  and 13px on a 50px phone headline is mush anyway.
 - **The thumbs animate opacity only.** Their track transform belongs to the
   marquee loop — any CSS transform on the frames would be overwritten every
   frame.

@@ -305,6 +305,7 @@
     }
     .hero__title .line {
       display: block;
+      position: relative;
       line-height: var(--lh);
       margin: 0;
       overflow: visible;
@@ -312,6 +313,20 @@
       width: 100%;
       padding-inline: 0.16em;
     }
+    /* The Axis A entrance masks each line so the type rises out of its own
+       baseline. Scoped to the opening: the Axis B headline reuses .line for a
+       different scroll-driven reveal and must not be clipped. Block padding +
+       matching negative margin keeps the layout identical while giving the mask
+       room, so it never cuts an ascender or the serif comma. */
+    .hero--axis-a .hero__title .line {
+      padding-block: 0.18em;
+      margin-block: -0.18em;
+      overflow: hidden;
+    }
+    /* the payoff line holds the serif at line-height 0 — it needs the most room */
+    .hero--axis-a .hero__title .line--payoff { padding-block: 0.26em; margin-block: -0.26em; }
+    .hero__title .ln { display: block; --ln-blur: 9px; }
+    .hero--axis-a .hero__title .line--payoff .ln { --ln-blur: 13px; }
     .hero__title .line--single { white-space: nowrap; }
     .hero__title--portfolio {
       font-size: var(--title-max);
@@ -337,24 +352,43 @@
     }
     .hero__title .line em:only-child { line-height: 1.05; overflow: visible; }
     /* ---- Opening entrance (2026-10-24, CD direction) --------------------
-       Axis A's headline arrives line by line, the gold payoff word a beat
-       later, then the filmstrip develops frame by frame. One pass on load;
-       no loop, no bounce. Matches the page's own reveal register
-       (.reveal: rise + blur), and is opacity/transform/filter only.
+       Axis A's headline arrives line by line behind a per-line mask: each line
+       rises out of its own baseline, resolves out of a depth-of-field blur, and
+       the opacity lands well before the movement does — so the words arrive,
+       then settle, instead of tracking their own fade. The serif payoff word is
+       the longest move and the only one that scales, so "software." is the line
+       that closes the frame.
 
-       No clip on the lines: the last one holds the serif `em`, which is set
-       at line-height 0 and would be cut by a mask.
-       Classes are removed on animationend (see the script) so a held
-       animation can never out-rank the scroll-driven --hero-a-fade writes. */
-    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .hero__title .line{
-      animation:h4-line 780ms cubic-bezier(.16,.84,.28,1) both;
+       Timings (ms):  line 1 120→1300 · line 2 300→1480 · line 3 520→2020.
+       Then the filmstrip at 1200, frames 1250→2070.
+
+       Masked rise needs the inner .ln — the .line itself cannot both carry the
+       clip and move. The serif em sits at line-height 0, hence the extra
+       padding on .line--payoff. */
+    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .hero__title .ln{
+      animation:h4-line 1180ms cubic-bezier(.16,1,.3,1) both;
+      will-change:transform, opacity, filter;
     }
-    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .hero__title .line:nth-child(2){ animation-delay:90ms; }
-    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .hero__title .line:nth-child(3){ animation-delay:215ms; }
+    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .line:nth-child(2) .ln{ animation-delay:180ms; }
+    html.has-js:not(.reduce-motion) .hero--axis-a.is-enter .line--payoff .ln{
+      animation-name:h4-payoff;
+      animation-duration:1500ms;
+      animation-delay:400ms;
+      transform-origin:50% 62%;
+    }
     @keyframes h4-line{
-      from{ opacity:0; transform:translate3d(0,.42em,0); filter:blur(6px); }
-      60%{ filter:blur(0); }
-      to{ opacity:1; transform:none; filter:none; }
+      0%  { transform:translate3d(0,112%,0); opacity:0; filter:blur(var(--ln-blur,9px)); }
+      32% { opacity:1; }
+      100%{ transform:translate3d(0,0,0);    opacity:1; filter:blur(0); }
+    }
+    @media (max-width: 760px){
+      .hero__title .ln { --ln-blur: 5px; }
+      .hero--axis-a .hero__title .line--payoff .ln { --ln-blur: 7px; }
+    }
+    @keyframes h4-payoff{
+      0%  { transform:translate3d(0,118%,0) scale(.93); opacity:0; filter:blur(var(--ln-blur,9px)); }
+      30% { opacity:1; }
+      100%{ transform:translate3d(0,0,0) scale(1);      opacity:1; filter:blur(0); }
     }
     .hero__cta {
       display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
@@ -465,17 +499,17 @@
        develops as it slides. Opacity on the thumbs only: the track's own
        transform belongs to the marquee loop. */
     html.has-js:not(.reduce-motion) .vert-film.is-enter{
-      animation:h4-film 640ms cubic-bezier(.16,.84,.28,1) 360ms both;
+      animation:h4-film 640ms cubic-bezier(.16,.84,.28,1) 1200ms both;
     }
     html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb{
       animation:h4-frame 520ms cubic-bezier(.16,.84,.28,1) both;
     }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+1){ animation-delay:400ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+2){ animation-delay:455ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+3){ animation-delay:510ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+4){ animation-delay:565ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+5){ animation-delay:620ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+6){ animation-delay:675ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+1){ animation-delay:1200ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+2){ animation-delay:1260ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+3){ animation-delay:1320ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+4){ animation-delay:1380ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+5){ animation-delay:1440ms; }
+    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+6){ animation-delay:1500ms; }
     @keyframes h4-film{
       from{ opacity:0; transform:translate3d(0,18px,0); filter:blur(4px); }
       60%{ filter:blur(0); }
@@ -1251,9 +1285,9 @@
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
             <h1 class="hero__title hero__title--portfolio" id="heroTitle">
-              <span class="line line--single">Any industry,</span>
-              <span class="line">we own the</span>
-              <span class="line"><em>software.</em></span>
+              <span class="line line--single"><span class="ln">Any industry,</span></span>
+              <span class="line"><span class="ln">we own the</span></span>
+              <span class="line line--payoff"><span class="ln"><em>software.</em></span></span>
             </h1>
           </div>
         </div>
@@ -2242,7 +2276,7 @@
           }
           /* belt and braces: a cancelled or never-started animation still
              releases the classes. */
-          setTimeout(cleanup, 2400);
+          setTimeout(cleanup, 3400);
         };
         /* start after the fonts, not after `load`: this page pulls a dozen
            remote film frames, and waiting for them would land the entrance
