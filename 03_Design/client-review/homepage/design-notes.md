@@ -171,13 +171,13 @@ should swap them before this reads as narrative.
 
 Every photograph on the page used to carry its own edge: proof cards **24px** with a white
 inner hairline, the careers figure **20px** with no hairline at all, filmstrip thumbs **10px**
-with a *real* 1px border, LinkedIn art **8px**, and the verticals strip square. Same page,
+with a *real* 1px border, LinkedIn art **8px**, and the verticals stage square. Same page,
 five edges. This pass gives them one system:
 
 | Token | Value | Applies to |
 |---|---|---|
 | `--frame-r` | `24px` | large figures — `.kpi__card`, `.careers__media` |
-| `--frame-r-sm` | `12px` | small tiles — `.vert-film__thumb`, `.vert-grow`, `.li-card__art` |
+| `--frame-r-sm` | `12px` | small tiles — `.vert-film__thumb`, `.vert-grow`, `.li-card__art`, `.vpanel`, `.verts__all-box` |
 | `--frame-hair-dark` | `rgba(255,255,255,.16)` | frames sitting on a dark band |
 | `--frame-hair-light` | `rgba(13,26,32,.12)` | frames sitting on a light band |
 
@@ -187,11 +187,33 @@ on a 320×180 marquee tile with 14px gaps would collide with its neighbour, and 
 594px-tall proof card reads as unrounded. `.li-card__art` takes the small radius but no
 hairline: it sits inside `.li-card`, which already draws the edge.
 
-**Planes stay square, on purpose.** `.vpanel` (the verticals stage) and `#axisBFrame` (the
-Axis B scroll-over) are 0px, edge-to-edge bands with 5px seams, not inset objects — rounding
-them would turn a stage into nine cards and pinch the seams. If the CD wants them rounded
-anyway, it is `--frame-r-sm` on `.vpanel` + `.verts__all-box` plus a wider stage gap; do not
-round them without widening the gap.
+**The verticals stage joined the language (second pass, same day).** It was first left square
+as a "plane", but the stage is not edge-to-edge — it sits in the same 1240px measure as the
+proof cards and the careers figure, so square panels read as the odd one out. It now carries
+`--frame-r-sm` and the dark hairline too, on `.vpanel` and on the sixth cell
+(`.verts__all-box`, radius only — it is a control block, not a photograph).
+
+Two consequences had to be handled together, because a radius only reads correctly when the
+seam is wider than it:
+
+- **Seams 5px → 14px**, matching the opening filmstrip's gap. At 5px a 12px arc pinched into an
+  hourglass; at 14px each seam is a clean sliver.
+- **`--strip` made fluid**, `clamp(110px, 9.5vw, 140px)`. Six cells and five seams have to fit
+  the stage at 1024 as well as 1920, and a hard 140px strip squeezed the open panel to a sliver
+  at the narrow end (99px before this pass, 54px with the wider seams). Measured open-panel
+  width after the fix: **204px at 1024**, 280 at 1100, 360 at 1200, 402 at 1280, 486 at 1440.
+
+**Still open at the narrow desktop end:** at 1024 the open panel is 204px wide, so a
+single-word title (`Transportation`, ~248px at the vw-scaled clamp) is clipped by
+`overflow: hidden`. This is **pre-existing** — the panel was 99px there before this pass, so
+the squeeze is now less than half of what it was — but 204px is still not enough for that word
+at a display size. The fix is structural, not a font tweak: either raise the accordion's
+stacking breakpoint from 1023px to ~1150px (the stacked layout already exists below 1024), or
+size `.vpanel__h` against the panel with `container-type: inline-size` + `cqw`. Do not paper
+over it by shrinking the type — the word still will not fit.
+
+**`#axisBFrame` stays square**: it is the one true plane on the page — full-bleed, 100svh,
+touched on all four sides by the viewport edge.
 
 **Fixed in passing:** `.vert-grow` — the layer that *is* the filmstrip thumb during the grow
 morph — had `border-radius: 0` against the thumb's 10px, so the sourced frame snapped square
@@ -205,10 +227,11 @@ full-bleed plane*, so its radius still resolves to 0 by full size. Measured at 1
 surfaces and missed two. `.vert-film__img` and `.li-card__art--photo` are now graded as well,
 so the opening filmstrip and the LinkedIn strip match the proof and careers photos.
 
-Verified at 320, 390, 768, 1024, 1280 and 1440: `border-radius` and the inset hairline resolve
-on all four frame classes, no document overflow at any width, and the rounded corner clips to
-the band behind it (sampled the corner pixel — the proof card shows `--ink`, the careers figure
-shows `--surface`).
+Verified at 320, 390, 560, 768, 1024, 1100, 1200, 1280, 1440 and 1920: `border-radius` and the
+hairline resolve on every frame class, no document overflow at any width, and the rounded
+corners actually clip — the proof card and careers figure show the band through their corners,
+and on the stage a hit-test 1px inside the bottom corners returns the stage while 8px in
+returns the panel, so the arc is real and not just a declared value.
 
 ## Open
 

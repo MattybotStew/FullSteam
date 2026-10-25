@@ -765,10 +765,16 @@
       font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
       color: var(--brand); letter-spacing: 0;
     }
-    /* Full-bleed stage — edge-to-edge; title stays in readable measure above */
+    /* The verticals stage — a row of frames in the same measure as the bands
+       above it, so it carries the same frame language. The seam gap must stay
+       wider than the radius (14px vs --frame-r-sm 12px, matching the opening
+       filmstrip) or adjacent arcs pinch into an hourglass. */
     .verts__stage {
-      --strip: 140px;
-      display: flex; gap: 5px;
+      /* Fluid, not fixed: six cells + five 14px seams have to fit the stage at
+         1024 as well as 1920, and a hard 140px strip squeezes the open panel to
+         a sliver at the narrow end (it was 99px before the seams widened). */
+      --strip: clamp(110px, 9.5vw, 140px);
+      display: flex; gap: 14px;
       width: 100%; margin: 0; padding: 0;
       height: min(62vh, 560px);
     }
@@ -778,8 +784,10 @@
       flex-grow: 0;
       flex-shrink: 0;
       flex-basis: var(--strip);
-      overflow: hidden; border-radius: 0;
-      border: 0; padding: 0; margin: 0;
+      overflow: hidden; border-radius: var(--frame-r-sm);
+      /* one hairline like every other frame; .vpanel__img insets to the padding
+         box, so this real border stays visible instead of being painted over */
+      border: 1px solid var(--frame-hair-dark); padding: 0; margin: 0;
       color: #fff; text-align: left; font: inherit; cursor: pointer;
       transition:
         flex-grow var(--dur-mid) var(--ease-inout),
@@ -892,6 +900,9 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
       background: linear-gradient(165deg, #005978, #00202B);
       color: var(--white); text-decoration: none; overflow: hidden;
+      /* the sixth cell of the row, so it rounds with the panels; no hairline —
+         it is a control block, not a photograph */
+      border-radius: var(--frame-r-sm);
       transition: background .3s ease;
     }
     .verts__all-box:hover { background: linear-gradient(165deg, #00719B, #00202B); }
@@ -925,7 +936,7 @@
     @media (max-width: 1023px) {
       .verts { padding: var(--section-y) var(--gutter); }
       .verts__stage {
-        flex-direction: column; gap: 5px; height: auto;
+        flex-direction: column; gap: 14px; height: auto;
         --strip: 120px;
       }
       .vpanel {
