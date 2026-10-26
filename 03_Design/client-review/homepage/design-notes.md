@@ -668,3 +668,20 @@ Three ways to close it, in order of least visual cost:
 
 Until one of those is chosen, **the page should not claim WCAG 2.1 AA compliance** on the strength
 of the axe result alone.
+
+## 2026-10-26 — the grow overlay loses its vertical title
+
+The `.vert-grow` layer (the thumb that expands into the Axis B frame during the opening's
+scroll-over) no longer carries a vertical name at its bottom-left. Removed: the
+`<span class="vert-grow__name" id="vertGrowName">` element, its CSS block, the JS lookup that
+stamped the thumb's label into it, and the `nameEl` read that existed only to feed it.
+
+The overlay keeps its two working parts — `vert-grow__inner` (the photo) and `vert-grow__tint`.
+The label was already fading out as the grow completed (`opacity: calc(1 - var(--grow-full, 0))`),
+so the full-bleed frame is unchanged; what goes is the small uppercase name riding the morph.
+
+**`Keep the businesses growing.` stays** — that is `.verts__title`, the verticals section's own
+`h2`, in normal flow above the stage. It was never part of an overlay.
+
+Verified: whole page scrolled end to end, `#vertGrow` intact with both children, 0 `.vert-grow__name`
+/ `#vertGrowName` nodes left, heading present, 0 axe violations, no overflow, 0 console errors.

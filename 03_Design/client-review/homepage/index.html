@@ -666,19 +666,6 @@
       background: rgba(0, 12, 20, 0.68);
       pointer-events: none;
     }
-    .vert-grow__name {
-      position: absolute;
-      left: 14px;
-      bottom: 12px;
-      z-index: 1;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #fff;
-      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
-      opacity: calc(1 - var(--grow-full, 0));
-    }
     .vert-film__img {
       position: absolute;
       inset: 0;
@@ -1743,7 +1730,6 @@
       <div class="vert-grow" id="vertGrow" aria-hidden="true">
         <div class="vert-grow__inner" id="vertGrowInner"></div>
         <div class="vert-grow__tint" aria-hidden="true"></div>
-        <span class="vert-grow__name mono" id="vertGrowName"></span>
       </div>
       <div class="axis-b__headlines" id="axisBHeadlines">
         <div class="hero__headlines">
@@ -2620,7 +2606,6 @@
       function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
       var vertGrow = document.getElementById('vertGrow');
       var vertGrowInner = document.getElementById('vertGrowInner');
-      var vertGrowName = document.getElementById('vertGrowName');
       var morphStart = null;
       var morphThumb = null;
       var filmPaused = false;
@@ -2668,9 +2653,7 @@
           morphStart = { left: r0.left, top: r0.top, width: r0.width, height: r0.height };
           morphThumb = th;
           var photo = th.style.getPropertyValue('--photo') || getComputedStyle(th).getPropertyValue('--photo');
-          var nameEl = th.querySelector('.vert-film__name');
           vertGrowInner.style.backgroundImage = photo;
-          if (vertGrowName && nameEl) vertGrowName.textContent = nameEl.textContent;
           vertGrow.classList.add('is-active');
           vertGrow.setAttribute('aria-hidden', 'false');
         }
