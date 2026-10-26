@@ -685,3 +685,26 @@ so the full-bleed frame is unchanged; what goes is the small uppercase name ridi
 
 Verified: whole page scrolled end to end, `#vertGrow` intact with both children, 0 `.vert-grow__name`
 / `#vertGrowName` nodes left, heading present, 0 axe violations, no overflow, 0 console errors.
+
+## 2026-10-26 — the rotated name chip is off the accordion panels (desktop)
+
+The vertical name that sat rotated 90° on a dark chip over each collapsed accordion panel is
+gone at desktop widths. That chip was `.vpanel__label` (`writing-mode: vertical-rl`,
+`rotate(180deg)`, `background: rgba(0,24,34,.72)`) — a label laid over the photograph.
+
+- **The panel is now just the photograph when closed.** The name arrives with the open body's
+  title (`.vpanel__h`) instead.
+- **Below 1024px the label stays.** There the accordion stacks into horizontal rows and the
+  `writing-mode` is reset — the label is that row's *only* visible name, and removing it would
+  leave photo-only rows. If it should go there too, say so and it is one media-query line.
+- **Accessible names were added to every toggle** (`aria-label="ERP"`, `"Wine"`, …) because the
+  label is `display: none` at desktop, which would otherwise leave five unnamed buttons. axe
+  `button-name` passes.
+
+Note this is a **different element** from the `.vert-grow__name` removed in the previous commit
+(the label on the opening's grow overlay). Both were vertical names over photographs; only this
+one is the accordion chip in the screenshot.
+
+Verified: 5 labels `display: none` at 1440 with all five toggles still named, panels still expand
+by click with `aria-expanded="true"` and the body title visible, labels visible again at 390,
+0 axe violations, no overflow, 0 console errors.

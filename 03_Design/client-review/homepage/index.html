@@ -1012,8 +1012,11 @@
     .vpanel__toggle:focus-visible {
       outline: 3px solid var(--white); outline-offset: -6px;
     }
+    /* Desktop: the rotated name chip that sat on the photo is gone — the panel is
+       a photograph, and the name arrives with the open body's title. The stacked
+       layout below 1024px keeps the label: there it is the row's only name. */
     .vpanel__label {
-      display: block;
+      display: none;
       writing-mode: vertical-rl;
       transform: rotate(180deg);
       font-size: 18px; font-weight: 600;
@@ -1119,6 +1122,7 @@
       .vpanel.is-open { flex-basis: auto; height: min(58svh, 460px); }
       .vpanel__toggle { justify-content: flex-start; padding: 0 22px; }
       .vpanel__label {
+        display: block;
         writing-mode: horizontal-tb; transform: none;
         font-size: 18px; letter-spacing: -.01em;
       }
@@ -1826,7 +1830,7 @@
       <article class="vpanel is-open" data-tone="0"
         style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
-        <button type="button" class="vpanel__toggle" aria-expanded="true" aria-controls="vpanel-body-0">
+        <button type="button" class="vpanel__toggle" aria-label="ERP" aria-expanded="true" aria-controls="vpanel-body-0">
           <span class="vpanel__label">ERP</span>
         </button>
         <div class="vpanel__body" id="vpanel-body-0">
@@ -1840,7 +1844,7 @@
       <article class="vpanel" data-tone="1"
         style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
-        <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-1">
+        <button type="button" class="vpanel__toggle" aria-label="Wine" aria-expanded="false" aria-controls="vpanel-body-1">
           <span class="vpanel__label">Wine</span>
         </button>
         <div class="vpanel__body" id="vpanel-body-1">
@@ -1854,7 +1858,7 @@
       <article class="vpanel" data-tone="2"
         style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
-        <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-2">
+        <button type="button" class="vpanel__toggle" aria-label="Transportation" aria-expanded="false" aria-controls="vpanel-body-2">
           <span class="vpanel__label">Transportation</span>
         </button>
         <div class="vpanel__body" id="vpanel-body-2">
@@ -1868,7 +1872,7 @@
       <article class="vpanel" data-tone="3"
         style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
-        <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-3">
+        <button type="button" class="vpanel__toggle" aria-label="Hospitality" aria-expanded="false" aria-controls="vpanel-body-3">
           <span class="vpanel__label">Hospitality</span>
         </button>
         <div class="vpanel__body" id="vpanel-body-3">
@@ -1882,7 +1886,7 @@
       <article class="vpanel" data-tone="4"
         style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=1600&amp;h=1000&amp;q=70')">
         <span class="vpanel__img" aria-hidden="true"></span>
-        <button type="button" class="vpanel__toggle" aria-expanded="false" aria-controls="vpanel-body-4">
+        <button type="button" class="vpanel__toggle" aria-label="Automotive" aria-expanded="false" aria-controls="vpanel-body-4">
           <span class="vpanel__label">Automotive</span>
         </button>
         <div class="vpanel__body" id="vpanel-body-4">
