@@ -1,20 +1,44 @@
-# LinkedIn post strip — client fill slots (official homepage)
+# LinkedIn post strip — status and fill slots (official homepage)
 
 **Module:** `#careersPosts` in [`index.html`](./index.html), at the foot of the careers band.
 
-The layout is fixed: four cards in a horizontal scroller. Replace the contents of each
-`.li-card` with real company-page content from Fullsteam's LinkedIn. **Do not ship**
-invented reaction counts, dates, or body copy as if they were live posts.
+**State: filled 2026-10-26 with five real posts** taken from the client's own LinkedIn
+screenshots, replacing the four placeholder cards. What is in the page is real; what is still
+missing is listed under *Outstanding* at the bottom.
 
-## Per post (repeat for each card)
+## What is on the page
 
-| Field | Where it goes | Notes |
-|-------|----------------|-------|
-| **Posted** | `.li-card__meta` | Relative or absolute date from LinkedIn, e.g. `2d · Public`. Currently `[date] · Public · [placeholder]`. |
-| **Body** | `.li-card__text` | Plain text. Keep `<em>` only where the source has emphasis — it renders in the serif italic. |
-| **Image** | `.li-card__art` | Optional. Add `li-card__art--photo` and a `--photo: url(...)`, or keep the default `--data` plate for text-only posts. Delete the `.li-card__slot` label once a real image is in. |
-| **Link** | `.li-card__link` | Currently a non-interactive `<span>` slot. Swap to `<a href="…">` pointing at the live post, keep the 44px hit area. |
-| **Reactions / comments** | not built | Deliberately omitted. Add a `.li-card__stats` row only if the client approves showing counts. |
+| # | Post | `.li-card__meta` | Artwork ground |
+|---|------|------------------|----------------|
+| 1 | Hiring — Senior Information Security & Compliance Business Partner | `Oct 2026 · Public` | brand |
+| 2 | Fullsteam Voices — Xavier Codrington, Manager, Operations | `Oct 2026 · Public` | ink |
+| 3 | Emily Traylor, VP & CISO — Auburn 2026 Young Alumni Achievement Award | `Jul 2026 · Public` | gold |
+| 4 | Priswing at HITEC 2026, San Antonio — booth #1252 | `Jun 2026 · Public` | ink |
+| 5 | Nilsen Report — up to #28 among U.S. merchant acquirers, up five spots | `Apr 2026 · Public` | brand |
+
+Order is LinkedIn's own feed order, newest first. Add or remove `.li-card` blocks and the nav and
+its disabled states follow automatically.
+
+## Rules the copy follows
+
+- **Condensed, never invented.** Each card carries the post's own claim in about two lines. No
+  reaction counts, no composite quotes, no post attributed to anyone who did not write it.
+- **Emphasis is the source's.** `<em>` renders in the serif italic and is used only where the post
+  itself leans on a name (*Emily Traylor*, *Xavier Codrington*), *Nilsen Report*, or *Priswing*.
+- **Artwork is rebuilt in tokens, not lifted.** Each post's designed graphic is replaced by the
+  same three facts it carried — a mono kicker, a headline, one supporting line — on a flat brand
+  ground. No client JPEG is stored in the repo and no stock image stands in for a client's own
+  campaign art. See `design-notes.md` "LinkedIn strip — real posts".
+- **Article ids stay unique** (`careersPosts`, `liScroller`, `liPrev`, `liNext`).
+
+## Outstanding before launch
+
+| Item | Where | Notes |
+|------|-------|-------|
+| **Post permalinks** | `.li-card__link` | Currently a non-interactive `<span>` reading "See the post on LinkedIn →". Swap to `<a href="…">` with the live URL, keeping the 44px hit area. |
+| **Exact dates** | `.li-card__meta` | Month + year only, inferred from the relative ages in the screenshots (`1W`, `3W`, `3mo`, `4mo`, `6mo` at capture). Pin to real dates or drop the date. |
+| **Comms clearing** | cards 2, 3, 5 | Two named employees and one third-party ranking. Both are already public on the client's LinkedIn, but confirm they are still fine to host on the official site. |
+| **A current post** | card 1 | The hiring post is time-sensitive. Either keep the strip refreshed or make it evergreen (a Voices or culture post). |
 
 ## Behaviour (already wired — do not break)
 
@@ -22,12 +46,5 @@ invented reaction counts, dates, or body copy as if they were live posts.
 - `#liPrev` / `#liNext` page by exactly one card and disable themselves at each end.
 - Scroll-snap is `mandatory`; reduced-motion disables smooth scrolling.
 - The right edge carries a mask fade so a clipped card reads as "more to scroll".
-
-## Suggested count
-
-Four cards. If the client wants a different number, add or remove `.li-card` blocks only —
-the nav and disabled states follow automatically.
-
-## Approval
-
-Marketing / comms must confirm each post is cleared for the public website before paste-in.
+- `.li-card__text` is `flex: 1 1 auto`, which keeps every art box and footer link on one line
+  regardless of how long the post text runs.

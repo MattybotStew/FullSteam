@@ -116,7 +116,7 @@ stewards of the products (for founders), and *acquire and make the software comp
 | 05 | Link "See AI at Fullsteam" | Cross-link | Draft | → Our Advantage#ai |
 | 06 | Beat + H2 "A great place to work." + lede | Employer story | **Intent** | Humanizing (2026-10-01); employer-brand track (tertiary) |
 | 06 | Three real-image placeholders + "Real team photo — not stock" captions | Culture imagery | **Placeholder** | **Actual people, not stock photos** |
-| 06 | Link "See Careers" + LinkedIn strip (cards + follow) | Careers + feed | Placeholder | No real feed data |
+| 06 | Link "See Careers" + LinkedIn strip (cards + follow) | Careers + feed | Draft | **Filled 2026-10-26 with 5 real company-page posts** (hiring, Voices, Auburn award, HITEC/Priswing, Nilsen #28). Copy condensed from the client's own posts; artwork rebuilt in brand tokens. Still open: post permalinks, exact dates, comms clearing — see `client-review/homepage/linkedin-slots.md` |
 | 07 | Beat + H2 "Ready to see where your business can go next?" + CTA + "For Founders — a home for your business" | Close | Draft | |
 
 ---

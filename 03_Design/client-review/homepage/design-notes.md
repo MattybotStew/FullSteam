@@ -480,6 +480,71 @@ unpublishable as written", and the band shows that note on the page rather than 
 quietly as a real attribution. It needs a real, cleared founder quote before launch, and the note
 comes out with it.
 
+### LinkedIn strip — real posts (2026-10-26)
+
+The four placeholder cards at the foot of the careers band were replaced with **five real posts**
+from Fullsteam's company page, in feed order (newest first):
+
+| # | Post | Card artwork carries |
+|---|---|---|
+| 1 | Hiring — Senior Information Security & Compliance Business Partner | the role + `fullsteam.com/careers` |
+| 2 | Fullsteam Voices — Xavier Codrington, Manager, Operations | the name + what the post is about |
+| 3 | Emily Traylor, VP & CISO — Auburn 2026 Young Alumni Achievement Award | the award + the affiliation |
+| 4 | Priswing at HITEC 2026, San Antonio | the event + booth `#1252` |
+| 5 | Nilsen Report — up to #28 among U.S. merchant acquirers | the ranking + the move |
+
+**Copy is condensed, not rewritten.** Each card holds the post's own claim in card length (~two
+lines); `<em>` is used only where the source itself emphasises — a person's name, *Nilsen Report*,
+*Priswing*. Nothing was invented: no reaction counts (the module has never had them), no quote
+attributed to anyone who did not say it.
+
+#### The artwork is rebuilt, not lifted
+
+All five posts ship a designed graphic. Those cannot be pulled out of a screenshot and cannot be
+re-exported here, and stock imagery standing in for a client's own campaign art would be worse than
+no image. So each card **rebuilds the information of its graphic in our tokens**: a mono kicker, the
+post's headline, and one supporting line — the same three things the real graphic says. No client
+JPEG enters the repo (nothing to license, nothing to 404), and the strip stays on-palette by
+construction.
+
+Grounds rotate **brand → ink → gold → ink → brand**, so five cards read as a set rather than five
+identical boxes, and the gold one lands in the middle. `.li-card__art--photo` is kept for a future
+post that ships a real photograph; none of these five does.
+
+#### Contrast is deterministic here
+
+Because the type sits on flat token colours (not a photograph), these ratios are exact rather than
+sampled — and every one clears its bar:
+
+| pair | ratio | needs |
+|---|---|---|
+| headline `#fff` on brand `#00587C` | `7.82 : 1` | 4.5 |
+| kicker + sub `#fff .82` on brand | `5.82 : 1` | 4.5 |
+| `30` accent `--gold` on brand | `4.96 : 1` | 4.5 |
+| headline `#fff` on ink | `17.71 : 1` | 4.5 |
+| kicker + sub `#fff .82` on ink | `12.11 : 1` | 4.5 |
+| headline ink on gold `#FFC600` | `11.24 : 1` | 4.5 |
+| kicker + sub ink `.82` on gold | `7.53 : 1` | 4.5 |
+
+**axe-core 4.10.2: 0 violations** at 1440×900 and 390×844; no overflow at either (cards are 320px
+wide on desktop / 268px on a phone, art a fixed 136px).
+
+#### One layout fix the real copy forced
+
+Post length varies 2–4 lines, so with the art flowing after the text the artwork boxes staggered
+up and down the strip and the row read ragged. `.li-card__text` is now `flex: 1 1 auto`, so the
+copy absorbs the slack and every art box, and every footer link, sits on the same line.
+
+#### Still outstanding
+
+- **Post URLs.** The footer is still a non-interactive `View on LinkedIn` span; real permalinks are
+  needed (see `linkedin-slots.md`).
+- **Dates.** Shown as month + year (`Oct 2026`, `Jul 2026`, …), inferred from the relative ages in
+  the client's screenshots. They need pinning to the real dates, or dropping.
+- **Comms clearing.** Two named employees and one third-party ranking now appear on the official
+  page. Both are already public on the client's own LinkedIn, but a public site carries more weight
+  than a feed — marketing should confirm each is still fine to host.
+
 ## Open
 - Whether the opening's headline copy is ratified over the locked wireframe lines.
 - **Real team photos (not stock)** behind the careers band — it currently shows an Unsplash

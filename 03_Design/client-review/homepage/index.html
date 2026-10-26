@@ -1466,6 +1466,10 @@
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .li-card__text { margin: 12px 0 0; font-size: 13.5px; line-height: 1.45; text-wrap: pretty; }
+    /* the copy above the artwork runs 2-4 lines, so let it absorb the slack:
+       without this the art boxes stagger up and down the strip and the row of
+       cards reads ragged instead of set */
+    .li-card__text { flex: 1 1 auto; }
     .li-card__text em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; color: var(--brand); }
     .li-card__art {
       position: relative; margin: 12px 0 0; height: 124px; border-radius: var(--frame-r-sm); overflow: hidden;
@@ -1474,12 +1478,48 @@
         repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, rgba(255,255,255,0) 1px 22px),
         linear-gradient(155deg, #123b4d 0%, #05202c 100%);
     }
+    /* kept for a post that ships a real photograph — none of the current five do */
     .li-card__art--photo { background-image: var(--photo); background-size: cover; background-position: center; }
     .li-card__slot {
       position: absolute; left: 10px; bottom: 8px;
       font-family: "Fragment Mono", ui-monospace, monospace; font-size: 9px;
       letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55);
     }
+    /* The five real posts (2026-10-26) each ship a branded graphic we cannot
+       lift out of a screenshot, so every card REBUILDS THE INFORMATION of its
+       artwork in our own tokens: same fact, our type, no third-party image.
+       Grounds rotate brand -> ink -> gold -> ink -> brand so the strip reads as
+       a set rather than five identical boxes. Text/ground pairs are flat token
+       colours, so their contrast is deterministic — see design-notes.md. */
+    .li-card__art--type {
+      --art-fg: #fff;
+      --art-fg-2: rgba(255,255,255,.82);
+      --art-accent: var(--gold);
+      background: var(--brand);
+      display: grid; align-content: center; gap: 5px; text-align: left;
+      height: auto; min-height: 136px; padding: 14px 16px;
+    }
+    .li-card__art--ink { background: var(--ink); }
+    .li-card__art--gold {
+      background: var(--gold);
+      --art-fg: var(--ink);
+      --art-fg-2: rgba(13,26,32,.82);
+      --art-accent: var(--ink);
+    }
+    .li-art__k {
+      margin: 0; font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--art-fg-2);
+    }
+    .li-art__h {
+      margin: 0; font-size: 15px; line-height: 1.22; font-weight: 700;
+      letter-spacing: -.01em; color: var(--art-fg); text-wrap: balance;
+    }
+    .li-art__h em {
+      font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
+      color: var(--art-accent); letter-spacing: 0;
+    }
+    .li-art__p { margin: 0; font-size: 10.5px; line-height: 1.35; color: var(--art-fg-2); }
     .li-card__foot { margin: auto 0 0; padding-top: 14px; }
     .li-card__link {
       display: inline-flex; align-items: center; gap: 6px; min-height: 44px;
@@ -1997,7 +2037,7 @@
           <div class="careers__posts-head">
             <div>
               <h3 class="careers__posts-title" id="careersPostsTitle">From the company page</h3>
-              <p class="careers__posts-sub">Layout slots only — client supplies live posts. [placeholder]</p>
+              <p class="careers__posts-sub">Straight from the Fullsteam page on LinkedIn &mdash; hiring, people, and product news.</p>
             </div>
             <div class="careers__posts-nav">
               <button class="posts-nav" id="liPrev" type="button" aria-label="Previous posts" disabled>←</button>
@@ -2005,56 +2045,85 @@
             </div>
           </div>
           <div class="li-scroller" id="liScroller" tabindex="0" role="region" aria-label="LinkedIn posts, scrollable">
-            <article class="li-card">
+                        <article class="li-card">
               <div class="li-card__head">
                 <span class="li-card__mark" aria-hidden="true">in</span>
                 <div class="li-card__who">
                   <p class="li-card__name">Fullsteam</p>
-                  <p class="li-card__meta">[date] · Public · [placeholder]</p>
+                  <p class="li-card__meta">Oct 2026 &middot; Public</p>
                 </div>
               </div>
-              <p class="li-card__text">[placeholder — post body] Every vertical runs on software <em>built for it</em>. Not adapted.</p>
-              <div class="li-card__art li-card__art--photo" style="--photo: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=640&amp;h=480&amp;q=70')">
-                <span class="li-card__slot">image slot</span>
+              <p class="li-card__text">Supporting our customers starts with our people and the expertise they bring. We&rsquo;re hiring a <em>Senior Information Security &amp; Compliance Business Partner</em>.</p>
+              <div class="li-card__art li-card__art--type">
+                <p class="li-art__k">Now hiring</p>
+                <p class="li-art__h">Senior Information Security &amp; Compliance Business Partner</p>
+                <p class="li-art__p">Apply at fullsteam.com/careers</p>
               </div>
-              <div class="li-card__foot"><span class="li-card__link">View on LinkedIn [link slot] →</span></div>
+              <div class="li-card__foot"><span class="li-card__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
             </article>
             <article class="li-card">
               <div class="li-card__head">
                 <span class="li-card__mark" aria-hidden="true">in</span>
                 <div class="li-card__who">
                   <p class="li-card__name">Fullsteam</p>
-                  <p class="li-card__meta">[date] · Public · [placeholder]</p>
+                  <p class="li-card__meta">Oct 2026 &middot; Public</p>
                 </div>
               </div>
-              <p class="li-card__text">[placeholder — text-only post] Two sentences, real voice, no marketing voice. <em>Emphasis</em> only where the source has it.</p>
-              <div class="li-card__foot"><span class="li-card__link">View on LinkedIn [link slot] →</span></div>
+              <p class="li-card__text">Career growth can take many forms. For <em>Xavier Codrington</em>, it has meant taking on new challenges and growing into a leadership role.</p>
+              <div class="li-card__art li-card__art--type li-card__art--ink">
+                <p class="li-art__k">Fullsteam Voices</p>
+                <p class="li-art__h">Xavier Codrington</p>
+                <p class="li-art__p">Manager, Operations &mdash; on ownership, support, and room to build.</p>
+              </div>
+              <div class="li-card__foot"><span class="li-card__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
             </article>
             <article class="li-card">
               <div class="li-card__head">
                 <span class="li-card__mark" aria-hidden="true">in</span>
                 <div class="li-card__who">
                   <p class="li-card__name">Fullsteam</p>
-                  <p class="li-card__meta">[date] · Public · [placeholder]</p>
+                  <p class="li-card__meta">Jul 2026 &middot; Public</p>
                 </div>
               </div>
-              <p class="li-card__text">[placeholder — post body] One line that sets up the image below.</p>
-              <div class="li-card__art"><span class="li-card__slot">image slot</span></div>
-              <div class="li-card__foot"><span class="li-card__link">View on LinkedIn [link slot] →</span></div>
+              <p class="li-card__text">We&rsquo;re proud to celebrate our Vice President and CISO, <em>Emily Traylor</em>, on receiving Auburn&rsquo;s 2026 Young Alumni Achievement Award.</p>
+              <div class="li-card__art li-card__art--type li-card__art--gold">
+                <p class="li-art__k">Auburn Alumni Association</p>
+                <p class="li-art__h">2026 Young Alumni Achievement Award</p>
+                <p class="li-art__p">Emily Traylor &rsquo;10 &middot; VP &amp; CISO</p>
+              </div>
+              <div class="li-card__foot"><span class="li-card__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
             </article>
             <article class="li-card">
               <div class="li-card__head">
                 <span class="li-card__mark" aria-hidden="true">in</span>
                 <div class="li-card__who">
                   <p class="li-card__name">Fullsteam</p>
-                  <p class="li-card__meta">[date] · Public · [placeholder]</p>
+                  <p class="li-card__meta">Jun 2026 &middot; Public</p>
                 </div>
               </div>
-              <p class="li-card__text">[placeholder — post body] Four cards is the shipped count; add or remove in HTML and the nav follows.</p>
-              <div class="li-card__art li-card__art--photo" style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=640&amp;h=480&amp;q=70')">
-                <span class="li-card__slot">image slot</span>
+              <p class="li-card__text">Hotels and resorts have long used revenue management to optimize room inventory. With <em>Priswing</em>, golf resort operators can price the same way.</p>
+              <div class="li-card__art li-card__art--type li-card__art--ink">
+                <p class="li-art__k">HITEC 2026 &middot; San Antonio</p>
+                <p class="li-art__h">Bringing golf into the hospitality technology conversation</p>
+                <p class="li-art__p">Booth #1252 &middot; Fullsteam Hospitality</p>
               </div>
-              <div class="li-card__foot"><span class="li-card__link">View on LinkedIn [link slot] →</span></div>
+              <div class="li-card__foot"><span class="li-card__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
+            </article>
+            <article class="li-card">
+              <div class="li-card__head">
+                <span class="li-card__mark" aria-hidden="true">in</span>
+                <div class="li-card__who">
+                  <p class="li-card__name">Fullsteam</p>
+                  <p class="li-card__meta">Apr 2026 &middot; Public</p>
+                </div>
+              </div>
+              <p class="li-card__text">Each year the <em>Nilsen Report</em> maps the companies shaping the payments industry. Fullsteam moved up to #28 among top U.S. merchant acquirers, climbing five spots &mdash; and was named among the fastest-growing by volume processed.</p>
+              <div class="li-card__art li-card__art--type">
+                <p class="li-art__k">Nilsen Report</p>
+                <p class="li-art__h">Breaking into the top <em>30</em></p>
+                <p class="li-art__p">#28 among U.S. merchant acquirers &middot; up five spots</p>
+              </div>
+              <div class="li-card__foot"><span class="li-card__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
             </article>
           </div>
         </section>
