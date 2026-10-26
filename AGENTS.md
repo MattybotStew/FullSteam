@@ -11,6 +11,11 @@ This file is the canonical agent entry point (works with Cursor, which reads
   scope, constraints, and next steps. **§20 is the discovery-interview synthesis**
   (four internal stakeholder sessions, Sept 2026) — the most current source of
   client intent; read it before making positioning/messaging decisions.
+- **Messaging architecture:** **KB §29** is the client's current messaging architecture
+  (marketing, 2026-10-26) — master thesis "Empower the Builders. Lead the Industry.", pillars
+  **Essential / Grow / Lead**, personas Sean (founders) / Marcus (investors) / Elena (employees).
+  It supersedes **§22** V2's pillars and themes but **changes no IA**; read §29.6 (conflicts) and
+  §29.7 (publishability) before using its proof points or named customers in any copy.
 - **Sitemap lock:** read [`plans/sitemap-lock.md`](./plans/sitemap-lock.md) before
   changing L1 nav, page inventory, or chrome. Locked 2026-09-10.
 - **Wireframe spec:** read [`wireframes.md`](./wireframes.md) before editing any

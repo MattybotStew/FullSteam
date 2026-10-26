@@ -5,10 +5,11 @@
 > `Fullsteam Overview_Confidential - redacted.pdf` (company/investor overview deck),
 > `clientDocs/Fullsteam User Interview Template.xlsx` (internal discovery interviews, Sept 2026),
 > `clientDocs/Fullsteam Website Content Project Brief.docx` (content-writing SOW, Sept 2026),
-> `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22)
+> `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22); **Fullsteam Messaging Architecture** (marketing messaging architecture, received 2026-10-26 — distilled in §29, supersedes §22's pillars/themes)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
-> **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-10-26 (**§28 official homepage** — Axis A ground is now a living field (three luminous masses on 28s/36s/32s under an feTurbulence grain at `.20`, static ink contrast guard, measured 5.30–5.92:1 desktop / 4.79:1 worst mobile, no layout change), **plus the founders band** (`#for-founders`, Figma `11362:2949`) under the AI band — now **screen-tall** (738px at 1440×900) with a **word-by-word pull-quote reveal**, over a **retail frame under the Unsplash License** (hotlinked, so no unlicensed asset enters the public repo), and the careers **LinkedIn strip now carries five real company-page posts** (copy condensed, artwork rebuilt in brand tokens); axe-core 4.10.2 reports **0 violations** at 1440 and 390. Build detail in `client-review/homepage/design-notes.md`, motion study in gitignored `explorations/hero-motion/`)
+> **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22, superseded in part by **§29**); **homepage opening strategy locked** (§23)
+> **Last updated:** 2026-10-26 (**§29 — Fullsteam Messaging Architecture** from marketing: master thesis "Empower the Builders. Lead the Industry.", pillars renamed **Essential / Grow / Lead** (first alignment with the homepage's Acquire/Grow/Lead model), three new product proof points (3,500 wineries · 400k dresses · 1M boats) and five named partners — all **not publishable** until cleared. Adds **OI-15** (marketing wants a "dedicated investor track", which the §14 sitemap lock removed — client decision), **OI-16** (named-customer/product clearance), **OI-17** (cybersecurity claim). No IA, opening, or homepage change; raw copy kept in gitignored `clientDocs/`)
+> **Prior update:** 2026-10-26 (§28 build detail — Axis A ground became a **living field** (three luminous masses on 28s/36s/32s under an feTurbulence grain at `.20`, static ink contrast guard; 5.30–5.92:1 desktop / 4.79:1 worst mobile), **founders band** added (screen-tall, word-by-word pull-quote over an Unsplash-License retail frame), **LinkedIn strip** now carries five real company-page posts; axe-core 4.10.2 → **0 violations** at 1440/390. Notes in `client-review/homepage/design-notes.md`)
 > **Prior update:** 2026-10-25 (added **§28 — the official high-fidelity homepage**, promoted out of the exploration sandbox into `03_Design/client-review/homepage/`, with its divergences from the wireframe record and the open ratification items; §23's grow morph is unchanged in the spec)
 > **Prior update:** 2026-09-26 (reconciled **§23 Homepage Strategy** across `design.md`, `AGENTS.md`, and `wireframes.md` to the **grow morph** — the transition restored 2026-09-24 at the client's request after the interim binary snap read as "just snapping in place"; the two states, two headlines, and Axis A→B order are unchanged. Also: §22 Strategic Messaging Architecture V2; hero copy reconciled; V2 matrix quarantined as unratified + number/count conflicts recorded; vertical count settled at 11; `clientDocs/` exposure verified and `.gitignore`d)
 
@@ -1395,6 +1396,13 @@ not visitor copy (see §22.6), it covers **M&A/marketing voice rather than web s
 with AI assistance and carries an open, unresolved author comment (§22.1). Full text kept
 out of the repo's public paths (see §22.7).
 
+> **⚠ Superseded in part — 2026-10-26.** Marketing supplied a newer **Fullsteam Messaging
+> Architecture** (distilled in **§29**) that replaces V2's **pillar naming, theme layer, and
+> goal set**, and adds a master thesis ("Empower the Builders. Lead the Industry."), three
+> product-level proof points, and five named customers. V2 remains the source for the
+> promise/proof/outcome framework and the persona detail; **§29 wins on pillars and themes**.
+> The unratified matrix below stays quarantined — §29 is silent on it.
+
 ### 22.1 Framework — Promise / Proof / Outcome
 
 - **01 PROMISE:** "We purchase and nurture specialized software for permanent investment,
@@ -2346,3 +2354,231 @@ folder's `assets/` as an allow-list so an unlicensed image fails closed.
 **Where the record lives.** Build/motion detail: `client-review/homepage/design-notes.md`.
 LinkedIn fill slots: `client-review/homepage/linkedin-slots.md`. Structural record stays
 `wireframes.md` §2 (unchanged); this section records the visual build and its divergences.
+
+**Experiment here, not there (2026-10-26).** Because this page is client-facing and published,
+it is now **forked into a sandbox**: `03_Design/explorations/homev5/` is a byte-identical copy
+(only the `<title>` and a provenance comment differ), gitignored and not on the Pages allowlist.
+**Try changes in `homev5/`, then port the diff back deliberately** — do not edit
+`client-review/homepage/index.html` as an experiment, and do not copy the whole sandbox file
+back over it. See `03_Design/explorations/homev5/direction.md`.
+
+---
+
+## 29. Fullsteam Messaging Architecture (marketing, received 2026-10-26)
+
+> **Status:** client-authored messaging artifact from the **marketing team**, received by the CD
+> 2026-10-26. It is now the **current statement of narrative and pillar structure**, and it
+> **supersedes §22 V2's pillar naming, theme layer, and goal set**. It changes **no** IA, no
+> sitemap, and no homepage structure — anything here that touches a locked decision (§14 sitemap,
+> §23 opening, §24 order) does **not** override it. Conflicts are enumerated in §29.6.
+>
+> **Provenance:** pasted in full from a marketing email. **No original file was supplied**, so
+> there is **no hash to verify** — unlike §22.1, this document cannot be authenticated. Raw copy
+> kept local-only at `clientDocs/Fullsteam Messaging Architecture (marketing).md`;
+> `clientDocs/` is gitignored (§22.7) and **this material is not publishable** (named customers,
+> unapproved figures).
+
+### 29.1 What it is
+
+A one-page architecture in five parts: **exec summary → goals → personas → thematic + three
+pillars → audience segmentation**. It is a **messaging** document, not a web document: it says
+nothing about nav, IA, page inventory, or section order, and it never mentions the homepage.
+
+What it actually adds to the record:
+
+- **A master thesis line:** *"Empower the Builders. Lead the Industry."* (first time the client
+  has supplied an overarching thematic for the whole brand).
+- **One-word pillar names — Essential / Grow / Lead.** These finally line up with the homepage's
+  own **Acquire / Grow / Lead** triad (§24). Two of three match exactly; the first differs
+  (see §29.6.7).
+- **Three product-level proof points** (wineries / dresses / boats) and **five named customers
+  and partners** — both new, both **not cleared** (§29.7).
+- **Per-persona channel guidance** (founder referrals, LinkedIn, trade shows, investor decks,
+  LinkedIn Talent) — useful for the content track, irrelevant to page structure.
+- **Three explicit goals**, one of which **conflicts with the sitemap lock** (§29.6.1).
+
+### 29.2 The master thesis
+
+**Exec summary (the framing sentence):** *"Fullsteam acquires vertical software companies, helps
+them grow through embedded offerings, and accelerates their transformation into the next
+generation of AI-powered market leaders."* — a straight **acquisition → growth → leadership**
+sequence, i.e. the same three-beat model the homepage already runs.
+
+**Thematic paragraph, in its own words:** extraordinary software is built by people who deeply
+understand their industry; Fullsteam is **a permanent home where software, founders, and
+employees thrive together**; it pairs **mission-critical systems of record** with **enterprise-grade
+capital, fintech innovation, and AI** to remove operational friction; it **preserves local culture
+and agile spirit** while backing every team member with the stability of a **nationwide leader**.
+
+- **"A permanent home"** is the strongest continuity signal yet — the same idea as §20.4's ban on
+  framing the sale as an "exit", now in the client's own voice. Good material for the
+  **Acquisitions** page (`for-founders.html`, renamed per OI-14).
+- **The theme line is a thematic, not a headline.** It is functionally the same class of object as
+  §23's axis labels: it *names the model* and does not speak as the site's H1. **"Empower the
+  builders" is founder-facing, "Lead the industry" is investor-facing** — pasting both into a hero
+  merges two audiences into one claim, which §23.6 rule 1 forbids for the opening.
+- **"AI-powered market leaders"** and **"AI-native world"** are market-thesis phrases. §20.5 still
+  governs visitor copy: **use cases first, never imply staff reduction**, and do not lead with AI.
+- Clean on the sharpest rule: the doc never says "exit", never describes a flip, and frames
+  acquisition as protection. It does say founders are "considering being acquired" — that is fine.
+
+### 29.3 The three pillars, and where they land
+
+| | Pillar (marketing label) | Thematic thread | Core claim | Proof points | Lands on |
+|---|---|---|---|---|---|
+| **1** | **Essential — Acquire Mission-Critical Software** | Honoring the legacy & protecting the people behind it | Buys **systems of record** in niche industries; invests to **protect** legacy and people, explicitly *not* to break companies apart or cut staff | 70,000+ active customers; named customers/partners ⚠ | **Axis A** opening + vertical filmstrip + Acquisitions page (OI-14) |
+| **2** | **Grow — Accelerating Growth of the Industry and the People Who Serve It** | Removing friction so there is more time for products, customers, growth | Embedded payments / lending / vertical insurance + centralized ops + **enterprise-grade cybersecurity** + practical AI tools | $75B+ processed*, 480M+ transactions*, 2,000+ employees, AI modernization | **Axis B** hero + **Our Advantage** page (all four panels) |
+| **3** | **Lead — Industry-Leading Platforms for an AI-Native World** | Building category leaders together | Next-generation platforms for an AI-native world; **leadership development** for the people behind them | 3,500 wineries (Commerce7) ⚠, 400k+ dresses (BridalLive) ⚠, 1M+ boats (Speedy Dock) ⚠ | proof band + verticals accordion + **Careers** |
+
+- **This is the cleanest pillar→page mapping the project has had.** Each pillar is delivered by
+  exactly one surface, and all three are still covered by the §23 two-axis model: **Essential = Axis
+  A, Grow = Axis B, Lead = the proof/leadership tail.** No reopening of §23 is implied.
+- **Pillar 3 answers the "why does a founder care about scale" question in the client's own
+  language** — leadership development, category leadership, "build the next generation" — and it is
+  the only pillar that speaks to **employees as a pillar benefit** rather than as a persona. That is
+  the natural source for the **Careers** page H1/body, not the homepage.
+- **Caution:** the pillars are **narrative**, not a section mandate. The official homepage (§28)
+  deliberately drops the "What we do" Acquire/Grow/Lead section; marketing having named the same
+  triad **does not restore it**. If anything it is an argument the triad is right *as a model*, not
+  that it must be its own band — see §29.6.7.
+
+### 29.4 Personas — what is new
+
+| | Marketing persona | Core drivers | Key message | Where it lands |
+|---|---|---|---|---|
+| **1A** | **Sean**, founder/CEO/majority owner, ~15 yrs in, profitable vertical software, existing team & customers | Legacy + employee continuity, growth capital, **practical AI without losing focus**, network of peer leaders, a smooth transition | "Fullsteam builds on the software, customer relationships and culture you've established" | Acquisitions page (primary), Axis A sub-line |
+| **1B** | **Marcus**, institutional/PE managing partner | Long-term compounding, **diversification across sectors**, high-margin embedded fintech, disciplined M&A + back office, AI across portfolio | "Repeatable, high-margin growth built for the AI era" | **No page** — homepage scale/proof band + Contact (§14) |
+| **2** | **Elena**, senior PM | Big-company stability **without bureaucracy**, small-team agility, remote, direct access to leadership, multi-vertical mobility | "A technology and payments leader that doesn't act like a slow conglomerate" | Careers page + homepage careers band |
+
+- **Customers are still absent** — the third client document in a row (V2, the deck, this one) to
+  model three audiences and omit the customers who actually use the software. The site still serves
+  them at **rank 2** (§20 / `design.md` §2). Do not let the marketing persona set narrow the site's
+  audience model.
+- **"2,000+ remote-first"** is now an established, repeated claim (Careers band, LinkedIn strip) —
+  consistent with §22.5 / §25.2 and with the built homepage.
+- The founder's motivator list is the most useful new copy input in the document: **"growth capital
+  and practical AI adoption tools without losing focus"** and **"a network of leaders / freedom to
+  run it"** are the two ideas the homepage's founders band and the Acquisitions page should carry.
+
+### 29.5 Net-new vs §22 V2 (and what it drops)
+
+| | §22 V2 (Sept 2026) | §29 marketing (Oct 2026) |
+|---|---|---|
+| **Frame** | Promise / Proof / Outcome + an **unratified** strategic alignment matrix | No framework, no matrix; **exec-summary sentence + theme line + 3 pillars** |
+| **Pillars** | "A Permanent Home for Specialty Software" · "Software-First, Payments-Native, AI-Accelerated" · "Stay Niche, Gain Enterprise Leverage" | **Essential · Grow · Lead** (one word each) |
+| **Theme** | none (framework only) | **"Empower the Builders. Lead the Industry."** |
+| **Proof points** | 70k+ customers · $75B+ · 480M+ · 2,000+ · 100+ businesses · 13+ sectors | **same core four**, **drops "100+"**, **adds 3 product stats + 5 named customers** |
+| **Grow differentiators** | embedded functionality, back office, tech innovation | same, **plus "enterprise-grade cybersecurity"** as a named pillar keyword |
+| **Channel guidance** | M&A / brand marketing / employer branding / investor | per-persona "best reached through" (referrals, LinkedIn, decks, talent portals) |
+| **Investor ask** | implied scale only | **"a dedicated, credibility-first investor track"** ← structural (see §29.6.1) |
+| **Hero** | plain conversational first-person copy | **"modernize the hero with imagery/video"** |
+
+- **The V2 matrix stays quarantined.** §29 is silent on it, so §22.1's ruling stands unchanged:
+  unratified, do not build copy on it.
+- **The "100+" business count has now disappeared** from the client's own messaging. There is
+  therefore still **no approved business/portfolio count** to pair with the **11 verticals**; do not
+  invent or resurrect one (§22.5).
+- **Vocabulary survived from V2:** "niche / specialty / specialized / industry-specific" all return
+  (§29.6.5), as does **"platform"** (§29.6.6), and **"13+ specialized market sectors"** is now said
+  for the **third** time (§29.6.2).
+
+### 29.6 Conflicts to resolve before any site copy is built on this
+
+1. **⚠ A "dedicated, credibility-first investor track" contradicts the sitemap lock.**
+   §14 **removed For Investors** — no nav node, no page — and §20.4/§24 serve investors through the
+   homepage's scale/proof band plus Contact. Goal 2 asks for a **track**, which is a **structural**
+   request, not a messaging one. This is a **client decision**, not an agent call. Options to put to
+   them (do not build any of them silently):
+   - **(a) Keep the lock** — the proof band *is* the investor surface; sharpen its figures instead.
+   - **(b) No-nav investor page** — `/investors`, reachable from footer + Contact + decks, never in
+     the L1 nav. Keeps the locked nav intact while giving Marcus a destination.
+   - **(c) A section inside Our Story** — investor content as a band, no new URL.
+   → **OI-15.**
+2. **⚠ "13+ specialized market sectors" vs the locked 11 verticals.** Third restatement
+   (§22.6.2, §25.3.1). Still unanswered, still blocks a published count. The site ships **11**
+   until the client reconciles it.
+3. **⚠ Financial-performance language is sharper than V2, not softer.** "Predictable revenue",
+   "predictable cash flow", "high-yield", "sustainable returns", "long-term capital compounding",
+   "high-margin embedded payments", "fintech revenue", "recurring revenue streams" — every one of
+   these is a **financial claim or forecast**, which §20.4 forbids in any published form. They are
+   **investor-deck language**. On site, translate to **inferable scale** (customers, volume,
+   transactions, employees, sectors) and never publish the words above. Note this is a **drift
+   direction**, not a one-off: the client's messaging is getting *more* financially explicit as the
+   site gets more plain-spoken.
+4. **⚠ Named customers, partners, and named acquisition products.** "Shinnecock, Fairmont, Screaming
+   Eagle, Take5, New Balance" and "Commerce7 / BridalLive / Speedy Dock" are named in this
+   document. §20.7 and the confidentiality convention forbid naming customers or acquisitions until
+   the client **confirms publishability in writing** — marketing naming them internally is **not**
+   that clearance. Until then, **genericize**: "a Napa winery platform", "a bridal-retail platform",
+   "a marina-management platform". → **OI-16.**
+5. **Vocabulary: "vertical" is still the locked word.** "Niche / specialty / specialized /
+   industry-specific" appear throughout (§20.3, §22.6.1). Ship **vertical** in site copy; the other
+   words are acceptable only when quoting a founder's own speech. **"Embedded offerings"** is now
+   *good* news — it matches the **Our Advantage** page's group name — but "Offerings" still may not
+   be used as a nav short form.
+6. **"Platform" is back**, in three places ("AI-powered market leaders", "next-gen software
+   platforms", "platform evolution"). It remains banned as the **axis label** (site stays **Our
+   Advantage**) and is still the word §20.6 rejected for the offering set. Use it sparingly at most.
+7. **Pillar name mismatch: Essential vs Acquire.** The site already ships **Acquire / Grow / Lead**
+   (§24). Keep **Acquire** in visitor-facing copy — it is plainer and already built — and treat
+   **Essential** as the *internal* pillar label. Do not rename a shipped section to match a deck
+   header (§22.6.4, same rule).
+8. **"Modernize the hero with imagery/video."** §28's official homepage satisfies **imagery**
+   (vertical filmstrip, founders frame) but carries **no video** — the video hero was the `homev2`
+   direction, dropped in the calm-canvas pass. Marketing's ask is **partly unmet**. Record it; do not
+   retrofit video into the official page without a decision (§23 scope, §28 divergences).
+9. **"Enterprise-grade cybersecurity expertise and support"** is a **net-new product claim** — not in
+   §20, §22, §25, or any current page copy. Verify it is a real centralized offering before it
+   appears anywhere. → **OI-17.**
+10. **"AI" framing.** Pillar 3's "AI-native world" is a market thesis; §20.5 still requires
+    **use cases before claims** and no implication of staff reduction. Keep AI in the Grow/Our
+    Advantage lane, not in the lead claim.
+
+### 29.7 Publishability gate (unchanged rules, wider surface)
+
+Everything here is still gated by **OI-5 / `wireframes.md` G-3** and §20.7. §29 **widens the
+surface** — it introduces five named partners and three named products, none of which have ever been
+cleared.
+
+| Signal | Value | Status |
+|---|---|---|
+| Business customers | 70,000+ | Repeated; still awaiting publishability sign-off (§22.5 / OI-5) |
+| Payments processed | **$75B+** (cumulative) | Same; **keep the "cumulative" asterisk** on any use |
+| Transactions | **480M+** (cumulative) | Same; asterisk required |
+| Employees | 2,000+ | Same; now also used as an employer-brand claim |
+| Sectors | **"13+"** | **Do not publish** — conflicts with 11 (§29.6.2) |
+| Businesses / founders | "100+" in V2 | **Absent from §29** — do not resurrect, do not invent |
+| Wineries | 3,500 (Commerce7) | **New — not cleared**; names an acquisition product |
+| Wedding dresses | 400,000+/yr (BridalLive) | **New — not cleared**; names an acquisition product |
+| Boats launched | 1M+/yr (Speedy Dock) | **New — not cleared**; names an acquisition product |
+| Named customers/partners | Shinnecock, Fairmont, Screaming Eagle, Take5, New Balance | **Not cleared** (§20.7) — genericize |
+
+- **The three product stats are the best new proof in the document** and the worst publishability
+  risk: each is a vivid, concrete, vertical-specific number (exactly the "local auto shops or
+  wineries" concreteness §22.3 asks for) that happens to **name a business Fullsteam acquired**.
+  Cleared and anonymized ("3,500 wineries run on our wine-commerce platform"), they are ideal for the
+  verticals accordion. Uncleaared, they are a confidentiality breach. **Ask for clearance in the same
+  request as the 11-vs-13 count** — they are the same conversation.
+- **One count per page** still applies: one vertical count, one customer count, no two variants of
+  "100+" shown as separate stats.
+
+### 29.8 What this does not change
+
+- **IA / sitemap** (§14): 11 verticals, single pages, no investor nav node, **Acquisitions** label per
+  OI-14. Pending a client answer to §29.6.1.
+- **The opening model** (§23): Axis A → grow morph → Axis B, two states, two headlines. §28's
+  scroll-over remains the open ratification item — marketing says nothing about it.
+- **Homepage order** (§24), including the absence of the "What we do" band.
+- **Voice rules** (§20.3, §20.4, §22.3): plain, first person, 8th-grade, no "exit", no financials,
+  no jargon. §29's own investor copy **violates** these — treat it as source material, not copy
+  (§29.6.3).
+- **Palette / type** (§15, §27): untouched.
+
+### 29.9 Open items this adds
+
+| ID | Item | Owner |
+|---|---|---|
+| **OI-15** | **Investor track** — does the client want a dedicated investor surface despite the §14 lock? Options (a)/(b)/(c) in §29.6.1. Blocks nothing until decided. | Client |
+| **OI-16** | **Named-customer and named-product clearance** — five partners, three acquisition products (§29.6.4 / §29.7). Genericize until cleared in writing. | Client |
+| **OI-17** | **Cybersecurity claim** — verify "enterprise-grade cybersecurity expertise and support" is a real centralized offering before it reaches copy. | Client / agency |
+| *(existing)* | **11 vs 13+ sectors** (§22.6.2), **all scale figures** (OI-5 / G-3) | Client |

@@ -67,10 +67,21 @@ python3 -m http.server 8000
   03-section-two-sandbox/ ← history: six candidates for section 02
   homev2/               ← history: video hero + sticky rail, AA (the direction the official homepage came from)
   homev3/               ← side study: calm-canvas / Asana register
+  hero-motion/          ← study: the Axis A living-field motion (tracked for the record)
+  homev5/               ← sandbox: working copy of the official homepage (forked 2026-10-26)
 ```
 
 The **official homepage** lives outside this folder: [`../client-review/homepage/`](../client-review/homepage/index.html).
 The exploration formerly called `homev4/` was promoted into it on 2026-10-25.
+
+**`homev5/` is the place to try changes to that page.** It was forked byte-identical on
+2026-10-26 — only the `<title>` and a provenance comment differed — so the official build stays
+untouched while the client is reviewing it. It has since diverged on purpose: a **copy pass**
+(placeholders retired, missing proof added) and the **story-stack proposal** (the KPI band
+replaced by chapters — see `homev5/concept-story-stack.md` and its change log in
+`homev5/direction.md`). **None of it is promoted or a decision.** Promote a change out of
+`homev5/` by porting the diff into `../client-review/homepage/index.html` deliberately, not by
+copying the whole file.
 
 One folder per exploration set, named `NN-topic` (e.g. `01-dark-cinematic`,
 `02-video-hero`). Keep each set self-contained and static (open with the
