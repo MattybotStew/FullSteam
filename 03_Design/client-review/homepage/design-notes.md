@@ -629,3 +629,42 @@ italic; `scrollWidth === innerWidth` at both; **axe-core 4.10.2 → 0 violations
 21a/21aa) at both; 0 console errors; document height 8,095px at 1440. Header still ink over the
 chapter and white over the portfolio. `prefers-reduced-motion` renders the finished state with
 no arming.
+
+## 2026-10-26 — both pause controls removed
+
+At the CD's direction the two `❚❚ Pause …` buttons are gone: **“Pause auto-advance”** under the
+verticals accordion and **“Pause marquee”** beside the AI band's exit line.
+
+Removed, not hidden: both buttons in the markup, the whole `.motion-toggle` component (base styles,
+hover/focus, the dark-field variant in the AI band, and its `prefers-reduced-motion` rule), the
+`.verts__foot` wrapper that held nothing else, the `.ai-marquee.is-paused` hook only that button
+set, the two click handlers, and the `autoOn` flag nothing toggles any more.
+
+**Behaviour is unchanged:** the marquee still scrolls, and the accordion still advances one panel
+every 5s (verified ERP → Wine unattended). It still pauses on hover, on focus, while off screen,
+and never runs under `prefers-reduced-motion`.
+
+### ⚠ This drops the WCAG 2.2.2 mechanism
+
+Those two buttons were the page's only **Pause, Stop, Hide (Level A)** mechanism for content that
+moves automatically for more than five seconds — which both the marquee and the 5s accordion do.
+The JS comment on the removal even said so ("2.2.2 — an explicit, keyboard-reachable control for
+the 5s cycle"). With the controls gone and the motion kept:
+
+- **axe will not catch it.** 2.2.2 is a manual check; the page still reports 0 violations.
+- `prefers-reduced-motion` is **not** a conforming substitute — WCAG wants a mechanism in the
+  content, not an OS-level setting a visitor may not know exists.
+- Hover/focus pausing is a mitigation, not the required control (it is not reachable or
+  discoverable for keyboard/screen-reader users in the same way).
+
+Three ways to close it, in order of least visual cost:
+
+1. **Icon-only control** — same button, no `❚❚` glyph and no visible label, `aria-label="Pause
+   auto-advance"`. Invisible to the design, still conforming.
+2. **Stop the automation** — no auto-advance, no marquee scroll; the panels become click/hover
+   only. Fully conforming with no control at all.
+3. **Accept the gap and record it** in any accessibility statement — defensible only if the client
+   signs off.
+
+Until one of those is chosen, **the page should not claim WCAG 2.1 AA compliance** on the strength
+of the axe result alone.
