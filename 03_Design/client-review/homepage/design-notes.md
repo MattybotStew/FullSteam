@@ -571,7 +571,8 @@ $75B+    ——————————————— processed on Fullsteam Pa
   1440 (equal), every caption starts at x = 1000. That geometry is what makes it read as one
   table rather than four statements.
 - **Sequence on scroll:** figure counts 0 → final (1000ms, easeOutQuart, 70ms stagger) → rule
-  draws rightwards (620ms) → gold terminus pops (560ms) → caption lands (680ms).
+  draws rightwards (620ms) → gold terminus pops (560ms) → caption lands (680ms) → **summary
+  assembles**, timed from the last caption rather than from the viewport.
 - **Gold terminus:** a 20×20 `#FFC600` circle, centred on the end of the line, absolutely
   positioned inside the rule rather than given a fourth grid column (a column would shorten
   every rule and shift every caption).
@@ -588,7 +589,10 @@ $75B+    ——————————————— processed on Fullsteam Pa
 
 The five words in Instrument Serif italic are the page's payoff-word treatment (the same
 register as the founders quote and the exit lines). The sentence assembles **word by word** at
-28ms apiece — the same `.fw` register as the founders quote, with a shared trigger.
+28ms apiece — the same `.fw` register as the founders quote, but **timed off the end of the stat
+sequence rather than its own scroll position**: once the last row's caption has finished (~2.3s
+after the band enters) the summary starts, wherever the viewport happens to be. It is not a
+separate scroll trigger.
 
 ### What was removed
 

@@ -2400,6 +2400,18 @@
         scale.classList.add('is-armed');
 
         var DUR = 1000, GAP = 70, STAGGER = 70;
+        /* The summary does not wait for its own scroll position — it lands once
+           the last row has finished: 680ms caption delay + 300ms transition. */
+        var remaining = counts.length;
+        var summary = document.querySelector('.scale__summary');
+        var TAIL = 1000;
+        function rowDrawn(row) {
+          row.classList.add('is-drawn');
+          remaining--;
+          if (remaining === 0 && summary) {
+            setTimeout(function () { summary.classList.add('is-in'); }, TAIL);
+          }
+        }
         function run(c, delay) {
           if (c.done) return;
           c.done = true;
@@ -2410,7 +2422,7 @@
             el.textContent = fmt(c.to * (1 - Math.pow(1 - p, 4)), el);   /* easeOutQuart */
             if (p < 1) return requestAnimationFrame(step);
             el.textContent = fmt(c.to, el);
-            setTimeout(function () { c.row.classList.add('is-drawn'); }, GAP);
+            setTimeout(function () { rowDrawn(c.row); }, GAP);
           }
           setTimeout(function () {
             el.textContent = fmt(0, el);
@@ -2470,23 +2482,18 @@
         sweep();
       })();
 
-      /* Word-by-word assembly triggers (scale summary + founders quote). Each
-         gets its own trigger rather than the .reveal sweep, because the words
-         animate, not the block — and the same sweep rule applies, so an anchor
-         jump or restored scroll still lands with the type already assembled. */
+      /* Founders pull quote: word-by-word assembly. Own trigger (not the .reveal
+         sweep) because the words animate, not the block — and the same sweep
+         rule applies, so an anchor jump or restored scroll still lands with the
+         quote already assembled. (The scale summary's words are not triggered
+         here: they are timed off the end of the stat sequence, above.) */
       (function () {
-        var qs = [document.querySelector('.scale__summary'), document.querySelector('.founders__quote')]
-          .filter(Boolean);
-        if (!qs.length) return;
+        var q = document.querySelector('.founders__quote');
+        if (!q) return;
         function check() {
-          var pending = 0;
-          for (var i = 0; i < qs.length; i++) {
-            var q = qs[i];
-            if (q.classList.contains('is-in')) continue;
-            if (q.getBoundingClientRect().top < window.innerHeight * 0.88) q.classList.add('is-in');
-            else pending++;
-          }
-          if (!pending) {
+          if (q.classList.contains('is-in')) return;
+          if (q.getBoundingClientRect().top < window.innerHeight * 0.88) {
+            q.classList.add('is-in');
             window.removeEventListener('scroll', check);
             window.removeEventListener('resize', check);
           }
