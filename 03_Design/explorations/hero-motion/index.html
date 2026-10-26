@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axis A ground — motion study</title>
+<style>
+  :root {
+    --bg: #0b1216;
+    --panel: #101a20;
+    --line: #1f2f38;
+    --fg: #dfe9ee;
+    --mut: #7c919c;
+    --gold: #FFC600;
+    --sky: #39e8f5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 15px/1.6 "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 56px 28px 96px; }
+  .kicker {
+    font-family: ui-monospace, "Fragment Mono", Menlo, monospace;
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--gold); margin: 0 0 14px;
+  }
+  h1 { font-size: 34px; line-height: 1.15; letter-spacing: -.015em; margin: 0 0 14px; font-weight: 600; }
+  h1 em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; color: var(--gold); }
+  .lede { max-width: 62ch; color: var(--mut); margin: 0 0 8px; }
+  .lede strong { color: var(--fg); font-weight: 600; }
+
+  .stage {
+    margin: 40px 0 0; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 6px; overflow: hidden;
+  }
+  .stage__frame { position: relative; aspect-ratio: 16/10; background: #05090c; }
+  .stage__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stage__hud {
+    position: absolute; left: 14px; bottom: 14px; display: flex; gap: 8px; align-items: center;
+    font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: .06em;
+    background: rgba(5, 10, 14, .74); border: 1px solid rgba(255,255,255,.12);
+    padding: 5px 10px; border-radius: 4px; backdrop-filter: blur(6px);
+  }
+  .stage__hud b { color: var(--gold); font-weight: 600; }
+  .stage__bar {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px; border-top: 1px solid var(--line);
+  }
+  button {
+    font: inherit; font-size: 13px; color: var(--fg); background: #17242c;
+    border: 1px solid var(--line); border-radius: 4px; padding: 7px 14px; cursor: pointer;
+  }
+  button:hover { background: #1d2d36; }
+  button[aria-pressed="true"] { background: var(--gold); color: #12100a; border-color: var(--gold); }
+  input[type="range"] { flex: 1; accent-color: var(--gold); }
+  .ticks {
+    display: flex; justify-content: space-between; padding: 0 16px 12px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 10px; color: #55686f;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 18px 0 0; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  th { color: var(--mut); font-weight: 500; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+  td:first-child { color: var(--mut); }
+  code { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; color: var(--sky); }
+
+  .grid { display: grid; gap: 18px; margin-top: 18px; }
+  .grid figure { margin: 0; }
+  .grid img { width: 100%; display: block; border: 1px solid var(--line); border-radius: 5px; }
+  figcaption { color: var(--mut); font-size: 13px; margin-top: 9px; }
+  h2 { font-size: 19px; margin: 56px 0 6px; letter-spacing: -.01em; }
+  .note { color: var(--mut); font-size: 13.5px; border-left: 2px solid var(--line); padding-left: 14px; margin: 22px 0 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="kicker">Internal · not client-facing</p>
+  <h1>Axis A ground — the <em>motion</em></h1>
+  <p class="lede">
+    Twenty-four real renders of the homepage hero, <strong>1.5 seconds of animation apart</strong>,
+    covering 36 seconds of the field. Nothing here is a mock-up: each frame is the live page with the
+    chrome and copy hidden so the ground can be judged on its own.
+  </p>
+
+  <div class="stage">
+    <div class="stage__frame">
+      <img id="shot" src="viewer/f00.png" alt="Axis A gradient field at t = 0">
+      <div class="stage__hud"><span>t</span><b id="clock">0.0s</b><span id="speed"></span></div>
+    </div>
+    <div class="stage__bar">
+      <button id="play" aria-pressed="true">Pause</button>
+      <input id="scrub" type="range" min="0" max="23" value="0" step="1">
+      <button id="speedBtn">12×</button>
+    </div>
+    <div class="ticks"><span>0s</span><span>9s</span><span>18s</span><span>27s</span><span>36s</span></div>
+  </div>
+
+  <p class="note">
+    Playback is time-lapse, not real time — at 12× the 36-second drift plays in 3 seconds.
+    Two of the three masses move on periods that do not divide each other
+    (28s / 36s / 32s), so this loop is a sampling of the motion, not the whole cycle.
+  </p>
+
+  <h2>What actually moves</h2>
+  <div class="grid">
+    <figure>
+      <img src="difference.png" alt="Difference between the field at 0s and 18s, amplified 4x">
+      <figcaption>
+        <strong>0s · 18s · |difference| × 4.</strong> The motion lives on the flanks — magenta on the
+        right is where the gold mass travelled, teal on the left is the aqua mass. The top-left stays
+        black because the static ink guard sits there: that is the contrast floor doing its job.
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="contact-sheet.png" alt="Contact sheet of 24 frames across 36 seconds">
+      <figcaption>
+        The same 24 frames as a strip. Read it left to right: the gold mass descends from the
+        upper right, crosses the green, and climbs back out.
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="context-1440.png" alt="The homepage hero with copy and filmstrip in place">
+      <figcaption>
+        In context at 1440×900. The ink guard is invisible as a shape — it reads as the type simply
+        sitting on a darker part of the field.
+      </figcaption>
+    </figure>
+  </div>
+
+  <h2>Numbers behind it</h2>
+  <table>
+    <tr><th>Measure</th><th>Value</th></tr>
+    <tr><td>Masses</td><td><code>84vmax</code> radial, three moving + one static ink guard</td></tr>
+    <tr><td>Periods</td><td><code>28s</code> aqua · <code>36s</code> gold · <code>32s</code> lime</td></tr>
+    <tr><td>Travel</td><td><code>26–28%</code> of each mass, three-stop orbit + scale breath</td></tr>
+    <tr><td>Animated properties</td><td><code>transform</code>, <code>opacity</code> only — no <code>filter</code></td></tr>
+    <tr><td>Grain</td><td><code>feTurbulence</code> tile, 160px, recentred to mean 122, <code>overlay</code> at <code>.20</code></td></tr>
+    <tr><td>Motion over 2.5s</td><td>mean <code>|Δ| 8.06/255</code>, 38% of pixels change ≥ 8 levels</td></tr>
+    <tr><td>Headline contrast (1440)</td><td>sky <code>5.58–5.92:1</code> · gold <code>5.30–5.63:1</code></td></tr>
+    <tr><td>Headline contrast (390)</td><td>sky <code>5.04:1</code> · gold <code>4.79:1</code></td></tr>
+  </table>
+
+</div>
+
+<script>
+(function () {
+  var shots = [], N = 24;
+  for (var i = 0; i < N; i++) {
+    var im = new Image();
+    im.src = 'viewer/f' + (i < 10 ? '0' + i : i) + '.png';
+    shots.push(im);
+  }
+  var el = document.getElementById('shot');
+  var clock = document.getElementById('clock');
+  var scrub = document.getElementById('scrub');
+  var playBtn = document.getElementById('play');
+  var speedBtn = document.getElementById('speedBtn');
+  var speedEl = document.getElementById('speed');
+
+  var speeds = [12, 6, 24];
+  var si = 0;
+  var idx = 0;
+  var playing = true;
+  var timer = null;
+
+  function baseFps() { return 1000 / 8; }             // 8 frames per second at 12x
+  function interval() { return baseFps() * (12 / speeds[si]); }
+
+  function show(i) {
+    idx = ((i % N) + N) % N;
+    el.src = shots[idx].src;
+    clock.textContent = (idx * 1.5).toFixed(1) + 's';
+    scrub.value = String(idx);
+  }
+  function tick() { show(idx + 1); }
+  function start() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(tick, interval());
+  }
+  function pause() { if (timer) clearInterval(timer); timer = null; }
+
+  playBtn.addEventListener('click', function () {
+    playing = !playing;
+    playBtn.textContent = playing ? 'Pause' : 'Play';
+    playBtn.setAttribute('aria-pressed', String(playing));
+    playing ? start() : pause();
+  });
+  scrub.addEventListener('input', function () {
+    pause(); playing = false;
+    playBtn.textContent = 'Play';
+    playBtn.setAttribute('aria-pressed', 'false');
+    show(parseInt(scrub.value, 10));
+  });
+  speedBtn.addEventListener('click', function () {
+    si = (si + 1) % speeds.length;
+    speedBtn.textContent = speeds[si] + '×';
+    if (playing) start();
+  });
+
+  speedEl.textContent = '';
+  show(0);
+  start();
+})();
+</script>
+</body>
+</html>

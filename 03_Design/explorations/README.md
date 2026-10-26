@@ -10,6 +10,10 @@
 > **This folder is gitignored by default** (`03_Design/explorations/*`). Exceptions:
 > **`02-video-hero/`** and **`homev2/`** are tracked for internal GH Pages previews (HTML +
 > direction; hero media staged from `02-video-hero/assets` at deploy — see `inspiration.md` §2.2).
+> **`hero-motion/`** is tracked **for the record only** (2026-10-26, explicit decision): the HTML
+> plus the frames it renders, so the Axis A living-field study is reviewable without the local
+> capture. It is **not** on the Pages allowlist and nothing links to it; its 58 MB `frames/`
+> source set stays local.
 > Do not add other explorations to git or the Pages allowlist without an explicit decision.
 
 This is a scratch space for **visual / interaction exploration before anything is proposed.**

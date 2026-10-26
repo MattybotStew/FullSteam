@@ -27,6 +27,20 @@ _site/
 !03_Design/explorations/homev2/index.html
 !03_Design/explorations/homev2/direction.md
 !03_Design/explorations/index.html
+# hero-motion/ — the motion study behind the Axis A living field (2026-10-26).
+# Explicit decision 2026-10-26: tracked for the record, NOT for the Pages allowlist
+# and not linked from the portal. Fail-closed like assets/: deny the whole folder,
+# then re-include only the HTML and the frames it actually renders. The 58 MB
+# frames/ capture and the contact-sheet sources stay local.
+!03_Design/explorations/hero-motion/
+03_Design/explorations/hero-motion/*
+!03_Design/explorations/hero-motion/index.html
+!03_Design/explorations/hero-motion/contact-sheet.png
+!03_Design/explorations/hero-motion/context-1440.png
+!03_Design/explorations/hero-motion/context-390.png
+!03_Design/explorations/hero-motion/difference.png
+!03_Design/explorations/hero-motion/viewer/
+!03_Design/explorations/hero-motion/viewer/*.png
 03_Design/explorations/homev2/assets/*
 # assets/ is an ALLOW-list, not a deny-list: everything in it is ignored except
 # the two files that must ship. This fails CLOSED — a Square reference clip (or
