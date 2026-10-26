@@ -588,7 +588,9 @@ $75B+    ——————————————— processed on Fullsteam Pa
 > it. That's what we're protecting.
 
 The five words in Instrument Serif italic are the page's payoff-word treatment (the same
-register as the founders quote and the exit lines). The sentence assembles **word by word** at
+register as the founders quote and the exit lines), set in **light blue** —
+`color-mix(in srgb, var(--brand) 42%, #fff)` = `#94B9C8`, measured **8.45:1** on the ink ground.
+The raw `#00587C` would be 1.5:1 there and unreadable, so the mix is the readable form of the brand. The sentence assembles **word by word** at
 28ms apiece — the same `.fw` register as the founders quote, but **timed off the end of the stat
 sequence rather than its own scroll position**: once the last row's caption has finished (~2.3s
 after the band enters) the summary starts, wherever the viewport happens to be. It is not a

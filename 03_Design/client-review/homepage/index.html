@@ -908,6 +908,9 @@
     .scale__summary em {
       font-family: "Instrument Serif", Georgia, serif;
       font-style: italic; font-weight: 400; letter-spacing: 0;
+      /* light blue: the brand at 42% over white clears 8.3:1 on ink — the raw
+         #00587C would be 1.5:1 and unreadable here */
+      color: color-mix(in srgb, var(--brand) 42%, #fff);
     }
     .scale__summary .fw { display: inline-block; }
     .has-js .scale__summary .fw {
