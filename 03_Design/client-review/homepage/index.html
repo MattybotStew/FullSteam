@@ -1242,23 +1242,53 @@
        answering the founder's question. ---- */
     .founders {
       position: relative; isolation: isolate;
-      padding: clamp(64px, 9vh, 110px) var(--gutter-x);
+      /* tall on purpose (2026-10-26): this is the page's one breathe-out moment
+         between the AI band and the careers band, so it takes nearly a screen —
+         the next band peeks at the fold and the pull quote gets room to land.
+         `align-content` keeps the two columns optically centred in the taller
+         frame instead of leaving the extra height at the bottom. */
+      display: grid; align-content: center;
+      min-height: clamp(600px, 82svh, 900px);
+      padding: clamp(96px, 14vh, 168px) var(--gutter-x);
       color: #fff;
-      background: var(--hero-dark) center / cover no-repeat
-        url("assets/founders-quote-bg.jpg");
+      /* Retail frame: a card payment at a shop counter — retail + payments in
+         one frame, which is the two axes of the company. Unsplash License,
+         hotlinked the same way the careers band is, so nothing unlicensed
+         enters the repo. Chosen by measurement over four candidates: the
+         brightest frame that still clears AA under the wash. `--hero-dark` is
+         the fallback colour if the photo never arrives. */
+      background: var(--hero-dark) center / cover no-repeat;
       /* the bar is fixed, so a deep link to this band would otherwise land with
          the quote tucked under it */
       scroll-margin-top: calc(var(--bar-h) + 16px);
     }
+    /* The photograph is its own layer (not a background on the section) so the
+       scrim can sit above it and the mobile crop can swap independently. No
+       `filter` on it: it is left as the photographer shot it, and the wash does
+       all of the contrast work. */
+    .founders::before {
+      content: ""; position: absolute; inset: 0; z-index: -2;
+      background: url("https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=1920&h=1000&q=68")
+        center / cover no-repeat;
+    }
+    @media (max-width: 700px) {
+      /* a landscape crop loses the whole counter on a phone; ask for a portrait
+         crop that tracks the person instead of zooming into the middle */
+      .founders::before {
+        background-image: url("https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&crop=faces&w=900&h=1200&q=68");
+        background-position: center 40%;
+      }
+    }
     /* The Figma gradient runs .72 → .35 left-to-right, which protects the quote
        but leaves the copy column — the one with the 17px body text — on the
        weakest part of the wash. Rebuilt as a vertical + horizontal pair so both
-       columns clear AA over the brightest part of the photo (the helmet). */
-    .founders::before {
+       columns clear AA over the brightest part of the photo, and tuned against
+       the measured photograph rather than by eye. */
+    .founders::after {
       content: ""; position: absolute; inset: 0; z-index: -1;
       background:
-        linear-gradient(90deg, rgba(0,16,24,.80) 0%, rgba(0,16,24,.70) 48%, rgba(0,16,24,.72) 100%),
-        linear-gradient(180deg, rgba(0,16,24,.38) 0%, rgba(0,16,24,.16) 45%, rgba(0,16,24,.38) 100%);
+        linear-gradient(90deg, rgba(0,16,24,.68) 0%, rgba(0,16,24,.58) 48%, rgba(0,16,24,.60) 100%),
+        linear-gradient(180deg, rgba(0,16,24,.16) 0%, rgba(0,16,24,.06) 45%, rgba(0,16,24,.16) 100%);
     }
     .founders__inner {
       max-width: 1200px; margin: 0 auto;
@@ -1271,11 +1301,34 @@
       font-size: clamp(30px, 4.4vw, 64px); line-height: 1.08;
       letter-spacing: -.02em; text-wrap: balance;
     }
+    /* The quote assembles word by word as the band arrives — the one place on
+       the page where type itself is the motion. Words rise + unblur on the same
+       curve as the band reveals (--ease-out, 550ms register), 28ms apart, so a
+       17-word line lands in ~1.2s. Gated on .has-js: with JS off the quote is
+       plain visible text, and the spans carry no meaning to a screen reader. */
+    .founders__quote .fw { display: inline-block; }
+    .has-js .founders__quote .fw {
+      opacity: 0; transform: translateY(.42em); filter: blur(5px);
+      transition:
+        opacity .58s var(--ease-out),
+        transform .72s var(--ease-out),
+        filter .58s var(--ease-out);
+      transition-delay: calc(var(--i, 0) * 28ms);
+    }
+    .has-js .founders__quote.is-in .fw { opacity: 1; transform: none; filter: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .has-js .founders__quote .fw {
+        opacity: 1 !important; transform: none !important;
+        filter: none !important; transition: none !important;
+      }
+    }
     .founders__copy { max-width: 576px; }
     .founders__kicker {
       margin: 0; font-family: "Fragment Mono", ui-monospace, monospace;
       font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-      color: rgba(255,255,255,.78);
+      /* .78 measured 4.80:1 on mobile over the bright counter, so this label
+         sits at .95: an 11px mono kicker is small text and gets no discount */
+      color: rgba(255,255,255,.95);
     }
     .founders__title {
       margin: 14px 0 0; font-size: clamp(22px, 2vw, 28px); line-height: 1.25;
@@ -1287,14 +1340,17 @@
     }
     .founders__body {
       margin: 16px 0 0; font-size: 17px; line-height: 1.6;
-      color: rgba(255,255,255,.88); text-wrap: pretty; max-width: 46ch;
+      color: rgba(255,255,255,.94); text-wrap: pretty; max-width: 46ch;
     }
     .founders__cta { margin: 28px 0 0; }
     /* the quote is placeholder founder voice — marked in the open, not shipped
        quietly as if it were a real attribution */
     .founders__note {
       margin: 18px 0 0; font-family: "Fragment Mono", ui-monospace, monospace;
-      font-size: 12px; line-height: 1.5; color: rgba(255,255,255,.72);
+      font-size: 12px; line-height: 1.5;
+      /* the marker has to clear 4.5 at 12px like any other text, so it is not
+         quieter than this — .72 fell to 4.3 over the brightest patch */
+      color: rgba(255,255,255,.90);
     }
     @media (max-width: 900px) {
       .founders__inner { grid-template-columns: 1fr; gap: 28px; }
@@ -1872,8 +1928,23 @@
     <section class="founders" id="for-founders" aria-labelledby="foundersTitle">
       <div class="founders__inner">
         <blockquote class="founders__quote">
-          &ldquo;We stopped asking what to build next and started asking where everything we had
-          built could go.&rdquo;
+          <span class="fw" style="--i:0">&ldquo;We</span>
+          <span class="fw" style="--i:1">stopped</span>
+          <span class="fw" style="--i:2">asking</span>
+          <span class="fw" style="--i:3">what</span>
+          <span class="fw" style="--i:4">to</span>
+          <span class="fw" style="--i:5">build</span>
+          <span class="fw" style="--i:6">next</span>
+          <span class="fw" style="--i:7">and</span>
+          <span class="fw" style="--i:8">started</span>
+          <span class="fw" style="--i:9">asking</span>
+          <span class="fw" style="--i:10">where</span>
+          <span class="fw" style="--i:11">everything</span>
+          <span class="fw" style="--i:12">we</span>
+          <span class="fw" style="--i:13">had</span>
+          <span class="fw" style="--i:14">built</span>
+          <span class="fw" style="--i:15">could</span>
+          <span class="fw" style="--i:16">go.&rdquo;</span>
         </blockquote>
         <div class="founders__copy">
           <p class="founders__kicker">For founders</p>
@@ -2271,7 +2342,7 @@
          Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
          scroll, find-in-page — still reveals everything it passed. */
       (function () {
-        var sel = '.verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .careers__posts, .close__title, .close__proof, .close__doors, .exit, .close__payoff';
+        var sel = '.verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .careers__posts, .close__title, .close__proof, .close__doors, .exit, .close__payoff';
         var els = Array.prototype.slice.call(document.querySelectorAll(sel));
         if (!els.length) return;
         els.forEach(function (el) {
@@ -2298,6 +2369,27 @@
         window.addEventListener('resize', onScroll);
         window.addEventListener('load', sweep);
         sweep();
+      })();
+
+      /* Founders pull quote: word-by-word assembly. Own trigger (not the .reveal
+         sweep) because the words animate, not the block — and the same sweep
+         rule applies, so an anchor jump or restored scroll still lands with the
+         quote already assembled. */
+      (function () {
+        var q = document.querySelector('.founders__quote');
+        if (!q) return;
+        function check() {
+          if (q.classList.contains('is-in')) return;
+          if (q.getBoundingClientRect().top < window.innerHeight * 0.88) {
+            q.classList.add('is-in');
+            window.removeEventListener('scroll', check);
+            window.removeEventListener('resize', check);
+          }
+        }
+        window.addEventListener('scroll', check, { passive: true });
+        window.addEventListener('resize', check);
+        window.addEventListener('load', check);
+        check();
       })();
 
       /* Careers photo: the same slow drift as the key figures, smaller amplitude */

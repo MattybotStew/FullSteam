@@ -374,63 +374,106 @@ right edge or the type stops being the focal point.
 Added directly **under the AI band**, from Figma `FS-Design` node `11362:2949`. It is the page's
 first seller's-voice section: the AI band explains what the company builds, this one answers the
 founder's actual question. Full-bleed photograph, oversized serif pull quote, and the pitch in the
-right column.
+right column. **Revised the same day** — taller, animated, and re-photographed (below).
 
-**Two corrections to the Figma, both deliberate:**
+#### Shape: a screen-tall breathe-out
 
-1. **Palette.** The frame is built on `#FEC50A` and `#00202B` — the *exploration* palette, which
-   KB §15 / **OI-13** specifically says must not be copied into anything official. The band uses
-   the locked tokens instead: `--gold` `#FFC600` for the pill and the `built.` accent, `--ink` for
-   the button label. Nothing off-palette entered the build.
-2. **The overlay.** The frame's gradient runs `.72 → .35` left-to-right, which protects the quote
-   and leaves the *copy* column — the 17px body text and the 11px kicker — on the weakest part of
-   the wash, over the brightest part of the photograph (the helmet). Rebuilt as a horizontal +
-   vertical pair at `.80/.70/.72` and `.38/.16/.38`, tuned by measurement rather than by eye.
+It takes **`min-height: clamp(600px, 82svh, 900px)`** + `display: grid; align-content: center`,
+so it measures **738px at 1440×900** and **692px on a phone** (it was 436px). This is the page's
+one slow band between the AI band and the careers band: the next band peeks at the fold, and the
+quote gets enough air to be the only thing on screen for a beat. `align-content` is what keeps the
+two columns optically centred rather than dumping the extra height under the copy.
 
-**Contrast, measured against the real background.** The section was screenshotted with its text
-hidden, so every number is the actual photograph-plus-overlay behind each layer:
+#### The pull quote assembles word by word
 
-| layer | size | measured worst case | needs |
-|---|---|---|---|
-| pull quote | 63px serif | `12.85 : 1` | 3.0 (large) |
-| kicker `FOR FOUNDERS` | 11px mono | `7.42 : 1` | 4.5 |
-| h2 `A home for the business you built.` | 28px | `12.98 : 1` | 3.0 (large) |
-| `built.` in gold | 28px serif | `11.78 : 1` | 3.0 (large) |
-| body | 17px | `11.19 : 1` | 4.5 |
-| placeholder note | 12px mono | `8.20 : 1` | 4.5 |
-| CTA pill | 14px bold on solid gold | `11.24 : 1` | 4.5 |
+The quote is the only type on the page that is *itself* the motion. Each word is a
+`<span class="fw">` with an inline `--i`; on entry (`is-in`, own sweep trigger at 0.88 of the
+viewport, same rule as every other band) the words rise out of a 5px blur, 28ms apart — 17 words
+land in ~1.1s, measured: word 0 opaque at 700ms, word 16 at 1.1s. The copy column uses the site's
+existing `.reveal` stagger, so the band's motion is the same language as the rest of the page.
 
-**ADA / axe-core 4.10.2: 0 violations** at both 1440×900 and 390×844.
+Three gates, all deliberate: the word styles are scoped to `.has-js`, so **with JS off the quote is
+plain visible text**; `prefers-reduced-motion: reduce` pins every word at `opacity: 1`, no
+transform, no transition (verified under CDP emulation); and the spans carry no meaning to a
+screen reader — `innerText` reads as one sentence.
 
-Beyond contrast, four things were fixed because of the audit:
+#### Retail frame, and the licence problem it solved
+
+The Figma photo is a client asset with no recorded licence, and
+`03_Design/client-review/homepage/assets/*` is a gitignored allow-list whose rule is *"no
+third-party media that is not licensed"* — in a **public** repo. The first build therefore shipped
+with the image untracked and a `--hero-dark` fallback. **Replaced 2026-10-26 with a retail frame
+under the Unsplash License** (free for commercial use, attribution not required), hotlinked from
+`images.unsplash.com` exactly as the careers band already is — so nothing unlicensed enters the
+repo, and the band no longer depends on a file that can 404. The local JPEG was deleted.
+
+The frame is **a card payment at a shop counter** — retail and payments in one image, which is the
+two axes of the company. Mobile asks Unsplash for a **portrait crop with `crop=faces`** instead of
+zooming into the middle of a landscape.
+
+Four free-licence candidates were rendered into the band and measured before choosing: boutique
+interior, grocery aisle, clothes-store interior, POS payment. The POS frame won on *visible
+detail* (band luminance spread `0.082` vs `0.045–0.067`) at a contrast cost that still cleared AA.
+
+#### The photograph is left as shot
+
+The photo is its own layer (`.founders::before`) with the scrim above it (`.founders::after`), so
+the mobile crop can swap independently of the wash — but it carries **no `filter`**. An earlier
+pass lifted it with `brightness(1.6) saturate(.92)` to pull the band out of near-black; at the
+client's call that read as *"some weird image filter"* and was removed. A photograph on a brand
+site should look like the photograph.
+
+So the whole contrast budget is carried by the wash alone, and the wash is **solved, not
+eyeballed**: the bare plate was captured, then the gradient stops were swept numerically against
+every text layer. Without a filter the band sits at median luminance **0.040** (the lifted
+version was 0.063; the first, over-washed pass was 0.027) — dim, but a dim photograph rather than
+a manipulated one. Anything lighter fails the 17px body text.
+
+#### Contrast, measured against the real background
+
+Screenshotted with the text hidden, so every number is the actual photograph + wash behind each
+layer, at 1440 / 1024 / 768 / 390. Two tests per layer: the 95th-percentile background patch in
+the text box, and **the single brightest pixel** in it — the second is the one that catches a
+highlight sitting under one letter.
+
+| layer | size | worst, any width (p95) | worst, brightest pixel | needs |
+|---|---|---|---|---|
+| pull quote | 63 / 34 / 30px serif | `5.73 : 1` | `5.31 : 1` | 3.0 (large) |
+| kicker `FOR FOUNDERS` | 11px mono | `5.31 : 1` | `5.00 : 1` | 4.5 |
+| h2 `A home for the business you built.` | 28 / 22px | `5.73 : 1` | `5.46 : 1` | 3.0 (large) |
+| `built.` in gold | 28 / 22px serif | `3.52 : 1` | `3.47 : 1` | 3.0 (large) |
+| body | 17 / 16px | `5.18 : 1` | `4.94 : 1` | 4.5 |
+| placeholder note | 12px mono | `6.52 : 1` | `5.39 : 1` | 4.5 |
+| CTA pill | 14px bold on solid gold | `11.24 : 1` | — | 4.5 |
+
+Every layer clears its bar under both tests. Text alphas were raised to buy that over an
+unfiltered photo: kicker `.78 → .95`, body `.88 → .94`, note `.72 → .90`. These are 11–12px labels
+and 16–17px body copy — none of them is large text, so none of them gets a discount — and the
+note is a placeholder marker but still 12px text.
+
+**ADA / axe-core 4.10.2: 0 violations** at 1440×900, 1024×800, 768×900 and 390×844.
+
+#### Corrections to the Figma, and audit fixes
+
+Two deliberate departures from the frame:
+
+1. **Palette.** The frame is built on `#FEC50A` and `#00202B` — the *exploration* palette, which KB
+   §15 / **OI-13** bars from anything official. The band uses `--gold` `#FFC600` for the pill and
+   the `built.` accent, `--ink` for the button label.
+2. **The overlay.** The frame's `.72 → .35` left-to-right gradient protects the quote and leaves the
+   *copy* column on the weakest part of the wash. Rebuilt as a horizontal + vertical pair, tuned
+   against the measured photograph.
+
+Four more fixes came out of the audit:
 
 - **Focus ring.** `.pill:focus-visible` defaults to brand blue, which measures 2.25:1 on ink. The
-  band is now in the `outline-color: #fff` group with `.hero` / `.ai` / `.kpi`, so the ring is 3px
-  white — verified visible on the photograph.
-- **Deep links.** No section had `scroll-margin-top`, so `#for-founders` landed with the quote
-  under the fixed bar. The band now sets `calc(var(--bar-h) + 16px)`; loading the hash directly
-  lands the section at `top: 100` against an 84px bar.
-- **Semantics.** The quote is a `<blockquote>` (not a heading), the section is
-  `aria-labelledby` its `<h2>`, and the heading order stays h2 with no skipped level.
-- **Bar state.** The AI band and this band are one dark run inside a light page, and the bar
-  turned white right across them — a floating slab. `syncBar()` now keeps the ink treatment over
-  the run.
-
-**The photograph is decorative** (CSS background, `center/cover`), so it carries no alt text; the
-band's accessible name comes from the h2. Sourced from the frame at 1920×1081 and converted to
-JPEG (366 KB) — the original PNG was 2.6 MB, which is not worth shipping for a background.
-
-**⚠ The image is currently NOT published, on purpose.** `03_Design/client-review/homepage/assets/*`
-is an allow-list and only the two logo SVGs are on it — the `.gitignore` rule for this folder is
-explicit: *"no third-party media that is not licensed"*, and this repo is public. The photo came
-out of the client's Figma frame but its licence is not recorded anywhere I can verify, so it stays
-untracked and the deployed page falls back to the `--hero-dark` base. **That fallback is safe and
-looks intentional** (verified: a plain brand-teal band, same type, contrast unaffected), so nothing
-is broken — but the band does not get its photograph until someone confirms the licence and adds:
-
-```
-!03_Design/client-review/homepage/assets/founders-quote-bg.jpg
-```
+  band joins the `outline-color: #fff` group with `.hero` / `.ai` / `.kpi` — 3px white.
+- **Deep links.** `#for-founders` landed under the fixed bar; the band sets `scroll-margin-top:
+  calc(var(--bar-h) + 16px)`.
+- **Semantics.** The quote is a `<blockquote>`, the section is `aria-labelledby` its `<h2>`, heading
+  order stays h2 with no skipped level.
+- **Bar state.** The AI and founders bands are one dark run in a light page, and the bar turned
+  white across them — a floating slab. `syncBar()` keeps the ink treatment over the run.
 
 **Open:** the pull quote is **placeholder founder voice** — the frame marks it "genericized,
 unpublishable as written", and the band shows that note on the page rather than shipping it

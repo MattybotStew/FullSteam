@@ -8,7 +8,7 @@
 > `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-10-26 (**§28 official homepage** — Axis A ground is now a living field (three luminous masses on 28s/36s/32s under an feTurbulence grain at `.20`, static ink contrast guard, measured 5.30–5.92:1 desktop / 4.79:1 worst mobile, no layout change), **plus a new founders band** (`#for-founders`, Figma `11362:2949`) under the AI band with axe-core 4.10.2 reporting **0 violations** at 1440 and 390. Build detail in `client-review/homepage/design-notes.md`, motion study in gitignored `explorations/hero-motion/`)
+> **Last updated:** 2026-10-26 (**§28 official homepage** — Axis A ground is now a living field (three luminous masses on 28s/36s/32s under an feTurbulence grain at `.20`, static ink contrast guard, measured 5.30–5.92:1 desktop / 4.79:1 worst mobile, no layout change), **plus the founders band** (`#for-founders`, Figma `11362:2949`) under the AI band — now **screen-tall** (738px at 1440×900) with a **word-by-word pull-quote reveal**, over a **retail frame under the Unsplash License** (hotlinked, so no unlicensed asset enters the public repo); axe-core 4.10.2 reports **0 violations** at 1440 and 390. Build detail in `client-review/homepage/design-notes.md`, motion study in gitignored `explorations/hero-motion/`)
 > **Prior update:** 2026-10-25 (added **§28 — the official high-fidelity homepage**, promoted out of the exploration sandbox into `03_Design/client-review/homepage/`, with its divergences from the wireframe record and the open ratification items; §23's grow morph is unchanged in the spec)
 > **Prior update:** 2026-09-26 (reconciled **§23 Homepage Strategy** across `design.md`, `AGENTS.md`, and `wireframes.md` to the **grow morph** — the transition restored 2026-09-24 at the client's request after the interim binary snap read as "just snapping in place"; the two states, two headlines, and Axis A→B order are unchanged. Also: §22 Strategic Messaging Architecture V2; hero copy reconciled; V2 matrix quarantined as unratified + number/count conflicts recorded; vertical count settled at 11; `clientDocs/` exposure verified and `.gitignore`d)
 
@@ -2317,7 +2317,8 @@ as the contrast guard so the drift cannot spend headline legibility (2026-10-26,
 over it
 (“Then we build what makes it grow.”) → proof band (70,000+ customers, 11 / $75B / 2,000+
 cards) → verticals accordion → AI band → **founders band** (`#for-founders`, from Figma
-`11362:2949`, added 2026-10-26) → careers band + LinkedIn strip → close → footer.
+`11362:2949`, added 2026-10-26 — screen-tall, word-by-word quote reveal, retail Unsplash frame
+hotlinked under the Unsplash License) → careers band + LinkedIn strip → close → footer.
 Built on KB §15 tokens, Instrument Sans + Fragment Mono, with Instrument Serif italic on the
 payoff words (still unsanctioned — §27.4).
 
