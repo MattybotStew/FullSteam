@@ -12,7 +12,7 @@ http://localhost:8000/03_Design/client-review/homepage/index.html
 ## What this is
 
 The Fullsteam homepage in a light-canvas, cinematic register: pinned Axis A opening,
-vertical filmstrip, proof band, verticals accordion, AI band, careers band, oversized
+vertical filmstrip, **scale chapter**, verticals accordion, AI band, careers band, oversized
 close — built on **official brand tokens** (KB §15) and **Instrument Sans + Fragment Mono**
 (KB §27.2), with Instrument Serif italic reserved for the payoff words.
 
@@ -549,3 +549,77 @@ copy absorbs the slack and every art box, and every footer link, sits on the sam
 - Whether the opening's headline copy is ratified over the locked wireframe lines.
 - **Real team photos (not stock)** behind the careers band — it currently shows an Unsplash
   placeholder whose alt text says so; the client still has to supply the real image.
+
+## 2026-10-26 — the proof band becomes the scale chapter
+
+The 3-card "key figures" band was replaced with the leader-table **scale** chapter that was
+developed in `03_Design/explorations/homev5/`. This is a **promotion of one band only** — the
+rest of the sandbox (the deleted promise chapter, the growth chapter) was **not** taken.
+
+### 01 · the scale
+
+A four-row leader table: figure, rule, caption on one baseline, one row per figure.
+
+```
+70,000+  ——————————————— customers run our software every day
+11       ——————————————— verticals, each a system of record
+$75B+    ——————————————— processed on Fullsteam Pay
+2,000+   ——————————————— people across the portfolio
+```
+
+- Rows are **subgrids** of the list, so the three columns are shared: every rule is 525px at
+  1440 (equal), every caption starts at x = 1000. That geometry is what makes it read as one
+  table rather than four statements.
+- **Sequence on scroll:** figure counts 0 → final (1000ms, easeOutQuart, 70ms stagger) → rule
+  draws rightwards (620ms) → gold terminus pops (560ms) → caption lands (680ms).
+- **Gold terminus:** a 20×20 `#FFC600` circle, centred on the end of the line, absolutely
+  positioned inside the rule rather than given a fourth grid column (a column would shorten
+  every rule and shift every caption).
+- The rule animates **`width`, not `transform: scaleX()`** — a scaled rule squashes its
+  pseudo-element, so the dot would have been a 0px-wide smear for the whole draw.
+- Numeral cells are **pinned to their finished width** before counting, so the count cannot
+  resize the column and shove the rule. Measured: 304px at 400ms and at 1.8s — no shift.
+- Under 760px the leader is `display: none`: figure on its own line, caption under it, no dot.
+
+**The summary line** closes the chapter and carries the human reading of the figures:
+
+> Every one of these numbers is a business with a *name, a team, and customers* who depend on
+> it. That's what we're protecting.
+
+The five words in Instrument Serif italic are the page's payoff-word treatment (the same
+register as the founders quote and the exit lines). The sentence assembles **word by word** at
+28ms apiece — the same `.fw` register as the founders quote, with a shared trigger.
+
+### What was removed
+
+`.kpi` — the whole band: the centred “70,000+ customers rely on *our software*.” headline, its
+sub-line, the CTA pill, the three portrait cards and their parallax/bob, the 11-vertical proof
+index, and the “Owning the software is only the beginning.” exit line. Its CSS block and its
+JS (parallax + rAF loop + IntersectionObserver entrance) are gone, not hidden. Two shared
+selectors that named `.kpi` were trimmed.
+
+**The old band is saved whole** at [`../sections/key-figures-band.html`](../sections/key-figures-band.html)
+— self-contained (styles, markup, behaviour, and a note on the tokens and host components it
+needs) so another page can reuse it. That file records the four copy issues still open in its
+markup.
+
+### Consequences to be aware of
+
+- **The exit line went with the band.** “Owning the software is only the beginning.” was the
+  hand-off into the portfolio; the summary's “That's what we're protecting.” now does it.
+- **`480M+ transactions` is not on the page.** It was never on the official band either (it was
+  added in the sandbox copy pass); the new table carries four figures, matching the sandbox.
+- **`$75B+` no longer carries a cumulative qualifier.** The sandbox flagged this before the
+  promotion and it is still open: §22.5 wants “cumulative” (or a footnote) on a lifetime total.
+  As written it can be read as annual. **Restore the word or add the footnote before this goes
+  further.**
+- The band no longer names the eleven verticals; the accordion directly below does.
+
+### Verified
+
+1440×900 and 390×844: full sequence observed; numbers final, captions and dots at opacity 1,
+rules equal at 525px; summary assembles all 23 words with the *em* run in Instrument Serif
+italic; `scrollWidth === innerWidth` at both; **axe-core 4.10.2 → 0 violations** (wcag2a/2aa/
+21a/21aa) at both; 0 console errors; document height 8,095px at 1440. Header still ink over the
+chapter and white over the portfolio. `prefers-reduced-motion` renders the finished state with
+no arming.

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  SAVED SECTION — the "key figures" band (the 3-card proof band)
+
+  This is the band that sat under the opening on the OFFICIAL homepage
+  (03_Design/client-review/homepage/index.html) until 2026-10-26, when the
+  homepage replaced it with the leader-table "scale" chapter. It is saved here,
+  whole, so another page can reuse it without digging it out of git history.
+
+  SOURCE
+    file      03_Design/client-review/homepage/index.html
+    sha256    ac854c56c1871554ac3d4b16ef1c273c8fcfbc931a7aa8226fc276eb18b037b7
+    state     the build the client reviewed (promoted 2026-10-25)
+
+  WHAT IT IS
+    An ink band with four parts: a centred display headline, a sub-line, one
+    CTA, and three tall portrait cards (ACQUIRE / GROW / LEAD) carrying a figure
+    and a caption, over a named list of the eleven verticals and an exit line.
+
+  HOW TO REUSE IT ON ANOTHER PAGE
+    Three blocks below, each delimited by a COPY FROM / COPY TO comment pair:
+      1. the styles   — <style> in <head>
+      2. the markup   — the <section>
+      3. the behaviour — the <script> at the end of <body>
+    Move all three. The band needs these host tokens (values in :root below):
+      --ink --gold --mut --line --frame-r --frame-hair-dark
+      --display-m --section-y --gutter-x --ease-out
+    It also uses two shared components: `.pill` / `.pill--gold` for the CTA and
+    `.exit` / `.exit--dark` for the closing line. Minimal versions are included
+    here and marked "host component" — on a real page, use the host's own.
+
+  KNOWN STATE — fix before this ships anywhere
+    - Two captions still carry literal `[placeholder]` markers
+      ("processed on Fullsteam Pay* [placeholder]", "people across the portfolio
+      [placeholder]"). The asterisk on $75B has no footnote on the page.
+    - The headline claims "every one a category leader in its market" in the
+      sub-line, which is unverifiable without per-vertical proof.
+    - "Eleven vertical businesses under one roof" mixes the 11 verticals with a
+      business/portfolio count (KB §22.5).
+    The copy pass in 03_Design/explorations/homev5/direction.md (2026-10-26)
+    records a fixed version of all four lines — take that copy with this markup.
+
+  BEHAVIOUR
+    - Entrance: IntersectionObserver at threshold .18, one shot, staggered
+      (title lines .10/.22, sub .34, CTA .46, cards .40/.52/.64).
+    - Parallax: the three cards travel at different rates (.84/1.26/.64) with a
+      counter-moving photo, plus a continuous sine "bob" that needs the rAF loop.
+      Under 900px the cards stack — they stop moving and the photo carries it.
+    - prefers-reduced-motion: no parallax, no bob, no entrance transition.
+  ============================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved section · key figures band (3-card) — Fullsteam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;700&family=Instrument+Serif:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    /* ---- host tokens (a subset of the official homepage's :root) -------- */
+    :root {
+      --ink: #0d1a20;
+      --mut: #5c6b73;
+      --line: #d7dee1;
+      --gold: #FFC600;
+      --frame-r: 24px;
+      --frame-hair-dark: rgba(255, 255, 255, .16);
+      --display-m: clamp(36px, 4.8vw, 72px);
+      --gutter-x: clamp(24px, 5vw, 48px);
+      --section-y: clamp(72px, 10vh, 120px);
+      --ease-out: cubic-bezier(.2, .7, .2, 1);
+    }
+    body {
+      margin: 0; background: var(--ink); color: #fff;
+      font-family: "Instrument Sans", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- this file's own note block — NOT part of the band -------------- */
+    .saved-note {
+      max-width: 1200px; margin: 0 auto; padding: 32px var(--gutter-x) 0;
+      font-size: 13px; line-height: 1.6; color: rgba(255, 255, 255, .55);
+    }
+    .saved-note b { color: rgba(255, 255, 255, .82); }
+    .saved-note code { font-family: "Fragment Mono", ui-monospace, monospace; font-size: 12px; }
+
+    /* ==================== COPY FROM HERE — band styles ==================== */
+
+    /* ---- host components the band depends on --------------------------- */
+    .pill {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 44px; padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 14px;
+      text-decoration: none; border: 0; cursor: pointer; white-space: nowrap;
+      transition: transform .15s var(--ease-out), background-color .15s var(--ease-out);
+    }
+    .pill:active { transform: scale(.97); }
+    .pill--gold { background: var(--gold); color: var(--ink); }
+    .exit {
+      margin: clamp(44px, 6vh, 72px) 0 0; padding-top: 22px;
+      border-top: 1px solid var(--line);
+      max-width: 42ch;
+      font-family: "Instrument Serif", Georgia, serif; font-style: italic;
+      font-size: clamp(20px, 1.9vw, 27px); line-height: 1.3;
+      color: var(--mut);
+    }
+    .exit--dark { border-top-color: rgba(255, 255, 255, .16); color: rgba(255, 255, 255, .66); }
+
+    /* ---- the band ------------------------------------------------------ */
+    .kpi { position: relative; z-index: 1; isolation: isolate; background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter-x); }
+    .kpi__inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: clamp(32px, 5vh, 56px);
+    }
+    .kpi__cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.4vw, 16px);
+    }
+    .kpi__card {
+      position: relative; border-radius: var(--frame-r);
+      /* Tall portrait frames: the extra height is what gives the photo room to
+         travel inside the card, so the parallax reads as depth instead of a nudge. */
+      min-height: clamp(480px, 66vh, 700px);
+      overflow: hidden;
+    }
+    /* The image is larger than its frame, and shifts opposite the card, so the
+       card and the photo move at different rates (the actual parallax). */
+    .kpi__card::before {
+      content: ""; position: absolute; inset: -18% 0; border-radius: inherit;
+      background-image: var(--photo); background-size: cover; background-position: center;
+      transform: translate3d(0, var(--img-shift, 0px), 0);
+      scale: 1;
+      transition: scale .6s var(--ease-out);
+      will-change: transform;
+      /* the one photographic grade used across the build */
+      filter: saturate(.94) contrast(1.03);
+    }
+    .kpi__card:hover::before { scale: 1.03; }
+    /* inner hairline keeps the photo from bleeding flat into the page */
+    .kpi__card::after {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--frame-hair-dark); pointer-events: none;
+    }
+    .kpi__pill {
+      position: absolute; top: 18px; left: 18px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #fff; color: var(--ink); border-radius: 999px;
+      padding: 14px 28px; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+      /* layered rather than one soft box: tight contact + mid lift + ambient */
+      box-shadow: 0 1px 2px rgba(13,26,32,.10), 0 6px 14px rgba(13,26,32,.10), 0 18px 36px rgba(13,26,32,.10);
+      z-index: 2;
+    }
+    .kpi__info {
+      position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2;
+      background: #fff; color: var(--ink); /* concentric: outer --frame-r (24) − 16px inset = 8px */
+      border-radius: 8px; padding: 14px 18px;
+      box-shadow: 0 1px 2px rgba(13,26,32,.06), 0 4px 10px rgba(13,26,32,.07), 0 16px 32px rgba(13,26,32,.09);
+    }
+    .kpi__info-num { margin: 0; font-size: 1.35rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .kpi__info-cap { margin: 2px 0 0; color: var(--mut); font-size: 12.5px; text-wrap: pretty; }
+    .kpi__center { text-align: left; position: relative; z-index: 1; }
+    .kpi__title {
+      margin: 0; color: #fff;
+      font-size: var(--display-m); line-height: .98; letter-spacing: -0.03em; font-weight: 700;
+      text-wrap: balance;
+    }
+    .kpi__title .kpi__line { display: block; line-height: 1.02; }
+    .kpi__title .kpi__line:last-child { padding-bottom: 0.08em; }
+    .kpi__title em {
+      font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
+      color: var(--gold); letter-spacing: 0;
+    }
+    .kpi__sub {
+      color: rgba(255,255,255,.74); font-size: clamp(18px, 1.4vw, 21px);
+      line-height: 1.5; max-width: 44ch; margin: 24px 0 0; text-wrap: pretty;
+    }
+    .kpi__cta { margin-top: 30px; display: flex; justify-content: flex-start; }
+    /* proof index: the eleven verticals, named */
+    .kpi__proof {
+      list-style: none; margin: 0; padding: 18px 0 0;
+      border-top: 1px solid rgba(255,255,255,.14);
+      display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px 20px;
+      font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.62);
+    }
+    @media (max-width: 900px) {
+      .kpi__proof { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; }
+    }
+    .kpi__card-wrap { display: flex; will-change: transform; }
+    .kpi__card { width: 100%; }
+    /* hero-style entrance: lines rise + unblur, cards follow in stagger */
+    .has-js .kpi__title .kpi__line, .has-js .kpi__sub, .has-js .kpi__cta, .has-js .kpi__card {
+      opacity: 0;
+      transform: translateY(1.15em);
+      filter: blur(6px);
+      transition: opacity .75s cubic-bezier(.2,.7,.2,1), transform .75s cubic-bezier(.2,.7,.2,1), filter .75s cubic-bezier(.2,.7,.2,1);
+    }
+    .has-js .kpi__card { transform: translateY(48px) scale(.98); filter: blur(8px); }
+    .kpi.is-in .kpi__title .kpi__line,
+    .kpi.is-in .kpi__sub,
+    .kpi.is-in .kpi__cta,
+    .kpi.is-in .kpi__card { opacity: 1; transform: none; filter: none; }
+    .kpi.is-in .kpi__title .kpi__line:nth-child(1) { transition-delay: .10s; }
+    .kpi.is-in .kpi__title .kpi__line:nth-child(2) { transition-delay: .22s; }
+    .kpi.is-in .kpi__sub { transition-delay: .34s; }
+    .kpi.is-in .kpi__cta { transition-delay: .46s; }
+    .kpi.is-in .kpi__card-wrap:nth-child(1) .kpi__card { transition-delay: .40s; }
+    .kpi.is-in .kpi__card-wrap:nth-child(2) .kpi__card { transition-delay: .52s; }
+    .kpi.is-in .kpi__card-wrap:nth-child(3) .kpi__card { transition-delay: .64s; }
+    @media (prefers-reduced-motion: reduce) {
+      .kpi__title .kpi__line, .kpi__sub, .kpi__cta, .kpi__card {
+        opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important;
+      }
+    }
+    @media (max-width: 900px) {
+      .kpi__cards { grid-template-columns: 1fr; }
+      .kpi__card { min-height: 34vh; }
+    }
+    /* the header inverts over this band — see syncBar() on the homepage */
+    .kpi.is-on-view { /* hook only */ }
+
+    /* ===================== COPY TO HERE — band styles ==================== */
+  </style>
+  <script>document.documentElement.classList.add('has-js');</script>
+</head>
+<body>
+
+  <div class="saved-note">
+    <b>Saved section — the 3-card key-figures band.</b> Removed from the official homepage on
+    2026-10-26 and kept here for reuse. Everything between the
+    <code>COPY FROM</code> / <code>COPY TO</code> markers is the band; the note you are reading is not.
+    Read the banner comment at the top of this file before taking it — it lists the host tokens and
+    the four copy issues still open in this markup.
+  </div>
+
+  <!-- ================= COPY FROM HERE — band markup ===================== -->
+  <section class="kpi" id="key-figures" aria-labelledby="kpiTitle">
+    <div class="kpi__inner">
+      <div class="kpi__center">
+        <h2 class="kpi__title" id="kpiTitle">
+          <span class="kpi__line">70,000+ customers rely on</span>
+          <span class="kpi__line"><em>our software.</em></span>
+        </h2>
+        <p class="kpi__sub">Eleven vertical businesses under one roof — every one a category leader in its market.</p>
+        <div class="kpi__cta">
+          <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore vertical solutions</a>
+        </div>
+      </div>
+      <div class="kpi__cards">
+        <div class="kpi__card-wrap"><div class="kpi__card"
+          style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=1200&amp;q=70');">
+          <span class="kpi__pill">Acquire</span>
+          <div class="kpi__info">
+            <p class="kpi__info-num">11</p>
+            <p class="kpi__info-cap">vertical software businesses under one roof</p>
+          </div>
+        </div></div>
+        <div class="kpi__card-wrap"><div class="kpi__card"
+          style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=1200&amp;q=70');">
+          <span class="kpi__pill">Grow</span>
+          <div class="kpi__info">
+            <p class="kpi__info-num">$75B</p>
+            <p class="kpi__info-cap">processed on Fullsteam Pay* [placeholder]</p>
+          </div>
+        </div></div>
+        <div class="kpi__card-wrap"><div class="kpi__card"
+          style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=1200&amp;q=70');">
+          <span class="kpi__pill">Lead</span>
+          <div class="kpi__info">
+            <p class="kpi__info-num">2,000+</p>
+            <p class="kpi__info-cap">people across the portfolio [placeholder]</p>
+          </div>
+        </div></div>
+      </div>
+      <ul class="kpi__proof" aria-label="The eleven verticals">
+        <li>ERP</li><li>Wine</li><li>Transportation</li><li>Hospitality</li><li>Automotive</li><li>Retail</li><li>Health &amp; Wellness</li><li>Storage &amp; Marina</li><li>Weddings &amp; Events</li><li>Field Services</li><li>Associations</li>
+      </ul>
+      <p class="exit exit--dark">Owning the software is only the beginning.</p>
+    </div>
+  </section>
+  <!-- ================== COPY TO HERE — band markup ====================== -->
+
+  <!-- ================= COPY FROM HERE — band behaviour ================== -->
+  <script>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var section = document.getElementById('key-figures');
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.kpi__card-wrap'));
+      if (!section) return;
+
+      /* entrance — one shot, at 18% visible */
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { section.classList.add('is-in'); io.unobserve(section); }
+          });
+        }, { threshold: 0.18 });
+        io.observe(section);
+      } else {
+        section.classList.add('is-in');
+      }
+
+      var ticking = false;
+      function render() {
+        /* reduced motion: no parallax, no continuous bob (WCAG 2.3.3) */
+        if (reduce.matches) {
+          cards.forEach(function (el) {
+            el.style.transform = '';
+            var card = el.firstElementChild;
+            if (card) card.style.removeProperty('--img-shift');
+          });
+          return;
+        }
+        var rect = section.getBoundingClientRect();
+        var delta = (rect.top + rect.height / 2) - window.innerHeight / 2;
+        var t = Math.max(-200, Math.min(200, delta * 0.20));
+        var bob = Math.sin(Date.now() / 800) * 6;
+        /* Under 900px the cards stack, so moving them individually would make
+           them overlap each other and the proof list. There the photo carries
+           the parallax alone; the cards stay in flow. */
+        var stacked = window.innerWidth <= 900;
+        cards.forEach(function (el, i) {
+          var y, img;
+          if (stacked) {
+            y = 0;
+            img = Math.max(-40, Math.min(40, (-t * 0.30) + bob));
+          } else {
+            /* Each card travels its own distance, so the three separate
+               vertically instead of sliding as one block. The photo inside
+               counter-moves at a fraction of that, which sells the depth. */
+            var speed = [0.84, 1.26, 0.64][i % 3];
+            y = t * speed + bob;
+            img = -y * 0.32;
+          }
+          el.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0)';
+          var card = el.firstElementChild;
+          if (card) card.style.setProperty('--img-shift', img.toFixed(2) + 'px');
+        });
+      }
+      function onScroll() {
+        if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; render(); }); }
+      }
+      if (cards.length) {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        render();
+        /* the bob needs a continuous frame loop, not just scroll events */
+        (function loop() { render(); requestAnimationFrame(loop); })();
+      }
+    })();
+  </script>
+  <!-- ================== COPY TO HERE — band behaviour =================== -->
+
+</body>
+</html>

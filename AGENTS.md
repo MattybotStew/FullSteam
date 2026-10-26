@@ -81,7 +81,8 @@ This file is the canonical agent entry point (works with Cursor, which reads
   (promoted 2026-10-25 — KB §28). It is **client-facing and tracked**: the review
   portal links it and Pages publishes it. Structure: pinned **Axis A** ("Any industry,
   we own the software.") + vertical filmstrip → **Axis B** scroll-over ("Then we build
-  what makes it grow.") → proof band → verticals accordion → AI → careers → close.
+  what makes it grow.") → **scale chapter** (leader-table figures, 2026-10-26) → verticals
+  accordion → AI → careers → close.
   It deliberately **drops the wireframe's "What we do" section** and uses its own
   headline copy, so the wireframe record and this build diverge — read KB §28 before
   changing either. Build notes: `client-review/homepage/design-notes.md`.

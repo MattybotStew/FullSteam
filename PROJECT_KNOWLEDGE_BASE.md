@@ -9,6 +9,11 @@
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22, superseded in part by **§29**); **homepage opening strategy locked** (§23)
 > **Last updated:** 2026-10-26 (**§29 — Fullsteam Messaging Architecture** from marketing: master thesis "Empower the Builders. Lead the Industry.", pillars renamed **Essential / Grow / Lead** (first alignment with the homepage's Acquire/Grow/Lead model), three new product proof points (3,500 wineries · 400k dresses · 1M boats) and five named partners — all **not publishable** until cleared. Adds **OI-15** (marketing wants a "dedicated investor track", which the §14 sitemap lock removed — client decision), **OI-16** (named-customer/product clearance), **OI-17** (cybersecurity claim). No IA, opening, or homepage change; raw copy kept in gitignored `clientDocs/`)
+> **Prior update:** 2026-10-26 (official homepage: the 3-card proof band was **replaced by the
+> **scale chapter** — leader-table figures with count-up, a drawn stroke to a gold terminus, and a
+> word-by-word summary; the old band is saved whole for reuse at
+> `client-review/sections/key-figures-band.html`. §22.5's cumulative qualifier on `$75B+` is still
+> open — see `design-notes.md`)
 > **Prior update:** 2026-10-26 (§28 build detail — Axis A ground became a **living field** (three luminous masses on 28s/36s/32s under an feTurbulence grain at `.20`, static ink contrast guard; 5.30–5.92:1 desktop / 4.79:1 worst mobile), **founders band** added (screen-tall, word-by-word pull-quote over an Unsplash-License retail frame), **LinkedIn strip** now carries five real company-page posts; axe-core 4.10.2 → **0 violations** at 1440/390. Notes in `client-review/homepage/design-notes.md`)
 > **Prior update:** 2026-10-25 (added **§28 — the official high-fidelity homepage**, promoted out of the exploration sandbox into `03_Design/client-review/homepage/`, with its divergences from the wireframe record and the open ratification items; §23's grow morph is unchanged in the spec)
 > **Prior update:** 2026-09-26 (reconciled **§23 Homepage Strategy** across `design.md`, `AGENTS.md`, and `wireframes.md` to the **grow morph** — the transition restored 2026-09-24 at the client's request after the interim binary snap read as "just snapping in place"; the two states, two headlines, and Axis A→B order are unchanged. Also: §22 Strategic Messaging Architecture V2; hero copy reconciled; V2 matrix quarantined as unratified + number/count conflicts recorded; vertical count settled at 11; `clientDocs/` exposure verified and `.gitignore`d)
@@ -2323,8 +2328,11 @@ on 28s/36s/32s periods under a fine film grain (`opacity .20`), with a static in
 as the contrast guard so the drift cannot spend headline legibility (2026-10-26, `design-notes.md`
 §"Axis A ground — the living field") — and the vertical filmstrip → **Axis B** image scrolls up
 over it
-(“Then we build what makes it grow.”) → proof band (70,000+ customers, 11 / $75B / 2,000+
-cards) → verticals accordion → AI band → **founders band** (`#for-founders`, from Figma
+(“Then we build what makes it grow.”) → **scale chapter** (2026-10-26; a four-row leader
+table — 70,000+ / 11 / $75B+ / 2,000+ — that replaced the 3-card proof band, which is saved for
+reuse at `client-review/sections/key-figures-band.html`; figures count up, then each rule draws
+to a gold terminus, then the caption lands, then a word-by-word summary line) → verticals
+accordion → AI band → **founders band** (`#for-founders`, from Figma
 `11362:2949`, added 2026-10-26 — screen-tall, word-by-word quote reveal, retail Unsplash frame
 hotlinked under the Unsplash License) → careers band + LinkedIn strip (**five real company-page
 posts**, added 2026-10-26) → close → footer.
@@ -2334,7 +2342,7 @@ payoff words (still unsanctioned — §27.4).
 
 **Deliberate divergences from the wireframe record** (`wireframes.md` §2):
 
-- The **“What we do” section is not on the page**; the proof band follows the opening directly.
+- The **“What we do” section is not on the page**; the scale chapter follows the opening directly.
 - The two headline lines are **this build's copy**, not the locked wireframe lines
   (wireframe Axis A: “Whatever the industry, we own the software it runs on.”; Axis B:
   “Software first. Then we grow it.”).
