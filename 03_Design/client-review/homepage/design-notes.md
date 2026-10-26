@@ -233,9 +233,211 @@ corners actually clip — the proof card and careers figure show the band throug
 and on the stage a hit-test 1px inside the bottom corners returns the stage while 8px in
 returns the panel, so the arc is real and not just a declared value.
 
-## Open
+## Axis A ground — the living field (2026-10-26)
 
-- Client logo strip under hero (currently text placeholders).
+The opening's blue → green ground now **moves**. A Stripe-register aurora: three luminous
+masses — aqua, gold, lime — orbit the frame on independent non-harmonic periods, so the
+composition never repeats a frame. The static gradient stays underneath; this is added light,
+not a new palette.
+
+| | |
+|---|---|
+| **Layers** | Base `linear-gradient(158deg)` (unchanged, §"Axis A ground" above) + `.hero__blob--blue` (aqua, left) + `.hero__blob--gold` (gold, right) + `.hero__blob--green` (lime, bottom-right) + `.hero__blob--ink` (**static**, painted last) |
+| **Colour** | Blue = `--brand-sky` 64% in `--brand`; gold = `--gold` 92% in `#8f5200`; green = `--green` 58% in `#003a33` — all brand tokens. Every gradient fades to `transparent 100%` through a mid stop (see *rims*) |
+| **Motion** | `transform` + `opacity` only, `28s` / `36s` / `32s`, `cubic-bezier(.45,.05,.55,.95)`, each running base → out → back through a third stop so the path is an orbit, not a metronome. Travel 26–34% of the mass + a small scale breath |
+| **Size** | `84vmax` per mass (`92vmax` for the static guard) |
+| **Not animated** | The **ink mass**, deliberately — it is the contrast guard and a constant floor is worth more than a fourth moving layer |
+
+**The visualiser is in the repo.** `03_Design/explorations/hero-motion/` (gitignored) holds 24 real
+renders 1.5 s apart, a contact sheet, an amplified difference map, and an `index.html` that plays
+the sequence at 12× with a scrubber. Run the static server and open
+`http://localhost:8123/03_Design/explorations/hero-motion/index.html`. This is the only way this
+work was actually *looked at* — the pixel measurements below could not see the rims or the band.
+
+### What three failed passes taught (each caught differently)
+
+1. **First pass — static.** Two masses, `92vmax`, 44s/58s, 13% travel, no gold. Measured mean |Δ|
+   **5.2/255 across a half cycle**; the client called it static, correctly. The sampling was too
+   coarse to see the real problem: the travel was simply too small a fraction of the mass.
+2. **Second pass — olive, still half-dead.** Shorter periods, plus a gold mass built as `--gold`
+   40% in `#2e2600`: source ≈ `130,102,0`, a dark mustard that renders olive, with the right
+   flank still swinging only **8%**. *A tint is not a colour.*
+3. **Third pass — right numbers, wrong picture.** Contrast and swing measured well, but the
+   contact sheet showed **three floating discs with visible rims**, a **horizontal band** where the
+   mask ramp ended (~y 350), and gold that went **ochre** wherever the lime mass crossed it.
+
+### The two corrections that needed eyes, not numbers
+
+**Rims.** Each gradient ended at a hard stop (`transparent 78–82%`), which leaves a readable edge —
+the slope breaks and the eye finds it. They now run to `transparent 100%` through a mid stop, so
+there is no edge to find. **This costs nothing in motion:** travel is a percentage of the mass's
+own size, so growing the mass scales the distance and the falloff together
+(`travel/radius` is invariant). Earlier notes in this file claimed shrinking the mass made motion
+more legible — **that was wrong**; what actually moved the right flank from 8% to 81% was a larger
+travel percentage, a deeper opacity swing, and a genuinely saturated gold.
+
+**Gold that is yellow, not ochre — it's arithmetic.** The ground beneath is G ≈ 90. For a result
+with `R ≈ G` (i.e. yellow), a source at alpha *a* needs
+`a·(R−G)_src = (1−a)·90`. Plain `--gold` has `R−G = 57`, so at `a = 0.58` the left side is 33 and
+the right is 38 — **it can never read yellow, at any brightness.** The core is therefore mixed
+slightly orange (`#8f5200`, `R−G ≈ 68`) at `a = 0.62`, and the plateau is widened to 32% so a real
+yellow *area* survives the base's green, not just a highlight point.
+
+### The guard, the mask, the band
+
+**The ink mass is the contrast guard, and it is why the amplitudes can be this big.** Painted
+**last**, over the moving masses, wrapping the headline box with margin: a bright mass can walk as
+far under the type as it likes and the type still lands on ink. It is static, so the floor is a
+constant. Density is the lever — `0.86` desktop, `0.93` at ≤ 700px, where every mass is sized by
+`vmax` and ends up *wider than the frame* (84vmax = 709px at 390), so the type always sits on a
+blend rather than a flank.
+
+**The header seam is protected by a mask, not by luck.** The bar is painted in the hero's own
+`--hero-dark`, and `.hero__field` carries a `mask-image` that holds the bar's full height
+(`.bar-h + 8px`) at exactly zero field contribution. The ramp below it is **eased over 380px with
+five stops** — a linear two-stop ramp leaves a visible horizon where its slope ends, which is
+exactly what the contact sheet showed. Verified by row-averaging: **y ≤ 92 is bit-identical** to
+the field-off build (`0,68,96` at the bar, `0,77,108` just below).
+
+### Measured
+
+**Contrast across the whole cycle** — twelve phases, headline box, 25th-percentile luminance as
+background. The headline is display-size, so AA large (3:1) is the real bar; 4.5:1 is the
+self-imposed floor. Figures below are **with grain on**:
+
+| | desktop 1440×900 | mobile 390×844 |
+|---|---|---|
+| sky headline | `5.58 – 5.92 : 1` | `5.04 – 6.05 : 1` |
+| gold payoff | `5.30 – 5.63 : 1` | `4.79 – 5.74 : 1` |
+
+**Motion, in real time** (two untouched frames 2.5 s apart): mean |Δ| **6.60/255** over the field,
+right flank `9.27` with **60% of pixels** changing ≥ 8 levels, left flank `4.96`. Across the cycle
+the left flank swings **48%**, the right **73%**.
+
+**Reduced motion / off-screen.** Nothing runs under `html.reduce-motion` or the media query: all
+four blobs sit at `transform: none` with the class opacity, i.e. each animation's 0% frame —
+verified frozen across 1.8 s. The script adds `opening-out` from an `IntersectionObserver` on
+`#openingStage`, pausing all three animations once the opening has left the viewport.
+
+**No layout change.** `scrollHeight` identical to the build before this work at 1440 (`7864`) and
+390 (`9636`); no horizontal overflow; no console errors. The field is `position: absolute` inside a
+`contain: paint` wrapper and never enters flow.
+
+### Grain (2026-10-26)
+
+A gradient this smooth reads as CSS; grain is what makes it read as film. `.hero__grain` is a
+160px `feTurbulence` tile drawn as an inline SVG data URI — no image request, no base64 blob, and
+the browser rasterises the tile once and repeats it.
+
+Three decisions worth recording, because two of them were wrong the first time:
+
+1. **It lives inside `.hero__field`.** That buys the header mask for free (the grain fades in under
+   the bar exactly like the light does) and puts it *under* `.hero__center`, so the headline stays
+   crisp — grain over type softens it at display sizes, and the type is the point.
+2. **`overlay` is neutral only if the tile's mean is 128.** `feTurbulence`'s `fractalNoise` is not
+   centred: measured, the raw tile averages **186/255**, so a naive overlay can only lighten — it
+   lifted the field **17 levels** and dropped headline contrast with it. The `feFunc*` linear stops
+   (`slope 1.15`, `intercept −.36`) recentre it on **121.8** with a 0–203 range. It is set slightly
+   *below* 128 on purpose: overlay is not symmetric across a dark base, so a small dark bias buys
+   back most of the residual lift. The turbulence also leaves the alpha channel noisy;
+   `feFuncA table "1 1"` forces the tile opaque, without which the blend is not reproducible.
+3. **Density was set by eye, three times.** `.18` read as *not grain enough*, `.34` as *too grainy*,
+   `.24` still too much; **`.20` is the shipped value**. Coarseness is a separate dial (below).
+
+**Two independent knobs, if it needs tuning again:**
+
+| | effect | value |
+|---|---|---|
+| `opacity` | how much grain you see | `.20` (`.18` too subtle, `.24` and `.34` too heavy) |
+| `baseFrequency` | the size of the grain | `.7` chunkier, film-like · `.92` = 1px, more like dither |
+
+`numOctaves` is `3` at `.7`; fewer octaves flattens the clumping.
+
+**Checks.** Grain amplitude at `.20`: adjacent-pixel |Δ| goes `0.20 → 5.8/255` in flat areas
+(p95 ≈ 19.5), and it reads the same in the dark teal and the warm gold zones. Residual lift at
+`.24` is **+5.4 levels** on a ~95-level field, costing ~0.06 of contrast. Cost: **none measurable**
+— 90-frame rAF timing is 8.33 ms mean with grain, 8.34 ms without, p95 9.3 vs 9.2. The grain never
+touches the type or the photographs.
+
+**Open:** whether `.20` is right. It is a film grain, not a texture overlay: visible at 100% on the
+gradient, invisible behind the photographs and never on the type. The two knobs above are the only
+dials.
+
+**Open:** whether the **gold** is right for the brand — it now occupies a meaningful share of the
+right half at its peak, and it is the boldest thing in the opening (`--gold` used as *light*, not
+paint). The client has not seen it. If it reads as a second accent rather than warmth in the
+ground, the lever is the mix and the peak opacity, not the position: the mass has to stay off the
+right edge or the type stops being the focal point.
+
+### Founders band — `#for-founders` (2026-10-26)
+
+Added directly **under the AI band**, from Figma `FS-Design` node `11362:2949`. It is the page's
+first seller's-voice section: the AI band explains what the company builds, this one answers the
+founder's actual question. Full-bleed photograph, oversized serif pull quote, and the pitch in the
+right column.
+
+**Two corrections to the Figma, both deliberate:**
+
+1. **Palette.** The frame is built on `#FEC50A` and `#00202B` — the *exploration* palette, which
+   KB §15 / **OI-13** specifically says must not be copied into anything official. The band uses
+   the locked tokens instead: `--gold` `#FFC600` for the pill and the `built.` accent, `--ink` for
+   the button label. Nothing off-palette entered the build.
+2. **The overlay.** The frame's gradient runs `.72 → .35` left-to-right, which protects the quote
+   and leaves the *copy* column — the 17px body text and the 11px kicker — on the weakest part of
+   the wash, over the brightest part of the photograph (the helmet). Rebuilt as a horizontal +
+   vertical pair at `.80/.70/.72` and `.38/.16/.38`, tuned by measurement rather than by eye.
+
+**Contrast, measured against the real background.** The section was screenshotted with its text
+hidden, so every number is the actual photograph-plus-overlay behind each layer:
+
+| layer | size | measured worst case | needs |
+|---|---|---|---|
+| pull quote | 63px serif | `12.85 : 1` | 3.0 (large) |
+| kicker `FOR FOUNDERS` | 11px mono | `7.42 : 1` | 4.5 |
+| h2 `A home for the business you built.` | 28px | `12.98 : 1` | 3.0 (large) |
+| `built.` in gold | 28px serif | `11.78 : 1` | 3.0 (large) |
+| body | 17px | `11.19 : 1` | 4.5 |
+| placeholder note | 12px mono | `8.20 : 1` | 4.5 |
+| CTA pill | 14px bold on solid gold | `11.24 : 1` | 4.5 |
+
+**ADA / axe-core 4.10.2: 0 violations** at both 1440×900 and 390×844.
+
+Beyond contrast, four things were fixed because of the audit:
+
+- **Focus ring.** `.pill:focus-visible` defaults to brand blue, which measures 2.25:1 on ink. The
+  band is now in the `outline-color: #fff` group with `.hero` / `.ai` / `.kpi`, so the ring is 3px
+  white — verified visible on the photograph.
+- **Deep links.** No section had `scroll-margin-top`, so `#for-founders` landed with the quote
+  under the fixed bar. The band now sets `calc(var(--bar-h) + 16px)`; loading the hash directly
+  lands the section at `top: 100` against an 84px bar.
+- **Semantics.** The quote is a `<blockquote>` (not a heading), the section is
+  `aria-labelledby` its `<h2>`, and the heading order stays h2 with no skipped level.
+- **Bar state.** The AI band and this band are one dark run inside a light page, and the bar
+  turned white right across them — a floating slab. `syncBar()` now keeps the ink treatment over
+  the run.
+
+**The photograph is decorative** (CSS background, `center/cover`), so it carries no alt text; the
+band's accessible name comes from the h2. Sourced from the frame at 1920×1081 and converted to
+JPEG (366 KB) — the original PNG was 2.6 MB, which is not worth shipping for a background.
+
+**⚠ The image is currently NOT published, on purpose.** `03_Design/client-review/homepage/assets/*`
+is an allow-list and only the two logo SVGs are on it — the `.gitignore` rule for this folder is
+explicit: *"no third-party media that is not licensed"*, and this repo is public. The photo came
+out of the client's Figma frame but its licence is not recorded anywhere I can verify, so it stays
+untracked and the deployed page falls back to the `--hero-dark` base. **That fallback is safe and
+looks intentional** (verified: a plain brand-teal band, same type, contrast unaffected), so nothing
+is broken — but the band does not get its photograph until someone confirms the licence and adds:
+
+```
+!03_Design/client-review/homepage/assets/founders-quote-bg.jpg
+```
+
+**Open:** the pull quote is **placeholder founder voice** — the frame marks it "genericized,
+unpublishable as written", and the band shows that note on the page rather than shipping it
+quietly as a real attribution. It needs a real, cleared founder quote before launch, and the note
+comes out with it.
+
+## Open
 - Whether the opening's headline copy is ratified over the locked wireframe lines.
 - **Real team photos (not stock)** behind the careers band — it currently shows an Unsplash
   placeholder whose alt text says so; the client still has to supply the real image.

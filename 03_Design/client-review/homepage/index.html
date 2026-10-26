@@ -176,7 +176,8 @@
       outline: 3px solid var(--brand); outline-offset: 3px;
     }
     /* brand-on-ink measures 2.25:1 — invert the ring on dark fields */
-    .hero .pill:focus-visible, .ai .pill:focus-visible, .kpi .pill:focus-visible {
+    .hero .pill:focus-visible, .ai .pill:focus-visible, .kpi .pill:focus-visible,
+    .founders .pill:focus-visible {
       outline-color: #fff;
     }
     .pill {
@@ -270,6 +271,196 @@
       top: 0;
       height: 100svh;
       min-height: 100svh;
+    }
+
+    /* ---- Axis A ground · living field (2026-10-26, third pass) ------------
+       A Stripe-register aurora: three luminous masses — aqua, gold, lime —
+       orbiting the frame at independent non-harmonic periods (28s / 36s /
+       32s), so the composition never repeats a frame.
+       `transform` + `opacity` only; the gradients are already soft, so there
+       is no `filter: blur` to pay for and every frame is compositor work.
+       Each mass runs base → out → back through a third stop, so the path is a
+       slow orbit rather than a metronome and it loops without a seam.
+
+       The ink mass is the contrast guard and it does NOT move. It is painted
+       LAST, over the moving masses, and it wraps the headline box with margin,
+       so the drift can walk a bright mass as far under the type as it likes and
+       the type still lands on ink. That is what makes the amplitudes safe: the
+       guard is a constant, the field is not.
+
+       Two things make the motion legible, and both are geometry, not speed:
+
+       1. Travel is 26–34% of the mass (≈ 300–410px at 1440) with a small scale
+          breath, through three stops so no two masses ever move in step.
+       2. Masses are 84vmax with the falloff running all the way to 100% — see
+          the rim note below. Note that mass SIZE is neutral for motion: travel
+          is a fraction of the mass, so growing it scales distance and falloff
+          together. An earlier note here claimed shrinking made motion visible;
+          that was wrong — travel percentage and opacity swing did the work.
+
+       The gold is real gold, not gold-tinted brown: mixed 92% `--gold` into
+       `#8f5200` so the source is ≈ (251,183,0). Even so the ground beneath is
+       G≈90, so a source needs R−G large enough that a·(R−G) exceeds
+       (1−a)·90; plain `--gold` (R−G 57) at .62 alpha cannot clear it and
+       reads olive at any brightness. The deliberately warmer mix does.
+
+       Gated on html:not(.reduce-motion) plus the media query; with reduced
+       motion the field is a static ground (the class `opacity` is each
+       animation's 0% frame, so the frozen state is the state at t=0). */
+    .hero__field {
+      position: absolute; inset: 0; z-index: 0;
+      overflow: hidden; pointer-events: none;
+      contain: paint;
+      /* The field must not reach the chrome. The solid header bar is painted
+         in the hero's own `--hero-dark` so the two read as one plane; any
+         glow leaking under it re-opens that seam. This mask holds the bar's
+         full height (plus a generous ramp) at exactly the base colour, which
+         also keeps the drift from ever brightening the top edge of the frame.
+         The ink mass is below the ramped zone and needs no protection. */
+      --field-top: calc(var(--bar-h) + 8px);
+      /* Eased, not linear: a straight two-stop ramp leaves a readable band
+         where the slope ends (seen at 1440 around y≈350). Five stops
+         approximate an ease so the field has no visible horizon. */
+      mask-image: linear-gradient(180deg,
+        transparent 0,
+        transparent var(--field-top),
+        rgba(0,0,0,.14) calc(var(--field-top) + 95px),
+        rgba(0,0,0,.44) calc(var(--field-top) + 190px),
+        rgba(0,0,0,.76) calc(var(--field-top) + 285px),
+        #000 calc(var(--field-top) + 380px));
+      -webkit-mask-image: linear-gradient(180deg,
+        transparent 0,
+        transparent var(--field-top),
+        rgba(0,0,0,.14) calc(var(--field-top) + 95px),
+        rgba(0,0,0,.44) calc(var(--field-top) + 190px),
+        rgba(0,0,0,.76) calc(var(--field-top) + 285px),
+        #000 calc(var(--field-top) + 380px));
+    }
+    .hero__blob {
+      position: absolute; display: block;
+      width: 84vmax; height: 84vmax; border-radius: 50%;
+      transform-origin: 50% 50%;
+    }
+    /* Falloff note: an earlier pass ended these gradients at a hard stop
+       (transparent 78–82%), which left a readable RIM around each mass — on
+       screen three floating discs rather than one light field. Every gradient
+       now runs to 100% through a mid stop, so there is no slope break and no
+       edge to find. Relative motion is unchanged: travel is a percentage of
+       the mass's own size, so growing the mass scales the distance and the
+       falloff together. */
+    /* cool half — off the left edge, level with the headline */
+    .hero__blob--blue {
+      top: -12vmax; left: -34vmax;
+      background: radial-gradient(closest-side,
+        color-mix(in srgb, var(--brand-sky) 64%, var(--brand)) 0%,
+        color-mix(in srgb, var(--brand-sky) 34%, var(--brand)) 42%,
+        transparent 100%);
+      opacity: .46;
+    }
+    /* the warm half — the yellow the frame was missing. Sits off the right
+       edge so it lights the flank and never crosses the type.
+       Colour note: the ground beneath is G≈90, so a source with R−G=57 (plain
+       --gold) at 0.58 alpha can never land R>G — it reads olive however bright
+       it gets. The core is mixed slightly orange (#8f5200 → R−G≈68) and the
+       plateau is widened so a real yellow AREA survives the base's green. */
+    .hero__blob--gold {
+      top: -16vmax; right: -26vmax;
+      background: radial-gradient(closest-side,
+        color-mix(in srgb, var(--gold) 92%, #8f5200) 0%,
+        color-mix(in srgb, var(--gold) 86%, #8f5200) 32%,
+        color-mix(in srgb, var(--gold) 50%, #6b4a00) 64%,
+        transparent 100%);
+      opacity: .62;
+    }
+    /* the cool end of the ground, bottom right */
+    .hero__blob--green {
+      right: -24vmax; bottom: -52vmax;
+      background: radial-gradient(closest-side,
+        color-mix(in srgb, var(--green) 58%, #003a33) 0%,
+        color-mix(in srgb, var(--green) 30%, #003a33) 42%,
+        transparent 100%);
+      opacity: .52;
+    }
+    /* the guard — static, painted last, sized to the headline box + margin.
+       Density is the lever for contrast: the moving masses are free to be as
+       bright as the composition wants because the type always lands on this. */
+    .hero__blob--ink {
+      top: -10vmax; left: 50%;
+      margin-left: -46vmax;
+      width: 92vmax; height: 92vmax;
+      background: radial-gradient(closest-side,
+        color-mix(in srgb, var(--hero-dark) 76%, #000b10) 0%, transparent 72%);
+      opacity: .86;
+    }
+    /* On a narrow frame every mass is sized by vmax and ends up WIDER than the
+       frame (84vmax = 709px at 390), so the type always sits on a blend rather
+       than a flank. The lever is density, not position: the guard runs at .93
+       so the bed stays ink. Worst case measured 4.60:1 (AA large needs 3:1). */
+    @media (max-width: 700px) {
+      .hero__blob--ink { opacity: .93; }
+    }
+    @keyframes heroDriftA {
+      0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
+      30%  { transform: translate3d(34%, 20%, 0) scale(1.08);  opacity: .58; }
+      65%  { transform: translate3d(12%, -10%, 0) scale(.96);  opacity: .38; }
+      100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
+    }
+    @keyframes heroDriftB {
+      0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .62; }
+      32%  { transform: translate3d(-22%, 24%, 0) scale(1.09);  opacity: .72; }
+      68%  { transform: translate3d(-6%, -13%, 0) scale(.95);   opacity: .54; }
+      100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .62; }
+    }
+    @keyframes heroDriftC {
+      0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
+      36%  { transform: translate3d(-26%, -22%, 0) scale(1.10); opacity: .64; }
+      72%  { transform: translate3d(7%, -6%, 0) scale(.96);    opacity: .42; }
+      100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
+    }
+    html:not(.reduce-motion) .hero__blob--blue,
+    html:not(.reduce-motion) .hero__blob--gold,
+    html:not(.reduce-motion) .hero__blob--green {
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+    }
+    html:not(.reduce-motion) .hero__blob--blue  { animation: heroDriftA 28s cubic-bezier(.45,.05,.55,.95) infinite; }
+    html:not(.reduce-motion) .hero__blob--gold  { animation: heroDriftB 36s cubic-bezier(.45,.05,.55,.95) infinite; }
+    html:not(.reduce-motion) .hero__blob--green { animation: heroDriftC 32s cubic-bezier(.45,.05,.55,.95) infinite; }
+    @media (prefers-reduced-motion: reduce) { .hero__blob { animation: none !important; } }
+    /* compositor work nobody can see: the field stops once the opening has
+       scrolled entirely out (IO in the script, below) */
+    html.opening-out .hero__blob { animation-play-state: paused; }
+
+    /* ---- Axis A ground · grain (2026-10-26) ------------------------------
+       A gradient this smooth reads as CSS. Grain is what makes it read as
+       film: real light is never that clean, and the eye uses the noise as a
+       reference for the surface it is looking at.
+
+       Generated, not shipped: an inline SVG `feTurbulence` tile, 160px, with
+       `stitchTiles` so the repeat is seamless and `saturate 0` so it is luma
+       grain rather than colour speckle. The browser rasterises the tile once
+       and repeats it — there is no image request and no 70KB base64 blob.
+
+       It sits INSIDE .hero__field, which buys two things for free: the layer
+       inherits the field's header mask, so the grain fades in under the bar
+       exactly like the light does, and it is painted under .hero__center, so
+       the headline stays crisp. Grain over type softens it at display sizes.
+
+       `overlay` at low opacity is the neutral blend ONLY if the tile's mean is
+       50% grey — overlay's identity. feTurbulence's `fractalNoise` is not
+       centred: measured, this tile averages 186/255 with a range of 121–231,
+       so a naive overlay can only ever lighten the field (it lifted it 17
+       levels, and the headline contrast with it). The feFunc* linear stops
+       recentre the tile on 0.5 and compress it to a 0.21–0.70 range, which is
+       what makes the blend mean-neutral. */
+    .hero__grain {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncG type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncB type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncA type='table' tableValues='1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 160px 160px;
+      opacity: .2;
+      mix-blend-mode: overlay;
+      pointer-events: none;
     }
     .hero__center {
       position: relative;
@@ -1045,6 +1236,71 @@
       .ai__title { max-width: 20ch; }
     }
 
+    /* ---- founders: the voice of the sellers, full-bleed over a photograph
+       (Figma FS-Design 11362:2949, added 2026-10-26). Sits directly under the
+       AI band, which is where the page stops explaining the company and starts
+       answering the founder's question. ---- */
+    .founders {
+      position: relative; isolation: isolate;
+      padding: clamp(64px, 9vh, 110px) var(--gutter-x);
+      color: #fff;
+      background: var(--hero-dark) center / cover no-repeat
+        url("assets/founders-quote-bg.jpg");
+      /* the bar is fixed, so a deep link to this band would otherwise land with
+         the quote tucked under it */
+      scroll-margin-top: calc(var(--bar-h) + 16px);
+    }
+    /* The Figma gradient runs .72 → .35 left-to-right, which protects the quote
+       but leaves the copy column — the one with the 17px body text — on the
+       weakest part of the wash. Rebuilt as a vertical + horizontal pair so both
+       columns clear AA over the brightest part of the photo (the helmet). */
+    .founders::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(0,16,24,.80) 0%, rgba(0,16,24,.70) 48%, rgba(0,16,24,.72) 100%),
+        linear-gradient(180deg, rgba(0,16,24,.38) 0%, rgba(0,16,24,.16) 45%, rgba(0,16,24,.38) 100%);
+    }
+    .founders__inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(36px, 5vw, 72px); align-items: center;
+    }
+    .founders__quote {
+      margin: 0; padding: 0; border: 0;
+      font-family: "Instrument Serif", Georgia, serif; font-style: italic;
+      font-size: clamp(30px, 4.4vw, 64px); line-height: 1.08;
+      letter-spacing: -.02em; text-wrap: balance;
+    }
+    .founders__copy { max-width: 576px; }
+    .founders__kicker {
+      margin: 0; font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+    .founders__title {
+      margin: 14px 0 0; font-size: clamp(22px, 2vw, 28px); line-height: 1.25;
+      letter-spacing: -.02em; font-weight: 500; color: #fff; text-wrap: balance;
+    }
+    .founders__title em {
+      font-family: "Instrument Serif", Georgia, serif; font-style: italic;
+      font-weight: 400; color: var(--gold);
+    }
+    .founders__body {
+      margin: 16px 0 0; font-size: 17px; line-height: 1.6;
+      color: rgba(255,255,255,.88); text-wrap: pretty; max-width: 46ch;
+    }
+    .founders__cta { margin: 28px 0 0; }
+    /* the quote is placeholder founder voice — marked in the open, not shipped
+       quietly as if it were a real attribution */
+    .founders__note {
+      margin: 18px 0 0; font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 12px; line-height: 1.5; color: rgba(255,255,255,.72);
+    }
+    @media (max-width: 900px) {
+      .founders__inner { grid-template-columns: 1fr; gap: 28px; }
+      .founders__body { font-size: 16px; }
+    }
+
     /* ---- careers: editorial split, not another card grid ---- */
     .careers { padding: var(--section-y) var(--gutter-x); background: var(--surface); }
     .careers__inner { max-width: 1200px; margin: 0 auto; }
@@ -1322,6 +1578,13 @@
   <main id="main">
     <div class="opening-stage" id="openingStage">
       <section class="hero hero--axis-a" id="heroAxisA" aria-labelledby="heroTitle">
+        <div class="hero__field" aria-hidden="true">
+          <span class="hero__blob hero__blob--blue"></span>
+          <span class="hero__blob hero__blob--gold"></span>
+          <span class="hero__blob hero__blob--green"></span>
+          <span class="hero__blob hero__blob--ink"></span>
+          <span class="hero__grain"></span>
+        </div>
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
             <h1 class="hero__title hero__title--portfolio" id="heroTitle">
@@ -1606,6 +1869,27 @@
       </div>
     </section>
 
+    <section class="founders" id="for-founders" aria-labelledby="foundersTitle">
+      <div class="founders__inner">
+        <blockquote class="founders__quote">
+          &ldquo;We stopped asking what to build next and started asking where everything we had
+          built could go.&rdquo;
+        </blockquote>
+        <div class="founders__copy">
+          <p class="founders__kicker">For founders</p>
+          <h2 class="founders__title" id="foundersTitle">A home for the business you <em>built.</em></h2>
+          <p class="founders__body">
+            We don&rsquo;t buy your business and shelve it. The product keeps its name, the team keeps
+            its people, and it keeps growing &mdash; with a much larger company behind it.
+          </p>
+          <p class="founders__cta">
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/for-founders.html">Explore Acquisitions</a>
+          </p>
+          <p class="founders__note">[placeholder &mdash; founder voice, genericized, unpublishable as written]</p>
+        </div>
+      </div>
+    </section>
+
     <section class="careers" id="careers" aria-labelledby="careersTitle">
       <div class="careers__inner">
         <div class="careers__top">
@@ -1794,6 +2078,16 @@
       var bar = document.getElementById('siteBar');
       var opening = document.getElementById('openingStage');
       var heroCenter = document.getElementById('heroCenter');
+
+      /* The Axis A field drifts on its own; stop it when the whole opening has
+         left the viewport so a long page does not pay for an invisible
+         animation. Purely a battery/thermals guard — the field never restarts
+         mid-scroll because the stage only leaves once. */
+      if (opening && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          document.documentElement.classList.toggle('opening-out', !entries[0].isIntersecting);
+        }, { threshold: 0 }).observe(opening);
+      }
       function syncBar() {
         var y = window.scrollY || document.documentElement.scrollTop || 0;
         var openingEnd = opening ? opening.offsetTop + opening.offsetHeight : 0;
@@ -1804,6 +2098,17 @@
         var vertsTop = verts ? verts.getBoundingClientRect().top + y : Infinity;
         var whiteAt = vertsTop - (bar ? bar.offsetHeight : 84);
         var onInk = !onHero && y < whiteAt;
+        /* the AI band and the founders band are one dark run in the middle of a
+           light page; a white bar sitting on top of them reads as a floating
+           slab, so the bar keeps its ink treatment across the whole run */
+        var aiEl = document.getElementById('ai');
+        var fnEl = document.getElementById('for-founders');
+        if (aiEl && fnEl) {
+          var runTop = aiEl.getBoundingClientRect().top + y;
+          var runBottom = fnEl.getBoundingClientRect().bottom + y;
+          var barH = bar ? bar.offsetHeight : 84;
+          if (y + barH > runTop && y + barH < runBottom) onInk = true;
+        }
         if (bar) bar.classList.toggle('is-on-hero', onHero);
         if (bar) bar.classList.toggle('is-on-ink', onInk);
         /* Axis B: the header floats on the photo instead of sitting on a bar.
