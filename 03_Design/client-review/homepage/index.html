@@ -597,6 +597,30 @@
       align-items: center;
       justify-content: center;
     }
+    /* Axis A eyebrow (2026-10-28). It names the three audiences the page is
+       written for — founders (Sean), investors (Marcus), employees (Elena) —
+       so the reader knows within one line whether this page is for them. This
+       is the one place the opening may address more than one audience: it is a
+       LABEL, not a claim, so it does not merge Axis A's identity statement with
+       Axis B's growth statement (KB §23.6 rule 1).
+       Absolutely positioned off the headline box so the H1 — and the ink
+       guard's coverage of it — does not move by a single pixel. */
+    .hero__eyebrow {
+      position: absolute;
+      bottom: 100%; left: 0; right: 0;
+      margin: 0 0 clamp(13px, 1.5vw, 20px);
+      padding: 0 24px;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 11px; line-height: 1.6;
+      letter-spacing: .14em; text-transform: uppercase;
+      text-align: center; text-wrap: balance;
+      /* White, not --brand-sky. Sky is the kicker colour on the dark opening,
+         but here the H1 directly beneath it is sky, so an aqua eyebrow read as
+         a faded first line of the same headline (measured at 11px over the
+         brightest phase: 2.6:1). White keeps it a LABEL above a DISPLAY line
+         and clears 4.5:1 for small text across the whole drift cycle. */
+      color: rgba(255,255,255,.95);
+    }
     .hero__title {
       --lh: 0.95;
       margin: 0;
@@ -1777,6 +1801,7 @@
         </div>
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
+            <p class="hero__eyebrow">For founders, investors, and the teams who build the software</p>
             <h1 class="hero__title hero__title--portfolio" id="heroTitle">
               <span class="line line--single"><span class="ln">Any industry,</span></span>
               <span class="line"><span class="ln">we own the</span></span>

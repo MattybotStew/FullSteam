@@ -452,6 +452,31 @@ Reduced motion verified with the class on: container `transform: none`, all four
 scroll `translate`/`scale` `none` — a static frame, not a slower one. Horizontal overflow unchanged
 (`3px` at 390, pre-existing).
 
+### The Axis A eyebrow (2026-10-28)
+
+**"For founders, investors, and the teams who build the software"** — one line, above the H1.
+
+It exists because the opening is the only surface an investor, a founder and a candidate all land on,
+and nothing in the H1 said which of them the page was written for. The eyebrow is the audience key;
+the H1 is still the claim.
+
+Three decisions:
+
+1. **A label, not a claim.** KB §23.6 rule 1 forbids merging Axis A's identity statement with Axis
+   B's growth statement. Naming three audiences in a *kicker* does not merge claims — it tells the
+   reader what the page covers, and the two-state model is untouched.
+2. **Absolutely positioned above the headline box** (`bottom: 100%`), so the H1 does not move by a
+   pixel and the ink guard's measured coverage of it stays exactly as measured (4.38 : 1).
+3. **White `.95`, not `--brand-sky`.** Sky is the kicker colour for the dark opening, but the H1
+   directly beneath it is sky: an aqua eyebrow read as a faded first line of the same headline and
+   sat at **2.6 : 1** over the brightest drift phase. White separates label from display and measures
+   **7.73 : 1** worst of eight phases at 11px (small text needs 4.5). Mobile wraps to two balanced
+   lines above the H1; the eyebrow fades with `--hero-a-fade` like the rest of `.hero__center`.
+
+Copy variants considered and rejected: *"A home for the builders, the backers and the teams"* —
+"home" is already used three times on the page (founders band, close door, footer line); *"Acquire.
+Grow. Lead."* — the triad is a model, not a section label (KB §29.6.7), and it drops the audiences.
+
 ### Grain (2026-10-26)
 
 A gradient this smooth reads as CSS; grain is what makes it read as film. `.hero__grain` is a
