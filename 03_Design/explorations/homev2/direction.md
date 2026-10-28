@@ -99,7 +99,7 @@ Applied the six-item client revision list to the homepage (interior pages not to
    (`Vertical Software · Our Advantage · AI at Fullsteam · Our Story · Acquisitions · Careers`),
    with Leadership / FAQ / Open roles nested in the same column. Footer labels updated
    (Embedded Offerings → **Our Advantage**, For Founders → **Acquisitions**). AI at Fullsteam
-   wayfinds to `embedded-offerings.html#ai`.
+   wayfinds to `our-advantage.html#ai`.
 2. **Hero** — the **Careers CTA is removed**; one CTA ("Explore vertical solutions").
 3. **Acquire / Grow / Lead** — section 02 keeps the **sticky image rail** but the blocks are now
    **Acquire → Grow → Lead** (Founders moved out), each with a **big metric** pulled out of the

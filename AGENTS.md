@@ -154,6 +154,11 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - Wireframe HTML files are static — preview by opening the file or with a static
   server from the repo root:
   `python3 -m http.server 8000` → http://localhost:8000/02_Wireframes/...
+- **HTML→Figma converter:** `tools/html2figma/` (`parse.py` → JSON spec → `bundle.py` →
+  paste into `figma_execute` via the Desktop Bridge) rebuilds wireframe HTML as editable
+  Figma frames on page `⚠️ WF v2`. Structural fidelity only — no images, no animation.
+  Headings come out in **Archivo** to match the wireframes. See its `README.md`.
+  Re-running creates a new frame; delete the old one to avoid duplicates.
 
 ## Key facts (quick reference)
 

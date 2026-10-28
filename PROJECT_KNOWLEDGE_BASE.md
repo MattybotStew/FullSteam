@@ -434,7 +434,7 @@ is no investor nav node or dedicated investor page.
   the single Our Advantage page**, and its content is a story inside the
   filmstrip card — use cases first, never a headcount story. This is the only reading
   consistent with "a single page / no child pages," and it matches the shipped
-  `pages/embedded-offerings.html` (4-card filmstrip; no `ai.html` exists). **This is a
+  `pages/our-advantage.html` (4-card filmstrip; no `ai.html` exists). **This is a
   locked, formally-approval-gated decision — if the client wants a nested AI page
   instead, this bullet and its mirror in `AGENTS.md` are the two places to flip.**
 - **Leadership is a page under Our Story** (2026-09-14, `/our-story/leadership`) —

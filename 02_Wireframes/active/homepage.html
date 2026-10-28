@@ -3,97 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Homepage Wireframe — Fullsteam</title>
-<!-- Design typefaces (art direction §3: Instrument Sans + Fragment Mono). Loaded for the
-     03 Verticals section only — the rest of the wireframe keeps the lo-fi legibility stack.
-     See 03_Design/style-guide/homepage-art-direction.md §3 (faces are a [proposal] pending sign-off). -->
+<title>Homepage — Wireframe · Fullsteam</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-<script>/* Progressive enhancement: the Axis A/B pin only exists with JS. Without this
-   class the two states render in document order (A above B). */document.documentElement.classList.add("has-js");</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap">
+<script>document.documentElement.classList.add("has-js");</script>
 <style>
-  /* Low-fi wireframe skin — structure only, not a visual direction */
+
   :root{
-    --bg:#FFFFFF;
-    --tan:#F3E6D0;
-    --ink:#000000;
-    --muted:#222222;
-    --white:#FFFFFF;
-    --yellow:#FFC600;
-    --ph:#4A4A4A;
-    --ph-icon:#C8C8C8;
-    --line:#000000;
-    /* Header chrome height. The 8 subpages set body{line-height:1.45}; .nav mirrors
-       that here so the header measures 62px on every page. Pinned sections offset
-       by this instead of a literal, so chrome changes can't go stale again. */
-    --chrome:62px;
+    --bg:#FFFFFF; --tan:#F3E6D0; --ink:#000000; --yellow:#FFC600;
+    --ph:#4A4A4A; --line:#000000;
     --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    --display:"Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --mono:ui-monospace, "SFMono-Regular", Menlo, monospace;
     --img-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8C8C8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='1.5'/%3E%3Ccircle cx='8.5' cy='9.5' r='1.6'/%3E%3Cpath d='M4 17.5 9 12.5l3.5 3.5L16 12l5 5.5'/%3E%3C/svg%3E");
-    /* Locked brand palette (KB §15) — deployment per art direction §2.
-       Bio Blue anchors identity/links/focus; gold is already --yellow above. */
-    --blue:#00587C;
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; overflow-x:hidden; }
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-  }
-  /* Sticky-header clearance for native hash fallback (JS still offsets explicitly). */
-  #top, #what-we-do, #investors, #founders, #verticals, #ai, #careers{
-    scroll-margin-top:72px;
-  }
-  body{ font-family:var(--sans); color:var(--ink); background:var(--bg); }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+  body{ font-family:var(--sans); color:var(--ink); background:var(--bg); line-height:1.45; }
+  h1,h2,h3,h4,h5,h6{ font-family:var(--display); }
   a{ color:var(--ink); text-decoration:none; }
-  button{ font-family:inherit; cursor:pointer; color:var(--ink); }
-  em{ font-style:italic; color:var(--ink); }
-
+  button, input, select, textarea{ font-family:inherit; color:var(--ink); }
+  button{ cursor:pointer; }
+  em{ font-style:italic; }
   .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
-  .wrap-wide{ max-width:1280px; margin:0 auto; padding:0 24px; }
-
-  /* Standard image placeholder: landscape icon on dark gray */
   .img-ph{
-    background:var(--ph);
-    display:flex; align-items:center; justify-content:center;
-    min-height:120px; width:100%;
+    background:var(--ph); display:flex; align-items:center; justify-content:center;
+    min-height:160px; width:100%;
   }
   .img-ph::after{
-    content:"";
-    width:56px; height:56px;
+    content:""; width:56px; height:56px;
     background:var(--img-icon) center / contain no-repeat;
   }
 
-  /* Header: option B revised — Logo · hamburger · Explore vertical solutions.
-     Open menu is a 320px right drawer; child pages are accordions (2026-10-22). */
-  /* Header is transparent over the opening (Axis A -> hero) and only takes a
-     100% opaque background once the hero is scrolled out — toggled by the
-     headerState() scroll handler below. No-JS keeps the solid bar, since
-     nothing would toggle it. */
+  /* Header — Option B revised: logo · hamburger · Explore vertical solutions.
+     320px right drawer, one open accordion at a time. */
   header{
-    position:sticky; top:0; z-index:100;
-    background:transparent;
+    position:sticky; top:0; z-index:100; background:#fff;
     border-bottom:1px solid var(--line);
-    transition: background 0.3s ease;
   }
-  header.is-scrolled{
-    background:var(--white);
-  }
-  html:not(.has-js) header{ background:var(--white); }
   .nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    padding:12px 24px;
-    max-width:1280px;
-    margin:0 auto;
-    line-height:1.45;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:12px 24px; max-width:1280px; margin:0 auto;
   }
-  .nav-left{ display:flex; align-items:center; gap:22px; }
-  .logo{ font-size:18px; font-weight:700; letter-spacing:.02em; color:var(--ink); }
-  .nav-right{ display:flex; align-items:center; justify-content:flex-end; gap:16px; }
-  .nav-sub{ font-size:13px; font-weight:500; color:var(--ink); }
+  .logo{ font-size:18px; font-weight:700; letter-spacing:.02em; }
+  .nav-right{ display:flex; align-items:center; gap:16px; }
   .menu-btn{
     background:none; border:0; padding:0; color:inherit; cursor:pointer;
     width:44px; height:44px; flex-shrink:0;
@@ -104,15 +59,19 @@
     display:flex; flex-direction:column; justify-content:center; gap:5px;
     width:20px; height:16px;
   }
-  .menu-btn .bars span{
-    display:block; height:2px; width:100%; background:currentColor;
-  }
+  .menu-btn .bars span{ display:block; height:2px; width:100%; background:currentColor; }
   @media (prefers-reduced-motion: no-preference){
     .menu-btn .bars span{ transition:transform .15s ease, opacity .15s ease; }
   }
   .menu-btn[aria-expanded="true"] .bars span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
   .menu-btn[aria-expanded="true"] .bars span:nth-child(2){ opacity:0; }
   .menu-btn[aria-expanded="true"] .bars span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  .pill{
+    display:inline-flex; align-items:center; justify-content:center;
+    background:var(--yellow); color:var(--ink); border:0; padding:9px 18px;
+    font-size:13px; font-weight:700;
+  }
+  .pill-lg{ padding:14px 28px; font-size:16px; }
   .nav{ position:relative; z-index:3; }
   header:has(.site-overlay.is-open){ background:#fff; }
   .menu-scrim{
@@ -152,9 +111,7 @@
     text-align:left; width:100%;
   }
   .ov-acc{ margin:0; }
-  .ov-acc > summary{
-    cursor:pointer; list-style:none;
-  }
+  .ov-acc > summary{ cursor:pointer; list-style:none; }
   .ov-acc > summary::-webkit-details-marker{ display:none; }
   .ov-acc > summary::marker{ content:none; }
   .ov-acc > summary::after{
@@ -175,634 +132,185 @@
     border-top:1px solid var(--line);
   }
   .site-overlay a:hover{ text-decoration:underline; }
-  .site-overlay a[aria-current="page"],
-  .site-overlay summary[aria-current="page"] .ov-acc-label{
-    text-decoration:underline; text-underline-offset:3px;
-  }
-
   .ov-list > li.ov-parent > a{ width:calc(100% - 48px); padding-right:16px; }
   .ov-list > li.ov-parent{ position:relative; }
   .ov-list > li.ov-parent > .ov-acc > summary{
     position:absolute; top:0; right:0; z-index:1;
     width:48px; height:55px; padding:0; justify-content:center;
   }
-  .pill{
-    display:inline-flex; align-items:center; justify-content:center;
-    background:var(--yellow); color:var(--ink);
-    border:0;
-    border-radius:0; padding:9px 18px;
-    font-size:13px; font-weight:700;
-  }
-  .pill:hover{ filter:brightness(1.04); }
-  .pill-lg{ padding:14px 28px; font-size:16px; }
 
+  /* ---------- shared wireframe blocks ---------- */
   .beat{
     font-family:var(--mono); font-size:11px; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--ink); margin-bottom:14px;
+    text-transform:uppercase; margin-bottom:14px;
   }
-  .sr-only{
-    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
-    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  .block{ padding:64px 0; border-bottom:1px solid var(--line); }
+  .block.tan{ background:var(--tan); }
+  .block.dark{ background:#111; color:#fff; }
+  .block.dark .beat, .block.dark h2, .block.dark h3, .block.dark .prose{ color:#fff; }
+  .block h2{
+    font-size:clamp(28px, 3.2vw, 40px); line-height:1.1; letter-spacing:-.02em;
+    max-width:18ch; margin-bottom:14px;
   }
-
-  /* ============================================================
-     HOMEPAGE OPENING (revised 2026-10-01, client review)
-     AXIS A (Portfolio) -> grow morph -> AXIS B (Growth engine).
-     Axis A is no longer the 11 floating vertical tiles (client rejected the
-     "floating bubbles"); it is now one identity/scale visual. The client liked
-     the verticals cards, so the 11 verticals live there instead. The
-     two-state model, the two headlines, the Axis A -> B order, and the grow
-     morph are unchanged. See design.md §3.1 + KB §23/§24. */
-  /* 200vh, not 280vh (2026-09-28): measured, the pin was 2,520px — 46% of the
-     page's scrollable height was pinned before the first informative band. */
-  .hero-pin{
-    height:200vh;
-    --p:0;
-  }
-  .hero-sticky{
-    position:sticky;
-    top:var(--chrome);
-    height:calc(100vh - var(--chrome));
-    overflow:hidden;
-    background:var(--bg);
-  }
-  .mosaic{
-    position:absolute; inset:0;
-    z-index:1;
-    display:flex; flex-direction:column;
-    padding:0 32px;
-    overflow:visible;
-    pointer-events:none;
-  }
-  .mosaic-head{
-    width:min(1200px, 100%);
-    margin:50px auto 32px;
-    text-align:center;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    pointer-events:none;
-  }
-  .mosaic-kicker{
-    font-family:var(--sans);
-    font-size:12px;
-    font-weight:500;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--ink);
-    margin-bottom:16px;
-  }
-  .mosaic-head h1{
-    width:100%;
-    margin:0;
-    text-align:center;
-    font-family:var(--sans);
-    font-size:clamp(38px,6.08vw,68.4px);
-    font-weight:900; letter-spacing:-.03em; line-height:1.05;
-    color:var(--ink);
-  }
-  .mosaic-sub{
-    margin-top:16px;
-    font-size:16px;
-    line-height:1.4;
-    color:var(--ink);
-    max-width:42ch;
-  }
-  /* ---- Opening entrance (2026-10-24, CD direction) --------------------
-     The Axis A text types itself in on load: kicker, then the H1 rising out
-     of its own baseline behind a clip, then the intent note, then the
-     identity visual. One pass, no loop, no bounce.
-
-     Only CHILDREN of .mosaic-head animate. The grow morph owns the per-frame
-     inline opacity of .mosaic-head and .axis-a-shot — a running CSS animation
-     out-ranks an inline write, so animating those two would freeze the morph.
-     The transient class is removed at the end for the same reason. */
-  html.has-js .mosaic.is-enter .mosaic-kicker{
-    animation:ax-in 560ms cubic-bezier(.16,.84,.28,1) both;
-  }
-  html.has-js .mosaic.is-enter .mosaic-head h1{
-    animation:ax-rise 880ms cubic-bezier(.16,.84,.28,1) 80ms both;
-  }
-  html.has-js .mosaic.is-enter .mosaic-head .anno{
-    animation:ax-in 560ms cubic-bezier(.16,.84,.28,1) 240ms both;
-  }
-  html.has-js .mosaic.is-enter .axis-a-stage{
-    animation:ax-stage 760ms cubic-bezier(.16,.84,.28,1) 320ms both;
-  }
-  @keyframes ax-in{
-    from{ opacity:0; transform:translate3d(0,10px,0); }
-    to{ opacity:1; transform:none; }
-  }
-  @keyframes ax-rise{
-    from{ opacity:0; transform:translate3d(0,.34em,0); clip-path:inset(0 0 100% 0); }
-    to{ opacity:1; transform:none; clip-path:inset(-14% 0 -14% 0); }
-  }
-  @keyframes ax-stage{
-    from{ opacity:0; transform:translate3d(0,14px,0); }
-    to{ opacity:1; transform:none; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    html.has-js .mosaic.is-enter .mosaic-kicker,
-    html.has-js .mosaic.is-enter .mosaic-head h1,
-    html.has-js .mosaic.is-enter .mosaic-head .anno,
-    html.has-js .mosaic.is-enter .axis-a-stage{ animation:none; }
-  }
-  /* Axis A visual: a single centered media block, not 11 scattered tiles. It is
-     the source the grow morph opens from. */
-  .axis-a-stage{
-    position:relative;
-    flex:1; min-height:0;
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    pointer-events:none;
-  }
-  .axis-a-shot{
-    width:min(820px, 100%);
-    height:100%;
-    min-height:0;
-    border-radius:12px;
-    overflow:hidden;
-  }
-  .hero{
-    position:absolute; inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:80px 24px 88px;
-    overflow:hidden;
-    background:var(--ph);
-    z-index:3;
-    transform:none;
-    opacity:0;
-    clip-path:inset(100% 0 0 0);
-    pointer-events:none;
-    will-change:clip-path, opacity;
-  }
-  .hero.is-open{ pointer-events:auto; }
-  .hero-bg{
-    position:absolute; inset:0;
-    min-height:100%;
-    z-index:0;
-  }
-  .hero-bg::after{ display:none; }
-  .hero-copy{
-    position:relative; z-index:2;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-    width:min(960px, 100%);
-    min-width:min(960px, 100%);
-    max-width:960px;
-    opacity:0;
-  }
-  .hero .beat, .hero-copy h2, .hero-copy p{ color:#fff; }
-  .hero-copy h2{
-    font-size:clamp(36px,5.8vw,68px);
-    font-weight:700; letter-spacing:-.03em; line-height:1.05;
-    margin-bottom:16px;
-    width:100%;
-    max-width:none;
-  }
-  .hero-copy p{
-    font-size:18px; line-height:1.45;
-    max-width:36ch; margin-bottom:28px;
-  }
-  .hero-ctas{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center; align-items:center; }
-  .hero-ctas .ghost{
-    color:#fff; font-size:15px; font-weight:600;
-    border-bottom:1px solid #fff; padding:8px 0;
-  }
-  .hero-kicker{
-    font-family:var(--mono); font-size:12px; letter-spacing:.1em;
-    text-transform:uppercase; color:#fff;
-    margin-bottom:16px; max-width:42ch; line-height:1.4;
-  }
-  .hero-copy .hero-kicker{ font-size:12px; max-width:42ch; margin-bottom:16px; }
-
-  /* Proof / stats strip (impressive stats, Message 2) */
-  .proof-strip{
-    scroll-margin-top:72px;
-    padding:48px 24px 56px; text-align:center;
-    border-bottom:1px solid var(--line); background:var(--ink); color:var(--white);
-  }
-  .proof-kicker{
-    font-family:var(--mono); font-size:11px; letter-spacing:.12em;
-    text-transform:uppercase; margin-bottom:20px;
-  }
-  .proof-nums{
-    display:flex; flex-wrap:wrap; gap:40px 72px; justify-content:center;
-  }
-  .proof-strip .num{
-    font-size:clamp(40px,6vw,64px); font-weight:700; letter-spacing:-.04em;
-    line-height:1; opacity:.35; transform:scale(.92);
-    transition:opacity .55s ease, transform .55s ease;
-  }
-  .proof-strip.is-in .num{ opacity:1; transform:scale(1); }
-  .proof-strip .lbl{ font-family:var(--mono); font-size:11px; margin-top:10px; max-width:18ch; margin-left:auto; margin-right:auto; }
-  .proof-note{
-    display:inline-block; margin-top:28px; padding:9px 13px; max-width:58ch; text-align:left;
-    border:1px dashed rgba(255,255,255,.6);
-    font-family:var(--mono); font-size:11px; line-height:1.45; color:var(--white); opacity:.85;
-  }
-  /* Section intent notes (matches the interior-page .anno convention). Wireframes show
-     structure + intent; final copy is written into content-slots.md, not here. */
+  .block h3{ font-size:20px; margin-bottom:8px; }
+  .prose{ max-width:62ch; font-size:16px; }
+  .prose p + p{ margin-top:12px; }
   .anno{
-    display:block; margin-top:16px; max-width:62ch; padding:10px 12px;
-    border:1px dashed currentColor; opacity:.8;
-    font-family:var(--mono); font-size:12px; line-height:1.45; text-align:left;
+    margin-top:18px; max-width:62ch; padding:10px 12px;
+    border:1px dashed var(--ink); font-family:var(--mono); font-size:12px; line-height:1.4;
   }
-  @media (prefers-reduced-motion: reduce){
-    .proof-strip .num{ opacity:1; transform:none; transition:none; }
+  .block.dark .anno{ border-color:#fff; color:#fff; }
+  .lede{ margin-top:16px; max-width:46ch; font-size:18px; }
+
+  /* ---------- Axis A endpoint ---------- */
+  .axis-a{ padding:88px 0 0; border-bottom:1px solid var(--line); }
+  .axis-a__h1{
+    font-size:clamp(40px, 6.2vw, 76px); font-weight:700; letter-spacing:-.035em;
+    line-height:1.02; max-width:20ch;
+  }
+  .axis-a__h1 em{ display:block; }
+  .filmstrip{
+    display:grid; grid-template-columns:repeat(11, minmax(0,1fr));
+    gap:0; margin-top:44px; border-top:1px solid var(--line);
+  }
+  .filmstrip figure{ border-right:1px solid var(--line); }
+  .filmstrip figure:last-child{ border-right:0; }
+  .filmstrip .img-ph{ min-height:170px; }
+  .filmstrip figcaption{
+    font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+    padding:8px 6px; border-top:1px solid var(--line); text-align:center;
   }
 
-  .band{ padding:96px 0 88px; background:var(--bg); }
-  .band.tan{ background:var(--tan); }
-  .band-head{
-    display:flex; flex-direction:column; align-items:center;
-    text-align:center; width:min(960px, 100%); max-width:960px;
-    margin:0 auto 48px; padding:0 24px; box-sizing:border-box;
+  /* ---------- Axis B endpoint ---------- */
+  .axis-b{ padding:96px 0; border-bottom:1px solid var(--line); background:var(--tan); }
+  .axis-b__h2{
+    font-size:clamp(36px, 5.4vw, 64px); font-weight:700; letter-spacing:-.03em;
+    line-height:1.04; max-width:16ch;
   }
-  .band-head h2{
-    font-size:clamp(32px,5vw,56px); font-weight:700; letter-spacing:-.03em; line-height:1.08;
-    margin-bottom:12px;
+  .axis-b__h2 em{ display:block; }
+  .axis-b .pill{ margin-top:32px; }
+
+  /* ---------- scale ---------- */
+  .scale{ list-style:none; margin-top:8px; }
+  .scale li{
+    display:grid; grid-template-columns:280px 1fr; gap:24px; align-items:baseline;
+    padding:22px 0; border-top:1px solid var(--line);
   }
-  .band-head p{ font-size:18px; line-height:1.5; }
-  .band-head .anno{
-    margin-left:auto;
-    margin-right:auto;
+  .scale li:last-child{ border-bottom:1px solid var(--line); }
+  .scale__num{
+    font-size:clamp(40px, 6vw, 72px); font-weight:700; letter-spacing:-.04em; line-height:1;
   }
-  #what-we-do .anno{
-    margin-left:auto;
-    margin-right:auto;
+  .scale__cap{ font-size:16px; }
+  .scale__summary{
+    margin-top:36px; font-size:clamp(18px, 2vw, 24px); max-width:44ch; font-weight:500;
   }
-  #what-we-do > .anno{
-    width:min(62ch, calc(100% - 48px));
+
+  /* ---------- verticals accordion ---------- */
+  .vrows{ margin-top:32px; border-top:1px solid var(--line); }
+  .vrow{ border-bottom:1px solid var(--line); }
+  .vrow > summary{
+    display:grid; grid-template-columns:120px 1fr 32px; gap:16px; align-items:center;
+    padding:20px 0; cursor:pointer; list-style:none;
+  }
+  .vrow > summary::-webkit-details-marker{ display:none; }
+  .vrow > summary::marker{ content:none; }
+  .vrow__kicker{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
+  .vrow__name{ font-size:clamp(20px, 2.4vw, 30px); font-weight:700; letter-spacing:-.02em; }
+  .vrow > summary::after{
+    content:""; width:10px; height:10px; justify-self:center;
+    border-right:2px solid var(--ink); border-bottom:2px solid var(--ink);
+    transform:translateY(-3px) rotate(45deg);
+  }
+  .vrow[open] > summary::after{ transform:translateY(3px) rotate(-135deg); }
+  .vrow__panel{ padding:0 0 32px; }
+  .vrow__grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; }
+  .vrow__eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
     margin-bottom:8px;
   }
-
-  /* 02 What we do — Acquire / Grow / Lead */
-  .steps{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
-    max-width:1120px; margin:0 auto 56px; padding:0 24px;
-  }
-  .step{ border-top:2px solid var(--ink); padding-top:18px; }
-  .step-k{
-    font-family:var(--mono); font-size:12px; letter-spacing:.14em;
-    text-transform:uppercase; font-weight:700; margin-bottom:12px;
-  }
-  .step h3{
-    font-size:clamp(20px,2.4vw,28px); font-weight:700; letter-spacing:-.02em;
-    line-height:1.12; margin-bottom:10px;
-  }
-  .step p{ font-size:16px; line-height:1.5; margin-bottom:14px; }
-  .step a{ display:inline-block; }
-
-  .founder-band{
+  .vrow__stat{ font-size:clamp(24px, 3vw, 34px); font-weight:700; letter-spacing:-.02em; }
+  .vrow__text{ margin-top:8px; max-width:44ch; font-size:15px; }
+  .vrow__link{ display:inline-block; margin-top:16px; font-weight:700; border-bottom:1px solid var(--ink); }
+  .vrow__media .img-ph{ min-height:240px; }
+  .verts__foot{
     display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between;
-    max-width:1120px; margin:0 auto 8px; padding:32px 32px;
-    border:1px solid var(--line); background:var(--white);
-  }
-  .founder-copy{ min-width:min(100%, 320px); flex:1 1 60%; }
-  .founder-copy h3{
-    font-size:clamp(22px,3vw,32px); font-weight:700; letter-spacing:-.02em; margin-bottom:8px;
-  }
-  .founder-copy p{ font-size:16px; line-height:1.5; max-width:56ch; }
-
-  /* 04 AI — use cases / examples */
-  .ai-grid{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
-    max-width:1120px; margin:0 auto; padding:0 24px;
-  }
-  .ai-card .img-ph{ aspect-ratio:4 / 3; min-height:0; border-radius:12px; }
-  .ai-card h3{ font-size:20px; font-weight:700; margin-top:14px; }
-  .ai-card p{ font-size:15px; line-height:1.5; margin-top:6px; }
-
-  /* 05 Great place to work — humanizing imagery */
-  .work-gallery{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
-    max-width:1120px; margin:0 auto 28px; padding:0 24px;
-  }
-  .work-shot{ margin:0; }
-  .work-shot .img-ph{ aspect-ratio:4 / 3; min-height:0; border-radius:12px; }
-  .work-shot figcaption{ font-family:var(--mono); font-size:11px; line-height:1.4; margin-top:8px; }
-
-  .voice{
-    padding:64px 24px 8px; background:transparent; text-align:center;
-  }
-  .band .voice{ padding:24px 24px 0; background:transparent; }
-  .voice blockquote{
-    max-width:960px; margin:0 auto;
-  }
-  .voice blockquote p{
-    font-size:clamp(24px,3.4vw,40px); font-weight:500; letter-spacing:-.03em;
-    line-height:1.2; margin-bottom:20px;
-  }
-  .voice footer{
-    background:none; border:0; padding:0;
-    font-family:var(--mono); font-size:12px;
+    margin-top:32px;
   }
 
-  /* ============================================================
-     03 VERTICALS — Square "audience moment", white canvas.
-     Pattern borrowed 2026-10-15 (Square §2.2 inspiration.md): eyebrow + headline,
-     then one expandable card per featured vertical — the selected card un-dims and
-     reveals name -> rule -> stat -> descriptor -> link; the others sit behind a 50%
-     scrim. Structure/IA unchanged: five revenue-ordered featured verticals + all 11
-     as links. Treatment: this is the one band carrying the art-direction type
-     (Instrument Sans + Fragment Mono) and the light canvas — the black band of art
-     direction §7.4 was changed to white at the CD's direction, 2026-10-15.
-     ============================================================ */
-  .verts{
-    --sans-d:"Instrument Sans", var(--sans);
-    --mono-d:"Fragment Mono", var(--mono);
-    padding:88px 0 84px;
-    background:var(--white);
-    color:var(--ink);
-    font-family:var(--sans-d);
+  /* ---------- AI ---------- */
+  .ucases{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; margin-top:28px; }
+  .ucase{ border:1px solid var(--line); padding:20px; background:#fff; color:var(--ink); }
+  .ucase b{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:.1em; margin-bottom:10px; color:var(--ink); }
+  .ucase h3{ font-size:18px; margin-bottom:8px; color:var(--ink); }
+  .ucase p{ font-size:15px; max-width:34ch; color:var(--ink); }
+  .ai-strip{
+    display:grid; grid-template-columns:repeat(6, minmax(0,1fr));
+    gap:12px; margin-top:36px;
   }
-  .verts-head{
-    display:flex; flex-direction:column; align-items:center;
-    text-align:center; max-width:1280px; margin:0 auto 34px; padding:0 24px;
-  }
-  .verts-head .beat{ font-family:var(--mono-d); }
-  .verts-head .anno{ margin-left:auto; margin-right:auto; }
-  .verts h2{
-    font-family:var(--sans-d);
-    font-size:clamp(32px,5vw,56px); font-weight:700; letter-spacing:-.03em;
-    line-height:1.06; max-width:18ch; margin:0;
-  }
-  .verts-stage{
-    display:flex; gap:10px;
-    height:min(62vh, 560px);
-    max-width:1280px; margin:0 auto; padding:0 24px;
-  }
-  .vert-card{
-    position:relative;
-    flex:1 1 0;
-    min-width:0;
-    overflow:hidden;
-    border:0; padding:0; margin:0;
-    background:var(--ph);
-    color:var(--white);
-    text-align:left; font:inherit; cursor:pointer;
-    transition:flex .45s cubic-bezier(.4,0,.2,1);
-  }
-  /* Unselected cards dim behind a 50% scrim; the selected one un-dims. */
-  .vert-card::after{
-    content:""; position:absolute; inset:0; z-index:1;
-    background:rgba(0,0,0,.5); opacity:1; pointer-events:none;
-    transition:opacity .45s ease;
-  }
-  .vert-card.is-feature::after{ opacity:0; }
-  .vert-card:focus-visible{ outline:2px solid var(--blue); outline-offset:-2px; }
-  .vert-card .img-ph{ position:absolute; inset:0; height:100%; min-height:0; }
-  .vert-card .img-ph::after{ width:40px; height:40px; }
-  /* Every card names itself; the selected card repeats the name in its body. */
-  .vert-name{
-    position:absolute; left:18px; right:18px; bottom:18px; z-index:2;
-    font-family:var(--sans-d); font-size:clamp(15px,1.7vw,24px); font-weight:600;
-    letter-spacing:-.02em; line-height:1.15; color:var(--white);
-    text-shadow:0 1px 8px rgba(0,0,0,.5);
-  }
-  .vert-card.is-feature .vert-name{ display:none; }
-  .vert-body{
-    display:none;
-    position:absolute; left:0; right:0; bottom:0; z-index:2;
-    padding:30px 26px 24px;
-    background:linear-gradient(transparent, rgba(0,0,0,.6) 42%);
-    color:var(--white);
-  }
-  .vert-card.is-feature .vert-body{ display:block; }
-  .vert-h{
-    font-family:var(--sans-d); font-size:clamp(26px,3vw,40px); font-weight:700;
-    letter-spacing:-.03em; line-height:1.05; margin-bottom:14px;
-  }
-  .vert-rule{ border:0; border-top:1px solid rgba(255,255,255,.75); margin:0 0 14px; }
-  .vert-stat{
-    font-family:var(--sans-d); font-size:clamp(30px,3.4vw,44px); font-weight:700;
-    letter-spacing:-.04em; line-height:1; font-variant-numeric:tabular-nums;
-  }
-  .vert-desc{
-    font-family:var(--mono-d); font-size:12px; letter-spacing:.01em;
-    line-height:1.45; margin:9px 0 18px; max-width:26ch;
-  }
-  .vert-link{
-    display:inline-block; color:var(--white);
-    font-family:var(--mono-d); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
-    border-bottom:1px solid var(--white); padding-bottom:3px;
-  }
-  .verts-foot{
-    max-width:1280px; margin:26px auto 0; padding:0 24px;
-    display:flex; flex-direction:column; align-items:center; gap:18px;
-  }
-  .verts-foot .anno{ margin-left:auto; margin-right:auto; }
-  .verts-all{
-    display:flex; flex-wrap:wrap; gap:10px 24px; justify-content:center;
-    font-family:var(--mono-d); font-size:12px; letter-spacing:.02em;
-  }
-  .verts-all a{
-    color:var(--ink); border-bottom:1px solid rgba(0,0,0,.3); padding-bottom:3px;
-  }
-  .verts-all a:hover{ border-bottom-color:var(--blue); color:var(--blue); }
-  /* ---- Filmstrip entrance (2026-10-24, CD direction) ------------------
-     On first entry: the head types in, the five frames rise one after
-     another left→right, then the eleven links settle. Once, on scroll;
-     never a loop. JS-only (it needs the observer anyway) and skipped for
-     reduced motion, where the strip is simply there. */
-  html.has-js .verts.is-in .verts-head{
-    animation:vt-head 620ms cubic-bezier(.16,.84,.28,1) both;
-  }
-  html.has-js .verts.is-in .vert-card{
-    animation:vt-card 720ms cubic-bezier(.16,.84,.28,1) both;
-  }
-  html.has-js .verts.is-in .vert-card:nth-child(1){ animation-delay:110ms; }
-  html.has-js .verts.is-in .vert-card:nth-child(2){ animation-delay:175ms; }
-  html.has-js .verts.is-in .vert-card:nth-child(3){ animation-delay:240ms; }
-  html.has-js .verts.is-in .vert-card:nth-child(4){ animation-delay:305ms; }
-  html.has-js .verts.is-in .vert-card:nth-child(5){ animation-delay:370ms; }
-  html.has-js .verts.is-in .verts-foot{
-    animation:vt-head 620ms cubic-bezier(.16,.84,.28,1) 430ms both;
-  }
-  @keyframes vt-head{
-    from{ opacity:0; transform:translate3d(0,12px,0); }
-    to{ opacity:1; transform:none; }
-  }
-  @keyframes vt-card{
-    from{ opacity:0; transform:translate3d(0,28px,0); }
-    to{ opacity:1; transform:none; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    html.has-js .verts.is-in .verts-head,
-    html.has-js .verts.is-in .vert-card,
-    html.has-js .verts.is-in .verts-foot{ animation:none; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .vert-card, .vert-card::after{ transition:none; }
-  }
+  .ai-strip .img-ph{ min-height:110px; }
 
-  .close{
-    padding:120px 24px 100px; text-align:center; background:var(--bg);
+  /* ---------- founders ---------- */
+  .founders{ display:grid; grid-template-columns:1.05fr .95fr; gap:36px; align-items:start; }
+  .quote{
+    border-left:4px solid var(--ink); padding-left:20px;
+    font-size:clamp(20px, 2.4vw, 28px); font-weight:500; line-height:1.3; max-width:34ch;
   }
-  .close h2{
-    font-size:clamp(32px,5vw,56px); font-weight:700; letter-spacing:-.03em; line-height:1.08;
-    width:min(960px, 100%);
-    max-width:960px;
-    margin:0 auto 28px;
+  .quote cite{ display:block; margin-top:14px; font-family:var(--mono); font-size:11px; font-style:normal; letter-spacing:.08em; text-transform:uppercase; }
+
+  /* ---------- careers ---------- */
+  .careers-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start; }
+  .careers-points{ list-style:none; display:grid; gap:16px; margin-top:28px; }
+  .careers-points li{ display:grid; grid-template-columns:48px 1fr; gap:14px; border-top:1px solid var(--line); padding-top:16px; }
+  .careers-points b{ font-family:var(--mono); font-size:12px; letter-spacing:.08em; }
+  .careers-points h3{ font-size:18px; margin-bottom:4px; }
+  .careers-points p{ font-size:15px; max-width:46ch; }
+  .posts{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:24px; }
+  .post{ border:1px solid var(--line); background:#fff; padding:16px; }
+  .post__meta{ font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px; }
+  .post p{ font-size:14px; }
+  .post span.post__link{ display:block; margin-top:12px; font-size:13px; font-weight:700; border-bottom:1px solid var(--ink); }
+
+  /* ---------- close ---------- */
+  .close__h2{
+    font-size:clamp(32px, 4.6vw, 56px); font-weight:700; letter-spacing:-.03em;
+    line-height:1.05; max-width:20ch;
   }
-  .li-feed{
-    padding:72px 0 64px;
-    background:var(--tan);
+  .close__stats{ margin-top:20px; font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; }
+  .close__cards{
+    display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:36px;
   }
-  .li-feed .wrap{ max-width:1280px; padding:0 24px; }
-  .li-feed .beat{ margin-bottom:20px; text-align:center; width:100%; }
-  .li-feed .wrap > .anno{ margin-left:auto; margin-right:auto; }
-  .li-posts{
-    display:flex; gap:8px;
-    overflow-x:auto;
-    overscroll-behavior-x:contain;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:thin;
-    margin:0 -24px 22px;
-    padding:0 24px 8px;
-  }
-  .li-post{
-    flex:0 0 220px;
-    width:220px;
-    display:flex; flex-direction:column; gap:12px;
-    background:var(--white);
-    border:1px solid var(--line);
-    padding:14px 16px;
-  }
-  .li-avatar{
-    width:40px; height:40px;
-    background:var(--ph);
-    border-radius:50%;
-  }
-  .li-body{ display:flex; flex-direction:column; gap:6px; min-width:0; }
-  .li-body p{ font-size:14px; line-height:1.4; }
-  .li-date{
-    font-family:var(--mono); font-size:11px; letter-spacing:.06em;
-    text-transform:uppercase; color:var(--ink);
-  }
-  .li-feed .pill{ text-decoration:none; }
-  .text-link{ font-size:15px; font-weight:700; border-bottom:1px solid var(--ink); padding-bottom:2px; color:var(--ink); }
-  footer{
-    border-top:1px solid var(--line);
-    padding:40px 0 56px;
-    background:var(--tan);
-  }
-  .foot{
-    display:flex; flex-wrap:wrap; gap:32px 48px; justify-content:space-between;
-    font-size:14px; color:var(--ink);
-  }
-  .foot a{ display:block; padding:4px 0; color:var(--ink); }
+  .close__card{ border:1px solid var(--line); padding:24px; background:#fff; }
+  .close__card .beat{ margin-bottom:8px; }
+  .close__card h3{ font-size:22px; margin-bottom:8px; }
+  .close__card p{ font-size:15px; max-width:40ch; }
+  .close__card a{ display:inline-block; margin-top:14px; font-weight:700; border-bottom:1px solid var(--ink); }
+  .close__sign{ margin-top:40px; font-size:20px; font-weight:700; letter-spacing:-.02em; }
+
+  footer{ border-top:1px solid var(--line); padding:40px 0 56px; background:var(--tan); }
+  .foot{ display:flex; flex-wrap:wrap; gap:32px 48px; justify-content:space-between; font-size:14px; }
+  .foot a{ display:block; padding:4px 0; }
   .foot a:hover{ text-decoration:underline; }
-  .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin-bottom:10px; }
+  .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
 
   @media (max-width:900px){
-    .steps, .ai-grid, .work-gallery{ grid-template-columns:1fr; }
-  }
-  /* Verticals stack below 1024px (Square's own breakpoint): the selected card
-     expands, the rest collapse to a name bar. Above it, five cards in a row. */
-  @media (max-width:1023px){
-    .verts-stage{
-      flex-direction:column; gap:8px; height:auto;
-    }
-    .vert-card{
-      flex:0 0 auto; height:78px;
-      transition:height .4s cubic-bezier(.4,0,.2,1);
-    }
-    .vert-card.is-feature{ height:min(58svh, 460px); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .vert-card, .vert-card::after{ transition:none; }
+    .filmstrip{ grid-template-columns:repeat(3, minmax(0,1fr)); }
+    .scale li{ grid-template-columns:1fr; gap:6px; }
+    .vrow > summary{ grid-template-columns:80px 1fr 24px; }
+    .vrow__grid, .founders, .careers-grid, .close__cards, .ucases, .posts{ grid-template-columns:1fr; }
+    .ai-strip{ grid-template-columns:repeat(3, minmax(0,1fr)); }
+    .block h2, .axis-a__h1, .axis-b__h2{ max-width:100%; }
+    .nav{ padding:10px 16px; gap:10px; }
+    .nav-right{ min-width:0; flex:1; justify-content:flex-end; }
+    .pill{ padding:8px 10px; font-size:12px; white-space:nowrap; }
   }
 
-  /* Reduced motion OR no JS: skip the pin; mosaic then settled hero in flow.
-     The pin is progressive enhancement — an inline head script adds .has-js, so
-     without JS both states render in document order (A above B) and Axis B is
-     never left hidden. */
-  .hero-pin.is-flow,
-  html:not(.has-js) .hero-pin{
-    height:auto;
-  }
-  .hero-pin.is-flow .hero-sticky,
-  html:not(.has-js) .hero-pin .hero-sticky{
-    position:static;
-    height:auto;
-    overflow:visible;
-  }
-  .hero-pin.is-flow .mosaic,
-  html:not(.has-js) .hero-pin .mosaic{
-    position:relative;
-    inset:auto;
-    min-height:calc(100svh - var(--chrome));
-    padding:8px 16px 28px;
-    overflow-x:clip;
-    pointer-events:auto;
-  }
-  .hero-pin.is-flow .hero,
-  html:not(.has-js) .hero-pin .hero{
-    position:relative;
-    min-height:calc(100svh - var(--chrome));
-    clip-path:none;
-    opacity:1;
-    pointer-events:auto;
-    will-change:auto;
-  }
-  .hero-pin.is-flow .hero-copy,
-  html:not(.has-js) .hero-pin .hero-copy{ opacity:1; min-width:0; width:100%; }
-
-  @media (max-width:768px){
-    /* The mobile bar is shorter (10px padding), so the pinned frame must offset
-       by the real height (the :root override below) or a strip shows above the
-       revealed hero. */
-    :root{ --chrome:56px; }
-    .nav{
-      padding:10px 16px;
-      gap:10px;
-    }
-    .nav-right{
-      gap:10px;
-      min-width:0;
-      flex:1;
-      justify-content:flex-end;
-    }
-    .menu-btn{ flex-shrink:0; }
-    .pill{
-      padding:8px 12px;
-      font-size:12px;
-      white-space:nowrap;
-    }
-    .mosaic{ padding:0 12px; }
-    .mosaic-head{
-      width:100%;
-      margin:28px auto 16px;
-    }
-    .mosaic-head h1{
-      font-size:clamp(26px, 7.4vw, 40px);
-      letter-spacing:-.025em;
-      line-height:1.12;
-    }
-    .mosaic-sub{ font-size:14px; }
-    .axis-a-shot{ width:100%; border-radius:8px; }
-    .founder-band{ padding:24px 20px; }
-    .hero{ padding:56px 16px 64px; }
-    .hero-copy h2{ font-size:clamp(25px, 7vw, 38px); }
-    .hero-copy p{ font-size:16px; }
-  }
 </style>
 </head>
 <body>
 
   <header>
     <div class="nav">
-      <div class="nav-left">
-        <a class="logo" href="#top">FULLSTEAM</a>
-      </div>
+      <a class="logo" href="homepage.html">FULLSTEAM</a>
       <div class="nav-right">
         <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="siteOverlay" aria-label="Menu">
           <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -812,377 +320,326 @@
     </div>
     <nav class="site-overlay" id="siteOverlay" aria-label="Menu">
       <ul class="ov-list">
-          <li><a href="pages/vertical-software.html">Vertical Software</a></li>
-          <li><a href="pages/embedded-offerings.html">Our Advantage</a></li>
-          <li><a href="pages/embedded-offerings.html#ai">AI at Fullsteam</a></li>
-          <li class="ov-parent">
-            <a href="pages/our-story.html">Our Story</a>
-            <details class="ov-acc">
-              <summary aria-label="Show pages under Our Story"></summary>
-              <ul>
-                <li><a href="pages/leadership.html">Leadership</a></li>
-              </ul>
-            </details>
-          </li>
-          <li class="ov-parent">
-            <a href="pages/for-founders.html">Acquisitions</a>
-            <details class="ov-acc">
-              <summary aria-label="Show pages under Acquisitions"></summary>
-              <ul>
-                <li><a href="pages/faq.html">FAQ</a></li>
-              </ul>
-            </details>
-          </li>
-          <li class="ov-parent">
-            <a href="pages/careers.html">Careers</a>
-            <details class="ov-acc">
-              <summary aria-label="Show pages under Careers"></summary>
-              <ul>
-                <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a></li>
-              </ul>
-            </details>
-          </li>
+        <li><a href="pages/vertical-software.html">Vertical Software</a></li>
+        <li><a href="pages/our-advantage.html">Our Advantage</a></li>
+        <li><a href="pages/our-advantage.html#ai">AI</a></li>
+        <li><a href="pages/our-story.html">Our Story</a></li>
+        <li><a href="pages/leadership.html">Leadership</a></li>
+        <li><a href="pages/for-founders.html">For Founders</a></li>
+        <li><a href="pages/careers.html">Careers</a></li>
       </ul>
     </nav>
     <button type="button" class="menu-scrim" id="menuScrim" aria-label="Close menu" hidden></button>
   </header>
 
-  <!-- ============================================================
-       OPENING (revised 2026-10-01, client review): AXIS A (Portfolio) -> GROW -> AXIS B (Growth engine).
-       Axis A is now one identity/scale visual, NOT the 11 floating vertical tiles (client rejected the
-       "floating bubbles"); the 11 verticals now live in the cards below (the client likes that).
-       The two-state model, the two headlines, the A -> B order, and the grow morph are unchanged.
-       Mechanics + rationale: design.md §3.1 / §4.1 · KB §23 / §24 · build notes: wireframes.md changelog.
-       ============================================================ -->
-  <div class="hero-pin" id="top">
-    <div class="hero-sticky">
-      <!-- AXIS A — PORTFOLIO: what Fullsteam owns (the H1 + one identity visual). -->
-      <div class="mosaic" id="mosaic">
-        <div class="mosaic-head">
-          <p class="mosaic-kicker">For founders of industry software</p>
-          <h1>Intent: establish what Fullsteam owns — and its scale.</h1>
-          <p class="anno">Axis A — Portfolio. Locked line: "Whatever the industry, we own the software it runs on." Primary lens: investors; founders secondary.</p>
-        </div>
-        <div class="axis-a-stage">
-          <div class="axis-a-shot img-ph" aria-hidden="true"></div>
-        </div>
-      </div>
-      <!-- AXIS B — GROWTH ENGINE: how the businesses we own get bigger (revealed by the grow) -->
-      <section class="hero" id="heroStage">
-        <div class="img-ph hero-bg" aria-hidden="true"></div>
-        <div class="hero-copy" id="heroCopy">
-          <p class="hero-kicker">For founders of industry software — and anyone confirming who we are.</p>
-          <p class="beat">01 — The model</p>
-          <h2>Intent: state the growth model.</h2>
-          <p class="anno">Acquire software companies and make them run better — a forward-thinking, repeatable process. Locked line: "Software first. Then we grow it." Primary lens: investors.</p>
-          <div class="hero-ctas">
-            <a class="pill pill-lg" href="pages/vertical-software.html">Explore our vertical solutions</a>
-            <a class="ghost" href="#careers">Careers</a>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
+  <main>
 
-  <!-- ============================================================
-       02 — WHAT WE DO (client review Message 2). Acquire -> Grow/Build -> Lead,
-       a founder CTA, then the impressive stats. Message 1 content (system-of-record
-       software with AI, payments, operational excellence) leads the section.
-       ============================================================ -->
-  <section class="band tan" id="what-we-do">
-    <div class="band-head">
-      <p class="beat">02 — What we do</p>
-      <h2>Intent: answer the site's #1 question.</h2>
-      <p class="anno">We acquire vertical software and make it run better. Primary lens: investors; written to work for founders too.</p>
-    </div>
-    <div class="steps">
-      <article class="step">
-        <p class="step-k">Acquire</p>
-        <h3>Intent: Acquire.</h3>
-      </article>
-      <article class="step">
-        <p class="step-k">Grow</p>
-        <h3>Intent: Grow.</h3>
-        <a class="text-link" href="pages/embedded-offerings.html">Explore Offerings</a>
-      </article>
-      <article class="step">
-        <p class="step-k">Lead</p>
-        <h3>Intent: Lead.</h3>
-        <a class="text-link" href="pages/vertical-software.html">Vertical Software</a>
-      </article>
-    </div>
-    <p class="anno">Acquire = buy, and keep buying. Grow = make each business run better with AI, embedded payments, and a shared back office. Lead = enterprise scale without bureaucracy. Primary lens: investors.</p>
-    <div class="founder-band" id="founders">
-      <div class="founder-copy">
-        <p class="beat">For founders</p>
-        <h3>Intent: founder reassurance — a home, not an exit.</h3>
-        <p class="anno">Stewardship of the team, culture, and product; certainty of close. Locked framing: "A home for the business you built." Never "exit" or "turn-and-burn"; founder track (secondary lens).</p>
+    <!-- ============================================================
+         AXIS A — PORTFOLIO. Endpoint state only (no pin, no morph).
+         One identity/scale visual: the headline + the 11-vertical filmstrip.
+         ============================================================ -->
+    <section class="axis-a" id="top" aria-labelledby="heroTitle">
+      <div class="wrap">
+        <h1 class="axis-a__h1" id="heroTitle">Any industry, we own the <em>software.</em></h1>
+        <p class="anno">Axis A endpoint. "Any industry, we own the software." is the locked line. One identity/scale visual — the vertical filmstrip below — not 11 floating tiles. This page captures the end state: no pinning, no grow morph.</p>
       </div>
-      <a class="pill" href="pages/for-founders.html">Talk to us</a>
-    </div>
-    <section class="voice" id="voice">
-      <p class="beat">A founder voice</p>
-      <p class="anno">Intent: one real founder voice as social proof (genericized). No names until the client confirms.</p>
+      <div class="filmstrip" aria-label="The eleven verticals">
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Hospitality</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Weddings &amp; Events</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Wine</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Retail</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Storage &amp; Marina</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Health &amp; Wellness</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Field Services</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Transportation</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Automotive</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>Association Mgmt</figcaption></figure>
+        <figure><div class="img-ph" role="img" aria-label="Vertical image placeholder"></div><figcaption>ERP</figcaption></figure>
+      </div>
     </section>
-  </section>
 
-  <!-- Impressive stats (client review Message 2). Placeholders pending OI-5 publishability. -->
-  <section class="proof-strip" id="investors" aria-label="Scale, for investors, pending publishability">
-    <p class="proof-kicker">For investors</p>
-    <div class="proof-nums">
-      <div>
-        <div class="num" data-count="70000" data-suffix="+" data-format="comma">0</div>
-        <div class="lbl">business customers [placeholder]</div>
+    <!-- ============================================================
+         AXIS B — GROWTH ENGINE. Endpoint state only.
+         ============================================================ -->
+    <section class="axis-b" id="axisB" aria-labelledby="axisBTitle">
+      <div class="wrap">
+        <h2 class="axis-b__h2" id="axisBTitle">Then we build what makes it <em>grow.</em></h2>
+        <p class="anno">Axis B endpoint. The growth model — never merged with the Axis A claim. Reached by scroll; the grow morph itself is not drawn in this wireframe.</p>
+        <a class="pill pill-lg" href="pages/vertical-software.html">Explore vertical solutions</a>
       </div>
-      <div>
-        <div class="num" data-count="75" data-prefix="$" data-suffix="B+">0</div>
-        <div class="lbl">processed on Fullsteam Pay* [placeholder]</div>
-      </div>
-      <div>
-        <div class="num" data-count="480" data-suffix="M+">0</div>
-        <div class="lbl">transactions processed* [placeholder]</div>
-      </div>
-      <div>
-        <div class="num" data-count="2000" data-suffix="+" data-format="comma">0</div>
-        <div class="lbl">people [placeholder]</div>
-      </div>
-    </div>
-    <p class="anno" style="margin-left:auto;margin-right:auto">Intent: imply scale for investors through inferable signals — customers, payments volume, transactions, team size. No revenue, run-rate, or profitability, ever stated as a claim. Figures above are layout placeholders pending publishability. Marquee backers pending publishability: Aquiline Capital Partners · Sixth Street · Abu Dhabi Investment Authority — do not ship until the client confirms.</p>
-  </section>
+    </section>
 
-  <!-- ============================================================
-       03 — VERTICALS (client review Message 3: moved up; treated as Square's
-       "audience moment" — eyebrow, headline, one expandable card per featured
-       vertical). The client liked the expand treatment; the band moved from black
-       to white and carries the art-direction type, 2026-10-15. IA unchanged:
-       five revenue-ordered verticals + all eleven as links.
-       ============================================================ -->
-  <section class="verts" id="verticals">
-    <div class="verts-head">
-      <p class="beat">03 — Built for every industry</p>
-      <h2>Intent: show breadth and variety.</h2>
-      <p class="anno">The verticals. Five featured verticals plus all eleven links; the software is the system of record — a scale signal. Primary lens: investors. Featured businesses stay generic until publishability is confirmed.</p>
-    </div>
-    <div class="verts-stage" id="vertStage">
-      <article class="vert-card" role="button" tabindex="0" aria-pressed="false" data-name="Hospitality">
-        <span class="img-ph" aria-hidden="true"></span>
-        <h3 class="vert-name">Hospitality</h3>
-        <div class="vert-body">
-          <h3 class="vert-h">Hospitality</h3>
-          <hr class="vert-rule">
-          <p class="vert-stat">70,000+</p>
-          <p class="vert-desc">business customers [placeholder]</p>
-          <a class="vert-link" href="pages/vertical-software.html#hospitality">Learn more</a>
+    <!-- ============================================================
+         SCALE — the leader-table figures (2026-10-26).
+         ============================================================ -->
+    <section class="block" id="scale" aria-labelledby="scaleTitle">
+      <div class="wrap">
+        <p class="beat">At a glance</p>
+        <h2 id="scaleTitle" class="visually-hidden" style="position:absolute;left:-9999px;">Fullsteam at a glance</h2>
+        <ul class="scale">
+          <li>
+            <span class="scale__num">70,000<span aria-hidden="true">+</span></span>
+            <span class="scale__cap">customers run our software every day</span>
+          </li>
+          <li>
+            <span class="scale__num">11</span>
+            <span class="scale__cap">verticals, each a system of record</span>
+          </li>
+          <li>
+            <span class="scale__num">$75B<span aria-hidden="true">+</span></span>
+            <span class="scale__cap">processed on Fullsteam Pay</span>
+          </li>
+          <li>
+            <span class="scale__num">2,000<span aria-hidden="true">+</span></span>
+            <span class="scale__cap">people across the portfolio</span>
+          </li>
+        </ul>
+        <p class="scale__summary">Every one of these numbers is a business with a <em>name, a team, and customers</em> who depend on it. That's what we're protecting.</p>
+        <p class="anno">Inferable KPIs only — no revenue, run-rate, or profitability. Figures are pending publishability sign-off.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VERTICALS — "Keep the businesses growing." Accordion rows.
+         ============================================================ -->
+    <section class="block tan" id="verticals" aria-labelledby="vertsTitle">
+      <div class="wrap">
+        <h2 id="vertsTitle">Keep the businesses <em>growing.</em></h2>
+        <p class="anno">Five revenue-ordered verticals, expandable. First row is drawn open to show the end state of an expanded panel. All eleven live on the Vertical Software page.</p>
+        <div class="vrows">
+          <details class="vrow" open>
+            <summary>
+              <span class="vrow__kicker">Vertical</span>
+              <span class="vrow__name">ERP</span>
+            </summary>
+            <div class="vrow__panel">
+              <div class="vrow__grid">
+                <div>
+                  <p class="vrow__eyebrow">What it runs</p>
+                  <p class="vrow__stat">[placeholder]</p>
+                  <p class="vrow__text">enterprise resource planning — the system of record</p>
+                  <a class="vrow__link" href="pages/vertical-software.html#erp">Learn more</a>
+                </div>
+                <div class="vrow__media"><div class="img-ph" role="img" aria-label="ERP image placeholder"></div></div>
+              </div>
+            </div>
+          </details>
+          <details class="vrow">
+            <summary>
+              <span class="vrow__kicker">Vertical</span>
+              <span class="vrow__name">Wine</span>
+            </summary>
+            <div class="vrow__panel">
+              <div class="vrow__grid">
+                <div>
+                  <p class="vrow__eyebrow">What it runs</p>
+                  <p class="vrow__stat">[placeholder]</p>
+                  <p class="vrow__text">bottles of wine shipped</p>
+                  <a class="vrow__link" href="pages/vertical-software.html#wine">Learn more</a>
+                </div>
+                <div class="vrow__media"><div class="img-ph" role="img" aria-label="Wine image placeholder"></div></div>
+              </div>
+            </div>
+          </details>
+          <details class="vrow">
+            <summary>
+              <span class="vrow__kicker">Vertical</span>
+              <span class="vrow__name">Transportation</span>
+            </summary>
+            <div class="vrow__panel">
+              <div class="vrow__grid">
+                <div>
+                  <p class="vrow__eyebrow">What it runs</p>
+                  <p class="vrow__stat">[placeholder]</p>
+                  <p class="vrow__text">black-car rides completed</p>
+                  <a class="vrow__link" href="pages/vertical-software.html#transportation">Learn more</a>
+                </div>
+                <div class="vrow__media"><div class="img-ph" role="img" aria-label="Transportation image placeholder"></div></div>
+              </div>
+            </div>
+          </details>
+          <details class="vrow">
+            <summary>
+              <span class="vrow__kicker">Vertical</span>
+              <span class="vrow__name">Hospitality</span>
+            </summary>
+            <div class="vrow__panel">
+              <div class="vrow__grid">
+                <div>
+                  <p class="vrow__eyebrow">What it runs</p>
+                  <p class="vrow__stat">[placeholder]</p>
+                  <p class="vrow__text">covers served</p>
+                  <a class="vrow__link" href="pages/vertical-software.html#hospitality">Learn more</a>
+                </div>
+                <div class="vrow__media"><div class="img-ph" role="img" aria-label="Hospitality image placeholder"></div></div>
+              </div>
+            </div>
+          </details>
+          <details class="vrow">
+            <summary>
+              <span class="vrow__kicker">Vertical</span>
+              <span class="vrow__name">Automotive</span>
+            </summary>
+            <div class="vrow__panel">
+              <div class="vrow__grid">
+                <div>
+                  <p class="vrow__eyebrow">What it runs</p>
+                  <p class="vrow__stat">[placeholder]</p>
+                  <p class="vrow__text">oil changes booked</p>
+                  <a class="vrow__link" href="pages/vertical-software.html#automotive">Learn more</a>
+                </div>
+                <div class="vrow__media"><div class="img-ph" role="img" aria-label="Automotive image placeholder"></div></div>
+              </div>
+            </div>
+          </details>
         </div>
-      </article>
-      <article class="vert-card" role="button" tabindex="0" aria-pressed="false" data-name="ERP">
-        <span class="img-ph" aria-hidden="true"></span>
-        <h3 class="vert-name">ERP</h3>
-        <div class="vert-body">
-          <h3 class="vert-h">ERP</h3>
-          <hr class="vert-rule">
-          <p class="vert-stat">2,000+</p>
-          <p class="vert-desc">people [placeholder]</p>
-          <a class="vert-link" href="pages/vertical-software.html#erp">Learn more</a>
+        <div class="verts__foot">
+          <a class="pill" href="pages/vertical-software.html">Explore all verticals →</a>
+          <p class="prose">Growth needs more than ownership — it needs intelligence.</p>
         </div>
-      </article>
-      <article class="vert-card is-feature" role="button" tabindex="0" aria-pressed="true" data-name="Retail">
-        <span class="img-ph" aria-hidden="true"></span>
-        <h3 class="vert-name">Retail</h3>
-        <div class="vert-body">
-          <h3 class="vert-h">Retail</h3>
-          <hr class="vert-rule">
-          <p class="vert-stat">$75B+</p>
-          <p class="vert-desc">processed on Fullsteam Pay* [placeholder]</p>
-          <a class="vert-link" href="pages/vertical-software.html#retail">Learn more</a>
-        </div>
-      </article>
-      <article class="vert-card" role="button" tabindex="0" aria-pressed="false" data-name="Transportation">
-        <span class="img-ph" aria-hidden="true"></span>
-        <h3 class="vert-name">Transportation</h3>
-        <div class="vert-body">
-          <h3 class="vert-h">Transportation</h3>
-          <hr class="vert-rule">
-          <p class="vert-stat">480M+</p>
-          <p class="vert-desc">transactions processed* [placeholder]</p>
-          <a class="vert-link" href="pages/vertical-software.html#transportation">Learn more</a>
-        </div>
-      </article>
-      <article class="vert-card" role="button" tabindex="0" aria-pressed="false" data-name="Wine">
-        <span class="img-ph" aria-hidden="true"></span>
-        <h3 class="vert-name">Wine</h3>
-        <div class="vert-body">
-          <h3 class="vert-h">Wine</h3>
-          <hr class="vert-rule">
-          <p class="vert-stat">11</p>
-          <p class="vert-desc">vertical markets owned</p>
-          <a class="vert-link" href="pages/vertical-software.html#wine">Learn more</a>
-        </div>
-      </article>
-    </div>
-    <div class="verts-foot">
-      <div class="verts-all">
-        <a href="pages/vertical-software.html#hospitality">Hospitality</a>
-        <a href="pages/vertical-software.html#weddings-events">Weddings &amp; Events</a>
-        <a href="pages/vertical-software.html#wine">Wine</a>
-        <a href="pages/vertical-software.html#retail">Retail</a>
-        <a href="pages/vertical-software.html#storage-marina">Storage &amp; Marina</a>
-        <a href="pages/vertical-software.html#health-wellness">Health &amp; Wellness</a>
-        <a href="pages/vertical-software.html#field-services">Field Services</a>
-        <a href="pages/vertical-software.html#transportation">Transportation</a>
-        <a href="pages/vertical-software.html#automotive">Automotive</a>
-        <a href="pages/vertical-software.html#association-management">Association Management</a>
-        <a href="pages/vertical-software.html#erp">ERP</a>
       </div>
-      <p class="anno">Intent: the selected card un-dims and reveals name → rule → scale figure → descriptor → link; the other four stay dimmed behind a 50% scrim but keep their name. Figures are the allowlisted placeholder set (OI-5) — no revenue, run-rate, or profitability. No category labels; featured businesses stay generic. All eleven verticals stay one tap below.</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============================================================
-       04 — AI (client review Message 4). Replaces the old Software (04) and
-       Offerings (05) scenes; Offerings now folds into "What we do → Grow" and
-       the Our Advantage page stays. Examples / use cases first — never a
-       headcount story.
-       ============================================================ -->
-  <section class="band" id="ai">
-    <div class="band-head">
-      <p class="beat">04 — AI at Fullsteam</p>
-      <h2>Intent: show AI applied to the work — not headcount.</h2>
-      <p class="anno">Forecasting, back office, support. Primary lens: investors (AI strengthens the software side); use cases first.</p>
-    </div>
-    <div class="ai-grid">
-      <article class="ai-card">
-        <div class="img-ph" aria-hidden="true"></div>
-        <h3>Intent: AI use case — forecasting.</h3>
-      </article>
-      <article class="ai-card">
-        <div class="img-ph" aria-hidden="true"></div>
-        <h3>Intent: AI use case — back office.</h3>
-      </article>
-      <article class="ai-card">
-        <div class="img-ph" aria-hidden="true"></div>
-        <h3>Intent: AI use case — support.</h3>
-      </article>
-    </div>
-    <p style="text-align:center;margin-top:28px"><a class="text-link" href="pages/embedded-offerings.html#ai">See AI at Fullsteam</a></p>
-  </section>
-
-  <!-- ============================================================
-       05 — GREAT PLACE TO WORK (client review Message 5). Humanizing imagery —
-       real Fullsteam people, not stock. Wireframe placeholders stand in for
-       authentic photos.
-       ============================================================ -->
-  <section class="band tan" id="careers">
-    <div class="band-head">
-      <p class="beat">05 — Great place to work</p>
-      <h2>Intent: humanize the company.</h2>
-      <p class="anno">Real people, mostly remote, small teams. Employer-brand track (tertiary); authentic imagery, never stock.</p>
-    </div>
-    <div class="work-gallery">
-      <figure class="work-shot">
-        <div class="img-ph" aria-hidden="true"></div>
-        <figcaption>Real team photo — not stock [placeholder]</figcaption>
-      </figure>
-      <figure class="work-shot">
-        <div class="img-ph" aria-hidden="true"></div>
-        <figcaption>Real team photo — not stock [placeholder]</figcaption>
-      </figure>
-      <figure class="work-shot">
-        <div class="img-ph" aria-hidden="true"></div>
-        <figcaption>Real team photo — not stock [placeholder]</figcaption>
-      </figure>
-    </div>
-    <p style="text-align:center"><a class="text-link" href="pages/careers.html">See Careers</a></p>
-  </section>
-
-  <!-- LinkedIn: lo-fi horizontal card strip (not a live embed) -->
-  <section class="li-feed" id="linkedin" aria-label="LinkedIn">
-    <div class="wrap">
-      <p class="beat">LinkedIn</p>
-      <p class="anno">Intent: a light social-proof strip — lo-fi stand-in for a live feed, not real post data.</p>
-      <div class="li-posts" role="list">
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <span class="li-date">Sep 22</span>
-          </div>
-        </article>
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
-            <span class="li-date">Sep 20</span>
-          </div>
-        </article>
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
-            <span class="li-date">Sep 18</span>
-          </div>
-        </article>
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
-            <span class="li-date">Sep 16</span>
-          </div>
-        </article>
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Excepteur sint occaecat cupidatat non proident sunt.</p>
-            <span class="li-date">Sep 14</span>
-          </div>
-        </article>
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Mollis nunc sed id semper risus in hendrerit gravida.</p>
-            <span class="li-date">Sep 12</span>
-          </div>
-        </article>
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Nulla facilisi morbi tempus iaculis urna id volutpat.</p>
-            <span class="li-date">Sep 10</span>
-          </div>
-        </article>
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Quisque non tellus orci ac auctor augue mauris.</p>
-            <span class="li-date">Sep 8</span>
-          </div>
-        </article>
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Viverra nam libero justo laoreet sit amet cursus.</p>
-            <span class="li-date">Sep 6</span>
-          </div>
-        </article>
-        <article class="li-post" role="listitem">
-          <div class="li-avatar" aria-hidden="true"></div>
-          <div class="li-body">
-            <p>Aliquam ultrices sagittis orci a scelerisque purus.</p>
-            <span class="li-date">Sep 4</span>
-          </div>
-        </article>
+    <!-- ============================================================
+         AI — "AI that already knows the business."
+         ============================================================ -->
+    <section class="block dark" id="ai" aria-labelledby="aiTitle">
+      <div class="wrap">
+        <h2 id="aiTitle">AI that already knows the business.</h2>
+        <p class="lede" style="color:#fff">Use cases first — built on proprietary vertical data, not generic models.</p>
+        <p style="margin-top:24px"><a class="pill" href="pages/our-advantage.html#ai">See AI at Fullsteam</a></p>
+        <div class="ucases">
+          <article class="ucase">
+            <b>01</b>
+            <h3>Modernize in place</h3>
+            <p>Smarter search, forecasting, and workflows inside the product customers already run.</p>
+          </article>
+          <article class="ucase">
+            <b>02</b>
+            <h3>Customer-facing features</h3>
+            <p>Ship AI your end customers feel — grounded in vertical data.</p>
+          </article>
+          <article class="ucase">
+            <b>03</b>
+            <h3>Automate busywork</h3>
+            <p>Back-office workflows that run themselves — people stay on judgment calls.</p>
+          </article>
+        </div>
+        <p class="anno">Never a headcount story. AI is framed as capability, not replacement.</p>
+        <p class="beat" style="margin-top:36px">Intelligence is people.</p>
+        <div class="ai-strip" aria-label="AI at Fullsteam — people placeholders">
+          <div class="img-ph" role="img" aria-label="Team member placeholder"></div>
+          <div class="img-ph" role="img" aria-label="Team member placeholder"></div>
+          <div class="img-ph" role="img" aria-label="Team member placeholder"></div>
+          <div class="img-ph" role="img" aria-label="Team member placeholder"></div>
+          <div class="img-ph" role="img" aria-label="Team member placeholder"></div>
+          <div class="img-ph" role="img" aria-label="Team member placeholder"></div>
+        </div>
       </div>
-      <a class="pill" href="https://www.linkedin.com/company/fullsteam/" target="_blank" rel="noopener noreferrer">Follow on LinkedIn</a>
-    </div>
-  </section>
+    </section>
 
-  <section class="close" id="close">
-    <p class="beat">06 — Keep going</p>
-    <h2>Intent: route onward.</h2>
-    <a class="pill pill-lg" href="pages/vertical-software.html">Explore our vertical solutions</a>
-    <p style="margin-top:20px;"><a class="nav-sub" href="pages/for-founders.html">For Founders — a home for your business</a></p>
-    <p class="anno" style="margin-left:auto;margin-right:auto;text-align:center">Primary CTA → vertical solutions; For Founders path for sellers. Investors are served by the scale proof above and Contact, not a dedicated CTA.</p>
-  </section>
+    <!-- ============================================================
+         FOR FOUNDERS — quote + "A home for the business you built."
+         ============================================================ -->
+    <section class="block" id="for-founders" aria-labelledby="foundersTitle">
+      <div class="wrap">
+        <div class="founders">
+          <div>
+            <blockquote class="quote">
+              "We stopped asking what to build next and started asking where everything we had built could go."
+              <cite>Placeholder — founder voice, genericized, unpublishable as written</cite>
+            </blockquote>
+          </div>
+          <div>
+            <p class="beat">For founders</p>
+            <h2 id="foundersTitle">A home for the business you <em>built.</em></h2>
+            <div class="prose">
+              <p>We don't buy your business and shelve it. The product keeps its name, the team keeps its people, and it keeps growing — with a much larger company behind it.</p>
+            </div>
+            <p style="margin-top:24px"><a class="pill pill-lg" href="pages/for-founders.html">Explore Acquisitions</a></p>
+            <p class="anno">Never frame the sale as an exit. No named case studies until publishability is confirmed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CAREERS — "A great place to work." + LinkedIn posts.
+         ============================================================ -->
+    <section class="block tan" id="careers" aria-labelledby="careersTitle">
+      <div class="wrap">
+        <div class="careers-grid">
+          <div>
+            <h2 id="careersTitle">A great place to <em>work.</em></h2>
+            <div class="prose">
+              <p>Real people building software for real industries — mostly remote, small teams, room to grow.</p>
+            </div>
+            <p style="margin-top:22px"><a class="pill" href="pages/careers.html">See Careers</a></p>
+            <p class="anno">Mostly remote · Small teams</p>
+          </div>
+          <div class="img-ph" role="img" aria-label="Careers image placeholder" style="min-height:280px"></div>
+        </div>
+        <ul class="careers-points">
+          <li><b>01</b><div><h3>Trusted to learn the vertical</h3><p>Solve problems for an industry you can actually learn — not a generic queue.</p></div></li>
+          <li><b>02</b><div><h3>Small teams, clear goals</h3><p>Talk to customers and ship — ownership without chaos.</p></div></li>
+          <li><b>03</b><div><h3>Mostly remote, real people</h3><p>Distributed work with room to grow without losing the human side.</p></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" id="careersPosts" aria-labelledby="careersPostsTitle">
+      <div class="wrap">
+        <p class="beat">From the company page</p>
+        <h2 id="careersPostsTitle">Straight from the Fullsteam page on LinkedIn</h2>
+        <div class="prose"><p>Hiring, people, and product news.</p></div>
+        <div class="posts">
+          <article class="post">
+            <p class="post__meta">in Fullsteam · Oct 2026 · Public</p>
+            <p>Supporting our customers starts with our people and the expertise they bring. We're hiring a Senior Information Security &amp; Compliance Business Partner.</p>
+            <span class="post__link">See the post on LinkedIn →</span>
+          </article>
+          <article class="post">
+            <p class="post__meta">in Fullsteam · Oct 2026 · Public</p>
+            <p>Career growth can take many forms. For Xavier Codrington, it has meant taking on new challenges and growing into a leadership role.</p>
+            <span class="post__link">See the post on LinkedIn →</span>
+          </article>
+          <article class="post">
+            <p class="post__meta">in Fullsteam · Jul 2026 · Public</p>
+            <p>We're proud to celebrate our Vice President and CISO, Emily Traylor, on receiving Auburn's prestigious award.</p>
+            <span class="post__link">See the post on LinkedIn →</span>
+          </article>
+        </div>
+        <p style="margin-top:26px"><a class="pill" href="https://www.linkedin.com/company/fullsteam/" target="_blank" rel="noopener noreferrer">Follow on LinkedIn</a></p>
+        <p class="anno">Static cards, not a live embed. No sliders or animation in the wireframe.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CLOSE
+         ============================================================ -->
+    <section class="block" id="close" aria-labelledby="closeTitle">
+      <div class="wrap">
+        <h2 class="close__h2" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
+        <p class="close__stats">70,000+ customers · 11 vertical businesses · 2,000+ people</p>
+        <div class="close__cards">
+          <article class="close__card">
+            <p class="beat">Portfolio</p>
+            <h3>Explore the portfolio →</h3>
+            <p>Eleven vertical software businesses, each a category leader in its market.</p>
+            <a href="pages/vertical-software.html">Explore vertical solutions</a>
+          </article>
+          <article class="close__card">
+            <p class="beat">For founders</p>
+            <h3>A home for your business →</h3>
+            <p>Values fit, certainty of close, and a bigger org that scales the founder.</p>
+            <a href="pages/for-founders.html">Explore Acquisitions</a>
+          </article>
+        </div>
+        <p class="close__sign">Any industry. One home.</p>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
     <div class="wrap foot">
@@ -1191,26 +648,22 @@
         <a href="pages/our-story.html">Our Story</a>
         <a href="pages/leadership.html">Leadership</a>
         <a href="pages/careers.html">Careers</a>
-        <a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">Open roles</a>
       </div>
       <div>
         <div class="fh">Explore</div>
         <a href="pages/vertical-software.html">Vertical Software</a>
-        <a href="pages/embedded-offerings.html">Our Advantage</a>
-        <a href="pages/embedded-offerings.html#ai">AI at Fullsteam</a>
-        <a href="pages/for-founders.html">Acquisitions</a>
-        <a href="pages/faq.html">FAQ</a>
+        <a href="pages/our-advantage.html">Our Advantage</a>
+        <a href="pages/our-advantage.html#ai">AI</a>
+        <a href="pages/for-founders.html">For Founders</a>
       </div>
       <div>
         <div class="fh">Connect</div>
         <a href="pages/contact.html">Contact</a>
-        <a href="pages/contact.html#partner">Partner inquiries</a>
       </div>
       <div>
         <div class="fh">Legal</div>
         <a href="pages/privacy.html">Privacy</a>
         <a href="pages/terms.html">Terms</a>
-        <a href="#">Complaints</a>
       </div>
     </div>
   </footer>
@@ -1232,9 +685,8 @@
       if (scrim) scrim.addEventListener("click", () => setOpen(false));
       document.addEventListener("keydown", (e) => {
         if (e.key !== "Escape" || menuBtn.getAttribute("aria-expanded") !== "true") return;
-        const returnFocus = overlay.contains(document.activeElement) || document.activeElement === scrim;
         setOpen(false);
-        if (returnFocus) menuBtn.focus();
+        menuBtn.focus();
       });
       overlay.querySelectorAll("details").forEach((d) => {
         d.addEventListener("toggle", () => {
@@ -1245,304 +697,7 @@
         });
       });
     })();
-
-    (function headerState(){
-      /* The header only earns a 100% opaque background after the user scrolls out
-         of the hero (the #top pin); over Axis A and the hero it stays transparent.
-         Separate from mosaicToHero so it still runs in reduced-motion/flow mode,
-         where that handler early-returns. Toggling a class (not a per-frame write)
-         keeps the 0.3s background fade off the morph's frame path. */
-      const header = document.querySelector("header");
-      const pin = document.querySelector(".hero-pin");
-      if (!header || !pin) return;
-      const tick = () => {
-        const pastHero = pin.getBoundingClientRect().bottom <= header.offsetHeight;
-        header.classList.toggle("is-scrolled", pastHero);
-      };
-      window.addEventListener("scroll", tick, { passive: true });
-      window.addEventListener("resize", tick);
-      tick();
-    })();
-
-    (function axisAEntrance(){
-      /* Opening entrance (2026-10-24, CD direction). Runs once, after the fonts
-         have landed, so the H1 does not re-wrap mid-animation.
-         - skipped when the page is opened part-way down (anchor / restored
-           scroll): the first screen is not the first thing being seen;
-         - skipped for reduced motion, where CSS has already opted out;
-         - the class is removed at the end so no lingering animation can
-           out-rank the grow morph's per-frame inline opacity writes. */
-      const mosaic = document.getElementById("mosaic");
-      if (!mosaic) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      if (window.scrollY > 10) return;
-      let ran = false;
-      const run = () => {
-        if (ran) return;
-        ran = true;
-        mosaic.classList.add("is-enter");
-        const last = mosaic.querySelector(".axis-a-stage");
-        const done = () => mosaic.classList.remove("is-enter");
-        if (last && last.addEventListener) last.addEventListener("animationend", done, { once: true });
-        /* belt and braces: if the animation never fires (display:none, a
-           cancelled animation, an exotic UA), the class still comes off. */
-        setTimeout(done, 1800);
-      };
-      if (document.readyState === "complete") requestAnimationFrame(run);
-      else window.addEventListener("load", () => requestAnimationFrame(run), { once: true });
-    })();
-
-    (function mosaicToHero(){
-      /* Opening (revised 2026-10-01, client review): AXIS A (Portfolio) -> GROW -> AXIS B (Growth engine).
-         Axis A is now one identity/scale visual (.axis-a-shot), not the 11 floating tiles. The visual
-         grows into the full-screen hero as the pin is scrolled — the grow morph, unchanged in kind
-         (interpolated clip-path traced per frame from the visual's rect + opacity ramps). Reduced
-         motion: no pin and no grow — mosaic then settled hero in document order (.is-flow).
-         See design.md §3.1 / §4.1 · KB §23 / §24. */
-      const pin = document.querySelector(".hero-pin");
-      const mosaic = document.getElementById("mosaic");
-      const hero = document.getElementById("heroStage");
-      const copy = document.getElementById("heroCopy");
-      const sticky = pin && pin.querySelector(".hero-sticky");
-      const shot = pin && pin.querySelector(".axis-a-shot");
-      const head = pin && pin.querySelector(".mosaic-head");
-      if (!pin || !hero || !sticky || !shot) return;
-      const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const clamp01 = (v) => Math.max(0, Math.min(1, v));
-      /* The ramps OVERLAP on purpose (see KB §23.9): the hero fades up as the grow begins, the copy
-         starts before the visual finishes leaving, and the grow completes near the end of the
-         runway so there is no static tail and no empty window. */
-      const GROW_FROM = 0.10, GROW_SPAN = 0.82;
-      const HEAD_FROM = 0.06, HEAD_SPAN = 0.30;
-      const HEROOP_FROM = 0.02, HEROOP_SPAN = 0.15;
-      const COPY_FROM = 0.20, COPY_SPAN = 0.45;
-      const apply = (p) => {
-        pin.style.setProperty("--p", String(p));
-        const grow = clamp01((p - GROW_FROM) / GROW_SPAN);
-        const fade = clamp01((p - HEAD_FROM) / HEAD_SPAN);
-        const heroOp = clamp01((grow - HEROOP_FROM) / HEROOP_SPAN);
-        if (head) head.style.opacity = String(1 - fade);
-        /* The hero's clip region always covers the visual's rect, so the visual can be hidden once
-           the hero is opaque — but not before, or the source of the grow would blink out. */
-        shot.style.opacity = grow > (HEROOP_FROM + HEROOP_SPAN) ? "0" : String(1 - fade);
-        const sr = sticky.getBoundingClientRect();
-        const tr = shot.getBoundingClientRect();
-        const top = Math.max(0, tr.top - sr.top) * (1 - grow);
-        const left = Math.max(0, tr.left - sr.left) * (1 - grow);
-        const bottom = Math.max(0, sr.bottom - tr.bottom) * (1 - grow);
-        const right = Math.max(0, sr.right - tr.right) * (1 - grow);
-        const radius = 12 * (1 - grow);
-        hero.style.clipPath = "inset(" + top + "px " + right + "px " + bottom + "px " + left + "px round " + radius + "px)";
-        hero.style.transform = "none";
-        hero.style.opacity = String(heroOp);
-        mosaic.style.pointerEvents = grow > 0.08 ? "none" : "auto";
-        copy.style.opacity = String(clamp01((grow - COPY_FROM) / COPY_SPAN));
-        hero.classList.toggle("is-open", grow > 0.5);
-      };
-      const useFlow = () => reduceMq.matches;
-      const tick = () => {
-        if (useFlow()) return;
-        const top = pin.getBoundingClientRect().top;
-        const range = pin.offsetHeight - window.innerHeight;
-        /* Offset by the pinned frame's own top (the --chrome token) rather than a literal, so the
-           progress mapping tracks the header at every breakpoint. */
-        const chrome = sticky.getBoundingClientRect().top;
-        const p = Math.max(0, Math.min(1, (chrome - top) / Math.max(1, range)));
-        apply(p);
-      };
-      const clearShotStyles = () => {
-        if (head) head.style.opacity = "";
-        shot.style.opacity = "";
-      };
-      const syncMode = () => {
-        if (useFlow()){
-          pin.classList.add("is-flow");
-          pin.style.height = "auto";
-          hero.style.transform = "none";
-          hero.style.clipPath = "none";
-          hero.style.opacity = "1";
-          mosaic.style.pointerEvents = "auto";
-          copy.style.opacity = "1";
-          hero.classList.add("is-open");
-          clearShotStyles();
-          return;
-        }
-        pin.classList.remove("is-flow");
-        pin.style.height = "";
-        apply(0);
-        tick();
-      };
-      window.addEventListener("scroll", tick, { passive: true });
-      window.addEventListener("resize", syncMode);
-      if (reduceMq.addEventListener) reduceMq.addEventListener("change", syncMode);
-      syncMode();
-    })();
-
-    (function stickyHashAnchors(){
-      /* Same-page hash links: smooth scroll with sticky-header offset (~72px).
-         CSSOM pitfall: scrollTo({ behavior:"auto" }) follows html{scroll-behavior},
-         so with smooth CSS it still animates — never use "auto" when we mean jump.
-         We animate with rAF + forced instant frames so motion is reliable, and jump
-         for prefers-reduced-motion. */
-      const HEADER_OFFSET = 72;
-      const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-      history.scrollRestoration = "manual";
-      let animToken = 0;
-      const targetTop = (el) => el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-      const jumpTo = (top) => {
-        const root = document.documentElement;
-        const prev = root.style.scrollBehavior;
-        root.style.scrollBehavior = "auto";
-        window.scrollTo(0, top);
-        root.style.scrollBehavior = prev;
-      };
-      const animateTo = (top) => {
-        const start = window.scrollY;
-        const dist = top - start;
-        if (Math.abs(dist) < 1) return;
-        const token = ++animToken;
-        const duration = Math.min(1100, Math.max(380, Math.abs(dist) * 0.35));
-        const t0 = performance.now();
-        const ease = (t) => 1 - Math.pow(1 - t, 3);
-        const step = (now) => {
-          if (token !== animToken) return;
-          const t = Math.min(1, (now - t0) / duration);
-          jumpTo(start + dist * ease(t));
-          if (t < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      };
-      const scrollToId = (id) => {
-        let top = 0;
-        if (id) {
-          const el = document.getElementById(id);
-          if (!el) return;
-          top = Math.max(0, targetTop(el));
-        }
-        if (reduceMq.matches) jumpTo(top);
-        else animateTo(top);
-      };
-      document.addEventListener("click", (e) => {
-        const a = e.target.closest("a[href]");
-        if (!a) return;
-        if (a.target === "_blank") return;
-        const href = a.getAttribute("href");
-        if (!href || href.charAt(0) !== "#") return;
-        if (href === "#") return;
-        const id = href.slice(1);
-        e.preventDefault();
-        if (location.hash !== href) history.pushState(null, "", href);
-        else history.replaceState(null, "", href);
-        scrollToId(id);
-      });
-      if (location.hash && location.hash !== "#") {
-        scrollToId(location.hash.slice(1));
-      }
-    })();
-
-    (function proofCountUp(){
-      const strip = document.getElementById("investors");
-      if (!strip) return;
-      const nums = [...strip.querySelectorAll(".num[data-count]")];
-      if (!nums.length) return;
-      const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const format = (el, value) => {
-        const prefix = el.getAttribute("data-prefix") || "";
-        const suffix = el.getAttribute("data-suffix") || "";
-        const n = Math.round(value);
-        const body = el.getAttribute("data-format") === "comma" ? n.toLocaleString("en-US") : String(n);
-        el.textContent = prefix + body + suffix;
-      };
-      const paintFinal = () => {
-        nums.forEach((el) => format(el, Number(el.getAttribute("data-count")) || 0));
-        strip.classList.add("is-in");
-      };
-      const run = () => {
-        if (strip.dataset.counted === "1") return;
-        strip.dataset.counted = "1";
-        strip.classList.add("is-in");
-        if (reduceMq.matches) { paintFinal(); return; }
-        const duration = 1100;
-        const start = performance.now();
-        const targets = nums.map((el) => Number(el.getAttribute("data-count")) || 0);
-        nums.forEach((el) => format(el, 0));
-        const frame = (now) => {
-          const t = Math.min(1, (now - start) / duration);
-          const eased = 1 - Math.pow(1 - t, 3);
-          nums.forEach((el, i) => format(el, targets[i] * eased));
-          if (t < 1) requestAnimationFrame(frame);
-          else paintFinal();
-        };
-        requestAnimationFrame(frame);
-      };
-      if (reduceMq.matches) {
-        paintFinal();
-        return;
-      }
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            run();
-            io.disconnect();
-          }
-        });
-      }, { threshold: 0.35 });
-      io.observe(strip);
-    })();
-
-    (function vertsEntrance(){
-      /* Filmstrip entrance (2026-10-24, CD direction): one pass when the band
-         first comes into view. The threshold is low and the bottom margin
-         negative so the stagger starts as the band's top edge arrives, not
-         after the frames are already being read. */
-      const band = document.getElementById("verticals");
-      if (!band) return;
-      if (!("IntersectionObserver" in window)) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          band.classList.add("is-in");
-          io.disconnect();
-          /* take the class back off once the last frame has landed, so the
-             held animation cannot out-rank a future transform on the cards
-             (hover, a promotion to the design pass). */
-          const last = band.querySelectorAll(".vert-card");
-          const done = () => band.classList.remove("is-in");
-          if (last.length && last[last.length - 1].addEventListener) {
-            last[last.length - 1].addEventListener("animationend", done, { once: true });
-          }
-          setTimeout(done, 1500);
-        });
-      }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
-      io.observe(band);
-    })();
-
-    (function vertCards(){
-      /* 03 Verticals — one card un-dims at a time (Square "audience moment"). */
-      const stage = document.getElementById("vertStage");
-      if (!stage) return;
-      const cards = [...stage.querySelectorAll(".vert-card")];
-      const select = (card) => {
-        cards.forEach((c) => {
-          const on = c === card;
-          c.classList.toggle("is-feature", on);
-          c.setAttribute("aria-pressed", on ? "true" : "false");
-        });
-      };
-      cards.forEach((card) => {
-        card.addEventListener("click", (e) => {
-          if (e.target.closest("a")) return;
-          select(card);
-        });
-        card.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            select(card);
-          }
-        });
-      });
-    })();
   </script>
+
 </body>
 </html>

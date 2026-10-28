@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Header Wireframe — Fullsteam (chrome options vs sitemap)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap">
 <style>
   :root{
     --bg:#FFFFFF;
@@ -25,6 +28,7 @@
     color:var(--text);
     padding-bottom:80px;
   }
+  h1,h2,h3,h4,h5,h6{ font-family:"Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif; }
   .notice{
     background:#000; color:#fff; font-size:12px; letter-spacing:.02em;
     padding:8px 24px; font-weight:500;
@@ -376,14 +380,87 @@
       <ul class="ov-stack">
         <li>Vertical Software</li>
         <li>Our Advantage</li>
-        <li>AI at Fullsteam</li>
+        <li>AI at Fullsteam <span class="acc-tag">standalone</span></li>
         <li>Our Story <span class="acc-tag">accordion</span></li>
-        <li>Acquisitions <span class="acc-tag">accordion</span></li>
-        <li>Careers <span class="acc-tag">accordion</span></li>
+        <li>Acquisitions</li>
+        <li>Careers</li>
       </ul>
-      <p class="ov-note">Right-side drawer, 320px (100% under 320px), not full width. Our Story, Acquisitions, and Careers are links to their pages; the chevron still opens Leadership, FAQ, and Open roles. One open at a time. Contact stays in the footer. The 11 verticals stay on the Vertical Software page. Options 0, A, and C are earlier comparisons.</p>
+      <p class="ov-note">Right-side drawer, 320px (100% under 320px), not full width. AI at Fullsteam is shown as a standalone item. Our Story has a chevron for Leadership. Acquisitions and Careers are direct links (no child accordions). FAQ is integrated into relevant pages. Contact stays in the footer. The 11 verticals stay on the Vertical Software page. Options 0, A, and C are earlier comparisons.</p>
     </div>
-    <p class="risk">Feel: a simple drawer. Risk: Leadership, FAQ, and Open roles stay behind the chevron. The parent words navigate to Our Story, Acquisitions, and Careers.</p>
+    <p class="risk">Feel: a simple drawer. Risk: Leadership stays behind the chevron; FAQ lives inline on Acquisitions/Verticals/Our Advantage/Careers.</p>
+  </section>
+
+  <!-- OPTION D - Two Column -->
+  <section class="option" id="optD">
+    <div class="option-label">
+      <b>D — Two column drawer (review option)</b>
+      <span>Chrome: logo + hamburger + Explore vertical solutions. Drawer splits into two columns for faster scanning.</span>
+    </div>
+    <div class="chrome">
+      <div class="nav-row">
+        <div class="logo">FULLSTEAM</div>
+        <div class="nav-right">
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+          <a class="cta" href="#">Explore vertical solutions</a>
+        </div>
+      </div>
+    </div>
+    <div class="overlay" style="width:min(640px, 100%); margin-left:auto;">
+      <div class="ov-kicker">Menu — 640px two-column drawer, drawn open</div>
+      <div class="ov-l1" style="grid-template-columns:1fr 1fr;">
+        <div class="ov-col">
+          <h3>Explore</h3>
+          <ul>
+            <li>Vertical Software</li>
+            <li>Our Advantage</li>
+            <li class="ai">AI at Fullsteam</li>
+          </ul>
+        </div>
+        <div class="ov-col">
+          <h3>Company</h3>
+          <ul>
+            <li>Our Story</li>
+            <li style="padding-left:12px; font-size:12px; color:var(--muted);">↳ Leadership</li>
+            <li>Acquisitions</li>
+            <li>Careers</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+      </div>
+      <p class="ov-note">Two-column layout keeps AI at Fullsteam standalone. FAQ integrated inline on pages. Contact available here as well as footer.</p>
+    </div>
+    <p class="risk">Feel: scannable, grouped. Risk: takes more horizontal space than 320px drawer.</p>
+  </section>
+
+  <!-- OPTION E - One Column Expanded -->
+  <section class="option" id="optE">
+    <div class="option-label">
+      <b>E — One column with AI standalone (review option)</b>
+      <span>Chrome: logo + hamburger + Explore vertical solutions. Single column, explicit grouping.</span>
+    </div>
+    <div class="chrome">
+      <div class="nav-row">
+        <div class="logo">FULLSTEAM</div>
+        <div class="nav-right">
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+          <a class="cta" href="#">Explore vertical solutions</a>
+        </div>
+      </div>
+    </div>
+    <div class="overlay overlay-single">
+      <div class="ov-kicker">Menu — 320px one-column drawer, drawn open</div>
+      <ul class="ov-stack">
+        <li>Vertical Software</li>
+        <li>Our Advantage</li>
+        <li>AI at Fullsteam</li>
+        <li>Our Story <span class="acc-tag">accordion (Leadership)</span></li>
+        <li>Acquisitions</li>
+        <li>Careers</li>
+        <li>Contact</li>
+      </ul>
+      <p class="ov-note">AI at Fullsteam treated as standalone item (not nested under Our Advantage). Direct links for Acquisitions and Careers. FAQ integrated into relevant pages.</p>
+    </div>
+    <p class="risk">Feel: clean, explicit. Risk: longer list.</p>
   </section>
 
   <!-- OPTION C -->

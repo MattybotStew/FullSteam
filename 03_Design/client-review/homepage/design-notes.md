@@ -301,6 +301,11 @@ the field-off build (`0,68,96` at the bar, `0,77,108` just below).
 
 ### Measured
 
+> **Correction (2026-10-28).** The contrast figures below are **25th-percentile** background
+> luminance, not the worst pixel under the glyphs. Measured per-glyph, the committed build's sky
+> headline sat at **2.82 : 1** at the end of line 2 — under the 3.0 AA-large bar. The percentile
+> averaged the bright patch away. See *The guard's geometry* below; current build is 4.38 : 1.
+
 **Contrast across the whole cycle** — twelve phases, headline box, 25th-percentile luminance as
 background. The headline is display-size, so AA large (3:1) is the real bar; 4.5:1 is the
 self-imposed floor. Figures below are **with grain on**:
@@ -322,6 +327,85 @@ verified frozen across 1.8 s. The script adds `opening-out` from an `Intersectio
 **No layout change.** `scrollHeight` identical to the build before this work at 1440 (`7864`) and
 390 (`9636`); no horizontal overflow; no console errors. The field is `position: absolute` inside a
 `contain: paint` wrapper and never enters flow.
+
+### Scroll parallax — depth from layers, not from one zoom (2026-10-28, second pass)
+
+The first pass scaled the whole field as **one plane** (`1 → 1.12`). It was measured, correct, and
+invisible: a soft gradient has no edges, so a uniform zoom moves every mass by the same fraction of
+its own diameter and the composition barely changes. **The lesson: parallax is not "it gets bigger",
+it is layers moving at different rates.** One wrapper = one layer = no depth.
+
+The rebuild gives each mass its own share of the scroll, a shared velocity lag, and a moving light
+source.
+
+| | |
+|---|---|
+| **Depth rates** (×`vh` over the morph window) | blue `−0.075`, green `−0.050` (rise, far), gold `+0.105` (sink, near), light `+0.150` |
+| **Scale breath** | blue `−0.05`, green `+0.03`, gold `+0.06`, light `+0.05` — sells which layer is nearer on top of the travel |
+| **Velocity lag** | `−vel × 0.55`, capped `±34px`; `vel` is smoothed scroll delta (`0.17` pickup, threshold `0.03`), so the field **streaks on a fling and settles on stop** |
+| **At-rest life** | `.hero__light` breathes `opacity .38 ↔ .62` on **12s** and drifts on `transform`; the drift periods are **15 / 17 / 14s** (blue / gold / green), deliberately non-harmonic so four rhythms never resolve into one beat |
+| **Mechanism** | the blobs' keyframes own `transform`, so scroll terms ride the independent `translate` / `scale` properties, which compose after it. Inline writes per frame, no CSS transition (KB §23.6 rule 2) |
+| **Guard** | `.hero__blob--ink` gets **no** scroll terms and stays fixed — verified `translate: none`. It is the contrast floor; everything else may move |
+| **Parking** | the rAF loop stops itself once `vel === 0` and the values stop changing; the next scroll re-kicks it, so an idle hero costs no frames |
+
+**Lag is a texture, not the event.** At gain `2.1` a normal wheel tick inverted the base direction —
+the field read as fighting the scroll. At `0.55 / ±34px` the at-rest positions follow the depth
+rates exactly:
+
+| scrollY | 0 | 130 | 259 | 389 | 519 | 648 |
+|---|---|---|---|---|---|---|
+| blue | 0 | −13.5 | −27.0 | −40.6 | −54.0 | −67.5 |
+| gold | 0 | +18.8 | +37.7 | +56.7 | +75.6 | +94.5 |
+| green | 0 | −9.0 | −18.0 | −27.1 | −36.0 | −45.0 |
+| light | 0 | +26.9 | +53.9 | +81.0 | +108.0 | +135.0 |
+
+Gold↔blue separate by **162px** across the opening — that is the relative motion the eye reads as
+depth. Mobile travel is `1350px`; no new horizontal overflow (the pre-existing `3px` at 390 is
+unchanged). Reduced motion: `translate/scale: none !important`, animation `none`, and the drive
+loop returns before writing.
+
+### The guard's geometry — a pre-existing contrast failure, found (2026-10-28)
+
+While tuning the field for motion, the headline was measured **per glyph** rather than by percentile,
+using the first and last pixel of every letter. The committed build failed:
+
+| build | worst sky glyph | worst gold glyph |
+|---|---|---|
+| `HEAD` before this work | **2.82 : 1** | 4.16 : 1 |
+| first motion pass (amplitude +35%) | 2.54 : 1 | 3.82 : 1 |
+| **current** | **4.38 : 1** | 4.84 : 1 |
+
+Cause: the old guard was a `92vmax` radial whose dense core stopped at `72%`. Its corners did not
+reach the end of line 2, so when the gold mass drifted left and up, a real glyph landed on its flank.
+The `5.58:1` in *Measured* above was a p25 — it averaged that patch away.
+
+**The fix is shape, not density.** A bigger radial worked (5.4:1) but dimmed the flanks where the
+motion reads: rest-motion fell from `12.84` to `3.21`. The guard is now a **feathered ellipse that
+hugs the type box** (`min(1080px, 94vw) × min(560px, 64vh)`, `border-radius: 50%`,
+`filter: blur(58px)`, `opacity .66`). Because it stops at the type's edge and the blur is rasterised
+once (it never animates), the flanks stay bright.
+
+### Alive, not just moving (2026-10-28)
+
+Motion over an untouched 2.5s at rest, field only (type and filmstrip hidden), mean |Δ| per channel:
+
+| build | motion | pixels ≥ 8 levels | sky glyph |
+|---|---|---|---|
+| committed HEAD (28/32/36s) | 6.59 | 38.5% | 2.82 |
+| amplitude-led pass (rejected) | 19.12 | 73.5% | 2.54 |
+| big radial guard (rejected) | 3.21 | 6.8% | 5.39 |
+| **current** | **10.69** | **56.3%** | **4.38** |
+
+Three levers, in order of how much they actually bought:
+
+1. **Period, not amplitude.** 28/32/36s → 15/17/14s. Amplitude was tried first and is *not* a free
+   knob: +35% travel put the green mass under line 2 and cost a full contrast level.
+2. **The grain moves.** `.hero__grain` drifts ±2.5% on a 9s loop (`inset: -8%` so no edge shows).
+   It is a repeated neutral tile under `overlay`, so it changes no luminance — the one field motion
+   that cannot touch contrast.
+3. **The light breathes and drifts** on 12s / 13s, off the three mass periods.
+
+Mobile 390×844: sky `4.75:1`, gold `6.68:1`, rest-motion `9.08` (42.5% ≥ 8).
 
 ### Grain (2026-10-26)
 

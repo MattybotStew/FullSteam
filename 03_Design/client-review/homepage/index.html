@@ -336,6 +336,47 @@
         rgba(0,0,0,.76) calc(var(--field-top) + 285px),
         #000 calc(var(--field-top) + 380px));
     }
+    /* ---- Axis A ground · scroll parallax (2026-10-28, second pass) --------
+       FIRST PASS, and why it failed: the whole field was scaled as one plane.
+       A soft gradient has no edges, so a uniform zoom moves every mass by the
+       same fraction of its own diameter and the composition barely changes —
+       on screen it read as nothing. Parallax is not "it gets bigger", it is
+       LAYERS MOVING AT DIFFERENT RATES, so depth now comes from each mass
+       travelling its own distance against the scroll, plus a lag driven by
+       scroll VELOCITY that settles when you stop.
+
+       Mechanism: the blobs' drift keyframes own `transform`, so the scroll
+       terms ride the independent `translate` / `scale` properties, which
+       compose after it. Per-frame inline writes only, no CSS transition
+       (KB §23.6 rule 2), and the ink guard is DELIBERATELY excluded — it is
+       the contrast floor and must stay fixed while everything else moves. */
+    .hero__field-inner { position: absolute; inset: 0; }
+    .hero__blob--blue  { translate: 0 var(--p-blue, 0px);  scale: var(--s-blue, 1); }
+    .hero__blob--gold  { translate: 0 var(--p-gold, 0px);  scale: var(--s-gold, 1); }
+    .hero__blob--green { translate: 0 var(--p-green, 0px); scale: var(--s-green, 1); }
+    /* A light source, not a fourth mass: one very soft, very wide cyan wash
+       that travels further than any mass, so the field's own illumination
+       appears to move across it. Painted before the guard, so it can never
+       walk under the type. */
+    .hero__light {
+      position: absolute; left: 50%; top: 46%;
+      width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax;
+      border-radius: 50%;
+      background: radial-gradient(closest-side,
+        rgba(196, 242, 255, 0.24) 0%,
+        color-mix(in srgb, var(--brand-sky) 34%, transparent) 34%,
+        transparent 78%);
+      opacity: .55;
+      translate: 0 var(--p-light, 0px);
+      scale: var(--s-light, 1);
+      pointer-events: none;
+    }
+    .reduce-motion .hero__blob--blue,
+    .reduce-motion .hero__blob--gold,
+    .reduce-motion .hero__blob--green,
+    .reduce-motion .hero__light {
+      translate: none !important; scale: none !important;
+    }
     .hero__blob {
       position: absolute; display: block;
       width: 84vmax; height: 84vmax; border-radius: 50%;
@@ -383,14 +424,27 @@
     }
     /* the guard — static, painted last, sized to the headline box + margin.
        Density is the lever for contrast: the moving masses are free to be as
-       bright as the composition wants because the type always lands on this. */
+       bright as the composition wants because the type always lands on this.
+       GEOMETRY WAS WRONG UNTIL 2026-10-28: at 92vmax with the falloff ending
+       at 72%, the dense core stopped short of the right end of line 2, and the
+       gold flank put a real glyph at **2.82:1** (measured, and the same in the
+       committed build — the old 5.6:1 figure was a p25 that averaged the bright
+       patch away). The guard is now a wide ellipse that actually wraps the
+       type box, dense to 58%, falling to zero at 100% so it still has no rim. */
     .hero__blob--ink {
-      top: -10vmax; left: 50%;
-      margin-left: -46vmax;
-      width: 92vmax; height: 92vmax;
-      background: radial-gradient(closest-side,
-        color-mix(in srgb, var(--hero-dark) 76%, #000b10) 0%, transparent 72%);
-      opacity: .86;
+      top: 50%; left: 50%;
+      width: min(1080px, 94vw); height: min(560px, 64vh);
+      margin: 0;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--hero-dark) 76%, #000b10);
+      /* A feathered ellipse that hugs the type box instead of a radial that
+         has to reach the corners. The guard never animates, so this blur is
+         rasterised once and costs nothing per frame — and because it stops at
+         the type's edge, the bright flanks (where the motion reads) stay
+         untouched. */
+      filter: blur(58px);
+      opacity: .66;
     }
     /* On a narrow frame every mass is sized by vmax and ends up WIDER than the
        frame (84vmax = 709px at 390), so the type always sits on a blend rather
@@ -417,19 +471,43 @@
       72%  { transform: translate3d(7%, -6%, 0) scale(.96);    opacity: .42; }
       100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
     }
+    /* The light source breathes on its own period, and drifts on `transform`
+       (its `translate` belongs to the scroll drive). Periods are deliberately
+       non-harmonic — 14 / 17 / 19 / 21s — so the four never resolve into one
+       beat and the field never repeats a frame.
+
+       TRAVEL IS NOT A FREE KNOB. An earlier pass raised every excursion by
+       ~35% to make the field read faster; it put the green mass under the end
+       of line 2 and dropped a glyph to **2.54:1**. Speed comes from the
+       PERIOD; amplitude is bounded by the ink guard's coverage. */
+    @keyframes heroLightBreathe {
+      0%, 100% { opacity: .38; }
+      50%      { opacity: .62; }
+    }
+    @keyframes heroLightDrift {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      35%      { transform: translate3d(-6%, 5%, 0) scale(1.05); }
+      70%      { transform: translate3d(4%, -4%, 0) scale(.98); }
+    }
     html:not(.reduce-motion) .hero__blob--blue,
     html:not(.reduce-motion) .hero__blob--gold,
-    html:not(.reduce-motion) .hero__blob--green {
+    html:not(.reduce-motion) .hero__blob--green,
+    html:not(.reduce-motion) .hero__light {
       will-change: transform, opacity;
       backface-visibility: hidden;
     }
-    html:not(.reduce-motion) .hero__blob--blue  { animation: heroDriftA 28s cubic-bezier(.45,.05,.55,.95) infinite; }
-    html:not(.reduce-motion) .hero__blob--gold  { animation: heroDriftB 36s cubic-bezier(.45,.05,.55,.95) infinite; }
-    html:not(.reduce-motion) .hero__blob--green { animation: heroDriftC 32s cubic-bezier(.45,.05,.55,.95) infinite; }
-    @media (prefers-reduced-motion: reduce) { .hero__blob { animation: none !important; } }
+    html:not(.reduce-motion) .hero__blob--blue  { animation: heroDriftA 15s cubic-bezier(.45,.05,.55,.95) infinite; }
+    html:not(.reduce-motion) .hero__blob--gold  { animation: heroDriftB 17s cubic-bezier(.45,.05,.55,.95) infinite; }
+    html:not(.reduce-motion) .hero__blob--green { animation: heroDriftC 14s cubic-bezier(.45,.05,.55,.95) infinite; }
+    html:not(.reduce-motion) .hero__light {
+      animation: heroLightBreathe 14s ease-in-out infinite,
+                 heroLightDrift 16s cubic-bezier(.45,.05,.55,.95) infinite;
+    }
+    @media (prefers-reduced-motion: reduce) { .hero__blob, .hero__light { animation: none !important; } }
     /* compositor work nobody can see: the field stops once the opening has
        scrolled entirely out (IO in the script, below) */
-    html.opening-out .hero__blob { animation-play-state: paused; }
+    html.opening-out .hero__blob,
+    html.opening-out .hero__light { animation-play-state: paused; }
 
     /* ---- Axis A ground · grain (2026-10-26) ------------------------------
        A gradient this smooth reads as CSS. Grain is what makes it read as
@@ -454,7 +532,7 @@
        recentre the tile on 0.5 and compress it to a 0.21–0.70 range, which is
        what makes the blend mean-neutral. */
     .hero__grain {
-      position: absolute; inset: 0;
+      position: absolute; inset: -8%;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncG type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncB type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncA type='table' tableValues='1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
       background-repeat: repeat;
       background-size: 160px 160px;
@@ -462,6 +540,18 @@
       mix-blend-mode: overlay;
       pointer-events: none;
     }
+    /* Grain that lives: the tile drifts a few percent on a 9s loop. A `transform`
+       on a repeated neutral tile is pure compositor work, changes no luminance,
+       and is the one kind of field motion that cannot touch type contrast — so
+       it is doing the "alive" work the guard would otherwise have to give up. */
+    @keyframes grainDrift {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      25%      { transform: translate3d(-2.5%, 1.6%, 0); }
+      50%      { transform: translate3d(1.6%, -2.2%, 0); }
+      75%      { transform: translate3d(2.2%, 2.6%, 0); }
+    }
+    html:not(.reduce-motion) .hero__grain { animation: grainDrift 9s linear infinite; }
+    html.opening-out .hero__grain { animation-play-state: paused; }
     .hero__center {
       position: relative;
       z-index: 2;
@@ -835,7 +925,7 @@
       align-items: baseline;
     }
     .scale__num {
-      font-size: clamp(44px, 6.2vw, 96px); line-height: 1;
+      font-size: clamp(56px, 8vw, 120px); line-height: 1;
       letter-spacing: -.045em; font-weight: 700;
       font-variant-numeric: tabular-nums; color: #fff; white-space: nowrap;
     }
@@ -1198,7 +1288,7 @@
       display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px;
       padding: 22px 0; border-top: 1px solid rgba(255,255,255,.14);
     }
-    .ai__list li:last-child { border-bottom: 1px solid rgba(255,255,255,.14); }
+    .ai__list li:last-child { border-bottom: none; }
     .ai__num { font-size: 11px; letter-spacing: .12em; color: var(--green); padding-top: 4px; }
     /* the 2px rule marks this as the AI/innovation band */
     .ai__title::after {
@@ -1652,11 +1742,14 @@
     <div class="opening-stage" id="openingStage">
       <section class="hero hero--axis-a" id="heroAxisA" aria-labelledby="heroTitle">
         <div class="hero__field" aria-hidden="true">
-          <span class="hero__blob hero__blob--blue"></span>
-          <span class="hero__blob hero__blob--gold"></span>
-          <span class="hero__blob hero__blob--green"></span>
-          <span class="hero__blob hero__blob--ink"></span>
-          <span class="hero__grain"></span>
+          <div class="hero__field-inner" id="heroFieldInner">
+            <span class="hero__blob hero__blob--blue"></span>
+            <span class="hero__blob hero__blob--gold"></span>
+            <span class="hero__blob hero__blob--green"></span>
+            <span class="hero__light"></span>
+            <span class="hero__blob hero__blob--ink"></span>
+            <span class="hero__grain"></span>
+          </div>
         </div>
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
@@ -1911,7 +2004,7 @@
           <h2 class="ai__title" id="aiTitle"><span class="ai__mark">AI</span> that already knows the business.</h2>
           <p class="ai__lede">Use cases first — built on proprietary vertical data, not generic models.</p>
           <p class="ai__foot">
-            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">See AI at Fullsteam</a>
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/our-advantage.html#ai">See AI at Fullsteam</a>
           </p>
         </div>
         <ol class="ai__list" role="list">
@@ -2117,7 +2210,7 @@
     <section class="close" id="close" aria-labelledby="closeTitle">
       <div class="close__inner">
         <h2 class="close__title" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
-        <p class="close__proof">70,000+ customers · <span class="close__proof-flag">11 vertical businesses</span> · 2,000+ people</p>
+        <p class="close__proof" style="font-size: clamp(18px, 2.6vw, 28px);">70,000+ customers · <span class="close__proof-flag">11 vertical businesses</span> · 2,000+ people</p>
         <div class="close__doors">
           <a class="close__door" href="../../../02_Wireframes/active/pages/vertical-software.html">
             <span class="close__door-k">Portfolio</span>
@@ -2151,12 +2244,12 @@
         </ul>
       </div>
       <div>
-        <h3><a href="../../../02_Wireframes/active/pages/embedded-offerings.html" style="color:#fff;text-decoration:none;">Our Advantage</a></h3>
+        <h3><a href="../../../02_Wireframes/active/pages/our-advantage.html" style="color:#fff;text-decoration:none;">Our Advantage</a></h3>
         <ul>
-          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#payments">Payments</a></li>
-          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#lending">Lending</a></li>
-          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#insurance">Insurance</a></li>
-          <li><a href="../../../02_Wireframes/active/pages/embedded-offerings.html#ai">AI at Fullsteam</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#payments">Payments</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#lending">Lending</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#insurance">Insurance</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#ai">AI at Fullsteam</a></li>
         </ul>
       </div>
       <div>
@@ -2183,7 +2276,7 @@
     <div class="menu__panel">
       <nav aria-label="Site">
         <div class="menu__row"><a href="../../../02_Wireframes/active/pages/vertical-software.html">Vertical Software</a></div>
-        <div class="menu__row"><a href="../../../02_Wireframes/active/pages/embedded-offerings.html">Our Advantage</a></div>
+        <div class="menu__row"><a href="../../../02_Wireframes/active/pages/our-advantage.html">Our Advantage</a></div>
         <div class="menu__row"><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a>
           <div class="menu__sub"><a href="../../../02_Wireframes/active/pages/leadership.html">Leadership</a></div>
         </div>
@@ -2607,6 +2700,7 @@
 
       var axisStage = document.getElementById('axisBStage');
       var axisFrame = document.getElementById('axisBFrame');
+      var heroFieldInner = document.getElementById('heroFieldInner');
       function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
       var vertGrow = document.getElementById('vertGrow');
       var vertGrowInner = document.getElementById('vertGrowInner');
@@ -2728,8 +2822,79 @@
         }
         syncBar();
       }
+      /* ---- Axis A ground · the scroll drive (2026-10-28, second pass) ----
+         Each mass gets a different share of the scroll (depth), and the whole
+         field also lags the scroll by a smoothed VELOCITY term that releases
+         when you stop — that release is what makes it feel like a surface
+         with weight rather than something pinned to scrollY. All numbers are
+         fractions of viewport height so the effect survives resize.
+
+         One write per mass per frame, and only when the value actually
+         changes; the loop parks itself once the opening is out of view. */
+      var fieldLastY = null;
+      var fieldVel = 0;
+      var fieldRaf = 0;
+      var fieldKey = '';
+      var fieldTravel = 0;
+
+      /* rate = how far the layer travels per unit of pin progress (×vh),
+         z = the scale breath that sells which layer is nearer. */
+      var FIELD_LAYERS = [
+        { v: '--p-blue',  s: '--s-blue',  rate: -0.075, z: -0.05 },
+        { v: '--p-gold',  s: '--s-gold',  rate:  0.105, z:  0.06 },
+        { v: '--p-green', s: '--s-green', rate: -0.050, z:  0.03 },
+        { v: '--p-light', s: '--s-light', rate:  0.150, z:  0.05 }
+      ];
+
+      function fieldOutOfView() {
+        return document.documentElement.classList.contains('opening-out');
+      }
+
+      function tickField() {
+        fieldRaf = 0;
+        if (!heroFieldInner || reduce.matches) return;
+        if (fieldOutOfView()) { fieldLastY = null; fieldVel = 0; return; }
+
+        var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+        var dy = fieldLastY === null ? 0 : y - fieldLastY;
+        fieldLastY = y;
+
+        /* fast to pick up, slow to let go */
+        fieldVel += (dy - fieldVel) * 0.17;
+        if (Math.abs(fieldVel) < 0.03) fieldVel = 0;
+
+        if (!fieldTravel) fieldTravel = Math.max(1, axisStage ? axisStage.offsetHeight - window.innerHeight : 1);
+        /* the field is gone by the end of the morph; keep the ramp in that window */
+        var t = clamp01(y / (fieldTravel * 0.45));
+        var H = window.innerHeight;
+        /* lag opposes the scroll and is capped hard: it is a texture on top of
+           the depth rates, never the main event — a big lag inverts the base
+           direction and reads as the field fighting the scroll */
+        var lag = Math.max(-34, Math.min(34, -fieldVel * 0.55));
+
+        var key = t.toFixed(3) + '|' + lag.toFixed(1);
+        var changed = key !== fieldKey;
+        if (changed) {
+          fieldKey = key;
+          for (var i = 0; i < FIELD_LAYERS.length; i++) {
+            var L = FIELD_LAYERS[i];
+            var py = L.rate * H * t + lag * (L.rate > 0 ? 1 : 0.8);
+            var ps = 1 + L.z * t + Math.min(Math.abs(fieldVel), 40) * 0.0006;
+            heroFieldInner.style.setProperty(L.v, py.toFixed(1) + 'px');
+            heroFieldInner.style.setProperty(L.s, ps.toFixed(4));
+          }
+        }
+        /* park once settled — the next scroll re-kicks it, so an idle hero
+           costs no frames at all */
+        if (changed || fieldVel !== 0) fieldRaf = requestAnimationFrame(tickField);
+      }
+      function kickField() {
+        if (!fieldRaf && !reduce.matches) fieldRaf = requestAnimationFrame(tickField);
+      }
+
       var axisTick = false;
       function onAxisScroll() {
+        kickField();
         if (!axisTick) {
           axisTick = true;
           requestAnimationFrame(function () {
@@ -2752,7 +2917,8 @@
         }
         if (heroCenter) heroCenter.style.setProperty('--hero-a-fade', reduce.matches ? '0' : '0');
         window.addEventListener('scroll', onAxisScroll, { passive: true });
-        window.addEventListener('resize', onAxisScroll);
+        window.addEventListener('resize', function () { fieldTravel = 0; onAxisScroll(); });
+        kickField();
         renderAxisB();
       } else {
         window.addEventListener('scroll', syncBar, { passive: true });

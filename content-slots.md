@@ -57,7 +57,7 @@ From KB §20–§22 (`PROJECT_KNOWLEDGE_BASE.md`). These are hard constraints, n
 | Logo wordmark | Home link | Locked | `FULLSTEAM` |
 | Menu button | Opens the menu | Locked | Hamburger (three bars). Accessible name "Menu". `aria-expanded` reflects open/closed |
 | "Explore vertical solutions" pill | Primary CTA (short form) | Locked | Header uses the short form; body uses the full form |
-| Menu rows | Sitemap L1 | Draft — 2026-10-22 client request, applied; formal re-lock pending | Single column, one item per line: Vertical Software · Our Advantage · AI at Fullsteam (`embedded-offerings.html#ai`, not a new page) · Our Story · Acquisitions · Careers. Labels now match the docs; structure unchanged |
+| Menu rows | Sitemap L1 | Draft — 2026-10-22 client request, applied; formal re-lock pending | Single column, one item per line: Vertical Software · Our Advantage · AI at Fullsteam (`our-advantage.html#ai`, not a new page) · Our Story · Acquisitions · Careers. Labels now match the docs; structure unchanged |
 | Menu children | Recovery | Locked | Indented in the same column: Leadership under Our Story · FAQ under Acquisitions · Open roles under Careers. The 11 verticals stay on the Vertical Software page, not in this menu |
 | Menu "Open roles" | Workday job search | Locked | External: `https://fullsteam.wd1.myworkdayjobs.com/External` · `target="_blank"` · not `careers.html#roles` |
 | Finder line | "find your vertical" | Draft | Not in the single-column menu. Type-ahead stays on the Vertical Software page |
@@ -167,9 +167,9 @@ One page, 11 verticals, no child pages.
 
 ---
 
-## 6. Our Advantage — `pages/embedded-offerings.html`
+## 6. Our Advantage — `pages/our-advantage.html`
 
-On-page name is **Our Advantage** (client rename 2026-10-22, propagated repo-wide). File name stays `embedded-offerings.html` so the URL and all cross-links hold. Sticky sidebar swaps content inline. No new AI page — `#ai` is the panel.
+On-page name is **Our Advantage** (client rename 2026-10-22, propagated repo-wide). File name stays `our-advantage.html` so the URL and all cross-links hold. Sticky sidebar swaps content inline. No new AI page — `#ai` is the panel.
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
