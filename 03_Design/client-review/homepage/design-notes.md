@@ -392,9 +392,10 @@ Motion over an untouched 2.5s at rest, field only (type and filmstrip hidden), m
 | build | motion | pixels ≥ 8 levels | sky glyph |
 |---|---|---|---|
 | committed HEAD (28/32/36s) | 6.59 | 38.5% | 2.82 |
-| amplitude-led pass (rejected) | 19.12 | 73.5% | 2.54 |
+| amplitude-led pass (rejected — broke before the guard fix) | 19.12 | 73.5% | 2.54 |
 | big radial guard (rejected) | 3.21 | 6.8% | 5.39 |
-| **current** | **10.69** | **56.3%** | **4.38** |
+| period + grain (2026-10-28, second pass) | 10.69 | 56.3% | 4.38 |
+| **whole-field turn + wide travel** | **19.94** | **78.8%** | **4.38** |
 
 Three levers, in order of how much they actually bought:
 
@@ -406,6 +407,50 @@ Three levers, in order of how much they actually bought:
 3. **The light breathes and drifts** on 12s / 13s, off the three mass periods.
 
 Mobile 390×844: sky `4.75:1`, gold `6.68:1`, rest-motion `9.08` (42.5% ≥ 8).
+
+### The turn — the lever translation can't reach (2026-10-28, third pass)
+
+Client note: *"i need much more hero movement on the gradients."* The second pass had already taken
+travel and period about as far as the contrast budget allowed, so the remaining headroom was
+structural.
+
+**The insight: a radial gradient is rotationally symmetric.** Turning a mass about its own centre
+changes no pixel — so "rotate the blobs" is a dead end. Turning the **container** is not: every mass
+moves along an arc, and because the arc radius differs per mass, the composition *shears*. Near
+masses swing further than far ones. That shear is the thing the eye reads as a living field, and it
+is available at any amplitude with no extra contrast cost.
+
+What changed:
+
+| | before | now |
+|---|---|---|
+| container | none | `rotate(−2.6° ↔ 3.1°)` + `scale(1.05…1.10)`, 27s |
+| blue travel | `34% / 20%` | `56% / 32%`, scale `1.14 / .90` |
+| gold travel | `−22% / 24%` | `−38% / 40%`, scale `1.16 / .90` |
+| green travel | `−26% / −22%` | `−44% / −38%`, scale `1.18 / .90` |
+| light drift | `−6% / 5%` | `−16% / 12%` |
+
+The scale paired with the turn is not decoration: it keeps the clipped field covering the frame as
+the corners swing, so the turn never opens an edge.
+
+**The guard had to move out of the rotating wrapper.** It is the contrast floor; if it rotated with
+the light, coverage over the type box would change every frame and the measured 4.38:1 would only
+hold at the phase it was measured at. The DOM is now
+`.hero__field > .hero__field-inner (masses + light) → .hero__blob--ink → .hero__grain`, so the turn
+moves everything that should move and nothing that shouldn't.
+
+Re-measured after the change — wide travel is safe **only because** the guard is now an ellipse that
+hugs the type box (see *The guard's geometry*):
+
+| | desktop 1440 | mobile 390 |
+|---|---|---|
+| motion (2.5s, field only) | **19.94** (78.8% ≥ 8) | **12.55** (51.7% ≥ 8) |
+| sky glyph, worst of 8 phases | **4.38 : 1** | **4.96 : 1** |
+| gold glyph | **4.79 : 1** | **6.78 : 1** |
+
+Reduced motion verified with the class on: container `transform: none`, all four animations `none`,
+scroll `translate`/`scale` `none` — a static frame, not a slower one. Horizontal overflow unchanged
+(`3px` at 390, pre-existing).
 
 ### Grain (2026-10-26)
 

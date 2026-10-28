@@ -351,6 +351,27 @@
        (KB §23.6 rule 2), and the ink guard is DELIBERATELY excluded — it is
        the contrast floor and must stay fixed while everything else moves. */
     .hero__field-inner { position: absolute; inset: 0; }
+    /* WHOLE-FIELD TURN (2026-10-28, third pass). The masses are circles with
+       radially symmetric gradients, so rotating them about their own centres
+       is invisible. Rotating the CONTAINER is not: it moves every mass along
+       an arc, and because the arc radius differs per mass, the composition
+       shears — near masses swing faster than far ones. That relative shear is
+       what reads as "the field is alive", far more than any translation of a
+       soft edge. Scale is paired with the turn so no corner of the clip ever
+       opens, and the guard is deliberately OUTSIDE this wrapper: it is the
+       contrast floor, so it must not rotate with the light. */
+    @keyframes heroFieldTurn {
+      0%   { transform: rotate(-2.6deg) scale(1.06); }
+      38%  { transform: rotate(1.4deg)  scale(1.10); }
+      72%  { transform: rotate(3.1deg)  scale(1.05); }
+      100% { transform: rotate(-2.6deg) scale(1.06); }
+    }
+    html:not(.reduce-motion) .hero__field-inner {
+      will-change: transform;
+      animation: heroFieldTurn 27s cubic-bezier(.42,0,.58,1) infinite;
+    }
+    .reduce-motion .hero__field-inner { transform: none !important; }
+    html.opening-out .hero__field-inner { animation-play-state: paused; }
     .hero__blob--blue  { translate: 0 var(--p-blue, 0px);  scale: var(--s-blue, 1); }
     .hero__blob--gold  { translate: 0 var(--p-gold, 0px);  scale: var(--s-gold, 1); }
     .hero__blob--green { translate: 0 var(--p-green, 0px); scale: var(--s-green, 1); }
@@ -455,20 +476,20 @@
     }
     @keyframes heroDriftA {
       0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
-      30%  { transform: translate3d(34%, 20%, 0) scale(1.08);  opacity: .58; }
-      65%  { transform: translate3d(12%, -10%, 0) scale(.96);  opacity: .38; }
+      30%  { transform: translate3d(56%, 32%, 0) scale(1.14);  opacity: .62; }
+      65%  { transform: translate3d(18%, -16%, 0) scale(.90);  opacity: .34; }
       100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
     }
     @keyframes heroDriftB {
       0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .62; }
-      32%  { transform: translate3d(-22%, 24%, 0) scale(1.09);  opacity: .72; }
-      68%  { transform: translate3d(-6%, -13%, 0) scale(.95);   opacity: .54; }
+      32%  { transform: translate3d(-38%, 40%, 0) scale(1.16); opacity: .78; }
+      68%  { transform: translate3d(-10%, -20%, 0) scale(.90); opacity: .50; }
       100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .62; }
     }
     @keyframes heroDriftC {
       0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
-      36%  { transform: translate3d(-26%, -22%, 0) scale(1.10); opacity: .64; }
-      72%  { transform: translate3d(7%, -6%, 0) scale(.96);    opacity: .42; }
+      36%  { transform: translate3d(-44%, -38%, 0) scale(1.18); opacity: .70; }
+      72%  { transform: translate3d(13%, -9%, 0) scale(.90);    opacity: .36; }
       100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
     }
     /* The light source breathes on its own period, and drifts on `transform`
@@ -476,18 +497,21 @@
        non-harmonic — 14 / 17 / 19 / 21s — so the four never resolve into one
        beat and the field never repeats a frame.
 
-       TRAVEL IS NOT A FREE KNOB. An earlier pass raised every excursion by
-       ~35% to make the field read faster; it put the green mass under the end
-       of line 2 and dropped a glyph to **2.54:1**. Speed comes from the
-       PERIOD; amplitude is bounded by the ink guard's coverage. */
+       TRAVEL WAS ONCE NOT A FREE KNOB. A 2026-10-28 pass raised every excursion
+       by ~35% on top of the ORIGINAL guard and put the green mass under the end
+       of line 2 — a glyph at **2.54:1**. Two things changed since: the guard is
+       now a fixed feathered ellipse that hugs the type box (so the bright flanks
+       can move freely), and the guard no longer rotates with the field. Travel
+       is still bounded by that ellipse, and is re-measured per glyph across
+       eight phases whenever it moves. */
     @keyframes heroLightBreathe {
       0%, 100% { opacity: .38; }
       50%      { opacity: .62; }
     }
     @keyframes heroLightDrift {
       0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-      35%      { transform: translate3d(-6%, 5%, 0) scale(1.05); }
-      70%      { transform: translate3d(4%, -4%, 0) scale(.98); }
+      35%      { transform: translate3d(-16%, 12%, 0) scale(1.10); }
+      70%      { transform: translate3d(8%, -7%, 0) scale(.94); }
     }
     html:not(.reduce-motion) .hero__blob--blue,
     html:not(.reduce-motion) .hero__blob--gold,
@@ -1747,9 +1771,9 @@
             <span class="hero__blob hero__blob--gold"></span>
             <span class="hero__blob hero__blob--green"></span>
             <span class="hero__light"></span>
-            <span class="hero__blob hero__blob--ink"></span>
-            <span class="hero__grain"></span>
           </div>
+          <span class="hero__blob hero__blob--ink"></span>
+          <span class="hero__grain"></span>
         </div>
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
