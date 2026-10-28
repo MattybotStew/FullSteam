@@ -2324,10 +2324,9 @@ naming was dropped from the page, its title and footer, and its build notes. `ho
 
 **What it is.** Pinned **Axis A** opening (“Any industry, we own the software.”) with the
 blue→green ground — **now a living field**: three luminous masses (aqua, **gold**, lime) orbit it
-on 28s/36s/32s periods under a fine film grain (`opacity .20`), with a static ink mass painted last
-as the contrast guard so the drift cannot spend headline legibility (2026-10-26, `design-notes.md`
-§"Axis A ground — the living field") — and the vertical filmstrip → **Axis B** image scrolls up
-over it
+on 15s/17s/14s periods under a fine film grain, with a whole-field turn and per-mass scroll
+parallax (2026-10-28, `design-notes.md` §"Axis A ground — the living field" / §"The turn") — and
+the vertical filmstrip → **Axis B** image scrolls up over it
 (“Then we build what makes it grow.”) → **scale chapter** (2026-10-26; a four-row leader
 table — 70,000+ / 11 / $75B+ / 2,000+ — that replaced the 3-card proof band, which is saved for
 reuse at `client-review/sections/key-figures-band.html`; figures count up, then each rule draws
@@ -2339,6 +2338,18 @@ posts**, added 2026-10-26) → close → footer.
 
 Built on KB §15 tokens, Instrument Sans + Fragment Mono, with Instrument Serif italic on the
 payoff words (still unsanctioned — §27.4).
+
+**Light register + transparent chrome (2026-10-28, amended).** The Axis A opening is no longer a
+dark band: it is a **paper ground** (ivory derived from `--gold 6% in #fff`) with a brand
+blue/gold/green mesh blooming up from the bottom edge, ink display type, and the serif payoff in
+`--brand` (gold on ivory is 1.7:1 — unusable). The old static ink guard is replaced by an inverse
+**paper plate** under the type box; the masses paint blue → green → gold in normal blending
+(multiply was rejected — it turned the band olive). The **copy block is centred between the header
+and the filmstrip**, and the **header is transparent over Axis A** — the logo and menu swap to the
+ink/colour set on paper and back to white over Axis B's photo, the ink bands, and the open menu.
+Measured worst-glyph contrast (8 phases): ink 9.39:1 desktop / 9.46:1 mobile, `--brand` serif
+3.51:1 / 4.53:1, eyebrow 7.42:1 / 6.72:1; rest-motion 23.73 / 18.10 mean |Δ|. Full record:
+`design-notes.md` §"Axis A ground — the light register".
 
 **Deliberate divergences from the wireframe record** (`wireframes.md` §2):
 

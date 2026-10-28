@@ -128,18 +128,25 @@
       border-bottom: 1px solid var(--line);
       transition: background-color .25s var(--ease-out), border-color .25s var(--ease-out);
     }
-    .site-bar.is-on-hero {
-      background: var(--hero-dark);
-      border-bottom-color: rgba(255, 255, 255, 0.22);
-    }
-    .site-bar.is-on-hero .menu-btn__line { background: #fff; }
-    .site-bar.is-on-hero .menu-btn:focus-visible { outline-color: #fff; }
+    /* TRANSPARENT OVER AXIS A (2026-10-28). The opening is paper now, so a solid
+       navy cap on top of it was two identities stacked: a dark bar, then a light
+       page. The bar floats instead — no fill, no rule — and the mark and the
+       menu swap to the ink/colour set so they read on ivory. Everything that is
+       actually dark (Axis B's photo, the ink bands) still flips to white. */
+    .site-bar.is-on-hero { background: transparent; border-bottom-color: transparent; }
+    .site-bar.is-on-hero .menu-btn__line { background: var(--ink); }
+    .site-bar.is-on-hero .menu-btn:focus-visible { outline-color: var(--brand); }
     /* the scale chapter is ink, so the bar keeps its dark treatment there */
     .site-bar.is-on-ink { background: var(--ink); border-bottom-color: transparent; }
     .site-bar.is-on-ink .menu-btn__line { background: #fff; }
     .site-bar.is-on-ink .menu-btn:focus-visible { outline-color: #fff; }
     /* over Axis B the photo is the header: no fill, no rule */
     .site-bar.is-on-axis-b { background: transparent; border-bottom-color: transparent; }
+    /* …and the bars must go white there. is-on-hero is still true over the Axis B
+       photo (the opening lasts to the end of the stage), so without this the ink
+       lines from the paper state vanish into the image. */
+    .site-bar.is-on-axis-b .menu-btn__line { background: #fff; }
+    .site-bar.is-on-axis-b .menu-btn:focus-visible { outline-color: #fff; }
     @media (prefers-reduced-motion: reduce) { .site-bar { transition: none; } }
     .site-bar:has(.menu-btn[aria-expanded="true"]) { background: var(--brand); border-color: transparent; }
     .site-bar:has(.menu-btn[aria-expanded="true"]) .menu-btn__line { background: #fff; }
@@ -152,9 +159,22 @@
     }
     .logo-stack__light { opacity: 1; }              /* white mark — on dark */
     .logo-stack__dark { opacity: 0; }               /* colour mark — on white */
-    /* colour mark only when the bar is actually white — not merely "past hero" */
+    /* The mark follows the SURFACE, not the scroll position. On paper (the
+       transparent Axis A bar, the white interior bands) it is the colour mark;
+       on Axis B's photo, the ink bands and the open menu it is the white one.
+       Written as explicit pairs so a new bar state cannot inherit the wrong
+       logo by accident. */
+    .site-bar.is-on-hero .logo-stack__light { opacity: 0; }
+    .site-bar.is-on-hero .logo-stack__dark { opacity: 1; }
     .site-bar:not(.is-on-hero):not(.is-on-axis-b):not(.is-on-ink) .logo-stack__light { opacity: 0; }
     .site-bar:not(.is-on-hero):not(.is-on-axis-b):not(.is-on-ink) .logo-stack__dark { opacity: 1; }
+    .site-bar.is-on-ink .logo-stack__light,
+    .site-bar.is-on-axis-b .logo-stack__light { opacity: 1; }
+    .site-bar.is-on-ink .logo-stack__dark,
+    .site-bar.is-on-axis-b .logo-stack__dark { opacity: 0; }
+    /* the menu fills the bar with brand blue — white mark only */
+    .site-bar:has(.menu-btn[aria-expanded="true"]) .logo-stack__light { opacity: 1; }
+    .site-bar:has(.menu-btn[aria-expanded="true"]) .logo-stack__dark { opacity: 0; }
     /* scrim so the floating header keeps the white mark legible on any frame */
     .site-bar::before {
       content: ""; position: fixed; left: 0; right: 0; top: 0;
@@ -249,18 +269,12 @@
     }
     .hero--axis-a {
       min-height: 100svh;
-      /* Blue → green. The blue end is the brand's own dark (so the solid bar
-         up top still blends into it); the green is the brand lime pulled deep
-         rather than used as paint, so the field reads as a gradient of the
-         identity, not a second brand colour. Top glow keeps the depth the
-         flat linear had. */
-      background:
-        radial-gradient(120% 80% at 50% -20%, color-mix(in srgb, var(--brand) 40%, transparent) 0%, transparent 55%),
-        linear-gradient(158deg,
-          var(--hero-dark) 0%,
-          color-mix(in srgb, var(--brand) 92%, #001018) 40%,
-          color-mix(in srgb, var(--green) 36%, #003a33) 100%);
-      color: #fff;
+      /* Light register (2026-10-28, fourth pass). The opening is now a paper
+         ground that saturates from below: ivory at the type, a blue / gold /
+         green mesh blooming up from the bottom edge. The tint is derived from
+         --gold rather than invented — a warm white, not a new colour. */
+      background: color-mix(in srgb, var(--gold) 6%, #fff);
+      color: var(--ink);
       display: flex; flex-direction: column; align-items: center; justify-content: space-between;
       text-align: center;
       padding: calc(var(--bar-h) + 24px) var(--gutter-x) clamp(20px, 3vh, 36px);
@@ -311,30 +325,28 @@
       position: absolute; inset: 0; z-index: 0;
       overflow: hidden; pointer-events: none;
       contain: paint;
-      /* The field must not reach the chrome. The solid header bar is painted
-         in the hero's own `--hero-dark` so the two read as one plane; any
-         glow leaking under it re-opens that seam. This mask holds the bar's
-         full height (plus a generous ramp) at exactly the base colour, which
-         also keeps the drift from ever brightening the top edge of the frame.
-         The ink mass is below the ramped zone and needs no protection. */
-      --field-top: calc(var(--bar-h) + 8px);
-      /* Eased, not linear: a straight two-stop ramp leaves a readable band
-         where the slope ends (seen at 1440 around y≈350). Five stops
-         approximate an ease so the field has no visible horizon. */
+      /* THE RISE (2026-10-28, fourth pass). The field no longer has a dark top
+         edge to protect — the ground is paper and the type is ink, so the only
+         job is keeping colour OFF the words. Colour blooms from the bottom
+         centre and dies before it reaches the payoff line: the radius is sized
+         so the mask is ~0 at "software." and ~1 at the bottom edge, which puts
+         the mesh in the bottom third where the filmstrip sits.
+
+         A radial mask, not a linear one: a horizontal ramp multiplied by round
+         masses leaves a readable horizon where the slope ends. A bloom has no
+         straight edge, so the field can be strong without reading as a band. */
       mask-image: linear-gradient(180deg,
-        transparent 0,
-        transparent var(--field-top),
-        rgba(0,0,0,.14) calc(var(--field-top) + 95px),
-        rgba(0,0,0,.44) calc(var(--field-top) + 190px),
-        rgba(0,0,0,.76) calc(var(--field-top) + 285px),
-        #000 calc(var(--field-top) + 380px));
+        transparent 22%,
+        rgba(0,0,0,.16) 36%,
+        rgba(0,0,0,.55) 48%,
+        rgba(0,0,0,.85) 60%,
+        #000 72%);
       -webkit-mask-image: linear-gradient(180deg,
-        transparent 0,
-        transparent var(--field-top),
-        rgba(0,0,0,.14) calc(var(--field-top) + 95px),
-        rgba(0,0,0,.44) calc(var(--field-top) + 190px),
-        rgba(0,0,0,.76) calc(var(--field-top) + 285px),
-        #000 calc(var(--field-top) + 380px));
+        transparent 22%,
+        rgba(0,0,0,.16) 36%,
+        rgba(0,0,0,.55) 48%,
+        rgba(0,0,0,.85) 60%,
+        #000 72%);
     }
     /* ---- Axis A ground · scroll parallax (2026-10-28, second pass) --------
        FIRST PASS, and why it failed: the whole field was scaled as one plane.
@@ -375,22 +387,46 @@
     .hero__blob--blue  { translate: 0 var(--p-blue, 0px);  scale: var(--s-blue, 1); }
     .hero__blob--gold  { translate: 0 var(--p-gold, 0px);  scale: var(--s-gold, 1); }
     .hero__blob--green { translate: 0 var(--p-green, 0px); scale: var(--s-green, 1); }
-    /* A light source, not a fourth mass: one very soft, very wide cyan wash
-       that travels further than any mass, so the field's own illumination
-       appears to move across it. Painted before the guard, so it can never
-       walk under the type. */
+    /* A light source, not a fourth mass: a warm paper bloom low in the frame
+       that lifts the middle of the mesh (the reference's luminous core). It
+       travels further than any mass, so the illumination itself moves. */
     .hero__light {
-      position: absolute; left: 50%; top: 46%;
+      position: absolute; left: 50%; top: 116%;
       width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax;
       border-radius: 50%;
       background: radial-gradient(closest-side,
-        rgba(196, 242, 255, 0.24) 0%,
-        color-mix(in srgb, var(--brand-sky) 34%, transparent) 34%,
-        transparent 78%);
-      opacity: .55;
+        rgba(255, 252, 240, 0.72) 0%,
+        rgba(255, 250, 225, 0.30) 38%,
+        transparent 74%);
+      opacity: .34;
       translate: 0 var(--p-light, 0px);
       scale: var(--s-light, 1);
       pointer-events: none;
+    }
+    /* THE PAPER PLATE (2026-10-28, fifth pass). The type is ink on paper, so
+       wherever the headline is, the mesh has to get out of the way — the exact
+       inverse of the old ink guard. A soft ivory bloom the size of the TYPE box
+       keeps the bed at paper while the colour stays visible around it, which is
+       how the reference gets a saturated field AND black type.
+       Size matters more now that the copy is centred: the first version wrapped
+       the text box with 200px of margin on every side, which erased the whole
+       middle of the composition — the mesh survived only as a rim. It now hugs
+       the measured glyph box (712×359 at 1440) with just enough bleed for the
+       blur.
+       It never animates, so it is rasterised once and costs nothing per frame;
+       because it is ivory-on-ivory at its edge, it has no rim to see. */
+    .hero__plate {
+      position: absolute; top: 42%; left: 50%;
+      width: min(880px, 92vw); height: min(520px, 56vh);
+      margin: 0; transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--gold) 6%, #fff);
+      filter: blur(60px);
+      opacity: .88;
+      pointer-events: none;
+    }
+    @media (max-width: 700px) {
+      .hero__plate { width: 96vw; height: 40vh; opacity: .90; top: 46%; }
     }
     .reduce-motion .hero__blob--blue,
     .reduce-motion .hero__blob--gold,
@@ -400,8 +436,20 @@
     }
     .hero__blob {
       position: absolute; display: block;
-      width: 84vmax; height: 84vmax; border-radius: 50%;
+      /* Sized and centred so the PLATEAU of each mass — not its falloff — is
+         what sits inside the frame. The first attempts pushed the cores below
+         the viewport and only the pale outer 30% showed, which is why the mesh
+         read as haze no matter how saturated the sources were. */
+      width: 96vmax; height: 96vmax;
+      margin: -48vmax 0 0 -48vmax;
+      border-radius: 50%;
       transform-origin: 50% 50%;
+      /* Normal blending, deliberately. Multiply was tried first (inks on
+         paper) and it turned the whole band olive: blue and green multiplied
+         through each other lose the one thing the mesh needs, luminance. The
+         masses are opaque enough that normal blending keeps each hue clean and
+         lets the paint order decide the overlap: blue -> green -> gold, so the
+         warm core stays warm instead of mixing with the cool two into grey. */
     }
     /* Falloff note: an earlier pass ended these gradients at a hard stop
        (transparent 78–82%), which left a readable RIM around each mass — on
@@ -410,69 +458,56 @@
        edge to find. Relative motion is unchanged: travel is a percentage of
        the mass's own size, so growing the mass scales the distance and the
        falloff together. */
-    /* cool half — off the left edge, level with the headline */
+    /* cool half — the blue end of the mesh, bottom left.
+       On paper the masses are PAINT, not light: they are mixed toward full
+       brand chroma and left opaque, and strength is carried by the element
+       opacity the drift keyframes already animate. The first pass kept the
+       old dark-ground mixes and they read as grey smudges on white. */
     .hero__blob--blue {
-      top: -12vmax; left: -34vmax;
+      left: 2%; top: 98%;
       background: radial-gradient(closest-side,
-        color-mix(in srgb, var(--brand-sky) 64%, var(--brand)) 0%,
-        color-mix(in srgb, var(--brand-sky) 34%, var(--brand)) 42%,
+        color-mix(in srgb, var(--brand-sky) 78%, var(--brand)) 0%,
+        color-mix(in srgb, var(--brand-sky) 66%, var(--brand)) 62%,
+        color-mix(in srgb, var(--brand-sky) 30%, var(--brand)) 84%,
         transparent 100%);
-      opacity: .46;
+      opacity: .96;
     }
-    /* the warm half — the yellow the frame was missing. Sits off the right
-       edge so it lights the flank and never crosses the type.
-       Colour note: the ground beneath is G≈90, so a source with R−G=57 (plain
-       --gold) at 0.58 alpha can never land R>G — it reads olive however bright
-       it gets. The core is mixed slightly orange (#8f5200 → R−G≈68) and the
-       plateau is widened so a real yellow AREA survives the base's green. */
+    /* the warm core — painted LAST and centred on the bottom edge, so it reads
+       as sun on the horizon rather than as a third primary mixing with the
+       other two into grey. Blue and green are allowed to blend into teal on
+       their own (they are the brand's original gradient); gold stays clean. */
     .hero__blob--gold {
-      top: -16vmax; right: -26vmax;
+      left: 50%; top: 108%;
+      width: 84vmax; height: 84vmax;
+      margin: -42vmax 0 0 -42vmax;
       background: radial-gradient(closest-side,
-        color-mix(in srgb, var(--gold) 92%, #8f5200) 0%,
-        color-mix(in srgb, var(--gold) 86%, #8f5200) 32%,
-        color-mix(in srgb, var(--gold) 50%, #6b4a00) 64%,
+        color-mix(in srgb, var(--gold) 72%, #ff6a00) 0%,
+        color-mix(in srgb, var(--gold) 92%, #ff9d00) 58%,
+        color-mix(in srgb, var(--gold) 90%, #ffe9a3) 82%,
         transparent 100%);
-      opacity: .62;
+      opacity: .92;
     }
-    /* the cool end of the ground, bottom right */
+    /* the cool end, bottom right */
     .hero__blob--green {
-      right: -24vmax; bottom: -52vmax;
+      left: 92%; top: 100%;
       background: radial-gradient(closest-side,
-        color-mix(in srgb, var(--green) 58%, #003a33) 0%,
-        color-mix(in srgb, var(--green) 30%, #003a33) 42%,
+        color-mix(in srgb, var(--green) 82%, #1a6f4a) 0%,
+        color-mix(in srgb, var(--green) 70%, #1a6f4a) 62%,
+        color-mix(in srgb, var(--green) 44%, #7fc0a0) 84%,
         transparent 100%);
-      opacity: .52;
+      opacity: .78;
     }
-    /* the guard — static, painted last, sized to the headline box + margin.
-       Density is the lever for contrast: the moving masses are free to be as
-       bright as the composition wants because the type always lands on this.
-       GEOMETRY WAS WRONG UNTIL 2026-10-28: at 92vmax with the falloff ending
-       at 72%, the dense core stopped short of the right end of line 2, and the
-       gold flank put a real glyph at **2.82:1** (measured, and the same in the
-       committed build — the old 5.6:1 figure was a p25 that averaged the bright
-       patch away). The guard is now a wide ellipse that actually wraps the
-       type box, dense to 58%, falling to zero at 100% so it still has no rim. */
-    .hero__blob--ink {
-      top: 50%; left: 50%;
-      width: min(1080px, 94vw); height: min(560px, 64vh);
-      margin: 0;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: color-mix(in srgb, var(--hero-dark) 76%, #000b10);
-      /* A feathered ellipse that hugs the type box instead of a radial that
-         has to reach the corners. The guard never animates, so this blur is
-         rasterised once and costs nothing per frame — and because it stops at
-         the type's edge, the bright flanks (where the motion reads) stay
-         untouched. */
-      filter: blur(58px);
-      opacity: .66;
-    }
-    /* On a narrow frame every mass is sized by vmax and ends up WIDER than the
-       frame (84vmax = 709px at 390), so the type always sits on a blend rather
-       than a flank. The lever is density, not position: the guard runs at .93
-       so the bed stays ink. Worst case measured 4.60:1 (AA large needs 3:1). */
+    /* Portrait: the masses have to be STACKED, not ganged. At 390 the default
+       placement puts all three almost on top of each other (96vmax ≈ 374px on a
+       390px frame), so they average into one sage wash and the blue disappears
+       under the gold. Dropping each mass to its own corner and lifting it above
+       the bottom edge keeps three hues readable in a tall, narrow frame.
+       The eyebrow is also two lines here and was being clipped by the 84px bar,
+       hence the extra 34px of top padding. */
     @media (max-width: 700px) {
-      .hero__blob--ink { opacity: .93; }
+      .hero__blob--blue  { left: 0%;   top: 90%; }
+      .hero__blob--green { left: 100%; top: 92%; }
+      .hero__blob--gold  { top: 104%; }
     }
     @keyframes heroDriftA {
       0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
@@ -560,8 +595,11 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncG type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncB type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncA type='table' tableValues='1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
       background-repeat: repeat;
       background-size: 160px 160px;
-      opacity: .2;
-      mix-blend-mode: overlay;
+      /* .2 was right over a dark bed; on paper it all but disappears. The
+         reference's grain is a visible film, so it runs at .34 with multiply,
+         which darkens the ivory a touch instead of washing it out. */
+      opacity: .34;
+      mix-blend-mode: multiply;
       pointer-events: none;
     }
     /* Grain that lives: the tile drifts a few percent on a 9s loop. A `transform`
@@ -583,6 +621,13 @@
       width: 100%;
     }
     .hero--axis-a .hero__center {
+      /* Centred in the band between the header and the filmstrip (2026-10-28,
+         fifth pass). .hero__center is the flex:1 row between the two, so
+         `center` is literally the midpoint of the empty apron — the copy block
+         sits on it, not on the viewport grid. The type therefore ends around
+         63%, which is why the plate below is sized to the TYPE BOX rather than
+         to the frame: the paper has to travel with the words. */
+      justify-content: center;
       opacity: calc(1 - var(--hero-a-fade, 0) * 0.92);
       transition: none;
     }
@@ -614,22 +659,26 @@
       font-size: 11px; line-height: 1.6;
       letter-spacing: .14em; text-transform: uppercase;
       text-align: center; text-wrap: balance;
-      /* White, not --brand-sky. Sky is the kicker colour on the dark opening,
-         but here the H1 directly beneath it is sky, so an aqua eyebrow read as
-         a faded first line of the same headline (measured at 11px over the
-         brightest phase: 2.6:1). White keeps it a LABEL above a DISPLAY line
-         and clears 4.5:1 for small text across the whole drift cycle. */
-      color: rgba(255,255,255,.95);
+      /* Ink, at .82: on paper the label has to sit under the headline in the
+         hierarchy, not fight it. .82 ink on the ivory ground measures ~11:1, so
+         the small text keeps a wide margin over 4.5:1. */
+      color: rgba(13,26,32,.82);
+    }
+    /* Portrait: the label runs a touch tighter so it breaks as one balanced
+       pair of lines instead of three. */
+    @media (max-width: 700px) {
+      .hero__eyebrow { font-size: 10px; letter-spacing: .12em; }
     }
     .hero__title {
       --lh: 0.95;
       margin: 0;
       line-height: var(--lh);
-      color: #fff;
+      color: var(--ink);
       font-weight: 500;
       text-align: center;
       text-wrap: balance;
-      text-shadow: 0 2px 40px rgba(0, 20, 32, 0.45);
+      /* no halo: on paper a glow around ink type reads as a smudge */
+      text-shadow: none;
       transition: none;
     }
     .hero__title em {
@@ -637,7 +686,8 @@
       font-style: italic;
       font-weight: 400;
       letter-spacing: 0;
-      color: var(--gold);
+      /* brand blue, not gold: gold on ivory is 1.7:1 — invisible */
+      color: var(--brand);
       line-height: 0;
       padding-inline: 0.12em;
       margin-inline: -0.12em;
@@ -676,7 +726,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.02em;
-      color: var(--brand-sky);
+      color: var(--ink);
       text-shadow: none;
     }
     .hero__title--software {
@@ -924,6 +974,11 @@
     }
     .axis-b__headlines .hero__title--software .line em {
       display: inline-block;
+      /* White, not the Axis A brand blue (2026-10-28). The Axis A payoff sits on
+         paper and takes `--brand`; this one sits on the tinted photo, where
+         brand blue measured ~2:1. The serif is the accent, the white keeps it
+         legible and still separates it from the sky sans above it. */
+      color: #fff;
       transform: scale(calc(0.9 + 0.1 * var(--line-op, 0)));
     }
     .axis-b__headlines .hero__title--software .line[data-li="1"] { --line-op: var(--pSoftIn, 0); }
@@ -1792,11 +1847,11 @@
         <div class="hero__field" aria-hidden="true">
           <div class="hero__field-inner" id="heroFieldInner">
             <span class="hero__blob hero__blob--blue"></span>
-            <span class="hero__blob hero__blob--gold"></span>
             <span class="hero__blob hero__blob--green"></span>
+            <span class="hero__blob hero__blob--gold"></span>
             <span class="hero__light"></span>
           </div>
-          <span class="hero__blob hero__blob--ink"></span>
+          <span class="hero__plate"></span>
           <span class="hero__grain"></span>
         </div>
         <div class="hero__center" id="heroCenter">

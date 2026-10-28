@@ -285,6 +285,11 @@ yellow *area* survives the base's green, not just a highlight point.
 
 ### The guard, the mask, the band
 
+> **Superseded 2026-10-28.** The opening is a light register now: there is no ink mass and no header
+> mask. The guard became a **paper plate** and the seam problem disappeared with the dark bar. See
+> *Axis A ground — the light register* below. Kept as the record of why the dark build was shaped the
+> way it was.
+
 **The ink mass is the contrast guard, and it is why the amplitudes can be this big.** Painted
 **last**, over the moving masses, wrapping the headline box with margin: a bright mass can walk as
 far under the type as it likes and the type still lands on ink. It is static, so the floor is a
@@ -466,16 +471,142 @@ Three decisions:
    B's growth statement. Naming three audiences in a *kicker* does not merge claims — it tells the
    reader what the page covers, and the two-state model is untouched.
 2. **Absolutely positioned above the headline box** (`bottom: 100%`), so the H1 does not move by a
-   pixel and the ink guard's measured coverage of it stays exactly as measured (4.38 : 1).
+   pixel and the contrast device's measured coverage of it stays exactly as measured (4.38 : 1 then,
+   7.42 : 1 in the light register).
 3. **White `.95`, not `--brand-sky`.** Sky is the kicker colour for the dark opening, but the H1
    directly beneath it is sky: an aqua eyebrow read as a faded first line of the same headline and
    sat at **2.6 : 1** over the brightest drift phase. White separates label from display and measures
    **7.73 : 1** worst of eight phases at 11px (small text needs 4.5). Mobile wraps to two balanced
    lines above the H1; the eyebrow fades with `--hero-a-fade` like the rest of `.hero__center`.
+   **Amended 2026-10-28:** on paper the eyebrow is **ink at `.82`** and measures **7.42 : 1** desktop /
+   **6.72 : 1** mobile. The reasoning is unchanged — the label sits under the headline in the
+   hierarchy instead of fighting it; only the ink flipped with the ground.
 
 Copy variants considered and rejected: *"A home for the builders, the backers and the teams"* —
 "home" is already used three times on the page (founders band, close door, footer line); *"Acquire.
 Grow. Lead."* — the triad is a model, not a section label (KB §29.6.7), and it drops the audiences.
+
+## Axis A ground — the light register (2026-10-28, fourth and fifth passes)
+
+Client direction: *"adjust to this style of hero gradient"* (a reference with a cream/paper top and a
+saturated multi-hue mesh blooming from the bottom edge) — then, on palette, *"use brand colors"*.
+The **structure** of the reference was adopted; its purple/pink/orange was not. Everything below is
+fullsteam blue, gold and green, derived, not invented.
+
+### What changed, and why the dark version could not stay
+
+| | dark register (2026-10-24 → 10-28) | light register (now) |
+|---|---|---|
+| ground | `linear-gradient(158deg)` navy → deep green | `color-mix(--gold 6%, #fff)` — a warm paper, derived from the palette |
+| type | white H1, sky eyebrow, gold serif payoff | `--ink` H1, ink eyebrow, **`--brand` serif payoff** |
+| masses | light on dark, `translate`/`scale` only | paint on paper, opaque cores, normal blending |
+| contrast device | `.hero__blob--ink` — a dark guard over the type | `.hero__plate` — an ivory plate under the type |
+| mask | horizontal 5-stop ramp shielding the dark header | vertical 5-stop ramp keeping colour off the words |
+
+**Gold on ivory is 1.7 : 1** — the serif payoff could not stay `--gold`. It is `--brand` now, which
+is also why the payoff reads as the brand's own blue rather than a highlight.
+
+### The paper plate — the inverse of the old guard
+
+The dark build protected the type with an ink mass painted last. On paper the same idea runs
+backwards: a soft **ivory bloom** under the type box, painted after the masses and before the grain,
+static (rasterised once, so it costs nothing per frame and has no rim because it is ivory on ivory).
+
+Getting its size right took two passes:
+
+1. **Typed to the frame** (`1140 × 560`, plate at 27% top) — correct while the copy was anchored
+   high, but once the copy was centred (below) it wrapped the type with ~200px of margin on every
+   side and **erased the whole middle of the composition**: the mesh survived only as a rim.
+2. **Typed to the type box** (`min(880px, 92vw) × min(520px, 56vh)`, `blur(60px)`, `opacity .88`,
+   centred at 42%) — the measured glyph box at 1440 is 712 × 359, so this hugs it with just enough
+   bleed for the blur. Colour stays visible on both flanks and under the last line.
+
+**`mix-blend-mode: multiply` was rejected.** It is the obvious choice for "inks on paper" and it
+turned the entire band olive: multiplying blue and green through each other destroys the one thing
+the mesh needs, luminance. Normal blending keeps each hue clean; the **paint order** does the
+mixing instead — **blue → green → gold**, so the two cool masses are free to blend into the brand's
+own teal while the warm core stays a clear sunrise at the bottom edge. (Three primaries at equal
+weight average to grey; order prevents it.)
+
+### The masses
+
+- **Size and placement:** `96vmax` (gold `84vmax`), each centred by percentage (`left`/`top`) with
+  `margin: -48vmax`. The first attempts pushed every core below the fold, so only the pale outer 30%
+  of each gradient was ever in frame — the mesh read as haze no matter how saturated the sources
+  were. The **plateau**, not the falloff, has to be inside the frame.
+- **Blue** `--brand-sky 78%` in `--brand`, bottom left · **gold** `--gold 72%` in `#ff6a00` at the
+  core, `92%` in `#ff9d00` mid, bottom centre · **green** `--green 82%` in `#1a6f4a`, bottom right.
+- **Mask:** `linear-gradient(180deg, transparent 22% → .16 36% → .55 48% → .85 60% → #000 72%)`.
+  A radial mask was tried and killed all colour at the left and right thirds (its 150% horizontal
+  radius put the falloff inside the frame); a horizontal-only ramp leaves a readable horizon where
+  the slope ends. The five-stop vertical ramp has neither problem.
+- **The light source** was re-purposed: it is no longer a cyan wash (it read as a fourth mass) but a
+  warm paper bloom low in the frame, `rgba(255,252,240,.72)`, `opacity .34`, travelling further than
+  any mass so the illumination itself moves.
+- **Grain** runs at `.34` with `multiply` instead of `.2` under `overlay` — on a dark bed `.2` was
+  right; on paper it all but disappeared.
+
+### The copy block is centred between the header and the filmstrip (fifth pass)
+
+Client direction: *"center axis a copy block between bottom of header and top of film strip."*
+`.hero__center` is the `flex: 1` row between the two, so `justify-content: center` puts the block on
+the midpoint of the empty apron — 206–565 at 1440, i.e. the type ends at **63%** rather than 54%.
+The top-anchored variant that preceded this left the mesh a 116px sliver; the centred variant is
+why the plate is now sized to the type box (above) — the paper has to travel with the words.
+
+Mobile 390×844: eyebrow 267–299, H1 312–462, filmstrip 683 — the block sits on the 84–683 midpoint.
+The eyebrow runs `10px / .12em` there so it breaks as one balanced pair of lines.
+
+### Transparent chrome, and the mark follows the surface
+
+Client direction: *"go with transparent header / swap logo / make sure to swap logo to white when
+scrolling over dark bg."*
+
+- `.site-bar.is-on-hero` is now **transparent** (no fill, no rule) with **ink** menu bars — a solid
+  navy cap over a paper hero was two identities stacked.
+- The header carries **two marks** (`.logo-stack__light` = white, `.logo-stack__dark` = colour) and
+  the surface chooses: **paper → colour mark, Axis B photo / ink bands / open menu → white mark.**
+  Written as explicit pairs per state, so a new bar state cannot inherit the wrong logo.
+- **`is-on-hero` is still true over the Axis B photo** (the opening runs to the end of the stage), so
+  the white rules for `is-on-axis-b` had to be added explicitly — without them the ink menu bars from
+  the paper state vanished into the photograph. Verified in all four states:
+
+| scroll | classes | bar | mark | menu bars |
+|---|---|---|---|---|
+| 0 | `is-on-hero` | transparent | colour | ink |
+| 900 (Axis B photo) | `is-on-hero is-on-axis-b` | transparent | white | white |
+| 3400 (white band) | — | `#fff` | colour | ink |
+| 5200 (ink band) | `is-on-ink` | `--ink` | white | white |
+
+**The Axis B serif is white (2026-10-28).** `.hero__title em` takes `--brand` on paper, and that
+rule was inherited by Axis B's "grow." — which sits on the tinted photo and measured ~2:1 there.
+`.axis-b__headlines .hero__title--software .line em` now sets `#fff`: **8.31 : 1** worst glyph pixel
+over the photo, and it still separates the serif accent from the sky sans above it.
+
+### Measured — light register (worst glyph pixel, 8 phases, grain on)
+
+| | desktop 1440×900 | mobile 390×844 |
+|---|---|---|
+| ink headline (AA large 3:1, body 4.5:1) | **9.39 : 1** | **9.46 : 1** |
+| `--brand` serif payoff (AA large 3:1) | **3.51 : 1** | **4.53 : 1** |
+| ink eyebrow, 11px (AA normal 4.5:1) | **7.42 : 1** | **6.72 : 1** |
+| rest-motion, 2.5s, field only | **23.73** mean \|Δ\| (55.5% ≥ 8) | **18.10** (56.8% ≥ 8) |
+
+The serif is the tight one — `--brand` is a dark colour but the payoff line sits low, where the mesh
+is strongest. The plate's height is the lever: `420px` measured 3.18 : 1, `520px` measures 3.51 : 1
+with no visible loss of colour. **Do not shrink it without re-measuring that line.**
+
+Reduced motion verified with the media query emulated at load (not by toggling the class): container
+`transform: none`, all four animations `none`, the field a single static frame. No horizontal
+overflow (390 = 390).
+
+### Still open
+
+- The eyebrow's mobile wrap is balanced by eye, not by measure; a `max-width` on the label would pin
+  it if the copy changes.
+- The mesh is phase-dependent: at some phases the blue sits behind the plate and the frame reads
+  green → gold. If the composition needs a guaranteed three-hue read, the fix is a per-phase floor
+  on each mass's opacity, not more travel.
 
 ### Grain (2026-10-26)
 
@@ -485,8 +616,8 @@ the browser rasterises the tile once and repeats it.
 
 Three decisions worth recording, because two of them were wrong the first time:
 
-1. **It lives inside `.hero__field`.** That buys the header mask for free (the grain fades in under
-   the bar exactly like the light does) and puts it *under* `.hero__center`, so the headline stays
+1. **It lives inside `.hero__field`.** That buys the field's mask for free (the grain fades in with
+   the light rather than sitting on top of it) and puts it *under* `.hero__center`, so the headline stays
    crisp — grain over type softens it at display sizes, and the type is the point.
 2. **`overlay` is neutral only if the tile's mean is 128.** `feTurbulence`'s `fractalNoise` is not
    centred: measured, the raw tile averages **186/255**, so a naive overlay can only lighten — it
@@ -496,13 +627,16 @@ Three decisions worth recording, because two of them were wrong the first time:
    back most of the residual lift. The turbulence also leaves the alpha channel noisy;
    `feFuncA table "1 1"` forces the tile opaque, without which the blend is not reproducible.
 3. **Density was set by eye, three times.** `.18` read as *not grain enough*, `.34` as *too grainy*,
-   `.24` still too much; **`.20` is the shipped value**. Coarseness is a separate dial (below).
+   `.24` still too much; **`.20` was the shipped value on the dark bed**. On paper (2026-10-28) `.20`
+   under `overlay` all but disappears, so the grain now runs **`.34` under `multiply`** — it darkens
+   the ivory slightly instead of washing it out, which is closer to the reference's printed film.
+   Coarseness is a separate dial (below).
 
 **Two independent knobs, if it needs tuning again:**
 
 | | effect | value |
 |---|---|---|
-| `opacity` | how much grain you see | `.20` (`.18` too subtle, `.24` and `.34` too heavy) |
+| `opacity` | how much grain you see | `.34` on paper (`multiply`); `.20` was the dark-bed value |
 | `baseFrequency` | the size of the grain | `.7` chunkier, film-like · `.92` = 1px, more like dither |
 
 `numOctaves` is `3` at `.7`; fewer octaves flattens the clumping.
