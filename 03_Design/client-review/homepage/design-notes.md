@@ -1643,3 +1643,14 @@ column arrives with the band.
 
 Verified 1440 / 390: three columns with dividers, stacking with top rules on a phone, no overflow,
 0 console errors, the LinkedIn strip unchanged below.
+
+### Headshots on the three testimonials (2026-10-29)
+
+Client: **"add small circle headshots for each."** Each column now opens with a 56px circular
+portrait, above its kicker. Square Unsplash source, `crop=faces`, 160px, cropped by
+`border-radius: 50%`, one hairline ring in the band's line colour, and the same saturation/contrast
+grade as every other photograph on the page.
+
+The faces are **stock** — these are composite voices, not real Fullsteam people — so the images are
+`alt=""` (decorative, the attribution line already names who is speaking) and the section comment
+says so. When real quotes arrive, real headshots replace the URLs and nothing else changes.

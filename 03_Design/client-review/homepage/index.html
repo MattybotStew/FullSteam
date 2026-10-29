@@ -1484,6 +1484,20 @@
     .voice:first-child { padding-left: 0; }
     .voice:last-child { padding-right: 0; }
     .voice + .voice { border-left: 1px solid var(--line); }
+    /* Placeholder headshots: these people are composite voices, so the faces
+       are stock portraits from Unsplash (same licence as the rest of the page).
+       Square source, cropped to a circle — 56px, the register the rest of the
+       page uses for small marks. */
+    .voice__face {
+      display: block;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 0 16px;
+      border: 1px solid var(--line);
+      background: #fff;
+      filter: saturate(.94) contrast(1.03);
+    }
     .voice__k {
       margin: 0 0 14px;
       font-family: "Fragment Mono", ui-monospace, monospace;
@@ -2141,6 +2155,9 @@
         </div>
         <ol class="careers__voices" role="list">
           <li class="voice">
+            <img class="voice__face" alt="" aria-hidden="true" width="56" height="56"
+              loading="lazy" decoding="async"
+              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;crop=faces&amp;w=160&amp;h=160&amp;q=70">
             <p class="voice__k">The founder</p>
             <blockquote class="voice__quote">
               <p>&ldquo;We sold to a company that wanted what we had built to keep working. Two years on
@@ -2150,6 +2167,9 @@
               <span class="voice__note">[placeholder &mdash; founder voice, genericized, unpublishable as written]</span></p>
           </li>
           <li class="voice">
+            <img class="voice__face" alt="" aria-hidden="true" width="56" height="56"
+              loading="lazy" decoding="async"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=160&amp;h=160&amp;q=70">
             <p class="voice__k">The founder who stayed</p>
             <blockquote class="voice__quote">
               <p>&ldquo;I came in as the founder of a six-person team. The difference was what came next:
@@ -2159,6 +2179,9 @@
               <span class="voice__note">[placeholder &mdash; founder voice, genericized, unpublishable as written]</span></p>
           </li>
           <li class="voice">
+            <img class="voice__face" alt="" aria-hidden="true" width="56" height="56"
+              loading="lazy" decoding="async"
+              src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&amp;fit=crop&amp;crop=faces&amp;w=160&amp;h=160&amp;q=70">
             <p class="voice__k">The employee</p>
             <blockquote class="voice__quote">
               <p>&ldquo;Nobody here is a ticket in a queue. You learn the industry, you talk to the
