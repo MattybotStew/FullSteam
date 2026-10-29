@@ -122,7 +122,7 @@ stewards of the products (for founders), and *acquire and make the software comp
 | 06 | Three real-image placeholders + "Real team photo — not stock" captions | Culture imagery | **Placeholder** | **Actual people, not stock photos** |
 | 06 | Three testimonials — **The founder · The founder who stayed · The employee** | Proof, in the client's own three voices (`10/28` feedback) | **Placeholder** | Added 2026-10-29, replacing the three value statements. Each is genericized and carries the unpublishable note; names and real quotes needed. Order is the story: someone who sold, someone who sold and stayed, someone who joined |
 | 06 | Link "See Careers" + LinkedIn strip (cards + follow) | Careers + feed | Draft | **Filled 2026-10-26 with 5 real company-page posts** (hiring, Voices, Auburn award, HITEC/Priswing, Nilsen #28). Copy condensed from the client's own posts; artwork rebuilt in brand tokens. Still open: post permalinks, exact dates, comms clearing — see `client-review/homepage/linkedin-slots.md` |
-| 07 | Beat + H2 "Ready to see where your business can go next?" + proof line | Close | Draft | **Doors removed 2026-10-29** (client): the two way-finder links and "Any industry. One home." are gone; the band is the headline and the figures. The header pill is the page's single CTA |
+| 07 | Beat + H2 "Ready to see where your business can go next?" + proof line + **Explore Our Advantage** CTA (right) | Close | Draft | **Doors removed 2026-10-29** (client): the two way-finder links and "Any industry. One home." are gone. A single CTA sits to the right of the headline, to `our-advantage.html` |
 
 ---
 

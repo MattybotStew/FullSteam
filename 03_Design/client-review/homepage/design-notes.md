@@ -1770,3 +1770,18 @@ doors and without them read as a hole.
 That leaves the page with **one CTA: the header pill** — which is where the "single CTA" thread
 started when the opening lost its button. No dead link, no orphaned arrow: verified there are no
 `close__door` / `close__payoff` nodes or rules left, and the section reads cleanly into the footer.
+
+### The close band gets one CTA, on the right (2026-10-29)
+
+Client: **"add our advantages cta to the right."**
+
+`.close__inner` is a two-column grid now — headline and proof on the left, a single
+**"Explore Our Advantage"** pill on the right, `align-items: end` so it sits on the proof line's
+baseline rather than floating in the middle of the band. It links to `our-advantage.html` and joins
+the reveal list (`.close__aside`).
+
+On a phone the grid collapses to one column and the pill moves under the figures, left-aligned —
+right-aligning a lone button on a 390px screen just makes it look detached.
+
+Verified 1440 / 390: pill 44px, flush to the band's right margin at 1440, stacks cleanly at 390, no
+overflow, 0 console errors.
