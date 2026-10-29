@@ -1676,3 +1676,36 @@ handover is unchanged.
 Verified 1440 / 390: no `approach__close` / `approach__summary` / `approach__quote` nodes or rules
 remain, the counters still run and settle, the section runs straight into "Keep the businesses
 growing.", 0 console errors, no overflow.
+
+## 2026-10-29 — AI moves above the verticals, onto white; the stats band gets a real headline
+
+Two client notes in one pass.
+
+**1 · AI above verticals, white ground.** The AI band sat *below* the verticals and on ink. It is
+now **directly under the stats band and on white**, so the page reads software → intelligence →
+the businesses it runs on. The band's entire palette is inverted for the light ground: headline and
+list in ink, body in `--mut`, hairline rules from the locked line colour, and the ink-only grain
+overlay removed from `.ai` (it belonged to the dark bands). "Intelligence is people." drops
+`exit--dark` for the standard light-band `.exit`.
+
+**The green needed one adjustment to survive white.** `--green` (#84BD00) measures **2.1:1 on
+white** — fine as a 2px rule, unreadable as text. So the band defines `--green-ink`
+(`color-mix(--green 62%, #0d1a20)`, **4.7:1**) and uses it for the two places green carries text:
+the "AI" word and the 01/02/03 indices. The rule keeps the pure brand green. This is the "keep the
+green palette" instruction satisfied without shipping a 2:1 headline.
+
+**2 · The stats band is headed "How a Fullsteam company compounds."** The mono kicker said that and
+the H2 said "Acquire. Grow. Lead."; the client deleted the H2 and promoted the kicker's line. With
+the kicker gone the band now opens on a sentence rather than a three-word slogan — which also stops
+it from competing with the three step names immediately below it. "compounds" keeps the house gold
+serif treatment. Measure widened to 22ch to fit a sentence.
+
+**One timing fix this exposed.** With the columns hidden until their trigger, parking exactly at the
+band's top left a **blank black band** for a moment (the strip's bottom was 8px short of the 0.86vh
+rule). A second condition — strip top `≤ 0.55vh` — now fires it, so the band can never be seen
+empty; it is still later than the old 0.82vh.
+
+Verified 1440 / 390: order is scale → AI → verticals → founders → careers → close, AI fully legible
+on white (mark 4.7:1, body 5.5:1), no ink grain on the white band, hairline separating AI from the
+verticals below, stats band opens on the new H2 with the columns counting, 0 console errors, no
+overflow.

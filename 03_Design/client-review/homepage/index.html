@@ -767,15 +767,8 @@
        each with a sentence and the numbers it earns. The numbers are the
        loudest thing in the band now, which is the point. */
     .approach__head { margin: 0 0 clamp(40px, 6vh, 72px); }
-    .approach__kicker {
-      margin: 0 0 clamp(12px, 1.6vh, 18px);
-      font-family: "Fragment Mono", ui-monospace, monospace;
-      font-size: 11px; line-height: 1.5;
-      letter-spacing: .16em; text-transform: uppercase;
-      color: var(--gold);
-    }
     .approach__title {
-      margin: 0; max-width: 18ch;
+      margin: 0; max-width: 22ch;
       font-size: clamp(38px, 5.2vw, 76px); line-height: 1.02;
       letter-spacing: -.035em; font-weight: 700;
       text-wrap: balance;
@@ -1181,8 +1174,23 @@
     }
 
     /* ---- AI: an argument, not a tile grid ---- */
+    /* AI sits ABOVE the verticals and on WHITE (client, 2026-10-29). It was a
+       dark band below the verticals; moving it up puts the two "what we do"
+       bands in reading order — the software, then the intelligence on top of it
+       — and dropping the ink ground lets the green carry the band instead of
+       fighting it. The band is white, so every ink-on-dark value below is
+       inverted; the green accents are unchanged. A hairline closes the band,
+       because the verticals band under it is white too. */
     .ai {
-      background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter-x) 0;
+      background: #fff; color: var(--ink);
+      padding: var(--section-y) var(--gutter-x) 0;
+      border-bottom: 1px solid var(--line);
+      /* The brand green (#84BD00) is 2.1:1 on white — fine as a rule or a mark,
+         unreadable as 11px numerals. This is the same hue pulled toward ink,
+         measured 4.9:1, and it is used for the two places the green carries
+         TEXT: the "AI" word and the 01/02/03 indices. The 2px rule keeps the
+         pure brand green. */
+      --green-ink: color-mix(in srgb, var(--green) 62%, #0d1a20);
     }
     .ai__inner {
       padding-bottom: clamp(24px, 3.5vh, 40px);
@@ -1196,9 +1204,9 @@
     }
     /* the band's accent lands on its subject: the green runs from this word into
        the 2px rule under it and on into the marquee */
-    .ai__title .ai__mark { color: var(--green); }
+    .ai__title .ai__mark { color: var(--green-ink); }
     .ai__lede {
-      color: rgba(255,255,255,.72); font-size: clamp(18px, 1.4vw, 21px);
+      color: var(--mut); font-size: clamp(18px, 1.4vw, 21px);
       max-width: 40ch; margin: 22px 0 0; line-height: 1.5; text-wrap: pretty;
     }
     .ai__foot { margin-top: 30px; }
@@ -1206,24 +1214,24 @@
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
       padding: 20px 0 18px;
-      border-top: 1px solid rgba(255,255,255,.16);
+      border-top: 1px solid var(--line);
     }
     .ai__motion .exit { margin: 0; padding: 0; border: 0; flex: 1 1 auto; }
     .ai__list { list-style: none; margin: 0; padding: 0; }
     .ai__list li {
       display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px;
-      padding: 22px 0; border-top: 1px solid rgba(255,255,255,.14);
+      padding: 22px 0; border-top: 1px solid var(--line);
     }
     .ai__list li:last-child { border-bottom: none; }
-    .ai__num { font-size: 11px; letter-spacing: .12em; color: var(--green); padding-top: 4px; }
+    .ai__num { font-size: 11px; letter-spacing: .12em; color: var(--green-ink); padding-top: 4px; }
     /* the 2px rule marks this as the AI/innovation band */
     .ai__title::after {
       content: ""; display: block; width: 64px; height: 2px;
       background: var(--green); margin-top: 26px;
     }
-    .ai__list li:hover { border-top-color: rgba(255,255,255,.30); }
+    .ai__list li:hover { border-top-color: rgba(13,26,32,.34); }
     .ai__h { margin: 0 0 8px; font-size: 1.1rem; letter-spacing: -.01em; }
-    .ai__p { margin: 0; font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.72); text-wrap: pretty; }
+    .ai__p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--mut); text-wrap: pretty; }
     @media (max-width: 900px) {
       .ai__inner { grid-template-columns: 1fr; gap: 36px; }
       .ai__title { max-width: 20ch; }
@@ -1640,12 +1648,12 @@
     }
 
     /* ---- print grain on the dark bands ---- */
-    .ai, .site-footer { position: relative; }
-    .ai::after, .close::after, .site-footer::after {
+    .site-footer { position: relative; }
+    .close::after, .site-footer::after {
       content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .05;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
     }
-    .ai__inner, .close__inner, .footer-grid, .footer-bottom { position: relative; z-index: 1; }
+    .close__inner, .footer-grid, .footer-bottom { position: relative; z-index: 1; }
 
     /* ---- footer ---- */
     .site-footer {
@@ -1789,8 +1797,7 @@
     <section class="chapter chapter--dark approach" id="scale" aria-labelledby="scaleTitle">
       <div class="chapter__inner">
         <header class="approach__head">
-          <p class="approach__kicker">How a Fullsteam company compounds</p>
-          <h2 class="approach__title" id="scaleTitle">Acquire. Grow. <em>Lead.</em></h2>
+          <h2 class="approach__title" id="scaleTitle">How a Fullsteam company <em>compounds.</em></h2>
         </header>
 
         <ol class="steps">
@@ -1857,6 +1864,44 @@
           </li>
         </ol>
 
+      </div>
+    </section>
+
+    <section class="ai" id="ai" aria-labelledby="aiTitle">
+      <div class="ai__inner">
+        <div class="ai__copy">
+          <h2 class="ai__title" id="aiTitle"><span class="ai__mark">AI</span> that already knows the business.</h2>
+          <p class="ai__lede">Use cases first — built on proprietary vertical data, not generic models.</p>
+          <p class="ai__foot">
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/our-advantage.html#ai">See AI at Fullsteam</a>
+          </p>
+        </div>
+        <ol class="ai__list" role="list">
+          <li>
+            <span class="ai__num mono">01</span>
+            <div>
+              <h3 class="ai__h">Modernize existing software</h3>
+              <p class="ai__p">Smarter search, forecasting, and workflows inside the product customers already run — no migration, no re-platforming.</p>
+            </div>
+          </li>
+          <li>
+            <span class="ai__num mono">02</span>
+            <div>
+              <h3 class="ai__h">Build new AI customer-facing features</h3>
+              <p class="ai__p">Ship AI your end customers feel, grounded in the vertical's own data rather than a generic model.</p>
+            </div>
+          </li>
+          <li>
+            <span class="ai__num mono">03</span>
+            <div>
+              <h3 class="ai__h">Automate business workflows</h3>
+              <p class="ai__p">Invoicing, scheduling, reconciliation — the back office runs itself, and people stay on judgment calls.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <div class="ai__motion">
+        <p class="exit">Intelligence is people.</p>
       </div>
     </section>
 
@@ -1960,44 +2005,6 @@
     </div>
     <p class="exit">Growth needs more than ownership — it needs intelligence.</p>
   </section>
-
-    <section class="ai" id="ai" aria-labelledby="aiTitle">
-      <div class="ai__inner">
-        <div class="ai__copy">
-          <h2 class="ai__title" id="aiTitle"><span class="ai__mark">AI</span> that already knows the business.</h2>
-          <p class="ai__lede">Use cases first — built on proprietary vertical data, not generic models.</p>
-          <p class="ai__foot">
-            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/our-advantage.html#ai">See AI at Fullsteam</a>
-          </p>
-        </div>
-        <ol class="ai__list" role="list">
-          <li>
-            <span class="ai__num mono">01</span>
-            <div>
-              <h3 class="ai__h">Modernize existing software</h3>
-              <p class="ai__p">Smarter search, forecasting, and workflows inside the product customers already run — no migration, no re-platforming.</p>
-            </div>
-          </li>
-          <li>
-            <span class="ai__num mono">02</span>
-            <div>
-              <h3 class="ai__h">Build new AI customer-facing features</h3>
-              <p class="ai__p">Ship AI your end customers feel, grounded in the vertical's own data rather than a generic model.</p>
-            </div>
-          </li>
-          <li>
-            <span class="ai__num mono">03</span>
-            <div>
-              <h3 class="ai__h">Automate business workflows</h3>
-              <p class="ai__p">Invoicing, scheduling, reconciliation — the back office runs itself, and people stay on judgment calls.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-      <div class="ai__motion">
-        <p class="exit exit--dark">Intelligence is people.</p>
-      </div>
-    </section>
 
     <section class="founders" id="for-founders" aria-labelledby="foundersTitle">
       <div class="founders__inner">
@@ -2583,7 +2590,10 @@
           var vh = window.innerHeight;
           var r = stepsEl.getBoundingClientRect();
           if (!tallStrip()) {
-            if (!fired && (r.bottom <= vh * 0.86 || r.top <= vh * 0.24)) fire();
+            /* bottom at 0.86vh = the strip is fully on screen; the top rule is
+               the safety net that keeps the band from ever being a blank block
+               when the reader stops just as the heading arrives */
+            if (!fired && (r.bottom <= vh * 0.86 || r.top <= vh * 0.55)) fire();
             return;
           }
           steps.forEach(function (st, i) {
