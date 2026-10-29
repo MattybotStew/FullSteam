@@ -1401,3 +1401,63 @@ statement rather than before it (`.approach__close.is-in`), and reduced motion s
 Verified 1440 / 390, scroll-stepped through the band: dot at 0 / 289 / 470 / 838 px with 1 / 1 / 2 /
 3 steps lit, figures at 0 until their column is reached, closing row on one baseline at 1440 and
 stacked at 390, 0 console errors, no horizontal overflow.
+
+## 2026-10-29 — process dot removed, verticals rebuilt, AI and footer tightened
+
+Five client notes in one pass.
+
+**1 · The runner is gone.** "Remove the scrolling dot motion from Acquire section." The travelling
+dot, its element, its CSS and its geometry (`stops()`, the axis flip) are deleted. The sequence is
+unchanged — column 1 lights, then 2, then 3, on the same three thresholds — it is just carried by
+*when* each node fills instead of by a marker sliding along the spine.
+
+**2 · The five verticals are fixed, named and measured.** ERP · Wine · Transportation ·
+Hospitality · Automotive (that was already the order). Each now carries a **vertical-specific
+figure** instead of `[placeholder]`: 4.2M work orders a year · 28M bottles shipped · 6.5M
+black-car rides · 9.1M covers served · 3.8M oil changes booked.
+
+⚠ **Those five figures are invented** — they are the client's requested *shape* ("bottles of wine
+sold, black-car rides, oil changes"), not sourced data. Nothing in the repo has per-vertical
+numbers cleared for publication (OI-5). They have to be replaced with real ones before this is
+public.
+
+**3 · A light hairline between the photographs.** The panel border was `--frame-hair-dark`
+(white at 16%), which is invisible on a white band, so the five photographs read as one image. It
+is now ink at 14% — a seam, not a picture frame.
+
+**4 · Collapsed blocks are labelled.** The name used to live in a **rotated** chip on desktop
+(`writing-mode: vertical-rl`) and only appear below 1024px. It is now horizontal on every collapsed
+strip, bottom-left, on a scrim that survives any photo — and the open panel's own title takes over
+by fading it out. **No vertical text remains anywhere in the row.**
+
+**5 · The sixth tile is a real panel.** The old `.verts__all-box` was a link pinned to the end of
+the accordion; it is now a `.vpanel` that participates like the others: a **2×2 collage** of four
+industries with hairline seams, a collapsed label ("All verticals"), and a body that expands to
+`Eleven industries · 11 · …` plus the **"Explore all verticals"** CTA. The read-more list of the
+other six verticals that used to sit under the row is gone with it.
+
+**6 · AI: the banner is gone, the use cases are explicit.** The scrolling `AI @ Fullsteam` wordmark
+strip (markup, CSS, keyframes, the reduced-motion override) is deleted — it read as a second, louder
+headline under a section that had already made its point. The green palette is untouched. The three
+right-hand items now name the three use cases in the client's words: **Modernize existing software ·
+Build new AI customer-facing features · Automate business workflows**, each with a line of substance.
+
+**7 · Founders is its own section, and its CTA is "Explore more."** It sits directly below AI (it
+already did). The CTA was "Explore Acquisitions" and is now **"Explore more"**, still to
+`for-founders.html`. There is **no "Talk to us" CTA anywhere on the homepage** — there was none left
+to remove; the email/form CTA is gone from this build and nothing replaces it.
+
+**8 · The bottom way-finder drops "portfolio."** Left door: kicker **Vertical software**, heading
+**Explore our verticals**. Right door: kicker **Acquisitions** (was "For founders"). Body copy kept,
+because it never said "portfolio".
+
+**9 · Footer.** The Vertical Software column listed Hospitality · Wine · ERP, which quietly implied
+the other eight verticals did not exist; it is one link now — **View all verticals**. A **Quick
+links** column is added: **View opportunities** (`careers.html#roles`) · **Leadership** · **Contact**
+· **Legal** (`privacy.html`), and Acquisitions gets its own column. The grid goes from five columns
+to six (`1.5fr repeat(5, …)`), stacking to two on phones.
+
+Verified 1440 / 390 across the whole page: six panels in the accordion with the sixth expanding to
+its CTA, labels horizontal, figures counting on the process strip without a runner, no banner in the
+AI band, footer at six columns, `View all verticals` and the four quick links resolving to real
+pages, 0 console errors, no horizontal overflow.

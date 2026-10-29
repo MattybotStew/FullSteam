@@ -2360,6 +2360,28 @@ there was never a Careers CTA in this section (that one lives in the careers ban
 ⚠ **Known issue, pre-existing:** under `prefers-reduced-motion` the two headline states overlap in
 the static fallback (reproduces in variant A too). It contradicts §23.6 rule 5 and needs its own fix.
 
+**Verticals, AI, founders, way-finder and footer (2026-10-29, client).** One pass, five notes:
+
+- **Verticals** — the five featured are **ERP · Wine · Transportation · Hospitality · Automotive**,
+  each with a vertical-specific figure (⚠ **invented placeholders**, pending real data, OI-5); a
+  light ink hairline separates the photographs; **collapsed strips carry a horizontal name** (no
+  vertical writing anywhere); and the sixth cell is now a **real accordion panel** — a 2×2 collage
+  of industries with an expanding body and the **"Explore all verticals"** CTA, replacing the old
+  read-more list.
+- **AI** — the scrolling `AI @ Fullsteam` banner is deleted; green palette kept; the three items are
+  the client's three use cases (modernize existing software · build new AI customer-facing features ·
+  automate business workflows).
+- **Founders** — its own section below AI; CTA **"Explore more"** → Acquisitions. **No "Talk to us"
+  CTA exists on the homepage.**
+- **Bottom way-finder** — no "portfolio": **Explore our verticals**, and the right door's kicker is
+  **Acquisitions**.
+- **Footer** — one **View all verticals** link instead of three named verticals, a **Quick links**
+  column (opportunities · Leadership · Contact · Legal) and an Acquisitions column; six-column grid.
+
+The process strip's **travelling dot is removed** (same pass): the steps still light in order, the
+sequence is just no longer carried by a moving marker. Build record: `design-notes.md`
+§"2026-10-29 — process dot removed, verticals rebuilt, AI and footer tightened".
+
 **The scale chapter is now a process strip (2026-10-29, client).** The four-figure leader table is
 replaced by **Acquire → Grow → Lead**: three numbered steps on one spine (gold node per step, arrow
 per gap), each a one-line claim followed by its figures at

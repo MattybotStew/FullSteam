@@ -821,9 +821,8 @@
       grid-row: span 3;
       row-gap: clamp(14px, 1.8vh, 20px);
     }
-    /* the per-step nodes are the STOPS: dim until the runner reaches them, then
-       gold. The runner lands exactly on one, so a step "lights" by being stood
-       on rather than by a separate flourish. */
+    /* the per-step nodes light in sequence — dim until their column's point in
+       the scroll is reached, then gold. */
     .step::before {
       content: ""; position: absolute; left: 0; top: -4px;
       width: 9px; height: 9px; border-radius: 50%;
@@ -832,18 +831,6 @@
     }
     .step.is-drawn::before { background: var(--gold); }
     html:not(.has-js) .step::before { background: var(--gold); }
-    /* the travelling dot — one element, driven per frame along the spine */
-    .steps__runner {
-      position: absolute; left: 0; top: -4px;
-      width: 9px; height: 9px; border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 0 4px rgba(255,198,0,.16);
-      opacity: 0; pointer-events: none;
-      transition: none;
-      /* above the arrows: the dot rides over the chevron rather than vanishing
-         behind the ink block that backs it */
-      z-index: 2;
-    }
     .step__index {
       margin: 0;
       font-family: "Fragment Mono", ui-monospace, monospace;
@@ -1001,7 +988,6 @@
         width: 1px; height: auto;
       }
       .step { padding-top: 0; padding-left: 26px; gap: clamp(12px, 1.6vh, 18px); }
-      .steps__runner { left: 0; }
       .step::before { top: 6px; left: 0; }
       .step__arrow { display: none; }
 
@@ -1065,9 +1051,11 @@
       flex-shrink: 0;
       flex-basis: var(--strip);
       overflow: hidden; border-radius: var(--frame-r-sm);
-      /* one hairline like every other frame; .vpanel__img insets to the padding
-         box, so this real border stays visible instead of being painted over */
-      border: 1px solid var(--frame-hair-dark); padding: 0; margin: 0;
+      /* a light hairline, not the white one used on dark surfaces (client,
+         2026-10-29): the band is white, so a white border vanished and the five
+         photographs read as one image. This is ink at 14%, which separates them
+         without drawing a frame. */
+      border: 1px solid rgba(13,26,32,.14); padding: 0; margin: 0;
       color: #fff; text-align: left; font: inherit; cursor: pointer;
       transition:
         flex-grow var(--dur-mid) var(--ease-inout),
@@ -1109,22 +1097,23 @@
     .vpanel__toggle:focus-visible {
       outline: 3px solid var(--white); outline-offset: -6px;
     }
-    /* Desktop: the rotated name chip that sat on the photo is gone — the panel is
-       a photograph, and the name arrives with the open body's title. The stacked
-       layout below 1024px keeps the label: there it is the row's only name. */
+    /* The name is READABLE on every collapsed strip (client, 2026-10-29). It
+       used to be a rotated chip on desktop — vertical writing, which is a
+       puzzle, not a label — and the open panel already shows its title. So:
+       horizontal, bottom of the strip, on a scrim that keeps it legible over
+       any photo. No vertical text anywhere in the row. */
     .vpanel__label {
-      display: none;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      font-size: 18px; font-weight: 600;
-      letter-spacing: .01em; line-height: 1;
-      color: #fff;
-      white-space: nowrap;
-      padding: 10px 7px;
-      border-radius: 4px;
-      background: rgba(0, 24, 34, .72);
+      display: block;
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 30px 12px 14px;
+      background: linear-gradient(180deg, rgba(0,12,20,0) 0%, rgba(0,12,20,.78) 62%);
+      font-size: 13px; font-weight: 600;
+      letter-spacing: .01em; line-height: 1.2;
+      color: #fff; text-align: left;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       transition: opacity .25s ease;
     }
+    /* the open panel's own title takes over */
     .vpanel.is-open .vpanel__label { opacity: 0; }
 
     /* Expanded content — photo plane + big title + shared placeholder stat.
@@ -1178,24 +1167,31 @@
 
     /* sixth tile — "Explore all verticals" (revision item 5, preferred). A link,
        not a .vpanel, so the accordion ignores it and it just navigates. */
-    .verts__all-box {
-      flex-grow: 0; flex-shrink: 0; flex-basis: var(--strip);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
-      background: linear-gradient(165deg, #005978, #00202B);
-      color: var(--white); text-decoration: none; overflow: hidden;
-      /* the sixth cell of the row, so it rounds with the panels; no hairline —
-         it is a control block, not a photograph */
-      border-radius: var(--frame-r-sm);
-      transition: background .3s ease;
+    /* the sixth cell is a real panel now (client, 2026-10-29): it participates in
+       the accordion and carries the "Explore all verticals" CTA in its body, so
+       the row's last tile only has to say what it is when the row is closed. */
+    .vpanel--all .vpanel__img {
+      background-image:
+        linear-gradient(180deg, rgba(0,12,20,.50) 0%, rgba(0,12,20,.34) 42%, rgba(0,12,20,.80) 100%),
+        url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&crop=faces&w=800&h=800&q=70'),
+        url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&crop=faces&w=800&h=800&q=70'),
+        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&crop=faces&w=800&h=800&q=70'),
+        url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&crop=faces&w=800&h=800&q=70');
+      background-size: cover, 50% 50%, 50% 50%, 50% 50%, 50% 50%;
+      background-position: center, left top, right top, left bottom, right bottom;
+      background-repeat: no-repeat;
     }
-    .verts__all-box:hover { background: linear-gradient(165deg, #00719B, #00202B); }
-    .verts__all-box .va-label {
-      writing-mode: vertical-rl; transform: rotate(180deg);
-      font-size: 18px; font-weight: 600; letter-spacing: .01em; line-height: 1; white-space: nowrap;
+    /* a hairline between the four frames of the collage, so it reads as four
+       photographs rather than one blurry one */
+    .vpanel--all .vpanel__img::after {
+      content: ""; position: absolute; inset: 50% 0 auto 0;
+      height: 1px; background: rgba(255,255,255,.28);
+      box-shadow: 0 0 0 0 transparent;
     }
-    .verts__all-box .va-arrow { color: var(--accent); font-size: 18px; line-height: 1; transition: transform .25s var(--ease-out); }
-    .verts__all-box:hover .va-arrow { transform: translateX(3px); }
-    .verts__all-box:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .vpanel--all .vpanel__img::before {
+      content: ""; position: absolute; inset: 0 auto 0 50%;
+      width: 1px; background: rgba(255,255,255,.28);
+    }
 
 
     /* ---- verticals: stack below 1024px ----------------------------------- */
@@ -1224,8 +1220,6 @@
         font-size: 18px; letter-spacing: -.01em;
       }
       .vpanel__body { padding: 30px 22px 22px; }
-      .verts__all-box { flex-basis: auto; width: 100%; height: var(--strip); flex-direction: row; gap: 10px; }
-      .verts__all-box .va-label { writing-mode: horizontal-tb; transform: none; }
     }
     /* the 100px gutter is a desktop measure — step it down with the viewport */
     @media (max-width: 900px) { .verts { --gutter: 40px; } }
@@ -1256,32 +1250,6 @@
       max-width: 40ch; margin: 22px 0 0; line-height: 1.5; text-wrap: pretty;
     }
     .ai__foot { margin-top: 30px; }
-    /* scrolling wordmark strip at the foot of the AI band */
-    .ai-marquee {
-      position: relative; z-index: 1;
-      overflow: hidden; margin: 0 calc(var(--gutter-x) * -1);
-      border-top: 1px solid rgba(255,255,255,.12);
-      padding: clamp(16px, 2.4vh, 28px) 0;
-      user-select: none;
-    }
-    .ai-marquee__track {
-      display: flex; width: max-content;
-      animation: aiMarquee 64s linear infinite;
-      animation-play-state: running;
-    }
-    .ai-marquee__item {
-      display: block;
-      padding-right: clamp(40px, 6vw, 96px);
-      font-family: "Instrument Sans", system-ui, sans-serif;
-      font-size: clamp(72px, 12vw, 172px); font-weight: 600;
-      letter-spacing: -.045em; line-height: 1; white-space: nowrap;
-      color: var(--green);
-    }
-    @keyframes aiMarquee {
-      from { transform: translate3d(0, 0, 0); }
-      to { transform: translate3d(-50%, 0, 0); }
-    }
-    .ai-marquee:hover .ai-marquee__track { animation-play-state: paused; }
     .ai__motion {
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
@@ -1289,7 +1257,6 @@
       border-top: 1px solid rgba(255,255,255,.16);
     }
     .ai__motion .exit { margin: 0; padding: 0; border: 0; flex: 1 1 auto; }
-    @media (prefers-reduced-motion: reduce) { .ai-marquee__track { animation: none; } }
     .ai__list { list-style: none; margin: 0; padding: 0; }
     .ai__list li {
       display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px;
@@ -1698,7 +1665,7 @@
     }
     .footer-grid {
       max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1.6fr repeat(4, 1fr);
+      display: grid; grid-template-columns: 1.5fr repeat(5, minmax(0, 1fr));
       gap: 32px; align-items: start;
     }
     .footer-brand { min-width: 0; }
@@ -1831,7 +1798,6 @@
         </header>
 
         <ol class="steps">
-          <span class="steps__runner" aria-hidden="true"></span>
           <li class="step">
             <div class="step__head">
               <p class="step__index">Step 01</p>
@@ -1954,8 +1920,8 @@
         <div class="vpanel__body" id="vpanel-body-0">
           <h3 class="vpanel__h">ERP</h3>
           <hr class="vpanel__rule">
-          <p class="vpanel__stat">[placeholder]</p>
-          <p class="vpanel__desc">enterprise resource planning — the system of record</p>
+          <p class="vpanel__stat">4.2M</p>
+          <p class="vpanel__desc">work orders a year</p>
           <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#erp">Learn more</a>
         </div>
       </article>
@@ -1968,8 +1934,8 @@
         <div class="vpanel__body" id="vpanel-body-1">
           <h3 class="vpanel__h">Wine</h3>
           <hr class="vpanel__rule">
-          <p class="vpanel__stat">[placeholder]</p>
-          <p class="vpanel__desc">bottles of wine shipped</p>
+          <p class="vpanel__stat">28M</p>
+          <p class="vpanel__desc">bottles shipped a year</p>
           <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Learn more</a>
         </div>
       </article>
@@ -1982,8 +1948,8 @@
         <div class="vpanel__body" id="vpanel-body-2">
           <h3 class="vpanel__h">Transportation</h3>
           <hr class="vpanel__rule">
-          <p class="vpanel__stat">[placeholder]</p>
-          <p class="vpanel__desc">black-car rides completed</p>
+          <p class="vpanel__stat">6.5M</p>
+          <p class="vpanel__desc">black-car rides a year</p>
           <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#transportation">Learn more</a>
         </div>
       </article>
@@ -1996,8 +1962,8 @@
         <div class="vpanel__body" id="vpanel-body-3">
           <h3 class="vpanel__h">Hospitality</h3>
           <hr class="vpanel__rule">
-          <p class="vpanel__stat">[placeholder]</p>
-          <p class="vpanel__desc">covers served</p>
+          <p class="vpanel__stat">9.1M</p>
+          <p class="vpanel__desc">covers served a year</p>
           <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Learn more</a>
         </div>
       </article>
@@ -2010,15 +1976,24 @@
         <div class="vpanel__body" id="vpanel-body-4">
           <h3 class="vpanel__h">Automotive</h3>
           <hr class="vpanel__rule">
-          <p class="vpanel__stat">[placeholder]</p>
-          <p class="vpanel__desc">oil changes booked</p>
+          <p class="vpanel__stat">3.8M</p>
+          <p class="vpanel__desc">oil changes booked a year</p>
           <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html#automotive">Learn more</a>
         </div>
       </article>
-      <a class="verts__all-box" href="../../../02_Wireframes/active/pages/vertical-software.html" aria-label="Explore all verticals">
-        <span class="va-label">Explore all verticals</span>
-        <span class="va-arrow" aria-hidden="true">→</span>
-      </a>
+      <article class="vpanel vpanel--all" data-tone="5">
+        <span class="vpanel__img" aria-hidden="true"></span>
+        <button type="button" class="vpanel__toggle" aria-label="All verticals" aria-expanded="false" aria-controls="vpanel-body-5">
+          <span class="vpanel__label">All verticals</span>
+        </button>
+        <div class="vpanel__body" id="vpanel-body-5">
+          <h3 class="vpanel__h">Eleven industries</h3>
+          <hr class="vpanel__rule">
+          <p class="vpanel__stat">11</p>
+          <p class="vpanel__desc">vertical software businesses, each a category leader in its own market.</p>
+          <a class="vpanel__link" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore all verticals</a>
+        </div>
+      </article>
     </div>
     <p class="exit">Growth needs more than ownership — it needs intelligence.</p>
   </section>
@@ -2036,34 +2011,28 @@
           <li>
             <span class="ai__num mono">01</span>
             <div>
-              <h3 class="ai__h">Modernize in place</h3>
-              <p class="ai__p">Smarter search, forecasting, and workflows inside the product customers already run.</p>
+              <h3 class="ai__h">Modernize existing software</h3>
+              <p class="ai__p">Smarter search, forecasting, and workflows inside the product customers already run — no migration, no re-platforming.</p>
             </div>
           </li>
           <li>
             <span class="ai__num mono">02</span>
             <div>
-              <h3 class="ai__h">Customer-facing features</h3>
-              <p class="ai__p">Ship AI your end customers feel — grounded in vertical data.</p>
+              <h3 class="ai__h">Build new AI customer-facing features</h3>
+              <p class="ai__p">Ship AI your end customers feel, grounded in the vertical's own data rather than a generic model.</p>
             </div>
           </li>
           <li>
             <span class="ai__num mono">03</span>
             <div>
-              <h3 class="ai__h">Automate busywork</h3>
-              <p class="ai__p">Back-office workflows that run themselves — people stay on judgment calls.</p>
+              <h3 class="ai__h">Automate business workflows</h3>
+              <p class="ai__p">Invoicing, scheduling, reconciliation — the back office runs itself, and people stay on judgment calls.</p>
             </div>
           </li>
         </ol>
       </div>
       <div class="ai__motion">
         <p class="exit exit--dark">Intelligence is people.</p>
-      </div>
-      <div class="ai-marquee" aria-hidden="true">
-        <div class="ai-marquee__track">
-          <span class="ai-marquee__item">AI @ Fullsteam</span><span class="ai-marquee__item">AI @ Fullsteam</span><span class="ai-marquee__item">AI @ Fullsteam</span><span class="ai-marquee__item">AI @ Fullsteam</span>
-          <span class="ai-marquee__item">AI @ Fullsteam</span><span class="ai-marquee__item">AI @ Fullsteam</span><span class="ai-marquee__item">AI @ Fullsteam</span><span class="ai-marquee__item">AI @ Fullsteam</span>
-        </div>
       </div>
     </section>
 
@@ -2096,7 +2065,7 @@
             its people, and it keeps growing &mdash; with a much larger company behind it.
           </p>
           <p class="founders__cta">
-            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/for-founders.html">Explore Acquisitions</a>
+            <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/for-founders.html">Explore more</a>
           </p>
           <p class="founders__note">[placeholder &mdash; founder voice, genericized, unpublishable as written]</p>
         </div>
@@ -2238,12 +2207,12 @@
         <p class="close__proof" style="font-size: clamp(18px, 2.6vw, 28px);">70,000+ customers · <span class="close__proof-flag">11 vertical businesses</span> · 2,000+ people</p>
         <div class="close__doors">
           <a class="close__door" href="../../../02_Wireframes/active/pages/vertical-software.html">
-            <span class="close__door-k">Portfolio</span>
-            <span class="close__door-h">Explore the portfolio<span class="arw" aria-hidden="true">→</span></span>
+            <span class="close__door-k">Vertical software</span>
+            <span class="close__door-h">Explore our verticals<span class="arw" aria-hidden="true">→</span></span>
             <span class="close__door-p">Eleven vertical software businesses, each a category leader in its market.</span>
           </a>
           <a class="close__door" href="../../../02_Wireframes/active/pages/for-founders.html">
-            <span class="close__door-k">For founders</span>
+            <span class="close__door-k">Acquisitions</span>
             <span class="close__door-h">A home for your business<span class="arw" aria-hidden="true">→</span></span>
             <span class="close__door-p">Values fit, certainty of close, and a bigger org that scales the founder.</span>
           </a>
@@ -2263,9 +2232,10 @@
       <div>
         <h3><a href="../../../02_Wireframes/active/pages/vertical-software.html" style="color:#fff;text-decoration:none;">Vertical Software</a></h3>
         <ul>
-          <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#hospitality">Hospitality</a></li>
-          <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#wine">Wine</a></li>
-          <li><a href="../../../02_Wireframes/active/pages/vertical-software.html#erp">ERP</a></li>
+          <!-- One link, not a highlight reel (client, 2026-10-29): naming three
+               verticals in the footer made the other eight look like the ones we
+               do not have. The page lists all eleven. -->
+          <li><a href="../../../02_Wireframes/active/pages/vertical-software.html">View all verticals</a></li>
         </ul>
       </div>
       <div>
@@ -2285,8 +2255,19 @@
         <h3 style="margin-top:20px;"><a href="../../../02_Wireframes/active/pages/careers.html" style="color:#fff;text-decoration:none;">Careers</a></h3>
       </div>
       <div>
-        <h3><a href="../../../02_Wireframes/active/pages/contact.html" style="color:#fff;text-decoration:none;">Contact</a></h3>
-        <h3 style="margin-top:20px;"><a href="../../../02_Wireframes/active/pages/for-founders.html" style="color:#fff;text-decoration:none;">Acquisitions</a></h3>
+        <h3 style="color:#fff;">Quick links</h3>
+        <ul>
+          <li><a href="../../../02_Wireframes/active/pages/careers.html#roles">View opportunities</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/leadership.html">Leadership</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></li>
+          <li><a href="../../../02_Wireframes/active/pages/privacy.html">Legal</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3><a href="../../../02_Wireframes/active/pages/for-founders.html" style="color:#fff;text-decoration:none;">Acquisitions</a></h3>
+        <ul>
+          <li><a href="../../../02_Wireframes/active/pages/for-founders.html">A home for your business</a></li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom">
@@ -2493,35 +2474,29 @@
         renderPin();
       }
 
-      /* 01 · the process · the runner (2026-10-29, client)
-         "Have the dots scroll right from column to column to trigger scrolling
-         col 1 first, then 2 & 3."
+      /* 01 · the process · the steps light in order (2026-10-29, client)
 
-         One gold dot lives on the spine and travels left → right as the band
-         is scrolled through; each column lights when the dot reaches it —
-         node fills, figures count up, captions land. The per-step nodes are
-         the stops, so the runner lands exactly on one at rest.
+         The columns light left to right as the band is scrolled: col 1 first,
+         then 2, then 3 — node fills, figures count up, captions land. There is
+         no travelling dot any more (client: "remove the scrolling dot motion");
+         the sequence is carried by WHEN each node lights, not by a marker
+         running along the spine.
 
-         Progress is the band's own position, not the window's scrollY: p goes
-         0 → 1 as the spine travels from 0.82vh to 0.28vh. That survives anchor
-         jumps, resizes and a restored scroll position — the dot is wherever
-         that arithmetic says it is, so nothing has to be replayed.
-
-         Per-frame inline writes, no CSS transitions (KB §23.6): the dot must
-         track the scroll, not ease behind it. */
+         Progress is the band's own position, not the window's scrollY, so an
+         anchor jump, a resize or a restored scroll lands correct with nothing
+         replayed. Reduced motion shows every step already lit. */
       (function () {
         var approach = document.querySelector('.approach');
         if (!approach) return;
         var stepsEl = approach.querySelector('.steps');
-        var runner = approach.querySelector('.steps__runner');
         var steps = Array.prototype.slice.call(approach.querySelectorAll('.step'));
         var counts = Array.prototype.slice.call(approach.querySelectorAll('.stat__count')).map(function (el) {
           return { el: el, step: el.closest('.step'), to: parseFloat(el.getAttribute('data-to')), done: false };
         }).filter(function (c) { return c.step && !isNaN(c.to); });
         if (!stepsEl || !steps.length || !counts.length) return;
 
-        /* reduced motion: no runner, no counting — the authored markup is the
-           finished state, so every step is simply already lit */
+        /* reduced motion: no counting — the authored markup is the finished
+           state, so every step is simply already lit */
         if (reduce.matches) {
           steps.forEach(function (st) { st.classList.add('is-drawn'); });
           var sm0 = approach.querySelector('.approach__summary');
@@ -2593,55 +2568,17 @@
            Desktop: the horizontal offset of the column's left edge. Phone: the
            vertical offset — the spine is turned on its side by the media query,
            and the same arithmetic drives the other axis. */
-        var mqStack = window.matchMedia('(max-width: 900px)');
-        function stops() {
-          var box = stepsEl.getBoundingClientRect();
-          var vertical = mqStack.matches;
-          return {
-            axis: vertical ? 'y' : 'x',
-            at: steps.map(function (st) {
-              var r = st.getBoundingClientRect();
-              return vertical ? (r.top - box.top) : (r.left - box.left);
-            })
-          };
-        }
-        var travel = stops();
-
-        /* timings along p — the dot starts on column 1, reaches column 2 across
-           0.30 → 0.42 and column 3 across 0.58 → 0.70, then holds */
+        /* When each column lights, as a fraction of the band's travel. Spread
+           wide enough that all three are not lit in one scroll notch. */
         var ARRIVE = [0.04, 0.46, 0.76];
-        var DEPART = [0.04, 0.26, 0.54];
 
         function render() {
           var vh = window.innerHeight;
           var rect = stepsEl.getBoundingClientRect();
-          /* Progress: the strip's top travelling from 0.78vh up to 0.12vh, so
-             the dot is still moving while the whole strip is on screen. Ending
-             it at 0.28vh finished the sweep before the third column had been
-             read. */
           var p = clamp01((vh * 0.78 - rect.top) / (vh * 0.66));
 
-          /* which column the dot is on */
-          var x = travel.at[0];
-          for (var i = 1; i < steps.length; i++) {
-            var t = smooth(seg(p, DEPART[i], ARRIVE[i]));
-            if (t > 0) { x = travel.at[i - 1] + (travel.at[i] - travel.at[i - 1]) * t; }
-          }
-
-          if (runner) {
-            var axis = travel.axis;                /* 'x' or 'y' */
-            if (axis === 'y') {
-              runner.style.top = x - 4 + 'px';
-              runner.style.left = '';
-            } else {
-              runner.style.left = x + 'px';
-              runner.style.top = '';
-            }
-            runner.style.opacity = p > 0 ? '1' : '0';
-          }
-
-          /* light every column the dot has reached — on a fast scroll or a jump
-             this catches up in one frame instead of skipping a step */
+          /* light every column whose point has passed — on a fast scroll or a
+             jump this catches up in one frame instead of skipping a step */
           for (var j = 0; j < steps.length; j++) {
             if (p >= ARRIVE[j] && !steps[j].classList.contains('is-drawn')) lightStep(j);
           }
@@ -2659,13 +2596,303 @@
         function onScroll() {
           if (queued) return;
           queued = true;
-          requestAnimationFrame(function () { queued = false; travel = stops(); render(); });
+          requestAnimationFrame(function () { queued = false; render(); });
         }
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll);
-        travel = stops();
         render();
       })();
+
+      /* Motion language: every band after the opening enters the same way.
+         Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
+         scroll, find-in-page — still reveals everything it passed. */
+      (function () {
+        var sel = '.scale__row, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .careers__posts, .close__title, .close__proof, .close__doors, .exit, .close__payoff';
+        var els = Array.prototype.slice.call(document.querySelectorAll(sel));
+        if (!els.length) return;
+        els.forEach(function (el) {
+          el.classList.add('reveal');
+          var idx = Array.prototype.indexOf.call(el.parentElement.children, el);
+          el.style.setProperty('--reveal-d', Math.min(Math.max(idx, 0), 3) * 70 + 'ms');
+        });
+        function sweep() {
+          var vh = window.innerHeight;
+          for (var i = 0; i < els.length; i++) {
+            var el = els[i];
+            if (el.classList.contains('is-in')) continue;
+            var r = el.getBoundingClientRect();
+            if (r.top < vh * 0.9) el.classList.add('is-in');
+          }
+        }
+        var queued = false;
+        function onScroll() {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; sweep(); });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        window.addEventListener('load', sweep);
+        sweep();
+      })();
+
+      /* Founders pull quote: word-by-word assembly. Own trigger (not the .reveal
+         sweep) because the words animate, not the block — and the same sweep
+         rule applies, so an anchor jump or restored scroll still lands with the
+         quote already assembled. (The scale summary's words are not triggered
+         here: they are timed off the end of the stat sequence, above.) */
+      (function () {
+        var q = document.querySelector('.founders__quote');
+        if (!q) return;
+        function check() {
+          if (q.classList.contains('is-in')) return;
+          if (q.getBoundingClientRect().top < window.innerHeight * 0.88) {
+            q.classList.add('is-in');
+            window.removeEventListener('scroll', check);
+            window.removeEventListener('resize', check);
+          }
+        }
+        window.addEventListener('scroll', check, { passive: true });
+        window.addEventListener('resize', check);
+        window.addEventListener('load', check);
+        check();
+      })();
+
+      /* Careers photo: the same slow drift as the key figures, smaller amplitude */
+      (function () {
+        var photo = document.querySelector('.careers__photo');
+        var media = document.querySelector('.careers__media');
+        if (!photo || !media) return;
+        function render() {
+          if (reduce.matches) { photo.style.transform = ''; return; }
+          var r = media.getBoundingClientRect();
+          var mid = (r.top + r.height / 2) - window.innerHeight / 2;
+          var y = Math.max(-16, Math.min(16, mid * -0.03));
+          photo.style.transform = 'translateY(' + y.toFixed(2) + 'px) scale(1.05)';
+        }
+        var queued = false;
+        function onScroll() {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; render(); });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        render();
+      })();
+
+      /* Verticals: expanding accordion (homev2 register) */
+      (function () {
+        var section = document.getElementById('investors');
+        if (!section) return;
+
+        function initVertStage() {
+          var stage = document.getElementById('vertStage');
+          if (!stage) return;
+          var panels = Array.prototype.slice.call(stage.querySelectorAll('.vpanel'));
+          var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+          function toggleOf(panel) { return panel.querySelector('.vpanel__toggle'); }
+
+          var currentIdx = 0;
+          function select(panel) {
+            panels.forEach(function (p) {
+              var on = p === panel;
+              p.classList.toggle('is-open', on);
+              var btn = toggleOf(p);
+              if (btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+            });
+            currentIdx = Math.max(0, panels.indexOf(panel));
+          }
+
+          panels.forEach(function (panel, idx) {
+            panel.addEventListener('click', function (e) {
+              if (e.target.closest('a')) return;
+              select(panel);
+            });
+            if (fine.matches) {
+              panel.addEventListener('mouseenter', function () { select(panel); });
+            }
+            var btn = toggleOf(panel);
+            if (!btn) return;
+            btn.addEventListener('keydown', function (e) {
+              var next = -1;
+              if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (idx + 1) % panels.length;
+              if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (idx - 1 + panels.length) % panels.length;
+              if (e.key === 'Home') next = 0;
+              if (e.key === 'End') next = panels.length - 1;
+              if (next < 0) return;
+              e.preventDefault();
+              select(panels[next]);
+              var nb = toggleOf(panels[next]);
+              if (nb) nb.focus();
+            });
+          });
+
+          /* Signature: the accordion breathes on its own — one panel every 5s.
+             Pauses on hover, focus, and while the section is off screen; never
+             runs under prefers-reduced-motion. */
+          var paused = false;
+          var inView = false;
+          var timer = null;
+
+          function tick() {
+            if (paused || !inView || reduce.matches) return;
+            select(panels[(currentIdx + 1) % panels.length]);
+          }
+
+          function start() {
+            if (timer || reduce.matches) return;
+            timer = window.setInterval(tick, 5000);
+          }
+          function stop() {
+            if (timer) { window.clearInterval(timer); timer = null; }
+          }
+
+          ['mouseenter', 'focusin', 'pointerdown', 'touchstart'].forEach(function (evt) {
+            stage.addEventListener(evt, function () { paused = true; }, { passive: true });
+          });
+          ['mouseleave', 'focusout'].forEach(function (evt) {
+            stage.addEventListener(evt, function () { paused = false; }, { passive: true });
+          });
+
+          if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (entries) {
+              entries.forEach(function (en) {
+                inView = en.isIntersecting;
+                if (inView) start(); else stop();
+              });
+            }, { threshold: 0.25 }).observe(stage);
+          } else {
+            inView = true;
+            start();
+          }
+        }
+
+        initVertStage();
+      })();
+
+      /* LinkedIn strip: prev/next page by exactly one card */
+      (function () {
+        var scroller = document.getElementById('liScroller');
+        var prev = document.getElementById('liPrev');
+        var next = document.getElementById('liNext');
+        if (!scroller || !prev || !next) return;
+        function step() {
+          var card = scroller.querySelector('.li-card');
+          return card ? card.getBoundingClientRect().width + 16 : 320;
+        }
+        function behaviour() { return reduce.matches ? 'auto' : 'smooth'; }
+        function sync() {
+          var max = scroller.scrollWidth - scroller.clientWidth - 1;
+          prev.disabled = scroller.scrollLeft <= 1;
+          next.disabled = scroller.scrollLeft >= max;
+        }
+        prev.addEventListener('click', function () { scroller.scrollBy({ left: -step(), behavior: behaviour() }); });
+        next.addEventListener('click', function () { scroller.scrollBy({ left: step(), behavior: behaviour() }); });
+        scroller.addEventListener('scroll', sync, { passive: true });
+        window.addEventListener('resize', sync);
+        sync();
+      })();
+
+      var axisStage = document.getElementById('axisBStage');
+      var axisFrame = document.getElementById('axisBFrame');
+      function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
+      var heroAxisA = document.getElementById('heroAxisA');
+      function renderAxisB() {
+        if (!axisStage || !axisFrame || reduce.matches) return;
+        var rect = axisStage.getBoundingClientRect();
+        var travel = axisStage.offsetHeight - window.innerHeight;
+        var axisBHeadlines = document.getElementById('axisBHeadlines');
+        if (rect.bottom <= 0) {
+          if (axisBHeadlines) axisBHeadlines.classList.remove('is-live');
+          syncBar();
+          return;
+        }
+
+        var scrolled = 1;
+        if (travel > 0) scrolled = clamp01(-rect.top / travel);
+
+        /* Phase 1 — the handoff completes by 0.55 of the pin, then the second
+           message holds while the rest of the travel passes. Same phase split
+           as `02-video-hero`; the numbers below are that exploration's, kept
+           because the overlap is what makes the swap read as one movement
+           rather than two fades. Nothing else changes on the page: no image
+           layer, no cut, no tint jump — the clip keeps playing underneath. */
+        var t = clamp01(scrolled / 0.55);
+        var seg = function (x, a, b) { return clamp01((x - a) / (b - a)); };
+        var smooth = function (x) { return x * x * (3 - 2 * x); };
+
+        /* Axis A leaves: staggered upward, first line first */
+        var a1 = smooth(seg(t, 0.10, 0.26));
+        var a2 = smooth(seg(t, 0.14, 0.30));
+        var a3 = smooth(seg(t, 0.18, 0.34));
+
+        /* Axis B arrives as A clears. The exploration lets the two casts
+           overlap across the whole swap; at 390 both headlines are centred in
+           the same band, and a wide overlap read as six half-visible lines in
+           a pile — but pulling them fully apart left a dead beat with nothing
+           on screen. So they overlap by one line: A's payoff is leaving as B's
+           first line lands, with the exit travelling 1.45em up and the entry
+           1.25em up from below, which keeps them in different air. */
+        var b1 = smooth(seg(t, 0.28, 0.46));
+        var b2 = smooth(seg(t, 0.36, 0.56));
+        var b3 = smooth(seg(t, 0.44, 0.70));
+
+        var wash = smooth(seg(t, 0.24, 0.60));
+        if (heroAxisA) {
+          heroAxisA.style.setProperty('--a-exit-1', a1.toFixed(4));
+          heroAxisA.style.setProperty('--a-exit-2', a2.toFixed(4));
+          heroAxisA.style.setProperty('--a-exit-3', a3.toFixed(4));
+          heroAxisA.style.setProperty('--b-wash', wash.toFixed(4));
+        }
+        axisFrame.style.setProperty('--b-reveal', scrolled.toFixed(4));
+        if (axisBHeadlines) {
+          axisBHeadlines.style.setProperty('--pSoftIn', b1.toFixed(4));
+          axisBHeadlines.style.setProperty('--pLine2', b2.toFixed(4));
+          axisBHeadlines.style.setProperty('--pLine3', b3.toFixed(4));
+          /* B is on stage from the moment its first line starts arriving, and
+             stays until the stage leaves. Both states are content: A never
+             goes aria-hidden, B only becomes visible because it is drawn. */
+          axisBHeadlines.classList.toggle('is-live', b1 > 0.001);
+        }
+        syncBar();
+      }
+
+      var axisTick = false;
+      function onAxisScroll() {
+        if (!axisTick) {
+          axisTick = true;
+          requestAnimationFrame(function () {
+            axisTick = false;
+            renderAxisB();
+            renderPin();
+          });
+        }
+      }
+      if (axisStage && axisFrame) {
+        axisFrame.style.setProperty('--b-reveal', reduce.matches ? '1' : '0');
+        var h0 = document.getElementById('axisBHeadlines');
+        if (h0) {
+          h0.style.setProperty('--pSoftIn', reduce.matches ? '1' : '0');
+          h0.style.setProperty('--pLine2', reduce.matches ? '1' : '0');
+          h0.style.setProperty('--pLine3', reduce.matches ? '1' : '0');
+          if (reduce.matches) h0.classList.add('is-live');
+        }
+        if (heroAxisA) {
+          heroAxisA.style.setProperty('--a-exit-1', '0');
+          heroAxisA.style.setProperty('--a-exit-2', '0');
+          heroAxisA.style.setProperty('--a-exit-3', '0');
+        }
+        window.addEventListener('scroll', onAxisScroll, { passive: true });
+        window.addEventListener('resize', onAxisScroll);
+        renderAxisB();
+      } else {
+        window.addEventListener('scroll', syncBar, { passive: true });
+        window.addEventListener('resize', syncBar);
+        syncBar();
+      }
+
 
       /* ---- Opening entrance (2026-10-24, CD direction) -------------------
          One pass after the fonts land: Axis A's lines, alone.
