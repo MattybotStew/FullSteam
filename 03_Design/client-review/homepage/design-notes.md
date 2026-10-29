@@ -1755,3 +1755,18 @@ band behind it can change without touching the panels.
 
 Verified 1440 / 390: ink ground, gold accent, hairlines visible on the dark, the exit line legible,
 the sixth panel still expanding to its CTA, no overflow, 0 console errors.
+
+## 2026-10-29 — the close band loses its way-finder
+
+Client: remove the two doors (*Vertical software → Explore our verticals*, *Acquisitions → A home for
+your business*) and the closing line *"Any industry. One home."*
+
+All three are gone with their styling: `.close__doors`, `.close__door` (kicker / heading / body, the
+arrow and its hover), `.close__payoff`, the two `.arw` rules, the mobile door rule, and their entries
+in the reveal selector list. The band is now the headline and the proof line — **433px → 415px**,
+with the bottom padding made symmetric, since the deep bottom pad existed only to sit under the
+doors and without them read as a hole.
+
+That leaves the page with **one CTA: the header pill** — which is where the "single CTA" thread
+started when the opening lost its button. No dead link, no orphaned arrow: verified there are no
+`close__door` / `close__payoff` nodes or rules left, and the section reads cleanly into the footer.

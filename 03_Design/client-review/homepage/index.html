@@ -142,13 +142,6 @@
       color: var(--mut); text-wrap: pretty;
     }
     .exit--dark { border-top-color: rgba(255,255,255,.16); color: rgba(255,255,255,.66); }
-    .close__payoff {
-      margin: clamp(40px, 5.5vh, 64px) 0 0; padding-top: 22px;
-      border-top: 1px solid rgba(255,255,255,.22);
-      font-family: "Instrument Serif", Georgia, serif; font-style: italic;
-      font-size: clamp(21px, 2.3vw, 32px); line-height: 1.25;
-      color: var(--brand-sky);
-    }
 
     .skip-link {
       position: absolute; left: 12px; top: -70px; z-index: 200;
@@ -1595,7 +1588,9 @@
     /* ---- close: brand finale (dark band, monumental type) ---- */
     .close {
       position: relative; overflow: hidden;
-      padding: var(--section-y) var(--gutter-x) clamp(96px, 12vh, 144px);
+      /* symmetric now that the doors are gone (2026-10-29): the deep bottom pad
+         existed to sit under them, and without them it read as a hole */
+      padding: var(--section-y) var(--gutter-x);
       background-color: var(--brand); color: #fff;
       background-image: radial-gradient(85% 120% at 88% -10%, rgba(255,255,255,.12) 0%, transparent 62%);
     }
@@ -1621,39 +1616,6 @@
       font-size: clamp(14px, 1.1vw, 16px); letter-spacing: .01em;
     }
     /* two doors, not one button: the page serves investors and founders */
-    .close__doors {
-      margin-top: clamp(44px, 6.5vh, 72px);
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: clamp(24px, 4vw, 72px);
-    }
-    .close__door {
-      display: block; padding-top: 22px; text-decoration: none; color: #fff;
-      border-top: 1px solid rgba(255,255,255,.28);
-      transition: border-color 200ms var(--ease-out);
-    }
-    .close__door:hover { border-top-color: #fff; }
-    .close__door-k {
-      display: block; margin-bottom: 14px;
-      font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-      color: rgba(255,255,255,.62);
-    }
-    .close__door-h {
-      display: block; font-size: clamp(1.5rem, 2.4vw, 2.1rem); font-weight: 600;
-      letter-spacing: -.02em; line-height: 1.1;
-    }
-    .close__door-h .arw {
-      display: inline-block; margin-left: 8px; color: var(--gold);
-      transition: transform .25s var(--ease-out);
-    }
-    .close__door:hover .arw { transform: translateX(4px); }
-    .close__door-p {
-      display: block; margin-top: 10px; max-width: 34ch;
-      font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.72); text-wrap: pretty;
-    }
-    .close__door:focus-visible { outline: 3px solid #fff; outline-offset: 6px; border-radius: 2px; }
-    @media (max-width: 900px) {
-      .close__doors { grid-template-columns: 1fr; gap: 28px; }
-    }
 
     /* ---- print grain on the dark bands ---- */
     .site-footer { position: relative; }
@@ -2204,19 +2166,6 @@
       <div class="close__inner">
         <h2 class="close__title" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
         <p class="close__proof" style="font-size: clamp(18px, 2.6vw, 28px);">70,000+ customers · <span class="close__proof-flag">11 vertical businesses</span> · 2,000+ people</p>
-        <div class="close__doors">
-          <a class="close__door" href="../../../02_Wireframes/active/pages/vertical-software.html">
-            <span class="close__door-k">Vertical software</span>
-            <span class="close__door-h">Explore our verticals<span class="arw" aria-hidden="true">→</span></span>
-            <span class="close__door-p">Eleven vertical software businesses, each a category leader in its market.</span>
-          </a>
-          <a class="close__door" href="../../../02_Wireframes/active/pages/for-founders.html">
-            <span class="close__door-k">Acquisitions</span>
-            <span class="close__door-h">A home for your business<span class="arw" aria-hidden="true">→</span></span>
-            <span class="close__door-p">Values fit, certainty of close, and a bigger org that scales the founder.</span>
-          </a>
-        </div>
-        <p class="close__payoff">Any industry. One home.</p>
       </div>
     </section>
     </div>
@@ -2634,7 +2583,7 @@
          Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
          scroll, find-in-page — still reveals everything it passed. */
       (function () {
-        var sel = '.scale__row, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__voices > li, .careers__posts, .close__title, .close__proof, .close__doors, .exit, .close__payoff';
+        var sel = '.scale__row, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__voices > li, .careers__posts, .close__title, .close__proof, .exit';
         var els = Array.prototype.slice.call(document.querySelectorAll(sel));
         if (!els.length) return;
         els.forEach(function (el) {
