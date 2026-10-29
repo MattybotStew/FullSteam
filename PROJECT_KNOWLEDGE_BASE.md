@@ -1783,7 +1783,7 @@ does not cut.
 |---|---|---|
 | **Axis A** | Portfolio — *what Fullsteam owns* | "the portfolio page", "Solutions" |
 | **Axis B** | Growth engine — *how those businesses get bigger* | "the payments story", "Platform" |
-| **grow morph** (the grow) | the interpolated A→B transition — the Retail tile growing to fill the frame | "the snap", "crossfade", "morph" as a vague metaphor |
+| **grow morph** (the grow) | **RETIRED 2026-10-29 (§23.10).** The A→B transition is now the **copy swap** over the continuing hero clip; "grow morph" survives only as history | "the snap", "crossfade", "morph" as a vague metaphor |
 | **Our Advantage** | the embedded-expansion axis label (client rename 2026-10-22; was "Embedded Offerings") | "Platform", "Capabilities", "Services" |
 | **Offerings** | the group name used on the Our Advantage page — Payments / Lending / Insurance + AI | a nav label or a short form of the axis |
 | **vertical** | the portfolio unit (**11**) | "industry", "niche", "specialty" in site copy (§22.6) |
@@ -1794,9 +1794,13 @@ homepage's *model*; the **nav labels** (Vertical Software / Our Advantage) name 
 
 ### 23.6 Guardrails — all agents
 
-1. **Do not replace the grow morph with a discrete cut.** The interpolated transition is the
-   decision (restored 2026-09-24 at the client's request); a hard snap is a strategy change, not
-   a polish pass. Keep the per-frame writes free of CSS transitions so the morph cannot smear.
+1. **The transition is the copy swap, not a cut (§23.10, 2026-10-29).** Axis A's lines leave
+   upward while Axis B's arrive from below, over the **same pinned hero media** — no image layer,
+   no cut, no snap. This supersedes the 2026-09-24 "grow morph" (a tile growing to fill the
+   frame), which required a visible source element and a photographed backdrop; the hero is a
+   video clip now, and the client's direction is that Axis B "just does the copy swap" the way
+   `03_Design/explorations/02-video-hero` does. Keep the per-frame writes free of CSS
+   transitions so the handoff cannot smear.
 2. **Do not add a third state or a third claim** to the opening. Two states, two jobs.
 3. **Do not merge the two headlines.** Axis A = identity/ownership; Axis B = the growth model.
    One merged sentence blurs both audiences (§4).
@@ -1819,6 +1823,28 @@ homepage's *model*; the **nav labels** (Vertical Software / Our Advantage) name 
 - **Beat 06 KPI cycle** still cycles placeholders (11 / 80k+ / 2,000+) — the **vertical count is
   settled at 11** (the locked IA: 11 tiles, 11 tabs; decided 2026-09-26), leaving the **customer
   count** (80k+ vs V2's 70,000+) and publishability open (§22.5, §22.6).
+
+### 23.10 Revision 2026-10-29 — the transition is the copy swap
+
+**Client direction:** "Axis B just does the copy swap — look at the first hero 2 exploration."
+
+- **The grow morph is retired.** It needed a *visible* source — first the 11-tile mosaic, then a
+  centred filmstrip tile, then a synthetic 16:9 frame carrying a pinned photo — and each of those
+  was furniture the client had already asked to remove. With the hero now a continuous sizzle
+  clip, a photograph growing over it was a second, unasked-for subject.
+- **What replaces it** is `03_Design/explorations/02-video-hero`'s handoff: Axis A's three lines
+  leave **upward**, staggered, blurred on the way out; Axis B's three lines arrive **from below**
+  on a slightly later stagger; the copy is the only thing that changes. The clip never cuts, never
+  pauses for the transition, and Axis B can no longer land on a random image.
+- **Both headlines are now the same voice** — white sans with one **gold** serif word each. Axis B
+  carried `--brand-sky` while it sat on its own tinted photo; two colour systems inside one
+  continuous shot read as a cut. `--brand-sky` is no longer used in the opening.
+- **The wash deepens as B arrives** (`--b-wash`, ≈.30 alpha) because the second message is read
+  over a *moving* image, not the frame the first message opened on.
+- **The two states remain two claims** (rule 3 stands), and the A→B order is unchanged.
+- **Reduced motion / no JS now genuinely render in document order.** Axis B's fixed overlay was
+  drawing itself on top of Axis A — the pre-existing defect noted in §28. It is `position:
+  static` and in flow, so A's band is followed by B's band and then the scale chapter.
 
 ### 23.9 Revision 2026-09-28 — the opening got cheaper, not different
 
@@ -2333,6 +2359,12 @@ there was never a Careers CTA in this section (that one lives in the careers ban
 
 ⚠ **Known issue, pre-existing:** under `prefers-reduced-motion` the two headline states overlap in
 the static fallback (reproduces in variant A too). It contradicts §23.6 rule 5 and needs its own fix.
+
+**Axis B is a copy swap (2026-10-29).** See **§23.10**: the grow morph is retired and the A→B
+transition is now the `02-video-hero` handoff — Axis A's lines leave upward, Axis B's arrive from
+below, over the same pinned clip. Axis B's type now matches Axis A (white + one gold serif word),
+the wash deepens as B arrives, and the **pre-existing reduced-motion overlap is fixed** (B is in
+flow, not a fixed overlay). Build record: `design-notes.md` §"2026-10-29 — Axis B is a copy swap".
 
 **Hero sizzle clip in place (2026-10-29).** The hero placeholder is retired: `newBoy2.mp4` →
 `client-review/homepage/assets/hero-sizzle.mp4` (1920×1080 H.264, 32.3s, silent, 4.8 MB) now plays

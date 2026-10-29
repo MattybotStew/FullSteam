@@ -1238,3 +1238,46 @@ Verified at 1440 / 390: clip autoplays muted and loops, pauses when the opening 
 and resumes on return, does **not** play under `prefers-reduced-motion`, 0 console errors, no
 horizontal overflow, headline and eyebrow legible on the brightest frame, the grow morph still
 hands off to Axis B over the clip.
+
+## 2026-10-29 — Axis B is a copy swap, not a grown photo frame
+
+Client: **"Axis B just does the copy swap — look at the first hero 2 exploration."** That is
+`03_Design/explorations/02-video-hero`, whose state 2 is not a new backdrop at all: the same hero
+stays up and only the words change.
+
+**What went.** `#vertGrow` — the fixed 16:9 frame that expanded into a full-bleed photograph —
+along with its three CSS rules, `layoutThumbMorph`, `GROW_PHOTO`, the `morphStart` bookkeeping and
+the `--z-opening-grow` token. The hero clip is now the backdrop for **both** states, continuously,
+so Axis B can no longer land on whichever image was pinned that day.
+
+**What replaced it** is the exploration's handoff, ported to this build:
+
+- Axis A's lines leave **upward** (1.45em, capped blur), staggered 0.10→0.34 of the copy phase.
+- Axis B's lines arrive **from below** (1.25em), staggered 0.28→0.70, the gold serif word settling
+  last. One line of overlap, so there is no dead beat with nothing on screen — and not the
+  exploration's full overlap either, because at 390 both headlines sit in the same 844px band and
+  a wide overlap reads as six half-visible lines in a pile.
+- The copy phase finishes at 0.55 of the stage travel, then holds, exactly as the exploration's
+  phase 1 does. Nothing else on the page moved.
+
+**Axis B's type is now Axis A's type**: white display, one **gold** serif word. It carried
+`--brand-sky` plus a white italic payoff while it sat on its own tinted photo — with the clip
+running underneath, two colour systems in one continuous shot read as a cut. The gold payoff sits
+at ~3:1 on the wash, the same ratio Axis A's own payoff carries, and the type is 120px display.
+
+**The wash deepens as B arrives.** A new `.hero__media-wash` layer (≈.30 alpha) is driven by
+`--b-wash` from 0.24→0.60 of the phase. The second message is read over a *moving* image and does
+not get the frame the first message opened on, so it needs a deeper floor; the wash eases back out
+if the reader scrolls up.
+
+**Fixed on the way through: the reduced-motion overlap.** Axis B's headline layer was `position:
+fixed; inset: 0`, so with `prefers-reduced-motion` both states drew on top of each other — the
+defect flagged twice in these notes and in KB §28, contradicting §23.6 rule 5. Under reduced
+motion it is now `position: static` and in flow: Axis A's band, then Axis B's band, then the scale
+chapter. The empty 100svh runway between them (`axis-b` / `axis-b__frame` min-heights) is zeroed at
+the same time.
+
+Verified at 1440 and 390, scroll-stepped through the handoff: Axis A returns cleanly on scroll-up
+(`--a-exit-*` back to 0), B is `is-live` only while it has a line on screen, the clip keeps playing
+through the swap, 0 console errors, no horizontal overflow, and the whole page still scrolls to the
+close with the top bar switching surfaces at the right places.

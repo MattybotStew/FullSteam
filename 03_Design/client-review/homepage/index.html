@@ -435,6 +435,16 @@
          not punch a black hole through it */
       background: transparent;
     }
+    /* Axis B's floor. The clip keeps moving behind the second message, and the
+       frames it lands on are not the ones the first message opened on, so the
+       wash deepens as B arrives (--b-wash, 0 → 1 across the handoff) and eases
+       back out if the reader scrolls up. Adds ≈.30 alpha at full strength. */
+    .hero__media-wash {
+      position: absolute; inset: 0;
+      background: rgba(0,15,22,.30);
+      opacity: var(--b-wash, 0);
+      transition: none;
+    }
     @media (prefers-reduced-motion: reduce) {
       .hero__media-fallback { animation: none; }
     }
@@ -446,16 +456,29 @@
       width: 100%;
     }
     .hero--axis-a .hero__center {
-      /* Centred in the band between the header and the filmstrip (2026-10-28,
-         fifth pass). .hero__center is the flex:1 row between the two, so
-         `center` is literally the midpoint of the empty apron — the copy block
-         sits on it, not on the viewport grid. The type therefore ends around
-         63%, which is why the plate below is sized to the TYPE BOX rather than
-         to the frame: the paper has to travel with the words. */
       justify-content: center;
-      opacity: calc(1 - var(--hero-a-fade, 0));
+    }
+    /* ---- the handoff (2026-10-29) ------------------------------------------
+       Axis A → Axis B is a COPY SWAP over the same pinned media, the way
+       `03_Design/explorations/02-video-hero` does it: Axis A's lines leave
+       upward while Axis B's arrive from below, staggered, and the footage
+       never cuts or covers. There is no grown photo frame any more — the clip
+       is continuous from the first frame to the last state, which is also why
+       Axis B can no longer land on a random image.
+
+       Per-line exit, same recipe as the entrance (mask-free: opacity +
+       translate + a capped blur). --a-exit-N is written per frame by
+       renderAxisB(); no CSS transitions, or the swap smears. */
+    .hero--axis-a .hero__title .line {
+      opacity: calc(1 - var(--a-exit, 0));
+      transform: translateY(calc(-1.45em * var(--a-exit, 0)));
+      filter: blur(calc(0.035em * var(--a-exit, 0)));
       transition: none;
     }
+    .hero--axis-a .hero__title .line:nth-child(1) { --a-exit: var(--a-exit-1, 0); }
+    .hero--axis-a .hero__title .line:nth-child(2) { --a-exit: var(--a-exit-2, 0); }
+    .hero--axis-a .hero__title .line:nth-child(3) { --a-exit: var(--a-exit-3, 0); }
+    .hero--axis-a .hero__eyebrow { opacity: calc(1 - var(--a-exit-1, 0)); transition: none; }
     /* homev2 headline system (Axis A / B copy) */
     .hero__headlines {
       --title-max: var(--display-xl);
@@ -613,42 +636,10 @@
       30% { opacity:1; }
       100%{ transform:translate3d(0,0,0) scale(1);      opacity:1; filter:blur(0); }
     }
-    .hero__cta {
-      display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
-      margin-top: clamp(24px, 4vh, 40px);
-    }
-    /* ---- the grow layer: Axis A's frame opening onto Axis B ---------------
-       Same mechanics as before the filmstrip was removed (2026-10-29); only the
-       source changed — a fixed 16:9 frame in the middle of the hero instead of
-       the centred filmstrip tile. Radius runs from the small-frame token to 0
-       over the morph, so the hand-off into the full-bleed frame has no pop. */
-    .vert-grow {
-      position: fixed;
-      z-index: var(--z-opening-grow);
-      overflow: hidden;
-      pointer-events: none;
-      transition: none;
-      visibility: hidden;
-      opacity: 0;
-      border: 1px solid var(--frame-hair-dark);
-      border-radius: var(--frame-r-sm);
-    }
-    .vert-grow.is-active {
-      visibility: visible;
-    }
-    .vert-grow__inner {
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-    }
-    .vert-grow__tint {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 12, 20, 0.68);
-      pointer-events: none;
-    }
-    /* ---- Axis B · full-bleed vertical BG rises over pinned Axis A ---- */
+    /* ---- Axis B · the second message, swapped in over the pinned clip ---
+       The stage is still a tall band so the copy swap has scroll to play in,
+       but there is no backdrop of its own any more: the hero clip underneath
+       is the backdrop. */
     .axis-b-stage {
       position: relative;
       z-index: 0;
@@ -705,9 +696,15 @@
     .axis-b__headlines.is-live {
       visibility: visible;
     }
+    /* Axis B now shares the hero's media with Axis A, so it also shares its
+       type treatment: white display, one gold serif word. `--brand-sky` was the
+       colour it carried while it sat on its own photo frame; with the clip
+       running underneath, two colour systems in one continuous shot read as a
+       cut. This is the `02-video-hero` handoff: the copy changes, the look
+       does not. */
     .axis-b__headlines .hero__title--software {
-      color: var(--brand-sky);
-      text-shadow: none;
+      color: #fff;
+      text-shadow: 0 2px 30px rgba(0,20,28,.45);
     }
     /* homev2 Axis B — per-line scroll reveal (software headline handoff) */
     .axis-b__headlines .hero__title--software .line {
@@ -718,30 +715,38 @@
     }
     .axis-b__headlines .hero__title--software .line em {
       display: inline-block;
-      /* White, not the Axis A brand blue (2026-10-28). The Axis A payoff sits on
-         paper and takes `--brand`; this one sits on the tinted photo, where
-         brand blue measured ~2:1. The serif is the accent, the white keeps it
-         legible and still separates it from the sky sans above it. */
-      color: #fff;
+      /* Gold, same accent as Axis A's payoff (2026-10-29). It was white while
+         Axis B sat on its own tinted photo and brand blue measured ~2:1 there;
+         now that both states share the darkness of the clip, the two headlines
+         should be the same voice — white sans, one gold serif word. Gold sits at
+         ~3:1 on the wash, which is the large-text threshold this type is at
+         (120px), and it is the same ratio Axis A's own payoff carries. */
+      color: var(--gold);
       transform: scale(calc(0.9 + 0.1 * var(--line-op, 0)));
     }
     .axis-b__headlines .hero__title--software .line[data-li="1"] { --line-op: var(--pSoftIn, 0); }
     .axis-b__headlines .hero__title--software .line[data-li="2"] { --line-op: var(--pLine2, 0); }
     .axis-b__headlines .hero__title--software .line[data-li="3"] { --line-op: var(--pLine3, 0); }
-    .axis-b__headlines .hero__cta {
-      margin-top: 0;
-      pointer-events: auto;
-      opacity: var(--b-cta-in, 0);
-      transform: scale(calc(0.94 + 0.06 * var(--b-cta-in, 0)));
-      transition: none;
-    }
     .reduce-motion .opening-stage { height: auto; }
     .reduce-motion .hero--axis-a { position: relative; height: auto; }
     .reduce-motion .axis-b-stage { margin-top: 0; pointer-events: auto; }
-    .reduce-motion .axis-b { position: relative; height: auto; }
-    .reduce-motion .axis-b__headlines { visibility: visible; }
-    .reduce-motion .axis-b__headlines .hero__title--software .line,
-    .reduce-motion .axis-b__headlines .hero__cta {
+    /* the stage is a scroll runway, not a band — with no pin there is nothing to
+       run, so it must not hold a viewport of empty space between A and B */
+    .reduce-motion .axis-b__frame { min-height: 0; height: 0; }
+    .reduce-motion .axis-b { position: relative; height: auto; min-height: 0; }
+    /* Reduced motion: B is not a fixed overlay, it is the next band in
+       document order — which is what KB 23.6 rule 5 actually asks for. The
+       fixed positioning was the pre-existing bug that drew both headlines on
+       top of each other whenever the preference was on. */
+    .reduce-motion .axis-b__headlines {
+      position: static;
+      inset: auto;
+      visibility: visible;
+      min-height: 0;
+      padding: calc(var(--bar-h) + 24px) var(--gutter-x) clamp(48px, 9vh, 96px);
+      background: var(--hero-dark);
+    }
+    .reduce-motion .axis-b__headlines .hero__title--software .line {
       opacity: 1;
       transform: none;
       filter: none;
@@ -1614,6 +1619,9 @@
             <source src="assets/hero-sizzle.mp4" type="video/mp4">
           </video>
           <div class="hero__media-scrim"></div>
+          <!-- Axis B's extra wash: the second message is read over a MOVING
+               image, so it gets a deeper floor than Axis A's opening frame. -->
+          <div class="hero__media-wash"></div>
         </div>
         <p class="sr-only">Hero background video: a Fullsteam sizzle reel.</p>
         <div class="hero__center" id="heroCenter">
@@ -1634,10 +1642,6 @@
             <div class="axis-b__frame" id="axisBFrame" aria-hidden="true"></div>
           </div>
         </section>
-      </div>
-      <div class="vert-grow" id="vertGrow" aria-hidden="true">
-        <div class="vert-grow__inner" id="vertGrowInner"></div>
-        <div class="vert-grow__tint" aria-hidden="true"></div>
       </div>
       <div class="axis-b__headlines" id="axisBHeadlines">
         <div class="hero__headlines">
@@ -2557,148 +2561,62 @@
       var axisFrame = document.getElementById('axisBFrame');
       function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
       var heroAxisA = document.getElementById('heroAxisA');
-      var vertGrow = document.getElementById('vertGrow');
-      var vertGrowInner = document.getElementById('vertGrowInner');
-      var morphStart = null;
-      /* ---- Axis B backdrop + the grow that opens onto it (2026-10-29) ------
-         The filmstrip used to be the grow's source: the morph expanded whichever
-         tile was centred into the Axis B frame, which also made the Axis B photo
-         depend on where the marquee happened to be. With the filmstrip gone the
-         source is a fixed frame in the middle of the hero, carrying a chosen
-         photograph, so Axis B gets one image every time instead of a lottery. */
-      var GROW_PHOTO = "url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&crop=faces&w=1600&h=900&q=70')";
-      function frameRSm_() {
-        var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--frame-r-sm'));
-        return isNaN(v) ? 12 : v;
-      }
-      var frameRSm = frameRSm_();
-
-      function clearMorphState() {
-        morphStart = null;
-        if (heroAxisA) heroAxisA.style.setProperty('--hero-a-fade', '0');
-        if (vertGrow) {
-          vertGrow.classList.remove('is-active');
-          vertGrow.setAttribute('aria-hidden', 'true');
-          vertGrow.style.opacity = '0';
-        }
-      }
-
-      function layoutThumbMorph(reveal) {
-        if (!vertGrow || !vertGrowInner) return;
-        if (reveal <= 0.001) {
-          clearMorphState();
-          return;
-        }
-
-        if (!morphStart) {
-          /* 16:9 source frame, entering from the BOTTOM EDGE. Centring it in the
-             hero was the first attempt and it was wrong: the frame materialised
-             on top of the Axis A headline and sliced it mid-word, because the
-             filmstrip had been the thing the eye could see growing. From below
-             the fold it rises over the copy the way Axis B itself scrolls over
-             Axis A. */
-          var vw0 = window.innerWidth;
-          var vh0 = window.innerHeight;
-          var w0 = Math.min(vw0 * 0.30, 420);
-          var h0 = w0 * 9 / 16;
-          /* The seed sits just BELOW the fold, not on the foot rail. On the rail
-             it was flush under the payoff line at 1440 (26px of air), so the
-             copy had to clear before the frame had climbed at all — which left
-             a dead stretch of scroll, and a worse one at 390. From below the
-             fold the frame has real room to rise, and the copy can stay legible
-             until the edge actually reaches it. */
-          morphStart = {
-            left: (vw0 - w0) / 2, top: vh0, width: w0, height: h0,
-            /* the COPY BLOCK, not .hero__center — that row is flex:1 and fills
-               the whole hero, so its bottom is the fold, not the type */
-            copyBottom: (function () {
-              var hl = document.querySelector('#heroAxisA .hero__headlines');
-              return hl ? hl.getBoundingClientRect().bottom : vh0 * 0.62;
-            })()
-          };
-          vertGrowInner.style.backgroundImage = GROW_PHOTO;
-          vertGrow.classList.add('is-active');
-          vertGrow.setAttribute('aria-hidden', 'false');
-        }
-
-        /* The frame holds its seed rect for the first 12% of the reveal — a beat
-           in which the page simply acknowledges the scroll — and only then
-           climbs. */
-        var grow = clamp01((reveal - 0.12) / 0.88);
-        var t = grow * grow * (3 - 2 * grow);
-        var vw = window.innerWidth;
-        var vh = window.innerHeight;
-        var l = morphStart.left + (0 - morphStart.left) * t;
-        var top = morphStart.top + (0 - morphStart.top) * t;
-        var w = morphStart.width + (vw - morphStart.width) * t;
-        var h = morphStart.height + (vh - morphStart.height) * t;
-
-        vertGrow.style.left = l.toFixed(2) + 'px';
-        vertGrow.style.top = top.toFixed(2) + 'px';
-        vertGrow.style.width = w.toFixed(2) + 'px';
-        vertGrow.style.height = h.toFixed(2) + 'px';
-        vertGrow.style.borderRadius = (frameRSm * (1 - t)).toFixed(2) + 'px';
-        /* dissolve in by reveal .14 (≈90px of the 1440 pin). Nothing is on
-           screen at reveal 0 — the filmstrip used to be that visible seed — so
-           a hard opacity pop would read as a photo card appearing out of
-           nowhere, and holding a card at rest would put an unexplained photo
-           under the headline. */
-        vertGrow.style.opacity = Math.min(1, reveal / 0.14).toFixed(3);
-        vertGrow.style.setProperty('--grow-full', t >= 0.98 ? '1' : '0');
-
-        /* The Axis A copy fades against the frame's TOP EDGE, not against a
-           schedule: 1 while the edge is still at the fold, 0 when it reaches
-           the copy. A time-based fade could not serve both widths — at 1440 the
-           seed was 26px under the type, at 390 it was 205px below it, so any
-           fixed ramp either cut the headline or emptied the screen. */
-        var cb = morphStart.copyBottom;
-        var span = Math.max(1, vh - cb);
-        if (heroAxisA) heroAxisA.style.setProperty('--hero-a-fade', (1 - clamp01((top - cb) / span)).toFixed(4));
-
-      }
-
       function renderAxisB() {
         if (!axisStage || !axisFrame || reduce.matches) return;
         var rect = axisStage.getBoundingClientRect();
-        var vh = window.innerHeight;
-        var travel = axisStage.offsetHeight - vh;
+        var travel = axisStage.offsetHeight - window.innerHeight;
         var axisBHeadlines = document.getElementById('axisBHeadlines');
         if (rect.bottom <= 0) {
-          clearMorphState();
-          if (vertGrow) {
-            vertGrow.style.opacity = '0';
-            vertGrow.style.visibility = 'hidden';
-          }
           if (axisBHeadlines) axisBHeadlines.classList.remove('is-live');
           syncBar();
           return;
         }
-        if (vertGrow) vertGrow.style.visibility = '';
+
         var scrolled = 1;
         if (travel > 0) scrolled = clamp01(-rect.top / travel);
-        /* Morph early; Axis B lines stagger across morph tail + copy; dwell before §02 */
-        var morphEnd = 0.45;
-        var copyEnd = 0.58;
-        var morphT = clamp01(scrolled / morphEnd);
-        var textStart = 0.3;
-        var textEnd = 0.72;
-        var textT = clamp01((scrolled - textStart) / (textEnd - textStart));
-        function stagger(t, offset, span) {
-          return clamp01((t - offset) / span);
+
+        /* Phase 1 — the handoff completes by 0.55 of the pin, then the second
+           message holds while the rest of the travel passes. Same phase split
+           as `02-video-hero`; the numbers below are that exploration's, kept
+           because the overlap is what makes the swap read as one movement
+           rather than two fades. Nothing else changes on the page: no image
+           layer, no cut, no tint jump — the clip keeps playing underneath. */
+        var t = clamp01(scrolled / 0.55);
+        var seg = function (x, a, b) { return clamp01((x - a) / (b - a)); };
+        var smooth = function (x) { return x * x * (3 - 2 * x); };
+
+        /* Axis A leaves: staggered upward, first line first */
+        var a1 = smooth(seg(t, 0.10, 0.26));
+        var a2 = smooth(seg(t, 0.14, 0.30));
+        var a3 = smooth(seg(t, 0.18, 0.34));
+
+        /* Axis B arrives as A clears. The exploration lets the two casts
+           overlap across the whole swap; at 390 both headlines are centred in
+           the same band, and a wide overlap read as six half-visible lines in
+           a pile — but pulling them fully apart left a dead beat with nothing
+           on screen. So they overlap by one line: A's payoff is leaving as B's
+           first line lands, with the exit travelling 1.45em up and the entry
+           1.25em up from below, which keeps them in different air. */
+        var b1 = smooth(seg(t, 0.28, 0.46));
+        var b2 = smooth(seg(t, 0.36, 0.56));
+        var b3 = smooth(seg(t, 0.44, 0.70));
+
+        var wash = smooth(seg(t, 0.24, 0.60));
+        if (heroAxisA) {
+          heroAxisA.style.setProperty('--a-exit-1', a1.toFixed(4));
+          heroAxisA.style.setProperty('--a-exit-2', a2.toFixed(4));
+          heroAxisA.style.setProperty('--a-exit-3', a3.toFixed(4));
+          heroAxisA.style.setProperty('--b-wash', wash.toFixed(4));
         }
         axisFrame.style.setProperty('--b-reveal', scrolled.toFixed(4));
-        axisFrame.style.setProperty('--b-morph', morphT.toFixed(4));
-        layoutThumbMorph(morphT);
         if (axisBHeadlines) {
-          var p1 = stagger(textT, 0, 0.32);
-          var p2 = stagger(textT, 0.16, 0.32);
-          var p3 = stagger(textT, 0.34, 0.38);
-          var ctaIn = stagger(textT, 0.52, 0.35);
-          axisBHeadlines.style.setProperty('--pSoftIn', p1.toFixed(4));
-          axisBHeadlines.style.setProperty('--pLine2', p2.toFixed(4));
-          axisBHeadlines.style.setProperty('--pLine3', p3.toFixed(4));
-          axisBHeadlines.style.setProperty('--b-cta-in', ctaIn.toFixed(4));
-          axisBHeadlines.classList.toggle('is-live', scrolled > textStart - 0.02);
+          axisBHeadlines.style.setProperty('--pSoftIn', b1.toFixed(4));
+          axisBHeadlines.style.setProperty('--pLine2', b2.toFixed(4));
+          axisBHeadlines.style.setProperty('--pLine3', b3.toFixed(4));
+          /* B is on stage from the moment its first line starts arriving, and
+             stays until the stage leaves. Both states are content: A never
+             goes aria-hidden, B only becomes visible because it is drawn. */
+          axisBHeadlines.classList.toggle('is-live', b1 > 0.001);
         }
         syncBar();
       }
@@ -2716,16 +2634,18 @@
       }
       if (axisStage && axisFrame) {
         axisFrame.style.setProperty('--b-reveal', reduce.matches ? '1' : '0');
-        axisFrame.style.setProperty('--b-morph', reduce.matches ? '1' : '0');
         var h0 = document.getElementById('axisBHeadlines');
         if (h0) {
           h0.style.setProperty('--pSoftIn', reduce.matches ? '1' : '0');
           h0.style.setProperty('--pLine2', reduce.matches ? '1' : '0');
           h0.style.setProperty('--pLine3', reduce.matches ? '1' : '0');
-          h0.style.setProperty('--b-cta-in', reduce.matches ? '1' : '0');
           if (reduce.matches) h0.classList.add('is-live');
         }
-        if (heroAxisA) heroAxisA.style.setProperty('--hero-a-fade', '0');
+        if (heroAxisA) {
+          heroAxisA.style.setProperty('--a-exit-1', '0');
+          heroAxisA.style.setProperty('--a-exit-2', '0');
+          heroAxisA.style.setProperty('--a-exit-3', '0');
+        }
         window.addEventListener('scroll', onAxisScroll, { passive: true });
         window.addEventListener('resize', onAxisScroll);
         renderAxisB();
@@ -2736,11 +2656,11 @@
       }
 
       /* ---- Opening entrance (2026-10-24, CD direction) -------------------
-         One pass after the fonts land: Axis A's lines, then the filmstrip.
+         One pass after the fonts land: Axis A's lines, alone.
          Skipped for reduced motion and when the page opens part-way down.
          Both classes are removed once the last animation lands, so no held
          animation can override the scroll-driven inline writes that follow
-         (--hero-a-fade and the marquee's track transform). */
+         (--a-exit-N). */
       (function openingEntrance() {
         if (reduce.matches) return;
         if (window.scrollY > 10) return;
