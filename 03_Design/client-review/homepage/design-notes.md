@@ -1461,3 +1461,19 @@ Verified 1440 / 390 across the whole page: six panels in the accordion with the 
 its CTA, labels horizontal, figures counting on the process strip without a runner, no banner in the
 AI band, footer at six columns, `View all verticals` and the four quick links resolving to real
 pages, 0 console errors, no horizontal overflow.
+
+### Double-check pass on the verticals checklist (2026-10-29)
+
+Walked the seven items against the live page rather than the markup, and one did not hold:
+
+- **Collapsed names clipped at 1024.** The strip narrows to ~110px there and "Transportation" at
+  13px measured 98px against 84px of inner width — it rendered as **"Transporta…"**. A name you
+  cannot read is not a label, so `.vpanel__label` steps to 11.5px with 9px side padding below
+  1200px. Re-measured at 1024 / 1100 / 1200 / 1440: nothing clips at any width.
+
+Everything else verified green: the five featured verticals are ERP · Wine · Transportation ·
+Hospitality · Automotive in that order with their figures; every panel carries the 1px ink-14%
+seam; every collapsed strip shows a **horizontal** name (a document-wide scan finds **zero**
+elements with a non-horizontal `writing-mode`); the sixth cell has four collage layers and expands
+to a hit-testable **"Explore all verticals"** link; and no list of the other verticals remains under
+the row.

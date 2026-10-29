@@ -1113,6 +1113,12 @@
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       transition: opacity .25s ease;
     }
+    /* the strip narrows to ~110px at 1024, where "Transportation" at 13px
+       clipped to "Transporta…" — a name you cannot read is not a label. Tighter
+       padding and a step down in size, measured to fit the longest name. */
+    @media (max-width: 1200px) {
+      .vpanel__label { font-size: 11.5px; letter-spacing: 0; padding: 26px 9px 12px; }
+    }
     /* the open panel's own title takes over */
     .vpanel.is-open .vpanel__label { opacity: 0; }
 
