@@ -2351,6 +2351,18 @@ Measured worst-glyph contrast (8 phases): ink 9.39:1 desktop / 9.46:1 mobile, `-
 3.51:1 / 4.53:1, eyebrow 7.42:1 / 6.72:1; rest-motion 23.73 / 18.10 mean |Δ|. Full record:
 `design-notes.md` §"Axis A ground — the light register".
 
+**Seam gradients — founders band only (2026-10-28).** After the opening, band boundaries are
+knife edges except at **`#for-founders`**, which dissolves in from the AI band's ink (130px) and
+out to the careers band's paper (150px). Because that band is a photograph it cannot take a flat
+background blend, so **it carries both seams itself**, as extra `linear-gradient` layers on
+`.founders::after` above the scrim. The bottom fade uses a non-linear alpha curve
+(`0 → .10 at −104px → .48 at −52px → 1`) so the photo keeps the counter and hands instead of
+bleaching. The scope was narrowed twice by the client — an all-boundary crossfade first, then
+"stats and the section above and below the founders section", then **the stats gradient removed**
+— so **stats → verts, verts → AI, careers → close and close → footer are all hard again**, and the
+stats band's hard top edge against the Axis B photograph was never in scope. Full record:
+`design-notes.md` §"2026-10-28 — the founders band gets a soft top and bottom edge".
+
 **Deliberate divergences from the wireframe record** (`wireframes.md` §2):
 
 - The **“What we do” section is not on the page**; the scale chapter follows the opening directly.

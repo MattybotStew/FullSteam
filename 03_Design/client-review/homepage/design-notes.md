@@ -996,3 +996,31 @@ one is the accordion chip in the screenshot.
 Verified: 5 labels `display: none` at 1440 with all five toggles still named, panels still expand
 by click with `aria-expanded="true"` and the body title visible, labels visible again at 390,
 0 axe violations, no overflow, 0 console errors.
+
+## 2026-10-28 — the founders band gets a soft top and bottom edge
+
+The founders band (`#for-founders`) is the page's one photographic band, and it was a knife edge
+on both sides — ink above (the AI band), paper below (careers). It now dissolves at both.
+
+- **AI → founders, 130px**: fades in from `--ink`.
+- **founders → careers, 150px**: fades out to `--surface`.
+- **Both live on `.founders::after`**, above the scrim, as extra `linear-gradient` layers. A
+  photograph cannot take a flat background blend, so the band carries its own seams instead of
+  the neighbouring bands carrying halves of them.
+- **The bottom fade is not a straight alpha ramp.** A linear 0 → 1 over 150px bleached the
+  bottom of the photo, taking the counter and hands with it. The shipped curve is
+  `0 at −150px → .10 at −104px → .48 at −52px → 1 at the edge`: the small alphas are pulled
+  forward so the photograph holds its detail and the paper only takes over in the last ~50px.
+
+**Scope was narrowed twice, and the history matters.** The first pass crossfaded *every* boundary
+from the stats band down. The client then limited it to "stats and the section above and below the
+founders section", and then removed the stats one ("remove the gradient from the bottom of stats").
+So **the only seams on the page are the founders band's two.** Everything else is a knife edge
+again: stats → verts, verts → AI, careers → close, close → footer. The stats band's *top* edge
+against the Axis B photograph was never a candidate — that cut is the design.
+
+Measured at commit: the fades sit entirely in band padding — founders' top clearance 232px at 1440
+and 134px at 390, bottom clearance 206px / 112px — so no text ever rides a gradient.
+
+Verified at 1440 and 390: three seams read as intended, all other boundaries hard, no text in a
+blend, 0 axe violations, no overflow, 0 console errors.
