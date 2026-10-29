@@ -56,6 +56,10 @@ _site/
 # purpose (the review portal links them). Unlike explorations/, these are
 # client-facing: no internal notes, no unreviewed directions, no third-party
 # media that is not licensed. Only the HTML + logo assets are staged for Pages.
+# NOTE 2026-10-29: the hero clip lives here as assets/hero-sizzle.mp4 but is NOT
+# allow-listed, because the current file is an Adobe Stock PREVIEW (watermark
+# baked in). Allow it only together with the licensed master, and add the
+# matching `cp` to .github/workflows/pages.yml at the same time.
 03_Design/client-review/homepage/assets/*
 !03_Design/client-review/homepage/assets/fullsteam-logo.svg
 !03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg

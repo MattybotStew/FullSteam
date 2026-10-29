@@ -2334,6 +2334,20 @@ there was never a Careers CTA in this section (that one lives in the careers ban
 ⚠ **Known issue, pre-existing:** under `prefers-reduced-motion` the two headline states overlap in
 the static fallback (reproduces in variant A too). It contradicts §23.6 rule 5 and needs its own fix.
 
+**Hero sizzle clip in place (2026-10-29).** The hero placeholder is retired: `newBoy2.mp4` →
+`client-review/homepage/assets/hero-sizzle.mp4` (1920×1080 H.264, 32.3s, silent, 4.8 MB) now plays
+full-bleed under the scrim, with the brand field kept as poster/fallback. Reduced motion pauses it
+(no autoplay); it pauses when the opening leaves the viewport. The scrim was retuned for real
+footage — the placeholder field was dark by construction, the clip is not (0.70 relative luminance
+at p99 in the type band). Measured worst-case 3.26:1 / median 3.85:1 for white display type; the
+11px eyebrow clears 4.5:1 on the median frame but not on the brightest specular frames (flagged).
+
+⚠ **The clip is an Adobe Stock PREVIEW — watermark baked in — and it is deliberately NOT
+committed or published**: `client-review/homepage/assets/` is an allow-list in `.gitignore`, so the
+published review page currently falls back to the brand field. Publishing it needs the licensed
+master plus the two allow-list edits (`.gitignore` + `pages.yml`). Build record:
+`client-review/homepage/design-notes.md` §"2026-10-29 — the sizzle clip lands".
+
 **Axis A filmstrip removed (2026-10-29, client feedback).** The 11-vertical marquee that sat under
 the Axis A headline is gone — markup, CSS, marquee JS and its entrance hand-off. It was the last of
 the old 11-tile/marquee furniture in the opening; the verticals remain below as the accordion

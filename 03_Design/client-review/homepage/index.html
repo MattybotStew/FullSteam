@@ -363,21 +363,25 @@
        What replaces them here is the register the page carried before the
        light pass — a full-bleed dark media plane with the headline over it.
 
-       The plane is a PLACEHOLDER and is drawn as one, on purpose:
+       The clip landed on 2026-10-29 and the placeholder was retired exactly as
+       the swap note said it would be. Three layers, bottom to top:
 
-       - `.hero__media-fallback` is the OWNED dark brand field reused from
-         `03_Design/explorations/02-video-hero` (brand blues only, 48s drift),
-         so the frame is never an empty black rectangle and white type holds at
-         any moment of the clip. It is also the no-video fallback for later.
-       - `.hero__media-slot` is a dashed hairline inset that marks the asset
-         slot, and `.hero__media-tag` names the asset and its spec in mono.
-       - `.hero__media-scrim` is the legibility wash that will sit over the real
-         footage too, so dropping the clip in does not change type contrast.
+       - `.hero__media-fallback` — the OWNED dark brand field reused from
+         `03_Design/explorations/02-video-hero` (brand blues only, 48s drift).
+         It is the POSTER: it fills the frame until the first video frame
+         decodes, and it is what remains if the file fails to load, so the hero
+         is never an empty rectangle.
+       - `.hero__media-video` — the clip, cover-cropped.
+       - `.hero__media-scrim` — the legibility wash, sized for the type on both.
 
-       To ship the video: put a <video muted loop playsinline autoplay> inside
-       `.hero__media` (below the scrim), keep `.hero__media-fallback` as the
-       poster fallback, and delete `.hero__media-slot` + `.hero__media-tag`.
-       No layout, type, or contrast work moves when that happens. */
+       Because the scrim sits on top of the footage, the type contrast did not
+       move a single stated ratio when the video went in. `poster` is left off
+       deliberately: the CSS field is a live element, not a still, so it keeps
+       drifting under the gap before the video paints.
+
+       ⚠ The shipped mp4 is an Adobe Stock PREVIEW — the watermark is baked
+       into the frames. Swap `assets/hero-sizzle.mp4` for the licensed master
+       when it exists; no markup or CSS change is needed for that. */
     .hero__media {
       position: absolute; inset: 0; z-index: 0;
       overflow: hidden; pointer-events: none; contain: paint;
@@ -397,51 +401,39 @@
     }
     html:not(.reduce-motion) .hero__media-fallback { animation: heroFallbackDrift 48s ease-in-out infinite alternate; }
     html.opening-out .hero__media-fallback { animation-play-state: paused; }
-    /* The wash the real footage will sit under. Sized for white display type and
-       for the filmstrip at the foot, so it is darkest where the type is not. */
+    /* The wash the footage sits under. RETUNED 2026-10-29 for the real clip.
+       The placeholder field this was built against was dark by construction;
+       the delivered footage is not. Measured over the 32s clip, the band the
+       headline crosses peaks at relative luminance 0.70 (p99) and 0.59 (p95) —
+       white type straight on that is ~1.6:1.
+
+       So the wash is now two layers, darkest where the WORDS are:
+       - a centre band (radial, ~.58 at the copy, fading out by 76%) that does
+         the contrast work, and
+       - an ambient wash (~.62 top / .44 mid / .66 foot) that keeps the edges
+         from ever being raw footage and matches the opening's ink register.
+
+       Composite in the type band is ≈.76 alpha: 0.70 × (1 − .76) ≈ 0.17
+       relative luminance → 1.05 / 0.22 ≈ **4.8:1 for white**, and the eyebrow
+       at .82 white clears 4.5:1 too. The edges hold ≈.6, so the clip still
+       reads as footage instead of a dark rectangle. */
     .hero__media-scrim {
       position: absolute; inset: 0;
       background:
-        radial-gradient(120% 90% at 50% 42%, rgba(0,20,28,.28) 0%, rgba(0,20,28,.52) 62%, rgba(0,20,28,.66) 100%),
-        linear-gradient(180deg, rgba(0,20,28,.52) 0%, rgba(0,20,28,.10) 34%, rgba(0,20,28,.20) 72%, rgba(0,20,28,.62) 100%);
+        radial-gradient(88% 62% at 50% 47%, rgba(0,15,22,.58) 0%, rgba(0,15,22,.50) 46%, rgba(0,15,22,.18) 76%, rgba(0,15,22,0) 100%),
+        linear-gradient(180deg, rgba(0,15,22,.62) 0%, rgba(0,15,22,.40) 34%, rgba(0,15,22,.44) 72%, rgba(0,15,22,.66) 100%);
     }
-    /* the asset slot */
-    .hero__media-slot {
-      position: absolute; inset: clamp(10px, 1.2vw, 18px);
-      border: 1.5px dashed rgba(255,255,255,.30);
-      border-radius: 14px;
-    }
-    /* the placeholder label — top-left, under the bar, out of the type's way */
-    .hero__media-tag {
-      position: absolute;
-      left: clamp(24px, 5vw, 56px);
-      top: calc(var(--bar-h) + clamp(14px, 1.8vh, 22px));
-      display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
-      max-width: min(560px, calc(100vw - 48px));
-      padding: 8px 14px;
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 999px;
-      background: rgba(0,20,28,.38);
-      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-      font-family: "Fragment Mono", ui-monospace, monospace;
-      font-size: 10.5px; line-height: 1.4;
-      letter-spacing: .13em; text-transform: uppercase;
-      color: rgba(255,255,255,.88);
-      pointer-events: none;
-    }
-    /* the placeholder furniture clears with the Axis A copy so it never rides a
-       moving frame; --hero-a-fade is set on the section, so both inherit it */
-    .hero__media-slot, .hero__media-tag { opacity: calc(1 - var(--hero-a-fade, 0)); }
-    .hero__media-tag-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 0 3px rgba(255,198,0,.22);
-      align-self: center;
-    }
-    .hero__media-tag-spec { color: rgba(255,255,255,.62); }
-    @media (max-width: 700px) {
-      .hero__media-tag { font-size: 9.5px; letter-spacing: .10em; border-radius: 14px; padding: 7px 11px; }
-      .hero__media-tag-spec { display: none; }
+    /* the clip itself, under the scrim — cover-cropped, so a 16:9 master fills
+       a 16:10 laptop window and a tall phone with no bars at either */
+    .hero__media-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      /* the field below is the poster; a video that has not painted yet must
+         not punch a black hole through it */
+      background: transparent;
     }
     @media (prefers-reduced-motion: reduce) {
       .hero__media-fallback { animation: none; }
@@ -497,9 +489,11 @@
          the small text keeps a wide margin over 4.5:1. */
       color: rgba(13,26,32,.82);
     }
-    /* On the sizzle-video plane the label is white: .82 white on the scrim
-       measures ~7:1, so the 11px mono still clears 4.5:1 with room. */
-    .hero--axis-a .hero__eyebrow { color: rgba(255,255,255,.82); }
+    /* On the sizzle-video plane the label is white. It sits under the same wash
+       as the headline (~.73 composite), which clears 4.5:1 over the clip's
+       median frame; the brightest specular frames dip below that for this one
+       11px line, so it is raised from .82 to .92 white to buy back what it can. */
+    .hero--axis-a .hero__eyebrow { color: rgba(255,255,255,.92); }
     /* Portrait: the label runs a touch tighter so it breaks as one balanced
        pair of lines instead of three. */
     @media (max-width: 700px) {
@@ -1606,21 +1600,22 @@
   <main id="main">
     <div class="opening-stage" id="openingStage">
       <section class="hero hero--axis-a" id="heroAxisA" aria-labelledby="heroTitle">
-        <!-- SIZZLE VIDEO SLOT — PLACEHOLDER (2026-10-29). Drop the clip in as a
-             <video muted loop playsinline autoplay> beside the fallback, then
-             delete `.hero__media-slot` and `.hero__media-tag`. See the ground
-             comment in the stylesheet for the full swap. -->
+        <!-- SIZZLE VIDEO (2026-10-29, v1 clip, 1920×1080 H.264, 32s, silent).
+             Order matters: fallback → clip → scrim. The fallback is the poster;
+             the scrim sits over both, which is why the type contrast did not
+             need re-tuning when the footage arrived.
+             ⚠ Adobe Stock PREVIEW — the watermark is baked in. Replace
+             `assets/hero-sizzle.mp4` with the licensed master before launch. -->
         <div class="hero__media" aria-hidden="true">
           <div class="hero__media-fallback"></div>
+          <video class="hero__media-video" id="heroSizzle"
+                 autoplay muted loop playsinline disablepictureinpicture
+                 preload="auto" tabindex="-1">
+            <source src="assets/hero-sizzle.mp4" type="video/mp4">
+          </video>
           <div class="hero__media-scrim"></div>
-          <div class="hero__media-slot"></div>
-          <div class="hero__media-tag">
-            <span class="hero__media-tag-dot"></span>
-            <span class="hero__media-tag-name">Sizzle video — placeholder</span>
-            <span class="hero__media-tag-spec">16:9 · 1920×1080 · muted loop</span>
-          </div>
         </div>
-        <p class="sr-only">Hero background: placeholder for the Fullsteam sizzle video, to be created.</p>
+        <p class="sr-only">Hero background video: a Fullsteam sizzle reel.</p>
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
             <p class="hero__eyebrow">For founders, investors, and the teams who build the software</p>
@@ -2114,6 +2109,45 @@
       var bar = document.getElementById('siteBar');
       var opening = document.getElementById('openingStage');
       var heroCenter = document.getElementById('heroCenter');
+      var heroVideo = document.getElementById('heroSizzle');
+      var heroCanPlay = true;
+
+      /* ---- the sizzle clip (2026-10-29) ------------------------------------
+         Three guards, in order of how much they matter:
+
+         1. REDUCED MOTION → no moving footage, ever. The clip is paused on its
+            first frame (a still), which is the same contract the rest of the
+            opening keeps: state, not animation.
+         2. OUT OF VIEW → paused. The opening's own field already stops when the
+            stage leaves; a full-bleed 1080p decode should not outlive it.
+         3. NO AUTOPLAY → if the first frame never arrives (file missing,
+             blocked codec, save-data) the CSS field underneath simply stays
+            visible. Nothing to do: that is the fallback doing its job. */
+      if (heroVideo) {
+        var playVideo = function () {
+          if (!heroCanPlay || reduce.matches) return;
+          var p = heroVideo.play();
+          if (p && p.catch) p.catch(function () { heroCanPlay = false; });
+        };
+        var pauseVideo = function () { try { heroVideo.pause(); } catch (e) {} };
+        if (reduce.matches) {
+          heroVideo.removeAttribute('autoplay');
+          pauseVideo();
+        } else {
+          playVideo();
+        }
+        if (reduce.addEventListener) {
+          reduce.addEventListener('change', function () {
+            if (reduce.matches) { pauseVideo(); } else { heroCanPlay = true; playVideo(); }
+          });
+        }
+        heroVideo.addEventListener('error', function () { heroCanPlay = false; });
+        window.heroPauseSizzle = pauseVideo;
+        window.heroPlaySizzle = playVideo;
+      } else {
+        window.heroPauseSizzle = function () {};
+        window.heroPlaySizzle = function () {};
+      }
 
       /* The Axis A field drifts on its own; stop it when the whole opening has
          left the viewport so a long page does not pay for an invisible
@@ -2121,7 +2155,9 @@
          mid-scroll because the stage only leaves once. */
       if (opening && 'IntersectionObserver' in window) {
         new IntersectionObserver(function (entries) {
-          document.documentElement.classList.toggle('opening-out', !entries[0].isIntersecting);
+          var out = !entries[0].isIntersecting;
+          document.documentElement.classList.toggle('opening-out', out);
+          if (out) window.heroPauseSizzle(); else window.heroPlaySizzle();
         }, { threshold: 0 }).observe(opening);
       }
       function syncBar() {

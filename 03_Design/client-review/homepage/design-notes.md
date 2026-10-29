@@ -1182,3 +1182,59 @@ nodes, 0 console errors, no horizontal overflow, the three-line headline still f
 retail frame with its copy staggering in, and the verticals accordion section below is untouched.
 The pre-existing reduced-motion overlap noted above is unchanged by this (it reproduces identically
 with the filmstrip gone, so it is not caused by it).
+
+## 2026-10-29 — the sizzle clip lands in the hero (and what that cost in contrast)
+
+The placeholder is retired. `assets/hero-sizzle.mp4` (from `newBoy2.mp4`: 1920×1080 H.264,
+32.3s, **no audio track**, 4.8 MB) plays full-bleed under the scrim, exactly where the swap note
+said it would go:
+
+```
+.hero__media        fallback (poster)  →  <video>  →  scrim
+```
+
+`poster=` is deliberately not set. The CSS brand field is a live element, not a still, so it keeps
+drifting in the gap before the first video frame decodes; `object-fit: cover` handles the crop from
+the 16:9 master to a 16:10 laptop or a 9:19.5 phone without bars.
+
+**Playback contract** (all of it new in this pass):
+
+- **Reduced motion → the clip does not play.** `autoplay` is removed and the clip is paused on its
+  first frame (a still). This is the same contract the rest of the opening keeps: state, not
+  animation. It also honours a mid-session change of the preference.
+- **Out of view → paused.** The existing `IntersectionObserver` on the opening now also pauses the
+  clip when the stage leaves and resumes it on return. A 1080p decode should not outlive its frame.
+- **No autoplay → the fallback is the hero.** If the file 404s, the codec is blocked, or play() is
+  rejected, `heroCanPlay` latches false and the CSS field under the video simply stays visible.
+
+**The scrim was retuned — the placeholder field was dark by construction, the footage is not.**
+Measured across all 32s of the clip, the band the headline crosses reaches **0.70 relative
+luminance at p99** and 0.59 at p95 (a bright cafe wall and, later, backlit bar glass). White type
+straight on that is ~1.6:1. The wash is now two layers: a **centre band** (radial, .58 at the copy,
+gone by 76%) that does the contrast work, over an **ambient wash** (.62 top / .40–.44 mid / .66
+foot) that keeps the edges off raw footage and matches the opening's ink register.
+
+Sampled every 170ms across the clip and composited against the live gradient stops, the **worst
+pixel in the type band measures 3.26:1, the median 3.85:1** against white. That clears WCAG's 3:1
+for the 120px display type at every frame. The 11px eyebrow is the honest weak spot: it sits under
+the same ~.73 composite, so it clears 4.5:1 on the median frame but dips below it on the two
+brightest specular frames. It was raised from .82 to .92 white for that reason. The alternative —
+enough wash to make 4.5:1 hold against a 0.97-luminance highlight — needs ~90% black over the whole
+centre and stops reading as footage. Flagged, not hidden.
+
+**⚠ Licensing — read before publishing.** The file is an **Adobe Stock preview**: the *Adobe
+Stock* watermark is baked into the frames and is visible under the headline. `client-review/
+homepage/assets/` is an **allow-list** in `.gitignore` (logos only, fails closed), so the mp4 is
+**not committed and not staged by `pages.yml`**. That means:
+
+- the **local build** plays the clip (the file is on disk);
+- the **published review page** falls back to the brand field, because the video 404s there.
+
+To publish it, the licensed master has to replace the file first, and then two allow-list edits
+happen together: an `!03_Design/client-review/homepage/assets/hero-sizzle.mp4` line in `.gitignore`
+and the matching `cp` in `.github/workflows/pages.yml`.
+
+Verified at 1440 / 390: clip autoplays muted and loops, pauses when the opening leaves the viewport
+and resumes on return, does **not** play under `prefers-reduced-motion`, 0 console errors, no
+horizontal overflow, headline and eyebrow legible on the brightest frame, the grow morph still
+hands off to Axis B over the clip.
