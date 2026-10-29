@@ -1133,3 +1133,52 @@ states render on top of each other in the static fallback (both Axis A and Axis 
 same box). It reproduces identically in variant A, so it predates this build — but it contradicts
 KB §23.6 rule 5 ("both states are content; with reduced motion they render in document order").
 Needs its own fix; not attempted here.
+
+## 2026-10-29 — the Axis A filmstrip is removed, and the grow morph is retargeted
+
+Client note: **"remove the filmstrip in Axis A."** It is gone from the opening — markup, CSS,
+marquee JS and the entrance hand-off. Nothing else in Axis A moved.
+
+**What went.** `<div class="vert-film">` and its whole track (6 verticals × 2 for the seamless
+loop), the `.vert-film*` CSS block including the `is-enter` stagger keyframes and the mask, the
+`filmTrack` / `filmOffset` / `tickFilm` / `pickCenterVertical` marquee loop, and the filmstrip half of
+`openingEntrance()` (the hero's own line entrance still runs). `--z-opening-film` and the film half
+of the shared image grade went with it.
+
+Because the rail under the copy is gone, `.hero--axis-a`'s bottom padding now equals its top
+(`calc(var(--bar-h) + 24px)`), which puts the copy's optical centre on the viewport's centre instead
+of in the apron above the strip. Opening travel is unchanged: the stage is still `100svh +
+--axis-b-travel`, reached at ~29% of the page.
+
+**The grow morph had to be retargeted — this is the part to read.** The morph used to expand *the
+centred filmstrip tile* into the Axis B frame, so the Axis B backdrop depended on where the marquee
+happened to be when you scrolled. With the filmstrip gone there is no seed element at all, so the
+grow now opens from a **fixed 16:9 frame carrying a pinned photograph**
+(`photo-1555529669-e69e7aa0ba9a`, retail + payments), and Axis B gets **one image every time**
+instead of a lottery. The morph itself is unchanged: `clip`-free rect interpolation, radius
+`--frame-r-sm → 0`, per-frame inline writes, no CSS transitions.
+
+Three defects were found and fixed while getting this right, all in the morph's timing:
+
+1. **The seed sat in the middle of the hero and sliced the headline.** Centring the synthetic
+   frame (first attempt) put a photo card on top of "We acquire / great software" mid-word, because
+   the filmstrip had been the thing the eye could see the frame growing *out of*. The seed now sits
+   **just below the fold** and enters from the bottom edge, so it rises over the copy the way Axis B
+   itself scrolls over Axis A.
+2. **A fixed fade schedule emptied the screen.** With a rail-mounted seed the frame was 26px under
+   the payoff at 1440 but 205px below the copy at 390, so any time-based copy fade either cut the
+   headline (1440) or left a dead stretch with nothing on screen (390). Axis A's copy now fades
+   **against the frame's top edge**: `1` while the edge is at the fold, `0` when it reaches the
+   copy's own bottom (`.hero__headlines`, not `.hero__center` — that row is `flex: 1` and its bottom
+   *is* the fold). Both widths now clear the type before the edge crosses it.
+3. **Nothing is on screen at rest.** The grow layer dissolves in over the first 14% of the reveal
+   (`≈90px` at 1440) rather than popping to opacity 1, and it is cleared entirely at reveal 0 — so
+   the page at rest is the hero, headline, and placeholder only, with no unexplained photo card.
+   The placeholder tag and dashed slot fade with the copy.
+
+Verified at 1440 / 768 / 390, scrolling the opening 0 → 700 by hand at each width: 0 `.vert-film*`
+nodes, 0 console errors, no horizontal overflow, the three-line headline still fits (342px column at
+390), the copy clears before the frame's edge reaches it at every width, Axis B lands on the pinned
+retail frame with its copy staggering in, and the verticals accordion section below is untouched.
+The pre-existing reduced-motion overlap noted above is unchanged by this (it reproduces identically
+with the filmstrip gone, so it is not caused by it).

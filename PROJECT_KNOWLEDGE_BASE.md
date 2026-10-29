@@ -2334,6 +2334,19 @@ there was never a Careers CTA in this section (that one lives in the careers ban
 ⚠ **Known issue, pre-existing:** under `prefers-reduced-motion` the two headline states overlap in
 the static fallback (reproduces in variant A too). It contradicts §23.6 rule 5 and needs its own fix.
 
+**Axis A filmstrip removed (2026-10-29, client feedback).** The 11-vertical marquee that sat under
+the Axis A headline is gone — markup, CSS, marquee JS and its entrance hand-off. It was the last of
+the old 11-tile/marquee furniture in the opening; the verticals remain below as the accordion
+section. With the rail gone the hero's copy is centred on the viewport rather than in the apron
+above it, and opening travel is unchanged.
+
+The **grow morph** was **retargeted, not removed**: it used to expand the centred filmstrip tile, so
+the Axis B backdrop depended on the marquee's position. It now opens from a fixed 16:9 frame
+carrying a pinned photograph (retail + payments), entering from the bottom edge, so Axis B gets one
+image every time. Axis A's copy now fades against the frame's top edge (not a schedule) so the
+headline clears before the edge reaches it at every width. Build record:
+`client-review/homepage/design-notes.md` §"2026-10-29 — the Axis A filmstrip is removed".
+
 **Top nav refactor (2026-10-29, client feedback).** Three notes, applied to the working copy:
 
 1. **The menu is a dropdown under the hamburger**, not a full-bleed blue takeover — a 400px white

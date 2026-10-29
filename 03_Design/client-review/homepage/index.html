@@ -66,9 +66,8 @@
       --hero-dark: color-mix(in srgb, var(--brand) 72%, #001018);
       --axis-b-travel: 160vh;
       --opening-h: calc(100svh + var(--axis-b-travel));
-      /* Opening stack (low → high): Axis A → film → grow image → Axis B copy → menu → header */
+      /* Opening stack (low → high): Axis A → grow image → Axis B copy → menu → header */
       --z-opening-a: 1;
-      --z-opening-film: 5;
       --z-opening-grow: 20;
       --z-opening-b-copy: 40;
       --z-chrome-menu: 70;
@@ -125,7 +124,7 @@
 
     /* one photographic grade across every band */
     .vpanel__img, .careers__photo,
-    .vert-film__img, .li-card__art--photo { filter: saturate(.94) contrast(1.03); }
+    .li-card__art--photo { filter: saturate(.94) contrast(1.03); }
 
     ::selection { background: var(--gold); color: var(--ink); }
 
@@ -341,7 +340,10 @@
       color: #fff;
       display: flex; flex-direction: column; align-items: center; justify-content: space-between;
       text-align: center;
-      padding: calc(var(--bar-h) + 24px) var(--gutter-x) clamp(20px, 3vh, 36px);
+      /* the filmstrip is gone (2026-10-29), so there is no rail at the foot to
+         sit above: the paddings match, which puts the copy's optical centre on
+         the viewport's centre instead of in the apron above the strip */
+      padding: calc(var(--bar-h) + 24px) var(--gutter-x);
       z-index: var(--z-opening-a);
     }
     .has-js:not(.reduce-motion) .hero--axis-a {
@@ -427,6 +429,9 @@
       color: rgba(255,255,255,.88);
       pointer-events: none;
     }
+    /* the placeholder furniture clears with the Axis A copy so it never rides a
+       moving frame; --hero-a-fade is set on the section, so both inherit it */
+    .hero__media-slot, .hero__media-tag { opacity: calc(1 - var(--hero-a-fade, 0)); }
     .hero__media-tag-dot {
       width: 6px; height: 6px; border-radius: 50%;
       background: var(--gold);
@@ -456,7 +461,7 @@
          63%, which is why the plate below is sized to the TYPE BOX rather than
          to the frame: the paper has to travel with the words. */
       justify-content: center;
-      opacity: calc(1 - var(--hero-a-fade, 0) * 0.92);
+      opacity: calc(1 - var(--hero-a-fade, 0));
       transition: none;
     }
     /* homev2 headline system (Axis A / B copy) */
@@ -618,48 +623,11 @@
       display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
       margin-top: clamp(24px, 4vh, 40px);
     }
-    /* Vertical filmstrip under Axis A */
-    .vert-film {
-      width: 100%;
-      max-width: 100vw;
-      margin-top: clamp(12px, 2vh, 24px);
-      opacity: calc(1 - var(--hero-a-fade, 0) * 0.95);
-      transition: none;
-      position: relative;
-      z-index: var(--z-opening-film);
-    }
-    .vert-film__viewport {
-      overflow: hidden;
-      width: 100%;
-      mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-    }
-    .vert-film__track {
-      display: flex;
-      gap: 14px;
-      width: max-content;
-      padding: 4px 0 8px;
-      will-change: transform;
-    }
-    .vert-film__thumb {
-      flex: 0 0 auto;
-      width: clamp(220px, 28vw, 320px);
-      aspect-ratio: 16 / 9;
-      border: 1px solid var(--frame-hair-dark);
-      border-radius: var(--frame-r-sm);
-      overflow: hidden;
-      padding: 0;
-      cursor: default;
-      background: rgba(0, 0, 0, 0.25);
-      color: #fff;
-      text-align: left;
-      position: relative;
-      opacity: 0.82;
-      transform: none;
-      transition: none;
-    }
-    .vert-film__thumb.is-source-hidden {
-      opacity: 0 !important;
-    }
+    /* ---- the grow layer: Axis A's frame opening onto Axis B ---------------
+       Same mechanics as before the filmstrip was removed (2026-10-29); only the
+       source changed — a fixed 16:9 frame in the middle of the hero instead of
+       the centred filmstrip tile. Radius runs from the small-frame token to 0
+       over the morph, so the hand-off into the full-bleed frame has no pop. */
     .vert-grow {
       position: fixed;
       z-index: var(--z-opening-grow);
@@ -668,8 +636,6 @@
       transition: none;
       visibility: hidden;
       opacity: 0;
-      /* must match .vert-film__thumb exactly — this layer is the sourced
-         frame mid-morph, so a radius/border mismatch pops at the hand-off */
       border: 1px solid var(--frame-hair-dark);
       border-radius: var(--frame-r-sm);
     }
@@ -687,56 +653,6 @@
       inset: 0;
       background: rgba(0, 12, 20, 0.68);
       pointer-events: none;
-    }
-    .vert-film__img {
-      position: absolute;
-      inset: 0;
-      background-image: var(--photo);
-      background-size: cover;
-      background-position: center;
-    }
-    .vert-film__name {
-      position: absolute;
-      left: 10px;
-      bottom: 8px;
-      z-index: 1;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
-    }
-    .reduce-motion .vert-film__track { transform: none !important; }
-    /* ---- Filmstrip entrance (2026-10-24, CD direction) ------------------
-       The band lifts in, then the frames fade up one after another, left to
-       right, while the marquee is already running underneath — so the strip
-       develops as it slides. Opacity on the thumbs only: the track's own
-       transform belongs to the marquee loop.
-
-       Slow on purpose (2026-10-25, CD direction): a 900ms develop per frame on
-       a 90ms stagger, expo-out so the tail is long. The strip is still loading
-       in after the headline has settled — it is the second movement, not a
-       second entrance. */
-    html.has-js:not(.reduce-motion) .vert-film.is-enter{
-      animation:h4-film 900ms cubic-bezier(.16,1,.3,1) 1350ms both;
-    }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb{
-      animation:h4-frame 900ms cubic-bezier(.16,1,.3,1) both;
-    }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+1){ animation-delay:1350ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+2){ animation-delay:1440ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+3){ animation-delay:1530ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+4){ animation-delay:1620ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+5){ animation-delay:1710ms; }
-    html.has-js:not(.reduce-motion) .vert-film.is-enter .vert-film__thumb:nth-child(6n+6){ animation-delay:1800ms; }
-    @keyframes h4-film{
-      from{ opacity:0; transform:translate3d(0,18px,0); filter:blur(4px); }
-      60%{ filter:blur(0); }
-      to{ opacity:1; transform:none; filter:none; }
-    }
-    @keyframes h4-frame{
-      from{ opacity:0; filter:blur(5px); }
-      to{ opacity:.82; filter:none; }
     }
     /* ---- Axis B · full-bleed vertical BG rises over pinned Axis A ---- */
     .axis-b-stage {
@@ -1715,61 +1631,6 @@
             </h1>
           </div>
         </div>
-        <div class="vert-film" id="vertFilm" role="group" aria-label="Vertical markets preview">
-          <div class="vert-film__viewport" id="vertFilmViewport">
-            <div class="vert-film__track" id="vertFilmTrack">
-              <!-- 6 unique verticals × 2 for seamless loop (even count centers better) -->
-              <button type="button" class="vert-film__thumb" data-vi="0" aria-label="Hospitality"
-                style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Hospitality</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="1" aria-label="Wine"
-                style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Wine</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="2" aria-label="Transportation"
-                style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Transportation</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="3" aria-label="Automotive"
-                style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Automotive</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="4" aria-label="ERP"
-                style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">ERP</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="5" aria-label="Retail"
-                style="--photo: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Retail</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="0" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Hospitality</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="1" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Wine</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="2" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Transportation</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="3" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Automotive</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="4" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">ERP</span>
-              </button>
-              <button type="button" class="vert-film__thumb" data-vi="5" aria-hidden="true" tabindex="-1"
-                style="--photo: url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&amp;fit=crop&amp;crop=faces&amp;w=960&amp;h=540&amp;q=70')">
-                <span class="vert-film__img" aria-hidden="true"></span><span class="vert-film__name">Retail</span>
-              </button>
-            </div>
-          </div>
-        </div>
       </section>
 
       <div class="axis-b-stage" id="axisBStage">
@@ -2659,32 +2520,26 @@
       var axisStage = document.getElementById('axisBStage');
       var axisFrame = document.getElementById('axisBFrame');
       function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
+      var heroAxisA = document.getElementById('heroAxisA');
       var vertGrow = document.getElementById('vertGrow');
       var vertGrowInner = document.getElementById('vertGrowInner');
       var morphStart = null;
-      var morphThumb = null;
-      var filmPaused = false;
-      /* The grow layer is the thumb at t=0 and a full-bleed plane at t=1, so its
-         radius runs from the small-frame token to 0. Read the token instead of
-         hard-coding it, or the source frame drifts from .vert-film__thumb and
-         the hand-off pops. */
-      var frameRSm = (function () {
+      /* ---- Axis B backdrop + the grow that opens onto it (2026-10-29) ------
+         The filmstrip used to be the grow's source: the morph expanded whichever
+         tile was centred into the Axis B frame, which also made the Axis B photo
+         depend on where the marquee happened to be. With the filmstrip gone the
+         source is a fixed frame in the middle of the hero, carrying a chosen
+         photograph, so Axis B gets one image every time instead of a lottery. */
+      var GROW_PHOTO = "url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&crop=faces&w=1600&h=900&q=70')";
+      function frameRSm_() {
         var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--frame-r-sm'));
         return isNaN(v) ? 12 : v;
-      })();
+      }
+      var frameRSm = frameRSm_();
 
       function clearMorphState() {
-        filmPaused = false;
         morphStart = null;
-        if (morphThumb) {
-          morphThumb.classList.remove('is-source-hidden');
-          morphThumb = null;
-        }
-        if (filmTrack) {
-          filmTrack.querySelectorAll('.vert-film__thumb.is-source-hidden').forEach(function (el) {
-            el.classList.remove('is-source-hidden');
-          });
-        }
+        if (heroAxisA) heroAxisA.style.setProperty('--hero-a-fade', '0');
         if (vertGrow) {
           vertGrow.classList.remove('is-active');
           vertGrow.setAttribute('aria-hidden', 'true');
@@ -2693,28 +2548,48 @@
       }
 
       function layoutThumbMorph(reveal) {
-        if (!vertGrow || !vertGrowInner || !filmTrack) return;
+        if (!vertGrow || !vertGrowInner) return;
         if (reveal <= 0.001) {
           clearMorphState();
           return;
         }
 
-        filmPaused = true;
-        var th = morphThumb || filmTrack.querySelector('.vert-film__thumb.is-center:not([aria-hidden="true"])');
-        if (!th) return;
-
         if (!morphStart) {
-          var r0 = th.getBoundingClientRect();
-          morphStart = { left: r0.left, top: r0.top, width: r0.width, height: r0.height };
-          morphThumb = th;
-          var photo = th.style.getPropertyValue('--photo') || getComputedStyle(th).getPropertyValue('--photo');
-          vertGrowInner.style.backgroundImage = photo;
+          /* 16:9 source frame, entering from the BOTTOM EDGE. Centring it in the
+             hero was the first attempt and it was wrong: the frame materialised
+             on top of the Axis A headline and sliced it mid-word, because the
+             filmstrip had been the thing the eye could see growing. From below
+             the fold it rises over the copy the way Axis B itself scrolls over
+             Axis A. */
+          var vw0 = window.innerWidth;
+          var vh0 = window.innerHeight;
+          var w0 = Math.min(vw0 * 0.30, 420);
+          var h0 = w0 * 9 / 16;
+          /* The seed sits just BELOW the fold, not on the foot rail. On the rail
+             it was flush under the payoff line at 1440 (26px of air), so the
+             copy had to clear before the frame had climbed at all — which left
+             a dead stretch of scroll, and a worse one at 390. From below the
+             fold the frame has real room to rise, and the copy can stay legible
+             until the edge actually reaches it. */
+          morphStart = {
+            left: (vw0 - w0) / 2, top: vh0, width: w0, height: h0,
+            /* the COPY BLOCK, not .hero__center — that row is flex:1 and fills
+               the whole hero, so its bottom is the fold, not the type */
+            copyBottom: (function () {
+              var hl = document.querySelector('#heroAxisA .hero__headlines');
+              return hl ? hl.getBoundingClientRect().bottom : vh0 * 0.62;
+            })()
+          };
+          vertGrowInner.style.backgroundImage = GROW_PHOTO;
           vertGrow.classList.add('is-active');
           vertGrow.setAttribute('aria-hidden', 'false');
         }
 
-        /* Smoothstep — grows out of the row, not from the viewport bottom */
-        var t = reveal * reveal * (3 - 2 * reveal);
+        /* The frame holds its seed rect for the first 12% of the reveal — a beat
+           in which the page simply acknowledges the scroll — and only then
+           climbs. */
+        var grow = clamp01((reveal - 0.12) / 0.88);
+        var t = grow * grow * (3 - 2 * grow);
         var vw = window.innerWidth;
         var vh = window.innerHeight;
         var l = morphStart.left + (0 - morphStart.left) * t;
@@ -2727,10 +2602,23 @@
         vertGrow.style.width = w.toFixed(2) + 'px';
         vertGrow.style.height = h.toFixed(2) + 'px';
         vertGrow.style.borderRadius = (frameRSm * (1 - t)).toFixed(2) + 'px';
-        vertGrow.style.opacity = '1';
+        /* dissolve in by reveal .14 (≈90px of the 1440 pin). Nothing is on
+           screen at reveal 0 — the filmstrip used to be that visible seed — so
+           a hard opacity pop would read as a photo card appearing out of
+           nowhere, and holding a card at rest would put an unexplained photo
+           under the headline. */
+        vertGrow.style.opacity = Math.min(1, reveal / 0.14).toFixed(3);
         vertGrow.style.setProperty('--grow-full', t >= 0.98 ? '1' : '0');
 
-        th.classList.toggle('is-source-hidden', t > 0.06);
+        /* The Axis A copy fades against the frame's TOP EDGE, not against a
+           schedule: 1 while the edge is still at the fold, 0 when it reaches
+           the copy. A time-based fade could not serve both widths — at 1440 the
+           seed was 26px under the type, at 390 it was 205px below it, so any
+           fixed ramp either cut the headline or emptied the screen. */
+        var cb = morphStart.copyBottom;
+        var span = Math.max(1, vh - cb);
+        if (heroAxisA) heroAxisA.style.setProperty('--hero-a-fade', (1 - clamp01((top - cb) / span)).toFixed(4));
+
       }
 
       function renderAxisB() {
@@ -2764,7 +2652,6 @@
         }
         axisFrame.style.setProperty('--b-reveal', scrolled.toFixed(4));
         axisFrame.style.setProperty('--b-morph', morphT.toFixed(4));
-        if (heroCenter) heroCenter.style.setProperty('--hero-a-fade', morphT.toFixed(4));
         layoutThumbMorph(morphT);
         if (axisBHeadlines) {
           var p1 = stagger(textT, 0, 0.32);
@@ -2802,7 +2689,7 @@
           h0.style.setProperty('--b-cta-in', reduce.matches ? '1' : '0');
           if (reduce.matches) h0.classList.add('is-live');
         }
-        if (heroCenter) heroCenter.style.setProperty('--hero-a-fade', reduce.matches ? '0' : '0');
+        if (heroAxisA) heroAxisA.style.setProperty('--hero-a-fade', '0');
         window.addEventListener('scroll', onAxisScroll, { passive: true });
         window.addEventListener('resize', onAxisScroll);
         renderAxisB();
@@ -2822,24 +2709,14 @@
         if (reduce.matches) return;
         if (window.scrollY > 10) return;
         var heroEl = document.getElementById('heroAxisA');
-        var filmEl = document.getElementById('vertFilm');
-        if (!heroEl || !filmEl) return;
+        if (!heroEl) return;
         var run = function () {
           heroEl.classList.add('is-enter');
-          filmEl.classList.add('is-enter');
           var cleanup = function () {
             heroEl.classList.remove('is-enter');
-            filmEl.classList.remove('is-enter');
           };
-          var thumbs = filmEl.querySelectorAll('.vert-film__thumb');
-          var lastThumb = thumbs[thumbs.length - 1];
-          if (lastThumb && lastThumb.addEventListener) {
-            lastThumb.addEventListener('animationend', function (e) {
-              if (e.target === lastThumb) cleanup();
-            }, { once: true });
-          }
           /* belt and braces: a cancelled or never-started animation still
-             releases the classes. */
+             releases the class. */
           setTimeout(cleanup, 3600);
         };
         /* start after the fonts, not after `load`: this page pulls a dozen
@@ -2851,58 +2728,6 @@
         else document.addEventListener('DOMContentLoaded', start, { once: true });
       })();
 
-      var filmTrack = document.getElementById('vertFilmTrack');
-      var filmOffset = 0;
-
-      function pickCenterVertical() {
-        if (!filmTrack || filmPaused) return;
-        var cx = window.innerWidth * 0.5;
-        var thumbs = filmTrack.querySelectorAll('.vert-film__thumb:not([aria-hidden="true"])');
-        var best = null;
-        var bestDist = Infinity;
-        thumbs.forEach(function (thumb) {
-          var r = thumb.getBoundingClientRect();
-          var dist = Math.abs(r.left + r.width * 0.5 - cx);
-          thumb.classList.toggle('is-center', false);
-          if (dist < bestDist) {
-            bestDist = dist;
-            best = thumb;
-          }
-        });
-        if (best) best.classList.add('is-center');
-      }
-
-      function measureFilmLoop() {
-        if (!filmTrack) return 0;
-        return filmTrack.scrollWidth * 0.5;
-      }
-
-      function tickFilm() {
-        if (!filmTrack || reduce.matches) return;
-        if (!filmPaused) {
-          filmOffset += 0.45;
-          var loop = measureFilmLoop();
-          if (loop > 0 && filmOffset >= loop) filmOffset -= loop;
-          filmTrack.style.transform = 'translate3d(' + (-filmOffset).toFixed(2) + 'px,0,0)';
-          pickCenterVertical();
-        }
-        var morph = 0;
-        if (axisFrame) {
-          var mv = axisFrame.style.getPropertyValue('--b-morph');
-          if (mv) morph = parseFloat(mv);
-        }
-        layoutThumbMorph(morph);
-        requestAnimationFrame(tickFilm);
-      }
-
-      if (filmTrack) {
-        pickCenterVertical();
-        if (!reduce.matches) requestAnimationFrame(tickFilm);
-        window.addEventListener('resize', function () {
-          pickCenterVertical();
-          renderAxisB();
-        });
-      }
     })();
   </script>
 </body>
