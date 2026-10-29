@@ -2360,6 +2360,20 @@ there was never a Careers CTA in this section (that one lives in the careers ban
 ⚠ **Known issue, pre-existing:** under `prefers-reduced-motion` the two headline states overlap in
 the static fallback (reproduces in variant A too). It contradicts §23.6 rule 5 and needs its own fix.
 
+**The scale chapter is now a process strip (2026-10-29, client).** The four-figure leader table is
+replaced by **Acquire → Grow → Lead**: three numbered steps on one spine (gold node per step, arrow
+per gap), each a one-line claim followed by its figures at
+`clamp(46px, 5.6vw, 86px)` — the numbers are the loudest thing in the band. The steps share a
+**subgrid** so names, sentences and figures line up across all three columns. The H2 now names the
+sequence instead of being `sr-only`. Figures: 70,000+ customers · $75B sales processed + #20 largest
+payment processor · 2,000+ employees + 11 vertical markets + a founder quote (placeholder).
+
+⚠ **`#20` contradicts the LinkedIn card in the careers band, which says #28 among top U.S. merchant
+acquirers.** Both are on the page. The client's payment-processor lines were already
+**unreconciled** (OI-5); whichever number is right needs a decision before this ships. Build record:
+`design-notes.md` §"2026-10-29 — the scale chapter becomes Acquire → Grow → Lead"; slots:
+`content-slots.md` §homepage row 03.
+
 **Axis B is a copy swap (2026-10-29).** See **§23.10**: the grow morph is retired and the A→B
 transition is now the `02-video-hero` handoff — Axis A's lines leave upward, Axis B's arrive from
 below, over the same pinned clip. Axis B's type now matches Axis A (white + one gold serif word),

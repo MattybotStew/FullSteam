@@ -1300,3 +1300,63 @@ Verified 1440 / 390 at the hero, the white `verts` band, the ink `scale` band an
 `background-color` before and after opening is identical in every case, the logo pair and the
 hamburger lines keep the state they had, and the panel still opens/closes with `aria-expanded`
 tracking correctly.
+
+## 2026-10-29 — the scale chapter becomes Acquire → Grow → Lead
+
+Client: **"completely redesign the Acquire/Grow/Lead section — the current design buries the stats
+in paragraph form; show that these are sequential steps in a process."**
+
+**What was there.** The band was a leader table: four figures stacked down the left in a single
+column, each one on a hairline that ran out to a gold terminus, with its caption trailing off to
+the right. Every number was correct and none of them read as a step — nothing in the band said
+*acquire, then grow, then lead*. The figures were also captioned rather than stated, so the eye
+met a table of accounts, not a story.
+
+**What replaced it.** A three-step process strip on one spine, replacing `.scale` outright:
+
+- **A visible spine.** One hairline across the whole band, a gold node at each step's start, and a
+  gold arrow in each gap, with the band's ink punched behind the arrow so the chevron reads as
+  what the line is pointing at rather than a glyph dropped on it.
+- **Numbered steps**, mono `STEP 01/02/03`, then the name at display size: **Acquire · Grow · Lead**.
+- **The sentence, then the numbers.** Each step states its claim in one line, then the figures it
+  earns. The numbers are the loudest thing in the band — `clamp(46px, 5.6vw, 86px)` — with their
+  captions demoted to 13–15px underneath.
+- **The H2 now names the sequence** — "Acquire. Grow. Lead." — instead of an `sr-only` "Fullsteam
+  at a glance". The band had no visible heading at all before.
+
+**Alignment was the hard part.** First pass used `margin-top: auto` to push each column's numbers
+to the foot of a flex column; the three figures landed at three different heights (790 / 630 / 510)
+and the strip read as three unrelated columns. The steps are now a **subgrid**: three shared rows
+(heads / sentences / figures), so the three names, the three sentences and the three figure blocks
+line up across the band. Captions reserve two lines (`min-height: 2.7em`) so the *second* figure in
+a column starts on the same baseline as the second figure in the next one — 619 / 619.
+
+**Counters** are the same machinery as before (easeOutQuart over 1100ms, 90ms stagger, widths
+pinned before counting so nothing reflows mid-count). The step's gold node and its captions are
+keyed off `.is-drawn`, which still fires once per step. Reduced motion opts out entirely: the
+markup as authored is the finished state, and the numbers never animate.
+
+**Mobile** turns the spine vertical — one line down the left, a node per step, steps stacked — and
+drops the arrows, because sideways arrows on a single column point at nothing.
+
+**Content, per the client's brief:** Acquire = 70,000+ customers. Grow = $75B in sales processed +
+#20 largest payment processor. Lead = 2,000+ employees + 11 vertical markets + a founder quote.
+
+⚠ **Two things in that copy need a decision:**
+
+1. **`#20` contradicts this page.** The LinkedIn card in the careers band (real company posts,
+   condensed) says Fullsteam "moved up to **#28** among top U.S. merchant acquirers". Both are on
+   the same page. The brief says "top 20 largest payment processor"; one of the two numbers is
+   wrong, and `content-slots.md` already flags the client's payment-processor lines as
+   **unreconciled** (OI-5). Left as the client wrote it, flagged here and in the slot inventory.
+2. **The founder quote is a placeholder.** Same convention as the For Founders band — italic serif
+   quote, genericized attribution, and the `[placeholder … unpublishable as written]` note in the
+   caption. No named founder quote exists in the source material (KB §20: acquisitions are not
+   announced at close).
+
+"Select vertical stats" is served by the settled **11 vertical markets** only — there are no
+per-vertical figures anywhere in the repo that are cleared for publication.
+
+Verified 1440 / 390: three figures align on both rows, the counters run from 0 on entry, the gold
+nodes and captions land with them, the summary still assembles after the last step, reduced motion
+shows the finished state with no animation, 0 console errors, no horizontal overflow.
