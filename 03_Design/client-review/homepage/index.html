@@ -265,24 +265,50 @@
     @media (max-width: 640px) { .pill__full { display: none; } }
     @media (min-width: 641px) { .pill__short { display: none; } }
 
-    /* ---- menu overlay ---- */
+    /* ---- menu: a dropdown that hangs off the hamburger (2026-10-29) --------
+       Client feedback: "Do not list all the options all the way on the left. The
+       options should fall easily under a hamburger menu."
+
+       The old open state was a full-bleed brand-blue takeover whose six rows
+       spanned the whole viewport, which read as a second page rather than a
+       menu. It is now a card anchored under the bar on the same right edge as
+       the hamburger that opens it, so the options visibly belong to that
+       button. Six items, one column, no sub-rows — the panel is the whole nav. */
     .menu {
-      position: fixed; inset: 0; z-index: var(--z-chrome-menu); background: rgba(0,0,0,.35);
-      padding-top: var(--bar-h); overflow: auto; overscroll-behavior: contain;
+      position: fixed; inset: 0; z-index: var(--z-chrome-menu); background: rgba(0,16,24,.34);
+      padding: calc(var(--bar-h) + 8px) clamp(24px, 5vw, 56px) 24px;
+      display: flex; justify-content: flex-end; align-items: flex-start;
+      overflow: auto; overscroll-behavior: contain;
     }
     .menu[hidden] { display: none; }
     .menu__panel {
-      background: var(--brand); color: #fff; min-height: calc(100vh - var(--bar-h));
-      padding: 32px var(--gutter-x) 48px;
+      width: min(400px, 100%);
+      background: #fff; color: var(--ink);
+      border-radius: 18px; padding: 8px;
+      box-shadow:
+        0 1px 0 rgba(0,16,24,.06),
+        0 18px 48px rgba(0,16,24,.26),
+        0 2px 8px rgba(0,16,24,.10);
+      animation: menu-in 180ms cubic-bezier(0, 0, .2, 1) both;
     }
-    .menu__row { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.15); }
-    .menu__row a { color: #fff; font-size: 22px; font-weight: 700; text-decoration: none; }
-    .menu__sub { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px 16px; }
-    .menu__sub a { font-size: 14px; font-weight: 500; opacity: .85; display: inline-block; padding: 5px 0; }
+    @keyframes menu-in {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { .menu__panel { animation: none; } }
+    .menu__row a {
+      display: block; padding: 13px 16px; border-radius: 12px;
+      color: var(--ink); font-size: 17px; font-weight: 600; line-height: 1.3;
+      text-decoration: none;
+      transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out);
+    }
+    .menu__row a:hover { background: var(--surface); color: var(--brand); }
     /* text links: same ring language as the buttons, tuned per surface */
-    .menu a:focus-visible, .footer-grid a:focus-visible, .vpanel__link:focus-visible {
+    .footer-grid a:focus-visible, .vpanel__link:focus-visible {
       outline: 2px solid #fff; outline-offset: 4px; border-radius: 2px;
     }
+    /* the menu card is white now, so its ring is brand, not white */
+    .menu__row a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 12px; }
     .close__founders a:focus-visible, .site-bar__logo:focus-visible {
       outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 4px;
     }
@@ -1884,7 +1910,7 @@
         <span class="menu-btn__line" aria-hidden="true"></span>
       </button>
       <a class="pill pill--gold pill--sm" href="../../../02_Wireframes/active/pages/vertical-software.html">
-        <span class="pill__full">Explore our vertical solutions</span>
+        <span class="pill__full">Explore our verticals</span>
         <span class="pill__short">Explore</span>
       </a>
     </div>
@@ -1990,7 +2016,7 @@
           </h2>
         </div>
         <div class="hero__cta">
-          <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore vertical solutions</a>
+          <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore our verticals</a>
         </div>
       </div>
     </div>
@@ -2427,15 +2453,18 @@
 
   <div class="menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
     <div class="menu__panel">
+      <!-- Exactly six items, in the client's order (2026-10-29). Leadership is
+           off the top nav — it lives under Our Story on that page — and Contact
+           is off too: it is reachable from the footer and the close's CTA.
+           "AI at Fullsteam" is a PANEL on Our Advantage, not its own page
+           (KB 14 / sitemap lock), so it wayfinds to that panel's hash. -->
       <nav aria-label="Site">
         <div class="menu__row"><a href="../../../02_Wireframes/active/pages/vertical-software.html">Vertical Software</a></div>
         <div class="menu__row"><a href="../../../02_Wireframes/active/pages/our-advantage.html">Our Advantage</a></div>
-        <div class="menu__row"><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a>
-          <div class="menu__sub"><a href="../../../02_Wireframes/active/pages/leadership.html">Leadership</a></div>
-        </div>
-        <div class="menu__row"><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></div>
+        <div class="menu__row"><a href="../../../02_Wireframes/active/pages/our-advantage.html#ai">AI at Fullsteam</a></div>
+        <div class="menu__row"><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></div>
         <div class="menu__row"><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a></div>
-        <div class="menu__row"><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></div>
+        <div class="menu__row"><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></div>
       </nav>
     </div>
   </div>

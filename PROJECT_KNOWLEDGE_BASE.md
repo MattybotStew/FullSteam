@@ -2316,6 +2316,24 @@ Figma cannot express the CSS `background-size: 0% → 100%` wipe, so hover is re
 > This supersedes the earlier record that `03_Design/explorations/homev2/` was the "official
 > working design": the official page is no longer an exploration.
 
+**Top nav refactor (2026-10-29, client feedback).** Three notes, applied to the working copy:
+
+1. **The menu is a dropdown under the hamburger**, not a full-bleed blue takeover — a 400px white
+   card anchored to the bar's right edge, so the options visibly belong to the button that opens
+   them. The closed bar stays logo · hamburger · CTA.
+2. **Exactly six items, in this order:** Vertical Software · Our Advantage · **AI at Fullsteam** ·
+   Our Story · Acquisitions · Careers. **Leadership and Contact are off the top nav** (Leadership
+   is still a page under Our Story; Contact is still in the footer and the close CTA). AI at
+   Fullsteam wayfinds to `our-advantage.html#ai` because AI has no page of its own (§14).
+3. **The CTA drops the word "solutions":** `Explore our verticals` (was `Explore our vertical
+   solutions`). Applied to the header pill *and* the in-page Axis B CTA so the page has one
+   wording.
+
+⚠ This is a **homepage-build** change: the site-wide locked CTA label is still
+"Explore our vertical solutions" (AGENTS.md quick facts / §14) until the client confirms the
+terminology globally. Build record: `client-review/homepage/design-notes.md` §"2026-10-29 — top
+nav".
+
 **Two folders as of 2026-10-29 — read this before editing the homepage.** The build was
 **duplicated** so the version the client has already seen stays recoverable:
 

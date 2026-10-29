@@ -1034,3 +1034,42 @@ and 134px at 390, bottom clearance 206px / 112px — so no text ever rides a gra
 
 Verified at 1440 and 390: three seams read as intended, all other boundaries hard, no text in a
 blend, 0 axe violations, no overflow, 0 console errors.
+
+## 2026-10-29 — top nav: six items, and the menu is a dropdown under the hamburger
+
+Three client notes on the header, all applied to `client-review/homepage/` (the working copy):
+
+**1 · Nothing is listed inline — the options fall under the hamburger.** The closed bar was
+already logo · hamburger · CTA, so what actually changed is the *open* state. It used to be a
+full-bleed brand-blue takeover whose six rows spanned the entire viewport — that reads as a second
+page, not as a menu hanging off the button. It is now a **400px card anchored under the bar on the
+same right edge as the hamburger**, white on the page, rows of 48px with a rounded hover fill, a
+180ms fade-and-drop in (skipped under `prefers-reduced-motion`), and the bar still turning brand
+blue while it is open so the state is unmistakable. Scrim click, Escape, and link click all close
+it; `body` scroll lock, page `inert`, and the focus trap are unchanged.
+
+**2 · Exactly six items, in the client's order:** Vertical Software · Our Advantage · **AI at
+Fullsteam** · Our Story · Acquisitions · Careers.
+
+- **Leadership is off the top nav.** It stays a page under Our Story (and stays linked from the
+  footer) — this is a nav-surface decision, not a sitemap change.
+- **Contact is off the top nav.** Still reachable from the footer and the close's CTA.
+- **AI at Fullsteam has no page of its own** — it is a panel on Our Advantage (KB §14), so the row
+  wayfinds to `our-advantage.html#ai`, which that page already resolves to the AI panel.
+- The `.menu__sub` styles were removed with Leadership, the only thing that used them. There are
+  no sub-rows in the menu now: it is one column, six items, nothing else.
+
+**3 · The CTA no longer says "solutions".** `Explore our vertical solutions` → **`Explore our
+verticals`** (short form stays `Explore` under 641px). The same string appeared once more as the
+Axis B CTA inside the page (`Explore vertical solutions`); it was changed to `Explore our
+verticals` too, because leaving one instance of the rejected word in the page's other primary CTA
+would be a copy inconsistency the client would catch immediately. **If only the header CTA was
+meant, that one line is trivially revertible.**
+
+Verified at 1440 and 390: six rows in the right order, panel 400px / 342px, rows 48px (≥44px hit
+target), no horizontal overflow, Escape restores `body` scroll and clears `inert`, menu readable
+over the paper opening, the Axis B photo, and the ink bands, 0 console errors.
+
+⚠ **The wireframe record still says "Explore our vertical solutions"** (site-wide CTA terminology,
+KB §14 / AGENTS.md quick facts). This change is scoped to the homepage build; the label is still
+the locked site-wide wording until the client confirms it globally.
