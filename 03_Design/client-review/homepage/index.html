@@ -2549,7 +2549,10 @@
           });
         }
 
-        var DUR = 900, GAP = 70, STAGGER = 80;
+        /* DUR is the count itself: 1350ms — 50% slower than the 900ms it shipped
+           with (client, 2026-10-29). GAP/STAGGER are the gaps between figures in
+           one column and between columns' starts, left as they were. */
+        var DUR = 1350, GAP = 70, STAGGER = 80;
         var summary = approach.querySelector('.approach__summary');
         var closeRow = approach.querySelector('.approach__close');
         var lit = 0;

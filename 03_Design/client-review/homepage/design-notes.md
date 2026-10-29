@@ -1602,3 +1602,15 @@ invisible to visitors.
 Contrast measured across the clip against the existing wash: **worst 3.15:1**, which clears 3:1 for
 the 120px display type — the same range as the sizzle clip (3.26:1), so no scrim change was needed.
 The 11px eyebrow is the known weak spot on both clips.
+
+### Counter speed down 50% (2026-10-29)
+
+Client: **"also slow the stats counter speed by 50%."** The count duration goes from **900ms to
+1350ms** (`DUR` in the process-band block). The two gaps around it are untouched on purpose —
+`GAP` 70ms between a figure finishing and its captions landing, and `STAGGER` 80ms between two
+figures in the same column — because they are pause, not speed. The entrance hold (`ENTER_HOLD`
+640ms) also stays: that is the beat that guarantees counting never starts while a column is still
+moving.
+
+Sampled on the live page after the trigger: figures at `0` until 700ms, mid-count at 1.0s and 1.4s,
+settled by ~1.9s for column 1 and ~2.2s for column 3, captions landing after them.
