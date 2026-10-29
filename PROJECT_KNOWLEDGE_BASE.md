@@ -2316,6 +2316,24 @@ Figma cannot express the CSS `background-size: 0% → 100%` wipe, so hover is re
 > This supersedes the earlier record that `03_Design/explorations/homev2/` was the "official
 > working design": the official page is no longer an exploration.
 
+**Hero rebuilt on a sizzle-video placeholder (2026-10-29, client feedback).** The opening is a
+**dark full-bleed media plane** again — the paper/ivory ground and its brand mesh are out of the
+build and saved as the A/B arm at
+**`client-review/homepage/variants/hero-A-paper-mesh-2026-10-29.html`** (tracked, not published,
+must not be edited). The plane is a deliberate **placeholder for the sizzle video (to be
+created)**: an owned dark brand field + dashed asset slot + a mono label naming the spec, with the
+legibility scrim already in place, so dropping the clip in changes no type contrast. Chrome is
+white over the hero again; Axis A type is white with a gold payoff.
+
+Copy no longer leads with the verticals: `Any industry, we own the software.` →
+**`We acquire / great software / companies.`** Axis B is unchanged, so the two-state model and the
+A→B order still hold. The opening carries **no CTA** — the header pill is the single one — and
+there was never a Careers CTA in this section (that one lives in the careers band). Build record:
+`client-review/homepage/design-notes.md` §"2026-10-29 — hero rebuilt".
+
+⚠ **Known issue, pre-existing:** under `prefers-reduced-motion` the two headline states overlap in
+the static fallback (reproduces in variant A too). It contradicts §23.6 rule 5 and needs its own fix.
+
 **Top nav refactor (2026-10-29, client feedback).** Three notes, applied to the working copy:
 
 1. **The menu is a dropdown under the hamburger**, not a full-bleed blue takeover — a 400px white

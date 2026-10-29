@@ -171,8 +171,10 @@
        menu swap to the ink/colour set so they read on ivory. Everything that is
        actually dark (Axis B's photo, the ink bands) still flips to white. */
     .site-bar.is-on-hero { background: transparent; border-bottom-color: transparent; }
-    .site-bar.is-on-hero .menu-btn__line { background: var(--ink); }
-    .site-bar.is-on-hero .menu-btn:focus-visible { outline-color: var(--brand); }
+    /* the hero is a dark media plane again (2026-10-29), so the chrome reads
+       white over it — the ink-on-paper treatment moved to the Axis A variant */
+    .site-bar.is-on-hero .menu-btn__line { background: #fff; }
+    .site-bar.is-on-hero .menu-btn:focus-visible { outline-color: #fff; }
     /* the scale chapter is ink, so the bar keeps its dark treatment there */
     .site-bar.is-on-ink { background: var(--ink); border-bottom-color: transparent; }
     .site-bar.is-on-ink .menu-btn__line { background: #fff; }
@@ -201,8 +203,8 @@
        on Axis B's photo, the ink bands and the open menu it is the white one.
        Written as explicit pairs so a new bar state cannot inherit the wrong
        logo by accident. */
-    .site-bar.is-on-hero .logo-stack__light { opacity: 0; }
-    .site-bar.is-on-hero .logo-stack__dark { opacity: 1; }
+    .site-bar.is-on-hero .logo-stack__light { opacity: 1; }
+    .site-bar.is-on-hero .logo-stack__dark { opacity: 0; }
     .site-bar:not(.is-on-hero):not(.is-on-axis-b):not(.is-on-ink) .logo-stack__light { opacity: 0; }
     .site-bar:not(.is-on-hero):not(.is-on-axis-b):not(.is-on-ink) .logo-stack__dark { opacity: 1; }
     .site-bar.is-on-ink .logo-stack__light,
@@ -332,12 +334,11 @@
     }
     .hero--axis-a {
       min-height: 100svh;
-      /* Light register (2026-10-28, fourth pass). The opening is now a paper
-         ground that saturates from below: ivory at the type, a blue / gold /
-         green mesh blooming up from the bottom edge. The tint is derived from
-         --gold rather than invented — a warm white, not a new colour. */
-      background: color-mix(in srgb, var(--gold) 6%, #fff);
-      color: var(--ink);
+      /* Dark media ground (2026-10-29). The hero is the sizzle-video slot now,
+         so the band is the ink/photo register and the type on it is white. The
+         paper register survives as variant A for A/B testing. */
+      background: var(--hero-dark);
+      color: #fff;
       display: flex; flex-direction: column; align-items: center; justify-content: space-between;
       text-align: center;
       padding: calc(var(--bar-h) + 24px) var(--gutter-x) clamp(20px, 3vh, 36px);
@@ -350,333 +351,97 @@
       min-height: 100svh;
     }
 
-    /* ---- Axis A ground · living field (2026-10-26, third pass) ------------
-       A Stripe-register aurora: three luminous masses — aqua, gold, lime —
-       orbiting the frame at independent non-harmonic periods (28s / 36s /
-       32s), so the composition never repeats a frame.
-       `transform` + `opacity` only; the gradients are already soft, so there
-       is no `filter: blur` to pay for and every frame is compositor work.
-       Each mass runs base → out → back through a third stop, so the path is a
-       slow orbit rather than a metronome and it loops without a seam.
+    /* ---- Axis A ground · sizzle-video placeholder (2026-10-29) ------------
+       Client direction: "Change the background/asset to a placeholder for the
+       previous hero with the sizzle video (to be created)."
 
-       The ink mass is the contrast guard and it does NOT move. It is painted
-       LAST, over the moving masses, and it wraps the headline box with margin,
-       so the drift can walk a bright mass as far under the type as it likes and
-       the type still lands on ink. That is what makes the amplitudes safe: the
-       guard is a constant, the field is not.
+       The paper/ivory ground and its blue→gold→green mesh are gone from this
+       build. They are not lost: the whole mesh hero is saved, intact, as the
+       A/B comparison arm at `variants/hero-A-paper-mesh-2026-10-29.html`.
+       What replaces them here is the register the page carried before the
+       light pass — a full-bleed dark media plane with the headline over it.
 
-       Two things make the motion legible, and both are geometry, not speed:
+       The plane is a PLACEHOLDER and is drawn as one, on purpose:
 
-       1. Travel is 26–34% of the mass (≈ 300–410px at 1440) with a small scale
-          breath, through three stops so no two masses ever move in step.
-       2. Masses are 84vmax with the falloff running all the way to 100% — see
-          the rim note below. Note that mass SIZE is neutral for motion: travel
-          is a fraction of the mass, so growing it scales distance and falloff
-          together. An earlier note here claimed shrinking made motion visible;
-          that was wrong — travel percentage and opacity swing did the work.
+       - `.hero__media-fallback` is the OWNED dark brand field reused from
+         `03_Design/explorations/02-video-hero` (brand blues only, 48s drift),
+         so the frame is never an empty black rectangle and white type holds at
+         any moment of the clip. It is also the no-video fallback for later.
+       - `.hero__media-slot` is a dashed hairline inset that marks the asset
+         slot, and `.hero__media-tag` names the asset and its spec in mono.
+       - `.hero__media-scrim` is the legibility wash that will sit over the real
+         footage too, so dropping the clip in does not change type contrast.
 
-       The gold is real gold, not gold-tinted brown: mixed 92% `--gold` into
-       `#8f5200` so the source is ≈ (251,183,0). Even so the ground beneath is
-       G≈90, so a source needs R−G large enough that a·(R−G) exceeds
-       (1−a)·90; plain `--gold` (R−G 57) at .62 alpha cannot clear it and
-       reads olive at any brightness. The deliberately warmer mix does.
-
-       Gated on html:not(.reduce-motion) plus the media query; with reduced
-       motion the field is a static ground (the class `opacity` is each
-       animation's 0% frame, so the frozen state is the state at t=0). */
-    .hero__field {
+       To ship the video: put a <video muted loop playsinline autoplay> inside
+       `.hero__media` (below the scrim), keep `.hero__media-fallback` as the
+       poster fallback, and delete `.hero__media-slot` + `.hero__media-tag`.
+       No layout, type, or contrast work moves when that happens. */
+    .hero__media {
       position: absolute; inset: 0; z-index: 0;
-      overflow: hidden; pointer-events: none;
-      contain: paint;
-      /* THE RISE (2026-10-28, fourth pass). The field no longer has a dark top
-         edge to protect — the ground is paper and the type is ink, so the only
-         job is keeping colour OFF the words. Colour blooms from the bottom
-         centre and dies before it reaches the payoff line: the radius is sized
-         so the mask is ~0 at "software." and ~1 at the bottom edge, which puts
-         the mesh in the bottom third where the filmstrip sits.
-
-         A radial mask, not a linear one: a horizontal ramp multiplied by round
-         masses leaves a readable horizon where the slope ends. A bloom has no
-         straight edge, so the field can be strong without reading as a band. */
-      mask-image: linear-gradient(180deg,
-        transparent 22%,
-        rgba(0,0,0,.16) 36%,
-        rgba(0,0,0,.55) 48%,
-        rgba(0,0,0,.85) 60%,
-        #000 72%);
-      -webkit-mask-image: linear-gradient(180deg,
-        transparent 22%,
-        rgba(0,0,0,.16) 36%,
-        rgba(0,0,0,.55) 48%,
-        rgba(0,0,0,.85) 60%,
-        #000 72%);
+      overflow: hidden; pointer-events: none; contain: paint;
     }
-    /* ---- Axis A ground · scroll parallax (2026-10-28, second pass) --------
-       FIRST PASS, and why it failed: the whole field was scaled as one plane.
-       A soft gradient has no edges, so a uniform zoom moves every mass by the
-       same fraction of its own diameter and the composition barely changes —
-       on screen it read as nothing. Parallax is not "it gets bigger", it is
-       LAYERS MOVING AT DIFFERENT RATES, so depth now comes from each mass
-       travelling its own distance against the scroll, plus a lag driven by
-       scroll VELOCITY that settles when you stop.
-
-       Mechanism: the blobs' drift keyframes own `transform`, so the scroll
-       terms ride the independent `translate` / `scale` properties, which
-       compose after it. Per-frame inline writes only, no CSS transition
-       (KB §23.6 rule 2), and the ink guard is DELIBERATELY excluded — it is
-       the contrast floor and must stay fixed while everything else moves. */
-    .hero__field-inner { position: absolute; inset: 0; }
-    /* WHOLE-FIELD TURN (2026-10-28, third pass). The masses are circles with
-       radially symmetric gradients, so rotating them about their own centres
-       is invisible. Rotating the CONTAINER is not: it moves every mass along
-       an arc, and because the arc radius differs per mass, the composition
-       shears — near masses swing faster than far ones. That relative shear is
-       what reads as "the field is alive", far more than any translation of a
-       soft edge. Scale is paired with the turn so no corner of the clip ever
-       opens, and the guard is deliberately OUTSIDE this wrapper: it is the
-       contrast floor, so it must not rotate with the light. */
-    @keyframes heroFieldTurn {
-      0%   { transform: rotate(-2.6deg) scale(1.06); }
-      38%  { transform: rotate(1.4deg)  scale(1.10); }
-      72%  { transform: rotate(3.1deg)  scale(1.05); }
-      100% { transform: rotate(-2.6deg) scale(1.06); }
+    .hero__media-fallback {
+      position: absolute; inset: -6%;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.028) 0 1px, rgba(255,255,255,0) 1px 84px),
+        radial-gradient(90% 70% at 8% -6%, #00719b 0%, rgba(0,113,155,0) 58%),
+        radial-gradient(70% 60% at 96% 12%, #0089bd 0%, rgba(0,137,189,0) 52%),
+        radial-gradient(80% 70% at 50% 108%, #004a68 0%, rgba(0,74,104,0) 62%),
+        linear-gradient(158deg, #004b68 0%, #002b3d 56%, #001821 100%);
     }
-    html:not(.reduce-motion) .hero__field-inner {
-      will-change: transform;
-      animation: heroFieldTurn 27s cubic-bezier(.42,0,.58,1) infinite;
+    @keyframes heroFallbackDrift {
+      from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+      to   { background-position: 0 0, 7% 4%, -6% 3%, 0 -3%, 0 0; }
     }
-    .reduce-motion .hero__field-inner { transform: none !important; }
-    html.opening-out .hero__field-inner { animation-play-state: paused; }
-    .hero__blob--blue  { translate: 0 var(--p-blue, 0px);  scale: var(--s-blue, 1); }
-    .hero__blob--gold  { translate: 0 var(--p-gold, 0px);  scale: var(--s-gold, 1); }
-    .hero__blob--green { translate: 0 var(--p-green, 0px); scale: var(--s-green, 1); }
-    /* A light source, not a fourth mass: a warm paper bloom low in the frame
-       that lifts the middle of the mesh (the reference's luminous core). It
-       travels further than any mass, so the illumination itself moves. */
-    .hero__light {
-      position: absolute; left: 50%; top: 116%;
-      width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax;
-      border-radius: 50%;
-      background: radial-gradient(closest-side,
-        rgba(255, 252, 240, 0.72) 0%,
-        rgba(255, 250, 225, 0.30) 38%,
-        transparent 74%);
-      opacity: .34;
-      translate: 0 var(--p-light, 0px);
-      scale: var(--s-light, 1);
+    html:not(.reduce-motion) .hero__media-fallback { animation: heroFallbackDrift 48s ease-in-out infinite alternate; }
+    html.opening-out .hero__media-fallback { animation-play-state: paused; }
+    /* The wash the real footage will sit under. Sized for white display type and
+       for the filmstrip at the foot, so it is darkest where the type is not. */
+    .hero__media-scrim {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(120% 90% at 50% 42%, rgba(0,20,28,.28) 0%, rgba(0,20,28,.52) 62%, rgba(0,20,28,.66) 100%),
+        linear-gradient(180deg, rgba(0,20,28,.52) 0%, rgba(0,20,28,.10) 34%, rgba(0,20,28,.20) 72%, rgba(0,20,28,.62) 100%);
+    }
+    /* the asset slot */
+    .hero__media-slot {
+      position: absolute; inset: clamp(10px, 1.2vw, 18px);
+      border: 1.5px dashed rgba(255,255,255,.30);
+      border-radius: 14px;
+    }
+    /* the placeholder label — top-left, under the bar, out of the type's way */
+    .hero__media-tag {
+      position: absolute;
+      left: clamp(24px, 5vw, 56px);
+      top: calc(var(--bar-h) + clamp(14px, 1.8vh, 22px));
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
+      max-width: min(560px, calc(100vw - 48px));
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      background: rgba(0,20,28,.38);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 10.5px; line-height: 1.4;
+      letter-spacing: .13em; text-transform: uppercase;
+      color: rgba(255,255,255,.88);
       pointer-events: none;
     }
-    /* THE PAPER PLATE (2026-10-28, fifth pass). The type is ink on paper, so
-       wherever the headline is, the mesh has to get out of the way — the exact
-       inverse of the old ink guard. A soft ivory bloom the size of the TYPE box
-       keeps the bed at paper while the colour stays visible around it, which is
-       how the reference gets a saturated field AND black type.
-       Size matters more now that the copy is centred: the first version wrapped
-       the text box with 200px of margin on every side, which erased the whole
-       middle of the composition — the mesh survived only as a rim. It now hugs
-       the measured glyph box (712×359 at 1440) with just enough bleed for the
-       blur.
-       It never animates, so it is rasterised once and costs nothing per frame;
-       because it is ivory-on-ivory at its edge, it has no rim to see. */
-    .hero__plate {
-      position: absolute; top: 42%; left: 50%;
-      width: min(880px, 92vw); height: min(520px, 56vh);
-      margin: 0; transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: color-mix(in srgb, var(--gold) 6%, #fff);
-      filter: blur(60px);
-      opacity: .88;
-      pointer-events: none;
+    .hero__media-tag-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(255,198,0,.22);
+      align-self: center;
     }
+    .hero__media-tag-spec { color: rgba(255,255,255,.62); }
     @media (max-width: 700px) {
-      .hero__plate { width: 96vw; height: 40vh; opacity: .90; top: 46%; }
+      .hero__media-tag { font-size: 9.5px; letter-spacing: .10em; border-radius: 14px; padding: 7px 11px; }
+      .hero__media-tag-spec { display: none; }
     }
-    .reduce-motion .hero__blob--blue,
-    .reduce-motion .hero__blob--gold,
-    .reduce-motion .hero__blob--green,
-    .reduce-motion .hero__light {
-      translate: none !important; scale: none !important;
+    @media (prefers-reduced-motion: reduce) {
+      .hero__media-fallback { animation: none; }
     }
-    .hero__blob {
-      position: absolute; display: block;
-      /* Sized and centred so the PLATEAU of each mass — not its falloff — is
-         what sits inside the frame. The first attempts pushed the cores below
-         the viewport and only the pale outer 30% showed, which is why the mesh
-         read as haze no matter how saturated the sources were. */
-      width: 96vmax; height: 96vmax;
-      margin: -48vmax 0 0 -48vmax;
-      border-radius: 50%;
-      transform-origin: 50% 50%;
-      /* Normal blending, deliberately. Multiply was tried first (inks on
-         paper) and it turned the whole band olive: blue and green multiplied
-         through each other lose the one thing the mesh needs, luminance. The
-         masses are opaque enough that normal blending keeps each hue clean and
-         lets the paint order decide the overlap: blue -> green -> gold, so the
-         warm core stays warm instead of mixing with the cool two into grey. */
-    }
-    /* Falloff note: an earlier pass ended these gradients at a hard stop
-       (transparent 78–82%), which left a readable RIM around each mass — on
-       screen three floating discs rather than one light field. Every gradient
-       now runs to 100% through a mid stop, so there is no slope break and no
-       edge to find. Relative motion is unchanged: travel is a percentage of
-       the mass's own size, so growing the mass scales the distance and the
-       falloff together. */
-    /* cool half — the blue end of the mesh, bottom left.
-       On paper the masses are PAINT, not light: they are mixed toward full
-       brand chroma and left opaque, and strength is carried by the element
-       opacity the drift keyframes already animate. The first pass kept the
-       old dark-ground mixes and they read as grey smudges on white. */
-    .hero__blob--blue {
-      left: 2%; top: 98%;
-      background: radial-gradient(closest-side,
-        color-mix(in srgb, var(--brand-sky) 78%, var(--brand)) 0%,
-        color-mix(in srgb, var(--brand-sky) 66%, var(--brand)) 62%,
-        color-mix(in srgb, var(--brand-sky) 30%, var(--brand)) 84%,
-        transparent 100%);
-      opacity: .96;
-    }
-    /* the warm core — painted LAST and centred on the bottom edge, so it reads
-       as sun on the horizon rather than as a third primary mixing with the
-       other two into grey. Blue and green are allowed to blend into teal on
-       their own (they are the brand's original gradient); gold stays clean. */
-    .hero__blob--gold {
-      left: 50%; top: 108%;
-      width: 84vmax; height: 84vmax;
-      margin: -42vmax 0 0 -42vmax;
-      background: radial-gradient(closest-side,
-        color-mix(in srgb, var(--gold) 72%, #ff6a00) 0%,
-        color-mix(in srgb, var(--gold) 92%, #ff9d00) 58%,
-        color-mix(in srgb, var(--gold) 90%, #ffe9a3) 82%,
-        transparent 100%);
-      opacity: .92;
-    }
-    /* the cool end, bottom right */
-    .hero__blob--green {
-      left: 92%; top: 100%;
-      background: radial-gradient(closest-side,
-        color-mix(in srgb, var(--green) 82%, #1a6f4a) 0%,
-        color-mix(in srgb, var(--green) 70%, #1a6f4a) 62%,
-        color-mix(in srgb, var(--green) 44%, #7fc0a0) 84%,
-        transparent 100%);
-      opacity: .78;
-    }
-    /* Portrait: the masses have to be STACKED, not ganged. At 390 the default
-       placement puts all three almost on top of each other (96vmax ≈ 374px on a
-       390px frame), so they average into one sage wash and the blue disappears
-       under the gold. Dropping each mass to its own corner and lifting it above
-       the bottom edge keeps three hues readable in a tall, narrow frame.
-       The eyebrow is also two lines here and was being clipped by the 84px bar,
-       hence the extra 34px of top padding. */
-    @media (max-width: 700px) {
-      .hero__blob--blue  { left: 0%;   top: 90%; }
-      .hero__blob--green { left: 100%; top: 92%; }
-      .hero__blob--gold  { top: 104%; }
-    }
-    @keyframes heroDriftA {
-      0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
-      30%  { transform: translate3d(56%, 32%, 0) scale(1.14);  opacity: .62; }
-      65%  { transform: translate3d(18%, -16%, 0) scale(.90);  opacity: .34; }
-      100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
-    }
-    @keyframes heroDriftB {
-      0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .62; }
-      32%  { transform: translate3d(-38%, 40%, 0) scale(1.16); opacity: .78; }
-      68%  { transform: translate3d(-10%, -20%, 0) scale(.90); opacity: .50; }
-      100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .62; }
-    }
-    @keyframes heroDriftC {
-      0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
-      36%  { transform: translate3d(-44%, -38%, 0) scale(1.18); opacity: .70; }
-      72%  { transform: translate3d(13%, -9%, 0) scale(.90);    opacity: .36; }
-      100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
-    }
-    /* The light source breathes on its own period, and drifts on `transform`
-       (its `translate` belongs to the scroll drive). Periods are deliberately
-       non-harmonic — 14 / 17 / 19 / 21s — so the four never resolve into one
-       beat and the field never repeats a frame.
 
-       TRAVEL WAS ONCE NOT A FREE KNOB. A 2026-10-28 pass raised every excursion
-       by ~35% on top of the ORIGINAL guard and put the green mass under the end
-       of line 2 — a glyph at **2.54:1**. Two things changed since: the guard is
-       now a fixed feathered ellipse that hugs the type box (so the bright flanks
-       can move freely), and the guard no longer rotates with the field. Travel
-       is still bounded by that ellipse, and is re-measured per glyph across
-       eight phases whenever it moves. */
-    @keyframes heroLightBreathe {
-      0%, 100% { opacity: .38; }
-      50%      { opacity: .62; }
-    }
-    @keyframes heroLightDrift {
-      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-      35%      { transform: translate3d(-16%, 12%, 0) scale(1.10); }
-      70%      { transform: translate3d(8%, -7%, 0) scale(.94); }
-    }
-    html:not(.reduce-motion) .hero__blob--blue,
-    html:not(.reduce-motion) .hero__blob--gold,
-    html:not(.reduce-motion) .hero__blob--green,
-    html:not(.reduce-motion) .hero__light {
-      will-change: transform, opacity;
-      backface-visibility: hidden;
-    }
-    html:not(.reduce-motion) .hero__blob--blue  { animation: heroDriftA 15s cubic-bezier(.45,.05,.55,.95) infinite; }
-    html:not(.reduce-motion) .hero__blob--gold  { animation: heroDriftB 17s cubic-bezier(.45,.05,.55,.95) infinite; }
-    html:not(.reduce-motion) .hero__blob--green { animation: heroDriftC 14s cubic-bezier(.45,.05,.55,.95) infinite; }
-    html:not(.reduce-motion) .hero__light {
-      animation: heroLightBreathe 14s ease-in-out infinite,
-                 heroLightDrift 16s cubic-bezier(.45,.05,.55,.95) infinite;
-    }
-    @media (prefers-reduced-motion: reduce) { .hero__blob, .hero__light { animation: none !important; } }
-    /* compositor work nobody can see: the field stops once the opening has
-       scrolled entirely out (IO in the script, below) */
-    html.opening-out .hero__blob,
-    html.opening-out .hero__light { animation-play-state: paused; }
-
-    /* ---- Axis A ground · grain (2026-10-26) ------------------------------
-       A gradient this smooth reads as CSS. Grain is what makes it read as
-       film: real light is never that clean, and the eye uses the noise as a
-       reference for the surface it is looking at.
-
-       Generated, not shipped: an inline SVG `feTurbulence` tile, 160px, with
-       `stitchTiles` so the repeat is seamless and `saturate 0` so it is luma
-       grain rather than colour speckle. The browser rasterises the tile once
-       and repeats it — there is no image request and no 70KB base64 blob.
-
-       It sits INSIDE .hero__field, which buys two things for free: the layer
-       inherits the field's header mask, so the grain fades in under the bar
-       exactly like the light does, and it is painted under .hero__center, so
-       the headline stays crisp. Grain over type softens it at display sizes.
-
-       `overlay` at low opacity is the neutral blend ONLY if the tile's mean is
-       50% grey — overlay's identity. feTurbulence's `fractalNoise` is not
-       centred: measured, this tile averages 186/255 with a range of 121–231,
-       so a naive overlay can only ever lighten the field (it lifted it 17
-       levels, and the headline contrast with it). The feFunc* linear stops
-       recentre the tile on 0.5 and compress it to a 0.21–0.70 range, which is
-       what makes the blend mean-neutral. */
-    .hero__grain {
-      position: absolute; inset: -8%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncG type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncB type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncA type='table' tableValues='1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 160px 160px;
-      /* .2 was right over a dark bed; on paper it all but disappears. The
-         reference's grain is a visible film, so it runs at .34 with multiply,
-         which darkens the ivory a touch instead of washing it out. */
-      opacity: .34;
-      mix-blend-mode: multiply;
-      pointer-events: none;
-    }
-    /* Grain that lives: the tile drifts a few percent on a 9s loop. A `transform`
-       on a repeated neutral tile is pure compositor work, changes no luminance,
-       and is the one kind of field motion that cannot touch type contrast — so
-       it is doing the "alive" work the guard would otherwise have to give up. */
-    @keyframes grainDrift {
-      0%, 100% { transform: translate3d(0, 0, 0); }
-      25%      { transform: translate3d(-2.5%, 1.6%, 0); }
-      50%      { transform: translate3d(1.6%, -2.2%, 0); }
-      75%      { transform: translate3d(2.2%, 2.6%, 0); }
-    }
-    html:not(.reduce-motion) .hero__grain { animation: grainDrift 9s linear infinite; }
-    html.opening-out .hero__grain { animation-play-state: paused; }
     .hero__center {
       position: relative;
       z-index: 2;
@@ -727,6 +492,9 @@
          the small text keeps a wide margin over 4.5:1. */
       color: rgba(13,26,32,.82);
     }
+    /* On the sizzle-video plane the label is white: .82 white on the scrim
+       measures ~7:1, so the 11px mono still clears 4.5:1 with room. */
+    .hero--axis-a .hero__eyebrow { color: rgba(255,255,255,.82); }
     /* Portrait: the label runs a touch tighter so it breaks as one balanced
        pair of lines instead of three. */
     @media (max-width: 700px) {
@@ -749,12 +517,15 @@
       font-style: italic;
       font-weight: 400;
       letter-spacing: 0;
-      /* brand blue, not gold: gold on ivory is 1.7:1 — invisible */
+      /* brand blue on paper (variant A); gold once the hero went dark, where
+         gold is the readable payoff (≈10:1 on the ink scrim) */
       color: var(--brand);
       line-height: 0;
       padding-inline: 0.12em;
       margin-inline: -0.12em;
     }
+    .hero--axis-a .hero__title { color: #fff; text-shadow: 0 2px 30px rgba(0,20,28,.45); }
+    .hero--axis-a .hero__title em { color: var(--gold); }
     .hero__title .line {
       display: block;
       position: relative;
@@ -1919,23 +1690,28 @@
   <main id="main">
     <div class="opening-stage" id="openingStage">
       <section class="hero hero--axis-a" id="heroAxisA" aria-labelledby="heroTitle">
-        <div class="hero__field" aria-hidden="true">
-          <div class="hero__field-inner" id="heroFieldInner">
-            <span class="hero__blob hero__blob--blue"></span>
-            <span class="hero__blob hero__blob--green"></span>
-            <span class="hero__blob hero__blob--gold"></span>
-            <span class="hero__light"></span>
+        <!-- SIZZLE VIDEO SLOT — PLACEHOLDER (2026-10-29). Drop the clip in as a
+             <video muted loop playsinline autoplay> beside the fallback, then
+             delete `.hero__media-slot` and `.hero__media-tag`. See the ground
+             comment in the stylesheet for the full swap. -->
+        <div class="hero__media" aria-hidden="true">
+          <div class="hero__media-fallback"></div>
+          <div class="hero__media-scrim"></div>
+          <div class="hero__media-slot"></div>
+          <div class="hero__media-tag">
+            <span class="hero__media-tag-dot"></span>
+            <span class="hero__media-tag-name">Sizzle video — placeholder</span>
+            <span class="hero__media-tag-spec">16:9 · 1920×1080 · muted loop</span>
           </div>
-          <span class="hero__plate"></span>
-          <span class="hero__grain"></span>
         </div>
+        <p class="sr-only">Hero background: placeholder for the Fullsteam sizzle video, to be created.</p>
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
             <p class="hero__eyebrow">For founders, investors, and the teams who build the software</p>
             <h1 class="hero__title hero__title--portfolio" id="heroTitle">
-              <span class="line line--single"><span class="ln">Any industry,</span></span>
-              <span class="line"><span class="ln">we own the</span></span>
-              <span class="line line--payoff"><span class="ln"><em>software.</em></span></span>
+              <span class="line"><span class="ln">We acquire</span></span>
+              <span class="line"><span class="ln">great software</span></span>
+              <span class="line line--payoff"><span class="ln"><em>companies.</em></span></span>
             </h1>
           </div>
         </div>
@@ -2015,9 +1791,9 @@
             <span class="line" data-li="3"><em>grow.</em></span>
           </h2>
         </div>
-        <div class="hero__cta">
-          <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/vertical-software.html">Explore our verticals</a>
-        </div>
+        <!-- No CTA in the opening (client, 2026-10-29: "Leave a single CTA or no
+             CTA at all"). The single CTA on the page is the header pill. The
+             Careers CTA lives in the careers band, not here. -->
       </div>
     </div>
 
@@ -2882,7 +2658,6 @@
 
       var axisStage = document.getElementById('axisBStage');
       var axisFrame = document.getElementById('axisBFrame');
-      var heroFieldInner = document.getElementById('heroFieldInner');
       function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
       var vertGrow = document.getElementById('vertGrow');
       var vertGrowInner = document.getElementById('vertGrowInner');
@@ -3004,79 +2779,9 @@
         }
         syncBar();
       }
-      /* ---- Axis A ground · the scroll drive (2026-10-28, second pass) ----
-         Each mass gets a different share of the scroll (depth), and the whole
-         field also lags the scroll by a smoothed VELOCITY term that releases
-         when you stop — that release is what makes it feel like a surface
-         with weight rather than something pinned to scrollY. All numbers are
-         fractions of viewport height so the effect survives resize.
-
-         One write per mass per frame, and only when the value actually
-         changes; the loop parks itself once the opening is out of view. */
-      var fieldLastY = null;
-      var fieldVel = 0;
-      var fieldRaf = 0;
-      var fieldKey = '';
-      var fieldTravel = 0;
-
-      /* rate = how far the layer travels per unit of pin progress (×vh),
-         z = the scale breath that sells which layer is nearer. */
-      var FIELD_LAYERS = [
-        { v: '--p-blue',  s: '--s-blue',  rate: -0.075, z: -0.05 },
-        { v: '--p-gold',  s: '--s-gold',  rate:  0.105, z:  0.06 },
-        { v: '--p-green', s: '--s-green', rate: -0.050, z:  0.03 },
-        { v: '--p-light', s: '--s-light', rate:  0.150, z:  0.05 }
-      ];
-
-      function fieldOutOfView() {
-        return document.documentElement.classList.contains('opening-out');
-      }
-
-      function tickField() {
-        fieldRaf = 0;
-        if (!heroFieldInner || reduce.matches) return;
-        if (fieldOutOfView()) { fieldLastY = null; fieldVel = 0; return; }
-
-        var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-        var dy = fieldLastY === null ? 0 : y - fieldLastY;
-        fieldLastY = y;
-
-        /* fast to pick up, slow to let go */
-        fieldVel += (dy - fieldVel) * 0.17;
-        if (Math.abs(fieldVel) < 0.03) fieldVel = 0;
-
-        if (!fieldTravel) fieldTravel = Math.max(1, axisStage ? axisStage.offsetHeight - window.innerHeight : 1);
-        /* the field is gone by the end of the morph; keep the ramp in that window */
-        var t = clamp01(y / (fieldTravel * 0.45));
-        var H = window.innerHeight;
-        /* lag opposes the scroll and is capped hard: it is a texture on top of
-           the depth rates, never the main event — a big lag inverts the base
-           direction and reads as the field fighting the scroll */
-        var lag = Math.max(-34, Math.min(34, -fieldVel * 0.55));
-
-        var key = t.toFixed(3) + '|' + lag.toFixed(1);
-        var changed = key !== fieldKey;
-        if (changed) {
-          fieldKey = key;
-          for (var i = 0; i < FIELD_LAYERS.length; i++) {
-            var L = FIELD_LAYERS[i];
-            var py = L.rate * H * t + lag * (L.rate > 0 ? 1 : 0.8);
-            var ps = 1 + L.z * t + Math.min(Math.abs(fieldVel), 40) * 0.0006;
-            heroFieldInner.style.setProperty(L.v, py.toFixed(1) + 'px');
-            heroFieldInner.style.setProperty(L.s, ps.toFixed(4));
-          }
-        }
-        /* park once settled — the next scroll re-kicks it, so an idle hero
-           costs no frames at all */
-        if (changed || fieldVel !== 0) fieldRaf = requestAnimationFrame(tickField);
-      }
-      function kickField() {
-        if (!fieldRaf && !reduce.matches) fieldRaf = requestAnimationFrame(tickField);
-      }
 
       var axisTick = false;
       function onAxisScroll() {
-        kickField();
         if (!axisTick) {
           axisTick = true;
           requestAnimationFrame(function () {
@@ -3099,8 +2804,7 @@
         }
         if (heroCenter) heroCenter.style.setProperty('--hero-a-fade', reduce.matches ? '0' : '0');
         window.addEventListener('scroll', onAxisScroll, { passive: true });
-        window.addEventListener('resize', function () { fieldTravel = 0; onAxisScroll(); });
-        kickField();
+        window.addEventListener('resize', onAxisScroll);
         renderAxisB();
       } else {
         window.addEventListener('scroll', syncBar, { passive: true });

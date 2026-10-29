@@ -1073,3 +1073,63 @@ over the paper opening, the Axis B photo, and the ink bands, 0 console errors.
 ⚠ **The wireframe record still says "Explore our vertical solutions"** (site-wide CTA terminology,
 KB §14 / AGENTS.md quick facts). This change is scoped to the homepage build; the label is still
 the locked site-wide wording until the client confirms it globally.
+
+## 2026-10-29 — hero rebuilt on a sizzle-video placeholder, and the copy leads with acquisition
+
+Four client notes, all applied to `client-review/homepage/`. **The paper-mesh hero is not
+deleted** — it is the A/B comparison arm (see note 4).
+
+**1 · The ground is a placeholder for the sizzle video.** The ivory ground and its blue→gold→green
+mesh are gone; the opening is a **full-bleed dark media plane** again, in the register the page
+carried before the light pass. The plane is drawn as a *placeholder on purpose*:
+
+- `.hero__media-fallback` — the owned dark brand field from
+  `03_Design/explorations/02-video-hero` (brand blues only, 48s drift). Not an empty black
+  rectangle, and it doubles as the poster fallback once real footage exists.
+- `.hero__media-slot` — a dashed hairline inset marking the asset slot.
+- `.hero__media-tag` — mono label, top-left under the bar: `Sizzle video — placeholder · 16:9 ·
+  1920×1080 · muted loop`. On <700px the spec half is hidden so the tag stays one line.
+- `.hero__media-scrim` — the legibility wash the real footage will sit under, so dropping the clip
+  in changes **no** type contrast.
+
+To ship the video: put the `<video muted loop playsinline autoplay>` inside `.hero__media` below
+the scrim, keep the fallback as poster, delete the slot + tag. Nothing else moves.
+
+Because the ground is dark again, the chrome flips back: logo and hamburger go **white** over the
+hero (`is-on-hero`), and Axis A type is white with the payoff in **gold** (≈10:1 on the scrim;
+`--brand` was the paper-only choice at 3.5:1). Eyebrow runs `rgba(255,255,255,.82)` ≈ 7:1.
+
+**2 · The copy leads with what we do, not with the verticals.** `Any industry, we own the
+software.` → **`We acquire / great software / companies.`** — three explicit lines, because the
+mobile column is 342px at 50px type and a 2-line break rendered as a ragged 4-line spill.
+Axis B is untouched (`Then we build what makes it grow.`): the two-state model and the A→B order
+still hold, and the payoff italic still carries one word each. The 11 verticals still appear below
+as the filmstrip; they are no longer the first claim.
+
+**3 · No CTA in the opening — the header pill is the single one.** The Axis B pill
+(`Explore our verticals`) was removed, so the opening is headline-only and the page has exactly one
+CTA above the fold (the gold pill in the bar). There was never a Careers CTA in this section; the
+Careers CTA (`See Careers`) lives in the careers band and was left alone.
+
+**4 · Variant A is saved for A/B testing.** The whole paper-mesh page — mesh, plate, grain, ink
+type, the Axis B pill, the lot — is frozen at
+**`variants/hero-A-paper-mesh-2026-10-29.html`**. Paths inside it were rewritten one level up
+(`../assets`, `../../../../02_Wireframes`) because it sits in `variants/`, and it opens standalone
+at `http://localhost:8000/03_Design/client-review/homepage/variants/hero-A-paper-mesh-2026-10-29.html`.
+It is **not published** (`pages.yml` stages only `index.html`) and **must not be edited** — it is a
+comparison arm, not a second working copy.
+
+Dead code removed with the mesh: the field/blob/plate/grain CSS, the four `heroDrift*` /
+`grainDrift` keyframes, and the whole scroll-driven field parallax block in JS (`heroFieldInner`,
+`kickField`, `FIELD_LAYERS`). The Axis B scroll-over, the filmstrip marquee, and the scale chapter
+are untouched.
+
+Verified 1440 / 768 / 390: three-line headline fits at every width (342px column at 390), white
+type and gold payoff, chrome white over the hero, one CTA above the fold, filmstrip still opens its
+accordion panel, 0 console errors, no horizontal overflow.
+
+⚠ **Pre-existing, not from this change:** with `prefers-reduced-motion: reduce` the two headline
+states render on top of each other in the static fallback (both Axis A and Axis B titles occupy the
+same box). It reproduces identically in variant A, so it predates this build — but it contradicts
+KB §23.6 rule 5 ("both states are content; with reduced motion they render in document order").
+Needs its own fix; not attempted here.
