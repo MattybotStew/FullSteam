@@ -1281,3 +1281,22 @@ Verified at 1440 and 390, scroll-stepped through the handoff: Axis A returns cle
 (`--a-exit-*` back to 0), B is `is-live` only while it has a line on screen, the clip keeps playing
 through the swap, 0 console errors, no horizontal overflow, and the whole page still scrolls to the
 close with the top bar switching surfaces at the right places.
+
+## 2026-10-29 — the header does not change when the menu opens
+
+Client: **"don't change header on menu click."**
+
+The bar used three rules keyed on `.site-bar:has(.menu-btn[aria-expanded="true"])`: it filled
+**brand blue**, forced the white logo, and forced white hamburger lines. All three are gone. The
+panel's own scrim already dims the page behind it, and re-dressing the bar made the header look
+like it had navigated somewhere — the mark and the lines changed colour while the page underneath
+was still the same page.
+
+The bar now keeps whatever surface state it was in: transparent with the white mark over the hero,
+white with the colour mark over the white bands, ink with the white mark over the ink bands. Only
+the panel animates in. Opening, closing, Escape, scrim-click and body scroll-lock are unchanged.
+
+Verified 1440 / 390 at the hero, the white `verts` band, the ink `scale` band and `careers`:
+`background-color` before and after opening is identical in every case, the logo pair and the
+hamburger lines keep the state they had, and the panel still opens/closes with `aria-expanded`
+tracking correctly.

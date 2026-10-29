@@ -186,8 +186,10 @@
     .site-bar.is-on-axis-b .menu-btn__line { background: #fff; }
     .site-bar.is-on-axis-b .menu-btn:focus-visible { outline-color: #fff; }
     @media (prefers-reduced-motion: reduce) { .site-bar { transition: none; } }
-    .site-bar:has(.menu-btn[aria-expanded="true"]) { background: var(--brand); border-color: transparent; }
-    .site-bar:has(.menu-btn[aria-expanded="true"]) .menu-btn__line { background: #fff; }
+    /* The bar does NOT change when the menu opens (client, 2026-10-29). It used
+       to fill brand blue and force a white mark; the panel already dims the
+       page behind it, and re-dressing the bar made the header look like it had
+       navigated somewhere. The bar keeps whatever surface it was on. */
     .site-bar__logo { display: block; }
     .logo-stack { position: relative; display: block; width: 177px; height: 48px; }
     .logo-stack img {
@@ -210,9 +212,6 @@
     .site-bar.is-on-axis-b .logo-stack__light { opacity: 1; }
     .site-bar.is-on-ink .logo-stack__dark,
     .site-bar.is-on-axis-b .logo-stack__dark { opacity: 0; }
-    /* the menu fills the bar with brand blue — white mark only */
-    .site-bar:has(.menu-btn[aria-expanded="true"]) .logo-stack__light { opacity: 1; }
-    .site-bar:has(.menu-btn[aria-expanded="true"]) .logo-stack__dark { opacity: 0; }
     /* scrim so the floating header keeps the white mark legible on any frame */
     .site-bar::before {
       content: ""; position: fixed; left: 0; right: 0; top: 0;
