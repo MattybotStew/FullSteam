@@ -32,7 +32,16 @@
       /* brand sky: saturated aqua for kickers on the dark opening */
       --brand-sky: color-mix(in srgb, var(--brand) 10%, #00efff);
       --gold: #FFC600;
+      /* Brand green. FILL ONLY: 2.1:1 on white, so it can carry a rule, a dot or
+         a chip — never type at text size. See --green-ink. */
       --green: #84BD00;
+      /* TEXTSAFE green: the brand hue pulled 56% toward ink. Measured 5.38:1 on
+         white and 4.96:1 on --surface — AA for normal text on both light
+         grounds the page uses. Use this for any green LETTERFORM on light; keep
+         --green for fills and for green on dark (7.8:1 on ink). The literal is
+         the resolved value, so it survives engines without color-mix. */
+      --green-ink: #4F750E;
+      --green-ink: color-mix(in srgb, var(--green) 56%, var(--ink));
       --bg: #ffffff;
       --surface: #f4f7f9;
       --ink: #0d1a20;
@@ -1185,12 +1194,6 @@
       background: #fff; color: var(--ink);
       padding: var(--section-y) var(--gutter-x) 0;
       border-bottom: 1px solid var(--line);
-      /* The brand green (#84BD00) is 2.1:1 on white — fine as a rule or a mark,
-         unreadable as 11px numerals. This is the same hue pulled toward ink,
-         measured 4.9:1, and it is used for the two places the green carries
-         TEXT: the "AI" word and the 01/02/03 indices. The 2px rule keeps the
-         pure brand green. */
-      --green-ink: color-mix(in srgb, var(--green) 62%, #0d1a20);
     }
     .ai__inner {
       padding-bottom: clamp(24px, 3.5vh, 40px);

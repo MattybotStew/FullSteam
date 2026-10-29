@@ -1709,3 +1709,28 @@ Verified 1440 / 390: order is scale → AI → verticals → founders → career
 on white (mark 4.7:1, body 5.5:1), no ink grain on the white band, hairline separating AI from the
 verticals below, stats band opens on the new H2 with the columns counting, 0 console errors, no
 overflow.
+
+## 2026-10-29 — the green is AA on light, and how
+
+Client: **"make the green AA compliant — how can we fix the bug?"** The short answer is that the
+brand green cannot be both brand-accurate and AA on white: `#84BD00` measures **2.27:1** on white,
+and no amount of placement changes that — AA wants 4.5:1 for normal text (3:1 for text ≥24px, or
+≥18.66px bold). So the fix is not a different green, it is **two tokens with different jobs**:
+
+| token | value | job | measured |
+|---|---|---|---|
+| `--green` | `#84BD00` | **fills only** — the 2px rule under the AI title, the dot in the close band, chips | 7.81:1 on ink, 2.27:1 on white |
+| `--green-ink` | `color-mix(--green 56%, --ink)` → `#4F750E` | **any green letterform on a light ground** | **5.38:1 on white**, **5.00:1 on `--surface`** |
+
+Why 56%: at 62% the mix measured 4.72:1 on white but only 4.39:1 on `--surface` — its own surface
+was the one place it failed. 56% clears both, so one text token covers every light band on the page.
+The literal hex is declared first and the `color-mix()` second, so engines without `color-mix` get
+the same colour instead of transparent.
+
+Applied to the two places green carries type on the homepage — the word "AI" and the 01/02/03
+indices. The rules, dots and chips keep the pure brand green, and green on dark still uses `--green`
+(7.81:1 on ink), which is why the dark bands never needed a second token.
+
+This is the general method for any brand colour that fails on a ground: **keep the hue, vary the
+lightness, and give the text variant its own name** — then measure it on every ground it can land on,
+not just the one you designed against.
