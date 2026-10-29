@@ -916,44 +916,6 @@
       font-size: .52em; font-weight: 600; color: var(--gold);
       margin-right: .04em; align-self: flex-start; line-height: 1.1;
     }
-    /* ---- the closing row: the statement and the founder quote --------------
-       One line, one baseline (client, 2026-10-29). They used to sit diagonally
-       — the quote pinned high in the Lead column, the statement low and left —
-       with a dead diagonal between them. Now they share a row: statement left,
-       quote right, first baselines aligned. */
-    .approach__close {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: clamp(32px, 7vw, 120px);
-      margin-top: clamp(52px, 8vh, 96px);
-    }
-    .approach__quote {
-      margin: 0; padding: 0 0 0 16px;
-      max-width: 34ch;
-      border-left: 1px solid rgba(255,255,255,.22);
-      flex: 0 1 auto;
-    }
-    .approach__quote blockquote { margin: 0; }
-    .approach__quote p {
-      margin: 0;
-      font-family: "Instrument Serif", Georgia, serif; font-style: italic;
-      font-size: clamp(16px, 1.35vw, 19px); line-height: 1.4;
-      color: rgba(255,255,255,.86); text-wrap: pretty;
-    }
-    .approach__quote figcaption {
-      margin-top: 10px;
-      font-family: "Fragment Mono", ui-monospace, monospace;
-      font-size: 10.5px; line-height: 1.5; letter-spacing: .12em;
-      text-transform: uppercase; color: rgba(255,255,255,.46);
-    }
-    /* the quote arrives with the statement, not before it */
-    .has-js .approach.is-armed .approach__quote { opacity: 0; transform: translateY(6px); }
-    .has-js .approach.is-armed .approach__close.is-in .approach__quote {
-      opacity: 1; transform: none;
-      transition: opacity .5s var(--ease-out) .18s, transform .6s var(--ease-out) .18s;
-    }
-    .step__note { display: block; margin-top: 4px; text-transform: none; letter-spacing: .02em; color: rgba(255,255,255,.32); }
 
     /* the reveal: number counts, then its caption lands. Reduced motion opts
        out — the markup as authored is the finished state. */
@@ -965,33 +927,6 @@
     .has-js .approach.is-armed .step { --step-lit: 0; }
     .has-js .approach.is-armed .step::before { opacity: var(--step-lit, 1); }
     .has-js .approach.is-armed .step.is-drawn { --step-lit: 1; transition: none; }
-
-    /* one sentence under the strip; its words assemble on scroll */
-    .approach__summary {
-      margin: 0; max-width: 30ch; flex: 1 1 auto;
-      font-size: clamp(22px, 2.4vw, 34px); line-height: 1.32;
-      letter-spacing: -.012em; text-wrap: pretty;
-      color: rgba(255,255,255,.8);
-    }
-    /* serif italic on the nouns — the page's payoff-word treatment */
-    .approach__summary em {
-      font-family: "Instrument Serif", Georgia, serif;
-      font-style: italic; font-weight: 400; letter-spacing: 0;
-      /* Client pick (2026-10-29): #00EFFF on the three nouns — "a name, a team,
-         and customers". Measured ~12.7:1 on the ink band, so it is the most
-         legible treatment this line has had (the previous light blue was
-         color-mix(--brand 42%, #fff) at 8.3:1).
-         ⚠ It is outside the locked palette (KB §15) — the only other place this
-         cyan appears is inside --brand-sky, which mixes 10% brand into it. */
-      color: #00EFFF;
-    }
-    .approach__summary .fw { display: inline-block; }
-    .has-js .approach__summary .fw {
-      opacity: 0; transform: translateY(.42em); filter: blur(5px);
-      transition: opacity .58s var(--ease-out), transform .72s var(--ease-out), filter .58s var(--ease-out);
-      transition-delay: calc(var(--i, 0) * 28ms);
-    }
-    .has-js .approach__summary.is-in .fw { opacity: 1; transform: none; filter: none; }
 
     /* tablet: two columns is worse than one — the steps are a sequence, so they
        stack, and the spine turns vertical (one line on the left, a node per
@@ -1007,15 +942,10 @@
       .step::before { top: 6px; left: 0; }
       .step__arrow { display: none; }
 
-      .approach__close { flex-direction: column; align-items: flex-start; gap: 28px; }
-      .approach__summary { max-width: none; }
-      .approach__quote { max-width: none; }
       .stat__num { font-size: clamp(52px, 12vw, 76px); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .has-js .approach.is-armed .stat__cap,
-      .has-js .approach.is-armed .approach__quote,
-      .has-js .approach__summary .fw {
+      .has-js .approach.is-armed .stat__cap {
         opacity: 1 !important; transform: none !important;
         filter: none !important; transition: none !important;
       }
@@ -1927,39 +1857,6 @@
           </li>
         </ol>
 
-        <div class="approach__close">
-        <p class="approach__summary">
-          <span class="fw" style="--i:0">Every</span>
-          <span class="fw" style="--i:1">one</span>
-          <span class="fw" style="--i:2">of</span>
-          <span class="fw" style="--i:3">these</span>
-          <span class="fw" style="--i:4">numbers</span>
-          <span class="fw" style="--i:5">is</span>
-          <span class="fw" style="--i:6">a</span>
-          <span class="fw" style="--i:7">business</span>
-          <span class="fw" style="--i:8">with</span>
-          <span class="fw" style="--i:9">a</span>
-          <span class="fw" style="--i:10"><em>name,</em></span>
-          <span class="fw" style="--i:11"><em>a</em></span>
-          <span class="fw" style="--i:12"><em>team,</em></span>
-          <span class="fw" style="--i:13"><em>and</em></span>
-          <span class="fw" style="--i:14"><em>customers</em></span>
-          <span class="fw" style="--i:15">who</span>
-          <span class="fw" style="--i:16">depend</span>
-          <span class="fw" style="--i:17">on</span>
-          <span class="fw" style="--i:18">it.</span>
-          <span class="fw" style="--i:19">That&rsquo;s</span>
-          <span class="fw" style="--i:20">what</span>
-          <span class="fw" style="--i:21">we&rsquo;re</span>
-          <span class="fw" style="--i:22">protecting.</span>
-        </p>
-        <figure class="approach__quote">
-          <blockquote>
-            <p>&ldquo;We stopped asking what to build next and started asking where everything we had built could go.&rdquo;</p>
-          </blockquote>
-          <figcaption>Founder, a Fullsteam company <span class="step__note">[placeholder &mdash; founder voice, genericized, unpublishable as written]</span></figcaption>
-        </figure>
-        </div>
       </div>
     </section>
 
@@ -2586,10 +2483,6 @@
            state, so every step is simply already lit */
         if (reduce.matches) {
           steps.forEach(function (st) { st.classList.add('is-drawn'); });
-          var sm0 = approach.querySelector('.approach__summary');
-          if (sm0) sm0.classList.add('is-in');
-          var cr0 = approach.querySelector('.approach__close');
-          if (cr0) cr0.classList.add('is-in');
           return;
         }
 
@@ -2616,21 +2509,10 @@
            with (client, 2026-10-29). GAP/STAGGER are the gaps between figures in
            one column and between columns' starts, left as they were. */
         var DUR = 1350, GAP = 70, STAGGER = 80;
-        var summary = approach.querySelector('.approach__summary');
-        var closeRow = approach.querySelector('.approach__close');
-        var lit = 0;
-        var TAIL = 700;
 
         function stepDrawn(step) {
           if (!step || step.classList.contains('is-drawn')) return;
           step.classList.add('is-drawn');
-          lit++;
-          if (lit >= steps.length && summary) {
-            setTimeout(function () {
-              summary.classList.add('is-in');
-              if (closeRow) closeRow.classList.add('is-in');
-            }, TAIL);
-          }
         }
         function run(c, delay) {
           if (c.done) return;

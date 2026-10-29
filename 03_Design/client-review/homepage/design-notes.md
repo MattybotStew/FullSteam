@@ -1654,3 +1654,25 @@ grade as every other photograph on the page.
 The faces are **stock** — these are composite voices, not real Fullsteam people — so the images are
 `alt=""` (decorative, the attribution line already names who is speaking) and the section comment
 says so. When real quotes arrive, real headshots replace the URLs and nothing else changes.
+
+## 2026-10-29 — the process band ends on the numbers
+
+Client: **remove** the closing row under Acquire → Grow → Lead — the statement *"Every one of these
+numbers is a business with a name, a team, and customers who depend on it…"* **and** the founder
+quote beside it (*"We stopped asking what to build next…"*).
+
+Both are gone, with everything that carried them: the `.approach__close` flex row, `.approach__summary`
+(with its per-word `.fw` assemble-on-scroll), the `#00EFFF` em rule that was added to that statement
+earlier the same day, `.approach__quote`, `.step__note`, and the JS that waited for the last column
+before revealing the row (`summary` / `closeRow` / the `TAIL` timeout). The reduced-motion branch now
+only marks the columns lit.
+
+**Why it works better:** the band now ends on the figures, which is the whole point of the rebuild,
+and it hands straight to the white verticals band instead of trailing a paragraph and a second
+founder voice. That quote was also doing the founders band's job twice — the same founder voice
+appears there in a much stronger setting. Section height drops **993px → 785px**; the band-to-band
+handover is unchanged.
+
+Verified 1440 / 390: no `approach__close` / `approach__summary` / `approach__quote` nodes or rules
+remain, the counters still run and settle, the section runs straight into "Keep the businesses
+growing.", 0 console errors, no overflow.
