@@ -974,9 +974,13 @@
     .approach__summary em {
       font-family: "Instrument Serif", Georgia, serif;
       font-style: italic; font-weight: 400; letter-spacing: 0;
-      /* light blue: the brand at 42% over white clears 8.3:1 on ink — the raw
-         #00587C would be 1.5:1 and unreadable here */
-      color: color-mix(in srgb, var(--brand) 42%, #fff);
+      /* Client pick (2026-10-29): #00EFFF on the three nouns — "a name, a team,
+         and customers". Measured ~12.7:1 on the ink band, so it is the most
+         legible treatment this line has had (the previous light blue was
+         color-mix(--brand 42%, #fff) at 8.3:1).
+         ⚠ It is outside the locked palette (KB §15) — the only other place this
+         cyan appears is inside --brand-sky, which mixes 10% brand into it. */
+      color: #00EFFF;
     }
     .approach__summary .fw { display: inline-block; }
     .has-js .approach__summary .fw {

@@ -1535,3 +1535,15 @@ Measured by sampling the live page every ~100ms after the trigger: columns at op
 before it, `0.64 / 0 / 0` at 150ms, `0.98 / 0.90 / 0.60` at 400ms, all `1` by 560ms — and the first
 figure is still `0` at 560ms, only starting to move at 760ms. Column 2's figures stay `0` until
 ~900ms, column 3's until ~1,100ms.
+
+### #00EFFF on the closing nouns (2026-10-29)
+
+Client: "**00EFFF** name, a team, and customers". The three italic nouns in the closing statement —
+"a *name*, a *team*, and *customers*" — now carry **#00EFFF** instead of the mixed light blue.
+
+- Contrast on the ink band: **≈12.7:1** (the previous `color-mix(--brand 42%, #fff)` was 8.3:1), so
+  it is the most legible treatment this line has had.
+- ⚠ **Off-palette.** KB §15 locks Bio Blue, Gold, Green, black and white. `#00EFFF` appears nowhere
+  else on the page except as an ingredient of `--brand-sky` (10% brand into it). If this colour is
+  meant to stay, it should become a named token rather than a one-off hex — otherwise the next
+  person to audit the palette will flag it.
