@@ -2316,6 +2316,20 @@ Figma cannot express the CSS `background-size: 0% → 100%` wipe, so hover is re
 > This supersedes the earlier record that `03_Design/explorations/homev2/` was the "official
 > working design": the official page is no longer an exploration.
 
+**Two folders as of 2026-10-29 — read this before editing the homepage.** The build was
+**duplicated** so the version the client has already seen stays recoverable:
+
+| path | role |
+|---|---|
+| `03_Design/client-review/homepage/` | **THE WORKING COPY.** Edited here, linked from the review portal, staged by `pages.yml`. This is the path that did not change. |
+| `03_Design/client-review/homepage-2026-10-28/` | **FROZEN SNAPSHOT.** The build exactly as of 2026-10-28 (`index.html` sha256 `1489d538a07b…2fc3b8`). Read-only; never published. |
+
+Both are tracked and were byte-identical at the fork. The published path was deliberately kept on
+`client-review/homepage/` so no portal link, `pages.yml` entry, or Pages URL had to move. **Both
+folders carry a fork marker** — a header comment in `index.html` and a note at the top of
+`design-notes.md` — because two near-identical copies is exactly the mistake a later agent makes
+by editing the wrong one.
+
 **Provenance.** The page was built as `03_Design/explorations/homev4/` (an internal layout
 study) and was **promoted on 2026-10-25** at the CD's direction. The folder was moved — not
 copied — into a new `03_Design/client-review/` directory, the `homev4` and reference-site

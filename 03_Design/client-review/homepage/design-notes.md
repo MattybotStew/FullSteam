@@ -1,4 +1,14 @@
-# Homepage — official high-fidelity build
+# Homepage — official high-fidelity build (2026-10-29 review build)
+
+> **Status:** OFFICIAL · client-facing · **the working copy**.
+> **Duplicated 2026-10-29** from the frozen snapshot at
+> [`../homepage-2026-10-28/`](../homepage-2026-10-28/) (`index.html` sha256
+> `1489d538a07b…2fc3b8`), byte-identical at the fork. This is the surface we now prepare for
+> client review; the snapshot is read-only and must not be edited.
+>
+> Because both folders exist, **check which one you are in before editing.** The portal link and
+> `pages.yml` still point at `client-review/homepage/`, i.e. this folder — the published path did
+> not change when the duplicate was made.
 
 > **Status:** OFFICIAL · client-facing. This is the homepage the project is working from.
 > Promoted out of `03_Design/explorations/homev4/` on **2026-10-25**.
