@@ -486,48 +486,6 @@ Copy variants considered and rejected: *"A home for the builders, the backers an
 "home" is already used three times on the page (founders band, close door, footer line); *"Acquire.
 Grow. Lead."* — the triad is a model, not a section label (KB §29.6.7), and it drops the audiences.
 
-## Band entrance — section by section (2026-10-28)
-
-Client direction: *"do a fade in section by section like the transition from the hero to stats"*, then,
-on scope, *"all bands same rise"*.
-
-The motion language already existed — `.reveal` (opacity `0 → 1`, `translateY(22px) → none`,
-`blur(6px) → none`, `550ms`, `--ease-out`, `70ms × min(child index, 3)` stagger, sweep at
-`top < 90vh`). What it did not cover was the **bands themselves**: every band below the opening sat
-fully painted, and only its items faded in. So a band's bed, rules and photos arrived with no entrance
-at all, which is why the page read as "some pieces animate, sections just appear".
-
-**What is now in the sweep** (one sweep, both layers): the seven bands `#scale`, `#for-founders`,
-`#careers`, `#close`, `.verts`, `.ai`, `.site-footer` get `.reveal-band`; the 31 item targets keep
-`.reveal`. The opening is deliberately absent — Axis A → B is a pinned morph on its own clock
-(KB §23), not a band entrance.
-
-**The band fades in place; the contents carry the 22px rise.** This was the one real decision, and the
-first pass got it wrong:
-
-- **Attempt 1 — the band rises 22px.** `.reveal-band` transitioned both opacity and `transform`, with
-  nested `.reveal` items stripped of their translate so the 22px could not compound to 44px. It looked
-  right in isolation and failed at the one seam that matters: `transform` does not affect layout, so a
-  band translated down opens a **22px gap against the section above it**. Measured at 1440 between the
-  Axis B photo and the dark scale chapter: a white sliver (`body` is `#fff`) sat between the photo and
-  the band as it rose — a glitch, not a fade.
-- **Attempt 2 — shipped.** The band is **opacity only**, its contents keep the same `22px` rise they
-  always had. Every band therefore enters with the identical rise (client: *"all bands same rise"*),
-  the bed never detaches from its neighbour, and there is no nesting to compound.
-
-Trigger stays **sweep-based** (not IntersectionObserver) for the same reason the items use it: an
-anchor jump, a restored scroll, or find-in-page still reveals everything it passed. Verified: loading
-`#careers` leaves `close` and the footer hidden (they are below the fold) and reveals the five bands
-above.
-
-Fallbacks are inherited, not re-implemented — `.reveal-band` renders static under
-`prefers-reduced-motion` and `@media print`, and with JS off `has-js` is never set, so nothing is ever
-hidden.
-
-Verified 2026-10-28: 7/7 bands reveal on scroll at 1440 and at 390 (0 items left hidden, no horizontal
-overflow at either width); band transitions `0.55s` opacity only; reduced motion emulated at load
-gives `opacity: 1`, `transition: 0s` on all seven bands and on the items.
-
 ## Axis A ground — the light register (2026-10-28, fourth and fifth passes)
 
 Client direction: *"adjust to this style of hero gradient"* (a reference with a cream/paper top and a

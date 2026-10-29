@@ -86,31 +86,6 @@
     }
     @media print { .has-js .reveal { opacity: 1 !important; transform: none !important; filter: none !important; } }
 
-    /* BAND ENTRANCE (2026-10-28). Every band below the opening arrives the same
-       way: the band's own bed fades in, and its contents rise 22px with a 70ms
-       stagger. Client direction: "do a fade in section by section like the
-       transition from the hero to stats" + "all bands same rise".
-
-       The band is OPACITY ONLY on purpose. The first pass translated the band
-       itself by 22px, and because translate does not affect layout it opened a
-       22px white sliver between the Axis B photo and the dark scale chapter as
-       the band rose — a seam that read as a glitch, not a fade. The rise
-       therefore lives on the contents (`.reveal` underneath, 22px, identical on
-       every band); the bed fades where it sits. Same rise everywhere, no seam,
-       and no nesting to compound. */
-    .reveal-band {
-      transition: opacity var(--dur-reveal) var(--ease-out);
-      transition-delay: var(--reveal-d, 0ms);
-    }
-    .has-js .reveal-band { opacity: 0; }
-    .has-js .reveal-band.is-in { opacity: 1; }
-    @media (prefers-reduced-motion: reduce) {
-      .has-js .reveal-band { opacity: 1; transition: none; }
-    }
-    @media print {
-      .has-js .reveal-band { opacity: 1 !important; transition: none !important; }
-    }
-
     /* one photographic grade across every band */
     .vpanel__img, .careers__photo,
     .vert-film__img, .li-card__art--photo { filter: saturate(.94) contrast(1.03); }
@@ -2637,24 +2612,12 @@
 
       /* Motion language: every band after the opening enters the same way.
          Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
-         scroll, find-in-page — still reveals everything it passed.
-
-         Two layers, one sweep:
-         1. the BAND fades in place (opacity only — see `.reveal-band` above);
-         2. its ITEMS fade + rise the same 22px everywhere, on a 70ms stagger.
-         The rise lives on the contents because a translated band opens a seam
-         against the section above it.
-         The opening is deliberately absent: Axis A → B is a pinned morph with its
-         own clock (KB §23), not a band entrance. */
+         scroll, find-in-page — still reveals everything it passed. */
       (function () {
-        var bandSel = '#scale, .verts, .ai, .founders, .careers, .close, .site-footer';
-        var itemSel = '.scale__row, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .careers__posts, .close__title, .close__proof, .close__doors, .exit, .close__payoff';
-        var bands = Array.prototype.slice.call(document.querySelectorAll(bandSel));
-        var items = Array.prototype.slice.call(document.querySelectorAll(itemSel));
-        var els = bands.concat(items);
+        var sel = '.scale__row, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .careers__posts, .close__title, .close__proof, .close__doors, .exit, .close__payoff';
+        var els = Array.prototype.slice.call(document.querySelectorAll(sel));
         if (!els.length) return;
-        bands.forEach(function (el) { el.classList.add('reveal-band'); });
-        items.forEach(function (el) {
+        els.forEach(function (el) {
           el.classList.add('reveal');
           var idx = Array.prototype.indexOf.call(el.parentElement.children, el);
           el.style.setProperty('--reveal-d', Math.min(Math.max(idx, 0), 3) * 70 + 'ms');

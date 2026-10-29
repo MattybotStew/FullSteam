@@ -2351,14 +2351,6 @@ Measured worst-glyph contrast (8 phases): ink 9.39:1 desktop / 9.46:1 mobile, `-
 3.51:1 / 4.53:1, eyebrow 7.42:1 / 6.72:1; rest-motion 23.73 / 18.10 mean |Δ|. Full record:
 `design-notes.md` §"Axis A ground — the light register".
 
-**Band entrance — section by section (2026-10-28).** Every band below the opening now **fades in on
-scroll**, using the same `.reveal` register the scale chapter already used as its hero→stats handoff
-(`550ms`, `--ease-out`, `70ms` stagger, sweep at `top < 90vh`). The **band is opacity only**; its
-contents carry the **22px** rise — identical on every band (client: *"all bands same rise"*).
-Translating the band itself was tried first and rejected: `transform` does not affect layout, so it
-opened a 22px white sliver against the section above. Opening excluded (its morph is KB §23).
-Reduced-motion and print fallbacks inherited. Full record: `design-notes.md` §"Band entrance".
-
 **Deliberate divergences from the wireframe record** (`wireframes.md` §2):
 
 - The **“What we do” section is not on the page**; the scale chapter follows the opening directly.
