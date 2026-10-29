@@ -1498,3 +1498,15 @@ edges, 1440 and 390.
 
 The CSS comment block that documented the two seams as a table has been rewritten to record the
 history rather than describe gradients that no longer exist.
+
+### The last two "portfolio"s (2026-10-29)
+
+The way-finder dropped the word first; a text scan of the rendered page then found two more uses
+that would have undercut "keep the wording consistent":
+
+- Lead step, employee figure — "employees across **the portfolio**" → "employees across **our
+  companies**".
+- Founder quote attribution — "Founder, Fullsteam **portfolio** company" → "Founder, a Fullsteam
+  company".
+
+A document-wide scan now returns **zero** instances of "portfolio" on the homepage.
