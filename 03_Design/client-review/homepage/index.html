@@ -816,8 +816,22 @@
       grid-row: span 3;
       row-gap: clamp(14px, 1.8vh, 20px);
     }
-    /* the per-step nodes light in sequence — dim until their column's point in
-       the scroll is reached, then gold. */
+    /* The columns arrive before they count (client, 2026-10-29): "have the
+       columns stagger in and only start counting once fully in place." So the
+       step itself is the thing that enters — opacity and a 20px rise, one after
+       the other — and the figures do not move until that has settled. Counting
+       during the entrance was the same mistake as counting off-screen: the eye
+       is still reading the column as it assembles. */
+    .has-js .approach.is-armed .step {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .5s var(--ease-out), transform .62s var(--ease-out);
+      transition-delay: calc(var(--i, 0) * 130ms);
+    }
+    .has-js .approach.is-armed .steps.is-in .step { opacity: 1; transform: none; }
+
+    /* the per-step nodes light in sequence — dim until their column has
+       arrived, then gold. */
     .step::before {
       content: ""; position: absolute; left: 0; top: -4px;
       width: 9px; height: 9px; border-radius: 50%;
@@ -2563,24 +2577,33 @@
            Desktop: the horizontal offset of the column's left edge. Phone: the
            vertical offset — the spine is turned on its side by the media query,
            and the same arithmetic drives the other axis. */
-        /* When each column lights, as a fraction of the band's travel. Spread
-           wide enough that all three are not lit in one scroll notch. */
-        var ARRIVE = [0.04, 0.46, 0.76];
+        /* One trigger for the row, then a fixed cadence: the columns rise in
+           at 130ms intervals (the CSS delay, per --i), and column N starts
+           counting when its own entrance has settled — 620ms transition plus a
+           little air. Counting is never tied to scroll distance any more, so it
+           cannot begin while a column is still moving. */
+        var ENTER_GAP = 130, ENTER_HOLD = 640;
+        var fired = false;
+
+        function fire() {
+          if (fired) return;
+          fired = true;
+          stepsEl.classList.add('is-in');
+          steps.forEach(function (st, i) {
+            setTimeout(function () { lightStep(i); }, i * ENTER_GAP + ENTER_HOLD);
+          });
+        }
 
         function render() {
-          var vh = window.innerHeight;
-          var rect = stepsEl.getBoundingClientRect();
-          var p = clamp01((vh * 0.78 - rect.top) / (vh * 0.66));
-
-          /* light every column whose point has passed — on a fast scroll or a
-             jump this catches up in one frame instead of skipping a step */
-          for (var j = 0; j < steps.length; j++) {
-            if (p >= ARRIVE[j] && !steps[j].classList.contains('is-drawn')) lightStep(j);
-          }
+          if (fired) return;
+          /* the strip's top reaching 0.82vh — the same point the band used to
+             start its sweep, now the moment the columns begin to arrive */
+          if (stepsEl.getBoundingClientRect().top < window.innerHeight * 0.82) fire();
         }
 
         measure();
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+        steps.forEach(function (st, i) { st.style.setProperty('--i', i); });
         /* every figure starts at zero once the band is armed — otherwise the
            columns the dot has not reached yet sit there showing their finished
            numbers, which gives the whole effect away before it runs */

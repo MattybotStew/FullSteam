@@ -1510,3 +1510,28 @@ that would have undercut "keep the wording consistent":
   company".
 
 A document-wide scan now returns **zero** instances of "portfolio" on the homepage.
+
+## 2026-10-29 — the process columns stagger in, then count
+
+Client: **"for the stats section have the columns stagger in and only start counting once fully in
+place."**
+
+Until now a column could be counting while it was still sliding on screen — the figures were keyed
+to scroll distance, so the number could start moving under the reader's eye before the column had
+settled. Counting during an entrance is the same failure as counting off-screen.
+
+- **The columns are now the thing that enters.** On one trigger (the strip's top reaching `0.82vh`)
+  `.steps` gets `.is-in` and each `.step` fades and rises 20px, **130ms apart** — the delay is
+  `calc(var(--i) * 130ms)` in CSS, with `--i` stamped on each column by JS.
+- **Counting waits for its own column.** Column *n* starts its counters at `n × 130 + 640ms`, i.e.
+  after that column's 620ms transition has finished and it is standing still. Column 3 therefore
+  starts counting ~260ms after column 1 and ~900ms after the trigger.
+- **One trigger, not a scroll ramp.** The old `ARRIVE` thresholds (0.04 / 0.46 / 0.76 of the band's
+  travel) are gone. A fast scroll or an anchor jump now gets the whole sequence in the authored
+  order instead of skipping a column's entrance, and it never replays on scroll-up.
+- Reduced motion is unchanged: no stagger, no counting, everything already in its final state.
+
+Measured by sampling the live page every ~100ms after the trigger: columns at opacity `0 / 0 / 0`
+before it, `0.64 / 0 / 0` at 150ms, `0.98 / 0.90 / 0.60` at 400ms, all `1` by 560ms — and the first
+figure is still `0` at 560ms, only starting to move at 760ms. Column 2's figures stay `0` until
+~900ms, column 3's until ~1,100ms.
