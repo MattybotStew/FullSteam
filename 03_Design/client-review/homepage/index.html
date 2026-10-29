@@ -1470,14 +1470,40 @@
       font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
       box-shadow: 0 1px 2px rgba(13,26,32,.10), 0 6px 14px rgba(13,26,32,.10), 0 18px 36px rgba(13,26,32,.12);
     }
-    .careers__values {
+    /* ---- three testimonials: founder · founder growth · employee -----------
+       Client (2026-10-29): the band had value statements and a LinkedIn feed,
+       not the three distinct testimonial sections the 10/28 feedback asked for.
+       Three voices, in the order the story runs — someone who sold, someone who
+       sold and stayed, someone who joined the way most people do. */
+    .careers__voices {
       list-style: none; margin: clamp(44px, 7vh, 76px) 0 0; padding: 0;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px);
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
     }
-    .careers__values li { padding-top: 20px; border-top: 1px solid var(--line); }
-    .careers__num { display: block; color: var(--brand); margin: 0 0 12px; }
-    .careers__value-h { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: -.01em; }
-    .careers__value-p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--mut); text-wrap: pretty; }
+    .voice { padding: 0 clamp(20px, 2.6vw, 36px); min-width: 0; }
+    .voice:first-child { padding-left: 0; }
+    .voice:last-child { padding-right: 0; }
+    .voice + .voice { border-left: 1px solid var(--line); }
+    .voice__k {
+      margin: 0 0 14px;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--brand);
+    }
+    .voice__quote { margin: 0; }
+    .voice__quote p {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, serif; font-style: italic;
+      font-size: clamp(18px, 1.5vw, 22px); line-height: 1.4;
+      letter-spacing: -.005em; color: var(--ink); text-wrap: pretty;
+    }
+    .voice__attr {
+      margin: 16px 0 0;
+      font-family: "Fragment Mono", ui-monospace, monospace;
+      font-size: 10.5px; line-height: 1.5; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--mut);
+    }
+    .voice__note { display: block; margin-top: 4px; text-transform: none; letter-spacing: .02em; color: rgba(95,112,118,.7); }
     /* ---- LinkedIn post strip: fixed layout, client fills the slots ---- */
     .careers__posts { margin-top: clamp(48px, 7vh, 80px); }
     .careers__posts-head {
@@ -1601,7 +1627,9 @@
     @media (max-width: 900px) {
       .careers__top { grid-template-columns: 1fr; gap: 32px; }
       .careers__media { aspect-ratio: 16 / 10; }
-      .careers__values { grid-template-columns: 1fr; gap: 24px; }
+      .careers__voices { grid-template-columns: 1fr; }
+      .voice { padding: 0; }
+      .voice + .voice { border-left: 0; border-top: 1px solid var(--line); margin-top: 26px; padding-top: 26px; }
     }
 
     /* ---- close: brand finale (dark band, monumental type) ---- */
@@ -2111,21 +2139,33 @@
             <figcaption class="careers__chip">Mostly remote · Small teams</figcaption>
           </figure>
         </div>
-        <ol class="careers__values" role="list">
-          <li>
-            <span class="careers__num mono">01</span>
-            <h3 class="careers__value-h">Trusted to learn the vertical</h3>
-            <p class="careers__value-p">Solve problems for an industry you can actually learn — not a generic queue.</p>
+        <ol class="careers__voices" role="list">
+          <li class="voice">
+            <p class="voice__k">The founder</p>
+            <blockquote class="voice__quote">
+              <p>&ldquo;We sold to a company that wanted what we had built to keep working. Two years on
+              it still runs on our name, our team, and our roadmap.&rdquo;</p>
+            </blockquote>
+            <p class="voice__attr">Founder, acquired vertical software company
+              <span class="voice__note">[placeholder &mdash; founder voice, genericized, unpublishable as written]</span></p>
           </li>
-          <li>
-            <span class="careers__num mono">02</span>
-            <h3 class="careers__value-h">Small teams, clear goals</h3>
-            <p class="careers__value-p">Talk to customers and ship — ownership without chaos.</p>
+          <li class="voice">
+            <p class="voice__k">The founder who stayed</p>
+            <blockquote class="voice__quote">
+              <p>&ldquo;I came in as the founder of a six-person team. The difference was what came next:
+              I stayed, and I now run a business three times the size.&rdquo;</p>
+            </blockquote>
+            <p class="voice__attr">Founder, now leading a larger business unit
+              <span class="voice__note">[placeholder &mdash; founder voice, genericized, unpublishable as written]</span></p>
           </li>
-          <li>
-            <span class="careers__num mono">03</span>
-            <h3 class="careers__value-h">Mostly remote, real people</h3>
-            <p class="careers__value-p">Distributed work with room to grow without losing the human side.</p>
+          <li class="voice">
+            <p class="voice__k">The employee</p>
+            <blockquote class="voice__quote">
+              <p>&ldquo;Nobody here is a ticket in a queue. You learn the industry, you talk to the
+              customers, and you ship.&rdquo;</p>
+            </blockquote>
+            <p class="voice__attr">Support engineer, Fullsteam
+              <span class="voice__note">[placeholder &mdash; employee voice, genericized, unpublishable as written]</span></p>
           </li>
         </ol>
         <section class="careers__posts" id="careersPosts" aria-labelledby="careersPostsTitle">
@@ -2671,7 +2711,7 @@
          Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
          scroll, find-in-page — still reveals everything it passed. */
       (function () {
-        var sel = '.scale__row, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__values > li, .careers__posts, .close__title, .close__proof, .close__doors, .exit, .close__payoff';
+        var sel = '.scale__row, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__voices > li, .careers__posts, .close__title, .close__proof, .close__doors, .exit, .close__payoff';
         var els = Array.prototype.slice.call(document.querySelectorAll(sel));
         if (!els.length) return;
         els.forEach(function (el) {

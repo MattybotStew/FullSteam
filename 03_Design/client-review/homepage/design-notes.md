@@ -1614,3 +1614,32 @@ moving.
 
 Sampled on the live page after the trigger: figures at `0` until 700ms, mid-count at 1.0s and 1.4s,
 settled by ~1.9s for column 1 and ~2.2s for column 3, captions landing after them.
+
+## 2026-10-29 — careers gets its three testimonials back
+
+Client: the band had value statements and a LinkedIn feed, **not the three distinct testimonial
+sections** the 10/28 feedback asked for. Correct — the three `.careers__values` were ours (trusted to
+learn the vertical / small teams / mostly remote), and they read as claims the company makes about
+itself rather than people saying it.
+
+The three value statements are replaced by **three testimonials**, in the order the story actually
+runs:
+
+| column | voice | the point it makes |
+|---|---|---|
+| The founder | someone who sold | the business kept its name, team and roadmap |
+| The founder who stayed | someone who sold *and* stayed | growth after the acquisition, in their own career |
+| The employee | someone who joined normally | the day-to-day: industry, customers, shipping |
+
+Layout: three columns on the band's light surface with **hairline dividers** between them (they stack
+to one column with top rules on a phone), a mono kicker over each, the quote set in Instrument Serif
+italic at 18–22px, and a mono attribution underneath. The LinkedIn strip is untouched and still
+follows the testimonials — it was never the thing that was missing.
+
+⚠ All three quotes are **placeholder** — genericized voices with the same
+`[placeholder … unpublishable as written]` note used elsewhere on the page. They are the shape of
+the sections, not client copy. `.careers__voices > li` is wired into the page's reveal, so each
+column arrives with the band.
+
+Verified 1440 / 390: three columns with dividers, stacking with top rules on a phone, no overflow,
+0 console errors, the LinkedIn strip unchanged below.
