@@ -102,24 +102,19 @@
     }
     @media print { .has-js .reveal { opacity: 1 !important; transform: none !important; filter: none !important; } }
 
-    /* ---- seam gradients: section colour → section colour (2026-10-28) ------
-       Client direction, narrowed to its final scope: "just have the gradient on
-       stats and the section above and below the founders section" — then
-       "remove the gradient from the bottom of stats". What survives is the
-       founders band's two seams. Every other boundary on the page is a knife
-       edge again, including stats → verts and the stats band's own bottom.
+    /* ---- seam gradients: none left (2026-10-29) ---------------------------
+       History: 2026-10-28 put a gradient on stats, on the section above the
+       founders band and on the section below it; the stats end was then cut.
+       The founders band kept both of its seams — ink fading in from the AI band
+       above, paper fading out to the careers band below — until 2026-10-29,
+       when the client asked for them to go too: **"remove gradients from
+       founders top and bottom sections."**
 
-       | seam | length | carried by | content clearance 1440 / 390 |
-       |---|---|---|---|
-       | AI → founders | 130px | `.founders::after` (top) | — · 232/134 |
-       | founders → careers | 150px | `.founders::after` (bottom) | 206/112 · 90/84 |
-
-       The founders band is a photograph, so it cannot take a flat background
-       blend; it carries both of its seams itself, as extra layers on
-       `.founders::after` above the scrim — fading IN from the AI band's ink and
-       OUT to the careers band's paper. The bottom fade is not a straight ramp:
-       see the alpha curve note on `.founders::after`, which keeps the counter
-       and hands visible instead of bleaching the last 150px of the photo.
+       So every boundary on the page is a knife edge now: the photograph meets
+       the AI band's ink on a hard line at the top and the careers band's paper
+       on a hard line at the bottom. `.founders::after` keeps only its two
+       legibility washes — the horizontal scrim and the vertical vignette — which
+       are contrast, not decoration.
     */
 
     /* one photographic grade across every band */
@@ -1333,19 +1328,13 @@
        the measured photograph rather than by eye. */
     .founders::after {
       content: ""; position: absolute; inset: 0; z-index: -1;
+      /* Legibility only (2026-10-29): the two seam gradients that used to sit on
+         this layer — ink fading in at the top, paper fading out at the bottom —
+         are gone. What is left is the horizontal scrim that clears AA for the
+         quote and the copy, and the vertical vignette that keeps the band's own
+         edges from looking flat. Removing the scrim would put 17px body text on
+         the brightest part of the photograph; removing the seams does not. */
       background:
-        /* a photograph cannot take a flat background blend, so this band carries
-           both of its seams: in from the AI band's ink ... */
-        linear-gradient(180deg, var(--ink) 0, rgba(13,26,32,0) 130px),
-        /* ... and out to the careers band's paper */
-        /* a straight alpha ramp bleaches the bottom 150px of the photograph;
-           pulling the small alphas forward keeps the counter and hands visible
-           and concentrates the wash in the last ~50px */
-        linear-gradient(180deg,
-          rgba(244,247,249,0) calc(100% - 150px),
-          rgba(244,247,249,.10) calc(100% - 104px),
-          rgba(244,247,249,.48) calc(100% - 52px),
-          var(--surface) 100%),
         linear-gradient(90deg, rgba(0,16,24,.68) 0%, rgba(0,16,24,.58) 48%, rgba(0,16,24,.60) 100%),
         linear-gradient(180deg, rgba(0,16,24,.16) 0%, rgba(0,16,24,.06) 45%, rgba(0,16,24,.16) 100%);
     }

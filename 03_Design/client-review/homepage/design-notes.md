@@ -1477,3 +1477,24 @@ seam; every collapsed strip shows a **horizontal** name (a document-wide scan fi
 elements with a non-horizontal `writing-mode`); the sixth cell has four collage layers and expands
 to a hit-testable **"Explore all verticals"** link; and no list of the other verticals remains under
 the row.
+
+## 2026-10-29 — the founders band loses both of its seams
+
+Client: **"remove gradients from founders top and bottom sections."**
+
+`.founders::after` was carrying four layers: two **seam gradients** (ink fading in from the AI band
+across the top 130px, paper fading out to the careers band across the bottom 150px) and two
+**legibility washes**. The seams are gone; the washes stay.
+
+That distinction matters — the washes are contrast, not decoration. The horizontal scrim
+(.68 / .58 / .60) is what keeps the 17px body copy and the quote above AA on the brightest part of
+the photograph, and the vertical vignette (.16 / .06 / .16) keeps the band's own edges from reading
+as flat. Deleting them with the seams would have put white type on a white shop counter.
+
+Result: the photograph now meets the AI band's ink on a **hard line** at the top and the careers
+band's paper on a **hard line** at the bottom — the same knife edge every other boundary on the page
+has had since the stats seams were removed. Measured gap to the neighbouring bands: 0px at both
+edges, 1440 and 390.
+
+The CSS comment block that documented the two seams as a table has been rewritten to record the
+history rather than describe gradients that no longer exist.
