@@ -1547,3 +1547,27 @@ Client: "**00EFFF** name, a team, and customers". The three italic nouns in the 
   else on the page except as an ingredient of `--brand-sky` (10% brand into it). If this colour is
   meant to stay, it should become a named token rather than a one-off hex — otherwise the next
   person to audit the palette will flag it.
+
+### The stagger starts when you arrive, not while the band is still climbing (2026-10-29)
+
+Client: **"the stagger needs to start later — it all happens before the user gets to that full
+section."** Correct, and measurable: the trigger was the strip's top reaching `0.82vh`, i.e. while
+the strip was still rising in from the bottom edge — on a 1440×900 window only the top ~160px of a
+442px strip was on screen when the sequence began and finished.
+
+**The trigger now waits for the strip to be on screen.** Desktop fires when the strip's **bottom**
+crosses `0.86vh` — the strip's top at ~332px, roughly a third of the way down, with the whole strip
+visible and ~126px of air beneath it. (A `top ≤ 0.24vh` fallback covers a short viewport where the
+bottom rule would never be reachable.)
+
+**Tall layouts get their own rule.** A phone stacks the three steps into a strip ~950px tall — taller
+than the viewport — so *any* single row trigger is wrong there: the third step is two screens away
+when the first arrives. A column whose strip is taller than `0.8vh` now enters **on its own**, when
+its own bottom is on screen (`≤ 0.92vh`) and its top is not far above the fold. The 130ms stagger
+delay belongs to the row trigger only, so a column arriving alone never waits behind columns above
+it.
+
+Verified: at 1440, walking down in 120px steps, the trigger is untouched at strip-top 373 and fires
+at 253; figures stay `0` until their column's entrance settles (col 1 counts at ~640ms, col 2 at
+~770ms, col 3 at ~900ms). At 390 each column lights as it is reached — col 1 at scroll 2179, col 2
+at 2439, col 3 at 2805, each counting after its own entrance.

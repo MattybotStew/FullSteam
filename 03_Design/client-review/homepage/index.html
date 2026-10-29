@@ -826,9 +826,12 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity .5s var(--ease-out), transform .62s var(--ease-out);
-      transition-delay: calc(var(--i, 0) * 130ms);
     }
+    .has-js .approach.is-armed .step.is-in,
     .has-js .approach.is-armed .steps.is-in .step { opacity: 1; transform: none; }
+    /* the 130ms stagger belongs to the ROW trigger; a column that arrives on its
+       own (tall layouts, phone) must not wait behind columns above it */
+    .has-js .approach.is-armed .steps.is-in .step { transition-delay: calc(var(--i, 0) * 130ms); }
 
     /* the per-step nodes light in sequence — dim until their column has
        arrived, then gold. */
@@ -2583,9 +2586,15 @@
            and the same arithmetic drives the other axis. */
         /* One trigger for the row, then a fixed cadence: the columns rise in
            at 130ms intervals (the CSS delay, per --i), and column N starts
-           counting when its own entrance has settled — 620ms transition plus a
-           little air. Counting is never tied to scroll distance any more, so it
-           cannot begin while a column is still moving. */
+           counting when its own entrance has settled — 620ms plus a little air.
+           Counting is never tied to scroll distance, so it cannot begin while a
+           column is still moving.
+
+           WHEN it fires matters as much: the old trigger was the strip's top
+           reaching 0.82vh, i.e. while the strip was still climbing in from the
+           bottom edge — the whole sequence played out before the reader got
+           there. It now waits until the strip is **on screen**: its bottom at
+           0.86vh, which on a 1440×900 window is the strip's top at ~0.38vh. */
         var ENTER_GAP = 130, ENTER_HOLD = 640;
         var fired = false;
 
@@ -2598,11 +2607,33 @@
           });
         }
 
+        /* Phones stack the steps into a column taller than the viewport, so a
+           single row trigger would always be wrong there: the third step is two
+           screens away when the first arrives. On a tall strip each column
+           enters on its own, when IT is fully on screen. */
+        function tallStrip() {
+          return stepsEl.offsetHeight > window.innerHeight * 0.8;
+        }
+        var arrived = steps.map(function () { return false; });
+
+        function enterColumn(i) {
+          if (arrived[i]) return;
+          arrived[i] = true;
+          steps[i].classList.add('is-in');
+          setTimeout(function () { lightStep(i); }, ENTER_HOLD);
+        }
+
         function render() {
-          if (fired) return;
-          /* the strip's top reaching 0.82vh — the same point the band used to
-             start its sweep, now the moment the columns begin to arrive */
-          if (stepsEl.getBoundingClientRect().top < window.innerHeight * 0.82) fire();
+          var vh = window.innerHeight;
+          var r = stepsEl.getBoundingClientRect();
+          if (!tallStrip()) {
+            if (!fired && (r.bottom <= vh * 0.86 || r.top <= vh * 0.24)) fire();
+            return;
+          }
+          steps.forEach(function (st, i) {
+            var sr = st.getBoundingClientRect();
+            if (sr.bottom <= vh * 0.92 && sr.top >= -vh * 0.25) enterColumn(i);
+          });
         }
 
         measure();
