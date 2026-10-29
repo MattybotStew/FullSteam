@@ -960,7 +960,11 @@
       --gutter: 100px;
       --mono-d: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
       position: relative; z-index: 2;
-      background: #fff; color: #0d1a20;
+      /* Dark band (client, 2026-10-29): it was white, which made the AI band
+         above it and this one read as a single long white stretch. On ink the
+         photographs do more of the work and the accordion reads as a strip of
+         frames rather than a row of pictures on paper. */
+      background: var(--ink); color: #fff;
       padding: var(--section-y) var(--gutter);
     }
     .verts__head {
@@ -977,7 +981,9 @@
     }
     .verts__title em {
       font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
-      color: var(--brand); letter-spacing: 0;
+      /* gold on ink (10.4:1). The blue that carried this word on the white band
+         is 1.5:1 here — this is the page's dark-band accent everywhere else. */
+      color: var(--gold); letter-spacing: 0;
     }
     /* The verticals stage — a row of frames in the same measure as the bands
        above it, so it carries the same frame language. The seam gap must stay
@@ -999,11 +1005,10 @@
       flex-shrink: 0;
       flex-basis: var(--strip);
       overflow: hidden; border-radius: var(--frame-r-sm);
-      /* a light hairline, not the white one used on dark surfaces (client,
-         2026-10-29): the band is white, so a white border vanished and the five
-         photographs read as one image. This is ink at 14%, which separates them
-         without drawing a frame. */
-      border: 1px solid rgba(13,26,32,.14); padding: 0; margin: 0;
+      /* a hairline that separates the photographs without drawing a frame. It
+         was ink at 14% on the white band; the band is ink now, so the same job
+         is done by white at 18% — visible, still not a border. */
+      border: 1px solid rgba(255,255,255,.18); padding: 0; margin: 0;
       color: #fff; text-align: left; font: inherit; cursor: pointer;
       transition:
         flex-grow var(--dur-mid) var(--ease-inout),
@@ -2006,7 +2011,7 @@
         </div>
       </article>
     </div>
-    <p class="exit">Growth needs more than ownership — it needs intelligence.</p>
+    <p class="exit exit--dark">Growth needs more than ownership — it needs intelligence.</p>
   </section>
 
     <section class="founders" id="for-founders" aria-labelledby="foundersTitle">

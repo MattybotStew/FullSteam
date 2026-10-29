@@ -1734,3 +1734,24 @@ indices. The rules, dots and chips keep the pure brand green, and green on dark 
 This is the general method for any brand colour that fails on a ground: **keep the hue, vary the
 lightness, and give the text variant its own name** — then measure it on every ground it can land on,
 not just the one you designed against.
+
+## 2026-10-29 — the verticals band goes dark
+
+Client: **"Keep the businesses growing. section should now be dark."**
+
+The band was white, which — once the AI band moved above it on white — left two long white stretches
+in a row. It now sits on **ink**, and three things had to move with it:
+
+| element | was (white band) | now (ink band) |
+|---|---|---|
+| `.verts` ground | `#fff` / ink text | `var(--ink)` / white text |
+| H2 emphasis — "growing." | `--brand` blue, 1.5:1 on ink | **gold**, 10.4:1 |
+| panel hairline | ink at 14% | **white at 18%** — same job, the other way round |
+| line under the strip | `.exit` (muted, ink) | `.exit--dark` (white at 66%, 8:1) |
+
+The panel photos, their labels, the open body and the sixth collage were already white-on-photo, so
+they needed nothing — which is the useful part: the accordion was built for a photograph, so the
+band behind it can change without touching the panels.
+
+Verified 1440 / 390: ink ground, gold accent, hairlines visible on the dark, the exit line legible,
+the sixth panel still expanding to its CTA, no overflow, 0 console errors.
