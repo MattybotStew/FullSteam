@@ -1785,3 +1785,14 @@ right-aligning a lone button on a 390px screen just makes it look detached.
 
 Verified 1440 / 390: pill 44px, flush to the band's right margin at 1440, stacks cleanly at 390, no
 overflow, 0 console errors.
+
+### The close band loses its proof line (2026-10-29)
+
+Client: remove **"70,000+ customers · 11 vertical businesses · 2,000+ people."**
+
+`.close__proof` and `.close__proof-flag` (the 7px green dot before "11 vertical businesses") are
+gone, along with the rule's entry in the reveal list. The band is now the headline and the CTA —
+**415px → 355px**.
+
+No information is lost from the page: those three figures are stated at full size in the stats band,
+where they count up. Repeating them as small print at the foot was the weaker of the two readings.

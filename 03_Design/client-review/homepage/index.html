@@ -1614,16 +1614,6 @@
       font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400;
       color: var(--gold); letter-spacing: 0;
     }
-    .close__proof-flag::before {
-      content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%;
-      background: var(--green); margin-right: 9px; vertical-align: 1px;
-    }
-    .close__proof {
-      margin: 26px 0 0; color: rgba(255,255,255,.7);
-      font-size: clamp(14px, 1.1vw, 16px); letter-spacing: .01em;
-    }
-    /* two doors, not one button: the page serves investors and founders */
-
     @media (max-width: 900px) {
       .close__inner { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 32px; }
       .close__aside { justify-self: start; }
@@ -2178,7 +2168,6 @@
       <div class="close__inner">
         <div class="close__copy">
           <h2 class="close__title" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
-          <p class="close__proof" style="font-size: clamp(18px, 2.6vw, 28px);">70,000+ customers · <span class="close__proof-flag">11 vertical businesses</span> · 2,000+ people</p>
         </div>
         <p class="close__aside">
           <a class="pill pill--gold" href="../../../02_Wireframes/active/pages/our-advantage.html">Explore Our Advantage</a>
@@ -2600,7 +2589,7 @@
          Sweep-based (not IntersectionObserver) so a jump — anchor link, restored
          scroll, find-in-page — still reveals everything it passed. */
       (function () {
-        var sel = '.scale__row, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__voices > li, .careers__posts, .close__title, .close__proof, .close__aside, .exit';
+        var sel = '.scale__row, .verts__title, .verts__stage, .ai__title, .ai__lede, .ai__foot, .ai__list > li, .founders__kicker, .founders__title, .founders__body, .founders__cta, .founders__note, .careers__title, .careers__lede, .careers__cta, .careers__media, .careers__voices > li, .careers__posts, .close__title, .close__aside, .exit';
         var els = Array.prototype.slice.call(document.querySelectorAll(sel));
         if (!els.length) return;
         els.forEach(function (el) {
