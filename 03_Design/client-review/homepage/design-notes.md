@@ -1360,3 +1360,44 @@ per-vertical figures anywhere in the repo that are cleared for publication.
 Verified 1440 / 390: three figures align on both rows, the counters run from 0 on entry, the gold
 nodes and captions land with them, the summary still assembles after the last step, reduced motion
 shows the finished state with no animation, 0 console errors, no horizontal overflow.
+
+## 2026-10-29 — the process gets a runner, and the closing row joins up
+
+**Client: "have the dots scroll right from column to column to trigger scrolling col 1 first, then
+2 & 3."**
+
+**The runner.** One gold dot now lives on the spine and travels left → right as the band is
+scrolled through. Each column lights when the dot arrives — node fills from a dim hairline grey,
+figures count up, captions land. The per-step nodes become the **stops**: the runner lands exactly
+on one at rest, so a step lights by being stood on rather than by a separate flourish, and the gold
+stays behind on the completed step while the traveller moves on.
+
+- **Progress is the band's own position, not `scrollY`.** `p` runs 0 → 1 as the strip's top travels
+  from `0.78vh` to `0.12vh`. That survives an anchor jump, a resize and a restored scroll — the dot
+  is wherever that arithmetic says it is, so nothing has to be replayed. The first version ended the
+  sweep at `0.28vh` and finished before the third column had been read; the window is now wide
+  enough that the dot is still moving while the whole strip is on screen.
+- **Dwell, then travel.** The dot holds on a column, crosses the gap (0.26 → 0.46, then 0.54 →
+  0.76), holds again. It rides *above* the arrows, which keep their ink backing, so it passes over
+  the chevron instead of vanishing behind it.
+- **Per-frame inline writes, no CSS transitions** (KB §23.6) — the dot tracks the scroll rather than
+  easing behind it.
+- **Catches up in one frame.** On a fast scroll or a jump every column whose threshold has passed
+  lights at once instead of the sequence being skipped.
+- **Every figure is zeroed when the band arms**, so the columns the dot has not reached read `0`
+  rather than sitting there with their finished numbers — otherwise the effect gives itself away
+  before it runs.
+- **Mobile** turns the spine vertical and the same arithmetic drives the other axis: the dot runs
+  down the left rail, step by step. No arrows there (sideways arrows on one column point at nothing).
+- **Reduced motion** shows no runner and no counting: every step is already lit.
+
+**Also: the founder quote moved out of the Lead column into the closing row** (client, same pass —
+"put these on the same line"). It had been pinned high in step 03 while the closing statement sat
+low and left, with a dead diagonal between them. `.approach__close` is now a flex row —
+statement left, quote right — with `align-items: baseline`, so their first baselines align and the
+pair reads as one closing line. On phones the row stacks. The quote still arrives with the
+statement rather than before it (`.approach__close.is-in`), and reduced motion shows it immediately.
+
+Verified 1440 / 390, scroll-stepped through the band: dot at 0 / 289 / 470 / 838 px with 1 / 1 / 2 /
+3 steps lit, figures at 0 until their column is reached, closing row on one baseline at 1440 and
+stacked at 390, 0 console errors, no horizontal overflow.

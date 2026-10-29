@@ -821,10 +821,28 @@
       grid-row: span 3;
       row-gap: clamp(14px, 1.8vh, 20px);
     }
+    /* the per-step nodes are the STOPS: dim until the runner reaches them, then
+       gold. The runner lands exactly on one, so a step "lights" by being stood
+       on rather than by a separate flourish. */
     .step::before {
       content: ""; position: absolute; left: 0; top: -4px;
       width: 9px; height: 9px; border-radius: 50%;
+      background: rgba(255,255,255,.32);
+      transition: background-color .28s var(--ease-out);
+    }
+    .step.is-drawn::before { background: var(--gold); }
+    html:not(.has-js) .step::before { background: var(--gold); }
+    /* the travelling dot — one element, driven per frame along the spine */
+    .steps__runner {
+      position: absolute; left: 0; top: -4px;
+      width: 9px; height: 9px; border-radius: 50%;
       background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(255,198,0,.16);
+      opacity: 0; pointer-events: none;
+      transition: none;
+      /* above the arrows: the dot rides over the chevron rather than vanishing
+         behind the ink block that backs it */
+      z-index: 2;
     }
     .step__index {
       margin: 0;
@@ -899,25 +917,42 @@
       font-size: .52em; font-weight: 600; color: var(--gold);
       margin-right: .04em; align-self: flex-start; line-height: 1.1;
     }
-    /* a founder line inside the Lead step — a quote, not a stat */
-    .step__quote {
-      margin: clamp(6px, 1vh, 12px) 0 0; padding: 0;
+    /* ---- the closing row: the statement and the founder quote --------------
+       One line, one baseline (client, 2026-10-29). They used to sit diagonally
+       — the quote pinned high in the Lead column, the statement low and left —
+       with a dead diagonal between them. Now they share a row: statement left,
+       quote right, first baselines aligned. */
+    .approach__close {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: clamp(32px, 7vw, 120px);
+      margin-top: clamp(52px, 8vh, 96px);
+    }
+    .approach__quote {
+      margin: 0; padding: 0 0 0 16px;
       max-width: 34ch;
       border-left: 1px solid rgba(255,255,255,.22);
-      padding-left: 14px;
+      flex: 0 1 auto;
     }
-    .step__quote blockquote { margin: 0; }
-    .step__quote p {
+    .approach__quote blockquote { margin: 0; }
+    .approach__quote p {
       margin: 0;
       font-family: "Instrument Serif", Georgia, serif; font-style: italic;
       font-size: clamp(16px, 1.35vw, 19px); line-height: 1.4;
       color: rgba(255,255,255,.86); text-wrap: pretty;
     }
-    .step__quote figcaption {
+    .approach__quote figcaption {
       margin-top: 10px;
       font-family: "Fragment Mono", ui-monospace, monospace;
       font-size: 10.5px; line-height: 1.5; letter-spacing: .12em;
       text-transform: uppercase; color: rgba(255,255,255,.46);
+    }
+    /* the quote arrives with the statement, not before it */
+    .has-js .approach.is-armed .approach__quote { opacity: 0; transform: translateY(6px); }
+    .has-js .approach.is-armed .approach__close.is-in .approach__quote {
+      opacity: 1; transform: none;
+      transition: opacity .5s var(--ease-out) .18s, transform .6s var(--ease-out) .18s;
     }
     .step__note { display: block; margin-top: 4px; text-transform: none; letter-spacing: .02em; color: rgba(255,255,255,.32); }
 
@@ -934,7 +969,7 @@
 
     /* one sentence under the strip; its words assemble on scroll */
     .approach__summary {
-      margin: clamp(52px, 8vh, 96px) 0 0; max-width: 30ch;
+      margin: 0; max-width: 30ch; flex: 1 1 auto;
       font-size: clamp(22px, 2.4vw, 34px); line-height: 1.32;
       letter-spacing: -.012em; text-wrap: pretty;
       color: rgba(255,255,255,.8);
@@ -966,14 +1001,18 @@
         width: 1px; height: auto;
       }
       .step { padding-top: 0; padding-left: 26px; gap: clamp(12px, 1.6vh, 18px); }
+      .steps__runner { left: 0; }
       .step::before { top: 6px; left: 0; }
       .step__arrow { display: none; }
 
+      .approach__close { flex-direction: column; align-items: flex-start; gap: 28px; }
       .approach__summary { max-width: none; }
+      .approach__quote { max-width: none; }
       .stat__num { font-size: clamp(52px, 12vw, 76px); }
     }
     @media (prefers-reduced-motion: reduce) {
       .has-js .approach.is-armed .stat__cap,
+      .has-js .approach.is-armed .approach__quote,
       .has-js .approach__summary .fw {
         opacity: 1 !important; transform: none !important;
         filter: none !important; transition: none !important;
@@ -1792,6 +1831,7 @@
         </header>
 
         <ol class="steps">
+          <span class="steps__runner" aria-hidden="true"></span>
           <li class="step">
             <div class="step__head">
               <p class="step__index">Step 01</p>
@@ -1851,16 +1891,11 @@
                 <p class="stat__cap">vertical markets, each a system of record</p>
               </div>
               </div>
-            <figure class="step__quote">
-              <blockquote>
-                <p>&ldquo;We stopped asking what to build next and started asking where everything we had built could go.&rdquo;</p>
-              </blockquote>
-              <figcaption>Founder, Fullsteam portfolio company <span class="step__note">[placeholder &mdash; founder voice, genericized, unpublishable as written]</span></figcaption>
-            </figure>
             </div>
           </li>
         </ol>
 
+        <div class="approach__close">
         <p class="approach__summary">
           <span class="fw" style="--i:0">Every</span>
           <span class="fw" style="--i:1">one</span>
@@ -1886,6 +1921,13 @@
           <span class="fw" style="--i:21">we&rsquo;re</span>
           <span class="fw" style="--i:22">protecting.</span>
         </p>
+        <figure class="approach__quote">
+          <blockquote>
+            <p>&ldquo;We stopped asking what to build next and started asking where everything we had built could go.&rdquo;</p>
+          </blockquote>
+          <figcaption>Founder, Fullsteam portfolio company <span class="step__note">[placeholder &mdash; founder voice, genericized, unpublishable as written]</span></figcaption>
+        </figure>
+        </div>
       </div>
     </section>
 
@@ -2451,24 +2493,52 @@
         renderPin();
       }
 
-      /* 01 · the process: each step counts its figures up, then its captions
-         land. One rAF sweep, same rule as the reveal below, so an anchor jump
-         or a restored scroll still lands with the numbers final. The step's
-         gold node and caption are keyed off `.is-drawn`. Reduced motion opts
-         out entirely — the markup as authored is the finished state. */
+      /* 01 · the process · the runner (2026-10-29, client)
+         "Have the dots scroll right from column to column to trigger scrolling
+         col 1 first, then 2 & 3."
+
+         One gold dot lives on the spine and travels left → right as the band
+         is scrolled through; each column lights when the dot reaches it —
+         node fills, figures count up, captions land. The per-step nodes are
+         the stops, so the runner lands exactly on one at rest.
+
+         Progress is the band's own position, not the window's scrollY: p goes
+         0 → 1 as the spine travels from 0.82vh to 0.28vh. That survives anchor
+         jumps, resizes and a restored scroll position — the dot is wherever
+         that arithmetic says it is, so nothing has to be replayed.
+
+         Per-frame inline writes, no CSS transitions (KB §23.6): the dot must
+         track the scroll, not ease behind it. */
       (function () {
         var approach = document.querySelector('.approach');
         if (!approach) return;
+        var stepsEl = approach.querySelector('.steps');
+        var runner = approach.querySelector('.steps__runner');
+        var steps = Array.prototype.slice.call(approach.querySelectorAll('.step'));
         var counts = Array.prototype.slice.call(approach.querySelectorAll('.stat__count')).map(function (el) {
-          return { el: el, row: el.closest('.step'), to: parseFloat(el.getAttribute('data-to')), done: false };
-        }).filter(function (c) { return c.row && !isNaN(c.to); });
-        if (!counts.length || reduce.matches) return;
+          return { el: el, step: el.closest('.step'), to: parseFloat(el.getAttribute('data-to')), done: false };
+        }).filter(function (c) { return c.step && !isNaN(c.to); });
+        if (!stepsEl || !steps.length || !counts.length) return;
+
+        /* reduced motion: no runner, no counting — the authored markup is the
+           finished state, so every step is simply already lit */
+        if (reduce.matches) {
+          steps.forEach(function (st) { st.classList.add('is-drawn'); });
+          var sm0 = approach.querySelector('.approach__summary');
+          if (sm0) sm0.classList.add('is-in');
+          var cr0 = approach.querySelector('.approach__close');
+          if (cr0) cr0.classList.add('is-in');
+          return;
+        }
 
         function fmt(v, el) {
           var s = String(Math.round(v));
           if (el.getAttribute('data-group')) s = Number(s).toLocaleString('en-US');
           return (el.getAttribute('data-prefix') || '') + s + (el.getAttribute('data-suffix') || '');
         }
+        function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
+        function seg(x, a, b) { return clamp01((x - a) / (b - a)); }
+        function smooth(x) { return x * x * (3 - 2 * x); }
 
         /* the count must not resize the number: pin each to its finished width
            first (re-measured once webfonts land) */
@@ -2479,58 +2549,122 @@
             c.el.style.minWidth = Math.ceil(c.el.getBoundingClientRect().width) + 'px';
           });
         }
-        measure();
-        if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-        approach.classList.add('is-armed');
 
-        var DUR = 1100, GAP = 70, STAGGER = 90;
+        var DUR = 900, GAP = 70, STAGGER = 80;
         var summary = approach.querySelector('.approach__summary');
-        var drawn = 0;
+        var closeRow = approach.querySelector('.approach__close');
+        var lit = 0;
         var TAIL = 700;
-        function stepDrawn(row) {
-          if (!row) return;
-          row.classList.add('is-drawn');
-          drawn++;
-          if (drawn >= counts.length && summary) {
-            setTimeout(function () { summary.classList.add('is-in'); }, TAIL);
+
+        function stepDrawn(step) {
+          if (!step || step.classList.contains('is-drawn')) return;
+          step.classList.add('is-drawn');
+          lit++;
+          if (lit >= steps.length && summary) {
+            setTimeout(function () {
+              summary.classList.add('is-in');
+              if (closeRow) closeRow.classList.add('is-in');
+            }, TAIL);
           }
         }
         function run(c, delay) {
           if (c.done) return;
           c.done = true;
-          var el = c.el, start = null;
+          var el = c.el, startTs = null;
           function tick(ts) {
-            if (start === null) start = ts;
-            var p = Math.min((ts - start) / DUR, 1);
+            if (startTs === null) startTs = ts;
+            var p = Math.min((ts - startTs) / DUR, 1);
             el.textContent = fmt(c.to * (1 - Math.pow(1 - p, 4)), el);   /* easeOutQuart */
             if (p < 1) return requestAnimationFrame(tick);
             el.textContent = fmt(c.to, el);
-            setTimeout(function () { stepDrawn(c.row); }, GAP);
+            setTimeout(function () { stepDrawn(c.step); }, GAP);
           }
           setTimeout(function () {
             el.textContent = fmt(0, el);
             requestAnimationFrame(tick);
           }, delay);
         }
-        function sweep() {
-          var vh = window.innerHeight;
-          counts.forEach(function (c, i) {
-            if (c.done) return;
-            if (c.row.getBoundingClientRect().top < vh * 0.88) run(c, Math.min(i, 3) * STAGGER);
-          });
+        function lightStep(index) {
+          counts.filter(function (c) { return steps[index] === c.step; })
+            .forEach(function (c, i) { run(c, i * STAGGER); });
         }
+
+        /* Where the dot has to be for each column, in px along the spine.
+           Desktop: the horizontal offset of the column's left edge. Phone: the
+           vertical offset — the spine is turned on its side by the media query,
+           and the same arithmetic drives the other axis. */
+        var mqStack = window.matchMedia('(max-width: 900px)');
+        function stops() {
+          var box = stepsEl.getBoundingClientRect();
+          var vertical = mqStack.matches;
+          return {
+            axis: vertical ? 'y' : 'x',
+            at: steps.map(function (st) {
+              var r = st.getBoundingClientRect();
+              return vertical ? (r.top - box.top) : (r.left - box.left);
+            })
+          };
+        }
+        var travel = stops();
+
+        /* timings along p — the dot starts on column 1, reaches column 2 across
+           0.30 → 0.42 and column 3 across 0.58 → 0.70, then holds */
+        var ARRIVE = [0.04, 0.46, 0.76];
+        var DEPART = [0.04, 0.26, 0.54];
+
+        function render() {
+          var vh = window.innerHeight;
+          var rect = stepsEl.getBoundingClientRect();
+          /* Progress: the strip's top travelling from 0.78vh up to 0.12vh, so
+             the dot is still moving while the whole strip is on screen. Ending
+             it at 0.28vh finished the sweep before the third column had been
+             read. */
+          var p = clamp01((vh * 0.78 - rect.top) / (vh * 0.66));
+
+          /* which column the dot is on */
+          var x = travel.at[0];
+          for (var i = 1; i < steps.length; i++) {
+            var t = smooth(seg(p, DEPART[i], ARRIVE[i]));
+            if (t > 0) { x = travel.at[i - 1] + (travel.at[i] - travel.at[i - 1]) * t; }
+          }
+
+          if (runner) {
+            var axis = travel.axis;                /* 'x' or 'y' */
+            if (axis === 'y') {
+              runner.style.top = x - 4 + 'px';
+              runner.style.left = '';
+            } else {
+              runner.style.left = x + 'px';
+              runner.style.top = '';
+            }
+            runner.style.opacity = p > 0 ? '1' : '0';
+          }
+
+          /* light every column the dot has reached — on a fast scroll or a jump
+             this catches up in one frame instead of skipping a step */
+          for (var j = 0; j < steps.length; j++) {
+            if (p >= ARRIVE[j] && !steps[j].classList.contains('is-drawn')) lightStep(j);
+          }
+        }
+
+        measure();
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+        /* every figure starts at zero once the band is armed — otherwise the
+           columns the dot has not reached yet sit there showing their finished
+           numbers, which gives the whole effect away before it runs */
+        counts.forEach(function (c) { c.el.textContent = fmt(0, c.el); });
+        approach.classList.add('is-armed');
+
         var queued = false;
         function onScroll() {
           if (queued) return;
           queued = true;
-          requestAnimationFrame(function () { queued = false; sweep(); });
+          requestAnimationFrame(function () { queued = false; travel = stops(); render(); });
         }
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll);
-        if ('IntersectionObserver' in window) {
-          new IntersectionObserver(function (e) { if (e[0].isIntersecting) { sweep(); } }, { threshold: 0 }).observe(approach);
-        }
-        sweep();
+        travel = stops();
+        render();
       })();
 
       /* ---- Opening entrance (2026-10-24, CD direction) -------------------

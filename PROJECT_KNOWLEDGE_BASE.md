@@ -2366,7 +2366,13 @@ per gap), each a one-line claim followed by its figures at
 `clamp(46px, 5.6vw, 86px)` — the numbers are the loudest thing in the band. The steps share a
 **subgrid** so names, sentences and figures line up across all three columns. The H2 now names the
 sequence instead of being `sr-only`. Figures: 70,000+ customers · $75B sales processed + #20 largest
-payment processor · 2,000+ employees + 11 vertical markets + a founder quote (placeholder).
+payment processor · 2,000+ employees + 11 vertical markets.
+
+**A gold runner travels the spine** (client, 2026-10-29): the dot scrolls from column to column and
+**each step lights when it arrives** — node fills, figures count from zero, captions land. Progress
+is the band's own position (not `scrollY`), written per frame with no CSS transitions. The founder
+quote sits in the **closing row** beside the statement, on one baseline (it was pinned in the Lead
+column before).
 
 ⚠ **`#20` contradicts the LinkedIn card in the careers band, which says #28 among top U.S. merchant
 acquirers.** Both are on the page. The client's payment-processor lines were already
