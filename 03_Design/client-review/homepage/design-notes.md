@@ -1571,3 +1571,34 @@ Verified: at 1440, walking down in 120px steps, the trigger is untouched at stri
 at 253; figures stay `0` until their column's entrance settles (col 1 counts at ~640ms, col 2 at
 ~770ms, col 3 at ~900ms). At 390 each column lights as it is reached — col 1 at scroll 2179, col 2
 at 2439, col 3 at 2805, each counting after its own entrance.
+
+## 2026-10-29 — a licensed fallback clip so the published hero has footage
+
+The sizzle master can't be published (Adobe Stock preview, watermark baked in), so on Pages the hero
+was falling back to the brand field — moving, but not *footage*. Client: **"I need a fallback video
+for GitHub — use the kitchen video from before."**
+
+That clip is `hero-stock.mp4` — the **Mixkit free-licence** kitchen shot already tracked at
+`03_Design/explorations/02-video-hero/assets/`, 1280×720, 5.1s, H.264, silent, 1.6 MB. Copied to
+`client-review/homepage/assets/hero-fallback.mp4` and wired as a **second `<source>`**:
+
+```html
+<source src="assets/hero-sizzle.mp4" type="video/mp4">   <!-- local only: 404 on Pages -->
+<source src="assets/hero-fallback.mp4" type="video/mp4">  <!-- published -->
+```
+
+The browser's source selection does the work: locally both files exist and the sizzle wins; on Pages
+the first source 404s and it falls through to the kitchen clip. When the licensed master lands,
+replacing `hero-sizzle.mp4` needs no markup change.
+
+Unlike the sizzle, the fallback **is** allow-listed in `.gitignore` (it is genuinely licensed) and
+**is** staged in `pages.yml`, so it is committed and published.
+
+Verified by serving a copy of the exact published layout — homepage plus logos plus the fallback,
+with the sizzle file removed — and loading it: `currentSrc` resolves to `hero-fallback.mp4`, it
+autoplays muted and loops, `videoWidth` 1280, no media error. The 404 for the sizzle is expected and
+invisible to visitors.
+
+Contrast measured across the clip against the existing wash: **worst 3.15:1**, which clears 3:1 for
+the 120px display type — the same range as the sizzle clip (3.26:1), so no scrim change was needed.
+The 11px eyebrow is the known weak spot on both clips.

@@ -56,13 +56,18 @@ _site/
 # purpose (the review portal links them). Unlike explorations/, these are
 # client-facing: no internal notes, no unreviewed directions, no third-party
 # media that is not licensed. Only the HTML + logo assets are staged for Pages.
-# NOTE 2026-10-29: the hero clip lives here as assets/hero-sizzle.mp4 but is NOT
-# allow-listed, because the current file is an Adobe Stock PREVIEW (watermark
-# baked in). Allow it only together with the licensed master, and add the
-# matching `cp` to .github/workflows/pages.yml at the same time.
+# NOTE 2026-10-29: assets/hero-sizzle.mp4 lives here but is NOT allow-listed —
+# the current file is an Adobe Stock PREVIEW (watermark baked in). Allow it only
+# together with the licensed master, and add the matching `cp` to
+# .github/workflows/pages.yml at the same time.
+#
+# assets/hero-fallback.mp4 IS allow-listed: it is the Mixkit free-licence kitchen
+# clip already tracked at 03_Design/explorations/02-video-hero/assets/hero-stock.mp4,
+# and it is what the published page plays while the sizzle master is unlicensed.
 03_Design/client-review/homepage/assets/*
 !03_Design/client-review/homepage/assets/fullsteam-logo.svg
 !03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg
+!03_Design/client-review/homepage/assets/hero-fallback.mp4
 
 # Review screenshots for an unpromoted exploration. homev2-check/ is tracked
 # because homev2/ is tracked; homev3-check/ is not, because homev3/ is not.

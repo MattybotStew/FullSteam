@@ -67,6 +67,7 @@ jobs:
              _site/03_Design/client-review/homepage/
           cp 03_Design/client-review/homepage/assets/fullsteam-logo.svg \
              03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg \
+             03_Design/client-review/homepage/assets/hero-fallback.mp4 \
              _site/03_Design/client-review/homepage/assets/
           # The frozen A/B arm, linked from the portal. It references ../assets
           # (the logos above) and the wireframe pages, both staged, so it opens

@@ -1754,7 +1754,15 @@
           <video class="hero__media-video" id="heroSizzle"
                  autoplay muted loop playsinline disablepictureinpicture
                  preload="auto" tabindex="-1">
+            <!-- First source = the sizzle master. It is NOT published: the file
+                 on disk is an Adobe Stock preview with the watermark baked in,
+                 so it 404s on Pages and the browser falls through to the next
+                 source, the Mixkit kitchen clip (free licence, 1280×720, 5s,
+                 silent). Locally both exist and the sizzle wins. When the
+                 licensed master lands, replace hero-sizzle.mp4 and this needs
+                 no change. -->
             <source src="assets/hero-sizzle.mp4" type="video/mp4">
+            <source src="assets/hero-fallback.mp4" type="video/mp4">
           </video>
           <div class="hero__media-scrim"></div>
           <!-- Axis B's extra wash: the second message is read over a MOVING
