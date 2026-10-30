@@ -53,8 +53,7 @@ HTML wireframes currently do, section by section, and what is still open.
 | [`02_Wireframes/active/pages/for-founders.html`](./02_Wireframes/active/pages/for-founders.html) | Acquisitions (file still `for-founders.html`) — why, how, fit, acquisitions email, founder-video slots, **FAQ inline** | Active |
 | [`02_Wireframes/active/pages/vertical-software.html`](./02_Wireframes/active/pages/vertical-software.html) | Vertical Software — sticky sidebar of 11; one panel shape (description, photo, stats, logos, screenshots) | Active |
 | [`02_Wireframes/active/pages/our-advantage.html`](./02_Wireframes/active/pages/our-advantage.html) | Our Advantage (file still `our-advantage.html`) — fintech, AI, operational advantages | Active |
-| [`02_Wireframes/active/pages/our-story.html`](./02_Wireframes/active/pages/our-story.html) | Our Story | Active |
-| [`02_Wireframes/active/pages/leadership.html`](./02_Wireframes/active/pages/leadership.html) | Leadership — leaders only; portrait, name, title, empty bio slot | Active |
+| [`02_Wireframes/active/pages/our-story.html`](./02_Wireframes/active/pages/our-story.html) | Our Story — Company · Chapters · **Leadership section (page removed)** | Active |
 | [`02_Wireframes/active/pages/careers.html`](./02_Wireframes/active/pages/careers.html) | Careers — culture, values placeholder, Workday, LinkedIn module | Active |
 | [`02_Wireframes/active/pages/contact.html`](./02_Wireframes/active/pages/contact.html) | Contact (utility, not an L1 node) | Active |
 | [`02_Wireframes/active/pages/privacy.html`](./02_Wireframes/active/pages/privacy.html) | Privacy policy — lorem placeholder (utility) | Active |
@@ -83,7 +82,7 @@ then industries + general proof. Low-fi skin: white / tan, black type (hero
 overlay is white on the placeholder for contrast), yellow CTAs, image-icon
 placeholders. One general story — not audience tabs.
 
-**Chrome (Option B revised, 2026-09-23 · menu simplified 2026-10-22):** `Logo · hamburger · Explore vertical solutions`. The trigger is a three-bar button (accessible name "Menu"). Open, the menu is a **320px right-side drawer** (100% only under 320px) with a scrim behind it — one column, not a full-width overlay. Vertical Software · Our Advantage · AI at Fullsteam are links. Our Story, Acquisitions, and Careers are links to their pages; the chevron still opens Leadership, FAQ, and Open roles. Contact stays in the footer. No header search; the finder stays on the Vertical Software page.
+**Chrome (Option B revised, 2026-09-23 · menu simplified 2026-10-30):** `Logo · hamburger · Explore vertical solutions`. The trigger is a three-bar button (accessible name "Menu"). Open, the menu is a **320px right-side drawer** (100% only under 320px) with a scrim behind it — one column, not a full-width overlay, and **six flat links with no chevrons**: Vertical Software · Our Advantage · AI at Fullsteam · Our Story · Acquisitions · Careers. Contact stays in the footer. No header search; the finder stays on the Vertical Software page.
 
 ### Section-by-section
 
@@ -122,7 +121,7 @@ the close, and the footer. The **Our Advantage page + nav node stay** (sitemap l
   descriptor → link) on a **white** band with the art-direction type; it **replaced** the black
   filmstrip the client had previously liked (the expand interaction itself is kept). (Hero marquee
   removed 2026-09-23; the 11 vertical tiles left the opening 2026-10-01.)
-- **Menu = 320px right drawer** (hamburger trigger, 2026-10-22). Six rows. Vertical Software, Our Advantage, AI at Fullsteam, Our Story, Acquisitions, and Careers are links. The chevrons still open Leadership, FAQ, and Open roles. The finder is on the Vertical Software page, not a header search field.
+- **Menu = 320px right drawer** (hamburger trigger, 2026-10-30). Six flat links, **no chevrons**: Vertical Software · Our Advantage · AI at Fullsteam · Our Story · Acquisitions · Careers. **Leadership is a section on Our Story**, not a menu row or page. The finder is on the Vertical Software page, not a header search field.
 - **Metrics** sit in the **impressive-stats band** (`#investors`) with `[placeholder]`
   figures — same numbers for every visitor, not a founders/investors split. **For investors**
   is an in-page anchor to that band, never a page or a nav node. (The persona door was removed
@@ -230,7 +229,8 @@ pages**, no category labels. **Our Advantage is a single page** using the same
 sticky-sidebar pattern (Payments · Lending · Insurance · AI at Fullsteam), swapped
 inline. **Hardware & Integrations were dropped** as separate pages (folded into
 Our Advantage / Payments). **AI at Fullsteam is a card/panel, not its own page.**
-Under Our Story: **Leadership** (`/our-story/leadership`, leaders only).
+Under Our Story: **no child page** — **Leadership is a section on Our Story**
+(`our-story.html#leadership`, since 2026-10-30; the standalone page is retired).
 **Newsroom was removed** (2026-09-23). **For Founders is a single-page leaf.** See
 `PROJECT_KNOWLEDGE_BASE.md` §14 for the full locked tree.
 
@@ -286,7 +286,7 @@ Anything present on some pages but not others is drift — decide once and apply
 
 - **OI-1 — Final chrome pattern.** **B revised** (Logo · hamburger · Explore vertical solutions; For Founders
   not in the strip since 2026-09-23). *Decision 2026-09-26:* B revised stands and is already applied
-  across the active pages, so the set is a system, not a homepage trick. **2026-10-22:** the trigger is a hamburger and the open menu is a 320px right drawer with accordions for child pages. Only **client sign-off** remains.
+  across the active pages, so the set is a system, not a homepage trick. **2026-10-30:** the trigger is a hamburger and the open menu is a 320px right drawer with **six flat links, no accordions**. Only **client sign-off** remains.
 - ~~**OI-2 — "For Investors" placement.**~~ **Resolved 2026-09-10: deleted.**
   No investor nav node or page; investors are served by homepage scale/proof +
   Contact. (KB §14 locked.)
@@ -357,6 +357,12 @@ Anything present on some pages but not others is drift — decide once and apply
   `#003F55` / `#FEC50A` / `#00202B`, none of which are KB §15. `#003F55` is the hero canvas and
   header bar — the first colour the client sees. Either reconcile the explorations to KB §15 or
   get the darkened blue signed off. See KB §27.3.
+- **OI-15 — Leadership page retired; sitemap needs a re-lock.** *(raised 2026-10-30)* The client
+  (2026-10-28) asked for leadership to be embedded on Our Story, mirroring the live
+  leadership page. `pages/leadership.html` is **deleted**; all links point at
+  `our-story.html#leadership`. `plans/sitemap-lock.md` and KB §14 still list the standalone page,
+  so the lock is stale until the client re-locks. **Open:** whether the `/our-story/leadership`
+  URL should 301 to the section, and whether the CMS will keep a legacy URL.
 
 ---
 
@@ -364,6 +370,7 @@ Anything present on some pages but not others is drift — decide once and apply
 
 | Date | Change |
 |------|--------|
+| 2026-10-30 | **Interior pages — 2026-10-28 client feedback pass, applied to the wireframes.** The 2026-10-22 row below described this direction but the files had drifted (7-item menu, leftover duplicate content, Leadership still a page); this pass makes the files match. **Menu (every page, incl. homepage):** six flat links, **no chevrons and no accordions** — Vertical Software · Our Advantage · AI at Fullsteam (`our-advantage.html#ai`) · Our Story · Acquisitions · Careers. **Leadership page deleted** (`pages/leadership.html`); every Leadership link now goes to `our-story.html#leadership`. **Vertical Software:** hero now combines the "software first / not a horizontal provider" intro with a customer photo and two product screenshots; the single panel shape flows without card borders — description → photo pair → surprising stats → BU logo line → customer/partner logos in their own full-bleed tan band → three product screenshots. **Operational-advantages content removed from this page entirely.** **Our Advantage:** sidebar is now **three groups / seven items** — Embedded Fintech (Payments, Lending, Insurance) · AI at Fullsteam · Operational Excellence (**Sales & Marketing, Talent, Peer Community**) — all swapped inline; this reverses the 2026-10-22 "below the block" layout and **needs client ratification**. "Vertical Expertise" is renamed **Peer Community** per the client's "or" option. Payments adds the embedded-vs-bolted comparison, stats, hardware, optional testimonial; AI adds Modernize / Build / Automate examples plus one video slot. **Our Story:** hero restates Acquire / Grow / Lead; Company section holds the Mission/Vision video slot (Mike & Greg); **Leadership is now a section below Chapters** (six portrait/name/title/bio placeholders, mirrors the live leadership page, no invented bios) numbered 01 Company / 02 Chapters / 03 Leadership. **Acquisitions:** Why Fullsteam carries a featured slot plus three founder-video slots with captions; the lead form is replaced by **Explore more** (→ `contact.html`) and a generic **acquisitions@fullsteam.com** mailto; FAQs stay. **Careers:** band order is 01 How it feels → 02 Who thrives (**Our Values** placeholders inside it) → 03 **three testimonials** (founder / founder who stayed / employee) → 04 Open Roles → **LinkedIn module directly below Open Roles** → 05 FAQ; the old Culture & Connection cards are gone. Mobile: the Vertical Software panel slide is disabled under 900px so the full-bleed band cannot flash a horizontal scrollbar. Checked 390 / 768 / 1440 on all six pages: no horizontal overflow, no `{{V}}` leftovers, no `leadership.html` links. Also fixed literal `{prefix}` hrefs left in the homepage, Contact, Terms, Privacy, and 404 menus/footers (AI at Fullsteam and Acquisitions were dead links). **Figma `⚠️ WF v2` re-synced from these files**: all ten frames rebuilt (old frames deleted, Leadership frame removed); `parse.py` gained `--sub` for `{{V}}` templates and grid mappings for the new panel classes. `design.md` not edited. |
 | 2026-10-27 | **Headline typeface → Archivo across every active wireframe.** `--display:"Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif` added to the `:root` token block (literal `font-family` on the two files that carry no token block), plus one rule `h1,h2,h3,h4,h5,h6{ font-family:var(--display); }` placed after the `body` rule. Archivo 400/600/700 is pulled from Google Fonts with `display=swap`; offline it falls back to Helvetica Neue, so the files still render without a network. Body copy stays on `--sans`, and mono stays on `--mono` — only headings change. Because Archivo sets wider than Helvetica at the same size, the Axis A lock-up reflowed to three lines; `.axis-a__h1` `max-width` went **16ch → 20ch** so "Any industry, we own the" holds one line and "software." keeps its own line via `em{display:block}`. Checked all eleven pages at 1440: no heading overflows its box, no page gains horizontal scroll. This is a **wireframe-legibility** choice and matches the Figma wireframes, which already used Archivo — it is **not** a brand typography decision (KB §27 stands: Instrument Sans / Fragment Mono). `design.md` not edited. |
 | 2026-10-27 | **Consistency pass so a single pass of imports produces a clean Figma page.** All eleven active HTML files now share one menu and one footer. **Menu (every page):** Vertical Software · Our Advantage · AI at Fullsteam (standalone) · Our Story (→ Leadership) · Acquisitions · Careers. **No FAQ child and no Open roles child** — the Acquisitions accordion and the Careers accordion are gone; both labels are plain links. Terms, Privacy, and 404 still carried the old children and were corrected; Careers still carried the Acquisitions→FAQ child and was corrected. **Footer (every page):** Company (Our Story · Leadership · Careers · Open roles) · Explore (Vertical Software · Our Advantage · AI at Fullsteam · Acquisitions) · Connect · Legal. **No footer FAQ item on any page** — the FAQ is a section inside Acquisitions, Verticals, Our Advantage, and Careers, so it is no longer a footer destination; removed from the homepage, Terms, Privacy, and 404, which were the last four holding it. **Structure fixes:** the Our Advantage FAQ section sat *after* `</footer>` and was moved inside `<main>`; Vertical Software's Sales & Marketing, Talent, and FAQ sections sat between `</main>` and `<footer>` and were moved inside `<main>`. Careers renumbered 06 — LinkedIn (was still 04, and its note still said "Sits below Open Roles"). No page content, order, or IA changed beyond these. `design.md` not edited. |
 | 2026-10-27 | **Homepage — rebuilt to the client homepage's sections and copy, as endpoints only.** `homepage.html` now mirrors the client review build (`03_Design/client-review/homepage/index.html`): Axis A ("Any industry, we own the software." + the 11-vertical filmstrip) → Axis B ("Then we build what makes it grow.") → scale chapter (70,000+ / 11 / $75B+ / 2,000+ + summary) → **Keep the businesses growing** vertical accordion (ERP / Wine / Transportation / Hospitality / Automotive, first row open) → **AI that already knows the business** (3 use cases + "Intelligence is people." strip) → **For founders** (quote + "A home for the business you built.") → **A great place to work** (3 points) → **From the company page** LinkedIn cards → close ("Ready to see where your business can go next?" + Portfolio / For founders cards + "Any industry. One home."). **Endpoints only:** no pin, no grow morph, no counters, no carousels or marquees — each animated state is drawn at its final position. **All imagery is `.img-ph` placeholders** (no hotlinked photography). Wireframe skin retained (white / tan / black / yellow, dashed `.anno`). The old "What we do", voice, and proof-strip sections and the 11-tile mosaic are gone from this file. Footer FAQ now points at `pages/for-founders.html#faq`. `design.md` not edited. |
@@ -472,7 +479,7 @@ Anything present on some pages but not others is drift — decide once and apply
 
 ## 9. Interior pages (2026-09-25 · messaging pass 2026-10-01)
 
-Same chrome on every page: Logo · hamburger · Explore vertical solutions. The open menu is a 320px right drawer; child pages sit in accordions. The footer still reaches the tree. Body copy is placeholder. Headlines carry the locked job of the page.
+Same chrome on every page: Logo · hamburger · Explore vertical solutions. The open menu is a 320px right drawer with **six flat links** (no chevrons, no accordion children — 2026-10-30). The footer still reaches the tree. Body copy is placeholder. Headlines carry the locked job of the page.
 
 **Messaging pass (2026-10-01, "apply to all pages"):** every page now reflects the new narrative —
 **system-of-record software first**, with **AI, payments, and operational excellence** built in;
@@ -482,27 +489,26 @@ Same chrome on every page: Logo · hamburger · Explore vertical solutions. The 
 
 | Page | Structure |
 |------|-----------|
-| **Acquisitions** (`for-founders.html`) | On-page name **Acquisitions** (2026-10-22; lock still says For Founders). Why Fullsteam, with a row of founder-video slots → how it works (4 steps) → what we look for → **acquisitions@ email** (the lead form is gone). Never frames the sale as an exit. |
+| **Acquisitions** (`for-founders.html`) | On-page name **Acquisitions** (2026-10-22; lock still says For Founders). Why Fullsteam, with a **featured video slot plus three founder-video slots** (captions below each) → how it works (4 steps) → what we look for → **Explore more** (→ `contact.html`) and a generic **acquisitions@fullsteam.com** mailto — the lead form is gone. Never frames the sale as an exit. FAQ stays. |
 | **FAQ** | **Unchanged questions** (eight). Back-link label now says Acquisitions. |
-| **Vertical Software** | Hero leads with industry-specific, mission-critical software, distinct from a general horizontal provider. A **sticky sidebar** lists all 11 verticals and swaps one panel shape **inline**. Each panel, in order: what makes Fullsteam critical here, a photo, surprising stats, business-unit logos, customer and partner logos in their own band, product screenshots. The S/M/L layout switcher and the acquired-business card row are gone (see OI-11). Generic placeholders. No category labels, no child pages. Hash (`#retail`) selects. |
-| **Our Advantage** (`our-advantage.html`) | On-page name **Our Advantage**. Sticky sidebar, two groups: **embedded fintech** (Payments, Lending, Insurance), **AI at Fullsteam**. **Operational advantages** (Sales & Marketing, Talent, Vertical Expertise) are full-width sections below the Offerings block, **not sidebar tabs**. Payments expands to why embedded is better, **unreconciled** stats (OI-14 / KB §22.5), hardware photo and text, optional testimonial. AI expands to three use-case examples and a video slot. **Sales & Marketing**, **Talent**, and **Vertical Expertise** each expand to: an intent H2 + overview paragraph → three cards → a **2×2 fact grid** → a photo slot → a constraint `.anno`; Talent also carries an optional **See open roles** CTA (Workday, new tab). No new AI page. Hash selects (`#payments`, `#ai`, `#sales-marketing`, `#talent`, `#vertical-expertise`). |
-| **Our Story** | Hero restates **Acquire / Grow / Lead**. KPI strip unchanged (placeholders). Company section holds a **mission/vision video slot** (Mike and Greg; no asset) in place of the image cluster. Leadership teaser and chapter cards stay. Close unchanged. |
-| **Leadership** | Six placeholder cards: portrait, name, title, empty bio slot. Leaders only. **Do not invent names or bios.** Real portraits, not stock. |
-| **Careers** | How it feels → who thrives, with an **Our Values** placeholder (pending leadership confirmation — not a finished list) → open roles (Workday) → **LinkedIn module**. |
+| **Vertical Software** | Hero leads with industry-specific, mission-critical software, distinct from a general horizontal provider — intro, a customer photo, and two product screenshots in the same top section. A **sticky sidebar** lists all 11 verticals and swaps one panel shape **inline**, which now flows without card borders: description → photo pair → surprising stats → business-unit logos → customer and partner logos in their own full-bleed tan band → three product screenshots. The operational-advantages content is **removed from this page**, the S/M/L layout switcher and the acquired-business card row are gone (see OI-11). Generic placeholders. No category labels, no child pages. Hash (`#retail`) selects. |
+| **Our Advantage** (`our-advantage.html`) | On-page name **Our Advantage**. Sticky sidebar, **three groups / seven items**, all swapped inline: **Embedded Fintech** (Payments, Lending, Insurance) · **AI at Fullsteam** · **Operational Excellence** (Sales & Marketing, Talent, **Peer Community**). Payments expands to why embedded beats bolted-on, **unreconciled** stats (OI-14 / KB §22.5), hardware photo and text, optional testimonial. AI expands to Modernize / Build / Automate examples and one video slot. Sales & Marketing, Talent, and Peer Community each carry an intent H2 + overview → cards → fact grid → photo slot → constraint `.anno`; Talent also carries an optional **See open roles** CTA (Workday, new tab). No new AI page. Hash selects (`#payments`, `#lending`, `#insurance`, `#ai`, `#sales-marketing`, `#talent`, `#peer-community`). **This reverses the 2026-10-22 "below the block" layout — pending client ratification.** |
+| **Our Story** | Hero restates **Acquire / Grow / Lead**. KPI strip unchanged (placeholders). Company section holds a **mission/vision video slot** (Mike and Greg; no asset) in place of the image cluster. Chapters follow (numbered 02). **Leadership is a section below the chapters** (03, `#leadership`): six placeholder cards — portrait, name, title, empty bio slot — mirroring the live leadership page. Leaders only. **Do not invent names or bios.** Real portraits, not stock. Close unchanged. |
+| **Careers** | 01 How it feels → 02 Who thrives, carrying the **Our Values** placeholders (pending leadership confirmation — not a finished list) → 03 **three testimonials** (the founder / the founder who stayed / the employee) → 04 Open Roles (Workday, new tab) → **LinkedIn module directly below Open Roles** → 05 FAQ. The old Culture & Connection cards are gone. |
 | **Contact** | Conversation form. Reasons: software business, work here, something else. No investor page and no investor option. **Tan FAQ callout** (beat + H2 + pill to `for-founders.html#faq`) between hero and form; hero jumps include FAQ for founders. |
 
 **Privacy** and **Terms** are wireframe utility pages (`pages/privacy.html`, `pages/terms.html`) with lorem body copy until client legal supplies final text. **Complaints** stays a footer label only (no page yet).
 
 ---
 
-## Review notes (2026-10-22) — caveats for structural/IA review
+## Review notes (2026-10-30) — caveats for structural/IA review
 
 **Ready for review (structure/IA).** The wireframes are structurally complete for the items specified. Treat the following as notes, not blockers to structural review:
 
 ### Content/assets pending (placeholders)
 - **Videos:** AI video (`#ai` on Our Advantage), Our Story mission/vision video (Mike & Greg), founder-video slots on Acquisitions.
-- **Photography:** real photos for Sales & Marketing, Talent, and Vertical Expertise (stock not used — placeholders only). Leadership portraits present but **bios are empty** (do not invent). Real people, not stock, is the intent.
-- **Careers:** "Our Values" placeholder inside Who Thrives (pending leadership confirmation).
+- **Photography:** real photos for Sales & Marketing, Talent, and Peer Community (stock not used — placeholders only). Leadership portraits present but **bios are empty** (do not invent). Real people, not stock, is the intent.
+- **Careers:** "Our Values" placeholder inside Who Thrives (pending leadership confirmation). Three testimonial quotes and headshots are placeholders — placeholders only, no real names or companies.
 - **Legal:** Privacy/Terms are lorem wireframe pages until client legal supplies final copy; Complaints is footer label only (`#`).
 - **Testimonials:** optional testimonial on Payments panel (Our Advantage) — placeholder until confirmed for publishing.
 
@@ -513,6 +519,6 @@ Same chrome on every page: Logo · hamburger · Explore vertical solutions. The 
 - **OI-14 — Interior rename, applied; formal re-lock pending:** "Our Advantage" (was Embedded Offerings) and "Acquisitions" (was For Founders) used in menus/labels and propagated through every repo doc (2026-10-22); `plans/sitemap-lock.md` and KB §14 record the **labels**, not a new lock — structure and lock date unchanged. Files remain `our-advantage.html` and `for-founders.html`. AI at Fullsteam wayfinds to Our Advantage `#ai` (no new page).
 
 ### Notes on structure
-- **Our Advantage:** sidebar is **embedded fintech** (Payments, Lending, Insurance) + **AI at Fullsteam** only; **Sales & Marketing**, **Talent**, and **Vertical Expertise** are full-width sections below the Offerings block (not sidebar tabs). Hashes `#sales-marketing`, `#talent`, `#vertical-expertise` scroll to sections.
+- **Our Advantage:** sidebar is **embedded fintech** (Payments, Lending, Insurance) + **AI at Fullsteam** + **operational excellence** (Sales & Marketing, Talent, Peer Community), all inline panels (2026-10-30; reverses the 2026-10-22 full-width layout — needs client ratification). Hashes `#sales-marketing`, `#talent`, `#peer-community` select panels.
 - **Vertical Software:** 11 verticals, sticky sidebar, inline swap — no child pages, acquired-business card row removed (see OI-11).
-- **Chrome:** 320px right drawer menu. Our Story, Acquisitions, and Careers are links; the chevron opens Leadership, FAQ, and Open roles. Hamburger trigger. No header search.
+- **Chrome:** 320px right drawer menu, **six flat links, no chevrons or accordion children** (2026-10-30). **Leadership is a section on Our Story** (`#leadership`); the standalone page is retired — see OI-15. Hamburger trigger. No header search.

@@ -437,8 +437,11 @@ is no investor nav node or dedicated investor page.
   `pages/our-advantage.html` (4-card filmstrip; no `ai.html` exists). **This is a
   locked, formally-approval-gated decision — if the client wants a nested AI page
   instead, this bullet and its mirror in `AGENTS.md` are the two places to flip.**
-- **Leadership is a page under Our Story** (2026-09-14, `/our-story/leadership`) —
-  leaders only; no full staff listing (confidentiality rule).
+- **Leadership is a section on Our Story** (2026-10-28 client feedback, applied 2026-10-30;
+  supersedes the 2026-09-14 standalone page at `/our-story/leadership`) — mirrors the current
+  public leadership page, leaders only; no full staff listing (confidentiality rule). The
+  standalone page is **retired from the wireframes**; **formal re-lock and the 301 decision are
+  still open** (see `wireframes.md` OI-15).
 - **Newsroom is not in the sitemap** (removed 2026-09-23).
 - **For Founders stays a single-page leaf** (2026-09-14) — no sub-pages.
 
@@ -482,7 +485,8 @@ EMBEDDED OFFERINGS                        (/offerings)         [SINGLE PAGE]
 └─ Tabs swap the panel in place — no child pages
 
 OUR STORY                                 (/our-story)
-└─ Leadership                             (/our-story/leadership) [leaders only]
+└─ Leadership SECTION                      (our-story#leadership) [leaders only]
+   — page retired 2026-10-30; lock not re-signed
 CAREERS                                   (/careers)           [leaf]
 
 UTILITY (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA ·
@@ -545,7 +549,7 @@ leaving ~12 slots for e.g. Digital Marketing, 404, or future pages).
 - [x] ~~How many vertical detail pages to carry vs. group~~ — **revised 2026-09-15: none.** Vertical Software is a single page; the 11 verticals are in-page tabs (sticky sidebar), not pages.
 - [x] ~~AI placement~~ — locked: **own page nested under Offerings**.
 - [x] ~~Category pages / labels~~ — **removed**; no category labels and no category landing pages (2026-09-14).
-- [x] ~~**Our Story sub-pages**~~ — **resolved:** **Leadership** (`/our-story/leadership`) is nested under Our Story (2026-09-14). **Newsroom removed** 2026-09-23.
+- [x] ~~**Our Story sub-pages**~~ — **resolved:** **Leadership** (`/our-story/leadership`) is nested under Our Story (2026-09-14). **Newsroom removed** 2026-09-23. **Amended 2026-10-30:** Leadership is now a **section on Our Story** (`#leadership`); the standalone page is retired in the wireframes, pending re-lock.
 - [x] ~~**For Founders funnel**~~ — **resolved:** stays a single-page leaf with the four locked sections (2026-09-14).
 - [ ] **Investor path** — with the nav node deleted, confirm the exact homepage proof + Contact path that serves investors. *(Sitemap impact: none — no nav node or page.)*
 - [x] ~~**URL / migration map**~~ — **resolved** (kept in `plans/sitemap-lock.md`): `/our-verticals` + 11 top-level vertical slugs → `/vertical-software` (with `#<vertical>` anchors); `/acquisition` → `/for-founders`; `/about` → `/our-story`; `/newsroom` → `/our-story` (Newsroom page removed 2026-09-23); add `/our-story/leadership`.

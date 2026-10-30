@@ -37,10 +37,20 @@ todos:
     status: completed
 authored: 2026-09-10
 finalized: 2026-09-14
-revised: 2026-10-22 (label only)
+revised: 2026-10-22 (label only) · 2026-10-30 (Leadership page removed — re-lock pending)
 ---
 
-# Sitemap lock (2026-09-10 · finalized 2026-09-14 · revised 2026-09-23 · label revised 2026-10-22)
+# Sitemap lock (2026-09-10 · finalized 2026-09-14 · revised 2026-09-23 · label revised 2026-10-22 · Leadership page retired 2026-10-30)
+
+**2026-10-30 — Leadership page retired; formal re-lock pending.** At the client's request
+(2026-10-28) leadership is **embedded on Our Story**, mirroring the current public leadership page,
+instead of living on its own URL. `02_Wireframes/active/pages/leadership.html` is **deleted** and
+every Leadership link points at `our-story.html#leadership`. The **tree below still shows the old
+node** because this document records the lock; the **page inventory is one page smaller** and the
+lock is stale until the client re-locks. **Open:** whether `/our-story/leadership` 301s to the
+section and whether Duda keeps a legacy URL. The same review pass simplified the menu to six flat
+links (no chevrons/accordion children) and moved the operational-advantages set into the Our
+Advantage sidebar as **Operational Excellence** (Sales & Marketing · Talent · Peer Community).
 
 **2026-10-22 — label rename applied; formal re-lock still pending.** Client feedback asked the
 site to say **Our Advantage** (was Embedded Offerings), **Acquisitions** (was For Founders), and
@@ -62,8 +72,8 @@ HOME                                      (/)
 ├─ OUR ADVANTAGE                         (/offerings)         [SINGLE PAGE]
 │   └─ Sticky sidebar lists Payments · Lending · Insurance · AI; tabs swap the panel
 │      (no child pages, no separate AI page)
-├─ Our Story                             (/our-story)
-│   └─ Leadership                        (/our-story/leadership) page (leaders only)
+├─ Our Story                             (/our-story)         leaf
+│      ── Leadership is a SECTION on this page (`#leadership`), not a child page (2026-10-30) ──
 └─ Careers                               (/careers)           leaf
 
 Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy · Terms
@@ -90,8 +100,11 @@ Utility (not L1 nodes): Contact (/contact) · "Explore Solutions" CTA · Privacy
   page.
 - **AI at Fullsteam is its own page nested under Our Advantage** (not
   top-level, not a section).
-- **Leadership is a page under Our Story** at `/our-story/leadership`
-  (2026-09-14) — leaders only, per the confidentiality rule (no full staff listing).
+- **Leadership is a SECTION on Our Story** at `/our-story#leadership`
+  (2026-10-30; supersedes the 2026-09-14 standalone page) — leaders only, per the
+  confidentiality rule (no full staff listing). The old `/our-story/leadership`
+  page is retired; **301 decision still open**. Standalone page removed from the
+  wireframes (OI-15).
 - **Newsroom removed** (2026-09-23) — no nav node, no page, no homepage filmstrip.
 - **For Founders is a single-page leaf** (2026-09-14) — no sub-pages.
 - **No category labels** (2026-09-14) — the 11 verticals stay a flat list in the

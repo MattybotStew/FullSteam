@@ -197,14 +197,36 @@
   .oe-side button:focus-visible{ outline:2px solid var(--yellow); outline-offset:2px; }
   .oe-group{
     font-family:var(--mono); font-size:11px; letter-spacing:.12em;
-    text-transform:uppercase; margin:18px 0 4px; width:100%;
+    text-transform:uppercase; margin:22px 0 4px; width:100%;
   }
   .oe-group:first-child{ margin-top:0; }
+  .oe-side-list{ padding-bottom:4px; }
+  .oe-side .anno{ font-size:11px; padding:8px 10px; }
   .use-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:22px; }
   .use-grid article{ border:1px solid var(--ink); background:#fff; padding:16px; }
   .use-grid span{ display:block; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
   .use-grid h3{ font-size:18px; margin-bottom:6px; }
   .use-grid p{ font-size:15px; }
+  .use-grid .ex{ margin-top:10px; padding-top:10px; border-top:1px dashed var(--ink); font-size:14px; }
+  .compare{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);
+    margin-top:26px;
+  }
+  .compare > div{ padding:20px 22px 22px 0; }
+  .compare > div + div{ border-left:1px solid var(--ink); padding-left:22px; padding-right:0; }
+  .compare .slot-kicker{ margin:0 0 12px; }
+  .compare ul{ list-style:none; display:grid; gap:12px; }
+  .compare li{ padding-left:20px; position:relative; font-size:15px; }
+  .compare li::before{ content:""; position:absolute; left:0; top:.5em; width:8px; height:1px; background:var(--ink); }
+  .stat-row{
+    display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px;
+    border-top:1px solid var(--ink); padding-top:18px; margin-top:14px;
+  }
+  .stat-row b{ display:block; font-family:var(--display); font-size:clamp(26px,3vw,36px); line-height:1; letter-spacing:-.02em; }
+  .stat-row span{ display:block; margin-top:8px; font-size:14px; max-width:26ch; }
+  .ai-examples{ margin-top:26px; }
+  .ai-examples .use-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); }
   .video-ph{
     margin-top:22px; min-height:320px; border:1px solid var(--ink); background:var(--ph);
     display:flex; align-items:center; justify-content:center;
@@ -271,7 +293,10 @@
   .foot a:hover{ text-decoration:underline; }
   .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
   @media (max-width:900px){
-    .split{ grid-template-columns:1fr; }
+    .split, .compare, .stat-row{ grid-template-columns:1fr; }
+    .compare > div{ padding:18px 0; }
+    .compare > div + div{ border-left:0; border-top:1px solid var(--ink); padding-left:0; }
+    .stat-row{ gap:16px; }
     .facts, .facts-4, .cards{ grid-template-columns:1fr; }
     .page-hero h1, .block h2{ max-width:100%; }
     .nav{ padding:10px 16px; gap:10px; }
@@ -304,11 +329,10 @@
     <nav class="site-overlay" id="siteOverlay" aria-label="Menu">
       <ul class="ov-list">
         <li><a href="vertical-software.html">Vertical Software</a></li>
-        <li><a href="our-advantage.html">Our Advantage</a></li>
-        <li><a href="our-advantage.html#ai">AI</a></li>
+        <li><a href="our-advantage.html" aria-current="page">Our Advantage</a></li>
+        <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
         <li><a href="our-story.html">Our Story</a></li>
-        <li><a href="leadership.html">Leadership</a></li>
-        <li><a href="for-founders.html">For Founders</a></li>
+        <li><a href="for-founders.html">Acquisitions</a></li>
         <li><a href="careers.html">Careers</a></li>
       </ul>
     </nav>
@@ -321,7 +345,7 @@
       <div class="wrap">
         <p class="beat">Our Advantage</p>
         <h1>Intent: show how Fullsteam grows the software it owns.</h1>
-        <p class="anno">On-page name is <b>Our Advantage</b> (client request, 2026-10-22; replaces Embedded Offerings). The sitemap lock is not re-locked yet. The page has two parts: <b>Offerings</b> — a sticky sidebar over <b>embedded fintech</b> (Payments, Lending, Insurance) and <b>AI at Fullsteam</b> (its own panel — the nav item wayfinds here; no separate AI page), swapping inline — and <b>Operational advantages</b> — Sales &amp; Marketing, Talent, and Vertical Expertise as full-width <b>sections below</b> the Offerings block, <b>not sidebar tabs</b> (client, 2026-10-22). Software first. Hardware folds into Payments. Deep link is the hash (e.g. <code>#payments</code>, <code>#ai</code>, <code>#talent</code>). Primary lens: investors; founders secondary.</p>
+        <p class="anno">On-page name is <b>Our Advantage</b> (client request, 2026-10-22; replaces Embedded Offerings). The sitemap lock is not re-locked yet. The page is one left nav with three groups: <b>Embedded Fintech</b> (Payments, Lending, Insurance), <b>AI at Fullsteam</b> (its own panel — the nav item wayfinds here; no separate AI page), and <b>Operational Excellence</b> (Sales &amp; Marketing, Talent, Peer Community). All three groups are visible in the left navigation and swap the story inline (client, 2026-10-28). Software first. Hardware folds into Payments. Deep link is the hash (e.g. <code>#payments</code>, <code>#ai</code>, <code>#talent</code>). Primary lens: investors; founders secondary.</p>
       </div>
     </section>
 
@@ -331,33 +355,62 @@
           <nav class="oe-side" aria-label="Our Advantage">
             <p class="beat">Our Advantage</p>
             <div class="oe-side-list" role="tablist" aria-label="Our Advantage">
-              <p class="oe-group">Embedded fintech</p>
+              <p class="oe-group">Embedded Fintech</p>
               <button type="button" role="tab" id="tab-payments" aria-selected="true" aria-controls="payments" data-offering="payments">Payments</button>
               <button type="button" role="tab" id="tab-lending" aria-selected="false" aria-controls="lending" data-offering="lending">Lending</button>
               <button type="button" role="tab" id="tab-insurance" aria-selected="false" aria-controls="insurance" data-offering="insurance">Insurance</button>
               <p class="oe-group">AI at Fullsteam</p>
               <button type="button" role="tab" id="tab-ai" aria-selected="false" aria-controls="ai" data-offering="ai">AI at Fullsteam</button>
+              <p class="oe-group">Operational Excellence</p>
+              <button type="button" role="tab" id="tab-sales-marketing" aria-selected="false" aria-controls="sales-marketing" data-offering="sales-marketing">Sales &amp; Marketing</button>
+              <button type="button" role="tab" id="tab-talent" aria-selected="false" aria-controls="talent" data-offering="talent">Talent</button>
+              <button type="button" role="tab" id="tab-peer-community" aria-selected="false" aria-controls="peer-community" data-offering="peer-community">Peer Community</button>
             </div>
+            <p class="anno">Embedded Fintech, AI at Fullsteam, and Operational Excellence are all in this list (client, 2026-10-28). Selecting one swaps the story inline — no modal, no child pages.</p>
           </nav>
 
           <div class="oe-content" id="oeContent">
             <article class="panel is-active" data-panel="payments" id="payments" role="tabpanel" aria-labelledby="tab-payments">
               <h2>Intent: show why embedded payments are better.</h2>
-              <div class="prose"><p>Payments should feel invisible — the value is how deeply they are embedded in the software each business already runs, compared with a processor bolted on beside it. One team owns it when something breaks.</p></div>
-              <p class="slot-kicker" style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin:28px 0 0;">Key stats — unreconciled</p>
-              <div class="facts">
-                <div><span>Client-supplied</span>$75B sales processed. Not a settled KPI.</div>
-                <div><span>Client-supplied</span>Top 20 largest payment processor. Not in the earlier figure set.</div>
-                <div><span>Earlier figure</span>$75B+ processed on Fullsteam Pay* (cumulative). Still a placeholder.</div>
-              </div>
-              <p class="anno">2026-10-22 feedback offered “$75B sales processed” and “top 20 largest payment processor.” KB §22.5 records a different claim: <b>$75B+ processed on Fullsteam Pay*</b> (cumulative), with 70,000+ customers and 480M+ transactions. Those earlier figures are still publishability-gated (OI-5). “Sales processed” is not the same wording as “processed on Fullsteam Pay,” and “top 20” does not appear in §22.5. Do not treat the client lines as locked proof.</p>
-              <div class="split hw">
-                <div class="img-ph" role="img" aria-label="State-of-the-art hardware. Placeholder."></div>
+              <div class="prose"><p>Payments should feel invisible — the value is how deeply they are embedded in the software each business already runs, compared with a processor bolted on beside it. One team owns it when something breaks, and the payment is part of the workflow the customer is already in.</p></div>
+
+              <div class="compare" aria-label="Embedded versus bolted-on payments">
                 <div>
-                  <h3 style="font-size:22px;margin-bottom:8px;">Intent: show the hardware in the same story.</h3>
-                  <p class="prose">Photo and text on the devices. Hardware stays inside Payments — not its own page.</p>
+                  <p class="slot-kicker">Embedded in the software</p>
+                  <ul>
+                    <li>One system of record: the payment, the invoice, and the customer live in the same place.</li>
+                    <li>One team to call when something goes wrong.</li>
+                    <li>Priced inside the software the business already pays for.</li>
+                    <li>The industry's own workflow — deposits, tabs, retainers — not a generic checkout.</li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="slot-kicker">Bolted on beside it</p>
+                  <ul>
+                    <li>The payment lives in a second system that has to be reconciled by hand.</li>
+                    <li>Processor and software vendor point at each other when it breaks.</li>
+                    <li>Another contract, another statement, another support queue.</li>
+                    <li>A generic checkout that the industry has to work around.</li>
+                  </ul>
                 </div>
               </div>
+
+              <p class="slot-kicker">Key stats</p>
+              <div class="stat-row">
+                <div><b>$75B</b><span>Sales processed. Client-supplied; not a settled KPI.</span></div>
+                <div><b>Top 20</b><span>Payment processor. Client-supplied; not in the earlier figure set.</span></div>
+                <div><b>480M+</b><span>Transactions. Placeholder pending publishability.</span></div>
+              </div>
+              <p class="anno">2026-10-28 feedback offered “$75B sales processed” and “top 20 largest payment processor.” KB §22.5 records a different claim: <b>$75B+ processed on Fullsteam Pay*</b> (cumulative), with 70,000+ customers and 480M+ transactions. Those earlier figures are still publishability-gated (OI-5). “Sales processed” is not the same wording as “processed on Fullsteam Pay,” and “top 20” does not appear in §22.5. Do not treat the client lines as locked proof.</p>
+
+              <div class="hw split">
+                <div class="img-ph" role="img" aria-label="State-of-the-art payments hardware. Placeholder."></div>
+                <div>
+                  <h3 style="font-size:22px;margin-bottom:8px;">Intent: show the hardware in the same story.</h3>
+                  <p class="prose">Photo and text on the devices — the counter, the terminal, the card in hand. The hardware is how the embedded payment reaches the customer, so it belongs inside Payments, not on its own page. No device brands or model names until the client confirms them.</p>
+                </div>
+              </div>
+
               <blockquote class="quote">
                 Testimonial [placeholder]. Optional — include only if the client confirms a quote that can be published.
                 <span>Attribution [placeholder]</span>
@@ -389,90 +442,31 @@
             <article class="panel" data-panel="ai" id="ai" role="tabpanel" aria-labelledby="tab-ai">
               <h2>Intent: show three AI use cases, then one video.</h2>
               <div class="prose"><p>Use cases first. Proprietary vertical data is the differentiator: the AI starts from the system of record, not a generic model. Never a story about reducing staff. The homepage AI band is a wayfinder; the video lives here.</p></div>
-              <div class="use-grid">
+              <div class="use-grid ai-examples">
                 <article>
-                  <span>01</span>
+                  <span>01 — Modernize</span>
                   <h3>Intent: modernize existing software.</h3>
                   <p>Example [placeholder]. One concrete use of AI inside software the business already runs.</p>
+                  <p class="ex">Example: an older system gets a modern interface and faster search without a rewrite. [placeholder]</p>
                 </article>
                 <article>
-                  <span>02</span>
+                  <span>02 — Build</span>
                   <h3>Intent: build new customer-facing features.</h3>
                   <p>Example [placeholder]. A feature the customer sees, grounded in vertical data.</p>
+                  <p class="ex">Example: a new capability a customer uses directly — built from data only this industry has. [placeholder]</p>
                 </article>
                 <article>
-                  <span>03</span>
+                  <span>03 — Automate</span>
                   <h3>Intent: automate business workflows.</h3>
                   <p>Example [placeholder]. Work that gets faster. Never framed as staff reduction.</p>
+                  <p class="ex">Example: repetitive back-office steps handled by the software so a small team can do more. [placeholder]</p>
                 </article>
               </div>
               <div class="video-ph" role="img" aria-label="Video that brings the three AI use cases together. Placeholder.">Video — brings the three use cases together</div>
               <p class="anno">One video for the whole AI story, not a video per use case. Asset not supplied yet.</p>
             </article>
-            <div class="use-grid">
-                <article>
-                  <span>Marketing</span>
-                  <h3>Intent: show marketing that reaches the right audience.</h3>
-                  <p>Content and campaigns written for one niche: real customer stories and concrete local examples. [placeholder]</p>
-                </article>
-                <article>
-                  <span>Cross-sell</span>
-                  <h3>Intent: show what the parent can sell into the base.</h3>
-                  <p>Payments, lending, and insurance go to customers the software already serves. [placeholder]</p>
-                </article>
-            </div>
-            <div class="hw">
-              <h3 style="font-size:22px;margin-bottom:8px;">Intent: show the people who do the work.</h3>
-              <div class="img-ph" role="img" aria-label="Fullsteam sales and marketing team at work. Placeholder."></div>
-              <p class="prose" style="margin-top:12px;">Real Fullsteam people, not stock photography. No asset supplied yet.</p>
-              <div class="facts facts-4">
-                <div><span>Reach</span>One sales and marketing organization across every business Fullsteam owns.</div>
-                <div><span>Scale</span>[placeholder] — “100+ businesses” is a publishability candidate, not a cleared figure (OI-5).</div>
-                <div><span>Proof</span>[placeholder] — no pipeline, conversion, or growth-rate figures are published.</div>
-                <div><span>Constraint</span>Never imply the business needed a new sales team to keep running.</div>
-              </div>
-            </div>
-            <p class="anno">An overview, not a service menu — no CRM, no lead source, no campaign names, no tooling. Nothing here may be read as a claim about the growth rate, revenue, or profitability of a business we own (KB §20.4; publishability gate OI-5). Voice: plain, conversational, first person (KB §22.3) — no “roll-up,” no “recurring growth.”</p>
-            <div class="use-grid">
-                <article>
-                  <span>Mobility</span>
-                  <h3>Intent: show a career that can move.</h3>
-                  <p>People can move between the software businesses Fullsteam owns without leaving the company. [placeholder]</p>
-                </article>
-                <article>
-                  <span>Support</span>
-                  <h3>Intent: show the back office that comes with the parent.</h3>
-                  <p>Finance, legal, HR, and compliance handled at group level, so the business can stay focused on its vertical. [placeholder]</p>
-                </article>
-            </div>
-            <div class="hw">
-              <h3 style="font-size:22px;margin-bottom:8px;">Intent: show real people, not stock.</h3>
-              <div class="img-ph" role="img" aria-label="Fullsteam colleagues at work. Placeholder."></div>
-              <p class="prose" style="margin-top:12px;">A photograph of the team inside the business. No asset supplied yet — do not substitute stock photography.</p>
-              <div class="facts facts-4">
-                <div><span>Scale</span>[placeholder] — “2,000+ colleagues” is a publishability candidate, not a cleared figure (OI-5).</div>
-                <div><span>Culture</span>“A big company that doesn’t operate like one” — mostly remote, small-team autonomy.</div>
-                <div><span>Proof</span>[placeholder] — no attrition, hiring, or retention figures are published.</div>
-                <div><span>Constraint</span>Never a story about replacing the team that came with the business.</div>
-              </div>
-            </div>
-            <p class="op-cta"><a class="pill" href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">See open roles</a></p>
-            <p class="anno">Optional CTA to open roles (Workday, new tab) — the employee lens, secondary on this page. Never frame the story as headcount reduction, and never imply the acquired team is being absorbed or cut (KB §20.4). The founder promise — team, culture, and brand stay — is the point of this block; nothing in the copy may contradict it (KB §22.2). The employee lens must stay authentic rather than marketing-shaped (KB §20.4).</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============================================================
-         Operational advantages — below the Offerings block (full width),
-         not in the sidebar tabs. (Client feedback, 2026-10-22)
-         ============================================================ -->
-    <section class="block">
-      <div class="wrap">
-        <div class="oe-layout" style="grid-template-columns:1fr;">
-          <div class="oe-content" style="max-width:880px;">
-            <div class="op-section" id="sales-marketing">
-              <p class="beat">Operational advantages</p>
+            <article class="panel" data-panel="sales-marketing" id="sales-marketing" role="tabpanel" aria-labelledby="tab-sales-marketing">
               <h2>Intent: show sales and marketing as an operational advantage.</h2>
               <div class="prose"><p>The business keeps its name, its customers, and its own team. What Fullsteam adds is reach — people who already know the industry, and campaigns written for one niche audience instead of a general one.</p></div>
               <div class="use-grid">
@@ -481,20 +475,19 @@
                 <article><span>Cross-sell</span><h3>Intent: show what the parent can sell into the base.</h3><p>Payments, lending, and insurance go to customers the software already serves. [placeholder]</p></article>
               </div>
               <div class="hw">
-                <h3 style="font-size:22px;margin-bottom:8px;">Intent: show the people who do the work.</h3>
                 <div class="img-ph" role="img" aria-label="Fullsteam sales and marketing team at work. Placeholder."></div>
                 <p class="prose" style="margin-top:12px;">Real Fullsteam people, not stock photography. No asset supplied yet.</p>
-                <div class="facts facts-4">
-                  <div><span>Reach</span>One sales and marketing organization across every business Fullsteam owns.</div>
-                  <div><span>Scale</span>[placeholder] — “100+ businesses” is a publishability candidate, not a cleared figure (OI-5).</div>
-                  <div><span>Proof</span>[placeholder] — no pipeline, conversion, or growth-rate figures are published.</div>
-                  <div><span>Constraint</span>Never imply the business needed a new sales team to keep running.</div>
-                </div>
+              </div>
+              <div class="facts facts-4">
+                <div><span>Reach</span>One sales and marketing organization across every business Fullsteam owns.</div>
+                <div><span>Scale</span>[placeholder] — “100+ businesses” is a publishability candidate, not a cleared figure (OI-5).</div>
+                <div><span>Proof</span>[placeholder] — no pipeline, conversion, or growth-rate figures are published.</div>
+                <div><span>Constraint</span>Never imply the business needed a new sales team to keep running.</div>
               </div>
               <p class="anno">An overview, not a service menu — no CRM, no lead source, no campaign names, no tooling. Nothing here may be read as a claim about the growth rate, revenue, or profitability of a business we own (KB §20.4; publishability gate OI-5). Voice: plain, conversational, first person (KB §22.3) — no “roll-up,” no “recurring growth.”</p>
-            </div>
-            <div class="op-section" id="talent">
-              <p class="beat">Operational advantages</p>
+            </article>
+
+            <article class="panel" data-panel="talent" id="talent" role="tabpanel" aria-labelledby="tab-talent">
               <h2>Intent: show talent as an operational advantage.</h2>
               <div class="prose"><p>The team that built the software stays, and gains a much larger company behind it. Hiring, back office, and career paths come from Fullsteam; the vertical keeps its own identity.</p></div>
               <div class="use-grid">
@@ -503,22 +496,21 @@
                 <article><span>Support</span><h3>Intent: show the back office that comes with the parent.</h3><p>Finance, legal, HR, and compliance handled at group level, so the business can stay focused on its vertical. [placeholder]</p></article>
               </div>
               <div class="hw">
-                <h3 style="font-size:22px;margin-bottom:8px;">Intent: show real people, not stock.</h3>
                 <div class="img-ph" role="img" aria-label="Fullsteam colleagues at work. Placeholder."></div>
                 <p class="prose" style="margin-top:12px;">A photograph of the team inside the business. No asset supplied yet — do not substitute stock photography.</p>
-                <div class="facts facts-4">
-                  <div><span>Scale</span>[placeholder] — “2,000+ colleagues” is a publishability candidate, not a cleared figure (OI-5).</div>
-                  <div><span>Culture</span>“A big company that doesn’t operate like one” — mostly remote, small-team autonomy.</div>
-                  <div><span>Proof</span>[placeholder] — no attrition, hiring, or retention figures are published.</div>
-                  <div><span>Constraint</span>Never a story about replacing the team that came with the business.</div>
-                </div>
+              </div>
+              <div class="facts facts-4">
+                <div><span>Scale</span>[placeholder] — “2,000+ colleagues” is a publishability candidate, not a cleared figure (OI-5).</div>
+                <div><span>Culture</span>“A big company that doesn’t operate like one” — mostly remote, small-team autonomy.</div>
+                <div><span>Proof</span>[placeholder] — no attrition, hiring, or retention figures are published.</div>
+                <div><span>Constraint</span>Never a story about replacing the team that came with the business.</div>
               </div>
               <p class="op-cta"><a class="pill" href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">See open roles</a></p>
               <p class="anno">Optional CTA to open roles (Workday, new tab) — the employee lens, secondary on this page. Never frame the story as headcount reduction, and never imply the acquired team is being absorbed or cut (KB §20.4). The founder promise — team, culture, and brand stay — is the point of this block; nothing in the copy may contradict it (KB §22.2). The employee lens must stay authentic rather than marketing-shaped (KB §20.4).</p>
-            </div>
-            <div class="op-section" id="vertical-expertise">
-              <p class="beat">Operational advantages</p>
-              <h2>Intent: show vertical expertise as an operational advantage.</h2>
+            </article>
+
+            <article class="panel" data-panel="peer-community" id="peer-community" role="tabpanel" aria-labelledby="tab-peer-community">
+              <h2>Intent: show peer community (or vertical expertise) as an operational advantage.</h2>
               <div class="prose">
                 <p>Fullsteam doesn't buy software to change what makes it unique — it buys software where deep industry knowledge is the product. The parent brings patterns from across its portfolio without forcing a different playbook on every business.</p>
               </div>
@@ -534,24 +526,23 @@
                   <p>When a problem comes up in one vertical, Fullsteam can share what worked elsewhere without changing the brand or culture. [placeholder]</p>
                 </article>
                 <article>
-                  <span>Product fit</span>
-                  <h3>Intent: show why a horizontal provider isn't the same thing.</h3>
-                  <p>Decisions stay grounded in how that industry actually works — an advantage a generalist can't easily replicate. [placeholder]</p>
+                  <span>Peer community</span>
+                  <h3>Intent: show leaders learning from other leaders.</h3>
+                  <p>Operators in one vertical compare notes with peers running other software businesses — a community of practice, not a corporate playbook. [placeholder]</p>
                 </article>
               </div>
               <div class="hw">
-                <h3 style="font-size:22px;margin-bottom:8px;">Intent: show the reason niche expertise matters.</h3>
-                <div class="img-ph" role="img" aria-label="Vertical expertise in action. Placeholder."></div>
+                <div class="img-ph" role="img" aria-label="Peer community in action. Placeholder."></div>
                 <p class="prose" style="margin-top:12px;">Real examples from the portfolio, not generic stock. No asset supplied yet.</p>
-                <div class="facts facts-4">
-                  <div><span>Focus</span>Software first — industry-specific, mission-critical.</div>
-                  <div><span>Scale</span>[placeholder] — “11 verticals” is settled; “100+ businesses” is a publishability candidate (OI-5).</div>
-                  <div><span>Proof</span>[placeholder] — no cross-vertical metrics are published.</div>
-                  <div><span>Constraint</span>Never a one-size-fits-all playbook. Each business keeps its identity.</div>
-                </div>
               </div>
-              <p class="anno">An overview, not a product sheet. No tooling, no frameworks named, no case studies or named customers until publishability is confirmed (KB §20.4; OI-5). Keep the distinction between <b>Vertical Software</b> (the portfolio) and <b>Operational advantages</b> (how we grow them) clear.</p>
-            </div>
+              <div class="facts facts-4">
+                <div><span>Focus</span>Software first — industry-specific, mission-critical.</div>
+                <div><span>Scale</span>[placeholder] — “11 verticals” is settled; “100+ businesses” is a publishability candidate (OI-5).</div>
+                <div><span>Proof</span>[placeholder] — no cross-vertical metrics are published.</div>
+                <div><span>Constraint</span>Never a one-size-fits-all playbook. Each business keeps its identity.</div>
+              </div>
+              <p class="anno">Section name is <b>Peer Community</b> (client, 2026-10-28 — “or Vertical Expertise”). Keep the distinction between <b>Vertical Software</b> (the portfolio) and <b>Operational Excellence</b> (how we grow them) clear. No tooling, frameworks, case studies, or named customers until publishability is confirmed (KB §20.4; OI-5).</p>
+            </article>
           </div>
         </div>
       </div>
@@ -577,15 +568,15 @@
       <div>
         <div class="fh">Company</div>
         <a href="our-story.html">Our Story</a>
-        <a href="leadership.html">Leadership</a>
+        <a href="our-story.html#leadership">Leadership</a>
         <a href="careers.html">Careers</a>
       </div>
       <div>
         <div class="fh">Explore</div>
         <a href="vertical-software.html">Vertical Software</a>
         <a href="our-advantage.html">Our Advantage</a>
-        <a href="our-advantage.html#ai">AI</a>
-        <a href="for-founders.html">For Founders</a>
+        <a href="our-advantage.html#ai">AI at Fullsteam</a>
+        <a href="for-founders.html">Acquisitions</a>
       </div>
       <div>
         <div class="fh">Connect</div>

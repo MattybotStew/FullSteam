@@ -273,6 +273,19 @@
   .card figcaption{ padding:12px 14px 16px; }
   .card strong{ display:block; font-size:16px; }
   .card span{ display:block; font-size:13px; margin-top:4px; }
+  /* Leadership — now a section on this page, below the chapters (client,
+     2026-10-28). Mirrors the current fullsteam.com leadership page: leaders
+     only, portrait / name / title / short bio slot. No invented names or bios. */
+  .leaders{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:32px 24px; margin-top:28px; }
+  .leader{ min-width:0; }
+  .leader .img-ph{ min-height:280px; }
+  .leader h3{ font-size:20px; letter-spacing:-.02em; margin-top:14px; }
+  .leader .title{
+    display:block; margin-top:4px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.08em; text-transform:uppercase;
+  }
+  .leader .bio{ margin-top:10px; font-size:15px; max-width:36ch; }
+  #leadership{ scroll-margin-top:84px; }
   .roles{ width:100%; border-collapse:collapse; margin-top:8px; font-size:15px; }
   .roles th, .roles td{ text-align:left; padding:12px 10px; border-bottom:1px solid var(--ink); font-weight:500; }
   .roles th{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; }
@@ -305,6 +318,8 @@
     .cluster-col.offset{ margin-top:0; }
     .trio h2, .intro-head h2{ max-width:100%; }
     .chapter .img-ph{ min-height:180px; }
+    .leaders{ grid-template-columns:1fr 1fr; gap:24px 16px; }
+    .leader .img-ph{ min-height:200px; }
     .layout, .side, .layout > div{ min-width:0; }
     .side{ position:static; }
     .page-hero h1, .block h2{ max-width:100%; }
@@ -334,10 +349,9 @@
       <ul class="ov-list">
         <li><a href="vertical-software.html">Vertical Software</a></li>
         <li><a href="our-advantage.html">Our Advantage</a></li>
-        <li><a href="our-advantage.html#ai">AI</a></li>
-        <li><a href="our-story.html">Our Story</a></li>
-        <li><a href="leadership.html">Leadership</a></li>
-        <li><a href="for-founders.html">For Founders</a></li>
+        <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
+        <li><a href="our-story.html" aria-current="page">Our Story</a></li>
+        <li><a href="for-founders.html">Acquisitions</a></li>
         <li><a href="careers.html">Careers</a></li>
       </ul>
     </nav>
@@ -349,18 +363,18 @@
     <section class="page-hero" style="border-bottom:0; padding-bottom:0;">
       <div class="wrap">
         <p class="beat">Our Story</p>
-        <h1>Intent: retell Acquire, Grow, Lead as who Fullsteam is.</h1>
-        <p class="anno">The hero reinforces the sequence: we acquire vertical software, we grow it with core strengths, the result is category leadership. Narrative first, data second. Primary lens: investors (scale and permanence); founders secondary. Real people, not stock.</p>
-        <p class="lede">Fullsteam acquires industry-specific software, grows it, and leads the category. Many software businesses, one permanent home.</p>
+        <h1>Intent: make Acquire, Grow, Lead the story of who Fullsteam is.</h1>
+        <p class="anno">The hero carries the full narrative, not just the company origin: we acquire vertical software, we grow it with core strengths, and the result is category leadership. Narrative first, data second. Primary lens: investors (scale and permanence); founders secondary. Real people, not stock.</p>
+        <p class="lede">We acquire industry-specific software, grow it with AI, embedded payments, and operational excellence, and lead the category it serves. Many software businesses, one permanent home.</p>
         <ol class="agl">
-          <li><b>Acquire</b><span>Intent: we buy vertical software businesses.</span></li>
-          <li><b>Grow</b><span>Intent: core strengths build the business after the close.</span></li>
-          <li><b>Lead</b><span>Intent: the result is category leadership.</span></li>
+          <li><b>Acquire</b><span>We buy vertical software businesses and keep buying — a permanent home, never an exit.</span></li>
+          <li><b>Grow</b><span>Our core strengths build the business after the close: AI, embedded fintech, and operational excellence.</span></li>
+          <li><b>Lead</b><span>The result is category leadership — the software its industry depends on, at a scale it could not reach alone.</span></li>
         </ol>
-        <p class="anno">Three steps in order. The same narrative as the homepage Acquire / Grow / Lead section — this hero restates it. The homepage layout is a separate pass.</p>
+        <p class="anno">Three steps in order. The same narrative as the homepage Acquire / Grow / Lead section — this hero restates it. The homepage layout is a separate pass. Final copy lives in <code>content-slots.md</code>.</p>
         <p class="hero-actions">
           <a class="pill pill-lg" href="vertical-software.html">Explore our vertical solutions</a>
-          <a class="ghost" href="leadership.html">Leadership</a>
+          <a class="ghost" href="#leadership">Leadership</a>
         </p>
       </div>
       <div class="bleed-imgs" aria-hidden="true">
@@ -402,21 +416,9 @@
       </div>
     </section>
 
-    <section class="block tan" id="people">
-      <div class="wrap trio">
-        <div>
-          <p class="beat">02 — Leadership</p>
-          <h2>Intent: humanize the company through leadership.</h2>
-          <p class="anno">Leaders only — no full staff. The Leadership page mirrors the current fullsteam.com leadership page (portrait, name, title, short bio). Primary lens: investors; founders secondary.</p>
-        </div>
-        <p class="prose">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.</p>
-        <a class="pill" href="leadership.html">Leadership</a>
-      </div>
-    </section>
-
     <section class="block" id="chapters">
       <div class="wrap">
-        <p class="beat">03 — Chapters</p>
+        <p class="beat">02 — Chapters</p>
         <h2>Intent: give the company a credible history.</h2>
         <p class="anno">Do not invent a company timeline. Year labels stay blank until copy is written. Acquisitions are not announced at close; never frame a sale as an exit. Primary lens: investors; founders secondary.</p>
         <div class="chapters">
@@ -469,6 +471,53 @@
       </div>
     </section>
 
+    <section class="block tan" id="leadership">
+      <div class="wrap">
+        <p class="beat">03 — Leadership</p>
+        <h2>Intent: mirror the current public leadership page, below the chapters.</h2>
+        <p class="anno">The standalone Leadership page is retired (client, 2026-10-28). The section now lives here, after the chapters, and mirrors the current fullsteam.com leadership page: leaders only, not a staff directory. Portrait, name, title, and a short bio slot. Primary lens: investors; founders secondary. Real portraits, not stock photos.</p>
+        <div class="leaders" aria-label="Leadership">
+          <article class="leader">
+            <div class="img-ph" role="img" aria-label="Leadership portrait. Placeholder."></div>
+            <h3>Name [placeholder]</h3>
+            <span class="title">Title [placeholder]</span>
+            <p class="bio">Short bio [placeholder].</p>
+          </article>
+          <article class="leader">
+            <div class="img-ph" role="img" aria-label="Leadership portrait. Placeholder."></div>
+            <h3>Name [placeholder]</h3>
+            <span class="title">Title [placeholder]</span>
+            <p class="bio">Short bio [placeholder].</p>
+          </article>
+          <article class="leader">
+            <div class="img-ph" role="img" aria-label="Leadership portrait. Placeholder."></div>
+            <h3>Name [placeholder]</h3>
+            <span class="title">Title [placeholder]</span>
+            <p class="bio">Short bio [placeholder].</p>
+          </article>
+          <article class="leader">
+            <div class="img-ph" role="img" aria-label="Leadership portrait. Placeholder."></div>
+            <h3>Name [placeholder]</h3>
+            <span class="title">Title [placeholder]</span>
+            <p class="bio">Short bio [placeholder].</p>
+          </article>
+          <article class="leader">
+            <div class="img-ph" role="img" aria-label="Leadership portrait. Placeholder."></div>
+            <h3>Name [placeholder]</h3>
+            <span class="title">Title [placeholder]</span>
+            <p class="bio">Short bio [placeholder].</p>
+          </article>
+          <article class="leader">
+            <div class="img-ph" role="img" aria-label="Leadership portrait. Placeholder."></div>
+            <h3>Name [placeholder]</h3>
+            <span class="title">Title [placeholder]</span>
+            <p class="bio">Short bio [placeholder].</p>
+          </article>
+        </div>
+        <p class="anno">Do not invent names or bios. Six cards are a wireframe count, not a claim about how many leaders the live page lists. No portfolio staff. Real portraits, not stock photos.</p>
+      </div>
+    </section>
+
     <section class="close-band" id="close">
       <div class="wrap">
         <p class="close-repeat">A home for your business</p>
@@ -487,15 +536,15 @@
       <div>
         <div class="fh">Company</div>
         <a href="our-story.html">Our Story</a>
-        <a href="leadership.html">Leadership</a>
+        <a href="our-story.html#leadership">Leadership</a>
         <a href="careers.html">Careers</a>
       </div>
       <div>
         <div class="fh">Explore</div>
         <a href="vertical-software.html">Vertical Software</a>
         <a href="our-advantage.html">Our Advantage</a>
-        <a href="our-advantage.html#ai">AI</a>
-        <a href="for-founders.html">For Founders</a>
+        <a href="our-advantage.html#ai">AI at Fullsteam</a>
+        <a href="for-founders.html">Acquisitions</a>
       </div>
       <div>
         <div class="fh">Connect</div>

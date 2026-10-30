@@ -208,7 +208,9 @@ This file is the canonical agent entry point (works with Cursor, which reads
   homepage and the 8 interior pages reads as a short **`Intent:`** statement, with a dashed `.anno`
   note carrying detail/constraints; final copy lives in `content-slots.md`. **Primary lens:
   investors**, founders secondary (a lens only — no IA change). See KB §25.5 / §26.
-- **Leadership** (`/our-story/leadership`) is a page under Our Story (2026-09-14). **Newsroom is not in the sitemap** (removed 2026-09-23).
+- **Leadership** is a **section on Our Story** (`our-story.html#leadership`) as of the
+  2026-10-28 client feedback (applied 2026-10-30) — the standalone page is retired in the
+  wireframes, formal re-lock pending. **Newsroom is not in the sitemap** (removed 2026-09-23).
 - CMS is Duda and is likely retained.
 
 ### From discovery interviews (§20) — apply these before messaging decisions

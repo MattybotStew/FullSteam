@@ -134,8 +134,16 @@ def own_text(node):
 
 # ------------------------------------------------------------------ spec
 
+# Page-level conversion options (set from argv in main, before convert()).
+# SUBS: literal token -> value, applied to every text run (e.g. {{V}} -> Hospitality).
+SUBS = {}
+
+
 def T(text, size=16, weight="Regular", mono=False, color=INK, italic=False,
       upper=False, lh=None, ls=None, maxw=None, name=None):
+    for token, value in SUBS.items():
+        if token in text:
+            text = text.replace(token, value)
     d = {"k": "text", "t": text, "fs": size, "fw": weight,
          "ff": "mono" if mono else "sans", "lc": color}
     if name in ("H1", "H2", "H3", "H4"):
@@ -213,6 +221,11 @@ class Conv:
         if tag == "summary":
             return T(own_text(n), 18, "Bold", name="Question")
         if tag == "p":
+            # A <p> that wraps a pill (or a row of them) is an action row; render the
+            # children so the gold button survives instead of becoming body text.
+            if any(isinstance(c, Node) and "pill" in c.classes for c in n.children):
+                kids = [self.el(c) for c in n.elements()]
+                return F([k for k in kids if k], mode="row", gap=12, name="Actions")
             t = own_text(n)
             if not t:
                 return None
@@ -273,10 +286,33 @@ class Conv:
             return self.grid(n, 3, 16, "Posts")
         if "careers-points" in cls:
             return F([self.step(c) for c in n.elements() if c.tag == "li"], gap=16, name="Points")
+        if "compare" in cls:
+            return self.grid(n, 2, 16, "Compare")
+        if "stat-row" in cls:
+            return self.grid(n, 3, 16, "Stats")
+        if "logo-line" in cls:
+            return self.grid(n, 4, 12, "Logo line")
+        if "logo-grid" in cls:
+            return self.grid(n, 3, 16, "Logo grid")
+        if "v-photo-pair" in cls:
+            return self.grid(n, 2, 16, "Photos")
+        if "v-shot" in cls:
+            return self.grid(n, 3, 16, "Screenshots")
+        if "voices" in cls:
+            return self.grid(n, 3, 16, "Testimonials")
+        if "use-grid" in cls:
+            return self.grid(n, 3, 16, "Use cases")
+        if "li-posts" in cls:
+            return self.grid(n, 3, 16, "LinkedIn posts")
         if "v-layout" in cls:
             return F([self.el(c) for c in n.elements()], mode="row", gap=40,
                      align="start", name="Vertical layout")
+        if "oe-layout" in cls:
+            return F([self.el(c) for c in n.elements()], mode="row", gap=40,
+                     align="start", name="Our Advantage layout")
         if "v-side" in cls:
+            return self.sidebar(n)
+        if "oe-side" in cls:
             return self.sidebar(n)
         if "v-content" in cls:
             # The panel bodies are filled by JS from <template id="tpl-vertical">.
@@ -410,7 +446,7 @@ class Conv:
     def sidebar(self, n):
         kids = []
         for c in n.elements():
-            if c.tag == "div" and c.has("v-side-list"):
+            if c.tag == "div" and (c.has("v-side-list") or c.has("oe-side-list")):
                 for b in c.elements():
                     if b.tag == "button":
                         kids.append(F([T(own_text(b), 15, "Bold", name="Vertical")],
@@ -436,8 +472,16 @@ def convert(html, name):
 
 
 def main():
-    src = Path(sys.argv[1])
-    dst = Path(sys.argv[2])
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    for a in sys.argv[1:]:
+        if a.startswith("--sub="):
+            token, _, value = a[len("--sub="):].partition("=")
+            SUBS[token] = value
+    if len(args) < 2:
+        raise SystemExit("usage: parse.py <in.html> <out.json> "
+                         "[--sub='{{V}}=Hospitality']")
+    src = Path(args[0])
+    dst = Path(args[1])
     html = src.read_text(encoding="utf-8")
     title_m = re.search(r"<title>(.*?)</title>", html, re.S)
     name = (title_m.group(1).split("—")[0].strip() if title_m else src.stem)

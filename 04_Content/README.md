@@ -15,7 +15,7 @@ placeholders and is **not** the source for these drafts.
 | FAQ | `/for-founders/faq` | — | not started |
 | Our Advantage | `/offerings` | — | not started |
 | Our Story | `/our-story` | — | not started |
-| Leadership | `/our-story/leadership` | — | not started |
+| Leadership (section on Our Story) | `/our-story#leadership` | — | not started |
 | Careers | `/careers` | — | not started |
 | Contact | `/contact` | — | short, form-led |
 

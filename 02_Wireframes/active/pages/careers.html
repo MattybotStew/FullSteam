@@ -178,6 +178,27 @@
   .steps p{ font-size:15px; max-width:52ch; }
   .values{ list-style:none; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:22px; }
   .values li{ border:1px dashed var(--ink); padding:16px; min-height:96px; font-weight:700; background:#fff; }
+  /* Three testimonials — the story's three voices (client, 10/28 feedback):
+     the founder · the founder who stayed · the employee. */
+  .voices{ list-style:none; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:0; margin-top:30px; }
+  .voices li{ padding:0 24px; min-width:0; }
+  .voices li:first-child{ padding-left:0; }
+  .voices li:last-child{ padding-right:0; }
+  .voices li + li{ border-left:1px solid var(--ink); }
+  .face-ph{
+    width:56px; height:56px; border-radius:50%; border:1px dashed var(--ink);
+    display:flex; align-items:center; justify-content:center; background:#fff;
+    font-family:var(--mono); font-size:9px; letter-spacing:.06em; margin-bottom:14px;
+  }
+  .voice-k{
+    font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+    text-transform:uppercase; margin-bottom:12px;
+  }
+  .voice-quote{ font-size:19px; line-height:1.4; letter-spacing:-.01em; max-width:34ch; }
+  .voice-attr{
+    display:block; margin-top:14px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.08em; text-transform:uppercase;
+  }
   .li-posts{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin:18px 0 22px; }
   .li-post{ border:1px solid var(--ink); background:#fff; padding:14px; }
   .li-post span{ display:block; margin-top:10px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
@@ -227,7 +248,9 @@
   .foot a:hover{ text-decoration:underline; }
   .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
   @media (max-width:900px){
-    .split, .layout, .facts, .cards, .values, .li-posts{ grid-template-columns:1fr; }
+    .split, .layout, .facts, .cards, .values, .li-posts, .voices{ grid-template-columns:1fr; }
+    .voices li{ padding:0; }
+    .voices li + li{ border-left:0; border-top:1px solid var(--ink); margin-top:24px; padding-top:24px; }
     .layout, .side, .layout > div{ min-width:0; }
     .side{ position:static; }
     .page-hero h1, .block h2{ max-width:100%; }
@@ -257,11 +280,10 @@
       <ul class="ov-list">
         <li><a href="vertical-software.html">Vertical Software</a></li>
         <li><a href="our-advantage.html">Our Advantage</a></li>
-        <li><a href="our-advantage.html#ai">AI</a></li>
+        <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
         <li><a href="our-story.html">Our Story</a></li>
-        <li><a href="leadership.html">Leadership</a></li>
-        <li><a href="for-founders.html">For Founders</a></li>
-        <li><a href="careers.html">Careers</a></li>
+        <li><a href="for-founders.html">Acquisitions</a></li>
+        <li><a href="careers.html" aria-current="page">Careers</a></li>
       </ul>
     </nav>
     <button type="button" class="menu-scrim" id="menuScrim" aria-label="Close menu" hidden></button>
@@ -299,7 +321,8 @@
         <div class="prose">
           <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
         </div>
-        <h3 style="font-size:22px;margin-top:28px;">Intent: state the values inside Who Thrives.</h3>
+        <h3 style="font-size:22px;margin-top:32px;">Our Values</h3>
+        <p class="anno" style="max-width:52ch">Part of Who Thrives (client, 2026-10-28). Final values are pending leadership confirmation — these are placeholder slots, not a draft list. Do not invent value statements.</p>
         <ul class="values" aria-label="Our values">
           <li>Value [placeholder]</li>
           <li>Value [placeholder]</li>
@@ -310,11 +333,40 @@
         </ul>
       </div>
     </section>
+    <section class="block tan" id="voices">
+      <div class="wrap">
+        <p class="beat">03 — Testimonials</p>
+        <h2>Intent: prove the culture through three voices, not claims.</h2>
+        <p class="anno">Three testimonials, in the order the story runs: <b>the founder</b> (sold the business), <b>the founder who stayed</b> (grew with it), and <b>the employee</b> (joined normally). People describing the place, not the company describing itself. Primary lens: employees; investors read it as bench strength.</p>
+        <ul class="voices" aria-label="Testimonials">
+          <li>
+            <div class="face-ph" role="img" aria-label="Headshot placeholder.">Photo</div>
+            <p class="voice-k">The founder</p>
+            <blockquote class="voice-quote">“[The business kept its name, its team, and its roadmap.]” — quote [placeholder], unpublishable as written.</blockquote>
+            <span class="voice-attr">Founder · Company name [placeholder]</span>
+          </li>
+          <li>
+            <div class="face-ph" role="img" aria-label="Headshot placeholder.">Photo</div>
+            <p class="voice-k">The founder who stayed</p>
+            <blockquote class="voice-quote">“[I stayed, and the role got bigger than the company I sold.]” — quote [placeholder], unpublishable as written.</blockquote>
+            <span class="voice-attr">Founder, now [role placeholder] · Company name [placeholder]</span>
+          </li>
+          <li>
+            <div class="face-ph" role="img" aria-label="Headshot placeholder.">Photo</div>
+            <p class="voice-k">The employee</p>
+            <blockquote class="voice-quote">“[You own the problem for an industry you can actually learn.]” — quote [placeholder], unpublishable as written.</blockquote>
+            <span class="voice-attr">[Role placeholder] · [Company placeholder]</span>
+          </li>
+        </ul>
+        <p class="anno">All three are placeholders: genericized voices, no real names or companies until the client supplies publishable quotes. Round headshots are 56px placeholders; real portraits replace them — real people, not stock. The LinkedIn module follows Open Roles below.</p>
+      </div>
+    </section>
+
     <section class="block" id="roles">
       <div class="wrap">
-        <p class="beat">03 — Careers</p>
+        <p class="beat">04 — Open Roles</p>
         <h2>Intent: hand off to the live job listings.</h2>
-        <p class="anno">External Workday link — opens in a new tab. No Open Roles child page or section listing roles here.</p>
+        <p class="anno">External Workday link — opens in a new tab. No in-page job table and no Open Roles child page.</p>
         <p class="lede" style="margin-top:14px; max-width:52ch">Listings live on Fullsteam’s job site. Search by role, team, or location there — not on this page.</p>
         <p style="margin-top:28px">
           <a class="pill pill-lg" href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">View opportunities on Workday</a>
@@ -322,54 +374,11 @@
       </div>
     </section>
 
-    <section class="block tan" id="culture">
-      <div class="wrap">
-        <p class="beat">04 — Culture &amp; Connection</p>
-        <h2>Intent: show emotional connection and company culture.</h2>
-        <p class="anno">Image gallery, stories about culture, real people. Not a recruiting poster. Primary lens: employees; investors read it for scale and bench strength.</p>
-        <div class="cards" style="margin-top:22px">
-          <article class="card">
-            <div class="img-ph" aria-hidden="true"></div>
-            <figcaption>
-              <strong>People</strong>
-              <span>Real Fullsteam employees across verticals. [placeholder]</span>
-            </figcaption>
-          </article>
-          <article class="card">
-            <div class="img-ph" aria-hidden="true"></div>
-            <figcaption>
-              <strong>Moments</strong>
-              <span>How teams connect, share, and learn together. [placeholder]</span>
-            </figcaption>
-          </article>
-          <article class="card">
-            <div class="img-ph" aria-hidden="true"></div>
-            <figcaption>
-              <strong>Stories</strong>
-              <span>Careers that move sideways into new verticals. [placeholder]</span>
-            </figcaption>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="block" id="faq">
-      <div class="wrap">
-        <p class="beat">05 — FAQ</p>
-        <h2>Intent: answer common questions about working at Fullsteam.</h2>
-        <div class="faq" style="margin-top:28px">
-          <details><summary>Where are Fullsteam people based?</summary><p>Mostly remote, close to the decisions. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></details>
-          <details><summary>Do people move between verticals?</summary><p>Yes — careers move sideways into new verticals, not up a rigid ladder.</p></details>
-          <details><summary>How do I apply?</summary><p>All open roles are listed on Workday. Use the CTA above to view current opportunities.</p></details>
-          <details><summary>Will AI replace roles?</summary><p>No. AI is used to make the software better and take repetitive work off small teams — never framed as staff reduction.</p></details>
-        </div>
-      </div>
-    </section>
     <section class="block tan" id="linkedin">
       <div class="wrap">
-        <p class="beat">06 — LinkedIn</p>
-        <h2>Intent: point to Fullsteam on LinkedIn.</h2>
-        <p class="anno">Sits below the FAQ. Lo-fi stand-in for a feed, not live post data. Same company URL as the homepage strip.</p>
+        <p class="beat">LinkedIn</p>
+        <h2>Intent: point to Fullsteam on LinkedIn, right below Open Roles.</h2>
+        <p class="anno">Sits directly below Open Roles (client, 2026-10-28). Lo-fi stand-in for a feed, not live post data. Same company URL as the homepage strip.</p>
         <div class="li-posts" role="list">
           <article class="li-post" role="listitem">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -387,6 +396,19 @@
         <a class="pill" href="https://www.linkedin.com/company/fullsteam/" target="_blank" rel="noopener noreferrer">Follow on LinkedIn</a>
       </div>
     </section>
+
+    <section class="block" id="faq">
+      <div class="wrap">
+        <p class="beat">05 — FAQ</p>
+        <h2>Intent: answer common questions about working at Fullsteam.</h2>
+        <div class="faq" style="margin-top:28px">
+          <details><summary>Where are Fullsteam people based?</summary><p>Mostly remote, close to the decisions. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></details>
+          <details><summary>Do people move between verticals?</summary><p>Yes — careers move sideways into new verticals, not up a rigid ladder.</p></details>
+          <details><summary>How do I apply?</summary><p>All open roles are listed on Workday. Use the CTA above to view current opportunities.</p></details>
+          <details><summary>Will AI replace roles?</summary><p>No. AI is used to make the software better and take repetitive work off small teams — never framed as staff reduction.</p></details>
+        </div>
+      </div>
+    </section>
   </main>
 
 
@@ -395,15 +417,15 @@
       <div>
         <div class="fh">Company</div>
         <a href="our-story.html">Our Story</a>
-        <a href="leadership.html">Leadership</a>
+        <a href="our-story.html#leadership">Leadership</a>
         <a href="careers.html">Careers</a>
       </div>
       <div>
         <div class="fh">Explore</div>
         <a href="vertical-software.html">Vertical Software</a>
         <a href="our-advantage.html">Our Advantage</a>
-        <a href="our-advantage.html#ai">AI</a>
-        <a href="for-founders.html">For Founders</a>
+        <a href="our-advantage.html#ai">AI at Fullsteam</a>
+        <a href="for-founders.html">Acquisitions</a>
       </div>
       <div>
         <div class="fh">Connect</div>

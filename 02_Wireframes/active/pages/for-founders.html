@@ -182,6 +182,20 @@
     display:flex; align-items:center; justify-content:center; text-align:center; padding:12px;
     font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#fff;
   }
+  /* Founder videos — one featured slot plus a row of shorter ones. More may be
+     added without changing the section's shape (client, 2026-10-28). */
+  .founder-videos{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:26px; }
+  .founder-videos figure:first-child{ grid-column:1 / -1; }
+  .founder-videos figure:first-child .video-ph{ min-height:340px; }
+  .founder-videos figcaption{
+    margin-top:8px; font-family:var(--mono); font-size:11px; letter-spacing:.06em;
+    text-transform:uppercase; color:#3A3A3A;
+  }
+  .email-line{
+    margin-top:20px; display:flex; flex-wrap:wrap; gap:18px; align-items:center;
+    border-top:1px solid var(--ink); padding-top:20px; font-size:16px;
+  }
+  .email-line a{ font-weight:700; border-bottom:1px solid var(--ink); }
   .layout{ display:grid; grid-template-columns:260px 1fr; gap:28px; align-items:start; }
   .side{ position:sticky; top:73px; }
   .finder{ display:block; width:100%; margin:8px 0 12px; padding:10px 12px; border:1px solid var(--ink); background:#fff; font-size:14px; }
@@ -228,7 +242,9 @@
   .foot a:hover{ text-decoration:underline; }
   .fh{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
   @media (max-width:900px){
-    .split, .layout, .facts, .cards, .video-row{ grid-template-columns:1fr; }
+    .split, .layout, .facts, .cards, .video-row, .founder-videos{ grid-template-columns:1fr; }
+    .founder-videos figure:first-child{ grid-column:auto; }
+    .founder-videos figure:first-child .video-ph{ min-height:220px; }
     .layout, .side, .layout > div{ min-width:0; }
     .side{ position:static; }
     .page-hero h1, .block h2{ max-width:100%; }
@@ -258,10 +274,9 @@
       <ul class="ov-list">
         <li><a href="vertical-software.html">Vertical Software</a></li>
         <li><a href="our-advantage.html">Our Advantage</a></li>
-        <li><a href="our-advantage.html#ai">AI</a></li>
+        <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
         <li><a href="our-story.html">Our Story</a></li>
-        <li><a href="leadership.html">Leadership</a></li>
-        <li><a href="for-founders.html">For Founders</a></li>
+        <li><a href="for-founders.html" aria-current="page">Acquisitions</a></li>
         <li><a href="careers.html">Careers</a></li>
       </ul>
     </nav>
@@ -281,7 +296,7 @@
           <a href="#how">How it works</a>
           <a href="#fit">What we look for</a>
           <a href="#faq">FAQ</a>
-          <a href="#talk">Acquisitions email</a>
+          <a href="#talk">Explore more</a>
         </div>
       </div>
     </section>
@@ -296,12 +311,25 @@
             <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
           </div>
-          <div class="video-row" aria-label="Founder videos">
-            <div class="video-ph" role="img" aria-label="Founder video. Placeholder.">Founder video</div>
-            <div class="video-ph" role="img" aria-label="Founder video. Placeholder.">Founder video</div>
-            <div class="video-ph" role="img" aria-label="Founder video. Placeholder.">Founder video</div>
+          <div class="founder-videos" aria-label="Founder videos">
+            <figure>
+              <div class="video-ph" role="img" aria-label="Featured founder video. Placeholder.">Featured founder video</div>
+              <figcaption>Founder video — featured [placeholder]</figcaption>
+            </figure>
+            <figure>
+              <div class="video-ph" role="img" aria-label="Founder video. Placeholder.">Founder video</div>
+              <figcaption>Founder video [placeholder]</figcaption>
+            </figure>
+            <figure>
+              <div class="video-ph" role="img" aria-label="Founder video. Placeholder.">Founder video</div>
+              <figcaption>Founder video [placeholder]</figcaption>
+            </figure>
+            <figure>
+              <div class="video-ph" role="img" aria-label="Founder video. Placeholder.">Founder video</div>
+              <figcaption>Founder video [placeholder]</figcaption>
+            </figure>
           </div>
-          <p class="anno">More than one founder video may sit in Why Fullsteam. Slots only — no assets yet. Do not name a founder until the client confirms the video can be published.</p>
+          <p class="anno">Multiple founder videos may sit in Why Fullsteam — one featured slot plus shorter ones, and more can be added without changing the section. Slots only; no assets yet. Do not name a founder or a portfolio company until the client confirms the video can be published.</p>
         </div>
       </div>
     </section>
@@ -338,12 +366,16 @@
 
     <section class="block tan" id="talk">
       <div class="wrap">
-        <p class="beat">04 — Acquisitions email</p>
-        <h2>Intent: offer the acquisitions address, not a form.</h2>
-        <p class="anno">The lead form has been removed from this page. The close is a generic acquisitions@ address — confirm the exact mailbox before launch. No Talk to us form here. The homepage must not carry this form either; that CTA change is in the homepage pass. Founder lens.</p>
-        <p class="prose">Write the acquisitions team directly. This page confirms who Fullsteam is; the email is the next step.</p>
-        <p style="margin-top:22px; display:flex; flex-wrap:wrap; gap:16px; align-items:center;">
-          <a class="pill pill-lg" href="mailto:acquisitions@fullsteam.com">acquisitions@fullsteam.com</a>
+        <p class="beat">04 — Next step</p>
+        <h2>Intent: offer a wayfinder, not a lead form.</h2>
+        <p class="anno">The lead form is gone (client, 2026-10-28). The next step is a wayfinder: one primary CTA, <b>Explore more</b>, that takes the founder to the contact page, plus a generic <b>acquisitions@</b> address for anyone who would rather write directly. Confirm the exact mailbox before launch. Founder lens.</p>
+        <p class="prose">This page confirms who Fullsteam is. When you want to go further, start with a conversation — or write to the acquisitions team directly.</p>
+        <p class="hero-actions" style="display:flex;flex-wrap:wrap;gap:12px 16px;margin-top:26px;align-items:center;">
+          <a class="pill pill-lg" href="contact.html">Explore more</a>
+        </p>
+        <p class="email-line">
+          <span>Prefer email?</span>
+          <a href="mailto:acquisitions@fullsteam.com">acquisitions@fullsteam.com</a>
         </p>
       </div>
     </section>
@@ -374,15 +406,15 @@
       <div>
         <div class="fh">Company</div>
         <a href="our-story.html">Our Story</a>
-        <a href="leadership.html">Leadership</a>
+        <a href="our-story.html#leadership">Leadership</a>
         <a href="careers.html">Careers</a>
       </div>
       <div>
         <div class="fh">Explore</div>
         <a href="vertical-software.html">Vertical Software</a>
         <a href="our-advantage.html">Our Advantage</a>
-        <a href="our-advantage.html#ai">AI</a>
-        <a href="for-founders.html">For Founders</a>
+        <a href="our-advantage.html#ai">AI at Fullsteam</a>
+        <a href="for-founders.html">Acquisitions</a>
       </div>
       <div>
         <div class="fh">Connect</div>

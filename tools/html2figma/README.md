@@ -27,6 +27,11 @@ cd tools/html2figma
 # 1. parse one page (or every page)
 python3 parse.py ../../02_Wireframes/active/pages/careers.html out/careers.json
 
+# pages whose panels are JS-filled from a <template> carry {{V}} tokens in the
+# raw HTML. Substitute them at parse time (the sidebar default is Hospitality):
+python3 parse.py ../../02_Wireframes/active/pages/vertical-software.html out/vertical-software.json \
+  "--sub={{V}}=Hospitality"
+
 # 2. bundle it for the bridge
 python3 bundle.py out/careers.json --page 3:55487 --x 0 --y 0 --out /tmp/bundle.js
 ```
@@ -64,6 +69,11 @@ done
 | `.steps` | numbered step rows |
 | `.faq`, `details` | accordion rows (summary = question) |
 | `.v-layout` / `.v-side` / `.v-content` | two-column sticky-sidebar layout |
+| `.oe-layout` / `.oe-side` / `.oe-side-list` | Our Advantage's three-group sidebar + inline panels |
+| `.compare` | two-column embedded-vs-bolted comparison |
+| `.stat-row`, `.logo-line`, `.logo-grid` | 3 / 4 / 3-column rows |
+| `.v-photo-pair`, `.v-shot` | 2 / 3-column image rows |
+| `.voices`, `.use-grid`, `.li-posts` | 3-column testimony / use-case / post cards |
 | `template#tpl-vertical` | rendered as the default panel state (its content is JS-injected) |
 | per-side borders | 1px `Rule` rectangle (Figma has no per-side strokes) |
 
@@ -86,11 +96,13 @@ All 11 active pages convert with no dropped body text:
 | contact | 100% |
 | embedded-offerings (Our Advantage) | 100% |
 | for-founders (Acquisitions) | 100% |
-| leadership | 100% |
 | our-story | 100% |
 | privacy | 100% |
 | terms | 100% |
 | vertical-software | 100% |
+
+Ten pages. The Leadership frame was **deleted from `⚠️ WF v2` on 2026-10-30** along with the
+page itself (Leadership is now a section on Our Story).
 
 `parse.py` deliberately drops `<script>`, `<style>`, `<head>` and `<svg>`, and
 the header's `nav` overlay (its items are drawn in the footer already). Two
@@ -106,3 +118,7 @@ the vertical/offering default panel.
   intentionally absent. These frames are endpoints only.
 - Re-running creates a **new** frame. Delete the old one, or rename it first, so
   the page does not accumulate duplicates.
+- Sidebar-only panels that are `display:none` in the HTML still convert if they are
+  plain `article` siblings of the active panel (Our Advantage renders all seven);
+  inside a `.v-content` block only the `.is-active` panel is used, because the
+  others are empty shells filled by JS.

@@ -204,26 +204,63 @@
   }
   .panel h2{ grid-column:1; max-width:none; margin-bottom:14px; scroll-margin-top:84px; }
   .panel .prose{ grid-column:1; min-width:0; }
-  /* One panel shape for every vertical (2026-10-22 client feedback).
-     Categories stack: description, photo, surprising stats, BU logos,
-     customer & partner logos (their own band), product screenshots. */
+  /* One panel shape for every vertical. Categories stack in one flowing story:
+     description, photos, surprising stats, BU logos, customer & partner logos
+     (their own band), product screenshots. Hairline rules and space replace the
+     bordered-card stack so the panel reads as one narrative, not modules. */
   .slot-kicker{
     font-family:var(--mono); font-size:11px; letter-spacing:.12em;
-    text-transform:uppercase; margin:32px 0 12px;
+    text-transform:uppercase; margin:44px 0 14px;
   }
-  .v-photo{ min-height:320px; margin-top:18px; }
-  .logo-row{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; }
-  .logo-row.partners{
-    padding:16px; background:var(--tan); border:1px solid var(--ink);
+  .v-story{ max-width:64ch; }
+  .v-story .lead{ font-size:20px; line-height:1.5; }
+  .v-story p + p{ margin-top:16px; }
+  .v-media{ margin-top:28px; }
+  .v-media .img-ph{ min-height:360px; }
+  .v-media figcaption,
+  .v-shot figure figcaption,
+  .stage-cap{
+    margin-top:8px; font-family:var(--mono); font-size:11px; letter-spacing:.06em;
+    text-transform:uppercase; color:#3A3A3A;
+  }
+  .v-photo-pair{ display:grid; grid-template-columns:1.35fr 1fr; gap:16px; margin-top:28px; }
+  .v-photo-pair .img-ph{ min-height:300px; }
+  .v-photo-pair figure:last-child .img-ph{ min-height:300px; }
+  .stat-row{
+    display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px;
+    border-top:1px solid var(--ink); padding-top:18px;
+  }
+  .stat-row b{ display:block; font-family:var(--display); font-size:clamp(28px,3.4vw,40px); line-height:1; letter-spacing:-.02em; }
+  .stat-row span{ display:block; margin-top:8px; font-size:14px; max-width:26ch; }
+  .logo-line{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:24px;
+    border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); padding:26px 0;
   }
   .mark{
-    min-height:72px; border:1px solid var(--ink); background:#fff;
+    min-height:64px; background:transparent;
     display:flex; align-items:center; justify-content:center; text-align:center;
     font-family:var(--mono); font-size:11px; letter-spacing:.06em;
     text-transform:uppercase; padding:8px;
   }
-  .shot-row{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; }
-  .shot-row .img-ph{ min-height:180px; }
+  .v-band{
+    margin:44px -24px 0; padding:36px 24px;
+    background:var(--tan);
+  }
+  .v-band .slot-kicker{ margin-top:0; }
+  .logo-grid{
+    display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px 28px;
+    margin-top:18px;
+  }
+  .logo-grid .mark{ min-height:88px; background:#fff; border:1px solid var(--ink); }
+  .v-shots{ margin-top:44px; }
+  .v-shot{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; }
+  .v-shot .img-ph{ min-height:190px; }
+  .stage{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px; }
+  .stage figure{ min-width:0; }
+  .stage .stage-wide{ grid-column:1 / -1; }
+  .stage .img-ph{ min-height:210px; }
+  .stage .stage-wide .img-ph{ min-height:250px; }
+  .v-hero-grid{ display:grid; grid-template-columns:1.02fr .98fr; gap:44px; align-items:center; }
   /* Hero type scale mirrors .page-hero so this page reads as the same system as
      the six .page-hero pages. The contained structure (no hero image) is
      unchanged - only the styling had drifted. */
@@ -313,11 +350,19 @@
     .facts, .cards{ grid-template-columns:1fr; }
     .v-layout{ grid-template-columns:1fr; gap:24px; }
     .v-side{ position:static; }
+    /* No horizontal slide on narrow screens: a sliding panel plus the
+       full-bleed .v-band momentarily widens the page and flashes a
+       horizontal scrollbar. Fade only. */
+    .panel.is-active{ animation:none; }
     .v-side .v-side-list{ display:flex; flex-wrap:wrap; gap:8px; }
     .v-side button{ width:auto; border:1px solid var(--ink); padding:8px 14px; font-size:14px; }
     .v-side button[aria-selected="true"]{ padding-left:14px; }
     .logo-row, .logo-row.partners, .shot-row{ grid-template-columns:1fr 1fr; }
+    .v-hero-grid{ grid-template-columns:1fr; gap:28px; }
+    .v-photo-pair, .stat-row, .logo-line, .v-shot, .logo-grid{ grid-template-columns:1fr 1fr; gap:16px; }
+    .v-band{ margin:36px -24px 0; padding:28px 24px; }
     .v-photo{ min-height:200px; }
+    .stat-row b{ font-size:30px; }
     .v-hero h1, .page-hero h1, .block h2{ max-width:100%; }
     .nav{ padding:10px 16px; gap:10px; }
     .nav-right{ min-width:0; flex:1; justify-content:flex-end; }
@@ -344,12 +389,11 @@
     </div>
     <nav class="site-overlay" id="siteOverlay" aria-label="Menu">
       <ul class="ov-list">
-        <li><a href="vertical-software.html">Vertical Software</a></li>
+        <li><a href="vertical-software.html" aria-current="page">Vertical Software</a></li>
         <li><a href="our-advantage.html">Our Advantage</a></li>
-        <li><a href="our-advantage.html#ai">AI</a></li>
+        <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
         <li><a href="our-story.html">Our Story</a></li>
-        <li><a href="leadership.html">Leadership</a></li>
-        <li><a href="for-founders.html">For Founders</a></li>
+        <li><a href="for-founders.html">Acquisitions</a></li>
         <li><a href="careers.html">Careers</a></li>
       </ul>
     </nav>
@@ -361,9 +405,29 @@
 <section class="v-hero">
   <div class="wrap">
     <div class="v-hero-card">
-      <h1>Intent: lead with industry-specific, mission-critical software.</h1>
-      <p class="anno">Software first. Each of the 11 verticals is the system of record its industry runs on — mission-critical, unlike a general horizontal provider. The panel holds, in order: what makes Fullsteam unique here, a photo, surprising stats, business-unit logos, customer and partner logos (their own row), and product screenshots. AI and payments are not the lead. Primary lens: investors; founders secondary. Not child pages; deep link is the hash (e.g. #retail).</p>
-      <button type="button" class="pill pill-lg" id="toHeadline">Read the story</button>
+      <div class="v-hero-grid">
+        <div>
+          <p class="beat">Vertical Software</p>
+          <h1>Intent: lead with industry-specific, mission-critical software.</h1>
+          <p class="lede">Software first. Fullsteam owns the system of record an industry runs on — the software a business opens every morning, not a horizontal platform stretched to fit. One industry's workflows, rules, and customers, built by people who know them.</p>
+          <p class="anno">Software first — this is the point of the page, not AI or payments. Contrast with a general horizontal provider: here the software is the operating core of one industry, and the people who build it know that industry. The top of the page carries the customer photos and the product screenshots together as one opening statement; each vertical's story below repeats the full content set. Primary lens: investors; founders secondary. Not child pages; deep link is the hash (e.g. #retail).</p>
+          <button type="button" class="pill pill-lg" id="toHeadline">Read the story</button>
+        </div>
+        <div class="stage" aria-label="Opening visuals">
+          <figure class="stage-wide">
+            <div class="img-ph" role="img" aria-label="Customers at work in their industry. Placeholder."></div>
+            <figcaption class="stage-cap">Customer photo — the industry at work [placeholder]</figcaption>
+          </figure>
+          <figure>
+            <div class="img-ph" role="img" aria-label="Product screenshot. Placeholder."></div>
+            <figcaption class="stage-cap">Product screenshot [placeholder]</figcaption>
+          </figure>
+          <figure>
+            <div class="img-ph" role="img" aria-label="Product screenshot. Placeholder."></div>
+            <figcaption class="stage-cap">Product screenshot [placeholder]</figcaption>
+          </figure>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -390,35 +454,68 @@
           <div class="v-content" id="vContent">
         <template id="tpl-vertical">
           <h2>Intent: say what makes {{V}} software mission-critical.</h2>
-          <div class="prose"><p>Placeholder. What makes Fullsteam special and unique in {{V}} — critical to how this industry runs, unlike a general horizontal provider.</p><p>Second paragraph — placeholder. Software is the system of record. AI and payments are what we add later, not the lead.</p></div>
-          <div class="v-photo img-ph" role="img" aria-label="Photo that brings {{V}} to life. Placeholder."></div>
+          <div class="v-story">
+            <p class="lead">Placeholder. What makes Fullsteam special and unique in {{V}} — why the software is critical to how this industry runs, and what a general horizontal provider cannot do here.</p>
+            <p>Second paragraph — placeholder. The workflows, regulations, and customer expectations that are specific to {{V}}, and the role the software plays every day. Software is the system of record; AI and payments are what we add later, not the lead.</p>
+          </div>
+
+          <div class="v-photo-pair" aria-label="Photos of {{V}}">
+            <figure>
+              <div class="img-ph" role="img" aria-label="Photo that brings {{V}} to life. Placeholder."></div>
+              <figcaption>Photo — {{V}} at work [placeholder]</figcaption>
+            </figure>
+            <figure>
+              <div class="img-ph" role="img" aria-label="Second {{V}} photo. Placeholder."></div>
+              <figcaption>Photo — people and place [placeholder]</figcaption>
+            </figure>
+          </div>
+
           <p class="slot-kicker">Surprising stats</p>
-          <div class="facts">
-            <div><span>Stat</span>A figure specific to this vertical. Placeholder. Not revenue or profitability.</div>
-            <div><span>Stat</span>A second figure. Placeholder.</div>
-            <div><span>Stat</span>A third figure. Placeholder.</div>
-            <div><span>Constraint</span>Generic until the client confirms what can be published.</div>
+          <div class="stat-row">
+            <div><b>[##]%</b><span>Surprising figure specific to {{V}}. Placeholder.</span></div>
+            <div><b>[####]</b><span>A second figure. Placeholder.</span></div>
+            <div><b>[#x]</b><span>A third figure. Placeholder.</span></div>
           </div>
+          <p class="anno">Figures are placeholders. Not revenue or profitability. Generic until the client confirms what can be published (OI-5).</p>
+
           <p class="slot-kicker">Business-unit logos</p>
-          <div class="logo-row" aria-label="Business-unit logos">
+          <div class="logo-line" aria-label="Business-unit logos">
             <div class="mark">BU logo [placeholder]</div>
             <div class="mark">BU logo [placeholder]</div>
             <div class="mark">BU logo [placeholder]</div>
             <div class="mark">BU logo [placeholder]</div>
           </div>
-          <p class="slot-kicker">Customer and partner logos</p>
-          <p class="anno">Their own band, separate from the business-unit logos above, with enough room to read on their own. Generic until publishability is confirmed.</p>
-          <div class="logo-row partners" aria-label="Customer and partner logos">
-            <div class="mark">Customer logo [placeholder]</div>
-            <div class="mark">Customer logo [placeholder]</div>
-            <div class="mark">Partner logo [placeholder]</div>
-            <div class="mark">Partner logo [placeholder]</div>
+
+          <div class="v-band" aria-label="Customer and partner logos">
+            <p class="slot-kicker">Key customers and partners</p>
+            <p class="prose">The names this industry already trusts — kept in their own band, with room to read them as a set, separate from the business-unit logos above.</p>
+            <div class="logo-grid">
+              <div class="mark">Customer logo [placeholder]</div>
+              <div class="mark">Customer logo [placeholder]</div>
+              <div class="mark">Customer logo [placeholder]</div>
+              <div class="mark">Customer logo [placeholder]</div>
+              <div class="mark">Partner logo [placeholder]</div>
+              <div class="mark">Partner logo [placeholder]</div>
+            </div>
+            <p class="anno">Deliberately larger than the BU row and on its own ground, so customer and partner names are not mistaken for our business units. Generic until publishability is confirmed; no named case studies.</p>
           </div>
-          <p class="slot-kicker">Product screenshots</p>
-          <div class="shot-row" aria-label="Product screenshots">
-            <div class="img-ph" role="img" aria-label="Product screenshot. Placeholder."></div>
-            <div class="img-ph" role="img" aria-label="Product screenshot. Placeholder."></div>
-            <div class="img-ph" role="img" aria-label="Product screenshot. Placeholder."></div>
+
+          <div class="v-shots">
+            <p class="slot-kicker">Product screenshots</p>
+            <div class="v-shot" aria-label="Product screenshots">
+              <figure>
+                <div class="img-ph" role="img" aria-label="Product screenshot. Placeholder."></div>
+                <figcaption>Screen 01 [placeholder]</figcaption>
+              </figure>
+              <figure>
+                <div class="img-ph" role="img" aria-label="Product screenshot. Placeholder."></div>
+                <figcaption>Screen 02 [placeholder]</figcaption>
+              </figure>
+              <figure>
+                <div class="img-ph" role="img" aria-label="Product screenshot. Placeholder."></div>
+                <figcaption>Screen 03 [placeholder]</figcaption>
+              </figure>
+            </div>
           </div>
         </template>
             <article class="panel is-active" data-panel="hospitality" id="panel-hospitality" data-name="Hospitality" role="tabpanel" aria-labelledby="tab-hospitality"></article>
@@ -436,71 +533,6 @@
         </div>
       </div>
     </section>
-
-  <section class="block" id="sales-marketing">
-    <div class="wrap">
-      <p class="beat">Operational advantages</p>
-      <h2>Sales and Marketing</h2>
-      <p class="prose">The business keeps its name, its customers, and its own team. What Fullsteam adds is reach — people who already know the industry, and campaigns written for one niche audience instead of a general one.</p>
-      <div class="cards">
-        <article class="card">
-          <div class="img-ph" aria-hidden="true"></div>
-          <figcaption>
-            <strong>Sales</strong>
-            <span>A go-to-market team that knows the buyers, the season, and how this industry buys. [placeholder]</span>
-          </figcaption>
-        </article>
-        <article class="card">
-          <div class="img-ph" aria-hidden="true"></div>
-          <figcaption>
-            <strong>Marketing</strong>
-            <span>Content and campaigns written for one niche: real customer stories and concrete local examples. [placeholder]</span>
-          </figcaption>
-        </article>
-        <article class="card">
-          <div class="img-ph" aria-hidden="true"></div>
-          <figcaption>
-            <strong>Cross-sell</strong>
-            <span>Payments, lending, and insurance go to customers the software already serves. [placeholder]</span>
-          </figcaption>
-        </article>
-      </div>
-      <p class="anno">An overview, not a service menu. Nothing here may be read as a claim about growth rate, revenue, or profitability of a business we own.</p>
-    </div>
-  </section>
-
-  <section class="block tan" id="talent">
-    <div class="wrap">
-      <p class="beat">Operational advantages</p>
-      <h2>Talent</h2>
-      <p class="prose">The team that built the software stays, and gains a much larger company behind it. Hiring, back office, and career paths come from Fullsteam; the vertical keeps its own identity.</p>
-      <div class="cards">
-        <article class="card">
-          <div class="img-ph" aria-hidden="true"></div>
-          <figcaption>
-            <strong>Hiring</strong>
-            <span>When the team needs to grow, it hires from a much larger pipeline. [placeholder]</span>
-          </figcaption>
-        </article>
-        <article class="card">
-          <div class="img-ph" aria-hidden="true"></div>
-          <figcaption>
-            <strong>Mobility</strong>
-            <span>People can move between the software businesses Fullsteam owns without leaving the company. [placeholder]</span>
-          </figcaption>
-        </article>
-        <article class="card">
-          <div class="img-ph" aria-hidden="true"></div>
-          <figcaption>
-            <strong>Support</strong>
-            <span>Finance, legal, HR, and compliance handled at group level, so the business can stay focused on its vertical. [placeholder]</span>
-          </figcaption>
-        </article>
-      </div>
-      <p style="margin-top:24px"><a class="pill" href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">See open roles</a></p>
-      <p class="anno">Never frame the story as headcount reduction, and never imply the acquired team is being absorbed or cut.</p>
-    </div>
-  </section>
 
   <section class="block" id="faq">
     <div class="wrap">
@@ -521,15 +553,15 @@
       <div>
         <div class="fh">Company</div>
         <a href="our-story.html">Our Story</a>
-        <a href="leadership.html">Leadership</a>
+        <a href="our-story.html#leadership">Leadership</a>
         <a href="careers.html">Careers</a>
       </div>
       <div>
         <div class="fh">Explore</div>
         <a href="vertical-software.html">Vertical Software</a>
         <a href="our-advantage.html">Our Advantage</a>
-        <a href="our-advantage.html#ai">AI</a>
-        <a href="for-founders.html">For Founders</a>
+        <a href="our-advantage.html#ai">AI at Fullsteam</a>
+        <a href="for-founders.html">Acquisitions</a>
       </div>
       <div>
         <div class="fh">Connect</div>
@@ -658,7 +690,7 @@
       content.querySelectorAll("[data-panel]").forEach((panel) => {
         const frag = tpl.content.cloneNode(true);
         const name = panel.dataset.name || "";
-        frag.querySelectorAll("h2, p, [aria-label]").forEach((el) => {
+        frag.querySelectorAll("h2, p, figcaption, span, b, [aria-label]").forEach((el) => {
           if (el.childNodes.length === 1 && el.firstChild.nodeType === Node.TEXT_NODE) {
             el.textContent = el.textContent.replaceAll("{{V}}", name);
           }
