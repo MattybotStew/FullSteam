@@ -139,6 +139,25 @@ def own_text(node):
 SUBS = {}
 
 
+# CSS grid containers in the wireframes that would otherwise stack as columns.
+# (class, columns, gap, frame name) — mirrors the desktop grid-template-columns.
+GRID_CLASSES = [
+    ("bleed-imgs", 4, 10, "Image band"),
+    ("kpi-row", 4, 12, "KPI row"),
+    ("leaders", 3, 24, "Leaders"),
+    ("founder-videos", 3, 16, "Founder videos"),
+    ("video-row", 3, 16, "Videos"),
+    ("ucases", 3, 16, "Use cases"),
+    ("agl", 3, 16, "Grid"),
+    ("careers-grid", 2, 16, "Careers grid"),
+    ("founders", 2, 16, "Founders"),
+    ("layout", 2, 32, "Layout"),
+    ("vrow__grid", 2, 16, "Row grid"),
+    ("close__cards", 2, 16, "Close cards"),
+    ("stage", 2, 14, "Stage"),
+]
+
+
 def T(text, size=16, weight="Regular", mono=False, color=INK, italic=False,
       upper=False, lh=None, ls=None, maxw=None, name=None):
     for token, value in SUBS.items():
@@ -252,6 +271,20 @@ class Conv:
             return T(txt(n), 18, "Bold", name="Logo", ls=0.4)
         if "fh" in cls:
             return T(own_text(n), 11, "Bold", mono=True, upper=True, ls=1.2, name="FooterHeading")
+        if "menu-btn" in cls:
+            return {"k": "bars", "nm": "Menu button"}
+        if "nav-right" in cls:
+            return F([self.el(c) for c in n.elements()], mode="row", gap=16,
+                     align="center", justify="end", name="Nav right")
+        if "filmstrip" in cls:
+            return self.grid(n, 11, 0, "Filmstrip")
+        if "ai-strip" in cls:
+            return self.grid(n, 3, 0, "AI strip")
+        if "v-hero-grid" in cls:
+            return self.grid(n, 2, 44, "Hero grid")
+        for gcls, gcols, ggap, gname in GRID_CLASSES:
+            if gcls in cls:
+                return self.grid(n, gcols, ggap, gname)
 
         # structure
         if tag == "header":
@@ -263,6 +296,10 @@ class Conv:
         if tag == "section":
             return self.section(n)
         if "wrap" in cls:
+            if "split" in cls:
+                return F([self.el(c) for c in n.elements()], mode="row", gap=32,
+                         align="start", pad=[0, 24, 0, 24],
+                         name="Wrap split", fill=False, width=1120)
             return F([self.el(c) for c in n.elements()], pad=[0, 24, 0, 24],
                      name="Wrap", fill=False, width=1120)
         if "split" in cls:
@@ -320,7 +357,8 @@ class Conv:
             panels = [c for c in n.elements() if c.tag == "article"]
             tpls = [c for c in n.elements() if c.tag == "template"]
             kids = [self.el(t) for t in tpls]
-            kids += [self.el(a) for a in panels if a.has("is-active")]
+            # the live panels are empty shells filled by JS from the template above
+            kids += [self.el(a) for a in panels if a.has("is-active") and a.elements()]
             return F([k for k in kids if k], gap=16, name="Content")
         if tag == "template":
             return F([self.el(c) for c in n.elements()], gap=16, name="Template")

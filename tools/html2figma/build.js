@@ -106,8 +106,11 @@ function fillColumns(node) {
     fillColumns(c);
   }
   if (isCol) {
-    const fixedKids = node.children.filter(isFixed);
-    if (fixedKids.length) {
+    // Only the shared 1120px content column is meant to be centred inside its
+    // section; other fixed-width children (buttons, menu icon) should not drag
+    // the whole column into centre alignment.
+    const hasWrap = node.children.some((c) => isFixed(c) && /^Wrap/.test(c.name));
+    if (hasWrap) {
       try { node.counterAxisAlignItems = 'CENTER'; } catch (e) { /* ignore */ }
     }
   }
@@ -175,6 +178,7 @@ async function buildNode(spec, ctx) {
     f.paddingTop = pt; f.paddingRight = pr; f.paddingBottom = pb; f.paddingLeft = pl;
     f.fills = [SOLID('#FFC600')];
     parent.appendChild(f);
+    markFixed(f); // inline-flex in the wireframe: the button hugs its label
     const t = await makeText({ k: 'text', t: spec.t, fs: spec.fs, fw: 'Bold' });
     f.appendChild(t);
     return f;
@@ -199,6 +203,32 @@ async function buildNode(spec, ctx) {
     return f;
   }
 
+  if (spec.k === 'bars') {
+    // hamburger affordance: three 2px bars in a 20x16 box, matching .menu-btn
+    const f = figma.createFrame();
+    f.name = spec.nm || 'Menu button';
+    f.layoutMode = 'VERTICAL';
+    f.primaryAxisSizingMode = 'FIXED';
+    f.counterAxisSizingMode = 'FIXED';
+    f.primaryAxisAlignItems = 'CENTER';
+    f.counterAxisAlignItems = 'CENTER';
+    f.itemSpacing = 2;
+    f.fills = [];
+    f.resize(20, 16);
+    parent.appendChild(f);
+    markFixed(f);
+    for (let i = 0; i < 3; i++) {
+      const r = figma.createRectangle();
+      r.name = 'bar';
+      r.fills = [SOLID('#000000')];
+      f.appendChild(r);
+      r.resize(20, 2);
+      try { r.layoutSizingHorizontal = 'FILL'; } catch (e) { /* ignore */ }
+      try { r.layoutSizingVertical = 'FIXED'; } catch (e) { /* ignore */ }
+    }
+    return f;
+  }
+
   // frame
   const f = figma.createFrame();
   f.name = spec.nm || 'Frame';
@@ -213,6 +243,7 @@ async function buildNode(spec, ctx) {
   if (spec.al === 'center') f.counterAxisAlignItems = 'CENTER';
   if (spec.al === 'start') f.counterAxisAlignItems = 'MIN';
   if (spec.jc === 'space-between') f.primaryAxisAlignItems = 'SPACE_BETWEEN';
+  if (spec.jc === 'end') f.primaryAxisAlignItems = 'MAX';
   if (spec.mh) f.minHeight = spec.mh;
   if (spec.w === 'fixed' && spec.fw) {
     f.counterAxisSizingMode = 'FIXED';
@@ -246,6 +277,7 @@ async function buildNode(spec, ctx) {
   if (spec.d === 'row') {
     const fillable = f.children.filter((c) => c.type === 'FRAME' || c.type === 'TEXT');
     for (const c of fillable) {
+      if (isFixed(c)) continue;
       try { c.layoutSizingHorizontal = 'FILL'; } catch (e) { /* fixed width children stay */ }
     }
   }

@@ -74,6 +74,13 @@ done
 | `.stat-row`, `.logo-line`, `.logo-grid` | 3 / 4 / 3-column rows |
 | `.v-photo-pair`, `.v-shot` | 2 / 3-column image rows |
 | `.voices`, `.use-grid`, `.li-posts` | 3-column testimony / use-case / post cards |
+| `.filmstrip`, `.ai-strip` | 11-column vertical strip / 3-column AI strip |
+| `.v-hero-grid`, `.split` | two-column hero and copy+image splits |
+| `.bleed-imgs`, `.kpi-row`, `.leaders` | 4 / 4 / 3-column bands (image band, proof strip, leader grid) |
+| `.founder-videos`, `.video-row`, `.ucases`, `.agl` | 3-column card and video grids |
+| `.menu-btn` | three-bar hamburger (`k:"bars"`), not an image placeholder |
+| `.nav-right` | logo-left / menu + CTA-right header row |
+| `.pill` | hugs its label, like `inline-flex` in the wireframe |
 | `template#tpl-vertical` | rendered as the default panel state (its content is JS-injected) |
 | per-side borders | 1px `Rule` rectangle (Figma has no per-side strokes) |
 
