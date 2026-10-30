@@ -19,6 +19,9 @@ def main():
     ap.add_argument("--name", required=True)
     ap.add_argument("--x", type=float, default=None)
     ap.add_argument("--y", type=float, default=None)
+    ap.add_argument("--from", dest="start", type=int, default=None)
+    ap.add_argument("--to", type=int, default=None)
+    ap.add_argument("--frame-id", default=None)
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
 
@@ -29,6 +32,12 @@ def main():
         opts["x"] = a.x
     if a.y is not None:
         opts["y"] = a.y
+    if a.start is not None:
+        opts["from"] = a.start
+    if a.to is not None:
+        opts["to"] = a.to
+    if a.frame_id:
+        opts["frameId"] = a.frame_id
 
     code = (
         build

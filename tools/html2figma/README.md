@@ -15,6 +15,20 @@ Two pipelines live here:
 **The board uses the exact pipeline.** The structural one is kept because it is
 the only way to get auto-layout frames out of the same HTML.
 
+### What sits on `⚠️ WF v2`
+
+Ten site pages — Homepage · Vertical Software · Our Advantage · Our Story ·
+Acquisitions · Careers · Contact · Terms · Privacy · Page not found — plus three
+supporting wires placed to the right of the 404: **Header chrome options**
+(`header-wireframe.html`), **Who we are — layout lab**
+(`who-we-are-layouts.html`), and **What we do — Option 14 parallax**
+(`what-we-do-parallax-depth.html`, captured in its `.rm-parallax` state because
+its scroll-driven planes cannot be represented in a static frame).
+
+Large pages are built in chunks with `--from/--to/--frame-id` (the layout lab is
+853 nodes); chunking keeps each `figma_execute` call short without changing the
+paint order, since the spec sorts rectangles before text.
+
 ## Exact pipeline
 
 ```

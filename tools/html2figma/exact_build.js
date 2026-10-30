@@ -60,16 +60,23 @@ async function fontFor(kind, weight) {
 
 async function exactBuild(spec, opts) {
   const page = await figma.getNodeByIdAsync(opts.pageId || figma.currentPage.id);
-  const root = figma.createFrame();
-  root.name = (opts.name || 'Page') + ' — Wireframe';
-  root.resize(spec.w || 1440, spec.h || 1000);
-  root.fills = [SOLID('#FFFFFF')];
-  root.clipsContent = true;
-  page.appendChild(root);
-  if (opts.x !== undefined) root.x = opts.x;
-  if (opts.y !== undefined) root.y = opts.y;
+  let root = null;
+  if (opts.frameId) {
+    root = await figma.getNodeByIdAsync(opts.frameId);
+  }
+  if (!root) {
+    root = figma.createFrame();
+    root.name = (opts.name || 'Page') + ' — Wireframe';
+    root.resize(spec.w || 1440, spec.h || 1000);
+    root.fills = [SOLID('#FFFFFF')];
+    root.clipsContent = true;
+    page.appendChild(root);
+    if (opts.x !== undefined) root.x = opts.x;
+    if (opts.y !== undefined) root.y = opts.y;
+  }
 
-  for (const n of spec.nodes) {
+  const nodes = spec.nodes.slice(opts.from || 0, opts.to === undefined ? undefined : opts.to);
+  for (const n of nodes) {
     try {
       if (n.k === 'rect') {
         const r = figma.createRectangle();
@@ -99,5 +106,5 @@ async function exactBuild(spec, opts) {
     }
   }
 
-  return { id: root.id, name: root.name, w: Math.round(root.width), h: Math.round(root.height), x: Math.round(root.x), y: Math.round(root.y), nodes: spec.nodes.length };
+  return { id: root.id, name: root.name, w: Math.round(root.width), h: Math.round(root.height), x: Math.round(root.x), y: Math.round(root.y), nodes: nodes.length, total: spec.nodes.length };
 }
