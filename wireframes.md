@@ -479,6 +479,9 @@ Anything present on some pages but not others is drift — decide once and apply
 
 ## 9. Interior pages (2026-09-25 · messaging pass 2026-10-01)
 
+Per-page revision record (what changed, what was removed, what is still open):
+[`plans/interior-page-revisions.md`](./plans/interior-page-revisions.md).
+
 Same chrome on every page: Logo · hamburger · Explore vertical solutions. The open menu is a 320px right drawer with **six flat links** (no chevrons, no accordion children — 2026-10-30). The footer still reaches the tree. Body copy is placeholder. Headlines carry the locked job of the page.
 
 **Messaging pass (2026-10-01, "apply to all pages"):** every page now reflects the new narrative —
