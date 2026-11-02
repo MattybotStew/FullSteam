@@ -1,0 +1,1888 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vertical Software — Fullsteam</title>
+  <meta name="description" content="Fullsteam owns mission-critical vertical software: the system of record eleven industries run on. Explore what software-first means in each market.">
+  <meta name="theme-color" content="#04141b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>
+/* ------------------------------------------------------------------
+   Fullsteam — Vertical Software
+   Tokens lifted from the FS-Design system file (Fullsteam Brand /
+   Type ledger). Instrument Sans + Fragment Mono + Instrument Serif.
+------------------------------------------------------------------- */
+:root {
+  --ink: #04141b;
+  --ink-deep: #071820;
+  --ink-soft: #0c1b21;
+  --paper: #ffffff;
+  --surface: #f3f6f7;
+  --line: #dce3e6;
+  --line-strong: #c6d1d5;
+
+  --gold: #ffc600;
+  --gold-70: #ffd74d;
+  --gold-10: #fff9e5;
+  --blue: #00587c;
+  --blue-deep: #003f55;
+  --green: #84bd00;
+
+  --text: #0c1b21;
+  --muted: #586a72;
+  --dark-text: #ffffff;
+  --dark-muted: rgba(255, 255, 255, 0.66);
+  --dark-line: rgba(255, 255, 255, 0.16);
+
+  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-serif: "Instrument Serif", Georgia, serif;
+
+  --fs-hero: clamp(2.6rem, 7.1vw, 6.5rem);
+  --fs-section: clamp(2.1rem, 5vw, 4.75rem);
+  --fs-story: clamp(1.9rem, 3.4vw, 3.25rem);
+  --fs-stat: clamp(2.25rem, 4vw, 3.25rem);
+  --fs-lede: clamp(1.125rem, 1.35vw, 1.25rem);
+  --fs-body: 1.0625rem;
+  --fs-mono: 0.75rem;
+
+  --shell: 1072px;
+  --gutter: clamp(20px, 4vw, 24px);
+  --section-y: clamp(72px, 8.5vw, 128px);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 240ms;
+
+  /* Official homepage chrome (client-review/homepage) */
+  --bar: 76px;
+  --brand: var(--blue);
+  --brand-ink: var(--ink);
+  --mono: var(--font-mono);
+  --e: cubic-bezier(0.22, 0.75, 0.24, 1);
+  --e-quick: cubic-bezier(0, 0, 0.2, 1);
+  --dark-hair: var(--dark-line);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+[id] { scroll-margin-top: 96px; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.53;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+h1, h2, h3, p, figure, blockquote { margin: 0; }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.section--dark :focus-visible,
+.bar :focus-visible,
+.menu :focus-visible,
+.footer :focus-visible { outline-color: var(--gold); }
+
+.shell {
+  width: min(var(--shell), 100% - (var(--gutter) * 2));
+  margin-inline: auto;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--gold);
+  color: #000;
+  padding: 12px 18px;
+  font-weight: 700;
+  z-index: 200;
+}
+.skip:focus { left: 16px; top: 12px; }
+
+/* ---------- type primitives ---------- */
+
+.display {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.display em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+#verticals-title em,
+#faq-title em { color: var(--gold); letter-spacing: 0; }
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  line-height: 1.34;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.kicker::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--gold);
+  flex: none;
+}
+
+.section--dark .kicker,
+.hero .kicker { color: var(--dark-muted); }
+
+.lede {
+  font-size: var(--fs-lede);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 46ch;
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dark-muted);
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  --btn-bg: var(--gold);
+  --btn-fg: #000;
+  --btn-line: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 26px;
+  border: 1px solid var(--btn-line);
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease), transform 160ms var(--ease);
+}
+
+.btn:hover {
+  --btn-bg: #000;
+  --btn-fg: var(--gold);
+  --btn-line: var(--gold);
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn svg { width: 12px; height: 12px; flex: none; }
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: #fff;
+  --btn-line: rgba(255, 255, 255, 0.55);
+}
+.btn--ghost:hover {
+  --btn-bg: var(--gold);
+  --btn-fg: #000;
+  --btn-line: var(--gold);
+}
+
+/* ---------- header · official homepage chrome ---------- */
+
+.bar {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  height: var(--bar);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+  padding: 0 var(--gutter);
+  color: #fff;
+  border-bottom: 1px solid transparent;
+  transition: background-color .3s var(--e), color .3s var(--e), border-color .3s var(--e);
+}
+.bar.is-solid {
+  background: color-mix(in srgb, #fff 94%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--text);
+  border-bottom-color: var(--line);
+}
+.bar.is-on-dark {
+  background: color-mix(in srgb, var(--brand-ink) 86%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--dark-hair);
+}
+.bar__logo {
+  position: relative; display: block;
+  width: 148px; height: 40px;
+  flex: 0 0 auto;
+  z-index: 2;
+}
+.bar__logo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: left center;
+  transition: opacity .25s var(--e);
+}
+.logo--w { opacity: 1; }
+.logo--ink { opacity: 0; }
+.bar.is-solid .logo--w { opacity: 0; }
+.bar.is-solid .logo--ink { opacity: 1; }
+.bar__actions { display: flex; align-items: center; gap: 10px; }
+.menu-btn {
+  display: grid; place-content: center; gap: 5px;
+  width: 46px; height: 46px;
+  border: 0; border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+.menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: currentColor; border-radius: 2px;
+  transition: transform .22s var(--e), opacity .18s var(--e);
+}
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.bar__cta-short { display: none; }
+.bar .btn { min-height: 44px; padding: 0 28px; border-radius: 999px; font-weight: 700; font-size: 14px; }
+.bar .btn.btn--sm { padding: 0 18px; font-size: 13px; }
+@media (max-width: 620px) {
+  .bar__cta { padding-inline: 18px; }
+  .bar__cta-long { display: none; }
+  .bar__cta-short { display: inline; }
+  .bar__logo { width: 126px; height: 34px; }
+}
+
+.menu {
+  position: fixed; inset: 0; z-index: 88;
+  display: flex; justify-content: flex-end; align-items: flex-start;
+  padding: calc(var(--bar) + 10px) var(--gutter) 24px;
+  background: rgba(4, 20, 27, .46);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.menu[hidden] { display: none; }
+.menu__panel {
+  width: min(390px, 100%);
+  background: #fff; color: var(--text);
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 1px 0 rgba(0, 20, 28, .05), 0 24px 70px rgba(0, 20, 28, .32);
+  animation: menu-in 190ms var(--e-quick) both;
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+.menu__panel p {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted);
+  padding: 12px 16px 8px;
+}
+.menu__panel a {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 18px; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none;
+  transition: background-color 140ms var(--e-quick), color 140ms var(--e-quick);
+}
+.menu__panel a::after {
+  content: "\2192";
+  color: var(--brand);
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: opacity .16s var(--e-quick), transform .16s var(--e-quick);
+}
+.menu__panel a:hover::after { opacity: 1; transform: none; }
+.menu__panel a:hover { background: var(--surface); color: var(--brand); }
+.menu__foot {
+  margin: 8px 6px 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  z-index: 100;
+  background: var(--gold);
+  transform: scaleX(var(--p, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+body.menu-open .progress { opacity: 0; }
+body.menu-open { overflow: hidden; }
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  background: var(--ink);
+  color: #fff;
+  padding-top: calc(76px + clamp(40px, 5vw, 76px));
+  padding-bottom: clamp(56px, 7vw, 104px);
+  overflow: hidden;
+}
+
+.hero__glow {
+  position: absolute;
+  inset: -20% -10% auto auto;
+  width: min(760px, 80vw);
+  height: min(760px, 80vw);
+  background:
+    radial-gradient(closest-side at 60% 40%, rgba(255, 198, 0, 0.12), transparent),
+    radial-gradient(closest-side at 40% 60%, rgba(0, 88, 124, 0.45), transparent);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(180deg, transparent 55%, rgba(4, 20, 27, 0.9));
+  pointer-events: none;
+}
+
+.hero__inner { position: relative; z-index: 1; }
+
+.hero__title {
+  font-size: var(--fs-hero);
+  max-width: 18ch;
+}
+
+.hero__title span { white-space: nowrap; }
+.hero__title em { color: var(--gold); }
+
+.hero__row { margin-top: clamp(20px, 3vw, 34px); }
+
+.hero__copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 48px;
+  margin-top: clamp(24px, 3vw, 40px);
+}
+.hero__copy .hero__actions { margin-top: 0; }
+
+.hero__copy .lede {
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 44ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(24px, 3vw, 36px);
+}
+
+.hero__media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-content: end;
+}
+
+.hero__media .frame { grid-column: 1 / -1; }
+
+/* ---------- media frame ---------- */
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.frame__cap {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(4, 20, 27, 0.74);
+  padding: 6px 9px;
+  border-radius: 3px;
+}
+
+.frame--pending {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0, 88, 124, 0.45), transparent 70%),
+    var(--ink);
+  border-color: rgba(255, 255, 255, 0.14);
+  padding: 28px 22px;
+  color: #fff;
+}
+
+.frame--pending .pending__mark {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 198, 0, 0.6);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.pending__mark::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(255, 198, 0, 0.9);
+}
+
+.frame--pending .pending__title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  line-height: 1.1;
+  max-width: 16ch;
+}
+
+.frame--pending .pending__note {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dark-muted);
+}
+
+/* ---------- placeholder screen ---------- */
+
+.screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 12px 10px;
+  background: #fff;
+  border: 1px solid rgba(4, 20, 27, 0.16);
+  border-radius: 8px;
+  aspect-ratio: 1.16 / 1;
+  overflow: hidden;
+}
+
+.screen__chrome { display: flex; gap: 4px; margin-bottom: 2px; }
+.screen__chrome i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #d5dee2;
+}
+
+.screen__bar {
+  height: 6px;
+  border-radius: 2px;
+  background: #e8eef0;
+}
+.screen__bar--dark { background: #c9d6db; }
+.screen__bar--gold { background: var(--gold); }
+.screen__block {
+  margin-top: 2px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #f2f6f7, #e7eef0);
+  flex: 1;
+  min-height: 26px;
+}
+
+.screen__tag {
+  position: absolute;
+  left: 12px;
+  bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5c6c73;
+}
+
+/* ---------- section head ---------- */
+
+.section__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: end;
+  margin-bottom: clamp(36px, 4.6vw, 60px);
+}
+
+.section__title {
+  font-size: var(--fs-section);
+  margin-top: 22px;
+  max-width: 18ch;
+}
+
+.section__aside { padding-bottom: 6px; }
+
+/* ---------- verticals ---------- */
+
+.verticals { padding-block: var(--section-y); background: var(--paper); }
+
+.engine {
+  display: grid;
+  grid-template-columns: 268px minmax(0, 1fr);
+  gap: clamp(28px, 4.4vw, 64px);
+  align-items: start;
+}
+
+.rail { position: sticky; top: 104px; }
+
+.rail__label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.rail__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) 10px;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 12px 13px 12px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--text);
+  transition: background 180ms var(--ease), color 180ms var(--ease),
+    padding-left 200ms var(--ease);
+}
+
+.rail__num {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  color: #6a7a81;
+  transition: color 180ms var(--ease);
+}
+
+.rail__name {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+}
+
+.rail__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: transparent;
+  justify-self: end;
+  transition: background 180ms var(--ease);
+}
+
+.rail__item:hover { background: var(--surface); }
+.rail__item:hover .rail__num { color: var(--muted); }
+
+.rail__item[aria-current="true"] {
+  background: var(--surface);
+  box-shadow: inset 2px 0 0 var(--gold);
+  padding-left: 16px;
+}
+
+.rail__item[aria-current="true"] .rail__name { font-weight: 600; }
+.rail__item[aria-current="true"] .rail__num { color: var(--muted); }
+.rail__item[aria-current="true"] .rail__dot { background: var(--gold); }
+
+/* ---------- panel ---------- */
+
+.panels { min-width: 0; }
+
+.panel[hidden] { display: none; }
+
+.panel.is-active { animation: panelIn 280ms var(--ease) both; }
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+.panel__head { max-width: none; }
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.eyebrow__num {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 20px;
+  padding: 0 6px;
+  background: var(--ink);
+  color: var(--gold);
+  border-radius: 2px;
+  font-size: 0.625rem;
+}
+
+.panel__title {
+  font-size: var(--fs-story);
+  max-width: 18ch;
+  margin-top: 18px;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+.panel__lede { margin-top: 18px; max-width: 52ch; }
+
+.panel__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+  gap: clamp(24px, 3.4vw, 48px);
+  align-items: start;
+  margin-top: clamp(28px, 3.6vw, 44px);
+  padding-top: clamp(24px, 3vw, 36px);
+  border-top: 1px solid var(--line);
+}
+
+.panel__copy p + p { margin-top: 1em; }
+.panel__copy { max-width: 46ch; color: var(--text); }
+
+.panel__copy p:first-child { font-size: 1.125rem; line-height: 1.5; }
+
+.frame--story { aspect-ratio: 4 / 3; }
+.frame--story img { width: 100%; height: 100%; object-fit: cover; }
+
+/* stats */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: clamp(28px, 3.4vw, 42px);
+  border-top: 1px solid var(--ink);
+}
+
+.stat {
+  padding: 22px 20px 20px 0;
+  border-right: 1px solid var(--line);
+}
+.stat + .stat { padding-left: 22px; }
+.stat:last-child { border-right: 0; }
+
+.stat__val {
+  font-family: var(--font-sans);
+  font-size: var(--fs-stat);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.stat__label {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--muted);
+  max-width: 22ch;
+}
+
+.stat__tag {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6f7f86;
+}
+
+/* logo bands */
+
+.logos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3.4vw, 44px);
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+.logos__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.logos__title {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.logos__count {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  color: #6f7f86;
+}
+
+.logos__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-left: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+}
+
+.logos__grid li {
+  height: 74px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #fff, #fcfdfd);
+}
+
+.logos__grid span {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6f7f86;
+  text-align: center;
+}
+
+.logos__grid li:nth-child(2n) span { color: #7b8b92; }
+
+/* screens row */
+
+.screens {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+.screens__head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line-strong);
+  margin-bottom: 6px;
+}
+
+.screens .screen { aspect-ratio: 16 / 10; }
+
+/* footnote */
+
+.engine__note {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64747b;
+}
+
+.engine__note b { color: var(--ink); font-weight: 400; }
+
+/* ---------- FAQ ---------- */
+
+.faq { padding-block: var(--section-y); background: var(--paper); }
+
+.faq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: start;
+}
+
+.faq__head { position: sticky; top: 112px; }
+
+
+.faq__list { border-top: 1px solid var(--ink); }
+
+.faq__item { border-bottom: 1px solid var(--line); }
+
+.faq__item summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 26px;
+  gap: 20px;
+  align-items: start;
+  padding: 24px 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  line-height: 1.32;
+}
+
+.faq__item summary::-webkit-details-marker { display: none; }
+
+.faq__item summary::after {
+  content: "+";
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--muted);
+  justify-self: end;
+  transition: transform 200ms var(--ease), color 200ms var(--ease);
+}
+
+.faq__item[open] summary::after {
+  content: "−";
+  color: var(--ink);
+}
+
+.faq__item summary:hover { color: var(--blue); }
+
+.faq__answer {
+  padding: 0 46px 26px 0;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+/* ---------- footer · official homepage chrome ---------- */
+
+.footer {
+  background: #071820;
+  color: rgba(255, 255, 255, .62);
+  padding: clamp(56px, 6vw, 76px) 0 28px;
+  font-size: 0.9375rem;
+}
+.footer__top {
+  display: grid;
+  grid-template-columns: 2.2fr repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  padding-bottom: clamp(40px, 5vw, 60px);
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+.footer__brand img { width: 168px; height: auto; opacity: .96; }
+.footer__line {
+  margin-top: 20px; max-width: 30ch; line-height: 1.6;
+  color: rgba(255, 255, 255, .6);
+}
+.footer h3 {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .58);
+  margin: 0 0 16px;
+}
+.footer ul { list-style: none; margin: 0; padding: 0; }
+.footer li + li { margin-top: 10px; }
+.footer__sub {
+  margin-top: 10px;
+  padding-left: 14px;
+  border-left: 1px solid rgba(255, 255, 255, .14);
+}
+.footer__sub li + li { margin-top: 9px; }
+.footer__sub a { font-size: 14px; color: rgba(255, 255, 255, .5); }
+.footer__sub a:hover { color: #fff; }
+.footer a { text-decoration: none; color: rgba(255, 255, 255, .86); transition: color .14s var(--e-quick); }
+.footer a:hover { color: #fff; }
+.footer__bottom {
+  padding-top: 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .56);
+}
+.footer__social {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: rgba(255, 255, 255, .7);
+}
+.footer__muted { color: inherit; }
+.footer__social svg { width: 16px; height: 16px; fill: currentColor; }
+.footer__social:hover { color: #fff; }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1080px) {
+  .hero__row { grid-template-columns: minmax(0, 1fr); }
+
+  .engine { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+
+  .rail {
+    position: static;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail__label { display: none; }
+  .rail__list { display: flex; gap: 8px; }
+
+  .rail__item {
+    grid-template-columns: auto auto;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .rail__item[aria-current="true"] {
+    box-shadow: none;
+    padding-left: 14px;
+    border-color: var(--ink);
+    background: var(--ink);
+    color: #fff;
+  }
+  .rail__item[aria-current="true"] .rail__num { color: var(--muted); }
+  .rail__dot { display: none; }
+
+  .faq__head { position: static; }
+  .faq__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .section__head { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .section__title { max-width: 22ch; }
+  .panel__body { grid-template-columns: minmax(0, 1fr); }
+  .frame--story { aspect-ratio: 16 / 10; }
+  .footer__top { grid-template-columns: 1fr 1fr; gap: 34px 24px; }
+  .footer__brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 640px) {
+  :root { --fs-hero: clamp(2.5rem, 12vw, 3.1rem); }
+
+  .panel__title { letter-spacing: -0.03em; }
+
+  .stats { grid-template-columns: minmax(0, 1fr); }
+  .stat {
+    padding: 18px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stat + .stat { padding-left: 0; }
+  .stat:last-child { border-bottom: 0; }
+
+  .logos { grid-template-columns: minmax(0, 1fr); }
+  .screens { grid-template-columns: minmax(0, 1fr); }
+  .screens .screen { aspect-ratio: 16 / 9; }
+
+  .faq__item summary { padding: 20px 0; }
+  .faq__answer { padding-right: 0; }
+}
+
+@media (max-width: 600px) {
+  :root { --bar: 68px; }
+  .bar__logo { width: 126px; height: 34px; }
+  .footer__top { grid-template-columns: 1fr; }
+  .footer__bottom { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="bar" id="bar">
+    <a class="bar__logo" href="index.html" aria-label="Fullsteam home">
+      <img class="logo--w" src="assets/fullsteam-logo.svg" alt="Fullsteam" width="222" height="60" decoding="async">
+      <img class="logo--ink" src="assets/fullsteam-logo-dark.svg" alt="" aria-hidden="true" width="222" height="60" decoding="async">
+    </a>
+    <div class="bar__actions">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="siteMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <a class="btn btn--gold btn--sm bar__cta" href="#verticals">
+        <span class="bar__cta-long">Explore our verticals</span>
+        <span class="bar__cta-short">Explore</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+    <div class="menu__panel" id="menuPanel">
+      <p>Menu</p>
+      <a href="#top">Vertical Software</a>
+      <a href="../../../02_Wireframes/active/pages/our-advantage.html">Our Advantage</a>
+      <a href="../../../02_Wireframes/active/pages/our-advantage.html#ai">AI at Fullsteam</a>
+      <a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a>
+      <a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a>
+      <a href="../../../02_Wireframes/active/pages/careers.html">Careers</a>
+      <div class="menu__foot">
+        <span>A home for vertical software</span>
+        <span>&copy; 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="hero" id="top" data-surface="dark">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="shell hero__inner">
+        <p class="kicker">Vertical software</p>
+        <div class="hero__row">
+          <h1 class="display hero__title"><span>Industry-specific,</span> <span>mission-critical</span> <em>software.</em></h1>
+          <div class="hero__copy">
+            <p class="lede">Fullsteam owns the system of record an industry runs on — the software a business opens every morning, not a horizontal platform stretched to fit.</p>
+            <div class="hero__actions">
+              <a class="btn btn--gold" href="#verticals">Explore the eleven
+                <svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="verticals" id="verticals" data-surface="light" aria-labelledby="verticals-title">
+      <div class="shell">
+        <div class="section__head">
+          <div>
+            <p class="kicker">Verticals</p>
+            <h2 class="display section__title" id="verticals-title">Eleven industries, <em>one operating model.</em></h2>
+          </div>
+          <div class="section__aside">
+            <p class="lede">Each market runs on software that knows its rules. Pick a vertical to see what mission-critical means there — same content, different operating core.</p>
+          </div>
+        </div>
+
+        <div class="engine">
+          <nav class="rail" aria-label="Vertical index">
+            <p class="rail__label">The index — 11 markets</p>
+            <ol class="rail__list">
+              <li><a class="rail__item" href="#panel-hospitality" data-slug="hospitality"><span class="rail__num">01</span><span class="rail__name">Hospitality</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-weddings-events" data-slug="weddings-events"><span class="rail__num">02</span><span class="rail__name">Weddings &amp; Events</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-wine" data-slug="wine"><span class="rail__num">03</span><span class="rail__name">Wine</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-retail" data-slug="retail"><span class="rail__num">04</span><span class="rail__name">Retail</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-storage-marina" data-slug="storage-marina"><span class="rail__num">05</span><span class="rail__name">Storage &amp; Marina</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-health-wellness" data-slug="health-wellness"><span class="rail__num">06</span><span class="rail__name">Health &amp; Wellness</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-field-services" data-slug="field-services"><span class="rail__num">07</span><span class="rail__name">Field Services</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-transportation" data-slug="transportation"><span class="rail__num">08</span><span class="rail__name">Transportation</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-automotive" data-slug="automotive"><span class="rail__num">09</span><span class="rail__name">Automotive</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-association-management" data-slug="association-management"><span class="rail__num">10</span><span class="rail__name">Association Management</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-erp" data-slug="erp"><span class="rail__num">11</span><span class="rail__name">ERP</span><span class="rail__dot"></span></a></li>
+            </ol>
+          </nav>
+
+          <div class="panels">
+            
+        <article class="panel" id="panel-hospitality" data-slug="hospitality" aria-labelledby="title-hospitality">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">01</span> Vertical 01 / 11</p>
+            <h3 class="display panel__title" id="title-hospitality">Service runs on the software, not beside it.</h3>
+            <p class="lede panel__lede">Covers, turns, tabs, and tips move faster than a back office can keep up. Hospitality software has to hold the whole service in one place.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>A restaurant's night is a sequence of commitments: the reservation book, the floor plan, the check, the tip pool, the close. Software that models only the point of sale leaves the rest of the shift in notebooks and group chats.</p>
+              <p>We build for the operating core — the part a general platform cannot reach without becoming a hospitality company. The brand, the team, and the way the house runs stay exactly where they are.</p>
+            </div>
+            <figure class="frame frame--story"><img src="assets/img/hospitality.jpg" alt="A professional kitchen during service" loading="lazy" decoding="async"><figcaption class="frame__cap">Hospitality · on the ground</figcaption></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-weddings-events" data-slug="weddings-events" aria-labelledby="title-weddings-events">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">02</span> Vertical 02 / 11</p>
+            <h3 class="display panel__title" id="title-weddings-events">Every event is a one-off, and every one has a date.</h3>
+            <p class="lede panel__lede">Weddings and events run on timelines that do not move and details that cannot be re-run. The software has to hold both.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>A venue sells a date, then assembles a hundred small dependencies around it: vendors, layouts, payments, staff, weather plans. Most of that coordination still lives in spreadsheets until the week of.</p>
+              <p>Vertical software earns its place by owning that assembly — the proposal, the timeline, the deposit schedule — so the team is running the event instead of reconciling it.</p>
+            </div>
+            <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Weddings &amp; Events at work</p><p class="pending__note">Photography pending</p></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-wine" data-slug="wine" aria-labelledby="title-wine">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">03</span> Vertical 03 / 11</p>
+            <h3 class="display panel__title" id="title-wine">Vintage, allocation, and compliance in one ledger.</h3>
+            <p class="lede panel__lede">Wine moves through clubs, allocations, tasting rooms, and three tiers of regulation. One bottle has to be right in every one of them.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>A winery's inventory is not a count; it is a set of commitments by vintage, club tier, and channel. Compliance adds a second ledger on top, and the two disagree at the worst possible moment.</p>
+              <p>Software built for the category keeps allocation, membership, and reporting on the same record — which is what lets a small team sell direct without losing the thread.</p>
+            </div>
+            <figure class="frame frame--story"><img src="assets/img/wine.jpg" alt="Barrels in a wine cellar" loading="lazy" decoding="async"><figcaption class="frame__cap">Wine · on the ground</figcaption></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-retail" data-slug="retail" aria-labelledby="title-retail">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">04</span> Vertical 04 / 11</p>
+            <h3 class="display panel__title" id="title-retail">The counter and the back office are one system.</h3>
+            <p class="lede panel__lede">Independent retail lives between the shop floor and the books. The software has to close that gap every day.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>Pricing, purchasing, loyalty, and shrink all meet at the counter, usually in front of a customer. When the systems behind them disagree, the store absorbs the cost in time and trust.</p>
+              <p>We back software that treats inventory and margin as one problem, so an owner can see the business as it actually runs — not a month later in a spreadsheet.</p>
+            </div>
+            <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Retail at work</p><p class="pending__note">Photography pending</p></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-storage-marina" data-slug="storage-marina" aria-labelledby="title-storage-marina">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">05</span> Vertical 05 / 11</p>
+            <h3 class="display panel__title" id="title-storage-marina">Recurring revenue with a physical constraint.</h3>
+            <p class="lede panel__lede">Units and slips are rented by the month and bounded by space. The software has to know both.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>Occupancy, waitlists, gate access, and autopay are simple in a demo and stubborn in practice: seasonal demand, delinquencies, and a site manager who needs answers on a phone.</p>
+              <p>Vertical software makes the physical inventory legible — what is vacant, what is promised, what is late — and turns the monthly cycle into something that runs itself.</p>
+            </div>
+            <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Storage &amp; Marina at work</p><p class="pending__note">Photography pending</p></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-health-wellness" data-slug="health-wellness" aria-labelledby="title-health-wellness">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">06</span> Vertical 06 / 11</p>
+            <h3 class="display panel__title" id="title-health-wellness">Schedules, records, and billing that cannot drift.</h3>
+            <p class="lede panel__lede">A clinic runs on time it cannot get back. Software that drifts costs practitioners the hour and the claim.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>Appointments, intake, treatment notes, and reimbursement are one continuous record in practice, and three disconnected systems in most software. The gap shows up as no-shows and denials.</p>
+              <p>We build for the clinical day as it happens — the calendar, the chart, the claim — so the front desk and the practitioner work from the same version of the truth.</p>
+            </div>
+            <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Health &amp; Wellness at work</p><p class="pending__note">Photography pending</p></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-field-services" data-slug="field-services" aria-labelledby="title-field-services">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">07</span> Vertical 07 / 11</p>
+            <h3 class="display panel__title" id="title-field-services">The job is finished in the field, not the office.</h3>
+            <p class="lede panel__lede">Dispatch is a promise about time. Field software has to keep it with bad signal and a full truck.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>A technician needs the history, the parts, the checklist, and the invoice before leaving the driveway. The office needs the schedule to survive traffic, weather, and a job that runs long.</p>
+              <p>Software built for the trade closes the loop on site: the work order becomes the invoice, and the office sees the day as it is actually going.</p>
+            </div>
+            <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Field Services at work</p><p class="pending__note">Photography pending</p></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-transportation" data-slug="transportation" aria-labelledby="title-transportation">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">08</span> Vertical 08 / 11</p>
+            <h3 class="display panel__title" id="title-transportation">Margin lives in the details of every load.</h3>
+            <p class="lede panel__lede">Dispatch, compliance, and settlement have to agree before the truck leaves. Usually they do not.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>A carrier prices a load, assigns a driver, tracks hours, and settles pay against rules that change by state and by customer. Every handoff is a chance to lose margin quietly.</p>
+              <p>Category software keeps the load, the driver, and the paperwork on one record — so the numbers hold from quote to settlement.</p>
+            </div>
+            <figure class="frame frame--story"><img src="assets/img/transport.jpg" alt="A logistics warehouse in operation" loading="lazy" decoding="async"><figcaption class="frame__cap">Transportation · on the ground</figcaption></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-automotive" data-slug="automotive" aria-labelledby="title-automotive">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">09</span> Vertical 09 / 11</p>
+            <h3 class="display panel__title" id="title-automotive">The lot, the bay, and the ledger.</h3>
+            <p class="lede panel__lede">A dealership sells cars, time, and financing at the same counter. The software has to hold all three.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>Inventory ages, service bays fill, and finance paperwork has to be right the first time. Most dealers run that on systems that were never designed to talk to each other.</p>
+              <p>Vertical software connects the vehicle record to the customer and the transaction, so the store can move at the speed of the sale.</p>
+            </div>
+            <figure class="frame frame--story"><img src="assets/img/automotive.jpg" alt="A car on the road" loading="lazy" decoding="async"><figcaption class="frame__cap">Automotive · on the ground</figcaption></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-association-management" data-slug="association-management" aria-labelledby="title-association-management">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">10</span> Vertical 10 / 11</p>
+            <h3 class="display panel__title" id="title-association-management">Membership is a system, not a list.</h3>
+            <p class="lede panel__lede">Dues, renewals, events, and committees are one relationship seen from four angles.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>An association's value is its record of who belongs, what they are entitled to, and what they have done. Spreadsheets and bolt-on tools make that record expensive to keep.</p>
+              <p>Software built for associations keeps the member at the centre — renewal, registration, and reporting — so staff spend their time on the mission instead of the database.</p>
+            </div>
+            <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Association Management at work</p><p class="pending__note">Photography pending</p></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+        <article class="panel" id="panel-erp" data-slug="erp" aria-labelledby="title-erp">
+          <header class="panel__head">
+            <p class="eyebrow"><span class="eyebrow__num">11</span> Vertical 11 / 11</p>
+            <h3 class="display panel__title" id="title-erp">The system of record for the whole operation.</h3>
+            <p class="lede panel__lede">Finance, inventory, and production describe one business. ERP is where they have to agree.</p>
+          </header>
+
+          <div class="panel__body">
+            <div class="panel__copy">
+              <p>Mid-market operators outgrow entry-level accounting long before they can absorb an enterprise implementation. The gap is where the business runs on exports and reconciliation.</p>
+              <p>We back ERP that fits the operation it serves — the same ledger across purchasing, production, and reporting, without a two-year programme to get there.</p>
+            </div>
+            <figure class="frame frame--story"><img src="assets/img/erp.jpg" alt="An open-plan office floor" loading="lazy" decoding="async"><figcaption class="frame__cap">ERP · on the ground</figcaption></figure>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+          </div>
+
+          <div class="logos">
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Business-unit software</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
+            </div>
+            <div class="logos__group">
+              <div class="logos__head">
+                <p class="logos__title">Customers &amp; partners</p>
+                <p class="logos__count">04 slots</p>
+              </div>
+              <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
+            </div>
+          </div>
+
+          <div class="screens">
+            <div class="screens__head">
+              <p class="logos__title">Product screenshots</p>
+              <p class="logos__count">Placeholder frames</p>
+            </div>
+            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          </div>
+        </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq" data-surface="light" aria-labelledby="faq-title">
+      <div class="shell faq__grid">
+        <div class="faq__head">
+          <p class="kicker">FAQ</p>
+          <h2 class="display section__title" id="faq-title">Common questions, <em>answered.</em></h2>
+        </div>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Do you buy software companies, or add services to them?</summary><p class="faq__answer">We buy software businesses. Services do not lead. Software is the system of record, and AI and payments are added on top of it — not in place of it.</p></details><details class="faq__item"><summary>Do you change the brand or the team?</summary><p class="faq__answer">No. The companies keep their names, their teams, and their relationship with their customers. What changes is what sits behind them: shared engineering, go-to-market support, and capital.</p></details><details class="faq__item"><summary>Is AI part of this strategy?</summary><p class="faq__answer">Yes, as an addition to software that already runs the business — not as the headline. AI is most useful where the system of record is already in place.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" data-surface="dark">
+    <div class="shell">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" aria-label="Fullsteam home"><img src="assets/fullsteam-logo.svg" alt="" width="222" height="60" loading="lazy" decoding="async"></a>
+          <p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
+            and AI that grow them.</p>
+        </div>
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="#top">Vertical Software</a></li>
+            <li>
+              <a href="../../../02_Wireframes/active/pages/our-advantage.html">Our Advantage</a>
+              <ul class="footer__sub">
+                <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#payments">Payments</a></li>
+                <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#lending">Lending</a></li>
+                <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#insurance">Insurance</a></li>
+                <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#ai">AI at Fullsteam</a></li>
+              </ul>
+            </li>
+            <li><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Company</h3>
+          <ul>
+            <li><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/our-story.html#leadership">Leadership</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></li>
+            <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener">Open roles &nearr;</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/contact.html#partner">Partner inquiries</a></li>
+            <li><a href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">LinkedIn &nearr;</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="../../../02_Wireframes/active/pages/privacy.html">Privacy</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/terms.html">Terms</a></li>
+            <li><span class="footer__muted">Complaints</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; Fullsteam 2026</p>
+        <a class="footer__social" href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+(function () {
+  "use strict";
+
+  /* ---------- official homepage chrome ---------- */
+  var bar = document.getElementById("bar");
+  var progress = document.getElementById("progress");
+  var surfaces = Array.prototype.slice.call(document.querySelectorAll("[data-surface]"));
+  var ticking = false;
+
+  function surfaceAtHeader() {
+    var probe = 40;
+    for (var i = 0; i < surfaces.length; i++) {
+      var r = surfaces[i].getBoundingClientRect();
+      if (r.top <= probe && r.bottom > probe) return surfaces[i];
+    }
+    return null;
+  }
+
+  function onScrollFrame() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    if (progress) progress.style.setProperty("--p", p.toFixed(4));
+
+    if (bar) {
+      var s = surfaceAtHeader();
+      var dark = !s || s.getAttribute("data-surface") === "dark";
+      var inOpening = !!(s && s.id === "top");
+      bar.classList.toggle("is-solid", !dark);
+      bar.classList.toggle("is-on-dark", dark && !inOpening);
+    }
+    ticking = false;
+  }
+
+  function requestScroll() {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(onScrollFrame);
+    }
+  }
+
+  window.addEventListener("scroll", requestScroll, { passive: true });
+  window.addEventListener("resize", requestScroll);
+  requestScroll();
+
+  var menu = document.getElementById("siteMenu");
+  var menuBtn = document.getElementById("menuBtn");
+  var menuPanel = document.getElementById("menuPanel");
+  var lastFocus = null;
+
+  function openMenu() {
+    if (!menu) return;
+    lastFocus = document.activeElement;
+    menu.hidden = false;
+    menuBtn.setAttribute("aria-expanded", "true");
+    menuBtn.setAttribute("aria-label", "Close menu");
+    document.body.classList.add("menu-open");
+    var first = menuPanel.querySelector("a");
+    if (first) first.focus();
+  }
+
+  function closeMenu() {
+    if (!menu || menu.hidden) return;
+    menu.hidden = true;
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Menu");
+    document.body.classList.remove("menu-open");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", function () {
+      if (menu.hidden) openMenu();
+      else closeMenu();
+    });
+    menu.addEventListener("click", function (e) {
+      if (e.target === menu) closeMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (menu.hidden) return;
+      if (e.key === "Escape") { closeMenu(); return; }
+      if (e.key !== "Tab") return;
+      var f = Array.prototype.slice.call(menuPanel.querySelectorAll("a, button")).filter(function (el) {
+        return el.offsetParent !== null;
+      });
+      if (!f.length) return;
+      var first = f[0];
+      var last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
+
+  /* ---------- verticals engine ---------- */
+  var items = Array.prototype.slice.call(document.querySelectorAll(".rail__item"));
+  var panels = Array.prototype.slice.call(document.querySelectorAll(".panel"));
+
+  if (!items.length || !panels.length) return;
+
+  var bySlug = {};
+  panels.forEach(function (panel) {
+    bySlug[panel.getAttribute("data-slug")] = panel;
+  });
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function resolveHash() {
+    var raw = window.location.hash.replace("#", "");
+    if (!raw) return null;
+    var slug = raw.indexOf("panel-") === 0 ? raw.slice(6) : raw;
+    return bySlug[slug] ? slug : null;
+  }
+
+  function setActive(slug, options) {
+    options = options || {};
+    panels.forEach(function (panel) {
+      var active = panel.getAttribute("data-slug") === slug;
+      panel.hidden = !active;
+      panel.classList.toggle("is-active", active);
+    });
+
+    items.forEach(function (item) {
+      var active = item.getAttribute("data-slug") === slug;
+      if (active) {
+        item.setAttribute("aria-current", "true");
+      } else {
+        item.removeAttribute("aria-current");
+      }
+      if (active && options.scrollRail) {
+        item.scrollIntoView({
+          block: "nearest",
+          inline: "center",
+          behavior: reduceMotion ? "auto" : "smooth"
+        });
+      }
+    });
+
+    if (options.scrollPanel) {
+      var panel = bySlug[slug];
+      if (panel) {
+        var top = panel.getBoundingClientRect().top + window.pageYOffset - 84;
+        window.scrollTo({
+          top: top,
+          behavior: reduceMotion ? "auto" : "smooth"
+        });
+      }
+    }
+  }
+
+  var initial = resolveHash() || items[0].getAttribute("data-slug");
+  setActive(initial);
+
+  items.forEach(function (item) {
+    item.addEventListener("click", function (event) {
+      var slug = item.getAttribute("data-slug");
+      if (!bySlug[slug]) return;
+      event.preventDefault();
+      initial = slug;
+      setActive(slug, {
+        scrollRail: true,
+        scrollPanel: window.innerWidth <= 1080
+      });
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, "", "#" + slug);
+      } else {
+        window.location.hash = slug;
+      }
+    });
+  });
+
+  window.addEventListener("popstate", function () {
+    var slug = resolveHash() || items[0].getAttribute("data-slug");
+    setActive(slug);
+  });
+
+  window.addEventListener("hashchange", function () {
+    var slug = resolveHash();
+    if (slug) setActive(slug);
+  });
+})();
+
+  </script>
+</body>
+</html>

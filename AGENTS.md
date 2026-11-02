@@ -155,9 +155,9 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Figma `FS-Design` is now the source of truth for design TOKENS** (palette variables,
   text styles, the Button component). The repo remains the source of truth for
   **decisions**. Canonical record: **KB §27** — read it before touching anything visual.
-  - **`Design System` page = OFFICIAL, client-safe.** Holds `Fullsteam Brand` (20 colour
-    variables, KB §15 values + computed tints) and 5 text styles (Instrument Sans +
-    Fragment Mono, **promoted 2026-10-17**).
+ - **`Design System` page = OFFICIAL, client-safe.** Holds `Fullsteam Brand` (**27** colour
+   variables — KB §15 + ledger `color/ui/*`, **2026-11-02**) and **8** text styles (Instrument
+   Sans + Fragment Mono + Instrument Serif payoff, reconciled **2026-11-02** to this homepage).
   - **`Explorations (internal)` page = QUARANTINED, never client-facing.** Holds the
     off-brand exploration palette. **Never point a client `FS-Design` link at it.**
   - **⚠ Three Button specs exist.** Figma has the exploration-02 pill (`radius 999px`);

@@ -105,12 +105,10 @@ accent color active at a time.
 
 > **Promoted 2026-10-17** at the CD's direction, from `03_Design/explorations/02-video-hero`
 > (`index.html` 296 / 310-332 / 432). Instrument Sans + Fragment Mono are now **official** and
-> exist as 5 text styles in `FS-Design` → `Design System` (KB §27.2). **Client sign-off on the
-> faces themselves has still not happened** — what changed is that they are no longer blocked
-> internally. §9 item 2 remains open on that basis.
->
-> ⚠ **One gap:** the explorations also set the gold payoff word in **Instrument Serif italic**,
-> which this section does **not** sanction. It was deliberately not promoted — see §9 item 10.
+> exist as **8 text styles** in `FS-Design` → `Design System` (KB §27.2, reconciled
+> 2026-11-02 to the official ledger homepage). **Instrument Serif italic** is client-approved
+> (KB §27.4) and promoted as `Display/Serif-Payoff`. **Client sign-off on Instrument Sans /
+> Fragment Mono faces themselves has still not happened** — §9 item 2 remains open on that basis.
 >
 > The wireframes still run Helvetica + a system mono for **legibility only** (AGENTS.md); the
 > 2026-10-15 exception (§7.4) applied the design type to the Verticals band only.

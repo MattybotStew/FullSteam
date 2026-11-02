@@ -2251,20 +2251,33 @@ the still-open client-doc exposure at `33c60f5`.
 > description records this. Mathematically sound placeholders with an audit trail — verify
 > against `~/Downloads/Fullsteam Color Palette Cheat sheet.pdf` before treating them as final.
 
-**5 text styles — promoted 2026-10-17** (source: `03_Design/explorations/02-video-hero`,
-`index.html` 296 / 310-332 / 432):
+**Text styles — reconciled 2026-11-02** to the official ledger homepage
+(`client-review/homepage/index.html` `:root` + `.display` ladder). Source of truth for sizes is
+the **1440px desktop reference** inside the clamp() values in code; Figma holds the fixed
+desktop targets.
 
-| Style | Face | Size | Line height | Tracking |
-|---|---|---|---|---|
-| `Display/Hero` | Instrument Sans Bold | 120 | 114 | −5.4px |
-| `Display/Accent` | Instrument Sans Bold | 46 | 49 | −1.38px |
-| `Body/Default` | Instrument Sans Regular | 16 | 24 | 0 |
-| `Mono/Kicker` | Fragment Mono Regular | 11 | 16 | +1.54px |
-| `Mono/Caption` | Fragment Mono Regular | 11 | 16 | 0 |
+| Style | Face | Size | Line height | Tracking | Role |
+|---|---|---|---|---|---|
+| `Display/Hero` | Instrument Sans **Medium** | 118 | 109 | −4.13px | Opening H1 max (Axis A payoff line) |
+| `Display/Section` | Instrument Sans **Medium** | 76 | 73 | −2.66px | Band H2 (`.display--l`) — *was `Display/Accent`* |
+| `Display/Serif-Payoff` | Instrument Serif **Italic** | 76 | 73 | 0 | One gold serif word per headline (`em`) |
+| `Display/Stat` | Instrument Sans **Bold** | 52 | 52 | −2.08px | Vertical gallery figures (`.vp__meta`) |
+| `Body/Lede` | Instrument Sans Regular | 20 | 31 | 0 | `.lede` mid-scale |
+| `Body/Default` | Instrument Sans Regular | **17** | **26** | 0 | Body copy |
+| `Mono/Kicker` | Fragment Mono Regular | **12** | 16 | +1.2px | Role labels (`.voice__role`) — *was 11px* |
+| `Mono/Caption` | Fragment Mono Regular | 12 | 16 | 0 | Metadata (dates, captions) |
 
-> **Figma text styles are FILE-level, not page-level.** They appear in the Styles panel and
-> belong to no page. A `Type` section on `Design System` shows specimens bound to the real style
-> IDs so they can be reviewed where you'd look for them.
+> **Figma text styles are FILE-level, not page-level.** The `Type` section on `Design System`
+> shows specimens bound to the real style IDs. **Chapter index eyebrows** (`01 THE MODEL`, gold
+> rule + mono label) were **retired on the homepage 2026-11-02** — do not reintroduce in new
+> hi-fi surfaces; sections lead with display headlines only.
+
+**Collection `Fullsteam Brand`** — mode `Base`, **27 `COLOR` variables** after 2026-11-02:
+
+- Original **20** KB §15 brand + tint variables (unchanged).
+- **+7 UI surfaces** (ledger homepage, 2026-11-02): `color/ui/paper` `#FFFFFF` ·
+  `color/ui/surface` `#F3F6F7` · `color/ui/ink` `#0C1B21` · `color/ui/muted` `#586A72` ·
+  `color/ui/line` `#DCE3E6` · `color/ui/brand-ink` `#04141B` · `color/ui/brand-deep` `#003F55`.
 
 **Component set `Button`** — 12 variants: `Variant` (Gold · Ghost · Blue) × `Size` (Default ·
 Small) × `State` (Default · Hover). All Auto Layout, all fills bound to `Fullsteam Brand`.
