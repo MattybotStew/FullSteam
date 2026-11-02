@@ -57,18 +57,18 @@ jobs:
           # client-review — the OFFICIAL homepage linked from the review portal
           # (sizzle-video opening → copy-swap Axis B, Acquire/Grow/Lead process
           # band, verticals accordion, AI, founders, way-finder).
-          # HTML + its two logo SVGs; every photograph is hotlinked from
-          # Unsplash, so there is no media to stage. The hero clip is NOT staged:
-          # the current file is an Adobe Stock PREVIEW with the watermark baked
-          # in, so the published page falls back to the brand field. Its
-          # design-notes.md and linkedin-slots.md stay out of _site on purpose.
-          mkdir -p _site/03_Design/client-review/homepage/assets
+          # HTML + logos + hero fallback + local section photography (2026-11-02
+          # ledger build). design-notes.md and linkedin-slots.md stay out of
+          # _site on purpose. hero-sizzle.mp4 is gitignored and not staged.
+          mkdir -p _site/03_Design/client-review/homepage/assets/img
           cp 03_Design/client-review/homepage/index.html \
              _site/03_Design/client-review/homepage/
           cp 03_Design/client-review/homepage/assets/fullsteam-logo.svg \
              03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg \
              03_Design/client-review/homepage/assets/hero-fallback.mp4 \
              _site/03_Design/client-review/homepage/assets/
+          cp 03_Design/client-review/homepage/assets/img/* \
+             _site/03_Design/client-review/homepage/assets/img/
           # The frozen A/B arm, linked from the portal. It references ../assets
           # (the logos above) and the wireframe pages, both staged, so it opens
           # standalone from this path.

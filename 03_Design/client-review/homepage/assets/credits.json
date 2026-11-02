@@ -1,0 +1,75 @@
+{
+  "note": "Review-build placeholders. These stand in for Fullsteam's own photography and the unreleased hero sizzle master. Replace with licensed, client-supplied photography before launch.",
+  "licenseDefault": "Unsplash License",
+  "licenseUrl": "https://unsplash.com/license",
+  "usage": "Downloaded at display size and stored locally. Not hotlinked.",
+  "images": [
+    {
+      "file": "assets/img/hero.jpg",
+      "slot": "Opening (Axis A) background",
+      "subject": "A team working together at a shared table",
+      "source": "Unsplash",
+      "assetUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "assets/img/erp.jpg",
+      "slot": "Verticals — ERP",
+      "subject": "Modern open-plan office",
+      "source": "Unsplash",
+      "author": "Nastuh Abootalebi",
+      "assetUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "assets/img/wine.jpg",
+      "slot": "Verticals — Wine",
+      "subject": "Wine cellar and barrels",
+      "source": "Unsplash",
+      "assetUrl": "https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "assets/img/transport.jpg",
+      "slot": "Verticals — Transportation",
+      "subject": "Logistics warehouse",
+      "source": "Unsplash",
+      "author": "CHUTTERSNAP",
+      "assetUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "assets/img/hospitality.jpg",
+      "slot": "Verticals — Hospitality",
+      "subject": "Professional kitchen",
+      "source": "Unsplash",
+      "author": "Jason Briscoe",
+      "assetUrl": "https://images.unsplash.com/photo-1556910103-1c02745aae4d",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "assets/img/automotive.jpg",
+      "slot": "Verticals — Automotive",
+      "subject": "Car on the road",
+      "source": "Unsplash",
+      "assetUrl": "https://images.unsplash.com/photo-1502877338535-766e1452684a",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "assets/img/founders.jpg",
+      "slot": "Founders band",
+      "subject": "A founder at work",
+      "source": "Unsplash",
+      "assetUrl": "https://images.unsplash.com/photo-1556740738-b6a63e27c4df",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "assets/img/careers.jpg",
+      "slot": "Careers band",
+      "subject": "Colleagues working at a shared table",
+      "source": "Unsplash",
+      "assetUrl": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+      "license": "Unsplash License"
+    }
+  ]
+}

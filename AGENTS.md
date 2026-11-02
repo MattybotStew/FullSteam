@@ -28,20 +28,29 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Homepage UX spec / design doc:** read [`design.md`](./design.md) before working
   on the homepage. It is the UX-only spec (audiences, flow, section intent,
   constraints, open questions) and the future home of the visual design direction.
-- **Homepage opening strategy (LOCKED 2026-09-24 · Axis A amended 2026-10-01):** read **KB
+- **Homepage opening strategy (LOCKED 2026-09-24 · Axis A amended 2026-10-01 · transition
+  amended 2026-10-29):** read **KB
   §23** (and **§24**) before touching the homepage's first viewport. The client's two-axis model
   is delivered **in sequence** — **Axis A (Portfolio) → transition → Axis B (Growth engine)**.
-  The transition is the **grow morph** (interpolated clip-path traced from the Axis A visual's
-  rect + opacity ramps); it must open one state into the other, and the two headlines must never
-  be merged into one claim. Spec: `design.md` §3.1; build: `wireframes.md`; rules: KB §23.6.
+  **⚠ The transition is the COPY SWAP, not the grow morph (KB §23.10, 2026-10-29).** Axis A's
+  lines leave upward, staggered and blurred on the way out; Axis B's arrive from below on a
+  slightly later stagger; the media never cuts and never expands. **The grow morph is retired** —
+  it needed a visible source, and every source it was given (the 11-tile mosaic, the filmstrip
+  tile, a synthetic 16:9 frame) was furniture the client had already asked to remove. Every
+  "grow morph" reference below and elsewhere in this file is **history**; the two headlines must
+  still never be merged into one claim. Spec: `design.md` §3.1; build: `wireframes.md`; rules:
+  KB §23.6; the retirement: KB §23.10.
   **Amended 2026-09-24 (same day):** the opening was first locked as a **binary snap**
   (discrete cut, no interpolation); at the **client's request** the interpolated **grow morph
   was restored** (the cut read as "just snapping in place"). The **two-state model, the two
   headlines, and the Axis A→B order are unchanged**.
   **Amended 2026-10-01 (client review):** Axis A is **no longer the 11 scattered vertical tiles**
   ("do not want 11 floating vertical bubbles") — it is **one identity/scale visual**, and the 11
-  verticals live in the **filmstrip**. The grow morph's source is that visual (was the Retail tile
-  `t3`). The model, the two headlines, the A→B order, and both-states-are-content are **unchanged**.
+  verticals live in the **filmstrip**. The model, the two headlines, the A→B order, and
+  both-states-are-content are **unchanged**.
+  **Amended 2026-10-29 (client):** the grow morph and the filmstrip are both gone; the opening is
+  a **framed plate with a copy swap** (KB §28, §23.10). Axis A's copy is
+  **"We acquire / great software / companies."** Axis B is unchanged.
   The page after the opening was reordered — see KB **§24** and `wireframes.md` §2 (the canonical,
   up-to-date order).
 - **Inspiration / layout patterns:** read [`inspiration.md`](./inspiration.md) before
@@ -78,30 +87,36 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - We are in the **Sitemap/Wireframe** milestone; the **homepage** is the active
   design surface and is still being iterated.
 - **The official high-fidelity homepage is `03_Design/client-review/homepage/`**
-  (promoted 2026-10-25 — KB §28). It is **client-facing and tracked**: the review
-  portal links it and Pages publishes it. Structure: pinned **Axis A** ("Any industry,
-  we own the software.") + vertical filmstrip → **Axis B** scroll-over ("Then we build
-  what makes it grow.") → **scale chapter** (leader-table figures, 2026-10-26) → verticals
-  accordion → AI → careers → close.
-  It deliberately **drops the wireframe's "What we do" section** and uses its own
-  headline copy, so the wireframe record and this build diverge — read KB §28 before
-  changing either. Build notes: `client-review/homepage/design-notes.md`.
+  (promoted **2026-11-02** — ledger redesign; prior build frozen at
+  `client-review/homepage-2026-10-29-official/`). It is **client-facing and tracked**:
+  the review portal links it and Pages publishes it (HTML + logos + hero fallback +
+  `assets/img/` section photography). Structure: **Axis A → copy swap → Axis B** opening
+  (KB §23.10) → **How a Fullsteam company compounds** model steps → AI → verticals gallery
+  → founders → careers → close. Same narrative order as the 2026-10-29 build; new editorial
+  layout and type ladder. Build notes: `client-review/homepage/design-notes.md`.
+- **Frozen prior official — `03_Design/client-review/homepage-2026-10-29-official/`**
+  (snapshot of `homepage/` at promotion). Dark scale chapter, `vpanel` verticals, pre-ledger
+  chrome. Read-only reference; not linked from the review portal or staged by `pages.yml`.
 - **Homepage explorations (internal, unpromoted, gitignored unless tracked).**
   `03_Design/explorations/homev2/` is the blue/video direction the official homepage
   came from. `homev3/` is the **"calm canvas"** pass (Asana-style system, no serif, no
-  video) and **restores the grow morph** from KB §23. Both are sandboxes, not
+  video) built on the historical grow morph. Both are sandboxes, not
   decisions — see `03_Design/explorations/README.md` for the promotion path.
 - **Header chrome (provisional):** Option **B revised** — Logo · hamburger Menu · Explore
   vertical solutions. The open menu is a **single column** (2026-10-22), not a mega-menu.
   **For Founders is not in the header strip** as of 2026-09-23; Acquisitions (that page)
   lives in the menu, footer, and the closing CTA. Compare options in
   `02_Wireframes/active/header-wireframe.html` (B revised is the current drawing).
-- **Homepage opening = Axis A → grow morph → Axis B (locked 2026-09-24 · Axis A amended
-  2026-10-01).** The first viewport is a **two-state pinned sequence**, not one hero: the
-  identity/scale visual (**Axis A** — what Fullsteam owns) **grows into** the hero (**Axis B** —
-  the growth model) as that visual expands to fill the frame. The transition is the grow morph,
-  not a cut. **Axis A is one visual, not the 11 tiles** (client 2026-10-01); the 11 verticals
-  are in the filmstrip. Canonical record: KB **§23** (guardrails §23.6) + **§24** (the review).
+  **⚠ Two CTA wordings are live.** The site-wide locked label is "Explore our vertical
+  solutions"; the homepage builds (official + 2026-11-02) ship **"Explore our verticals"**
+  per the 2026-10-29 client note (KB §28.3). Global ratification is still open.
+- **Homepage opening = Axis A → copy swap → Axis B (locked 2026-09-24 · Axis A amended
+  2026-10-01 · transition amended 2026-10-29).** The first viewport is a **two-state pinned
+  sequence**, not one hero: Axis A (what Fullsteam owns) hands off to Axis B (the growth model)
+  **over one continuous media plate**. The transition is the **copy swap** — A's lines leave
+  upward, B's arrive from below, the media never cuts or expands (KB §23.10). **Axis A is one
+  visual, not the 11 tiles** (client 2026-10-01). Canonical record: KB **§23** (guardrails
+  §23.6) + **§24** (the review) + **§23.10** (the copy swap).
 - **Homepage reordered from client review (2026-10-01).** Order is now Opening → **What we do**
   (Acquire/Grow/Lead + founder CTA + impressive stats) → **Verticals** filmstrip → **AI** →
   **Great place to work** → Close. The old persona door, two-up "who we are," **Software** scene,
@@ -170,10 +185,9 @@ This file is the canonical agent entry point (works with Cursor, which reads
   (p% colour + (100−p)% white), not transcribed from the cheat-sheet PDF —
   verify before treating them as final.
 - **Typography promoted 2026-10-17** (Instrument Sans display/body + Fragment
-  Mono). The `[proposal]` flag is retired; **client sign-off on the faces is
-  still open.** A third voice, **Instrument Serif**, appears in the
-  explorations but is **not** sanctioned — do not introduce it without a
-  decision (KB §27.4).
+  Mono). **Instrument Serif italic** is a **client-approved third voice**
+  (2026-11-02) on the official homepage — payoff words, quotes, and emphasis
+  (`em`); see KB §27.4. Do not use it for full headings or body paragraphs.
 - Two core stories: (1) acquire & grow vertical software, (2) expand via
   **Our Advantage** (payments, lending, insurance, hardware, integrations).
 - **The two stories are two axes, and the homepage names them:** (1) = **Axis A
@@ -256,19 +270,20 @@ the split; do not conflate or cross-write them.
 
 ## Homepage opening — Axis A / Axis B (all agents)
 
-**Locked 2026-09-24 · Axis A amended 2026-10-01.** The canonical record is KB
-[`§23`](./PROJECT_KNOWLEDGE_BASE.md) + [`§24`](./PROJECT_KNOWLEDGE_BASE.md); the UX
+**Locked 2026-09-24 · Axis A amended 2026-10-01 · transition amended 2026-10-29.** The
+canonical record is KB [`§23`](./PROJECT_KNOWLEDGE_BASE.md) + [`§24`](./PROJECT_KNOWLEDGE_BASE.md)
++ [`§23.10`](./PROJECT_KNOWLEDGE_BASE.md); the UX
 spec is `design.md` §3.1 + §4.1; the build and its fixed defects are in `wireframes.md`. Six
 rules that survive any restyle or refactor:
 
-1. **Two states, two jobs.** **Axis A (Portfolio)** = identity/ownership — the mosaic H1 +
-   **one identity/scale visual** (not the 11 tiles, as of 2026-10-01), read first. **Axis B
-   (Growth engine)** = the growth model — the hero H2, revealed by the grow. Never one merged claim.
-2. **The transition is the grow morph.** The **Axis A visual** grows into the hero — an interpolated
-   `clip-path` + opacity ramp, **restored 2026-09-24 at the client's request** after the interim
-   binary snap read as "just snapping in place." Keep the per-frame writes **free of CSS
-   transitions** so the morph cannot smear. Replacing it with a hard cut is a **strategy
-   change**, not a polish pass. (The grow source was the Retail tile `t3` until 2026-10-01.)
+1. **Two states, two jobs.** **Axis A (Portfolio)** = identity/ownership — the H1 plus one
+   continuous media plate, read first. **Axis B
+   (Growth engine)** = the growth model — the hero H2, revealed by the swap. Never one merged claim.
+2. **The transition is the copy swap.** Axis A's lines leave upward (staggered, blurred on the
+   way out); Axis B's arrive from below on a slightly later stagger. The media never cuts and
+   never expands — **the grow morph is retired (KB §23.10, 2026-10-29)**. Keep the per-frame
+   writes **free of CSS transitions** so the handoff cannot smear. Restoring an expanding
+   source frame is a **strategy change**, not a polish pass.
 3. **The deck line is retired from the hero.** "The operating system for vertical markets"
    (KB §19.1) is not the hero message — G-8 resolved 2026-09-24.
 4. **"The growth engine" names Axis B** and is an axis label, never a headline.

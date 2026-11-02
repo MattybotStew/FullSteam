@@ -2288,17 +2288,20 @@ them is a client decision — see `homepage-art-direction.md` §9 item 9.
 Contrast on the official values, measured: black-on-gold **13.33:1**, gold-on-black **13.33:1**,
 white-on-Bio-Blue **7.82:1** (was 11.40:1 on `#003F55`). All clear WCAG AA; the button pairs are AAA.
 
-### 27.4 ⚠ Instrument Serif — a third voice, unsanctioned
+### 27.4 Instrument Serif — third voice (client-approved 2026-11-02)
 
-`03_Design/style-guide/homepage-art-direction.md` §3.1 defines **two** voices: Instrument Sans
-(display/body) + Fragment Mono. Explorations `02-video-hero` and `homev2` additionally set the
-gold payoff word in **Instrument Serif italic** (`index.html:315-319`), which carries the whole
-two-headline handoff.
+The official homepage (`03_Design/client-review/homepage/index.html`) uses **three** voices:
+**Instrument Sans** (display/body), **Fragment Mono** (labels, indices), and **Instrument Serif
+italic** (single-word or short emphasis in headlines, pull quotes, testimonial lines — not full
+paragraphs or standalone headings).
 
-**It was deliberately NOT promoted.** The official type system is Sans-only and therefore
-**cannot reproduce exploration 02's hero as built**. Either promote the serif as a sanctioned
-third voice, or the hero needs re-cutting in sans. This is a client-facing visual decision, not
-a technicality — logged in `homepage-art-direction.md` §9 item 10.
+**Usage rule (CSS):** `--font-serif`; italic; weight 400; letter-spacing 0. Encoded alongside
+`--font-sans` / `--font-mono` in the review build (2026-11-02 token pass). Wireframes remain
+Sans-only until deliberately restyled.
+
+**History:** Explorations promoted the serif in the hero payoff before client sign-off; approval
+closed the open item in `homepage-art-direction.md` §9 item 10. Interior pages and Figma text
+styles may still be Sans-only — reconcile when those surfaces are hi-fied.
 
 ### 27.5 Three competing Button specs — two now resolved
 
@@ -2343,6 +2346,10 @@ Figma cannot express the CSS `background-size: 0% → 100%` wipe, so hover is re
 ## 28. Official high-fidelity homepage — `03_Design/client-review/homepage/` (2026-10-25)
 
 > **Status:** OFFICIAL · client-facing. The review portal links it and GitHub Pages publishes it.
+> **Promoted 2026-11-02:** the working copy is the **ledger redesign** (local section photography,
+> editorial band rhythm). The pre-promotion build is frozen at
+> `client-review/homepage-2026-10-29-official/` (not published). Build notes:
+> `client-review/homepage/design-notes.md`.
 > This supersedes the earlier record that `03_Design/explorations/homev2/` was the "official
 > working design": the official page is no longer an exploration.
 
@@ -2491,8 +2498,8 @@ accordion → AI band → **founders band** (`#for-founders`, from Figma
 hotlinked under the Unsplash License) → careers band + LinkedIn strip (**five real company-page
 posts**, added 2026-10-26) → close → footer.
 
-Built on KB §15 tokens, Instrument Sans + Fragment Mono, with Instrument Serif italic on the
-payoff words (still unsanctioned — §27.4).
+Built on KB §15 tokens, Instrument Sans + Fragment Mono + Instrument Serif italic (§27.4,
+client-approved 2026-11-02) on payoff words and emphasis.
 
 **Light register + transparent chrome (2026-10-28, amended).** The Axis A opening is no longer a
 dark band: it is a **paper ground** (ivory derived from `--gold 6% in #fff`) with a brand

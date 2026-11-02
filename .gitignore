@@ -68,6 +68,12 @@ _site/
 !03_Design/client-review/homepage/assets/fullsteam-logo.svg
 !03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg
 !03_Design/client-review/homepage/assets/hero-fallback.mp4
+!03_Design/client-review/homepage/assets/credits.json
+!03_Design/client-review/homepage/assets/img/
+!03_Design/client-review/homepage/assets/img/**
+
+# Frozen homepage snapshots — never commit the unlicensed sizzle preview
+03_Design/client-review/homepage-2026-10-29-official/assets/hero-sizzle.mp4
 
 # Review screenshots for an unpromoted exploration. homev2-check/ is tracked
 # because homev2/ is tracked; homev3-check/ is not, because homev3/ is not.
