@@ -340,6 +340,30 @@ two states of the pinned opening:
   needs at the bottom of the reading path. Careers should read as growth & culture-forward (see KB
   "Building on Great Starts Here").
 
+### 4.10 Interior page heroes (hi-fi subpages)
+
+The homepage opening (Axis A → copy swap → Axis B) is **unique** and must not be reused on interior
+pages. Subpages share ledger chrome, type scale (`--t-hero` / `display--xxl`), and locked palette —
+but each L1 destination uses a **hero archetype** so adjacent nav pages are scannable without reading
+body copy. Change **at least two** of {surface, accent, layout, media/module} between paired pages
+(e.g. Vertical Software ↔ Our Advantage).
+
+| Archetype | Pages (hi-fi) | Narrative job | Surface | Accent | Layout / module | Media |
+|-----------|---------------|---------------|---------|--------|-----------------|-------|
+| **MediaDark** | Vertical Software | Portfolio — what we own | Dark ink plate | Gold serif payoff | Split title + lede; **media band** below (customer + product stills) | Required — see `content-slots.md` §5 |
+| **EngineLight** | Our Advantage | Growth engine — how we grow | Paper / light band | Green (`--green-ink` payoff) | Stacked H1 + lede; hands off to white sidebar engine | None (no VS-style photo grid) |
+| **NarrativeLight** | Our Story, Acquisitions (when promoted) | Trust / founder path | Paper | Gold CTAs | One in-hero module (AGL strip or jump links + video slot) | Bleed portraits or featured video |
+| **CompactLight** | Careers, Contact, legal (when promoted) | Utility / conversion | Paper | Gold buttons | Short H1 + lede | Optional single banner (Careers) |
+
+**Axis mapping:** Portfolio axis → **MediaDark** (Vertical Software). Embedded expansion axis →
+**EngineLight** (Our Advantage). Wireframe intent for VS hero imagery and OA light `page-hero` live in
+`02_Wireframes/active/pages/`; final copy in `content-slots.md`. Execution notes:
+`03_Design/client-review/homepage/design-notes.md`.
+
+**Guardrails:** No homepage pin/morph; no exploration palette; no staff-reduction AI framing in heroes.
+Do not clone one subpage hero markup onto another — use modifier classes (`hero--media-dark`,
+`hero--light`, etc.) on a shared base.
+
 ---
 
 ## 5. Key UX Behaviors & Interactions (for the wireframe)

@@ -263,7 +263,7 @@ On-page name is **Our Advantage** (client rename 2026-10-22, propagated repo-wid
 
 ---
 
-## 7. Our Story — `pages/our-story.html`
+## 7. Our Story — `pages/our-story.html` · hi-fi `03_Design/client-review/homepage/our-story.html` (2026-11-03)
 
 | Slot | Role | Status | Note |
 |---|---|---|---|

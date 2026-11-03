@@ -1,0 +1,1532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add("has-js");</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our Story — Fullsteam</title>
+  <meta name="description" content="Acquire, Grow, and Lead — how Fullsteam builds a permanent home for vertical software and the people who run it.">
+  <meta name="theme-color" content="#04141b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+
+/* ------------------------------------------------------------------
+   Fullsteam — Our Story
+   NarrativeLight hi-fi · design.md §4.10 · Figma 11489:10772.
+------------------------------------------------------------------- */
+:root {
+  --brand: #00587C;
+  --brand-deep: #003F55;
+  --brand-ink: #04141B;
+  --gold: #FFC600;
+  --green: #84BD00;
+  --green-ink: #4F750E;
+
+  --paper: #FFFFFF;
+  --surface: #F3F6F7;
+  --ink: #0C1B21;
+  --muted: #586A72;
+  --line: #DCE3E6;
+  --line-strong: #C6D1D5;
+
+  --sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --mono: "Fragment Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --wrap: 1280px;
+  --gutter: clamp(20px, 4.4vw, 64px);
+  --bar: 76px;
+  --sect: clamp(84px, 10vw, 148px);
+
+  --t-hero: clamp(38px, min(10.4vw, 12vh), 118px);
+  --t-h2: clamp(38px, 5.2vw, 76px);
+  --t-h3: clamp(23px, 2.5vw, 32px);
+  --t-stat: clamp(54px, 6.2vw, 96px);
+  --t-lede: clamp(18px, 1.5vw, 22px);
+  --t-body: 17px;
+  --t-small: 15px;
+  --label: 12px;
+
+  --e: cubic-bezier(.22, .75, .24, 1);
+  --e-quick: cubic-bezier(0, 0, .2, 1);
+  --dark-hair: rgba(255, 255, 255, .16);
+  --focus: var(--brand);
+
+  --dur: 240ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+}
+
+[id] { scroll-margin-top: 96px; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+p { margin: 0; }
+figure, blockquote { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-weight: 500; }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+button { font: inherit; color: inherit; }
+
+::selection { background: var(--gold); color: var(--ink); }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: fixed; left: 16px; top: -80px; z-index: 200;
+  padding: 14px 20px; border-radius: 999px;
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 14px;
+  transition: top .2s var(--e);
+}
+.skip-link:focus { top: 14px; }
+
+.wrap {
+  width: min(var(--wrap), 100% - (2 * var(--gutter)));
+  margin-inline: auto;
+}
+
+/* ---------- type primitives ---------- */
+
+.display {
+  font-weight: 500;
+  line-height: .96;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.display em, .serif-em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.015em;
+}
+
+#faq-title em { color: var(--gold); letter-spacing: 0; }
+
+#faq-title em { display: block; }
+
+.display--xxl { font-size: var(--t-hero); line-height: .92; }
+.display--l { font-size: var(--t-h2); }
+.display--m { font-size: var(--t-h3); line-height: 1.1; letter-spacing: -.02em; }
+
+.lede {
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 54ch;
+  text-wrap: pretty;
+}
+
+.hero--media-dark .lede { color: rgba(255, 255, 255, .72); }
+
+.meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .66);
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 44px; padding: 0 28px;
+  border: 0; border-radius: 999px;
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 14px; letter-spacing: -.01em;
+  white-space: nowrap; cursor: pointer;
+  transition: background-color 160ms var(--e-quick), transform 160ms var(--e-quick);
+}
+.btn:hover { background: color-mix(in srgb, var(--gold) 90%, #000); }
+.btn:active { transform: translateY(1px); }
+.btn--sm { padding: 0 18px; font-size: 13px; }
+.btn svg { width: 12px; height: 12px; flex: none; }
+
+.btn--ghost {
+  background: transparent; color: #fff;
+  border: 1px solid rgba(255, 255, 255, .34);
+}
+.btn--ghost:hover { background: rgba(255, 255, 255, .1); }
+
+/* ---------- header · official homepage chrome ---------- */
+
+.bar {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  height: var(--bar);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+  padding: 0 var(--gutter);
+  color: #fff;
+  --focus: #fff;
+  border-bottom: 1px solid transparent;
+  transition: background-color .3s var(--e), color .3s var(--e), border-color .3s var(--e);
+}
+.bar.is-solid {
+  background: color-mix(in srgb, #fff 94%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--ink);
+  border-bottom-color: var(--line);
+  --focus: var(--brand);
+}
+.bar.is-on-dark {
+  background: color-mix(in srgb, var(--brand-ink) 86%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--dark-hair);
+}
+.bar__logo {
+  position: relative; display: block;
+  width: 148px; height: 40px;
+  flex: 0 0 auto;
+  z-index: 2;
+}
+.bar__logo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: left center;
+  transition: opacity .25s var(--e);
+}
+.logo--w { opacity: 1; }
+.logo--ink { opacity: 0; }
+.bar.is-solid .logo--w { opacity: 0; }
+.bar.is-solid .logo--ink { opacity: 1; }
+.bar__actions { display: flex; align-items: center; gap: 10px; }
+.menu-btn {
+  display: grid; place-content: center; gap: 5px;
+  width: 46px; height: 46px;
+  border: 0; border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+.menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: currentColor; border-radius: 2px;
+  transition: transform .22s var(--e), opacity .18s var(--e);
+}
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.bar__cta-short { display: none; }
+@media (max-width: 620px) {
+  .bar__cta-long { display: none; }
+  .bar__cta-short { display: inline; }
+}
+
+.menu {
+  position: fixed; inset: 0; z-index: 88;
+  display: flex; justify-content: flex-end; align-items: flex-start;
+  padding: calc(var(--bar) + 10px) var(--gutter) 24px;
+  background: rgba(4, 20, 27, .46);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.menu[hidden] { display: none; }
+.menu__panel {
+  width: min(390px, 100%);
+  background: #fff; color: var(--ink);
+  --focus: var(--brand);
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 1px 0 rgba(0, 20, 28, .05), 0 24px 70px rgba(0, 20, 28, .32);
+  animation: menu-in 190ms var(--e-quick) both;
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+.menu__panel a {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 18px; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none;
+  transition: background-color 140ms var(--e-quick), color 140ms var(--e-quick);
+}
+.menu__panel a::after {
+  content: "\2192";
+  color: var(--brand);
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: opacity .16s var(--e-quick), transform .16s var(--e-quick);
+}
+.menu__panel a:hover::after { opacity: 1; transform: none; }
+.menu__panel a:hover { background: var(--surface); color: var(--brand); }
+.menu__foot {
+  margin: 8px 6px 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  z-index: 100;
+  background: var(--gold);
+  transform: scaleX(var(--p, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+body.menu-open .progress { opacity: 0; }
+body.menu-open,
+body.story-lightbox-open { overflow: hidden; }
+
+/* ---------- hero (base + archetypes — design.md §4.10) ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(var(--bar) + clamp(36px, 4.5vw, 64px));
+  padding-bottom: clamp(40px, 5vw, 64px);
+}
+
+.hero__inner { position: relative; z-index: 1; }
+
+.hero__title { max-width: 20ch; letter-spacing: -0.02em; }
+.hero__title em { font-family: var(--serif); font-style: italic; letter-spacing: 0; }
+
+/* Interior hero — NarrativeLight (Our Story) */
+.hero--light {
+  background: var(--paper);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero--light .hero__title em { color: var(--green-ink); }
+
+.hero--light .lede {
+  color: var(--muted);
+  max-width: 62ch;
+  margin-top: clamp(16px, 2.2vw, 26px);
+}
+
+.hero--narrative-full {
+  padding: 0;
+  border-bottom: 0;
+  background: var(--brand-ink);
+  color: #fff;
+  --focus: #fff;
+}
+
+.hero__stage {
+  position: relative;
+  isolation: isolate;
+  min-height: min(92svh, 960px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: calc(var(--bar) + clamp(28px, 4vw, 48px)) 0 clamp(52px, 7vw, 88px);
+}
+.hero__stage > .wrap {
+  width: min(var(--wrap), 100% - (2 * var(--gutter)));
+  margin-inline: auto;
+}
+
+.hero--narrative-full .hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero--narrative-full .hero__media-fallback {
+  position: absolute;
+  inset: -6%;
+  background:
+    radial-gradient(90% 70% at 8% -6%, #00719b 0%, rgba(0,113,155,0) 58%),
+    radial-gradient(70% 60% at 96% 12%, #0089bd 0%, rgba(0,137,189,0) 62%),
+    radial-gradient(80% 70% at 50% 108%, #004a68 0%, rgba(0,74,104,0) 62%),
+    linear-gradient(158deg, #004b68 0%, #002b3d 56%, #001821 100%);
+}
+
+.hero--narrative-full .hero__media-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+}
+
+.hero--narrative-full .hero__media-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(88% 62% at 50% 42%, rgba(0,15,22,.55) 0%, rgba(0,15,22,.48) 46%, rgba(0,15,22,.16) 76%, rgba(0,15,22,0) 100%),
+    linear-gradient(180deg, rgba(0,15,22,.55) 0%, rgba(0,15,22,.28) 38%, rgba(0,15,22,.52) 100%);
+}
+
+.hero__cover {
+  position: relative;
+  z-index: 1;
+}
+
+.hero--narrative-full .hero__title {
+  max-width: none;
+  color: #fff;
+  text-shadow: 0 2px 28px rgba(0, 20, 28, .45);
+}
+.hero--narrative-full .hero__title em { color: var(--gold); }
+.hero--narrative-full .lede {
+  color: rgba(255, 255, 255, .82);
+  max-width: 52ch;
+  margin-top: clamp(24px, 3.2vw, 40px);
+}
+
+.hero__company {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
+  color: var(--ink);
+  --focus: var(--brand);
+  padding: clamp(48px, 6vw, 72px) 0 clamp(40px, 5vw, 56px);
+}
+
+.hero__lower {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
+  color: var(--ink);
+  --focus: var(--brand);
+  padding: clamp(40px, 5vw, 56px) 0 clamp(56px, 7vw, 88px);
+  border-top: 1px solid var(--line);
+}
+
+.hero__actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px;
+  margin-top: clamp(28px, 3.5vw, 40px);
+}
+.btn--ghost-ink {
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn--ghost-ink:hover { background: var(--surface); }
+.hero--narrative-full .btn--ghost-ink {
+  color: #fff;
+  border-color: rgba(255, 255, 255, .55);
+}
+.hero--narrative-full .btn--ghost-ink:hover {
+  background: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .85);
+}
+
+.proof-strip {
+  margin-top: 0;
+}
+.proof-strip__label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+.proof-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--ink);
+}
+.proof-stat {
+  padding: 22px 20px 20px 0;
+  border-right: 1px solid var(--line);
+}
+.proof-stat:last-child { border-right: 0; }
+.proof-stat + .proof-stat { padding-left: 20px; }
+.proof-stat__n {
+  font-size: clamp(34px, 4vw, 56px);
+  font-weight: 500;
+  letter-spacing: -.04em;
+  line-height: .95;
+  font-variant-numeric: tabular-nums;
+}
+.proof-stat__c {
+  margin-top: 12px;
+  font-size: var(--t-small);
+  color: var(--muted);
+  max-width: 22ch;
+  line-height: 1.35;
+}
+#company-title em {
+  color: var(--gold);
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.frame--pending {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0, 88, 124, 0.35), transparent 70%),
+    var(--brand-ink);
+  color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.story-bleed .frame--pending { aspect-ratio: 3 / 4; min-height: 200px; }
+.frame--pending .pending__mark {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(255, 198, 0, 0.6);
+  border-radius: 50%;
+}
+.frame--pending .pending__title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  max-width: 14ch;
+}
+.frame--pending .pending__note {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .66);
+}
+
+.band { padding: var(--sect) 0; }
+.band--paper { background: var(--paper); }
+.band--ink {
+  background: var(--brand-ink);
+  color: #fff;
+  --focus: #fff;
+}
+.band--ink .lede { color: rgba(255, 255, 255, .72); }
+.band--ink .leader-card h3 { color: #fff; }
+.band__head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+  align-items: end;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.band__head h2 { grid-column: 1 / 8; }
+.band__head h2 em { color: var(--gold); font-family: var(--serif); font-style: italic; }
+.band--ink .band__head h2 em { color: var(--gold); }
+.band__head .lede { grid-column: 9 / 13; padding-bottom: 8px; }
+.band__head .chapters-intro {
+  grid-column: 9 / 13;
+  align-self: end;
+  padding-bottom: 8px;
+}
+.band__head .chapters-intro .lede {
+  max-width: 46ch;
+  margin-inline: 0;
+}
+.band__head--solo h2 { grid-column: 1 / -1; max-width: 20ch; }
+
+.split-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 32px;
+  align-items: start;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+.split-head__main { grid-column: 1 / 6; }
+.split-head__aside {
+  grid-column: 7 / 13;
+  font-size: var(--t-body);
+  color: var(--muted);
+  line-height: 1.6;
+}
+.split-head__aside p + p { margin-top: 1em; }
+.arrow-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 600; color: var(--brand);
+  margin-top: 18px;
+}
+.arrow-link svg { width: 14px; height: 14px; }
+
+.ai-video {
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--brand-ink);
+  border: 1px solid var(--line);
+}
+.ai-video__el {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  vertical-align: middle;
+  background: #000;
+}
+
+.chapters-layout {
+  display: grid;
+  grid-template-columns: minmax(148px, 196px) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 48px);
+  margin-top: clamp(40px, 5vw, 56px);
+  align-items: start;
+}
+
+.chapters-eras {
+  position: sticky;
+  top: calc(var(--bar) + 20px);
+  display: grid;
+  gap: clamp(28px, 3.5vw, 40px);
+}
+.era__label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.era__name {
+  font-size: clamp(26px, 2.8vw, 34px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+}
+.era__name em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+}
+.era__range {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+.era__rule {
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--ink);
+  margin-top: 18px;
+}
+.era:not(.era--current) { opacity: .38; }
+
+.chapters-main { min-width: 0; }
+
+.tl-jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  padding-bottom: clamp(24px, 3vw, 32px);
+  margin-bottom: clamp(8px, 1vw, 12px);
+  border-bottom: 1px solid var(--line);
+}
+.tl-jump__label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 4px;
+}
+.tl-jump a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.25rem;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color .14s var(--e-quick), background .14s var(--e-quick);
+}
+.tl-jump a:hover {
+  border-color: var(--ink);
+  background: var(--surface);
+}
+.tl-jump a.is-active {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.tl-v2 {
+  position: relative;
+  --tl-rail-col: 14px;
+  --tl-rail-x: calc(var(--tl-rail-col) / 2);
+  --tl-thumb: clamp(152px, 17vw, 184px);
+  --tl-gap: clamp(18px, 2.4vw, 28px);
+}
+.tl-v2::before {
+  content: "";
+  position: absolute;
+  left: var(--tl-rail-x);
+  top: 8px;
+  bottom: 0;
+  width: 2px;
+  background: var(--line);
+  transform: translateX(-50%);
+}
+.tl-v2__progress {
+  position: absolute;
+  left: var(--tl-rail-x);
+  top: 8px;
+  width: 2px;
+  height: 0;
+  max-height: calc(100% - 8px);
+  background: var(--gold);
+  pointer-events: none;
+  transform: translateX(-50%);
+  will-change: height;
+}
+
+.tl-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--tl-rail-col) var(--tl-thumb) minmax(0, 1fr);
+  gap: var(--tl-gap);
+  align-items: start;
+  padding: clamp(36px, 4.5vw, 52px) 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: calc(var(--bar) + 16px);
+}
+.tl-entry:first-child { padding-top: 8px; }
+.tl-entry:last-child { border-bottom: 0; padding-bottom: 0; }
+
+.tl-entry__thumb {
+  grid-column: 2;
+  margin: clamp(4px, 0.6vw, 8px) 0 0;
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.tl-entry__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  filter: saturate(.92) contrast(1.03);
+}
+
+.tl-entry__body { grid-column: 3; }
+
+.tl-entry__marker {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+  align-self: start;
+  position: relative;
+  top: calc(clamp(4px, 0.6vw, 8px) + (var(--tl-thumb) / 2));
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  transform: translateY(-50%);
+  z-index: 2;
+  transition:
+    background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tl-entry.is-past .tl-entry__marker {
+  background: var(--gold);
+  border-color: var(--ink);
+}
+.tl-entry.is-active .tl-entry__marker {
+  background: var(--gold);
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px var(--paper);
+  transform: translateY(-50%) scale(1.12);
+}
+
+.tl-entry__year {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 500;
+  letter-spacing: -.04em;
+  line-height: .95;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: clamp(14px, 2vw, 20px);
+}
+.tl-entry__title {
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 500;
+  letter-spacing: -.02em;
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+.tl-entry__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+}
+.tl-entry__copy {
+  color: var(--muted);
+  max-width: 62ch;
+  line-height: 1.55;
+  font-size: var(--t-body);
+}
+
+.leaders {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 3.5vw, 40px) clamp(20px, 2.5vw, 28px);
+}
+.leader-card {
+  text-align: center;
+  max-width: 22rem;
+  margin-inline: auto;
+}
+.leader-card__photo {
+  margin: 0 auto;
+  width: min(100%, clamp(120px, 14vw, 168px));
+  aspect-ratio: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .18);
+}
+.leader-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  display: block;
+  filter: saturate(.94) contrast(1.02);
+}
+.leader-card h3 {
+  margin-top: 14px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+.leader-card__title {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .55);
+  line-height: 1.45;
+  max-width: 18rem;
+  margin-inline: auto;
+}
+.band--ink .leader-card__title { color: rgba(255, 255, 255, .55); }
+.leader-card__bio {
+  margin-top: 12px;
+  font-size: var(--t-small);
+  color: rgba(255, 255, 255, .72);
+  line-height: 1.5;
+  max-width: 36ch;
+}
+.leader-card .frame--pending {
+  aspect-ratio: 4 / 5;
+  min-height: 220px;
+}
+
+.close {
+  position: relative;
+  background: var(--brand);
+  color: #fff;
+  --focus: #fff;
+  padding: clamp(76px, 9vw, 124px) 0;
+  overflow: hidden;
+}
+.close::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(80% 130% at 88% 0%, rgba(255, 255, 255, .10), transparent 58%);
+  pointer-events: none;
+}
+.close__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: end;
+}
+.close h2 { max-width: 16ch; }
+.close h2 em { color: var(--gold); }
+.close__lede {
+  margin-top: 18px;
+  font-size: var(--t-lede);
+  color: rgba(255, 255, 255, .78);
+  max-width: 48ch;
+}
+.close__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 6px;
+}
+.section-note {
+  margin-top: 24px;
+  font-size: var(--t-small);
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.footer {
+  background: #071820;
+  color: rgba(255, 255, 255, .62);
+  --focus: #fff;
+  padding: clamp(56px, 6vw, 76px) 0 28px;
+  font-size: var(--t-small);
+}
+.footer__top {
+  display: grid;
+  grid-template-columns: 2.2fr repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  padding-bottom: clamp(40px, 5vw, 60px);
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+.footer__brand img { width: 168px; height: auto; opacity: .96; }
+.footer__line { margin-top: 20px; max-width: 30ch; line-height: 1.6; color: rgba(255, 255, 255, .6); }
+.footer h3 {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .58); margin-bottom: 16px;
+}
+.footer ul { list-style: none; margin: 0; padding: 0; }
+.footer li + li { margin-top: 10px; }
+.footer ul.footer__sub {
+  margin-top: 12px; margin-left: 2px; padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, .14);
+}
+.footer__sub li + li { margin-top: 9px; }
+.footer__sub a { font-size: 14px; color: rgba(255, 255, 255, .5); }
+.footer__sub a:hover { color: #fff; }
+.footer a { text-decoration: none; color: rgba(255, 255, 255, .86); transition: color .14s var(--e-quick); }
+.footer a:hover { color: #fff; }
+.footer__bottom {
+  padding-top: 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .56);
+}
+.footer__social { display: inline-flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, .7); }
+.footer__muted { color: inherit; }
+.footer__social svg { width: 16px; height: 16px; fill: currentColor; }
+.footer__social:hover { color: #fff; }
+
+#leadership { scroll-margin-top: calc(var(--bar) + 12px); }
+
+@media (max-width: 1080px) {
+  .proof-stats { grid-template-columns: 1fr 1fr; }
+  .proof-stat:nth-child(2n) { border-right: 0; }
+  .hero__stage { min-height: min(78svh, 720px); }
+  .band__head h2,
+  .band__head .lede,
+  .band__head .chapters-intro { grid-column: 1 / -1; }
+  .split-head, .split-head__main, .split-head__aside { grid-template-columns: 1fr; grid-column: 1 / -1; }
+  .chapters-layout { grid-template-columns: 1fr; }
+  .chapters-eras {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 16px;
+  }
+  .era:not(.era--current) { opacity: 1; }
+  .era__rule { width: 32px; margin-top: 12px; }
+  .leaders { grid-template-columns: 1fr 1fr; }
+  .close__inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 860px) {
+  .footer__top { grid-template-columns: 1fr 1fr; gap: 34px 24px; }
+  .footer__brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  :root { --bar: 68px; }
+  .bar__logo { width: 126px; height: 34px; }
+  .footer__top { grid-template-columns: 1fr; }
+  .footer__bottom { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .tl-v2__progress,
+  .tl-entry__marker { transition: none !important; }
+}
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="bar" id="bar">
+    <a class="bar__logo" href="index.html" aria-label="Fullsteam home">
+      <img class="logo--w" src="assets/fullsteam-logo.svg" alt="Fullsteam" width="222" height="60" decoding="async">
+      <img class="logo--ink" src="assets/fullsteam-logo-dark.svg" alt="" aria-hidden="true" width="222" height="60" decoding="async">
+    </a>
+    <div class="bar__actions">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="siteMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <a class="btn btn--sm bar__cta" href="vertical-software.html">
+        <span class="bar__cta-long">Explore our verticals</span>
+        <span class="bar__cta-short">Explore</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+    <div class="menu__panel" id="menuPanel">
+      <a href="vertical-software.html">Vertical Software</a>
+      <a href="our-advantage.html">Our Advantage</a>
+      <a href="our-advantage.html#ai">AI at Fullsteam</a>
+      <a href="our-story.html" aria-current="page">Our Story</a>
+      <a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a>
+      <a href="../../../02_Wireframes/active/pages/careers.html">Careers</a>
+      <div class="menu__foot">
+        <span>A home for vertical software</span>
+        <span>&copy; 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="hero hero--narrative-full" id="top">
+      <div class="hero__stage" data-surface="dark">
+        <div class="hero__media" aria-hidden="true">
+          <div class="hero__media-fallback"></div>
+          <img class="hero__media-photo" src="assets/img/hero.jpg" alt="" width="1920" height="1080" decoding="async">
+          <div class="hero__media-scrim"></div>
+        </div>
+        <div class="wrap hero__cover">
+          <h1 class="display display--xxl hero__title">Many businesses, one <em>permanent</em> home.</h1>
+          <p class="lede">We acquire industry-specific software, grow it with AI, embedded payments, and operational excellence, and lead the category it serves.</p>
+          <div class="hero__actions">
+            <a class="btn" href="vertical-software.html">Explore our verticals</a>
+            <a class="btn btn--ghost-ink" href="#leadership">Leadership</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__company" id="company" data-surface="light" aria-labelledby="company-title">
+        <div class="wrap">
+          <div class="split-head">
+            <div class="split-head__main">
+              <h2 class="display display--l" id="company-title">Mission and vision, in <em>their words.</em></h2>
+            </div>
+            <div class="split-head__aside">
+              <p>The holding-company story lives here in prose until the mission and vision video is ready. Narrative first — who Fullsteam is, why vertical software, and how the portfolio compounds.</p>
+              <p>Embedded expansion — payments, lending, insurance, and AI — sits on the software each business already runs. That layer is <a class="arrow-link" href="our-advantage.html">Our Advantage<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+            </div>
+          </div>
+          <div class="ai-video">
+            <video class="ai-video__el" controls playsinline preload="metadata"
+                   poster="assets/img/hero.jpg" width="1920" height="1080"
+                   aria-label="Mission and vision video">
+              <source src="assets/hero-sizzle.mp4" type="video/mp4">
+              <source src="assets/hero-fallback.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__lower" data-surface="light">
+        <div class="wrap">
+          <div class="proof-strip">
+            <div class="proof-stats">
+              <div class="proof-stat">
+                <p class="proof-stat__n">100+</p>
+                <p class="proof-stat__c">Software businesses <span class="sr-only">placeholder figure</span></p>
+              </div>
+              <div class="proof-stat">
+                <p class="proof-stat__n">2,000+</p>
+                <p class="proof-stat__c">Colleagues <span class="sr-only">placeholder figure</span></p>
+              </div>
+              <div class="proof-stat">
+                <p class="proof-stat__n">70,000+</p>
+                <p class="proof-stat__c">Business customers <span class="sr-only">placeholder figure</span></p>
+              </div>
+              <div class="proof-stat">
+                <p class="proof-stat__n">$75B+</p>
+                <p class="proof-stat__c">Processed on Fullsteam Pay*</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--paper" id="chapters" data-surface="light" aria-labelledby="chapters-title">
+      <div class="wrap">
+        <header class="band__head">
+          <h2 class="display display--l" id="chapters-title">How we got <em>here.</em></h2>
+          <div class="chapters-intro">
+            <p class="lede">From one acquisition thesis to a network of vertical software — payments and shared services in the same story.</p>
+          </div>
+        </header>
+        <div class="chapters-layout">
+          <aside class="chapters-eras" aria-label="Timeline eras">
+            <div class="era era--current" data-era="founding">
+              <p class="era__label">Era 01</p>
+              <p class="era__name"><em>Founding</em></p>
+              <p class="era__range">2018–2019</p>
+              <span class="era__rule" aria-hidden="true"></span>
+            </div>
+            <div class="era" data-era="resilience">
+              <p class="era__label">Era 02</p>
+              <p class="era__name"><em>Resilience</em></p>
+              <p class="era__range">2020–2021</p>
+              <span class="era__rule" aria-hidden="true"></span>
+            </div>
+            <div class="era" data-era="scale">
+              <p class="era__label">Era 03</p>
+              <p class="era__name"><em>Scale</em></p>
+              <p class="era__range">2022–2023</p>
+              <span class="era__rule" aria-hidden="true"></span>
+            </div>
+            <div class="era" data-era="acceleration">
+              <p class="era__label">Era 04</p>
+              <p class="era__name"><em>Acceleration</em></p>
+              <p class="era__range">2024–2025</p>
+              <span class="era__rule" aria-hidden="true"></span>
+            </div>
+          </aside>
+
+          <div class="chapters-main">
+            <nav class="tl-jump" aria-label="Jump to year">
+              <span class="tl-jump__label">Jump to</span>
+              <a href="#y2018">2018</a>
+              <a href="#y2019">2019</a>
+              <a href="#y2020">2020</a>
+              <a href="#y2021">2021</a>
+              <a href="#y2022">2022</a>
+              <a href="#y2023">2023</a>
+              <a href="#y2024">2024</a>
+              <a href="#y2025">2025</a>
+            </nav>
+
+            <div class="tl-v2" id="timeline-v2">
+              <div class="tl-v2__progress" id="tlProgress" aria-hidden="true"></div>
+
+              <article class="tl-entry is-active" id="y2018" data-era="founding">
+                <span class="tl-entry__marker" aria-hidden="true"></span>
+                <figure class="tl-entry__thumb"><img src="assets/img/founders.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
+                <div class="tl-entry__body">
+                  <p class="tl-entry__year">2018</p>
+                  <h3 class="tl-entry__title"><em>Founded with purpose</em></h3>
+                  <p class="tl-entry__copy">Fullsteam launched to power vertical software through integrated payments and shared services — six acquisitions, offices in Auburn and New York, and a proprietary payments platform in year one.</p>
+                </div>
+              </article>
+              <article class="tl-entry" id="y2019" data-era="founding">
+                <span class="tl-entry__marker" aria-hidden="true"></span>
+                <figure class="tl-entry__thumb"><img src="assets/img/hospitality.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
+                <div class="tl-entry__body">
+                  <p class="tl-entry__year">2019</p>
+                  <h3 class="tl-entry__title"><em>Expanding capabilities</em></h3>
+                  <p class="tl-entry__copy">Payments went live with Visa PayFac registration and PCI certification; fifteen more companies joined the platform across self-storage, parking, eyecare, and more.</p>
+                </div>
+              </article>
+              <article class="tl-entry" id="y2020" data-era="resilience">
+                <span class="tl-entry__marker" aria-hidden="true"></span>
+                <figure class="tl-entry__thumb"><img src="assets/img/careers.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
+                <div class="tl-entry__body">
+                  <p class="tl-entry__year">2020</p>
+                  <h3 class="tl-entry__title"><em>Building resilience</em></h3>
+                  <p class="tl-entry__copy">Payments volume doubled while the team scaled — vertical software became essential infrastructure for customers navigating the pandemic.</p>
+                </div>
+              </article>
+              <article class="tl-entry" id="y2021" data-era="resilience">
+                <span class="tl-entry__marker" aria-hidden="true"></span>
+                <figure class="tl-entry__thumb"><img src="assets/img/wine.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
+                <div class="tl-entry__body">
+                  <p class="tl-entry__year">2021</p>
+                  <h3 class="tl-entry__title"><em>Breaking new ground</em></h3>
+                  <p class="tl-entry__copy">The first international acquisition — Commerce7 in Canada — plus meaningful gains in revenue and transaction volume.</p>
+                </div>
+              </article>
+              <article class="tl-entry" id="y2022" data-era="scale">
+                <span class="tl-entry__marker" aria-hidden="true"></span>
+                <figure class="tl-entry__thumb"><img src="assets/img/transport.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
+                <div class="tl-entry__body">
+                  <p class="tl-entry__year">2022</p>
+                  <h3 class="tl-entry__title"><em>Growth in motion</em></h3>
+                  <p class="tl-entry__copy">Fifty-plus acquisitions, more than a thousand colleagues, and a step-change in revenue and payments footprint.</p>
+                </div>
+              </article>
+              <article class="tl-entry" id="y2023" data-era="scale">
+                <span class="tl-entry__marker" aria-hidden="true"></span>
+                <figure class="tl-entry__thumb"><img src="assets/img/erp.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
+                <div class="tl-entry__body">
+                  <p class="tl-entry__year">2023</p>
+                  <h3 class="tl-entry__title"><em>Reaching new heights</em></h3>
+                  <p class="tl-entry__copy">Record monthly payment volume, landmark acquisitions including Silverware and Maestro, and a major recapitalization.</p>
+                </div>
+              </article>
+              <article class="tl-entry" id="y2024" data-era="acceleration">
+                <span class="tl-entry__marker" aria-hidden="true"></span>
+                <figure class="tl-entry__thumb"><img src="assets/img/weddings-events.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
+                <div class="tl-entry__body">
+                  <p class="tl-entry__year">2024</p>
+                  <h3 class="tl-entry__title"><em>Accelerating progress</em></h3>
+                  <p class="tl-entry__copy">Eleven acquisitions, strong ARR growth, the first insurance offering, and a unified go-to-market kickoff.</p>
+                </div>
+              </article>
+              <article class="tl-entry" id="y2025" data-era="acceleration">
+                <span class="tl-entry__marker" aria-hidden="true"></span>
+                <figure class="tl-entry__thumb"><img src="assets/img/automotive.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
+                <div class="tl-entry__body">
+                  <p class="tl-entry__year">2025</p>
+                  <h3 class="tl-entry__title"><em>Building for the future</em></h3>
+                  <p class="tl-entry__copy">AI-based tools, sales and marketing investment, and new acquisitions — a future-proof home for vertical software to compound.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--ink" id="leadership" data-surface="dark" aria-labelledby="leadership-title">
+      <div class="wrap">
+        <header class="band__head band__head--solo">
+          <h2 class="display display--l" id="leadership-title">Management <em>team</em></h2>
+        </header>
+        <div class="leaders">
+          <article class="leader-card">
+            <figure class="leader-card__photo"><img src="assets/img/leaders/lawler.jpg" alt="Michael Lawler" width="800" height="1000" loading="lazy" decoding="async"></figure>
+            <h3>Michael Lawler</h3>
+            <span class="leader-card__title">Chief Executive Officer</span>
+          </article>
+          <article class="leader-card">
+            <figure class="leader-card__photo"><img src="assets/img/leaders/colella.jpg" alt="Greg Colella" width="800" height="1000" loading="lazy" decoding="async"></figure>
+            <h3>Greg Colella</h3>
+            <span class="leader-card__title">Chief Corporate Development &amp; Strategy Officer</span>
+          </article>
+          <article class="leader-card">
+            <figure class="leader-card__photo"><img src="assets/img/leaders/freund.jpg" alt="Charles Freund" width="800" height="1000" loading="lazy" decoding="async"></figure>
+            <h3>Charles Freund</h3>
+            <span class="leader-card__title">Chief Financial Officer</span>
+          </article>
+          <article class="leader-card">
+            <figure class="leader-card__photo"><img src="assets/img/leaders/izzo.jpg" alt="Dirk Izzo" width="800" height="1000" loading="lazy" decoding="async"></figure>
+            <h3>Dirk Izzo</h3>
+            <span class="leader-card__title">Chief Operating Officer</span>
+          </article>
+          <article class="leader-card">
+            <figure class="leader-card__photo"><img src="assets/img/leaders/byrd.jpg" alt="Fred Byrd" width="800" height="1000" loading="lazy" decoding="async"></figure>
+            <h3>Fred Byrd</h3>
+            <span class="leader-card__title">Chief Technology Officer</span>
+          </article>
+          <article class="leader-card">
+            <figure class="leader-card__photo"><img src="assets/img/leaders/kallenbach.jpg" alt="Charles Kallenbach" width="800" height="1000" loading="lazy" decoding="async"></figure>
+            <h3>Charles Kallenbach</h3>
+            <span class="leader-card__title">General Counsel</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="close" id="close" data-surface="dark" aria-labelledby="close-title">
+      <div class="wrap close__inner">
+        <div>
+          <h2 class="display display--l" id="close-title">A home for your <em>business.</em></h2>
+          <p class="close__lede">Software first, then AI and payments. Certainty of close, brands that keep their names, and a team that scales what you built.</p>
+        </div>
+        <div class="close__actions">
+          <a class="btn" href="vertical-software.html">Explore our verticals</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" data-surface="dark">
+    <div class="wrap">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" aria-label="Fullsteam home"><img src="assets/fullsteam-logo.svg" alt="" width="222" height="60" loading="lazy" decoding="async"></a>
+          <p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
+            and AI that grow them.</p>
+        </div>
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="vertical-software.html">Vertical Software</a></li>
+            <li>
+              <a href="our-advantage.html">Our Advantage</a>
+              <ul class="footer__sub">
+                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
+                <li><a href="our-advantage.html#payments">Payments</a></li>
+                <li><a href="our-advantage.html#lending">Lending</a></li>
+                <li><a href="our-advantage.html#insurance">Insurance</a></li>
+              </ul>
+            </li>
+            <li><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Company</h3>
+          <ul>
+            <li><a href="our-story.html">Our Story</a></li>
+            <li><a href="our-story.html#leadership">Leadership</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></li>
+            <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener">Open roles &nearr;</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/contact.html#partner">Partner inquiries</a></li>
+            <li><a href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">LinkedIn &nearr;</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="../../../02_Wireframes/active/pages/privacy.html">Privacy</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/terms.html">Terms</a></li>
+            <li><span class="footer__muted">Complaints</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; Fullsteam 2026</p>
+        <a class="footer__social" href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+(function () {
+  "use strict";
+  var bar = document.getElementById("bar");
+  var progress = document.getElementById("progress");
+  var surfaces = Array.prototype.slice.call(document.querySelectorAll("[data-surface]"));
+  var ticking = false;
+
+  var tlRoot = document.getElementById("timeline-v2");
+  var tlEntries = tlRoot ? Array.prototype.slice.call(tlRoot.querySelectorAll(".tl-entry")) : [];
+  var tlJumpLinks = document.querySelectorAll(".tl-jump a");
+  var tlEras = document.querySelectorAll(".chapters-eras .era");
+  var tlProgress = document.getElementById("tlProgress");
+  var tlProgressTarget = 0;
+  var tlProgressCurrent = 0;
+  var tlReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var tlRailTop = 8;
+
+  function markerCenterY(entry) {
+    if (!tlRoot) return 0;
+    var marker = entry.querySelector(".tl-entry__marker");
+    if (!marker) return entry.offsetTop + 52;
+    var rootRect = tlRoot.getBoundingClientRect();
+    var markerRect = marker.getBoundingClientRect();
+    return markerRect.top - rootRect.top + markerRect.height * 0.5;
+  }
+
+  function setTimelineActive(active) {
+    if (!active) return;
+    var id = active.id;
+    var era = active.getAttribute("data-era");
+    var activeIndex = tlEntries.indexOf(active);
+    tlEntries.forEach(function (el, i) {
+      el.classList.toggle("is-active", el === active);
+      el.classList.toggle("is-past", i < activeIndex);
+    });
+    Array.prototype.forEach.call(tlJumpLinks, function (a) {
+      var on = a.getAttribute("href") === "#" + id;
+      a.classList.toggle("is-active", on);
+      if (on) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    });
+    Array.prototype.forEach.call(tlEras, function (el) {
+      el.classList.toggle("era--current", el.getAttribute("data-era") === era);
+    });
+    tlProgressTarget = Math.max(tlProgressTarget, markerCenterY(active) - tlRailTop);
+  }
+
+  function updateTimeline() {
+    if (!tlEntries.length || !tlRoot) return;
+    var probe = window.innerHeight * 0.38;
+    var active = tlEntries[0];
+    for (var i = 0; i < tlEntries.length; i++) {
+      if (tlEntries[i].getBoundingClientRect().top <= probe) active = tlEntries[i];
+    }
+    var rootRect = tlRoot.getBoundingClientRect();
+    var scrollProbe = probe - rootRect.top - tlRailTop;
+    var maxH = Math.max(0, tlRoot.offsetHeight - tlRailTop);
+    scrollProbe = Math.max(0, Math.min(maxH, scrollProbe));
+    tlProgressTarget = scrollProbe;
+
+    setTimelineActive(active);
+
+    if (tlProgress && tlReduceMotion) {
+      tlProgressCurrent = tlProgressTarget;
+      tlProgress.style.height = tlProgressCurrent + "px";
+    }
+  }
+
+  var tlProgressRaf = 0;
+  function tickTimelineProgress() {
+    tlProgressRaf = 0;
+    if (!tlProgress || tlReduceMotion) return;
+    tlProgressCurrent += (tlProgressTarget - tlProgressCurrent) * 0.16;
+    if (Math.abs(tlProgressTarget - tlProgressCurrent) < 0.75) {
+      tlProgressCurrent = tlProgressTarget;
+    }
+    tlProgress.style.height = tlProgressCurrent + "px";
+    if (Math.abs(tlProgressTarget - tlProgressCurrent) > 0.75) {
+      tlProgressRaf = window.requestAnimationFrame(tickTimelineProgress);
+    }
+  }
+
+  function queueTimelineProgress() {
+    if (!tlProgress || tlReduceMotion || tlProgressRaf) return;
+    tlProgressRaf = window.requestAnimationFrame(tickTimelineProgress);
+  }
+
+  function surfaceAtHeader() {
+    var probe = 40;
+    for (var i = 0; i < surfaces.length; i++) {
+      var r = surfaces[i].getBoundingClientRect();
+      if (r.top <= probe && r.bottom > probe) return surfaces[i];
+    }
+    return null;
+  }
+
+  function onScrollFrame() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    if (progress) progress.style.setProperty("--p", p.toFixed(4));
+    if (bar) {
+      var s = surfaceAtHeader();
+      var dark = !s || s.getAttribute("data-surface") === "dark";
+      bar.classList.toggle("is-solid", !dark);
+      bar.classList.toggle("is-on-dark", dark);
+    }
+    updateTimeline();
+    queueTimelineProgress();
+    ticking = false;
+  }
+
+  function requestScroll() {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(onScrollFrame); }
+  }
+
+  window.addEventListener("scroll", requestScroll, { passive: true });
+  window.addEventListener("resize", requestScroll);
+  window.addEventListener("load", function () {
+    updateTimeline();
+    queueTimelineProgress();
+  });
+
+  requestScroll();
+  updateTimeline();
+  if (tlProgress && tlReduceMotion) {
+    tlProgressCurrent = tlProgressTarget;
+    tlProgress.style.height = tlProgressCurrent + "px";
+  }
+  queueTimelineProgress();
+
+  var menu = document.getElementById("siteMenu");
+  var menuBtn = document.getElementById("menuBtn");
+  var menuPanel = document.getElementById("menuPanel");
+  var lastFocus = null;
+
+  function openMenu() {
+    if (!menu) return;
+    lastFocus = document.activeElement;
+    menu.hidden = false;
+    menuBtn.setAttribute("aria-expanded", "true");
+    menuBtn.setAttribute("aria-label", "Close menu");
+    document.body.classList.add("menu-open");
+    var first = menuPanel.querySelector("a");
+    if (first) first.focus();
+  }
+
+  function closeMenu() {
+    if (!menu || menu.hidden) return;
+    menu.hidden = true;
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Menu");
+    document.body.classList.remove("menu-open");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", function () {
+      if (menu.hidden) openMenu(); else closeMenu();
+    });
+    menu.addEventListener("click", function (e) {
+      if (e.target === menu) closeMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (menu.hidden) return;
+      if (e.key === "Escape") { closeMenu(); return; }
+      if (e.key !== "Tab") return;
+      var f = Array.prototype.slice.call(menuPanel.querySelectorAll("a, button")).filter(function (el) {
+        return el.offsetParent !== null;
+      });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    menuPanel.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () { closeMenu(); });
+    });
+  }
+
+})();
+  </script>
+</body>
+</html>

@@ -150,7 +150,7 @@ button { font: inherit; color: inherit; }
   text-wrap: pretty;
 }
 
-.hero .lede { color: rgba(255, 255, 255, .72); }
+.hero--media-dark .lede { color: rgba(255, 255, 255, .72); }
 
 .meta {
   font-family: var(--mono);
@@ -310,19 +310,33 @@ body.menu-open .progress { opacity: 0; }
 body.menu-open,
 body.story-lightbox-open { overflow: hidden; }
 
-/* ---------- hero ---------- */
+/* ---------- hero (base + archetypes — design.md §4.10) ---------- */
 
 .hero {
   position: relative;
-  background: var(--brand-ink);
-  color: #fff;
-  /* Clear fixed bar; extra inset after .index removal (2026-11-03) */
+  overflow: hidden;
   padding-top: calc(var(--bar) + clamp(48px, 6vw, 88px));
   padding-bottom: clamp(56px, 7vw, 104px);
-  overflow: hidden;
 }
 
-.hero__glow {
+.hero__inner { position: relative; z-index: 1; }
+
+.hero__title { max-width: 18ch; }
+.hero__title span { white-space: nowrap; }
+.hero__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 0;
+}
+
+/* MediaDark — Vertical Software */
+.hero--media-dark {
+  background: var(--brand-ink);
+  color: #fff;
+}
+
+.hero--media-dark .hero__glow {
   position: absolute;
   inset: -20% -10% auto auto;
   width: min(760px, 80vw);
@@ -333,19 +347,13 @@ body.story-lightbox-open { overflow: hidden; }
   pointer-events: none;
 }
 
-.hero::after {
+.hero--media-dark::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(180deg, transparent 55%, rgba(4, 20, 27, 0.9));
+  background-image: linear-gradient(180deg, transparent 48%, rgba(4, 20, 27, 0.88));
   pointer-events: none;
 }
-
-.hero__inner { position: relative; z-index: 1; }
-
-.hero__title { max-width: 18ch; }
-.hero__title span { white-space: nowrap; }
-.hero__title em { color: var(--gold); letter-spacing: 0; }
 
 .hero__row {
   display: grid;
@@ -363,14 +371,32 @@ body.story-lightbox-open { overflow: hidden; }
   gap: 20px;
   padding-bottom: 8px;
 }
-.hero__media {
+
+.hero--media-dark .hero__media {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(32px, 4vw, 52px);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  align-content: end;
 }
 
-.hero__media .frame { grid-column: 1 / -1; }
+.hero--media-dark .hero__frame--lead {
+  grid-column: 1 / -1;
+  aspect-ratio: 21 / 9;
+  min-height: clamp(160px, 20vw, 260px);
+}
+
+.hero--media-dark .hero__frame--product {
+  aspect-ratio: 4 / 3;
+  min-height: clamp(120px, 16vw, 200px);
+}
+
+.hero--media-dark .frame {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  overflow: hidden;
+}
 
 /* ---------- media frame ---------- */
 
@@ -1137,6 +1163,8 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   .hero__row { grid-template-columns: minmax(0, 1fr); }
   .hero__row .hero__title,
   .hero__copy { grid-column: 1 / -1; }
+  .hero--media-dark .hero__media { grid-template-columns: 1fr; }
+  .hero--media-dark .hero__frame--lead { aspect-ratio: 16 / 10; }
 
   .engine { grid-template-columns: minmax(0, 1fr); gap: 28px; }
 
@@ -1249,7 +1277,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
       <a href="#top">Vertical Software</a>
       <a href="our-advantage.html">Our Advantage</a>
       <a href="our-advantage.html#ai">AI at Fullsteam</a>
-      <a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a>
+      <a href="our-story.html">Our Story</a>
       <a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a>
       <a href="../../../02_Wireframes/active/pages/careers.html">Careers</a>
       <div class="menu__foot">
@@ -1260,7 +1288,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   </div>
 
   <main id="main">
-    <section class="hero" id="top" data-surface="dark">
+    <section class="hero hero--media-dark" id="top" data-surface="dark">
       <div class="hero__glow" aria-hidden="true"></div>
       <div class="wrap hero__inner">
         <div class="hero__row">
@@ -1831,8 +1859,8 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <div>
           <h3>Company</h3>
           <ul>
-            <li><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></li>
-            <li><a href="../../../02_Wireframes/active/pages/our-story.html#leadership">Leadership</a></li>
+            <li><a href="our-story.html">Our Story</a></li>
+            <li><a href="our-story.html#leadership">Leadership</a></li>
             <li><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></li>
             <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener">Open roles &nearr;</a></li>
           </ul>

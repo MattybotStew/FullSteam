@@ -90,13 +90,17 @@ This file is the canonical agent entry point (works with Cursor, which reads
   (promoted **2026-11-02** — ledger redesign; prior build frozen at
   `client-review/homepage-2026-10-29-official/`). It is **client-facing and tracked**:
   the review portal links it and Pages publishes it (`index.html`, **`vertical-software.html`**,
-  **`our-advantage.html`**, header logos, hero fallback, `assets/img/` section photography;
+ **`our-advantage.html`**, **`our-story.html`**, header logos, hero fallback, `assets/img/` section photography;
   **`assets/logos/`** +
   **`manifest.json`** are gitignored locally but **copied at deploy** — see `pages.yml`).
   Structure: **Axis A → copy swap → Axis B** opening
   (KB §23.10) → **How a Fullsteam company compounds** model steps → AI → verticals gallery
   → founders → careers → close. Same narrative order as the 2026-10-29 build; new editorial
   layout and type ladder. Build notes: `client-review/homepage/design-notes.md`.
+- **Interior hero archetypes (hi-fi, `design.md` §4.10):** subpages do **not** share one dark hero
+  template — Vertical Software = **MediaDark** (imagery band); Our Advantage = **EngineLight** (paper
+  hero → sidebar engine). Future Story / Acquisitions / Careers / Contact use NarrativeLight or
+  CompactLight when promoted.
 - **Vertical Software — second client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/vertical-software.html`, linked from the homepage
   (`index.html`, nine gallery/CTA targets vs wireframe cross-links). **IA unchanged** — single
@@ -112,10 +116,16 @@ This file is the canonical agent entry point (works with Cursor, which reads
   `03_Design/client-review/homepage/our-advantage.html`, linked from homepage and Vertical
   Software chrome. **IA unchanged** — single page, sticky sidebar with three groups
   (**AI at Fullsteam first**, featured rail · Embedded Fintech · Operational Excellence),
-  seven inline panels (`#payments` default without hash). **Payments** full ledger shape;
+  seven inline panels (`#ai` default without hash). **Payments** full ledger shape;
   **AI** full panel (use cases + video; **green** featured-rail accent); Sales & Marketing / Talent / Lending / Insurance / Peer Community panel placeholders until M2. Figma AI reference **`11462:8214`** (WF v2 chunk).
   FAQ matches Vertical Software two-column pattern. Figma wireframe reference **`11489:10607`**
   on WF v2; hi-fi Figma frame not yet captured. Build: `design-notes.md` §2026-11-03.
+- **Our Story — fourth client-review HTML page (2026-11-03):**
+  `03_Design/client-review/homepage/our-story.html`, linked from homepage, Vertical Software,
+  and Our Advantage chrome. **IA unchanged** — NarrativeLight hero (compact AGL + portrait bleed +
+  proof placeholders), 01 company mission/vision video slot, 02 chapter timeline (six rows,
+  years pending), `#leadership` ink band (six card placeholders), homepage-style close. Figma
+  wireframe **`11489:10772`**. Build: `design-notes.md` §2026-11-03.
 - **Frozen prior official — `03_Design/client-review/homepage-2026-10-29-official/`**
   (snapshot of `homepage/` at promotion). Dark scale chapter, `vpanel` verticals, pre-ledger
   chrome. Read-only reference; not linked from the review portal or staged by `pages.yml`.

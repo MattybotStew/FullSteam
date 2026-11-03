@@ -13,8 +13,8 @@ unchanged (one page, 11 sidebar panels). **Official (2026-11-03): no `.index` ey
 on this page — hero, verticals band, and FAQ use headlines only (no mono chapter labels).
 
 Review portal + `pages.yml` publish this folder (`index.html`, `vertical-software.html`,
-`our-advantage.html`, tracked assets under `assets/` per allow-list; **`assets/logos/`** and
-**`manifest.json`** are gitignored but staged on deploy).
+`our-advantage.html`, `our-story.html`, tracked assets under `assets/` per allow-list;
+**`assets/logos/`** and **`manifest.json`** are gitignored but staged on deploy).
 
 ---
 
@@ -26,8 +26,8 @@ Review portal + `pages.yml` publish this folder (`index.html`, `vertical-softwar
 
 | Area | Build |
 |---|---|
-| Hero | Dark band, no mono beat (matches VS chrome rules); H1 *How we **grow** what we own.* + lede |
-| Sidebar | Three groups · seven items: **AI at Fullsteam first** (featured **`--green-ink`** wrapper + paper tab label — active tab = **green** `#84BD00` fill) · Embedded Fintech (Payments, Lending, Insurance) · Operational Excellence (Sales & Marketing, Talent, Peer Community). **Default panel without hash:** `#payments` (sidebar order ≠ default panel) |
+| Hero | **EngineLight** (`hero--light`, `design.md` §4.10): paper band, stacked H1 + lede, **`--green-ink`** serif payoff; `data-surface="light"` (header scrim off at load). Not a dark ledger plate |
+| Sidebar | Three groups · seven items: **AI at Fullsteam first** (featured **`--green-ink`** wrapper + paper tab label — active tab = **green** `#84BD00` fill) · Embedded Fintech (Payments, Lending, Insurance) · Operational Excellence (Sales & Marketing, Talent, Peer Community). **Default panel without hash:** `#ai` |
 | Panels | Inline swap + hash routing (`#payments`, `#ai`, `#sales-marketing`, `#talent`, etc.) — one panel per sidebar item |
 | **Payments** | Full layout: compare columns, unreconciled stats + mono notes, hardware pending frame, testimonial placeholder |
 | **AI** | Full panel: three use-case cards + overview video (homepage hero sources until AI master). **Green** AI nav accent; active tab = paper on green |
@@ -45,11 +45,23 @@ links updated 2026-11-03 so review traffic hits hi-fi).
 
 ### 2026-11-03 — Our Advantage: AI prominence
 
-Client-review + wireframe sidebar: **AI at Fullsteam** group moved to the top (above Embedded Fintech). Featured rail block (**`--green-ink`** outer wrapper, paper tab label; active = lime **`--green`** fill on desktop; mobile pill matches ink/green states). **`#payments` remains the default** when the URL has no hash (`DEFAULT_SLUG` in panel JS). Footer Explore sub-links mirror AI-first order under Our Advantage.
+Client-review + wireframe sidebar: **AI at Fullsteam** group moved to the top (above Embedded Fintech). Featured rail block (**`--green-ink`** outer wrapper, paper tab label; active = lime **`--green`** fill on desktop; mobile pill matches ink/green states). **`#ai` is the default** when the URL has no hash (`DEFAULT_SLUG` in panel JS). Footer Explore sub-links mirror AI-first order under Our Advantage.
 
 ### 2026-11-03 — Our Advantage: AI accent green
 
 Per client direction: **green is the AI color** on this page (KB §15 `--green` / `--green-ink`). Replaced gold on `rail__block--featured`, `rail__item--featured`, and mobile AI pill active state. Site buttons/CTAs stay gold. AI `#ai` panel aligned to wireframe / Figma `11462:8214` (no `.ex` rows or dashed asset note in hi-fi). **Active AI tab:** `--green` fill with **`--paper` label + dot** (desktop rail + mobile pill; Figma parity).
+
+### 2026-11-03 — Interior hero differentiation (VS + OA)
+
+Spec: **`design.md` §4.10**. Subpages no longer share one dark hero template.
+
+| Page | Modifier | At-a-glance |
+|------|----------|-------------|
+| **Vertical Software** | `hero--media-dark` | Ink plate, gold payoff, **3-frame media band** under copy |
+| **Our Advantage** | `hero--light` | Paper hero, green payoff, no hero imagery → white `#offerings` engine |
+| **Our Story** | `hero--narrative-full` | Full-bleed homepage media plate + paper lower band (AGL + proof) |
+
+**QA (1440 / 390):** VS reads dark + imagery; OA reads light text band + green `em` — distinguishable without reading lede. OA header uses light-bar treatment at load (`data-surface="light"` on `#top`); VS keeps `is-on-dark` scrim over `#top`.
 
 ### 2026-11-03 — Homepage: ledger line backgrounds removed
 
@@ -58,6 +70,29 @@ grids from `.band--ink`, `#ai.band--ink`, `.hero__media-fallback`, `.vp--all`, a
 `.close::before`. Solid `--brand-ink` / band fills and non-line scrims (opening
 `.hero__media-scrim`, `.vp__shade`, AI green wash, close radial highlight) unchanged.
 `vertical-software.html` was not using the ledger line pattern.
+
+---
+
+## 2026-11-03 — Our Story page (client-review hi-fi)
+
+**File:** `our-story.html` · **Figma:** FS-Design node `11489:10772` · **Wireframe:**
+`02_Wireframes/active/pages/our-story.html` · **Chrome parity:** VS/OA (ledger bar, menu,
+footer).
+
+| Area | Build |
+|---|---|
+| Hero | **NarrativeLight** (`hero--narrative-full`): full-bleed **still** (`hero.jpg`, scrim, ink fallback) — no autoplay video; copy uses standard `.wrap` width; paper **`hero__lower`** = AGL + KPIs (review notes removed) |
+| Chapters | Vertical **timeline** (2018–2025 copy from fullsteam.com/about); gold spine + alternating surface rows + optional photo |
+| Leadership | Six executives from live about page; portraits in `assets/img/leaders/` (sourced CDN, 2026-11-03) |
+| 01 Company | Split head + **16:9 mission/vision video** slot (homepage hero MP4 until Mike/Greg master) + link to `our-advantage.html` |
+| 02 Chapters | Six editorial rows (year pending, optional thumb); no invented timeline |
+| 03 Leadership | `#leadership` on **`band--ink`** — 3×2 leader cards (names/bios pending) |
+| Close | Homepage-style **`#close`** band — “A home for your business” + Explore / Contact |
+| JS | Scroll progress + menu only (no panel routing) |
+| Cross-links | Homepage, VS, OA menu/footer → in-folder `our-story.html`; wireframe hi-fi banner |
+| Deploy | `pages.yml` + review portal card |
+
+**M2:** Real mission video, leader portraits/names, cleared KPIs/backer logos.
 
 ---
 
@@ -130,7 +165,7 @@ review-only proof.
 | Tokens | Same `:root` ladder as `index.html` (2026-11-02 ledger): `--wrap` 1280px, `--sect`, `--t-*`, `--sans` / `--serif` / `--mono` |
 | Layout | `.shell` → `.wrap`; section padding uses `--sect` |
 | Type | `display--xxl` / `--l` / `--m` on hero, band heads, panel titles; **no `.index` eyebrows** (see header note) |
-| Hero | **Unchanged structure** — dark gradient plate; 12-column title + lede grid aligned to homepage band rhythm |
+| Hero | **MediaDark** (`hero--media-dark`): dark plate + blue/gold glow; 12-col title/lede only (hero imagery deferred — slots in `content-slots.md` §5; `.hero__media` CSS retained for when assets land) |
 | Components | Homepage `.btn` pills; panel stats match `--t-stat` / caption scale; story frames use careers photo filter |
 | Chrome | Skip link, bar `--focus`, menu panel focus token; footer `--t-small` — matched to homepage |
 

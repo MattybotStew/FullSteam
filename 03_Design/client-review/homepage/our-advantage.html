@@ -150,7 +150,7 @@ button { font: inherit; color: inherit; }
   text-wrap: pretty;
 }
 
-.hero .lede { color: rgba(255, 255, 255, .72); }
+.hero--media-dark .lede { color: rgba(255, 255, 255, .72); }
 
 .meta {
   font-family: var(--mono);
@@ -310,67 +310,34 @@ body.menu-open .progress { opacity: 0; }
 body.menu-open,
 body.story-lightbox-open { overflow: hidden; }
 
-/* ---------- hero ---------- */
+/* ---------- hero (base + archetypes — design.md §4.10) ---------- */
 
 .hero {
   position: relative;
-  background: var(--brand-ink);
-  color: #fff;
-  /* Clear fixed bar; extra inset after .index removal (2026-11-03) */
-  padding-top: calc(var(--bar) + clamp(48px, 6vw, 88px));
-  padding-bottom: clamp(56px, 7vw, 104px);
   overflow: hidden;
-}
-
-.hero__glow {
-  position: absolute;
-  inset: -20% -10% auto auto;
-  width: min(760px, 80vw);
-  height: min(760px, 80vw);
-  background:
-    radial-gradient(closest-side at 60% 40%, rgba(255, 198, 0, 0.12), transparent),
-    radial-gradient(closest-side at 40% 60%, rgba(0, 88, 124, 0.45), transparent);
-  pointer-events: none;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(180deg, transparent 55%, rgba(4, 20, 27, 0.9));
-  pointer-events: none;
+  padding-top: calc(var(--bar) + clamp(36px, 4.5vw, 64px));
+  padding-bottom: clamp(40px, 5vw, 64px);
 }
 
 .hero__inner { position: relative; z-index: 1; }
 
-.hero__title { max-width: 18ch; }
-.hero__title span { white-space: nowrap; }
-.hero__title em { color: var(--gold); letter-spacing: 0; }
+.hero__title { max-width: 20ch; letter-spacing: -0.02em; }
+.hero__title em { font-family: var(--serif); font-style: italic; letter-spacing: 0; }
 
-.hero__row {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px;
-  align-items: end;
-  margin-top: 0;
-}
-.hero__row .hero__title { grid-column: 1 / 8; }
-.hero__copy {
-  grid-column: 9 / 13;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-  padding-bottom: 8px;
-}
-.hero__media {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  align-content: end;
+/* EngineLight — Our Advantage */
+.hero--light {
+  background: var(--paper);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
 }
 
-.hero__media .frame { grid-column: 1 / -1; }
+.hero--light .hero__title em { color: var(--green-ink); }
+
+.hero--light .lede {
+  color: var(--muted);
+  max-width: 62ch;
+  margin-top: clamp(16px, 2.2vw, 26px);
+}
 
 
 /* ---------- offerings layout ---------- */
@@ -766,8 +733,6 @@ body.story-lightbox-open { overflow: hidden; }
 .footer__social:hover { color: #fff; }
 
 @media (max-width: 1080px) {
-  .hero__row { grid-template-columns: minmax(0, 1fr); }
-  .hero__row .hero__title, .hero__copy { grid-column: 1 / -1; }
   .engine { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .rail {
     position: static; display: flex; gap: 10px; overflow-x: auto;
@@ -869,7 +834,7 @@ body.story-lightbox-open { overflow: hidden; }
       <a href="vertical-software.html">Vertical Software</a>
       <a href="our-advantage.html" aria-current="page">Our Advantage</a>
       <a href="our-advantage.html#ai">AI at Fullsteam</a>
-      <a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a>
+      <a href="our-story.html">Our Story</a>
       <a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a>
       <a href="../../../02_Wireframes/active/pages/careers.html">Careers</a>
       <div class="menu__foot">
@@ -880,15 +845,10 @@ body.story-lightbox-open { overflow: hidden; }
   </div>
 
   <main id="main">
-    <section class="hero" id="top" data-surface="dark">
-      <div class="hero__glow" aria-hidden="true"></div>
+    <section class="hero hero--light" id="top" data-surface="light">
       <div class="wrap hero__inner">
-        <div class="hero__row">
-          <h1 class="display display--xxl hero__title">How we <em>grow</em> what we own.</h1>
-          <div class="hero__copy">
-            <p class="lede">Software is the system of record. Embedded fintech, AI, and operational excellence sit on top of it — helping each business scale without changing its name, team, or customer relationship.</p>
-          </div>
-        </div>
+        <h1 class="display display--xxl hero__title">How we <em>grow</em> what we own.</h1>
+        <p class="lede">Software is the system of record. Embedded fintech, AI, and operational excellence sit on top of it — helping each business scale without changing its name, team, or customer relationship.</p>
       </div>
     </section>
 
@@ -899,7 +859,7 @@ body.story-lightbox-open { overflow: hidden; }
             <div class="rail__lists">
             <div class="rail__block rail__block--featured" aria-label="AI at Fullsteam">
               <ol class="rail__list">
-                <li><a class="rail__item rail__item--featured" href="#ai" data-slug="ai"><span class="rail__name">AI at Fullsteam</span><span class="rail__dot"></span></a></li>
+                <li><a class="rail__item rail__item--featured" href="#ai" data-slug="ai" aria-current="true"><span class="rail__name">AI at Fullsteam</span><span class="rail__dot"></span></a></li>
               </ol>
             </div>
             <p class="rail__group">Embedded Fintech</p>
@@ -919,7 +879,7 @@ body.story-lightbox-open { overflow: hidden; }
 
           <div class="panels">
 
-            <article class="panel panel--full panel--ai" id="ai" data-slug="ai" hidden aria-labelledby="title-ai">
+            <article class="panel panel--full panel--ai is-active" id="ai" data-slug="ai" aria-labelledby="title-ai">
               <header class="panel__head">
                 <h2 class="display display--m panel__title" id="title-ai">Three AI use cases, then one video.</h2>
                 <p class="lede panel__lede">Use cases first. Proprietary vertical data is the differentiator: the AI starts from the system of record, not a generic model. Never a story about reducing staff. The homepage AI band is a wayfinder; the video lives here.</p>
@@ -958,7 +918,7 @@ body.story-lightbox-open { overflow: hidden; }
               </div>
             </article>
 
-            <article class="panel panel--full" id="payments" data-slug="payments" aria-labelledby="title-payments">
+            <article class="panel panel--full" id="payments" data-slug="payments" hidden aria-labelledby="title-payments">
               <header class="panel__head">
                 <h2 class="display display--m panel__title" id="title-payments">Embedded payments beat bolted-on every time.</h2>
                 <p class="lede panel__lede">Payments should feel invisible — the value is how deeply they live inside the software each business already runs.</p>
@@ -1176,8 +1136,8 @@ body.story-lightbox-open { overflow: hidden; }
         <div>
           <h3>Company</h3>
           <ul>
-            <li><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></li>
-            <li><a href="../../../02_Wireframes/active/pages/our-story.html#leadership">Leadership</a></li>
+            <li><a href="our-story.html">Our Story</a></li>
+            <li><a href="our-story.html#leadership">Leadership</a></li>
             <li><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></li>
             <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener">Open roles &nearr;</a></li>
           </ul>
@@ -1304,7 +1264,7 @@ body.story-lightbox-open { overflow: hidden; }
   var bySlug = {};
   panels.forEach(function (panel) { bySlug[panel.getAttribute("data-slug")] = panel; });
 
-  var DEFAULT_SLUG = "payments";
+  var DEFAULT_SLUG = "ai";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
