@@ -1,0 +1,1293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add("has-js");</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our Advantage — Fullsteam</title>
+  <meta name="description" content="Embedded fintech, AI, and operational excellence — how Fullsteam grows the vertical software it owns without changing what makes each business unique.">
+  <meta name="theme-color" content="#04141b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+
+/* ------------------------------------------------------------------
+   Fullsteam — Our Advantage
+   Tokens + type ledger aligned to client-review/homepage (2026-11-02).
+------------------------------------------------------------------- */
+:root {
+  --brand: #00587C;
+  --brand-deep: #003F55;
+  --brand-ink: #04141B;
+  --gold: #FFC600;
+  --green: #84BD00;
+  --green-ink: #4F750E;
+
+  --paper: #FFFFFF;
+  --surface: #F3F6F7;
+  --ink: #0C1B21;
+  --muted: #586A72;
+  --line: #DCE3E6;
+  --line-strong: #C6D1D5;
+
+  --sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --mono: "Fragment Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --wrap: 1280px;
+  --gutter: clamp(20px, 4.4vw, 64px);
+  --bar: 76px;
+  --sect: clamp(84px, 10vw, 148px);
+
+  --t-hero: clamp(38px, min(10.4vw, 12vh), 118px);
+  --t-h2: clamp(38px, 5.2vw, 76px);
+  --t-h3: clamp(23px, 2.5vw, 32px);
+  --t-stat: clamp(54px, 6.2vw, 96px);
+  --t-lede: clamp(18px, 1.5vw, 22px);
+  --t-body: 17px;
+  --t-small: 15px;
+  --label: 12px;
+
+  --e: cubic-bezier(.22, .75, .24, 1);
+  --e-quick: cubic-bezier(0, 0, .2, 1);
+  --dark-hair: rgba(255, 255, 255, .16);
+  --focus: var(--brand);
+
+  --dur: 240ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+}
+
+[id] { scroll-margin-top: 96px; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+p { margin: 0; }
+figure, blockquote { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-weight: 500; }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+button { font: inherit; color: inherit; }
+
+::selection { background: var(--gold); color: var(--ink); }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: fixed; left: 16px; top: -80px; z-index: 200;
+  padding: 14px 20px; border-radius: 999px;
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 14px;
+  transition: top .2s var(--e);
+}
+.skip-link:focus { top: 14px; }
+
+.wrap {
+  width: min(var(--wrap), 100% - (2 * var(--gutter)));
+  margin-inline: auto;
+}
+
+/* ---------- type primitives ---------- */
+
+.display {
+  font-weight: 500;
+  line-height: .96;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.display em, .serif-em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.015em;
+}
+
+#faq-title em { color: var(--gold); letter-spacing: 0; }
+
+#faq-title em { display: block; }
+
+.display--xxl { font-size: var(--t-hero); line-height: .92; }
+.display--l { font-size: var(--t-h2); }
+.display--m { font-size: var(--t-h3); line-height: 1.1; letter-spacing: -.02em; }
+
+.lede {
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 54ch;
+  text-wrap: pretty;
+}
+
+.hero .lede { color: rgba(255, 255, 255, .72); }
+
+.meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .66);
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 44px; padding: 0 28px;
+  border: 0; border-radius: 999px;
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 14px; letter-spacing: -.01em;
+  white-space: nowrap; cursor: pointer;
+  transition: background-color 160ms var(--e-quick), transform 160ms var(--e-quick);
+}
+.btn:hover { background: color-mix(in srgb, var(--gold) 90%, #000); }
+.btn:active { transform: translateY(1px); }
+.btn--sm { padding: 0 18px; font-size: 13px; }
+.btn svg { width: 12px; height: 12px; flex: none; }
+
+.btn--ghost {
+  background: transparent; color: #fff;
+  border: 1px solid rgba(255, 255, 255, .34);
+}
+.btn--ghost:hover { background: rgba(255, 255, 255, .1); }
+
+/* ---------- header · official homepage chrome ---------- */
+
+.bar {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  height: var(--bar);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+  padding: 0 var(--gutter);
+  color: #fff;
+  --focus: #fff;
+  border-bottom: 1px solid transparent;
+  transition: background-color .3s var(--e), color .3s var(--e), border-color .3s var(--e);
+}
+.bar.is-solid {
+  background: color-mix(in srgb, #fff 94%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--ink);
+  border-bottom-color: var(--line);
+  --focus: var(--brand);
+}
+.bar.is-on-dark {
+  background: color-mix(in srgb, var(--brand-ink) 86%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--dark-hair);
+}
+.bar__logo {
+  position: relative; display: block;
+  width: 148px; height: 40px;
+  flex: 0 0 auto;
+  z-index: 2;
+}
+.bar__logo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: left center;
+  transition: opacity .25s var(--e);
+}
+.logo--w { opacity: 1; }
+.logo--ink { opacity: 0; }
+.bar.is-solid .logo--w { opacity: 0; }
+.bar.is-solid .logo--ink { opacity: 1; }
+.bar__actions { display: flex; align-items: center; gap: 10px; }
+.menu-btn {
+  display: grid; place-content: center; gap: 5px;
+  width: 46px; height: 46px;
+  border: 0; border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+.menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: currentColor; border-radius: 2px;
+  transition: transform .22s var(--e), opacity .18s var(--e);
+}
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.bar__cta-short { display: none; }
+@media (max-width: 620px) {
+  .bar__cta-long { display: none; }
+  .bar__cta-short { display: inline; }
+}
+
+.menu {
+  position: fixed; inset: 0; z-index: 88;
+  display: flex; justify-content: flex-end; align-items: flex-start;
+  padding: calc(var(--bar) + 10px) var(--gutter) 24px;
+  background: rgba(4, 20, 27, .46);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.menu[hidden] { display: none; }
+.menu__panel {
+  width: min(390px, 100%);
+  background: #fff; color: var(--ink);
+  --focus: var(--brand);
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 1px 0 rgba(0, 20, 28, .05), 0 24px 70px rgba(0, 20, 28, .32);
+  animation: menu-in 190ms var(--e-quick) both;
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+.menu__panel a {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 18px; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none;
+  transition: background-color 140ms var(--e-quick), color 140ms var(--e-quick);
+}
+.menu__panel a::after {
+  content: "\2192";
+  color: var(--brand);
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: opacity .16s var(--e-quick), transform .16s var(--e-quick);
+}
+.menu__panel a:hover::after { opacity: 1; transform: none; }
+.menu__panel a:hover { background: var(--surface); color: var(--brand); }
+.menu__foot {
+  margin: 8px 6px 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  z-index: 100;
+  background: var(--gold);
+  transform: scaleX(var(--p, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+body.menu-open .progress { opacity: 0; }
+body.menu-open,
+body.story-lightbox-open { overflow: hidden; }
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  background: var(--brand-ink);
+  color: #fff;
+  /* Clear fixed bar; extra inset after .index removal (2026-11-03) */
+  padding-top: calc(var(--bar) + clamp(48px, 6vw, 88px));
+  padding-bottom: clamp(56px, 7vw, 104px);
+  overflow: hidden;
+}
+
+.hero__glow {
+  position: absolute;
+  inset: -20% -10% auto auto;
+  width: min(760px, 80vw);
+  height: min(760px, 80vw);
+  background:
+    radial-gradient(closest-side at 60% 40%, rgba(255, 198, 0, 0.12), transparent),
+    radial-gradient(closest-side at 40% 60%, rgba(0, 88, 124, 0.45), transparent);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(180deg, transparent 55%, rgba(4, 20, 27, 0.9));
+  pointer-events: none;
+}
+
+.hero__inner { position: relative; z-index: 1; }
+
+.hero__title { max-width: 18ch; }
+.hero__title span { white-space: nowrap; }
+.hero__title em { color: var(--gold); letter-spacing: 0; }
+
+.hero__row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+  align-items: end;
+  margin-top: 0;
+}
+.hero__row .hero__title { grid-column: 1 / 8; }
+.hero__copy {
+  grid-column: 9 / 13;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 8px;
+}
+.hero__media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-content: end;
+}
+
+.hero__media .frame { grid-column: 1 / -1; }
+
+
+/* ---------- offerings layout ---------- */
+
+.offerings { padding-block: var(--sect); background: var(--paper); }
+
+.engine {
+  display: grid;
+  grid-template-columns: 268px minmax(0, 1fr);
+  gap: clamp(28px, 4.4vw, 64px);
+  align-items: start;
+}
+
+.rail { position: sticky; top: 104px; }
+
+.rail__lists { display: block; }
+
+.rail__group {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 12px;
+  margin: 20px 0 6px;
+}
+.rail__group:first-child { margin-top: 0; }
+
+.rail__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 10px;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 12px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+  transition: background 180ms var(--e), color 180ms var(--e), padding-left 200ms var(--e);
+}
+
+.rail__dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: transparent; justify-self: end;
+  transition: background 180ms var(--e);
+}
+
+.rail__item:hover { background: var(--surface); }
+.rail__item[aria-current="true"] {
+  background: var(--surface);
+  box-shadow: inset 2px 0 0 var(--gold);
+  padding-left: 16px;
+  font-weight: 600;
+}
+.rail__item[aria-current="true"] .rail__dot { background: var(--gold); }
+
+.panels { min-width: 0; }
+.panel[hidden] { display: none; }
+.panel.is-active { animation: panelIn 280ms var(--e) both; }
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+.panel__title { max-width: 22ch; margin-top: 0; }
+.panel__lede { margin-top: 14px; max-width: 52ch; font-size: var(--t-lede); color: var(--muted); }
+.panel__copy { max-width: 52ch; color: var(--ink); }
+.panel__copy p + p { margin-top: 1em; }
+.panel__copy p:first-child { font-size: 1.125rem; line-height: 1.5; }
+
+.panel__block {
+  margin-top: clamp(28px, 3.4vw, 42px);
+  padding-top: clamp(24px, 3vw, 36px);
+  border-top: 1px solid var(--line);
+}
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 40px);
+  margin-top: 8px;
+}
+.compare__col { min-width: 0; }
+.compare__col + .compare__col {
+  padding-left: clamp(24px, 3vw, 40px);
+  border-left: 1px solid var(--line);
+}
+.compare ul { display: grid; gap: 12px; }
+.compare li {
+  position: relative;
+  padding-left: 18px;
+  font-size: var(--t-small);
+  color: var(--ink);
+  line-height: 1.45;
+}
+.compare li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.65em;
+  width: 8px; height: 1px;
+  background: var(--brand);
+}
+.compare__heading {
+  margin-bottom: 12px;
+  color: var(--ink);
+  letter-spacing: -.01em;
+  font-family: var(--sans);
+  font-size: 1rem;
+  text-transform: none;
+  font-weight: 600;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 8px;
+  border-top: 1px solid var(--ink);
+}
+.stat { padding: 22px 20px 20px 0; border-right: 1px solid var(--line); }
+.stat + .stat { padding-left: 22px; }
+.stat:last-child { border-right: 0; }
+.stat__val {
+  font-size: clamp(34px, 4.2vw, 72px);
+  font-weight: 500; letter-spacing: -.04em; line-height: .95;
+  font-variant-numeric: tabular-nums;
+}
+.stat__label { margin-top: 12px; font-size: var(--t-small); color: var(--muted); max-width: 26ch; line-height: 1.35; }
+.stat__note {
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a989f;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 3.4vw, 48px);
+  align-items: center;
+}
+
+.frame--pending {
+  display: grid; place-content: center; justify-items: center; gap: 10px;
+  text-align: center; min-height: 280px; aspect-ratio: 4/3;
+  background: radial-gradient(circle at 50% 0%, rgba(0, 88, 124, 0.35), transparent 70%), var(--brand-ink);
+  border-radius: 4px; padding: 28px 22px; color: #fff;
+}
+.frame--pending .pending__mark {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(255, 198, 0, 0.6);
+  border-radius: 50%;
+  display: grid; place-items: center;
+}
+.pending__mark::after { content: ""; width: 9px; height: 9px; border: 1px solid rgba(255, 198, 0, 0.9); }
+.frame--pending .pending__title {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.1; max-width: 16ch;
+}
+.frame--pending .pending__note {
+  font-family: var(--mono); font-size: 0.625rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .66);
+}
+
+.quote-block {
+  margin-top: clamp(24px, 3vw, 36px);
+  padding: clamp(20px, 2.5vw, 28px);
+  background: var(--surface);
+  border-left: 3px solid var(--gold);
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.45;
+  max-width: 62ch;
+}
+.quote-block cite {
+  display: block; margin-top: 12px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .08em; text-transform: uppercase;
+  font-style: normal; color: var(--muted);
+}
+
+.use-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+.use-grid article {
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 18px 16px 20px;
+  border-radius: 4px;
+}
+.use-grid span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.use-grid h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -.01em; }
+.use-grid p { font-size: var(--t-small); color: var(--muted); line-height: 1.45; }
+.use-grid .ex {
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px dashed var(--line-strong);
+  font-size: 14px; color: var(--ink);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.facts--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.facts div {
+  border: 1px solid var(--line);
+  padding: 14px 16px;
+  background: #fff;
+  border-radius: 4px;
+  min-height: 5.5rem;
+}
+.facts span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.facts p { font-size: var(--t-small); line-height: 1.4; }
+
+.video-slot {
+  margin-top: clamp(24px, 3vw, 36px);
+  min-height: 320px;
+  display: grid; place-content: center;
+  background: var(--brand-ink);
+  color: rgba(255,255,255,.72);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 24px;
+}
+
+.panel--placeholder .panel__lede { display: block; }
+.placeholder-tag {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 6px 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px dashed var(--line-strong);
+  border-radius: 3px;
+}
+
+#faq-title em { color: var(--gold); letter-spacing: 0; display: block; }
+
+.faq { padding-block: var(--sect); background: var(--paper); }
+.faq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: start;
+}
+.faq__head { position: sticky; top: calc(var(--bar) + 24px); max-width: 250px; }
+.faq__title { max-width: none; line-height: 0.945; letter-spacing: -0.035em; }
+.faq__title-sans { display: block; }
+.faq__list { border-top: 1px solid var(--ink); }
+.faq__item { border-bottom: 1px solid var(--line); }
+.faq__item summary {
+  display: grid; grid-template-columns: minmax(0, 1fr) 26px;
+  gap: 20px; align-items: start;
+  padding: 23.5px 0 23.89px;
+  cursor: pointer; list-style: none;
+  font-size: 1.25rem; font-weight: 500;
+  letter-spacing: -0.012em; line-height: 1.32;
+}
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after {
+  content: "+"; font-family: var(--mono); font-size: 1.125rem;
+  color: var(--muted); justify-self: end;
+  transition: color 200ms var(--e);
+}
+.faq__item[open] summary::after { content: "−"; color: var(--ink); }
+.faq__item summary:hover { color: var(--brand); }
+.faq__answer { padding: 0 46px 26px 0; color: var(--muted); max-width: 62ch; }
+
+.footer {
+  background: #071820;
+  color: rgba(255, 255, 255, .62);
+  --focus: #fff;
+  padding: clamp(56px, 6vw, 76px) 0 28px;
+  font-size: var(--t-small);
+}
+.footer__top {
+  display: grid;
+  grid-template-columns: 2.2fr repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  padding-bottom: clamp(40px, 5vw, 60px);
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+.footer__brand img { width: 168px; height: auto; opacity: .96; }
+.footer__line { margin-top: 20px; max-width: 30ch; line-height: 1.6; color: rgba(255, 255, 255, .6); }
+.footer h3 {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .58); margin-bottom: 16px;
+}
+.footer ul { list-style: none; margin: 0; padding: 0; }
+.footer li + li { margin-top: 10px; }
+.footer ul.footer__sub {
+  margin-top: 12px; margin-left: 2px; padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, .14);
+}
+.footer__sub li + li { margin-top: 9px; }
+.footer__sub a { font-size: 14px; color: rgba(255, 255, 255, .5); }
+.footer__sub a:hover { color: #fff; }
+.footer a { text-decoration: none; color: rgba(255, 255, 255, .86); transition: color .14s var(--e-quick); }
+.footer a:hover { color: #fff; }
+.footer__bottom {
+  padding-top: 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .56);
+}
+.footer__social { display: inline-flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, .7); }
+.footer__muted { color: inherit; }
+.footer__social svg { width: 16px; height: 16px; fill: currentColor; }
+.footer__social:hover { color: #fff; }
+
+@media (max-width: 1080px) {
+  .hero__row { grid-template-columns: minmax(0, 1fr); }
+  .hero__row .hero__title, .hero__copy { grid-column: 1 / -1; }
+  .engine { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .rail {
+    position: static; display: flex; gap: 10px; overflow-x: auto;
+    padding-bottom: 10px;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail__group { display: none; }
+  .rail__lists {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    width: max-content;
+    min-width: 100%;
+  }
+  .rail__list { display: flex; gap: 8px; }
+  .rail__item {
+    border: 1px solid var(--line); border-radius: 999px;
+    white-space: nowrap; padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .rail__item[aria-current="true"] {
+    box-shadow: none; border-color: var(--ink);
+    background: var(--ink); color: #fff;
+  }
+  .rail__dot { display: none; }
+  .compare { grid-template-columns: 1fr; }
+  .compare__col + .compare__col { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 24px; }
+  .stats, .facts, .facts--4, .use-grid, .split { grid-template-columns: 1fr; }
+  .stat { border-right: 0; border-bottom: 1px solid var(--line); padding-left: 0 !important; }
+  .stat:last-child { border-bottom: 0; }
+  .faq__head { position: static; }
+  .faq__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .footer__top { grid-template-columns: 1fr 1fr; gap: 34px 24px; }
+  .footer__brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  :root { --bar: 68px; }
+  .bar__logo { width: 126px; height: 34px; }
+  .footer__top { grid-template-columns: 1fr; }
+  .footer__bottom { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="bar" id="bar">
+    <a class="bar__logo" href="index.html" aria-label="Fullsteam home">
+      <img class="logo--w" src="assets/fullsteam-logo.svg" alt="Fullsteam" width="222" height="60" decoding="async">
+      <img class="logo--ink" src="assets/fullsteam-logo-dark.svg" alt="" aria-hidden="true" width="222" height="60" decoding="async">
+    </a>
+    <div class="bar__actions">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="siteMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <a class="btn btn--sm bar__cta" href="vertical-software.html">
+        <span class="bar__cta-long">Explore our verticals</span>
+        <span class="bar__cta-short">Explore</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+    <div class="menu__panel" id="menuPanel">
+      <a href="vertical-software.html">Vertical Software</a>
+      <a href="our-advantage.html" aria-current="page">Our Advantage</a>
+      <a href="our-advantage.html#ai">AI at Fullsteam</a>
+      <a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a>
+      <a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a>
+      <a href="../../../02_Wireframes/active/pages/careers.html">Careers</a>
+      <div class="menu__foot">
+        <span>A home for vertical software</span>
+        <span>&copy; 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="hero" id="top" data-surface="dark">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap hero__inner">
+        <div class="hero__row">
+          <h1 class="display display--xxl hero__title">How we <em>grow</em> what we own.</h1>
+          <div class="hero__copy">
+            <p class="lede">Software is the system of record. Embedded fintech, AI, and operational excellence sit on top of it — helping each business scale without changing its name, team, or customer relationship.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="offerings" id="offerings" data-surface="light" aria-label="Our Advantage offerings">
+      <div class="wrap">
+        <div class="engine">
+          <nav class="rail rail--oa" aria-label="Our Advantage index">
+            <p class="rail__group">Embedded Fintech</p>
+            <div class="rail__lists">
+            <ol class="rail__list">
+              <li><a class="rail__item" href="#payments" data-slug="payments"><span class="rail__name">Payments</span><span class="rail__dot"></span></a></li>
+              <li><a class="rail__item" href="#lending" data-slug="lending"><span class="rail__name">Lending</span><span class="rail__dot"></span></a></li>
+              <li><a class="rail__item" href="#insurance" data-slug="insurance"><span class="rail__name">Insurance</span><span class="rail__dot"></span></a></li>
+            </ol>
+            <p class="rail__group">AI at Fullsteam</p>
+            <ol class="rail__list">
+              <li><a class="rail__item" href="#ai" data-slug="ai"><span class="rail__name">AI at Fullsteam</span><span class="rail__dot"></span></a></li>
+            </ol>
+            <p class="rail__group">Operational Excellence</p>
+            <ol class="rail__list">
+              <li><a class="rail__item" href="#sales-marketing" data-slug="sales-marketing"><span class="rail__name">Sales &amp; Marketing</span><span class="rail__dot"></span></a></li>
+              <li><a class="rail__item" href="#talent" data-slug="talent"><span class="rail__name">Talent</span><span class="rail__dot"></span></a></li>
+              <li><a class="rail__item" href="#peer-community" data-slug="peer-community"><span class="rail__name">Peer Community</span><span class="rail__dot"></span></a></li>
+            </ol>
+            </div>
+          </nav>
+
+          <div class="panels">
+
+            <article class="panel panel--full" id="payments" data-slug="payments" aria-labelledby="title-payments">
+              <header class="panel__head">
+                <h2 class="display display--m panel__title" id="title-payments">Embedded payments beat bolted-on every time.</h2>
+                <p class="lede panel__lede">Payments should feel invisible — the value is how deeply they live inside the software each business already runs.</p>
+              </header>
+              <div class="panel__copy">
+                <p>One team owns it when something breaks, and the payment is part of the workflow the customer is already in — not a second system reconciled by hand.</p>
+              </div>
+
+              <div class="panel__block">
+                <p class="kicker">Embedded vs. bolted on</p>
+                <div class="compare" aria-label="Embedded versus bolted-on payments">
+                  <div class="compare__col">
+                    <p class="compare__heading">Embedded in the software</p>
+                    <ul>
+                      <li>One system of record: the payment, the invoice, and the customer live in the same place.</li>
+                      <li>One team to call when something goes wrong.</li>
+                      <li>Priced inside the software the business already pays for.</li>
+                      <li>The industry&rsquo;s own workflow — deposits, tabs, retainers — not a generic checkout.</li>
+                    </ul>
+                  </div>
+                  <div class="compare__col">
+                    <p class="compare__heading">Bolted on beside it</p>
+                    <ul>
+                      <li>The payment lives in a second system that has to be reconciled by hand.</li>
+                      <li>Processor and software vendor point at each other when it breaks.</li>
+                      <li>Another contract, another statement, another support queue.</li>
+                      <li>A generic checkout that the industry has to work around.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel__block">
+                <p class="kicker">Key stats</p>
+                <div class="stats">
+                  <div class="stat">
+                    <p class="stat__val">$75B</p>
+                    <p class="stat__label">Sales processed</p>
+                    <p class="stat__note">Client-supplied · not a settled KPI</p>
+                  </div>
+                  <div class="stat">
+                    <p class="stat__val">Top 20</p>
+                    <p class="stat__label">Payment processor</p>
+                    <p class="stat__note">Client-supplied · unreconciled with KB</p>
+                  </div>
+                  <div class="stat">
+                    <p class="stat__val">480M+</p>
+                    <p class="stat__label">Transactions</p>
+                    <p class="stat__note">Placeholder · publishability pending</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel__block split">
+                <figure class="frame--pending" role="img" aria-label="Payments hardware — photography pending">
+                  <span class="pending__mark" aria-hidden="true"></span>
+                  <p class="pending__title">Payments hardware</p>
+                  <p class="pending__note">Photography pending</p>
+                </figure>
+                <div>
+                  <h3 class="display display--m" style="font-size:clamp(20px,2vw,26px);max-width:20ch;">Hardware in the same story.</h3>
+                  <p class="panel__copy" style="margin-top:14px;">The counter, the terminal, the card in hand — how the embedded payment reaches the customer. Hardware stays inside Payments, not on its own page. No device brands until the client confirms them.</p>
+                </div>
+              </div>
+
+              <blockquote class="quote-block">
+                Testimonial placeholder — include only if the client confirms a publishable quote.
+                <cite>Attribution pending</cite>
+              </blockquote>
+            </article>
+
+            <article class="panel panel--placeholder" id="lending" data-slug="lending" hidden aria-labelledby="title-lending">
+              <header class="panel__head">
+                <h2 class="display display--m panel__title" id="title-lending">Lending as an embedded offering.</h2>
+                <p class="lede panel__lede">Capital that sits inside the software — an offering, not a product sheet.</p>
+              </header>
+              <div class="panel__copy"><p>No rates, terms, or eligibility rules in this build — structural placeholder until the content track supplies detail.</p></div>
+              <div class="panel__block facts facts--4">
+                <div><span>Capital</span><p>Borrow against future transactions. Placeholder.</p></div>
+                <div><span>Pays back</span><p>Structural label only. Detail unpublished.</p></div>
+                <div><span>Who it is for</span><p>The software businesses already here.</p></div>
+                <div><span>Constraint</span><p>No rates, terms, or eligibility claims.</p></div>
+              </div>
+              <p class="placeholder-tag">Panel placeholder · content track</p>
+            </article>
+
+            <article class="panel panel--placeholder" id="insurance" data-slug="insurance" hidden aria-labelledby="title-insurance">
+              <header class="panel__head">
+                <h2 class="display display--m panel__title" id="title-insurance">Insurance embedded in the workflow.</h2>
+                <p class="lede panel__lede">Coverage that sits inside the software the business already runs, not in a separate storefront.</p>
+              </header>
+              <div class="panel__block facts">
+                <div><span>What it covers</span><p>Coverage detail unpublished. Placeholder.</p></div>
+                <div><span>How it sits</span><p>Embedded, not a separate storefront.</p></div>
+                <div><span>Proof</span><p>Generic until the client confirms a story.</p></div>
+              </div>
+              <p class="placeholder-tag">Panel placeholder · content track</p>
+            </article>
+
+            <article class="panel panel--placeholder" id="ai" data-slug="ai" hidden aria-labelledby="title-ai">
+              <header class="panel__head">
+                <h2 class="display display--m panel__title" id="title-ai">Three AI use cases, one story.</h2>
+                <p class="lede panel__lede">Use cases first. Proprietary vertical data is the differentiator — never a story about reducing staff.</p>
+              </header>
+              <div class="panel__block use-grid">
+                <article><span>01 — Modernize</span><h4>Modernize existing software</h4><p>One concrete use of AI inside software the business already runs.</p><p class="ex">Example: an older system gets a modern interface and faster search without a rewrite. [placeholder]</p></article>
+                <article><span>02 — Build</span><h4>Build customer-facing features</h4><p>A feature the customer sees, grounded in vertical data.</p><p class="ex">Example: a capability built from data only this industry has. [placeholder]</p></article>
+                <article><span>03 — Automate</span><h4>Automate business workflows</h4><p>Work that gets faster — never framed as staff reduction.</p><p class="ex">Example: repetitive back-office steps handled so a small team can do more. [placeholder]</p></article>
+              </div>
+              <div class="video-slot" role="img" aria-label="AI overview video — placeholder">Video — brings the three use cases together</div>
+              <p class="placeholder-tag">Panel placeholder · video asset not supplied</p>
+            </article>
+
+            <article class="panel panel--placeholder" id="sales-marketing" data-slug="sales-marketing" hidden aria-labelledby="title-sales-marketing">
+              <header class="panel__head">
+                <h2 class="display display--m panel__title" id="title-sales-marketing">Sales and marketing as an operational advantage.</h2>
+                <p class="lede panel__lede">The business keeps its name, customers, and team. Fullsteam adds reach — people who know the industry and campaigns written for one niche audience.</p>
+              </header>
+              <div class="panel__block use-grid">
+                <article><span>Sales</span><h4>Speaks the vertical</h4><p>Go-to-market that knows the buyers, the season, and how this industry buys. [placeholder]</p></article>
+                <article><span>Marketing</span><h4>Reaches the right audience</h4><p>Content and campaigns for one niche — real customer stories and local examples. [placeholder]</p></article>
+                <article><span>Cross-sell</span><h4>What the parent can sell in</h4><p>Payments, lending, and insurance to customers the software already serves. [placeholder]</p></article>
+              </div>
+              <div class="panel__block">
+                <figure class="frame--pending" role="img" aria-label="Sales and marketing team — photography pending">
+                  <span class="pending__mark" aria-hidden="true"></span>
+                  <p class="pending__title">Sales &amp; marketing</p>
+                  <p class="pending__note">Real Fullsteam people · pending</p>
+                </figure>
+              </div>
+              <div class="panel__block facts facts--4">
+                <div><span>Reach</span><p>One sales and marketing organization across every business Fullsteam owns.</p></div>
+                <div><span>Scale</span><p>[placeholder] — &ldquo;100+ businesses&rdquo; is publishability-gated (OI-5).</p></div>
+                <div><span>Proof</span><p>[placeholder] — no pipeline, conversion, or growth-rate figures published.</p></div>
+                <div><span>Constraint</span><p>Never imply the business needed a new sales team to keep running.</p></div>
+              </div>
+              <p class="placeholder-tag">Panel placeholder · content track</p>
+            </article>
+
+            <article class="panel panel--placeholder" id="talent" data-slug="talent" hidden aria-labelledby="title-talent">
+              <header class="panel__head">
+                <h2 class="display display--m panel__title" id="title-talent">Talent as an operational advantage.</h2>
+                <p class="lede panel__lede">The team that built the software stays and gains a much larger company behind it — hiring, back office, and career paths from Fullsteam; identity stays with the vertical.</p>
+              </header>
+              <div class="panel__block use-grid">
+                <article><span>Hiring</span><h4>A deeper bench</h4><p>When the team needs to grow, it hires from a much larger pipeline. [placeholder]</p></article>
+                <article><span>Mobility</span><h4>A career that can move</h4><p>Move between software businesses Fullsteam owns without leaving the company. [placeholder]</p></article>
+                <article><span>Support</span><h4>Back office at group level</h4><p>Finance, legal, HR, and compliance handled centrally so the business stays focused. [placeholder]</p></article>
+              </div>
+              <div class="panel__block facts facts--4">
+                <div><span>Scale</span><p>[placeholder] — &ldquo;2,000+ colleagues&rdquo; is publishability-gated (OI-5).</p></div>
+                <div><span>Culture</span><p>A big company that doesn&rsquo;t operate like one — mostly remote, small-team autonomy.</p></div>
+                <div><span>Proof</span><p>[placeholder] — no attrition, hiring, or retention figures published.</p></div>
+                <div><span>Constraint</span><p>Never a story about replacing the team that came with the business.</p></div>
+              </div>
+              <p style="margin-top:24px"><a class="btn btn--sm" href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">See open roles</a></p>
+              <p class="placeholder-tag">Panel placeholder · content track</p>
+            </article>
+
+            <article class="panel panel--placeholder" id="peer-community" data-slug="peer-community" hidden aria-labelledby="title-peer-community">
+              <header class="panel__head">
+                <h2 class="display display--m panel__title" id="title-peer-community">Peer community without a corporate playbook.</h2>
+                <p class="lede panel__lede">Fullsteam buys software where deep industry knowledge is the product — sharing patterns across the portfolio without forcing a different playbook on every business.</p>
+              </header>
+              <div class="panel__block use-grid">
+                <article><span>Industry knowledge</span><h4>Expertise stays with the software</h4><p>Workflows, regulations, and buyers in each niche stay inside the business. [placeholder]</p></article>
+                <article><span>Shared learnings</span><h4>Without homogenizing brands</h4><p>When a problem comes up in one vertical, share what worked elsewhere without changing culture. [placeholder]</p></article>
+                <article><span>Peer community</span><h4>Leaders learning from leaders</h4><p>Operators compare notes across software businesses — a community of practice, not a corporate playbook. [placeholder]</p></article>
+              </div>
+              <div class="panel__block facts facts--4">
+                <div><span>Focus</span><p>Software first — industry-specific, mission-critical.</p></div>
+                <div><span>Scale</span><p>11 verticals settled; &ldquo;100+ businesses&rdquo; publishability-gated (OI-5).</p></div>
+                <div><span>Proof</span><p>[placeholder] — no cross-vertical metrics published.</p></div>
+                <div><span>Constraint</span><p>Never a one-size-fits-all playbook. Each business keeps its identity.</p></div>
+              </div>
+              <p class="placeholder-tag">Panel placeholder · content track</p>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq" data-surface="light" aria-labelledby="faq-title">
+      <div class="wrap faq__grid">
+        <div class="faq__head">
+          <h2 class="display display--l faq__title" id="faq-title"><span class="faq__title-sans">Common<br>questions,</span> <em>answered.</em></h2>
+        </div>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Are Payments, Lending, and Insurance separate acquisitions?</summary><p class="faq__answer">No. They are embedded capabilities added to the software businesses we own, helping them grow without changing their core focus.</p></details>
+          <details class="faq__item"><summary>What about AI?</summary><p class="faq__answer">AI at Fullsteam focuses on practical use cases that leverage proprietary vertical data — applied where it helps the business, not as a standalone replacement story.</p></details>
+          <details class="faq__item"><summary>Do these replace what a vertical does?</summary><p class="faq__answer">No. They extend the system of record the industry already depends on.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" data-surface="dark">
+    <div class="wrap">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" aria-label="Fullsteam home"><img src="assets/fullsteam-logo.svg" alt="" width="222" height="60" loading="lazy" decoding="async"></a>
+          <p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
+            and AI that grow them.</p>
+        </div>
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="vertical-software.html">Vertical Software</a></li>
+            <li>
+              <a href="our-advantage.html">Our Advantage</a>
+              <ul class="footer__sub">
+                <li><a href="our-advantage.html#payments">Payments</a></li>
+                <li><a href="our-advantage.html#lending">Lending</a></li>
+                <li><a href="our-advantage.html#insurance">Insurance</a></li>
+                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
+              </ul>
+            </li>
+            <li><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Company</h3>
+          <ul>
+            <li><a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/our-story.html#leadership">Leadership</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/careers.html">Careers</a></li>
+            <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener">Open roles &nearr;</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/contact.html#partner">Partner inquiries</a></li>
+            <li><a href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">LinkedIn &nearr;</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="../../../02_Wireframes/active/pages/privacy.html">Privacy</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/terms.html">Terms</a></li>
+            <li><span class="footer__muted">Complaints</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; Fullsteam 2026</p>
+        <a class="footer__social" href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+(function () {
+  "use strict";
+  var bar = document.getElementById("bar");
+  var progress = document.getElementById("progress");
+  var surfaces = Array.prototype.slice.call(document.querySelectorAll("[data-surface]"));
+  var ticking = false;
+
+  function surfaceAtHeader() {
+    var probe = 40;
+    for (var i = 0; i < surfaces.length; i++) {
+      var r = surfaces[i].getBoundingClientRect();
+      if (r.top <= probe && r.bottom > probe) return surfaces[i];
+    }
+    return null;
+  }
+
+  function onScrollFrame() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    if (progress) progress.style.setProperty("--p", p.toFixed(4));
+    if (bar) {
+      var s = surfaceAtHeader();
+      var dark = !s || s.getAttribute("data-surface") === "dark";
+      bar.classList.toggle("is-solid", !dark);
+      bar.classList.toggle("is-on-dark", dark);
+    }
+    ticking = false;
+  }
+
+  function requestScroll() {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(onScrollFrame); }
+  }
+
+  window.addEventListener("scroll", requestScroll, { passive: true });
+  window.addEventListener("resize", requestScroll);
+  requestScroll();
+
+  var menu = document.getElementById("siteMenu");
+  var menuBtn = document.getElementById("menuBtn");
+  var menuPanel = document.getElementById("menuPanel");
+  var lastFocus = null;
+
+  function openMenu() {
+    if (!menu) return;
+    lastFocus = document.activeElement;
+    menu.hidden = false;
+    menuBtn.setAttribute("aria-expanded", "true");
+    menuBtn.setAttribute("aria-label", "Close menu");
+    document.body.classList.add("menu-open");
+    var first = menuPanel.querySelector("a");
+    if (first) first.focus();
+  }
+
+  function closeMenu() {
+    if (!menu || menu.hidden) return;
+    menu.hidden = true;
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Menu");
+    document.body.classList.remove("menu-open");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", function () {
+      if (menu.hidden) openMenu(); else closeMenu();
+    });
+    menu.addEventListener("click", function (e) {
+      if (e.target === menu) closeMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (menu.hidden) return;
+      if (e.key === "Escape") { closeMenu(); return; }
+      if (e.key !== "Tab") return;
+      var f = Array.prototype.slice.call(menuPanel.querySelectorAll("a, button")).filter(function (el) {
+        return el.offsetParent !== null;
+      });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    menuPanel.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () { closeMenu(); });
+    });
+  }
+
+  var items = Array.prototype.slice.call(document.querySelectorAll(".rail__item"));
+  var panels = Array.prototype.slice.call(document.querySelectorAll(".panel"));
+  if (!items.length || !panels.length) return;
+
+  var bySlug = {};
+  panels.forEach(function (panel) { bySlug[panel.getAttribute("data-slug")] = panel; });
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function resolveHash() {
+    var raw = window.location.hash.replace("#", "");
+    if (!raw) return null;
+    return bySlug[raw] ? raw : null;
+  }
+
+  function setActive(slug, options) {
+    options = options || {};
+    panels.forEach(function (panel) {
+      var active = panel.getAttribute("data-slug") === slug;
+      panel.hidden = !active;
+      panel.classList.toggle("is-active", active);
+    });
+    items.forEach(function (item) {
+      var active = item.getAttribute("data-slug") === slug;
+      if (active) item.setAttribute("aria-current", "true");
+      else item.removeAttribute("aria-current");
+      if (active && options.scrollRail) {
+        item.scrollIntoView({ block: "nearest", inline: "center", behavior: reduceMotion ? "auto" : "smooth" });
+      }
+    });
+    if (options.scrollPanel) {
+      var panel = bySlug[slug];
+      if (panel) {
+        var top = panel.getBoundingClientRect().top + window.pageYOffset - 84;
+        window.scrollTo({ top: top, behavior: reduceMotion ? "auto" : "smooth" });
+      }
+    }
+  }
+
+  var initial = resolveHash() || items[0].getAttribute("data-slug");
+  setActive(initial);
+
+  items.forEach(function (item) {
+    item.addEventListener("click", function (event) {
+      var slug = item.getAttribute("data-slug");
+      if (!bySlug[slug]) return;
+      event.preventDefault();
+      setActive(slug, { scrollRail: true, scrollPanel: window.innerWidth <= 1080 });
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, "", "#" + slug);
+      } else {
+        window.location.hash = slug;
+      }
+    });
+  });
+
+  window.addEventListener("popstate", function () {
+    setActive(resolveHash() || items[0].getAttribute("data-slug"));
+  });
+
+  window.addEventListener("hashchange", function () {
+    var slug = resolveHash();
+    if (slug) setActive(slug, { scrollPanel: true });
+  });
+
+  document.querySelectorAll("#siteMenu a[href*='#']").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var url = new URL(a.href, location.href);
+      if (url.pathname !== location.pathname) return;
+      var slug = url.hash.replace("#", "");
+      if (!bySlug[slug]) return;
+      e.preventDefault();
+      setActive(slug, { scrollRail: true, scrollPanel: true });
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, "", "#" + slug);
+      }
+    });
+  });
+})();
+  </script>
+</body>
+</html>

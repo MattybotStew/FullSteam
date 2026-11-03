@@ -158,10 +158,10 @@ On-page name is **Acquisitions** (2026-10-22). File name is unchanged. Sitemap l
 One page, 11 verticals, no child pages.
 
 **Client-review hi-fi (2026-11-03):** `03_Design/client-review/homepage/vertical-software.html`
-— same IA as this wireframe (sticky sidebar, inline panels, no child pages). **Weddings & Events**
-is the first panel with real copy, carousel story, logos, and screens; other verticals remain
-placeholders. Named products/stats in the build need **client clearance (KB §29.7 / OI-16)**.
-Build record: `client-review/homepage/design-notes.md` §2026-11-03.
+— same IA as this wireframe (sticky sidebar, inline panels, no child pages). **Not every vertical
+ships the same proof stack** — see **§5.0** and **KB §28.9**. **Weddings & Events** is the **full**
+reference panel; others are min or standard depth with placeholders. Named products/stats need
+**client clearance (KB §29.7 / OI-16)**. Build: `design-notes.md` §2026-11-03.
 
 | Slot | Role | Status | Note |
 |---|---|---|---|
@@ -181,7 +181,28 @@ Build record: `client-review/homepage/design-notes.md` §2026-11-03.
 
 ### 5.0 Content depth tiers — client-review (2026-11-03)
 
-Not every vertical carries the same proof stack in the official HTML. **`data-content-depth`** on each panel (`min` · `standard` · `full`) gates which blocks render; see `design-notes.md` for the vertical assignment table. **Full** = Weddings reference only until other verticals are promoted. **Standard** = logos row without product screens. **Min** = story + stats only.
+**Canonical record:** **KB §28.9**. Wireframe slot table below still describes the **full** panel
+shape (intent for every vertical); the official HTML gates blocks by tier so review stays minimal
+until assets and clearance exist.
+
+**IA unchanged:** one Vertical Software page, eleven inline panels, sticky sidebar — no child pages.
+
+**Mechanism:** each panel has `data-content-depth="min|standard|full"` and `panel--depth-*`. CSS
+hides sections; markup for hidden blocks usually stays in the DOM for the content track.
+Promote/demote by changing class + attribute only (`vertical-software.html`).
+
+**Block order (every vertical):** `panel__head` (H3 + optional lede) → `panel__body` (copy + story
+photo or gallery) → `stats` → `logos` (BU + optional partners, from `manifest.json`) → `screens`
+(product UI row). **Story imagery** = “on the ground” (Weddings: scroll gallery + lightbox).
+**Product screenshots** = `.screens` row — not the story gallery.
+
+| Tier | What renders | Verticals |
+|---|---|---|
+| **min** | Title · story · stats. Lede hidden; **first body ¶** reads as lede. No logos, no screens. | Storage & Marina · Health & Wellness · Field Services · Association Management |
+| **standard** | min + visible lede + logo grids. No screens. | Hospitality · Wine · Retail · Transportation · Automotive · ERP |
+| **full** | standard + screens row. Weddings also has story gallery (reference). | Weddings & Events only (until others promoted) |
+
+**Shorthand for stakeholders:** 4 light · 6 with brands, no UI · 1 full reference (Weddings).
 
 ### 5.1 Weddings & Events — client-review panel (2026-11-03)
 
@@ -191,11 +212,22 @@ Wireframe slots above still govern intent; this table tracks the **official revi
 |---|---|---|---|
 | Panel description + lede | Detail | **Draft — review** | Client-facing copy in `vertical-software.html`; not final until content track signs off |
 | Surprising stats (`PANEL_STATS`) | Proof | **Draft — review** | Weddings figures in JS; **confirm publishability (OI-16)** before launch |
-| Story imagery | Imagery | **Draft — review** | **Five-slide carousel** + figcaption *Weddings & Events · on the ground*; Unsplash + on-brand frames; kitchen export unused |
+| Story imagery | Imagery | **Draft — review** | **Horizontal gallery + lightbox** (not product screens) + figcaption *Weddings & Events · on the ground*; Unsplash + on-brand frames; kitchen export unused |
 | Business-unit logos | Logos | **Draft — review** | BridalLive · Floranext · TPP · Aisle Planner Pro via `manifest.json`; Syvo retired |
 | Product screenshots (row of three) | Imagery | **Draft — review** | Screen 01 BridalLive UI; screens 02–03 lifestyle placeholders pending real UI |
-| Panel FAQ title (`em` gold word) | Q&A | **Draft — review** | Styled in hi-fi; FAQ body slots still placeholder elsewhere on page |
 | Partner / customer logo band | Logos | Placeholder | Partners row hidden when manifest empty |
+
+### 5.2 Page FAQ — client-review (Figma WF v2 · 2026-11-03)
+
+Source: FS-Design canvas `11511:2918`, accordion block `11530:1213`. Two-column layout (sticky H2 left, list right; stacks ≤1080px).
+
+| Slot | Copy (Figma) | Status | Note |
+|---|---|---|---|
+| H2 | **Common** / **questions,** / *answered.* (Instrument Sans + gold Instrument Serif; line breaks per frame) | **Draft — review** | `#faq` on `vertical-software.html` |
+| Q1 | Do you buy software companies, or add services to them? | **Draft — review** | Summary 20px / 500 |
+| Q2 | Do you change the brand or the team? | **Draft — review** | |
+| Q3 | Is AI part of this strategy? | **Draft — review** | |
+| A1–A3 | *(not in Figma export — collapsed)* | **Draft — review** | Review build carries placeholder answers until content track / client supplies bodies |
 
 ---
 

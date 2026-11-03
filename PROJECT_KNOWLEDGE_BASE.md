@@ -8,7 +8,7 @@
 > `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22); **Fullsteam Messaging Architecture** (marketing messaging architecture, received 2026-10-26 — distilled in §29, supersedes §22's pillars/themes)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22, superseded in part by **§29**); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-11-03 (**Vertical Software client-review page** — `03_Design/client-review/homepage/vertical-software.html` published beside `index.html` via `pages.yml`; Weddings & Events panel art-directed (five-slide story carousel, manifest-driven BU logos, BridalLive product screen + lifestyle placeholders). **No sitemap/IA change** — still one Vertical Software page with 11 inline panels. Named products/stats **not publishable** until cleared — §29.7 / OI-16. Build record: `client-review/homepage/design-notes.md` §2026-11-03)
+> **Last updated:** 2026-11-03 (**Vertical Software client-review** — `vertical-software.html` on Pages; **panel content depth tiers** locked — §28.9: min / standard / full proof stacks; Weddings = full reference with story gallery + lightbox. Named products/stats **not publishable** until cleared — §29.7 / OI-16. Build: `design-notes.md` §2026-11-03; slots: `content-slots.md` §5.0)
 > **Prior update:** 2026-10-26 (**§29 — Fullsteam Messaging Architecture** from marketing: master thesis "Empower the Builders. Lead the Industry.", pillars renamed **Essential / Grow / Lead** (first alignment with the homepage's Acquire/Grow/Lead model), three new product proof points (3,500 wineries · 400k dresses · 1M boats) and five named partners — all **not publishable** until cleared. Adds **OI-15** (marketing wants a "dedicated investor track", which the §14 sitemap lock removed — client decision), **OI-16** (named-customer/product clearance), **OI-17** (cybersecurity claim). No IA, opening, or homepage change; raw copy kept in gitignored `clientDocs/`)
 > **Prior update:** 2026-10-26 (official homepage: the 3-card proof band was **replaced by the
 > **scale chapter** — leader-table figures with count-up, a drawn stroke to a gold terminus, and a
@@ -2566,10 +2566,57 @@ folder's `assets/` as an allow-list so an unlicensed image fails closed.
 **Vertical Software — client-review page (2026-11-03).** Second published HTML in the same
 folder; homepage links it (nine targets). Wireframe IA unchanged: one page, sticky sidebar, eleven
 inline panels — no child pages (`plans/sitemap-lock.md`). **Weddings & Events** is the first
-fully built panel (copy/stats, five-slide story carousel, manifest BU logos, product-screen row
-with one real BridalLive UI capture and two lifestyle placeholders). Remaining verticals are still
-placeholder content. Named marks and figures require **§29.7 / OI-16** clearance. Detail:
-`design-notes.md` §2026-11-03; credits: `assets/credits.json`.
+fully built panel (copy/stats, horizontal story gallery + lightbox, manifest BU logos, product-screen
+row with one real BridalLive UI capture and two lifestyle placeholders). Remaining verticals use
+**content depth tiers** (§28.9) — not every panel ships the same proof stack. Named marks and
+figures require **§29.7 / OI-16** clearance. Detail: `design-notes.md` §2026-11-03; slots:
+`content-slots.md` §5.0; credits: `assets/credits.json`.
+
+### 28.9 Vertical Software — panel content depth tiers (official 2026-11-03)
+
+> **Status:** OFFICIAL for the client-review HTML (`vertical-software.html`). **No sitemap or IA
+> change** — still one Vertical Software page with eleven inline panels. Depth controls **how much
+> proof** each panel shows, not different page types or nav nodes.
+
+**Why.** The wireframe assumes one full panel shape for every vertical (description, photo, stats,
+logos, three screenshots — §26.2). In the hi-fi build, only **Weddings & Events** is art-directed
+to that level; forcing eleven identical stacks would bury the reference panel and inflate placeholder
+chrome. Tiers let four verticals stay light, six carry brand proof without product UI, and one
+show the full ladder (story gallery, logos, product screens).
+
+**Mechanism.** Each `<article class="panel">` carries `data-content-depth="min|standard|full"` and
+matching `panel--depth-*`. CSS hides blocks; markup for hidden sections usually **stays in the DOM**
+so the content track can fill slots without restructuring HTML. Promote/demote by changing class +
+attribute only.
+
+**Shared panel stack (top → bottom).** Every vertical uses the same block order:
+
+| Block | Role |
+|---|---|
+| `panel__head` | H3 title + optional `panel__lede` (investor-style subhead) |
+| `panel__body` | Copy column + **story** frame (“on the ground”; Weddings = multi-image gallery, not product UI) |
+| `stats` | Three KPI-style figures (abbreviated in JS where needed) |
+| `logos` | Business-unit grid + optional customer/partner row (`assets/logos/manifest.json` at runtime) |
+| `screens` | Product screenshot row (real UI or wireframe placeholders) |
+
+**Story gallery ≠ product row.** The Weddings **story gallery** (`frame--gallery`, lightbox) is
+“on the ground” photography. The **`.screens`** row is software/product proof — only on **full**
+tier (and only Weddings is built out today).
+
+**Tiers.**
+
+| Tier | Class | Visible blocks | Verticals (11) |
+|---|---|---|---|
+| **Min** | `panel--depth-min` | Title · story photo · stats. **No** visible lede (first body ¶ styled as lede). **No** logos. **No** screens. | Storage & Marina · Health & Wellness · Field Services · Association Management (**4**) |
+| **Standard** | `panel--depth-standard` | Min + visible **`panel__lede`** + **logo grids**. **No** product screens. | Hospitality · Wine · Retail · Transportation · Automotive · ERP (**6**) |
+| **Full** | `panel--depth-full` | Standard + **`.screens`** row. Weddings also has the **story gallery** (reference only until others promoted). | **Weddings & Events** (**1**) |
+
+**Client-facing shorthand.** Four verticals intentionally light · six with brand proof, no UI row ·
+Weddings shows the full pattern others can grow into when copy, logos, and screens are cleared.
+
+**Wireframe vs hi-fi.** Active wireframe `02_Wireframes/active/pages/vertical-software.html` still
+draws one panel shape for all eleven; the tier model is documented here and in `content-slots.md`
+§5.0 for the official build only until wireframes are reconciled.
 
 **Where the record lives.** Build/motion detail: `client-review/homepage/design-notes.md`.
 LinkedIn fill slots: `client-review/homepage/linkedin-slots.md`. Structural record stays

@@ -90,7 +90,8 @@ This file is the canonical agent entry point (works with Cursor, which reads
   (promoted **2026-11-02** — ledger redesign; prior build frozen at
   `client-review/homepage-2026-10-29-official/`). It is **client-facing and tracked**:
   the review portal links it and Pages publishes it (`index.html`, **`vertical-software.html`**,
-  header logos, hero fallback, `assets/img/` section photography; **`assets/logos/`** +
+  **`our-advantage.html`**, header logos, hero fallback, `assets/img/` section photography;
+  **`assets/logos/`** +
   **`manifest.json`** are gitignored locally but **copied at deploy** — see `pages.yml`).
   Structure: **Axis A → copy swap → Axis B** opening
   (KB §23.10) → **How a Fullsteam company compounds** model steps → AI → verticals gallery
@@ -99,14 +100,22 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Vertical Software — second client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/vertical-software.html`, linked from the homepage
   (`index.html`, nine gallery/CTA targets vs wireframe cross-links). **IA unchanged** — single
-  page, sticky sidebar, 11 inline panels (`plans/sitemap-lock.md`). **Weddings & Events** is the
-  reference panel: client-facing copy/stats (`PANEL_STATS`), a **five-slide story carousel**
-  (Unsplash hero + boutique/floranext/barn frames; kitchen export on disk unused), product row
-  (BridalLive UI screenshot + two lifestyle placeholders for Floranext / Aisle Planner Pro),
-  business-unit logos loaded from **`manifest.json`** (BridalLive, Floranext, TPP, Aisle Planner
-  Pro — Syvo replaced). Other verticals still use placeholder stats, photos, and screens.
-  Named products/figures need **client clearance (KB §29.7 / OI-16)** before publish. Asset
-  provenance: `assets/credits.json` on that page. Detail: `design-notes.md` §2026-11-03.
+  page, sticky sidebar, 11 inline panels (`plans/sitemap-lock.md`). **Panel content depth**
+  (min / standard / full) gates how much proof each vertical shows — **KB §28.9**,
+  `content-slots.md` §5.0; wireframe still draws one full shape for all eleven. **Weddings &
+  Events** is the **full** reference: copy/stats (`PANEL_STATS`), **story gallery + lightbox**
+  (not product screens), product `.screens` row, logos from **`manifest.json`**. Other verticals
+  are min or standard with placeholders. Named products/figures need **client clearance
+  (KB §29.7 / OI-16)** before publish. Provenance: `assets/credits.json`; build:
+  `design-notes.md` §2026-11-03.
+- **Our Advantage — third client-review HTML page (2026-11-03):**
+  `03_Design/client-review/homepage/our-advantage.html`, linked from homepage and Vertical
+  Software chrome. **IA unchanged** — single page, sticky sidebar with three groups
+  (Embedded Fintech · AI at Fullsteam · Operational Excellence), seven inline panels
+  (`#payments` default). **M1:** Payments panel at full ledger shape (compare, gated stats,
+  hardware slot, testimonial placeholder); other six panels are structural stubs until M2.
+  FAQ matches Vertical Software two-column pattern. Figma wireframe reference **`11489:10607`**
+  on WF v2; hi-fi Figma frame not yet captured. Build: `design-notes.md` §2026-11-03.
 - **Frozen prior official — `03_Design/client-review/homepage-2026-10-29-official/`**
   (snapshot of `homepage/` at promotion). Dark scale chapter, `vpanel` verticals, pre-ledger
   chrome. Read-only reference; not linked from the review portal or staged by `pages.yml`.

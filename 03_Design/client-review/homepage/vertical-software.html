@@ -136,6 +136,8 @@ button { font: inherit; color: inherit; }
 #verticals-title em,
 #faq-title em { color: var(--gold); letter-spacing: 0; }
 
+#faq-title em { display: block; }
+
 .display--xxl { font-size: var(--t-hero); line-height: .92; }
 .display--l { font-size: var(--t-h2); }
 .display--m { font-size: var(--t-h3); line-height: 1.1; letter-spacing: -.02em; }
@@ -1008,12 +1010,27 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 
 .faq__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(32px, 4vw, 48px);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 5vw, 80px);
   align-items: start;
 }
 
-.faq__head { position: static; max-width: 22ch; }
+.faq__head {
+  position: sticky;
+  top: calc(var(--bar) + 24px);
+  max-width: 250px;
+}
+
+/* Figma FS-Design WF v2 — node 11530:1210 (Common / questions, / answered.) */
+.faq__title {
+  max-width: none;
+  line-height: 0.945;
+  letter-spacing: -0.035em;
+}
+
+.faq__title-sans {
+  display: block;
+}
 
 
 .faq__list { border-top: 1px solid var(--ink); }
@@ -1025,10 +1042,10 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   grid-template-columns: minmax(0, 1fr) 26px;
   gap: 20px;
   align-items: start;
-  padding: 24px 0;
+  padding: 23.5px 0 23.89px;
   cursor: pointer;
   list-style: none;
-  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  font-size: 1.25rem;
   font-weight: 500;
   letter-spacing: -0.012em;
   line-height: 1.32;
@@ -1088,9 +1105,10 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 }
 .footer ul { list-style: none; margin: 0; padding: 0; }
 .footer li + li { margin-top: 10px; }
-.footer__sub {
-  margin-top: 10px;
-  padding-left: 14px;
+.footer ul.footer__sub {
+  margin-top: 12px;
+  margin-left: 2px;
+  padding-left: 16px;
   border-left: 1px solid rgba(255, 255, 255, .14);
 }
 .footer__sub li + li { margin-top: 9px; }
@@ -1229,8 +1247,8 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   <div class="menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
     <div class="menu__panel" id="menuPanel">
       <a href="#top">Vertical Software</a>
-      <a href="../../../02_Wireframes/active/pages/our-advantage.html">Our Advantage</a>
-      <a href="../../../02_Wireframes/active/pages/our-advantage.html#ai">AI at Fullsteam</a>
+      <a href="our-advantage.html">Our Advantage</a>
+      <a href="our-advantage.html#ai">AI at Fullsteam</a>
       <a href="../../../02_Wireframes/active/pages/our-story.html">Our Story</a>
       <a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a>
       <a href="../../../02_Wireframes/active/pages/careers.html">Careers</a>
@@ -1763,10 +1781,12 @@ html:not(.has-js) .story-carousel__controls { display: none; }
     <section class="faq" id="faq" data-surface="light" aria-labelledby="faq-title">
       <div class="wrap faq__grid">
         <div class="faq__head">
-          <h2 class="display display--l section__title" id="faq-title">Common questions, <em>answered.</em></h2>
+          <h2 class="display display--l faq__title" id="faq-title"><span class="faq__title-sans">Common<br>questions,</span> <em>answered.</em></h2>
         </div>
         <div class="faq__list">
-          <details class="faq__item"><summary>Do you buy software companies, or add services to them?</summary><p class="faq__answer">We buy software businesses. Services do not lead. Software is the system of record, and AI and payments are added on top of it — not in place of it.</p></details><details class="faq__item"><summary>Do you change the brand or the team?</summary><p class="faq__answer">No. The companies keep their names, their teams, and their relationship with their customers. What changes is what sits behind them: shared engineering, go-to-market support, and capital.</p></details><details class="faq__item"><summary>Is AI part of this strategy?</summary><p class="faq__answer">Yes, as an addition to software that already runs the business — not as the headline. AI is most useful where the system of record is already in place.</p></details>
+          <details class="faq__item"><summary>Do you buy software companies, or add services to them?</summary><p class="faq__answer">We buy software businesses. Services do not lead. Software is the system of record, and AI and payments are added on top of it — not in place of it.</p></details>
+          <details class="faq__item"><summary>Do you change the brand or the team?</summary><p class="faq__answer">No. The companies keep their names, their teams, and their relationship with their customers. What changes is what sits behind them: shared engineering, go-to-market support, and capital.</p></details>
+          <details class="faq__item"><summary>Is AI part of this strategy?</summary><p class="faq__answer">Yes, as an addition to software that already runs the business — not as the headline. AI is most useful where the system of record is already in place.</p></details>
         </div>
       </div>
     </section>
@@ -1797,12 +1817,12 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           <ul>
             <li><a href="#top">Vertical Software</a></li>
             <li>
-              <a href="../../../02_Wireframes/active/pages/our-advantage.html">Our Advantage</a>
+              <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#payments">Payments</a></li>
-                <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#lending">Lending</a></li>
-                <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#insurance">Insurance</a></li>
-                <li><a href="../../../02_Wireframes/active/pages/our-advantage.html#ai">AI at Fullsteam</a></li>
+                <li><a href="our-advantage.html#payments">Payments</a></li>
+                <li><a href="our-advantage.html#lending">Lending</a></li>
+                <li><a href="our-advantage.html#insurance">Insurance</a></li>
+                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
               </ul>
             </li>
             <li><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a></li>

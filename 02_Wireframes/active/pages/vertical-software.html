@@ -327,10 +327,16 @@
   .roles{ width:100%; border-collapse:collapse; margin-top:8px; font-size:15px; }
   .roles th, .roles td{ text-align:left; padding:12px 10px; border-bottom:1px solid var(--ink); font-weight:500; }
   .roles th{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; }
-  .faq{ display:grid; gap:0; border-top:1px solid var(--line); }
-  .faq details{ border-bottom:1px solid var(--line); padding:14px 0; }
-  .faq summary{ font-size:18px; font-weight:700; cursor:pointer; }
-  .faq details p{ margin-top:10px; max-width:62ch; font-size:16px; }
+  .faq{ padding:48px 0; }
+  .faq__grid{ display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:48px 64px; align-items:start; }
+  .faq__title{ font-size:40px; font-weight:700; line-height:1; letter-spacing:-.02em; max-width:12ch; }
+  .faq__title em{ display:block; font-style:italic; font-weight:400; }
+  .faq__list{ border-top:1px solid var(--ink); }
+  .faq details{ border-bottom:1px solid var(--line); }
+  .faq summary{ display:block; padding:18px 0; font-size:20px; font-weight:500; cursor:pointer; list-style:none; }
+  .faq summary::-webkit-details-marker{ display:none; }
+  .faq details p{ margin:0 0 18px; max-width:62ch; font-size:16px; }
+  @media (max-width:1080px){ .faq__grid{ grid-template-columns:1fr; } }
   form{ display:grid; gap:14px; max-width:560px; }
   label{ display:grid; gap:6px; font-size:13px; font-weight:600; }
   input, select, textarea{
@@ -534,13 +540,14 @@
       </div>
     </section>
 
-  <section class="block" id="faq">
-    <div class="wrap">
-      <p class="beat">FAQ</p>
-      <h2>Intent: answer common questions about our vertical software approach.</h2>
-      <div class="faq" style="margin-top:28px">
-        <details><summary>Do you buy software or add services?</summary><p>We buy industry-specific software companies — systems of record. Payments, lending, and other capabilities come after the close as growth drivers.</p></details>
-        <details><summary>Do you change the brand or team?</summary><p>Brands stay standalone. The team stays. Fullsteam provides group support so the business can scale what it built.</p></details>
+  <section class="block faq" id="faq">
+    <div class="wrap faq__grid">
+      <div>
+        <h2 class="faq__title">Common<br>questions, <em>answered.</em></h2>
+      </div>
+      <div class="faq__list">
+        <details open><summary>Do you buy software companies, or add services to them?</summary><p>We buy industry-specific software companies — systems of record. Payments, lending, and other capabilities come after the close as growth drivers.</p></details>
+        <details><summary>Do you change the brand or the team?</summary><p>Brands stay standalone. The team stays. Fullsteam provides group support so the business can scale what it built.</p></details>
         <details><summary>Is AI part of this strategy?</summary><p>Yes, but use cases come first. We focus on practical AI that helps the software do more for its industry — never framed as staff reduction.</p></details>
       </div>
     </div>

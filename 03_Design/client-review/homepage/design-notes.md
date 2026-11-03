@@ -13,8 +13,34 @@ unchanged (one page, 11 sidebar panels). **Official (2026-11-03): no `.index` ey
 on this page — hero, verticals band, and FAQ use headlines only (no mono chapter labels).
 
 Review portal + `pages.yml` publish this folder (`index.html`, `vertical-software.html`,
-tracked assets under `assets/` per allow-list; **`assets/logos/`** and **`manifest.json`**
-are gitignored but staged on deploy).
+`our-advantage.html`, tracked assets under `assets/` per allow-list; **`assets/logos/`** and
+**`manifest.json`** are gitignored but staged on deploy).
+
+---
+
+## 2026-11-03 — Our Advantage page (client-review hi-fi)
+
+**File:** `our-advantage.html` · **Figma:** FS-Design node `11489:10607` · **Wireframe:**
+`02_Wireframes/active/pages/our-advantage.html` · **Chrome parity:** `vertical-software.html` /
+`index.html` (ledger tokens, bar/menu/footer, FAQ two-column pattern).
+
+| Area | Build |
+|---|---|
+| Hero | Dark band, no mono beat (matches VS chrome rules); H1 *How we **grow** what we own.* + lede |
+| Sidebar | Three groups · seven items: Embedded Fintech (Payments, Lending, Insurance) · AI at Fullsteam · Operational Excellence (Sales & Marketing, Talent, Peer Community) |
+| Panels | Inline swap + `#payments` … `#peer-community` hash routing (same engine pattern as VS) |
+| **Payments** | Full layout: compare columns, unreconciled stats + mono notes, hardware pending frame, testimonial placeholder |
+| **Other 6** | Structural placeholders — wireframe intent copy, cards/facts grids, pending photography/video where wireframe had slots |
+| FAQ | Three questions from wireframe; sticky H2 left / accordion right |
+| Cross-links | `index.html` + `vertical-software.html` menu/footer Our Advantage targets → `our-advantage.html` (in-folder) |
+| Deploy | `pages.yml` copies `our-advantage.html` beside homepage + VS |
+
+**Publishability:** Payment stats, “Top 20,” and any future testimonial remain **review-only**
+(OI-5 / OI-14 / KB §29.7) until client clearance.
+
+**Preview (ledger):** `03_Design/client-review/homepage/our-advantage.html` — not
+`02_Wireframes/active/pages/our-advantage.html` (structural wireframe; banner + portal
+links updated 2026-11-03 so review traffic hits hi-fi).
 
 ### 2026-11-03 — Homepage: ledger line backgrounds removed
 
@@ -44,9 +70,9 @@ force-add gitignored logo assets to git — describe deploy staging only in docs
 
 **Verticals band head (2026-11-03):** removed the `#verticals` section lede — H2 only, like the homepage verticals band (`Keep the businesses growing.`).
 
-**Minimal panel proof (2026-11-03):** mono **`logos__title` / `screens__head` labels hidden** site-wide (names → `aria-label` / `.sr-only` via manifest JS). **FAQ** is single-column (H2 + list).
+**Minimal panel proof (2026-11-03):** mono **`logos__title` / `screens__head` labels hidden** site-wide (names → `aria-label` / `.sr-only` via manifest JS). **FAQ** is two-column (sticky H2 left, accordion right; stacks at ≤1080px).
 
-**Content depth tiers (2026-11-03, official):** panels use `data-content-depth` + `panel--depth-*` — not every vertical ships the same stack.
+**Content depth tiers (2026-11-03, official):** panels use `data-content-depth` + `panel--depth-*` — not every vertical ships the same stack. **Canonical record:** `PROJECT_KNOWLEDGE_BASE.md` **§28.9**; slot handoff: `content-slots.md` **§5.0**.
 
 | Tier | Class | Sections shown | Verticals (11) |
 |------|--------|----------------|----------------|
@@ -62,7 +88,7 @@ Promote/demote a vertical by changing class + `data-content-depth` only — mark
   logo images use grayscale treatment in CSS.
 - Removed draft review chrome on this page: hero meta, blue CTA band, all
   **`p.logos__count`** headers (logos + product-screens rows).
-- FAQ section titles use gold **`em`** styling (where present per panel).
+- **Page FAQ** (`#faq`) matches Figma WF v2 **`11530:1208–1213`** (canvas `11511:2918`): stacked H2 (*Common* / *questions,* / *answered.*), three accordion summaries (20px medium), two-column grid; answer bodies not in Figma — review placeholders until content track. **2026-11-03:** MCP `html_to_figma` sync from `tools/html2figma/out/faq-client-review-snippet.html`; accordion column repositioned to **x=560 / w=720** via `use_figma` (was full-width under heading). Wireframe FAQ markup aligned for future Desktop Bridge re-export.
 
 ### Weddings & Events (reference panel)
 
