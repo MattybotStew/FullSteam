@@ -126,6 +126,17 @@ This file is the canonical agent entry point (works with Cursor, which reads
   proof placeholders), 01 company mission/vision video slot, 02 chapter timeline (six rows,
   years pending), `#leadership` ink band (six card placeholders), homepage-style close. Figma
   wireframe **`11489:10772`**. Build: `design-notes.md` §2026-11-03.
+- **Careers — fifth client-review HTML page (2026-11-03):**
+  `03_Design/client-review/homepage/careers.html`, linked from the homepage (menu, careers
+  band, footer) and from Vertical Software, Our Advantage, and Our Story chrome. **IA unchanged** —
+  single leaf page, **CompactLight** hero (`design.md` §4.10): paper band, `CAREERS` eyebrow,
+  hero `em` serif, fact strip (2,000+ / 11), single banner placeholder. Order per Figma
+  `11489:9827`: 01 How it feels → 02 Who thrives (**Our Values 3×2 slot grid — placeholders
+  only, no invented values**) → 03 Testimonials (tan, three draft voices) → 04 Open roles
+  (Workday, new tab) → LinkedIn module **directly below Open Roles** → 05 FAQ. **No close band**
+  — the wireframe ends on FAQ. Deploy: `pages.yml` stages the file; portal links hi-fi + wireframe.
+  Build: `design-notes.md` §2026-11-03. Values, quotes, portraits, and the banner photo remain
+  placeholders pending client clearance.
 - **Frozen prior official — `03_Design/client-review/homepage-2026-10-29-official/`**
   (snapshot of `homepage/` at promotion). Dark scale chapter, `vpanel` verticals, pre-ledger
   chrome. Read-only reference; not linked from the review portal or staged by `pages.yml`.

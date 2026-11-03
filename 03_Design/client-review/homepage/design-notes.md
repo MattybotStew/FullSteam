@@ -13,8 +13,34 @@ unchanged (one page, 11 sidebar panels). **Official (2026-11-03): no `.index` ey
 on this page — hero, verticals band, and FAQ use headlines only (no mono chapter labels).
 
 Review portal + `pages.yml` publish this folder (`index.html`, `vertical-software.html`,
-`our-advantage.html`, `our-story.html`, tracked assets under `assets/` per allow-list;
-**`assets/logos/`** and **`manifest.json`** are gitignored but staged on deploy).
+`our-advantage.html`, `our-story.html`, `careers.html`, tracked assets under `assets/` per
+allow-list; **`assets/logos/`** and **`manifest.json`** are gitignored but staged on deploy).
+
+---
+
+## 2026-11-03 — Careers page (client-review hi-fi)
+
+**File:** `careers.html` · **Figma:** FS-Design node `11489:9827` · **Wireframe:**
+`02_Wireframes/active/pages/careers.html` · **Chrome parity:** VS / OA / Our Story
+(ledger bar, menu, footer; Careers marked `aria-current`).
+
+| Area | Build |
+|---|---|
+| Hero | **MediaDark** (`hero--media-dark`, same ink + glow as Vertical Software): **2-col split** (H1 + lede left · **1:1** `assets/img/careers/hero-team.jpg` right) → **2-cell fact strip** on dark (2,000+ / 11); `data-surface="dark"` |
+| 01 How it feels | Split head + two ledger cells (“The problem is yours to pick up.” / “A bigger company behind a small team.”) + remote footnote |
+| 02 Who thrives | Stacked head; **Our Values** 3×2 slot grid. **Six `Value [placeholder]` tiles — no invented values**; note says leadership confirmation is pending |
+| 03 Testimonials | Tan `--tan #F3E6D0` band; three voices in story order (founder / founder who stayed / employee), 56px round local placeholder portraits (`assets/img/careers/voice-*.jpg`), mono note that quotes and photos are draft placeholders |
+| 04 Open roles | Workday handoff — `View opportunities on Workday` pill (new tab); **no in-page table**, no Open Roles child page |
+| LinkedIn | Tan band **directly below Open Roles**; three cards condensed from the client’s own company-page posts + Follow pill (same company URL as the homepage strip) |
+| 05 FAQ | Shared two-column FAQ pattern: where people are based · moving between verticals · how to apply · will AI replace roles |
+| Order | **No close band** — the wireframe/Figma ends on FAQ, and the Workday CTA in 04 is the conversion point |
+| Cross-links | Homepage (menu, careers band, footer), VS, OA, Our Story now point at in-folder `careers.html`; portal has hi-fi + wireframe links; `pages.yml` stages the file and **`assets/img/` recursively** (banner, `careers/` voice portraits, `leaders/`) |
+| CSS hygiene | **2026-11-03 pass:** removed accidental Our Story / timeline / leadership stylesheet copy from `careers.html`; page CSS is chrome + CompactLight + section blocks only |
+
+**Placeholders / before publish:** values list (leadership), the three quotes + real
+employee portraits, real employee photography for the banner, LinkedIn permalinks/dates.
+The local careers images are review stand-ins only (Unsplash License, credited).
+The 2,000+ / 11 claims are already established elsewhere on the site (KB §29.4).
 
 ---
 
