@@ -167,6 +167,60 @@
       "source": "Unsplash",
       "assetUrl": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
       "license": "Unsplash License"
+    },
+    {
+      "file": "assets/img/leaders/lawler.jpg",
+      "slot": "Our Story — leadership (review stand-in)",
+      "subject": "Professional portrait stand-in for Michael Lawler",
+      "source": "Unsplash",
+      "assetUrl": "https://unsplash.com/photos/pAtA8xe_iVM",
+      "license": "Unsplash License",
+      "note": "Replace with client-supplied executive headshot before launch; do not ship stand-ins as named leaders."
+    },
+    {
+      "file": "assets/img/leaders/colella.jpg",
+      "slot": "Our Story — leadership (review stand-in)",
+      "subject": "Professional portrait stand-in for Greg Colella",
+      "source": "Unsplash",
+      "assetUrl": "https://unsplash.com/photos/QXevDflbl8A",
+      "license": "Unsplash License",
+      "note": "Replace with client-supplied executive headshot before launch."
+    },
+    {
+      "file": "assets/img/leaders/freund.jpg",
+      "slot": "Our Story — leadership (review stand-in)",
+      "subject": "Professional portrait stand-in for Charles Freund",
+      "source": "Unsplash",
+      "assetUrl": "https://unsplash.com/photos/0Zx1bDv5BNY",
+      "license": "Unsplash License",
+      "note": "Replace with client-supplied executive headshot before launch."
+    },
+    {
+      "file": "assets/img/leaders/izzo.jpg",
+      "slot": "Our Story — leadership (review stand-in)",
+      "subject": "Professional portrait stand-in for Dirk Izzo",
+      "source": "Unsplash",
+      "assetUrl": "https://unsplash.com/photos/XiUd5LzIk_o",
+      "license": "Unsplash License",
+      "note": "Replace with client-supplied executive headshot before launch."
+    },
+    {
+      "file": "assets/img/leaders/byrd.jpg",
+      "slot": "Our Story — leadership (review stand-in)",
+      "subject": "Professional portrait stand-in for Fred Byrd",
+      "source": "Unsplash",
+      "assetUrl": "https://unsplash.com/photos/OLW0n3Yrvjs",
+      "license": "Unsplash License",
+      "note": "Replace with client-supplied executive headshot before launch."
+    },
+    {
+      "file": "assets/img/leaders/kallenbach.jpg",
+      "slot": "Our Story — leadership (review stand-in)",
+      "subject": "Professional portrait stand-in for Charles Kallenbach",
+      "source": "Unsplash",
+      "assetUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9",
+      "license": "Unsplash License",
+      "note": "Replace with client-supplied executive headshot before launch."
     }
   ],
   "videos": [

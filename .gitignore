@@ -1,5 +1,8 @@
 .DS_Store
 
+# Fullsteam.com executive portraits kept locally when Unsplash stand-ins ship in review
+03_Design/client-review/homepage/assets/img/leaders/_source-fullsteam/
+
 # Agent/tool scratch output — not project artifacts
 .playwright-mcp/
 .qwen/
