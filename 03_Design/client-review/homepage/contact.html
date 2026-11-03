@@ -341,14 +341,37 @@ body.menu-open { overflow: hidden; }
 }
 .hero--paper { background: var(--paper); border-bottom: 1px solid var(--line); }
 
+/* ---------- hero ---------- */
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(240px, 20rem);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: end;
+}
+.hero__copy { min-width: 0; }
 .hero__title { max-width: 15ch; letter-spacing: -.038em; }
-
-.hero__lede { margin-top: clamp(24px, 3vw, 36px); max-width: 56ch; }
-
+.hero__lede { margin-top: clamp(24px, 3vw, 36px); max-width: 52ch; }
 .hero__jumps {
   display: flex; flex-wrap: wrap; gap: 14px clamp(20px, 3vw, 40px);
   margin-top: clamp(28px, 3.4vw, 44px);
 }
+
+/* Direct lines — the one place on the site where a phone-call detail belongs:
+   a contact page should answer "how do I reach a person" above the fold. */
+.hero__lines { border-top: 1px solid var(--line); }
+.hero__line {
+  display: grid; gap: 5px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.hero__k {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+}
+.hero__v { font-weight: 600; font-size: var(--t-small); }
+.hero__v a { border-bottom: 1px solid var(--line-strong); }
+.hero__v a:hover { border-color: var(--ink); }
 
 .arrow-link {
   display: inline-flex; align-items: center; gap: 10px;
@@ -359,17 +382,18 @@ body.menu-open { overflow: hidden; }
 .arrow-link svg { width: 15px; height: 15px; transition: transform 180ms var(--e); }
 .arrow-link:hover svg { transform: translateX(4px); }
 
-/* ---------- routing band ---------- */
+/* ---------- routing strip ---------- */
 
-.route {
+.route { padding-block: clamp(36px, 4.2vw, 56px); }
+.route__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(24px, 4vw, 56px);
-  align-items: end;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) auto;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: center;
 }
-.route__copy h2 { max-width: 18ch; }
-.route__copy .lede { margin-top: clamp(16px, 1.8vw, 22px); max-width: 52ch; }
-.route .btn { justify-self: end; }
+.route__inner h2 { max-width: 16ch; }
+.route__copy { font-size: var(--t-small); line-height: 1.6; color: var(--muted); max-width: 46ch; }
+.route__inner .btn { justify-self: end; }
 
 /* ---------- conversation form ---------- */
 
@@ -381,8 +405,8 @@ body.menu-open { overflow: hidden; }
 }
 .form__intro p { margin-top: 14px; max-width: 46ch; }
 
-.form { display: grid; gap: clamp(16px, 1.8vw, 22px); margin-top: clamp(26px, 3vw, 36px); max-width: 640px; }
-.field { display: grid; gap: 6px; }
+.form { display: grid; gap: clamp(14px, 1.6vw, 20px); margin-top: clamp(26px, 3vw, 36px); max-width: 640px; }
+.field { display: grid; gap: 4px; }
 .field__row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 24px); }
 .field__label {
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
@@ -392,7 +416,7 @@ body.menu-open { overflow: hidden; }
   width: 100%; font: inherit; font-size: 16px; line-height: 1.4;
   color: var(--ink); background: transparent;
   border: 0; border-bottom: 1px solid var(--line-strong);
-  border-radius: 0; padding: 8px 0 12px;
+  border-radius: 0; padding: 6px 0 10px;
   transition: border-color 160ms var(--e);
 }
 .field__input:hover, .field__select:hover, .field__textarea:hover { border-bottom-color: var(--ink); }
@@ -406,7 +430,7 @@ body.menu-open { overflow: hidden; }
   background-repeat: no-repeat; background-position: right 2px center;
   padding-right: 26px; cursor: pointer;
 }
-.field__textarea { min-height: 132px; resize: vertical; }
+.field__textarea { min-height: 118px; resize: vertical; }
 .form__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 22px; margin-top: 6px; }
 .form__note { font-size: 13px; line-height: 1.5; color: var(--muted); max-width: 36ch; }
 .form__status { font-size: var(--t-small); line-height: 1.5; color: var(--ink); }
@@ -418,21 +442,19 @@ body.menu-open { overflow: hidden; }
 .side { position: sticky; top: calc(var(--bar) + 32px); }
 .side h2 { max-width: 10ch; }
 .side__body { margin-top: 18px; font-size: var(--t-small); line-height: 1.6; color: var(--muted); max-width: 34ch; }
-.side__list { margin-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--line); }
-.side__row { display: grid; gap: 5px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-.side__k { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.side__v { font-weight: 600; }
-.side__v a { border-bottom: 1px solid var(--line-strong); }
-.side__v a:hover { border-color: var(--ink); }
 .side__foot { margin-top: 22px; }
 
 @media (max-width: 1080px) {
   .form-grid { grid-template-columns: 1fr; gap: clamp(32px, 5vw, 48px); }
   .side { position: static; }
 }
+@media (max-width: 1080px) {
+  .hero__grid { grid-template-columns: 1fr; align-items: start; }
+  .hero__lines { max-width: 30rem; }
+}
 @media (max-width: 900px) {
-  .route { grid-template-columns: 1fr; align-items: start; }
-  .route .btn { justify-self: start; }
+  .route__inner { grid-template-columns: 1fr; align-items: start; gap: 18px; }
+  .route__inner .btn { justify-self: start; }
 }
 @media (max-width: 620px) {
   .field__row { grid-template-columns: 1fr; }
@@ -474,9 +496,68 @@ body.menu-open { overflow: hidden; }
   }
 }
 
-/* Contact side rail — inline links were 21px tall on touch. */
+/* Inline links here were 19-21px tall on touch; padding takes them over the
+   24px minimum without moving the row rhythm. */
 @media (max-width: 640px) {
-  .side__v a, .side__foot a { display: inline-block; padding-block: 6px; }
+  .side__foot a, .hero__v a { display: inline-block; padding-block: 6px; }
+}
+
+/* ---------- footer ---------- */
+/* Lifted from the shared chrome block. contact.html was assembled from
+   careers.html and this range — footer base + its two responsive rules — was
+   left behind with the careers-only CSS, so the published footer rendered as
+   unstyled stacked links with a full-bleed LinkedIn glyph. */
+.footer {
+  background: #071820;
+  color: rgba(255, 255, 255, .62);
+  --focus: #fff;
+  padding: clamp(56px, 6vw, 76px) 0 28px;
+  font-size: var(--t-small);
+}
+.footer__top {
+  display: grid;
+  grid-template-columns: 2.2fr repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  padding-bottom: clamp(40px, 5vw, 60px);
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+.footer__brand img { width: 168px; height: auto; opacity: .96; }
+.footer__line { margin-top: 20px; max-width: 30ch; line-height: 1.6; color: rgba(255, 255, 255, .6); }
+.footer h3 {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .58); margin-bottom: 16px;
+}
+.footer li + li { margin-top: 10px; }
+.footer ul.footer__sub {
+  margin-top: 12px; margin-left: 2px; padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, .14);
+}
+.footer__sub li + li { margin-top: 9px; }
+.footer__sub a { font-size: 14px; color: rgba(255, 255, 255, .5); }
+.footer__sub a:hover { color: #fff; }
+.footer a { transition: color .14s var(--e-quick); }
+.footer a:hover { color: #fff; }
+.footer__bottom {
+  padding-top: 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .56);
+}
+.footer__social { display: inline-flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, .7); }
+.footer__muted { color: inherit; }
+.footer__social svg { width: 16px; height: 16px; fill: currentColor; }
+.footer__social:hover { color: #fff; }
+
+@media (max-width: 860px) {
+  .footer__top { grid-template-columns: 1fr 1fr; gap: 34px 24px; }
+  .footer__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .footer__top { grid-template-columns: 1fr; }
+  .footer__bottom { flex-direction: column; align-items: flex-start; }
 }
 </style>
 </head>
@@ -520,9 +601,11 @@ body.menu-open { overflow: hidden; }
 
     <section class="hero hero--paper" id="top" data-surface="light" aria-labelledby="contact-title">
       <div class="wrap">
-        <h1 class="display display--xxl hero__title" id="contact-title">Ask for a <em>conversation.</em></h1>
-        <p class="lede hero__lede">Fullsteam acquires vertical software companies and grows them with payments, lending, and AI. If you run one, work at one, or invest in them, this is the shortest way in &mdash; no campaign, no funnel, no lead scoring.</p>
-        <div class="hero__jumps">
+        <div class="hero__grid">
+          <div class="hero__copy">
+            <h1 class="display display--xxl hero__title" id="contact-title">Ask for a <em>conversation.</em></h1>
+            <p class="lede hero__lede">Fullsteam acquires vertical software companies and grows them with payments, lending, and AI. If you run one, work at one, or invest in them, this is the shortest way in &mdash; no campaign, no funnel, no lead scoring.</p>
+            <div class="hero__jumps">
           <a class="arrow-link" href="#form">Write to us
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
           </a>
@@ -532,16 +615,31 @@ body.menu-open { overflow: hidden; }
           <a class="arrow-link" href="#partner">Partner &amp; investor inquiries
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
           </a>
+            </div>
+          </div>
+
+          <aside class="hero__lines" aria-label="Direct lines">
+            <div class="hero__line">
+              <span class="hero__k">Direct</span>
+              <span class="hero__v"><a href="mailto:acquisitions@fullsteam.com">acquisitions@fullsteam.com</a></span>
+            </div>
+            <div class="hero__line">
+              <span class="hero__k">Careers</span>
+              <span class="hero__v"><a href="careers.html">Open roles &nearr;</a></span>
+            </div>
+            <div class="hero__line">
+              <span class="hero__k">Offices</span>
+              <span class="hero__v">Auburn, Alabama &middot; New York</span>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
 
-    <section class="band band--surface" id="route" data-surface="light" aria-labelledby="route-title">
-      <div class="wrap route">
-        <div class="route__copy">
-          <h2 class="display display--l" id="route-title">Questions answered <em>before</em> you write.</h2>
-          <p class="lede">What we buy, how a close actually works, whether the name and the team stay, and where AI fits. Eight straight answers on the Acquisitions page &mdash; so the first conversation can skip the basics.</p>
-        </div>
+    <section class="band band--surface route" id="route" data-surface="light" aria-labelledby="route-title">
+      <div class="wrap route__inner">
+        <h2 class="display display--m" id="route-title">Questions answered <em>before</em> you write.</h2>
+        <p class="route__copy">What we buy, how a close works, whether the name and the team stay, and where AI fits &mdash; eight straight answers, so the first conversation can skip the basics.</p>
         <a class="btn" href="for-founders.html#faq">Read the FAQ</a>
       </div>
     </section>
@@ -591,20 +689,6 @@ body.menu-open { overflow: hidden; }
         <aside class="side" id="partner" aria-labelledby="partner-title">
           <h2 class="display display--m" id="partner-title">Same <em>door.</em></h2>
           <p class="side__body">No separate investor page and no investor option in the menu &mdash; deliberately. Founders, investors, and partners all start here, or from the proof on the homepage.</p>
-          <div class="side__list">
-            <div class="side__row">
-              <span class="side__k">Acquisitions</span>
-              <span class="side__v"><a href="mailto:acquisitions@fullsteam.com">acquisitions@fullsteam.com</a></span>
-            </div>
-            <div class="side__row">
-              <span class="side__k">Careers</span>
-              <span class="side__v"><a href="careers.html">Open roles &nearr;</a></span>
-            </div>
-            <div class="side__row">
-              <span class="side__k">Offices</span>
-              <span class="side__v">Auburn, Alabama &middot; New York</span>
-            </div>
-          </div>
           <p class="side__body side__foot">Investors: <a href="index.html#scale">the scale numbers</a> are on the homepage.</p>
         </aside>
       </div>

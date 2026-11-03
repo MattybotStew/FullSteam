@@ -709,3 +709,38 @@ which is why the deploy could never copy it. **Cleared 2026-11-03**, so:
   playable hero remains the Mixkit `hero-fallback.mp4`.
 
 Provenance per file stays in `assets/credits.json`.
+
+---
+
+## 2026-11-03 — Contact: footer CSS restored, and a real design pass
+
+### First: the page was broken below the fold
+
+`contact.html` was assembled by lifting the shared chrome out of `careers.html`, but the range I
+kept stopped one block too early — **the entire footer rule set, plus its two responsive rules,
+lived in the careers-only CSS** I replaced. The published page rendered its footer as unstyled
+stacked links with a full-bleed LinkedIn glyph. Caught by screenshotting the *whole* page rather
+than the hero. Footer CSS is back, verbatim from the shared block.
+
+### Then the design
+
+The first pass was structurally correct and visually weak: the form sat below a 430px band, the
+hero's right half was empty, and the routing pill floated away from its copy.
+
+| | Before | After |
+|---|---|---|
+| Hero | one full-width column, dead right half | **two columns** — copy left, **direct lines** right (email · careers · offices) |
+| Routing band | 430px, copy + orphaned pill | **184px strip** — h2 · one-line rationale · pill, on one row |
+| Form side rail | repeated the hero's contact table | argument + investor pointer only |
+| Form fields | label-to-rule 55px | 4px gap, 6/10px input padding, 118px textarea |
+
+Page height **4070 → 2228px** at 1440, and the form now starts at **858px** — on the fold of a
+900px viewport instead of two screens down.
+
+The hero's direct-lines table is the one place a "how do I actually reach someone" answer belongs:
+a contact page that hides the address behind three scrolls is asking for trust it hasn't earned.
+
+### Verified
+
+1440 / 1024 / 768 / 390 / 320: **0 contrast failures**, **0 horizontal overflow**, **0 tap
+targets under 24px**, no console errors.
