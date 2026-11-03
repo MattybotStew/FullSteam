@@ -27,7 +27,7 @@ Review portal + `pages.yml` publish this folder (`index.html`, `vertical-softwar
 | Area | Build |
 |---|---|
 | Hero | Dark band, no mono beat (matches VS chrome rules); H1 *How we **grow** what we own.* + lede |
-| Sidebar | Three groups · seven items: **AI at Fullsteam first** (featured rail block — **green** tint `#84BD00` / `--green-ink` label, stronger tab) · Embedded Fintech (Payments, Lending, Insurance) · Operational Excellence (Sales & Marketing, Talent, Peer Community). **Default panel without hash:** `#payments` (sidebar order ≠ default panel) |
+| Sidebar | Three groups · seven items: **AI at Fullsteam first** (featured **`--green-ink`** wrapper + paper tab label — active tab = **green** `#84BD00` fill) · Embedded Fintech (Payments, Lending, Insurance) · Operational Excellence (Sales & Marketing, Talent, Peer Community). **Default panel without hash:** `#payments` (sidebar order ≠ default panel) |
 | Panels | Inline swap + hash routing (`#payments`, `#ai`, `#sales-marketing`, `#talent`, etc.) — one panel per sidebar item |
 | **Payments** | Full layout: compare columns, unreconciled stats + mono notes, hardware pending frame, testimonial placeholder |
 | **AI** | Full panel: three use-case cards + overview video (homepage hero sources until AI master). **Green** AI nav accent; active tab = paper on green |
@@ -45,7 +45,7 @@ links updated 2026-11-03 so review traffic hits hi-fi).
 
 ### 2026-11-03 — Our Advantage: AI prominence
 
-Client-review + wireframe sidebar: **AI at Fullsteam** group moved to the top (above Embedded Fintech). Featured rail block (**green**-tint panel, `--green-ink` group label, heavier tab weight, solid green active rail on desktop; green ring on mobile pill). **`#payments` remains the default** when the URL has no hash (`DEFAULT_SLUG` in panel JS). Footer Explore sub-links mirror AI-first order under Our Advantage.
+Client-review + wireframe sidebar: **AI at Fullsteam** group moved to the top (above Embedded Fintech). Featured rail block (**`--green-ink`** outer wrapper, paper tab label; active = lime **`--green`** fill on desktop; mobile pill matches ink/green states). **`#payments` remains the default** when the URL has no hash (`DEFAULT_SLUG` in panel JS). Footer Explore sub-links mirror AI-first order under Our Advantage.
 
 ### 2026-11-03 — Our Advantage: AI accent green
 

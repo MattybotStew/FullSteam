@@ -433,21 +433,25 @@ body.story-lightbox-open { overflow: hidden; }
 
 .rail__block--featured {
   margin-bottom: 8px;
-  padding: 10px 8px 6px;
+  padding: 6px 8px;
   border-radius: 6px;
-  background: color-mix(in srgb, var(--green) 10%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--green) 32%, var(--line));
+  background: var(--green-ink);
+  border: 1px solid color-mix(in srgb, var(--green-ink) 72%, #000);
 }
-.rail__group--featured {
-  color: var(--green-ink);
-  margin-top: 0;
+.rail__block--featured .rail__list { margin: 0; }
+.rail__block--featured .rail__item {
+  border-bottom: 0;
+  color: var(--paper);
+}
+.rail__block--featured .rail__item:hover {
+  background: color-mix(in srgb, var(--paper) 14%, transparent);
 }
 .rail__item--featured {
-  border-bottom-color: color-mix(in srgb, var(--green) 28%, var(--line));
+  border-bottom-color: transparent;
   font-weight: 600;
 }
 .rail__item--featured:not([aria-current="true"]) .rail__dot {
-  background: color-mix(in srgb, var(--green) 55%, transparent);
+  background: color-mix(in srgb, var(--paper) 65%, transparent);
 }
 .rail__item--featured[aria-current="true"] {
   background: var(--green);
@@ -796,7 +800,9 @@ body.story-lightbox-open { overflow: hidden; }
     padding: 0; border: 0; background: none;
   }
   .rail__item--featured {
-    border-color: color-mix(in srgb, var(--green) 45%, var(--line));
+    border-color: color-mix(in srgb, var(--green-ink) 72%, #000);
+    background: var(--green-ink);
+    color: var(--paper);
     font-weight: 600;
   }
   .rail__item--featured[aria-current="true"] {
@@ -891,8 +897,7 @@ body.story-lightbox-open { overflow: hidden; }
         <div class="engine">
           <nav class="rail rail--oa" aria-label="Our Advantage index">
             <div class="rail__lists">
-            <div class="rail__block rail__block--featured">
-              <p class="rail__group rail__group--featured">AI at Fullsteam</p>
+            <div class="rail__block rail__block--featured" aria-label="AI at Fullsteam">
               <ol class="rail__list">
                 <li><a class="rail__item rail__item--featured" href="#ai" data-slug="ai"><span class="rail__name">AI at Fullsteam</span><span class="rail__dot"></span></a></li>
               </ol>
