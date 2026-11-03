@@ -57,7 +57,7 @@ jobs:
           # client-review — the OFFICIAL homepage linked from the review portal
           # (sizzle-video opening → copy-swap Axis B, Acquire/Grow/Lead process
           # band, verticals accordion, AI, founders, way-finder), plus the
-          # interior pages: Vertical Software, Our Advantage, Our Story, Careers.
+          # interior pages: Vertical Software, Our Advantage, Our Story, Careers, Acquisitions.
           # HTML + logos + hero fallback + local section photography (2026-11-02
           # ledger build). design-notes.md and linkedin-slots.md stay out of
           # _site on purpose. hero-sizzle.mp4 is gitignored and not staged.
@@ -67,6 +67,7 @@ jobs:
              03_Design/client-review/homepage/our-advantage.html \
              03_Design/client-review/homepage/our-story.html \
              03_Design/client-review/homepage/careers.html \
+             03_Design/client-review/homepage/for-founders.html \
              _site/03_Design/client-review/homepage/
           cp 03_Design/client-review/homepage/assets/fullsteam-logo.svg \
              03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg \

@@ -13,8 +13,30 @@ unchanged (one page, 11 sidebar panels). **Official (2026-11-03): no `.index` ey
 on this page — hero, verticals band, and FAQ use headlines only (no mono chapter labels).
 
 Review portal + `pages.yml` publish this folder (`index.html`, `vertical-software.html`,
-`our-advantage.html`, `our-story.html`, `careers.html`, tracked assets under `assets/` per
-allow-list; **`assets/logos/`** and **`manifest.json`** are gitignored but staged on deploy).
+`our-advantage.html`, `our-story.html`, `careers.html`, `for-founders.html`, tracked assets
+under `assets/` per allow-list; **`assets/logos/`** and **`manifest.json`** are gitignored
+but staged on deploy).
+
+---
+
+## 2026-11-03 — Acquisitions page (client-review hi-fi)
+
+**File:** `for-founders.html` (on-page name **Acquisitions**) · **Wireframe:**
+`02_Wireframes/active/pages/for-founders.html` · **Archetype:** **NarrativeLight**
+(`design.md` §4.10) · **Chrome parity:** other client-review pages.
+
+| Area | Build |
+|---|---|
+| Hero | **NarrativeLight** stack: ink **photo hero** + CTAs → white **hero__company** with **founder video gallery** (16:9 stage + thumb rail; demo reel on slot 1) |
+| 01 Why Fullsteam | Paper solo `band__head` + **two-col** ledger (Careers pattern) |
+| 02 How it works | **Surface band**; homepage-style **four-column steps** ledger (talk → fit → close → continuity) — no deal terms |
+| 03 What we look for | **Ink band** · homepage-style **founders split** + serif quote · **Explore our vertical solutions** → VS |
+| Close | Bio **close** band: **Contact us** → wireframe `contact.html` |
+| FAQ | Eight founder questions (shared accordion pattern); constraints baked into placeholder answers |
+| Cross-links | Homepage founders band + menu/footer on all hi-fi pages → `for-founders.html`; `pages.yml` stages file |
+
+**Placeholders / before publish:** founder videos, confirmed mailbox, FAQ answer copy pass,
+named customers in fit section. Never frame the sale as an **exit**.
 
 ---
 

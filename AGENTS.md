@@ -90,7 +90,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
   (promoted **2026-11-02** — ledger redesign; prior build frozen at
   `client-review/homepage-2026-10-29-official/`). It is **client-facing and tracked**:
   the review portal links it and Pages publishes it (`index.html`, **`vertical-software.html`**,
- **`our-advantage.html`**, **`our-story.html`**, header logos, hero fallback, `assets/img/` section photography;
+ **`our-advantage.html`**, **`our-story.html`**, **`careers.html`**, **`for-founders.html`**, header logos, hero fallback, `assets/img/` section photography;
   **`assets/logos/`** +
   **`manifest.json`** are gitignored locally but **copied at deploy** — see `pages.yml`).
   Structure: **Axis A → copy swap → Axis B** opening
@@ -99,8 +99,8 @@ This file is the canonical agent entry point (works with Cursor, which reads
   layout and type ladder. Build notes: `client-review/homepage/design-notes.md`.
 - **Interior hero archetypes (hi-fi, `design.md` §4.10):** subpages do **not** share one dark hero
   template — Vertical Software = **MediaDark** (imagery band); Our Advantage = **EngineLight** (paper
-  hero → sidebar engine). Future Story / Acquisitions / Careers / Contact use NarrativeLight or
-  CompactLight when promoted.
+  hero → sidebar engine). **Our Story** and **Acquisitions** = **NarrativeLight**; **Careers** =
+  **MediaDark** split hero; Contact / legal remain wireframe until promoted.
 - **Vertical Software — second client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/vertical-software.html`, linked from the homepage
   (`index.html`, nine gallery/CTA targets vs wireframe cross-links). **IA unchanged** — single
@@ -129,14 +129,14 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Careers — fifth client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/careers.html`, linked from the homepage (menu, careers
   band, footer) and from Vertical Software, Our Advantage, and Our Story chrome. **IA unchanged** —
-  single leaf page, **CompactLight** hero (`design.md` §4.10): paper band, `CAREERS` eyebrow,
-  hero `em` serif, fact strip (2,000+ / 11), single banner placeholder. Order per Figma
-  `11489:9827`: 01 How it feels → 02 Who thrives (**Our Values 3×2 slot grid — placeholders
-  only, no invented values**) → 03 Testimonials (tan, three draft voices) → 04 Open roles
-  (Workday, new tab) → LinkedIn module **directly below Open Roles** → 05 FAQ. **No close band**
-  — the wireframe ends on FAQ. Deploy: `pages.yml` stages the file; portal links hi-fi + wireframe.
-  Build: `design-notes.md` §2026-11-03. Values, quotes, portraits, and the banner photo remain
-  placeholders pending client clearance.
+  single leaf page; **MediaDark** split hero (approved 2026-11-03), stat grid, dark testimonials
+  and open roles, homepage LinkedIn scroller, FAQ. Build: `design-notes.md` §2026-11-03.
+- **Acquisitions — sixth client-review HTML page (2026-11-03):**
+  `03_Design/client-review/homepage/for-founders.html` (on-page label **Acquisitions**), linked
+  from homepage founders band, menu, and footer across hi-fi pages. **IA unchanged** — wireframe
+  order: **NarrativeLight** photo hero + founder **video gallery** → Why (two-col) → How (four-step
+  ledger) → What we look for (ink split + quote) → FAQ → **Contact us** close. No lead form.
+  Deploy: `pages.yml`; portal + wireframe hi-fi banner. Build: `design-notes.md` §2026-11-03.
 - **Frozen prior official — `03_Design/client-review/homepage-2026-10-29-official/`**
   (snapshot of `homepage/` at promotion). Dark scale chapter, `vpanel` verticals, pre-ledger
   chrome. Read-only reference; not linked from the review portal or staged by `pages.yml`.
