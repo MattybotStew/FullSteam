@@ -843,9 +843,10 @@ body.story-lightbox-open { overflow: hidden; }
 }
 .leader-card__photo {
   margin: 0 auto;
-  width: min(100%, clamp(120px, 14vw, 168px));
+  /* 40% smaller than the 120-168px plate it replaced, and circular */
+  width: min(100%, clamp(72px, 8.4vw, 101px));
   aspect-ratio: 1;
-  border-radius: 6px;
+  border-radius: 50%;
   overflow: hidden;
   background: rgba(255, 255, 255, .06);
   border: 1px solid rgba(255, 255, 255, .18);
@@ -1342,8 +1343,8 @@ body.story-lightbox-open { overflow: hidden; }
         <div>
           <h3>Connect</h3>
           <ul>
-            <li><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></li>
-            <li><a href="../../../02_Wireframes/active/pages/contact.html#partner">Partner inquiries</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.html#partner">Partner inquiries</a></li>
             <li><a href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">LinkedIn &nearr;</a></li>
           </ul>
         </div>

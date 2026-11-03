@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add("has-js");</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Fullsteam</title>
+  <meta name="description" content="Contact Fullsteam — ask for a conversation about acquiring or growing a vertical software business, partnering, or joining the team.">
+  <meta name="theme-color" content="#04141b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+
+/* ------------------------------------------------------------------
+   Fullsteam — Contact
+   MediaDark hero + interior bands · Figma 11489:9827.
+------------------------------------------------------------------- */
+:root {
+  --brand: #00587C;
+  --brand-deep: #003F55;
+  --brand-ink: #04141B;
+  --gold: #FFC600;
+  /* Emphasis text colour, re-pointed per surface (see [data-surface]
+     below). Brand gold is 1.58:1 on paper — a mark, not text — so on
+     light surfaces emphasis stays ink: one uniform colour, no darkened
+     gold variant anywhere. */
+  --accent: var(--gold);
+  --green: #84BD00;
+  --green-ink: #4F750E;
+
+  --paper: #FFFFFF;
+  --surface: #F3F6F7;
+  --ink: #0C1B21;
+  --muted: #586A72;
+  --line: #DCE3E6;
+  --line-strong: #C6D1D5;
+
+  --sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --mono: "Fragment Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --wrap: 1280px;
+  --gutter: clamp(20px, 4.4vw, 64px);
+  --bar: 76px;
+  --sect: clamp(84px, 10vw, 148px);
+
+  --t-hero: clamp(38px, min(10.4vw, 12vh), 118px);
+  --t-h2: clamp(38px, 5.2vw, 76px);
+  --t-h3: clamp(23px, 2.5vw, 32px);
+  --t-stat: clamp(54px, 6.2vw, 96px);
+  --t-lede: clamp(18px, 1.5vw, 22px);
+  --t-body: 17px;
+  --t-small: 15px;
+  --label: 12px;
+
+  --e: cubic-bezier(.22, .75, .24, 1);
+  --e-quick: cubic-bezier(0, 0, .2, 1);
+  --dark-hair: rgba(255, 255, 255, .16);
+  --focus: var(--brand);
+
+  --dur: 240ms;
+}
+
+/* Surfaces declare the text accent, so gold copy passes AA without a per-rule
+   override and without !important. Add data-surface to any new painted block. */
+[data-surface="light"] { --accent: var(--ink); }
+[data-surface="dark"] { --accent: var(--gold); }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+}
+
+[id] { scroll-margin-top: 96px; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+p { margin: 0; }
+figure, blockquote { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-weight: 500; }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+button { font: inherit; color: inherit; }
+
+::selection { background: var(--gold); color: var(--ink); }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: fixed; left: 16px; top: -80px; z-index: 200;
+  padding: 14px 20px; border-radius: 999px;
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 14px;
+  transition: top .2s var(--e);
+}
+.skip-link:focus { top: 14px; }
+
+.wrap {
+  width: min(var(--wrap), 100% - (2 * var(--gutter)));
+  margin-inline: auto;
+}
+
+/* ---------- type primitives ---------- */
+
+.display {
+  font-weight: 500;
+  line-height: .96;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.display em, .serif-em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.015em;
+  color: var(--accent);
+}
+
+#faq-title em { color: var(--accent); letter-spacing: 0; }
+
+#faq-title em { display: block; }
+
+.display--xxl { font-size: var(--t-hero); line-height: .92; }
+.display--l { font-size: var(--t-h2); }
+.display--m { font-size: var(--t-h3); line-height: 1.1; letter-spacing: -.02em; }
+
+.lede {
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 54ch;
+  text-wrap: pretty;
+}
+
+.hero--media-dark .lede { color: rgba(255, 255, 255, .72); }
+
+.meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .66);
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 44px; padding: 0 28px;
+  border: 0; border-radius: 999px;
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 14px; letter-spacing: -.01em;
+  white-space: nowrap; cursor: pointer;
+  transition: background-color 160ms var(--e-quick), transform 160ms var(--e-quick);
+}
+.btn:hover { background: color-mix(in srgb, var(--gold) 90%, #000); }
+.btn:active { transform: translateY(1px); }
+.btn--sm { padding: 0 18px; font-size: 13px; }
+.btn svg { width: 12px; height: 12px; flex: none; }
+
+.btn--ghost {
+  background: transparent; color: #fff;
+  border: 1px solid rgba(255, 255, 255, .34);
+}
+[data-surface="light"] .btn--ghost,
+.hero--light .btn--ghost { color: var(--ink); border-color: var(--line); }
+[data-surface="light"] .btn--ghost:hover,
+.hero--light .btn--ghost:hover { background: var(--surface); border-color: var(--ink); }
+.btn--ghost:hover { background: rgba(255, 255, 255, .1); }
+
+/* ---------- header · official homepage chrome ---------- */
+
+.bar {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  height: var(--bar);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+  padding: 0 var(--gutter);
+  color: #fff;
+  --focus: #fff;
+  border-bottom: 1px solid transparent;
+  transition: background-color .3s var(--e), color .3s var(--e), border-color .3s var(--e);
+}
+.bar.is-solid {
+  background: color-mix(in srgb, #fff 94%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--ink);
+  border-bottom-color: var(--line);
+  --focus: var(--brand);
+}
+.bar.is-on-dark {
+  background: color-mix(in srgb, var(--brand-ink) 86%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--dark-hair);
+}
+.bar__logo {
+  position: relative; display: block;
+  width: 148px; height: 40px;
+  flex: 0 0 auto;
+  z-index: 2;
+}
+.bar__logo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: left center;
+  transition: opacity .25s var(--e);
+}
+.logo--w { opacity: 1; }
+.logo--ink { opacity: 0; }
+.bar.is-solid .logo--w { opacity: 0; }
+.bar.is-solid .logo--ink { opacity: 1; }
+.bar__actions { display: flex; align-items: center; gap: 10px; }
+.menu-btn {
+  display: grid; place-content: center; gap: 5px;
+  width: 46px; height: 46px;
+  border: 0; border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+.menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: currentColor; border-radius: 2px;
+  transition: transform .22s var(--e), opacity .18s var(--e);
+}
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.bar__cta-short { display: none; }
+@media (max-width: 620px) {
+  .bar__cta-long { display: none; }
+  .bar__cta-short { display: inline; }
+}
+
+.menu {
+  position: fixed; inset: 0; z-index: 88;
+  display: flex; justify-content: flex-end; align-items: flex-start;
+  padding: calc(var(--bar) + 10px) var(--gutter) 24px;
+  background: rgba(4, 20, 27, .46);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.menu[hidden] { display: none; }
+.menu__panel {
+  width: min(390px, 100%);
+  background: #fff; color: var(--ink);
+  --focus: var(--brand);
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 1px 0 rgba(0, 20, 28, .05), 0 24px 70px rgba(0, 20, 28, .32);
+  animation: menu-in 190ms var(--e-quick) both;
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+.menu__panel a {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 18px; font-weight: 600; letter-spacing: -.01em;
+  text-decoration: none;
+  transition: background-color 140ms var(--e-quick), color 140ms var(--e-quick);
+}
+.menu__panel a::after {
+  content: "\2192";
+  color: var(--brand);
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: opacity .16s var(--e-quick), transform .16s var(--e-quick);
+}
+.menu__panel a:hover::after { opacity: 1; transform: none; }
+.menu__panel a:hover { background: var(--surface); color: var(--brand); }
+.menu__foot {
+  margin: 8px 6px 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  z-index: 100;
+  background: var(--gold);
+  transform: scaleX(var(--p, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+body.menu-open .progress { opacity: 0; }
+body.menu-open { overflow: hidden; }
+
+/* ==================================================================
+   Contact — quiet paper hero · routing band · conversation form
+   Utility page, not an L1 node. Chrome, type and buttons come from the
+   shared homepage system; only the page's own furniture is here.
+   ================================================================== */
+
+.band { position: relative; padding: var(--sect) 0; }
+.band--paper { background: var(--paper); }
+.band--surface { background: var(--surface); }
+
+.hero {
+  position: relative;
+  padding-top: calc(var(--bar) + clamp(56px, 7vw, 104px));
+  padding-bottom: clamp(48px, 6vw, 88px);
+}
+.hero--paper { background: var(--paper); border-bottom: 1px solid var(--line); }
+
+.hero__title { max-width: 15ch; letter-spacing: -.038em; }
+
+.hero__lede { margin-top: clamp(24px, 3vw, 36px); max-width: 56ch; }
+
+.hero__jumps {
+  display: flex; flex-wrap: wrap; gap: 14px clamp(20px, 3vw, 40px);
+  margin-top: clamp(28px, 3.4vw, 44px);
+}
+
+.arrow-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-weight: 600; font-size: var(--t-small);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+}
+.arrow-link svg { width: 15px; height: 15px; transition: transform 180ms var(--e); }
+.arrow-link:hover svg { transform: translateX(4px); }
+
+/* ---------- routing band ---------- */
+
+.route {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: end;
+}
+.route__copy h2 { max-width: 18ch; }
+.route__copy .lede { margin-top: clamp(16px, 1.8vw, 22px); max-width: 52ch; }
+.route .btn { justify-self: end; }
+
+/* ---------- conversation form ---------- */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+.form__intro p { margin-top: 14px; max-width: 46ch; }
+
+.form { display: grid; gap: clamp(16px, 1.8vw, 22px); margin-top: clamp(26px, 3vw, 36px); max-width: 640px; }
+.field { display: grid; gap: 6px; }
+.field__row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 24px); }
+.field__label {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+}
+.field__input, .field__select, .field__textarea {
+  width: 100%; font: inherit; font-size: 16px; line-height: 1.4;
+  color: var(--ink); background: transparent;
+  border: 0; border-bottom: 1px solid var(--line-strong);
+  border-radius: 0; padding: 8px 0 12px;
+  transition: border-color 160ms var(--e);
+}
+.field__input:hover, .field__select:hover, .field__textarea:hover { border-bottom-color: var(--ink); }
+.field__input:focus-visible, .field__select:focus-visible, .field__textarea:focus-visible {
+  outline: 2px solid var(--brand); outline-offset: 4px; border-bottom-color: var(--ink);
+}
+.field__input::placeholder, .field__textarea::placeholder { color: var(--muted); }
+.field__select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1.5 6 6.5l5-5' fill='none' stroke='%230C1B21' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 2px center;
+  padding-right: 26px; cursor: pointer;
+}
+.field__textarea { min-height: 132px; resize: vertical; }
+.form__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 22px; margin-top: 6px; }
+.form__note { font-size: 13px; line-height: 1.5; color: var(--muted); max-width: 36ch; }
+.form__status { font-size: var(--t-small); line-height: 1.5; color: var(--ink); }
+.form__status:empty { display: none; }
+.form__status b { font-weight: 600; }
+
+/* ---------- side rail ---------- */
+
+.side { position: sticky; top: calc(var(--bar) + 32px); }
+.side h2 { max-width: 10ch; }
+.side__body { margin-top: 18px; font-size: var(--t-small); line-height: 1.6; color: var(--muted); max-width: 34ch; }
+.side__list { margin-top: clamp(24px, 2.6vw, 32px); border-top: 1px solid var(--line); }
+.side__row { display: grid; gap: 5px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.side__k { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.side__v { font-weight: 600; }
+.side__v a { border-bottom: 1px solid var(--line-strong); }
+.side__v a:hover { border-color: var(--ink); }
+.side__foot { margin-top: 22px; }
+
+@media (max-width: 1080px) {
+  .form-grid { grid-template-columns: 1fr; gap: clamp(32px, 5vw, 48px); }
+  .side { position: static; }
+}
+@media (max-width: 900px) {
+  .route { grid-template-columns: 1fr; align-items: start; }
+  .route .btn { justify-self: start; }
+}
+@media (max-width: 620px) {
+  .field__row { grid-template-columns: 1fr; }
+  .hero__title { max-width: none; }
+}
+  </style>
+</head>
+<body>
+
+  <header class="bar" id="bar">
+    <a class="bar__logo" href="index.html" aria-label="Fullsteam home">
+      <img class="logo--w" src="assets/fullsteam-logo.svg" alt="Fullsteam" width="222" height="60" decoding="async">
+      <img class="logo--ink" src="assets/fullsteam-logo-dark.svg" alt="" aria-hidden="true" width="222" height="60" decoding="async">
+    </a>
+    <div class="bar__actions">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="siteMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <a class="btn btn--sm bar__cta" href="vertical-software.html">
+        <span class="bar__cta-long">Explore our verticals</span>
+        <span class="bar__cta-short">Explore</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+    <div class="menu__panel" id="menuPanel">
+      <a href="vertical-software.html">Vertical Software</a>
+      <a href="our-advantage.html">Our Advantage</a>
+      <a href="our-advantage.html#ai">AI at Fullsteam</a>
+      <a href="our-story.html">Our Story</a>
+      <a href="for-founders.html">Acquisitions</a>
+      <a href="careers.html">Careers</a>
+      <div class="menu__foot">
+        <span>A home for vertical software</span>
+        <span>&copy; 2026</span>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+  <main id="main">
+
+    <section class="hero hero--paper" id="top" data-surface="light" aria-labelledby="contact-title">
+      <div class="wrap">
+        <h1 class="display display--xxl hero__title" id="contact-title">Ask for a <em>conversation.</em></h1>
+        <p class="lede hero__lede">Fullsteam acquires vertical software companies and grows them with payments, lending, and AI. If you run one, work at one, or invest in them, this is the shortest way in &mdash; no campaign, no funnel, no lead scoring.</p>
+        <div class="hero__jumps">
+          <a class="arrow-link" href="#form">Write to us
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="arrow-link" href="for-founders.html#faq">Questions for founders
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="arrow-link" href="#partner">Partner &amp; investor inquiries
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--surface" id="route" data-surface="light" aria-labelledby="route-title">
+      <div class="wrap route">
+        <div class="route__copy">
+          <h2 class="display display--l" id="route-title">Questions answered <em>before</em> you write.</h2>
+          <p class="lede">What we buy, how a close actually works, whether the name and the team stay, and where AI fits. Eight straight answers on the Acquisitions page &mdash; so the first conversation can skip the basics.</p>
+        </div>
+        <a class="btn" href="for-founders.html#faq">Read the FAQ</a>
+      </div>
+    </section>
+
+    <section class="band band--paper" id="form" data-surface="light" aria-labelledby="form-title">
+      <div class="wrap form-grid">
+        <div class="form__intro">
+          <h2 class="display display--m" id="form-title">Tell us what you run.</h2>
+          <p>One note is enough. Say what the business does and what you are weighing up &mdash; the person who knows that part of the portfolio answers, not a routing queue.</p>
+
+          <form class="form" id="contactForm">
+            <div class="field__row">
+              <label class="field">
+                <span class="field__label">Name</span>
+                <input class="field__input" type="text" name="name" autocomplete="name" required>
+              </label>
+              <label class="field">
+                <span class="field__label">Email</span>
+                <input class="field__input" type="email" name="email" autocomplete="email" required>
+              </label>
+            </div>
+            <label class="field">
+              <span class="field__label">Company</span>
+              <input class="field__input" type="text" name="company" autocomplete="organization">
+            </label>
+            <label class="field">
+              <span class="field__label">What this is about</span>
+              <select class="field__select" name="about" required>
+                <option value="">Choose one</option>
+                <option>I run a software business</option>
+                <option>I want to work here</option>
+                <option>Partnership, press, or something else</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field__label">Message</span>
+              <textarea class="field__textarea" name="message" rows="4" required></textarea>
+            </label>
+            <div class="form__actions">
+              <button class="btn" type="submit">Send</button>
+              <p class="form__note">This review build does not transmit. For a real reply today, use the address on the right.</p>
+            </div>
+            <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <aside class="side" id="partner" aria-labelledby="partner-title">
+          <h2 class="display display--m" id="partner-title">Same <em>door.</em></h2>
+          <p class="side__body">No separate investor page and no investor option in the menu &mdash; deliberately. Founders, investors, and partners all start here, or from the proof on the homepage.</p>
+          <div class="side__list">
+            <div class="side__row">
+              <span class="side__k">Acquisitions</span>
+              <span class="side__v"><a href="mailto:acquisitions@fullsteam.com">acquisitions@fullsteam.com</a></span>
+            </div>
+            <div class="side__row">
+              <span class="side__k">Careers</span>
+              <span class="side__v"><a href="careers.html">Open roles &nearr;</a></span>
+            </div>
+            <div class="side__row">
+              <span class="side__k">Offices</span>
+              <span class="side__v">Auburn, Alabama &middot; New York</span>
+            </div>
+          </div>
+          <p class="side__body side__foot">Investors: <a href="index.html#scale">the scale numbers</a> are on the homepage.</p>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" data-surface="dark">
+    <div class="wrap">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" aria-label="Fullsteam home"><img src="assets/fullsteam-logo.svg" alt="" width="222" height="60" loading="lazy" decoding="async"></a>
+          <p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
+            and AI that grow them.</p>
+        </div>
+        <div>
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="vertical-software.html">Vertical Software</a></li>
+            <li>
+              <a href="our-advantage.html">Our Advantage</a>
+              <ul class="footer__sub">
+                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
+                <li><a href="our-advantage.html#payments">Payments</a></li>
+                <li><a href="our-advantage.html#lending">Lending</a></li>
+                <li><a href="our-advantage.html#insurance">Insurance</a></li>
+              </ul>
+            </li>
+            <li><a href="for-founders.html">Acquisitions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Company</h3>
+          <ul>
+            <li><a href="our-story.html">Our Story</a></li>
+            <li><a href="our-story.html#leadership">Leadership</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener">Open roles &nearr;</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="contact.html" aria-current="page">Contact</a></li>
+            <li><a href="contact.html#partner">Partner inquiries</a></li>
+            <li><a href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">LinkedIn &nearr;</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="../../../02_Wireframes/active/pages/privacy.html">Privacy</a></li>
+            <li><a href="../../../02_Wireframes/active/pages/terms.html">Terms</a></li>
+            <li><span class="footer__muted">Complaints</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; Fullsteam 2026</p>
+        <a class="footer__social" href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+(function () {
+  "use strict";
+  var bar = document.getElementById("bar");
+  var progress = document.getElementById("progress");
+  var surfaces = Array.prototype.slice.call(document.querySelectorAll("[data-surface]"));
+  var ticking = false;
+
+  function surfaceAtHeader() {
+    var probe = 40;
+    for (var i = 0; i < surfaces.length; i++) {
+      var r = surfaces[i].getBoundingClientRect();
+      if (r.top <= probe && r.bottom > probe) return surfaces[i];
+    }
+    return null;
+  }
+
+  function onScrollFrame() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    if (progress) progress.style.setProperty("--p", p.toFixed(4));
+    if (bar) {
+      var s = surfaceAtHeader();
+      var dark = !s || s.getAttribute("data-surface") === "dark";
+      bar.classList.toggle("is-solid", !dark);
+      bar.classList.toggle("is-on-dark", dark);
+    }
+    ticking = false;
+  }
+
+  function requestScroll() {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(onScrollFrame); }
+  }
+
+  window.addEventListener("scroll", requestScroll, { passive: true });
+  window.addEventListener("resize", requestScroll);
+  window.addEventListener("load", requestScroll);
+  requestScroll();
+
+  var menu = document.getElementById("siteMenu");
+  var menuBtn = document.getElementById("menuBtn");
+  var menuPanel = document.getElementById("menuPanel");
+  var lastFocus = null;
+
+  function openMenu() {
+    if (!menu) return;
+    lastFocus = document.activeElement;
+    menu.hidden = false;
+    menuBtn.setAttribute("aria-expanded", "true");
+    menuBtn.setAttribute("aria-label", "Close menu");
+    document.body.classList.add("menu-open");
+    var first = menuPanel.querySelector("a");
+    if (first) first.focus();
+  }
+
+  function closeMenu() {
+    if (!menu || menu.hidden) return;
+    menu.hidden = true;
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Menu");
+    document.body.classList.remove("menu-open");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", function () {
+      if (menu.hidden) openMenu(); else closeMenu();
+    });
+    menu.addEventListener("click", function (e) {
+      if (e.target === menu) closeMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (menu.hidden) return;
+      if (e.key === "Escape") { closeMenu(); return; }
+      if (e.key !== "Tab") return;
+      var f = Array.prototype.slice.call(menuPanel.querySelectorAll("a, button")).filter(function (el) {
+        return el.offsetParent !== null;
+      });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    menuPanel.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () { closeMenu(); });
+    });
+  }
+
+
+  var contactForm = document.getElementById("contactForm");
+  var formStatus = document.getElementById("formStatus");
+  if (contactForm && formStatus) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!contactForm.checkValidity()) { contactForm.reportValidity(); return; }
+      formStatus.textContent = "Nothing was sent \u2014 this is the review build. Write to acquisitions@fullsteam.com and it reaches the same desk.";
+      contactForm.reset();
+    });
+  }
+
+})();
+  </script>
+</body>
+</html>

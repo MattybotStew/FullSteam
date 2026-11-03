@@ -578,3 +578,63 @@ labels 50–52px wide inside pills that need 90–150px. Fixed with `flex: 0 0 a
 `.rail__lists`, `.rail__list` and `.rail__item`, which lets `.rail` scroll horizontally as
 intended. Verified at 390 / 480 / 768 / 900 / 1024 / 1080: **0 collapsed pills**, rail scrolls
 only where the content is wider than the viewport, no document overflow.
+
+---
+
+## 2026-11-03 — Contact page (first hi-fi), AI band colour, FAQ surfaces, headshots
+
+### Contact — `contact.html` (new)
+
+The last interior page to leave the wireframe. Built by taking the shared chrome, tokens,
+typescale and buttons out of `careers.html` and writing only the page's own furniture, so the
+file carries no dead CSS from another page.
+
+| Section | Shape |
+|---|---|
+| 01 Hero | **Paper** (not an image hero — a utility page should not compete with the story pages). H1 "Ask for a *conversation.*" at `--t-hero`, one lede, three `.arrow-link` jumps: write to us · founder questions · partner & investor inquiries |
+| 02 Routing band | `--surface`, two columns: "Questions answered *before* you write." + lede, and the **Read the FAQ** pill → `for-founders.html#faq`. Removes friction before the form |
+| 03 Conversation form | Paper, `1.35fr / .65fr`. Left: five fields on hairline rules (no boxes). Right: sticky "Same *door.*" rail — no investor page by design, the mailbox, careers, offices |
+
+**Form:** label + `border-bottom` fields, `--line-strong` at rest → `--ink` on hover/focus, 16px
+inputs (no iOS zoom), 2px `--brand` focus ring, native validation kept (`required`, `type=email`)
+so the error states are the browser's own. Submitting is intercepted: the status line says
+nothing was transmitted and points at `acquisitions@fullsteam.com`. **The mailbox is the only one
+sanctioned in the content slots — confirm before launch (OI-5).**
+
+**Two bugs caught by screenshotting, not by reading the code:**
+1. The routing and form bands were written without `data-surface`, so `--accent` fell back to
+   `:root` and "before" / "door." rendered in brand gold at **1.58:1**. Every painted block needs
+   the attribute — the same trap recorded in KB §27.10.
+2. `careers.html` had `#faq { padding-top: 0 }` from when the FAQ shared the paper background.
+   Once it became a surface band, the headline sat flush against the colour edge. Removed.
+
+**Chrome work this page forced:** all six existing pages had footers pointing at
+`../../../02_Wireframes/active/pages/contact.html`. They now point at `contact.html`, so the
+"Contact" and "Partner inquiries" links resolve for the first time, and `pages.yml` stages the
+new page.
+
+### Homepage AI band — green headline, white payoff
+
+`.ai__left h2` is brand green with the serif payoff word in white (was white with gold payoff).
+Green on `--brand-ink` is **8.26:1** and white **18.7:1**, so this is the one place where a
+colour headline is also the most legible option — and it keeps green meaning what it means
+elsewhere on the page: AI. Measure opened 12ch → 16ch.
+
+### FAQ sections on `--surface`
+
+All four (Vertical Software, Our Advantage, Careers, Acquisitions) now sit on `--surface`
+instead of paper, so the FAQ reads as its own act. Text 16.19:1, `--muted` answers 5.20:1.
+Row hairlines drop from ~1.45:1 to 1.2:1 against the grey — visible but weak; `--line-strong`
+is the fix if they need more.
+
+Careers' "People who pick up the problem" got the same treatment via `.band--surface`.
+
+### Leadership headshots
+
+`.leader-card__photo`: 40% smaller and circular — `clamp(120px, 14vw, 168px)` → `clamp(72px, 8.4vw, 101px)`, `border-radius: 6px` → `50%`.
+
+### Verified
+
+Seven pages × 1440 / 390: **0 contrast failures** except the known brand-green `grow` (2.27:1,
+client's call), 0 console errors, 0 horizontal overflow, **0 broken internal links** — every
+`href` on every page returns 200.

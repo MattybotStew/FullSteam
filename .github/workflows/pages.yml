@@ -68,6 +68,7 @@ jobs:
              03_Design/client-review/homepage/our-story.html \
              03_Design/client-review/homepage/careers.html \
              03_Design/client-review/homepage/for-founders.html \
+             03_Design/client-review/homepage/contact.html \
              _site/03_Design/client-review/homepage/
           cp 03_Design/client-review/homepage/assets/fullsteam-logo.svg \
              03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg \

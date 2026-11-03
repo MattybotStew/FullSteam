@@ -871,7 +871,11 @@
        ====================================================================== */
     .ai { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
     .ai__left { position: sticky; top: calc(var(--bar) + 44px); align-self: start; }
-    .ai__left h2 { max-width: 12ch; }
+    /* AI band: brand green carries the headline and the payoff word goes white.
+       Green on --brand-ink is 8.26:1 and white 18.7:1, so this reads better
+       than gold on ink here — and keeps green as the AI signal. */
+    .ai__left h2 { max-width: 16ch; color: var(--green); }
+    .ai__left h2 em { color: #fff; }
     .ai__left .lede { margin-top: 26px; }
     .ai__left .arrow-link { margin-top: 34px; color: var(--green); }
     .ai__left .arrow-link:hover { color: #fff; }
@@ -2035,8 +2039,8 @@
         <div>
           <h3>Connect</h3>
           <ul>
-            <li><a href="../../../02_Wireframes/active/pages/contact.html">Contact</a></li>
-            <li><a href="../../../02_Wireframes/active/pages/contact.html#partner">Partner inquiries</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.html#partner">Partner inquiries</a></li>
             <li><a href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener" aria-label="Fullsteam on LinkedIn">LinkedIn &nearr;</a></li>
           </ul>
         </div>
