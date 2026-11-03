@@ -2540,42 +2540,45 @@ the numbered column in `.rail__item` (Vertical Software only), `.split-head__asi
 **Gold text now passes AA — `--accent` follows the surface (fixed 2026-11-03).**
 
 Brand gold `#FFC600` is a *mark*, not a text colour: on paper it measures **1.58:1** (needs 3:1 for
-large text, 4.5:1 for body). Rather than accept it, gold *text* now reads a surface-scoped custom
-property — the same mechanism the build already uses for `--focus`:
+large text, 4.5:1 for body). Gold *text* reads a surface-scoped custom property — the same mechanism
+the build already uses for `--focus`:
 
 ```css
-:root                   { --gold-display: #AD8700; --gold-ink: #956800; --accent: var(--gold); }
-[data-surface="light"]  { --accent: var(--gold-display); }
+:root                   { --accent: var(--gold); }
+[data-surface="light"]  { --accent: var(--ink); }
 [data-surface="dark"]   { --accent: var(--gold); }
 ```
 
-| Token | Value | Contrast | Use |
-|---|---|---|---|
-| `--gold` | `#FFC600` | 11.9:1 on `--brand-ink` | **marks only** — rules, borders, dots, button fills; gold text on dark surfaces |
-| `--gold-display` | `#AD8700` | **3.36:1** on white, **3.10:1** on `--surface` | gold text **≥24px** on light surfaces (AA large) |
-| `--gold-ink` | `#956800` | **4.93:1** on white, **4.54:1** on `--surface` | gold text **any size** on light surfaces |
+| Surface | Emphasis colour | Contrast |
+|---|---|---|
+| dark (`--brand-ink`) | `--gold` `#FFC600` | **11.9:1** |
+| light (paper / `--surface`) | `--ink` `#0C1B21` | **17.6:1** / **16.2:1** |
 
-Both are the brand hue (46.6°) darkened, not a new colour. Every gold `em` on the build is ≥34px, so
-`--gold-display` is what ships; `--gold-ink` exists so a future 13px gold label has somewhere to go.
-`color: var(--gold)` in 35 text rules became `color: var(--accent)` — no `!important`, no per-rule
-override, no specificity war (an ID-specificity rule like `#faq-title em` would have beaten any
-attribute selector).
+**On paper the emphasis is the body colour** — the serif italic carries the accent, not a tint. The
+client rejected a darkened gold (`#AD8700` / `#956800`) as muddy; there is no gold-on-light text in
+the build. Gold survives on light surfaces only as a **mark**: hairline rules, dots, the inset rail
+bar, button fills. `color: var(--gold)` in 35 text rules became `color: var(--accent)` — no
+`!important`, no per-rule override, no specificity war (an ID-specificity rule like `#faq-title em`
+would have beaten any attribute selector).
 
-**Surfaces must be declared.** `data-surface="light|dark"` now sits on every painted block — the
-five dark vertical cards and the sixth (a dark blue gradient index cell) inside the otherwise-light
+**Surfaces must be declared.** `data-surface="light|dark"` sits on every painted block — the five
+dark vertical cards and the sixth (a dark blue gradient index cell) inside the otherwise-light
 verticals band, and the Acquisitions video stage inside its light band. Any new painted block needs
 the attribute or it inherits the wrong accent.
 
-**Verified:** 63 gold text elements × 4 viewports (1440 / 1024 / 768 / 390) — **0 below their AA
-threshold**, 0 console errors, 0 horizontal overflow. Hero payoff words over photography were
-pixel-sampled with the text hidden: median **9–11.9:1**, 95th-percentile-worst **≥9.2:1**. An early
-3.5% "failure" turned out to be the neighbouring white headline glyphs inside the sampled box, not
-photo highlights — the scrim was already sufficient and was left unchanged.
+**The other AA gaps found in the same sweep are closed.** White on `--green #84BD00` in the active
+Our Advantage rail item (2.27:1) → **ink on the same bright green (8.26:1)**, which keeps the bright
+fill as the "active" signal against the darker `--green-ink` block. The 9px `Client-supplied`
+annotations (2.97:1) → `--muted`, 10px (5.65:1). The Vertical Software sidebar numerals
+(`#6A7A81`, 4.46:1) → `--muted`, with a light variant on the mobile active pill where that pill
+paints `--ink`.
+
+**Verified:** every text node × 4 viewports (1440 / 1024 / 768 / 390) — **0 below its AA threshold**,
+0 console errors, 0 horizontal overflow. Hero payoff words over photography were pixel-sampled with
+the text hidden: median **9–11.9:1** (those words are on dark surfaces, so they keep brand gold).
 
 **Still open, logged not fixed.** The copy tic **"X, not Y"** appears 8 times across the build — a
-writing pass, not a design one. Two other AA gaps were found in the same sweep and left for a
-client call: white on `--green #84BD00` in the Our Advantage rail (**2.27:1**), and the 9px
-`Client-supplied` placeholder annotations on `.frame--pending` (**2.97:1**).
+writing pass, not a design one.
 
 **A divergent scratch build was discarded the same day.** `03_Design/client-review/homepage-2026-11-03-working/`
 held a morning refactor (serif stripped site-wide, vertical tiles → typographic index, 4px ghost

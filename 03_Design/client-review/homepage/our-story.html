@@ -21,9 +21,10 @@
   --brand-deep: #003F55;
   --brand-ink: #04141B;
   --gold: #FFC600;
-  /* Text-safe golds — same hue as --gold, darkened until they pass. */
-  --gold-display: #AD8700;  /* display type only (>=24px): 3.36:1 */
-  --gold-ink: #956800;      /* any size: 4.93:1 on white, 4.54:1 on --surface */
+  /* Emphasis text colour, re-pointed per surface (see [data-surface]
+     below). Brand gold is 1.58:1 on paper — a mark, not text — so on
+     light surfaces emphasis stays ink: one uniform colour, no darkened
+     gold variant anywhere. */
   --accent: var(--gold);
   --green: #84BD00;
   --green-ink: #4F750E;
@@ -63,7 +64,7 @@
 
 /* Surfaces declare the text accent, so gold copy passes AA without a per-rule
    override and without !important. Add data-surface to any new painted block. */
-[data-surface="light"] { --accent: var(--gold-display); }
+[data-surface="light"] { --accent: var(--ink); }
 [data-surface="dark"] { --accent: var(--gold); }
 
 *, *::before, *::after { box-sizing: border-box; }
