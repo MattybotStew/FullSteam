@@ -551,3 +551,30 @@ directional wash added speculatively was reverted.
 
 **Still open, logged not fixed:** the copy tic "X, not Y" appears 8 times across the build — a
 writing pass, not a design one.
+
+---
+
+## 2026-11-03 — Our Advantage hero: line break, brand green payoff word, mobile rail fix
+
+**The line break.** "How we grow what we own." ran as one line at desktop, so it now breaks
+before "what we own." (`<br>` in the `h1`) — two balanced lines, unchanged at 390px where it
+already wrapped there.
+
+**The payoff word is brand green.** `.hero--light .hero__title em { color: var(--green); }` —
+`#84BD00`, set on the hero rule rather than on `--accent`, so no other page moves.
+
+> **Contrast, logged honestly:** `#84BD00` on paper measures **2.27:1** (108px desktop, 41px
+> mobile), under the **3:1** AA floor for large text. Every other gold/ink decision in this build
+> passes; this one word does not. It ships as asked because it is the literal brand green.
+> The same-hue alternative that passes is **`#6B9A00`** (**3.36:1**, still clearly green) — one
+> line: change `var(--green)` to `#6B9A00` on that rule. `--green-ink #4F750E` is 5.41:1 but
+> reads olive at display size.
+
+**Pre-existing bug found while checking the break.** At ≤~600px the Our Advantage rail pills
+collapsed: `.rail__lists` and `.rail__list` are flex children of a scroll container, so they
+were shrunk below their label width and the `nowrap` text overlapped —
+"AI at Fullsteam / Payments / Lending / Insurance" stacked on each other. Measured at 390px:
+labels 50–52px wide inside pills that need 90–150px. Fixed with `flex: 0 0 auto` on
+`.rail__lists`, `.rail__list` and `.rail__item`, which lets `.rail` scroll horizontally as
+intended. Verified at 390 / 480 / 768 / 900 / 1024 / 1080: **0 collapsed pills**, rail scrolls
+only where the content is wider than the viewport, no document overflow.

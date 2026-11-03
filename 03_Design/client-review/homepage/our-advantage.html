@@ -338,6 +338,10 @@ body.story-lightbox-open { overflow: hidden; }
 
 .hero__title { max-width: 20ch; }
 .hero__title em { font-family: var(--serif); font-style: italic; letter-spacing: 0; }
+/* Brand green on the Our Advantage hero payoff word. Measured 2.27:1 on paper —
+   under the 3:1 floor for large text; the same-hue AA alternative is #6B9A00
+   (3.36:1). Set here, not on --accent, so no other page moves. */
+.hero--light .hero__title em { color: var(--green); }
 
 /* EngineLight — Our Advantage */
 .hero--light {
@@ -766,8 +770,12 @@ body.story-lightbox-open { overflow: hidden; }
     flex-wrap: nowrap;
     width: max-content;
     min-width: 100%;
+    /* without this the flex parent shrinks the list below its labels, so the
+       pills collapse and their nowrap text overlaps */
+    flex: 0 0 auto;
   }
-  .rail__list { display: flex; gap: 8px; }
+  .rail__list { display: flex; gap: 8px; flex: 0 0 auto; }
+  .rail__item { flex: 0 0 auto; }
   .rail__item {
     border: 1px solid var(--line); border-radius: 999px;
     white-space: nowrap; padding: 10px 14px;
@@ -864,7 +872,7 @@ body.story-lightbox-open { overflow: hidden; }
   <main id="main">
     <section class="hero hero--light" id="top" data-surface="light">
       <div class="wrap hero__inner">
-        <h1 class="display display--xxl hero__title">How we <em>grow</em> what we own.</h1>
+        <h1 class="display display--xxl hero__title">How we <em>grow</em><br>what we own.</h1>
         <p class="lede">Software is the system of record. Embedded fintech, AI, and operational excellence sit on top of it — helping each business scale without changing its name, team, or customer relationship.</p>
       </div>
     </section>
