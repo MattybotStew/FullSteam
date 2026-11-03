@@ -2786,9 +2786,13 @@ stats band's hard top edge against the Axis B photograph was never in scope. Ful
 
 **Deployment.** `.github/workflows/pages.yml` stages **`index.html`** and
 **`vertical-software.html`**, header logo SVGs, **`hero-fallback.mp4`**, **`assets/img/*`**, and
-**`assets/logos/`** (recursive copy). **`manifest.json`** under `assets/logos/` drives the
-Vertical Software logo grid at runtime; it is gitignored with the logo files but copied on deploy
-— do not commit or document force-add paths for those assets. `design-notes.md` and
+**`assets/logos/`** (recursive copy, skipped with a `::notice::` if the directory is absent).
+**`manifest.json`** under `assets/logos/` drives the Vertical Software logo grid at runtime.
+**Reversed 2026-11-03:** the logos were gitignored while the portfolio marks were uncleared, and
+the unguarded copy then failed every hosted deploy. The client cleared them, so `assets/logos/`
+and its `manifest.json` are now **tracked and published** (96 files, 3.6 MB) and `.gitignore`
+carries explicit negations above the `assets/*` allow-list. `hero-sizzle.mp4` stays ignored — it
+is still the unlicensed Adobe Stock preview. `design-notes.md` and
 `linkedin-slots.md` are tracked but deliberately **not** staged. `.gitignore` treats the
 folder's `assets/` as an allow-list so an unlicensed image fails closed.
 

@@ -92,7 +92,8 @@ This file is the canonical agent entry point (works with Cursor, which reads
   the review portal links it and Pages publishes it (`index.html`, **`vertical-software.html`**,
  **`our-advantage.html`**, **`our-story.html`**, **`careers.html`**, **`for-founders.html`**, header logos, hero fallback, `assets/img/` section photography;
   **`assets/logos/`** +
-  **`manifest.json`** are gitignored locally but **copied at deploy** — see `pages.yml`).
+  **`manifest.json`** are **tracked and published** as of 2026-11-03, when the client cleared the
+  portfolio marks; `pages.yml` copies them and skips the step if the directory is ever absent).
   Structure: **Axis A → copy swap → Axis B** opening
   (KB §23.10) → **How a Fullsteam company compounds** model steps → AI → verticals gallery
   → founders → careers → close. Same narrative order as the 2026-10-29 build; new editorial

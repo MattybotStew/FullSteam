@@ -1,0 +1,272 @@
+{
+  "panel-hospitality": {
+    "units": [
+      {
+        "file": "assets/logos/hospitality-units-1.png",
+        "alt": "Maestro PMS"
+      },
+      {
+        "file": "assets/logos/hospitality-units-2.png",
+        "alt": "Silverware POS"
+      },
+      {
+        "file": "assets/logos/hospitality-units-3.png",
+        "alt": "Club Prophet"
+      },
+      {
+        "file": "assets/logos/hospitality-units-4.png",
+        "alt": "The Flybook"
+      }
+    ],
+    "partners": [
+      {
+        "file": "assets/logos/hospitality-partners-1.png",
+        "alt": "Arryved"
+      }
+    ]
+  },
+  "panel-weddings-events": {
+    "units": [
+      {
+        "file": "assets/logos/weddings/bridal-live.svg",
+        "alt": "BridalLive"
+      },
+      {
+        "file": "assets/logos/weddings/floranext.svg",
+        "alt": "Floranext"
+      },
+      {
+        "file": "assets/logos/weddings/tpp.png",
+        "alt": "TPP"
+      },
+      {
+        "file": "assets/logos/weddings/aisle-planner-pro.png",
+        "alt": "Aisle Planner Pro"
+      }
+    ],
+    "partners": []
+  },
+  "panel-wine": {
+    "units": [
+      {
+        "file": "assets/logos/wine-units-1.png",
+        "alt": "Commerce7"
+      },
+      {
+        "file": "assets/logos/wine-units-2.png",
+        "alt": "WinePulse"
+      }
+    ],
+    "partners": []
+  },
+  "panel-retail": {
+    "units": [
+      {
+        "file": "assets/logos/retail-units-1.png",
+        "alt": "Logo with "
+      },
+      {
+        "file": "assets/logos/retail-units-2.png",
+        "alt": "Logo with "
+      },
+      {
+        "file": "assets/logos/retail-units-3.png",
+        "alt": "The letters \\"
+      },
+      {
+        "file": "assets/logos/retail-units-4.png",
+        "alt": "retail units 4"
+      }
+    ],
+    "partners": [
+      {
+        "file": "assets/logos/retail-partners-2.png",
+        "alt": "retail partners 2"
+      },
+      {
+        "file": "assets/logos/retail-partners-3.png",
+        "alt": "retail partners 3"
+      }
+    ]
+  },
+  "panel-storage-marina": {
+    "units": [
+      {
+        "file": "assets/logos/storage-marina-units-1.png",
+        "alt": "Storage Marina"
+      },
+      {
+        "file": "assets/logos/storage-marina-units-2.png",
+        "alt": "Storage"
+      },
+      {
+        "file": "assets/logos/storage-marina-units-3.png",
+        "alt": "storage marina units 3"
+      },
+      {
+        "file": "assets/logos/storage-marina-units-4.png",
+        "alt": "Storage Marina"
+      }
+    ],
+    "partners": []
+  },
+  "panel-health-wellness": {
+    "units": [
+      {
+        "file": "assets/logos/health-wellness-units-1.png",
+        "alt": "Health Wellness"
+      },
+      {
+        "file": "assets/logos/health-wellness-units-2.png",
+        "alt": "EyeCloudPro logo: eye icon next to grey text."
+      },
+      {
+        "file": "assets/logos/health-wellness-units-3.png",
+        "alt": "Rosy Salon Software"
+      },
+      {
+        "file": "assets/logos/health-wellness-units-4.png",
+        "alt": "Logo with three gray circles and the word "
+      }
+    ],
+    "partners": [
+      {
+        "file": "assets/logos/health-wellness-partners-1.png",
+        "alt": "Health Wellness"
+      }
+    ]
+  },
+  "panel-field-services": {
+    "units": [
+      {
+        "file": "assets/logos/field-services-units-1.png",
+        "alt": "Field"
+      },
+      {
+        "file": "assets/logos/field-services-units-2.png",
+        "alt": "Logo with the word "
+      },
+      {
+        "file": "assets/logos/field-services-units-3.png",
+        "alt": "The word "
+      },
+      {
+        "file": "assets/logos/field-services-units-4.png",
+        "alt": "DRS in gray stylized font."
+      }
+    ],
+    "partners": [
+      {
+        "file": "assets/logos/field-services-partners-1.png",
+        "alt": "Field"
+      }
+    ]
+  },
+  "panel-transportation": {
+    "units": [
+      {
+        "file": "assets/logos/transportation-units-1.png",
+        "alt": "Limo Anywhere"
+      },
+      {
+        "file": "assets/logos/transportation-units-2.png",
+        "alt": "Transportation"
+      },
+      {
+        "file": "assets/logos/transportation-units-3.png",
+        "alt": "transportation units 3"
+      },
+      {
+        "file": "assets/logos/transportation-units-4.png",
+        "alt": "Transportation"
+      }
+    ],
+    "partners": []
+  },
+  "panel-automotive": {
+    "units": [
+      {
+        "file": "assets/logos/automotive-units-1.png",
+        "alt": "ISI Software"
+      },
+      {
+        "file": "assets/logos/automotive-units-2.png",
+        "alt": "automotive units 2"
+      },
+      {
+        "file": "assets/logos/automotive-units-3.png",
+        "alt": "AutoFluent"
+      },
+      {
+        "file": "assets/logos/automotive-units-4.png",
+        "alt": "Automotive Units 4"
+      }
+    ],
+    "partners": [
+      {
+        "file": "assets/logos/automotive-partners-2.png",
+        "alt": "automotive partners 2"
+      },
+      {
+        "file": "assets/logos/automotive-partners-3.png",
+        "alt": "automotive partners 3"
+      }
+    ]
+  },
+  "panel-association-management": {
+    "units": [
+      {
+        "file": "assets/logos/association-management-units-1.png",
+        "alt": "Association"
+      },
+      {
+        "file": "assets/logos/association-management-units-2.png",
+        "alt": "Association Management"
+      },
+      {
+        "file": "assets/logos/association-management-units-3.png",
+        "alt": "Enrollware text in gray."
+      },
+      {
+        "file": "assets/logos/association-management-units-4.png",
+        "alt": "White text "
+      }
+    ],
+    "partners": [
+      {
+        "file": "assets/logos/association-management-partners-3.png",
+        "alt": "Association Management"
+      }
+    ]
+  },
+  "panel-erp": {
+    "units": [
+      {
+        "file": "assets/logos/erp-units-1.png",
+        "alt": "PIC Business Systems"
+      },
+      {
+        "file": "assets/logos/erp-units-2.png",
+        "alt": "SOS Inventory"
+      },
+      {
+        "file": "assets/logos/erp-units-3.png",
+        "alt": "shopVOX"
+      },
+      {
+        "file": "assets/logos/erp-units-4.png",
+        "alt": "ShopWorks"
+      }
+    ],
+    "partners": [
+      {
+        "file": "assets/logos/erp-partners-1.png",
+        "alt": "erp partners 1"
+      },
+      {
+        "file": "assets/logos/erp-partners-2.png",
+        "alt": "Erp"
+      }
+    ]
+  }
+}

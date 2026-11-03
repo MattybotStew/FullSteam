@@ -689,3 +689,23 @@ under 24px, sticky columns taller than the window, and hero content clipped on s
 
 Chrome is duplicated per page, so items 2–3 live in a shared "responsive hardening" block present
 in all seven files, and the sticky gates sit at the end of the three pages that own a sticky column.
+
+---
+
+## 2026-11-03 — portfolio logos cleared, committed and published
+
+`assets/logos/` was gitignored while the client cleared the portfolio marks (KB §29.7 / OI-16),
+which is why the deploy could never copy it. **Cleared 2026-11-03**, so:
+
+- `.gitignore` now carries explicit negations under the `assets/*` allow-list
+  (`!assets/logos/` + `!assets/logos/**`), because git cannot re-include a file whose parent
+  directory is excluded — the directory pattern has to be negated first;
+- **96 files / 3.6 MB** are tracked: 92 PNG business-unit and partner marks, 3 SVG Weddings &
+  Events marks exported from FS-Design, and `manifest.json`, which the Vertical Software grid
+  fetches at runtime;
+- the guarded `cp` in `pages.yml` now takes its "directory present" branch, so the logo grids
+  finally have something to render;
+- **`hero-sizzle.mp4` stays ignored** — it is still the unlicensed Adobe Stock preview, and the
+  playable hero remains the Mixkit `hero-fallback.mp4`.
+
+Provenance per file stays in `assets/credits.json`.

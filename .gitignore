@@ -75,6 +75,12 @@ _site/
 !03_Design/client-review/homepage/assets/img/
 !03_Design/client-review/homepage/assets/img/**
 03_Design/client-review/homepage/assets/img/leaders/_source-fullsteam/
+# Portfolio logos — cleared and committed 2026-11-03. These are Fullsteam's own
+# portfolio marks (business units + their customers), taken from the vertical
+# pages of fullsteam.com, plus four Weddings & Events marks exported from
+# FS-Design. Published with the site; see credits.json for per-file provenance.
+!03_Design/client-review/homepage/assets/logos/
+!03_Design/client-review/homepage/assets/logos/**
 
 # Frozen homepage snapshots — never commit the unlicensed sizzle preview
 03_Design/client-review/homepage-2026-10-29-official/assets/hero-sizzle.mp4
