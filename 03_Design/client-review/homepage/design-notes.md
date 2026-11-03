@@ -744,3 +744,57 @@ a contact page that hides the address behind three scrolls is asking for trust i
 
 1440 / 1024 / 768 / 390 / 320: **0 contrast failures**, **0 horizontal overflow**, **0 tap
 targets under 24px**, no console errors.
+
+---
+
+## 2026-11-03 — Homepage: the italic payoff writes in
+
+**File:** `index.html` · **Scope:** the `#modelTitle` payoff only (**"compounds."**) ·
+**Request:** client — animate the italic so it writes in on scroll into view.
+
+The serif italic is now unmasked **left → right** instead of arriving with the rest of the
+headline. It is a **mask**, not a `clip-path`: the italic's right overhang and the `p`
+descender are never cropped, and the text stays real, selectable DOM.
+
+- `.write-in` (reusable) — `display: inline-block`, `--wi: 0%`, a `linear-gradient` mask with a
+  **soft 14% leading edge** so the letters are laid down rather than switched on.
+- `@property --wi` registers the stop as a length so it is interpolable; `.in .write-in` drives it
+  to `132%`. **The trigger is the existing `.r` reveal** — the shared IntersectionObserver adds
+  `.in`, and the mask starts **160ms later**, after the heading's own 0.7s rise-and-unblur.
+  No new JS.
+- **Guards:** `prefers-reduced-motion` and `html:not(.has-js)` both set `--wi: 132%` (no mask
+  animation, full text); `@media print` drops the mask entirely.
+
+Measured at 1440: edge crosses the word from **~0.16s to ~0.95s**, done by **1.1s**. Line break
+is unchanged (**two lines**, "How a Fullsteam" / "company compounds."), heading box height
+unchanged at 145px, baseline unmoved. Verified no-preference / reduce / no-JS.
+
+### Rolled out to every section payoff (client, same day)
+
+`class="write-in"` now sits on all six in-flow payoffs — **`#modelTitle`** (compounds.),
+**`#aiTitle`** (business.), **`#vertsTitle`** (growing.), **`#foundersTitle`** (built.),
+**`#careersTitle`** (work.), **`#closeTitle`** (go next?). Each inherits the same trigger
+because four are `.r` themselves and two (founders, close) sit inside a `.r` wrapper, so
+`.in .write-in` reaches them without new JS.
+
+Measured heading heights with and without the class are **identical at 1440 / 1024 / 768 /
+390 / 320** — no line-break or baseline drift. `go next?` is the only multi-word payoff; it
+stays an unbreakable `inline-block`, so 320 was re-checked for overflow: **0**.
+
+**Deliberately not included: the opening (Axis A "companies." / Axis B "grow.").** That
+surface is locked (KB §23) and its copy is driven per-frame from `--a-exit` / `--line-op`
+writes, which rule 2 says must stay free of transitions; the payoff also runs `line-height: 0`,
+so it needs its own mask geometry. A load-time / swap-synced write-in is a separate call.
+
+Body `<em>` in the LinkedIn cards is inline emphasis in the sans — not this voice, so it is
+untouched.
+
+### Follow-up: the p was being sliced
+
+First pass clipped the **p in "compounds."** flat. A mask paints only inside its
+**mask painting area** — the border box — and `line-height: .96` ends the box above the
+italic's descender, so everything below it was masked out. The fix is to **pad the
+`inline-block` out to the glyph extents** (`padding: .22em .09em .26em`) and **cancel it with
+equal negative margins**, so the mask covers the whole word while the line break, heading
+height (145px at 1440) and baseline stay exactly where they were. Verified at 1440 / 1024 /
+768 / 390 / 320 in the final state and mid-wipe, with no horizontal overflow.

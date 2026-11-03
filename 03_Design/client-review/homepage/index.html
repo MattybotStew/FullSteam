@@ -200,6 +200,37 @@
     #vertsTitle em,
     #careersTitle em,
     #aiTitle em { letter-spacing: 0; }
+
+    /* write-in (2026-11-03, client) ----------------------------------------
+       The serif italic payoff is unmasked left → right so it reads as being
+       written rather than faded in. Trigger reuses the existing .r reveal —
+       the heading gets .in from the shared IntersectionObserver, the mask
+       starts a beat later.
+       @property makes the gradient stop interpolable; a browser without it
+       snaps straight to the end value, which is the legible state. */
+    @property --wi {
+      syntax: '<percentage>';
+      inherits: false;
+      initial-value: 0%;
+    }
+    .write-in {
+      display: inline-block;
+      /* A mask paints only inside the mask painting area (the border box), so
+         the italic's descender — the p in "compounds." — was being sliced flat
+         where the line box ended at .96 line-height. Pad the box out to the
+         glyph extents and cancel it with negative margins: the mask now covers
+         the whole word, and layout (line break, heading height, baseline) is
+         unchanged. */
+      padding: .22em .09em .26em;
+      margin: -.22em -.09em -.26em;
+      --wi: 0%;
+      -webkit-mask-image: linear-gradient(90deg, #000 calc(var(--wi) - 14%), transparent var(--wi));
+      mask-image: linear-gradient(90deg, #000 calc(var(--wi) - 14%), transparent var(--wi));
+      transition: --wi .95s var(--e) .16s;
+    }
+    .in .write-in,
+    .write-in.in { --wi: 132%; }
+    html:not(.has-js) .write-in { --wi: 132%; }
     .display--xxl { font-size: var(--t-hero); line-height: .92; }
     .display--l { font-size: var(--t-h2); }
     .display--m { font-size: var(--t-h3); line-height: 1.1; letter-spacing: -.02em; }
@@ -742,6 +773,7 @@
       .menu__panel { animation: none; }
       .menu-btn span, .bar, .bar__logo img { transition: none; }
       .r { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
+      .write-in { --wi: 132%; transition: none; }
       #scale.is-strokes-in .model-rule { transform: none; }
       .vp, .vp__img { transition: none !important; }
     }
@@ -794,7 +826,8 @@
       transition-delay: var(--d, 0ms);
     }
     .r.in { opacity: 1; transform: none; filter: none; }
-    @media print { .r { opacity: 1 !important; transform: none !important; filter: none !important; } }
+    @media print { .r { opacity: 1 !important; transform: none !important; filter: none !important; }
+      .write-in { -webkit-mask-image: none; mask-image: none; } }
 
     /* ======================================================================
        01 · The model — a proof ledger
@@ -1622,7 +1655,7 @@
     <section class="band band--paper" id="scale" data-surface="light" aria-labelledby="modelTitle">
       <div class="wrap">
         <header class="band__head band__head--model">
-          <h2 class="display display--l r" id="modelTitle">How a Fullsteam company <em>compounds.</em></h2>
+          <h2 class="display display--l r" id="modelTitle">How a Fullsteam company <em class="write-in">compounds.</em></h2>
           <div class="model-rule" aria-hidden="true"></div>
         </header>
 
@@ -1689,7 +1722,7 @@
       <div class="wrap">
         <div class="ai">
           <div class="ai__left">
-            <h2 class="display display--l r" id="aiTitle">AI that already knows the <em>business.</em></h2>
+            <h2 class="display display--l r" id="aiTitle">AI that already knows the <em class="write-in">business.</em></h2>
             <p class="lede r" style="--d:70ms">Use cases first &mdash; built on proprietary vertical data, not generic models.</p>
             <p class="r" style="--d:140ms">
               <a class="arrow-link" href="our-advantage.html#ai">
@@ -1733,7 +1766,7 @@
     <section class="band band--paper" id="verticals" data-surface="light" aria-labelledby="vertsTitle">
       <div class="wrap">
         <header class="band__head">
-          <h2 class="display display--l r" id="vertsTitle">Keep the businesses <em>growing.</em></h2>
+          <h2 class="display display--l r" id="vertsTitle">Keep the businesses <em class="write-in">growing.</em></h2>
         </header>
 
         <div class="verts__stage r" id="vertStage" role="group" aria-label="Featured vertical markets">
@@ -1838,7 +1871,7 @@
       <div class="wrap">
         <div class="founders__grid">
           <div class="r">
-            <h2 class="display display--l" id="foundersTitle">A home for the business you <em>built.</em></h2>
+            <h2 class="display display--l" id="foundersTitle">A home for the business you <em class="write-in">built.</em></h2>
             <p class="founders__body">We don&rsquo;t buy your business and shelve it. The product keeps its name, the team keeps
               its people, and it keeps growing &mdash; with a much larger company behind it.</p>
             <p class="founders__cta">
@@ -1880,7 +1913,7 @@
       <div class="wrap">
         <header class="band__head careers__head">
           <div class="careers__intro">
-            <h2 class="display display--l r" id="careersTitle">A great place to <em>work.</em></h2>
+            <h2 class="display display--l r" id="careersTitle">A great place to <em class="write-in">work.</em></h2>
             <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
           </div>
           <p class="lede r" style="--d:80ms">Real people building software for real industries &mdash; mostly remote, small teams, room to grow.</p>
@@ -2026,7 +2059,7 @@
     <section class="close" id="close" data-surface="dark" aria-labelledby="closeTitle">
       <div class="wrap close__inner">
         <div class="r">
-          <h2 class="display display--l" id="closeTitle">Ready to see where your business can <em>go next?</em></h2>
+          <h2 class="display display--l" id="closeTitle">Ready to see where your business can <em class="write-in">go next?</em></h2>
         </div>
         <div class="close__actions r" style="--d:100ms">
           <a class="btn" href="our-advantage.html">Explore Our Advantage</a>
