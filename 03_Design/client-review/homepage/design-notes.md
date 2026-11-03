@@ -1,12 +1,105 @@
-# Homepage — official working copy (2026-11-02 ledger redesign)
+# Homepage folder — official client-review builds
 
-**Promoted 2026-11-02** into this path (`client-review/homepage/`). The prior
-official is frozen at `../homepage-2026-10-29-official/` (not published). Narrative,
-section order, and the locked opening (Axis A → copy swap → Axis B) are unchanged;
-the design system is the editorial ledger layout, framed opening plate, local section
-photography, and larger type ladder.
+**Homepage (`index.html`) — promoted 2026-11-02** into this path
+(`client-review/homepage/`). The prior official is frozen at
+`../homepage-2026-10-29-official/` (not published). Narrative, section order, and the
+locked opening (Axis A → copy swap → Axis B) are unchanged; the design system is the
+editorial ledger layout, framed opening plate, local section photography, and larger type
+ladder.
 
-Review portal + `pages.yml` publish this folder.
+**Vertical Software (`vertical-software.html`) — added 2026-11-03** in the same folder;
+ledger tokens/components aligned to the homepage in the parity pass below. Sitemap IA is
+unchanged (one page, 11 sidebar panels). **Official (2026-11-03): no `.index` eyebrows**
+on this page — hero, verticals band, and FAQ use headlines only (no mono chapter labels).
+
+Review portal + `pages.yml` publish this folder (`index.html`, `vertical-software.html`,
+tracked assets under `assets/` per allow-list; **`assets/logos/`** and **`manifest.json`**
+are gitignored but staged on deploy).
+
+### 2026-11-03 — Homepage: ledger line backgrounds removed
+
+**File:** `index.html` only. Dropped decorative `repeating-linear-gradient` column
+grids from `.band--ink`, `#ai.band--ink`, `.hero__media-fallback`, `.vp--all`, and
+`.close::before`. Solid `--brand-ink` / band fills and non-line scrims (opening
+`.hero__media-scrim`, `.vp__shade`, AI green wash, close radial highlight) unchanged.
+`vertical-software.html` was not using the ledger line pattern.
+
+---
+
+## 2026-11-03 — Vertical Software page + Weddings & Events panel
+
+**File:** `vertical-software.html` · **Deploy:** `.github/workflows/pages.yml` copies this
+HTML, `cp -R assets/logos/`, and `assets/img/*` beside the homepage build. Do not
+force-add gitignored logo assets to git — describe deploy staging only in docs.
+
+**Wayfinding:** homepage `index.html` links here (nine targets vs wireframe interior links).
+
+**Hero H1 (2026-11-03):** shortened to *Mission-critical **software.*** (gold serif `em`); lede still carries software-first / system-of-record detail.
+
+**No eyebrows (2026-11-03, official):** all `p.index` chapter labels removed from hero, `#verticals` band head, and FAQ — headlines stand alone on this page (homepage `index.html` unchanged). Sticky sidebar **`rail__label`** (“The index — 11 markets”) removed; `nav.rail` keeps `aria-label="Vertical index"`. All **`p.eyebrow`** (“Vertical NN / 11”) removed from every panel head — position in the 11-vertical list is shown only in the sticky rail (01–11).
+
+**Header over hero (2026-11-03):** verticals scroll chrome no longer exempts `#top` like the homepage opening — dark hero gets **`is-on-dark`** scrim at load and on scroll; hero **`padding-top`** bumped after eyebrow removal.
+
+**No in-hero CTA (2026-11-03):** removed “Explore the eleven” from the hero — same rule as homepage opening (KB §28); wayfinding is the header **Explore our verticals** pill → `#verticals`.
+
+**Verticals band head (2026-11-03):** removed the `#verticals` section lede — H2 only, like the homepage verticals band (`Keep the businesses growing.`).
+
+**Minimal panel proof (2026-11-03):** mono **`logos__title` / `screens__head` labels hidden** site-wide (names → `aria-label` / `.sr-only` via manifest JS). **FAQ** is single-column (H2 + list).
+
+**Content depth tiers (2026-11-03, official):** panels use `data-content-depth` + `panel--depth-*` — not every vertical ships the same stack.
+
+| Tier | Class | Sections shown | Verticals (11) |
+|------|--------|----------------|----------------|
+| **Min** | `panel--depth-min` | H3 · story + photo · stats (no visible lede — first body ¶ acts as lede) | Storage & Marina · Health & Wellness · Field Services · Association Management |
+| **Standard** | `panel--depth-standard` | Min + visible **`panel__lede`** + **logo grids** (manifest when present) | Hospitality · Wine · Retail · Transportation · Automotive · ERP |
+| **Full** | `panel--depth-full` | Standard + **product screen row** (and story gallery on Weddings) | **Weddings & Events** (reference) |
+
+Promote/demote a vertical by changing class + `data-content-depth` only — markup blocks stay in the DOM for the content track.
+
+### Page-level
+
+- Logo grid populated from **`manifest.json`** via JS; partner row hidden when empty;
+  logo images use grayscale treatment in CSS.
+- Removed draft review chrome on this page: hero meta, blue CTA band, all
+  **`p.logos__count`** headers (logos + product-screens rows).
+- FAQ section titles use gold **`em`** styling (where present per panel).
+
+### Weddings & Events (reference panel)
+
+| Area | Build |
+|---|---|
+| Copy + stats | Client-facing strings in panel body; figures in **`PANEL_STATS`** JS |
+| Story | **Horizontal photo gallery** (separate from product `.screens` row): filmstrip keeps each frame’s aspect ratio; scroll + dots/arrows; **lightbox** on click (Esc / backdrop). Five frames: `weddings-events.jpg` (Unsplash) + boutique aisle/interior + Floranext table + barn reception; figcaption *Weddings & Events · on the ground*. Kitchen export on disk unused |
+| Product screens | **01** — BridalLive UI (`weddings-bridallive-product.png`, Figma `11516:3`). **02–03** — lifestyle photos labeled Floranext / Aisle Planner Pro until real product UI |
+| Business-unit logos | Fetched via manifest: BridalLive + Floranext **SVG** from Figma vector frames (`11518:6613`, `11530:2`); TPP (`11514:52`, replaces Syvo), Aisle Planner Pro (`11518:6608`). Legacy PNGs on disk superseded for those two slots |
+| Provenance | `assets/credits.json` — weddings logos, Figma nodes, Unsplash hero, product PNG, gallery frames |
+
+### Other verticals
+
+Placeholder stats, story photography, and product-screen rows remain. Pattern Weddings
+establishes for story gallery, manifest logos, and screens row.
+
+### Publishability
+
+Named products, partner marks, and vertical-specific stats on this page are **not cleared
+for public launch** until the client confirms (KB **§29.7**, **OI-16**). Treat as
+review-only proof.
+
+### Ledger parity with homepage (2026-11-03)
+
+**File:** `vertical-software.html` only — **no IA or copy change**, **no new sections**
+(no close band, scroll reveal, or ink FAQ).
+
+| Area | Change |
+|---|---|
+| Tokens | Same `:root` ladder as `index.html` (2026-11-02 ledger): `--wrap` 1280px, `--sect`, `--t-*`, `--sans` / `--serif` / `--mono` |
+| Layout | `.shell` → `.wrap`; section padding uses `--sect` |
+| Type | `display--xxl` / `--l` / `--m` on hero, band heads, panel titles; **no `.index` eyebrows** (see header note) |
+| Hero | **Unchanged structure** — dark gradient plate; 12-column title + lede grid aligned to homepage band rhythm |
+| Components | Homepage `.btn` pills; panel stats match `--t-stat` / caption scale; story frames use careers photo filter |
+| Chrome | Skip link, bar `--focus`, menu panel focus token; footer `--t-small` — matched to homepage |
+
+Weddings story gallery + lightbox (`frame--gallery`, `#storyLightbox`); manifest logos and panel JS otherwise unchanged from parity pass.
 
 ---
 

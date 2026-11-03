@@ -8,6 +8,7 @@ Decision records for the project. This folder is the single source of truth.
 |------|--------|--------|
 | [header-sitemap-variants.md](./header-sitemap-variants.md) | `header_sitemap_variants_747fb336.plan.md` | Completed (superseded by sitemap lock) |
 | [sitemap-lock.md](./sitemap-lock.md) | Authored in-repo (2026-09-10) | Completed (open items carried) |
+| [verticals-homepage-parity.md](./verticals-homepage-parity.md) | Cursor plan `verticals_homepage_parity` (2026-11-03) | In progress |
 
 ## Note
 

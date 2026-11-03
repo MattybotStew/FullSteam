@@ -437,15 +437,14 @@
     .hero__media-fallback {
       position: absolute; inset: -6%;
       background:
-        repeating-linear-gradient(90deg, rgba(255,255,255,.028) 0 1px, rgba(255,255,255,0) 1px 84px),
         radial-gradient(90% 70% at 8% -6%, #00719b 0%, rgba(0,113,155,0) 58%),
         radial-gradient(70% 60% at 96% 12%, #0089bd 0%, rgba(0,137,189,0) 52%),
         radial-gradient(80% 70% at 50% 108%, #004a68 0%, rgba(0,74,104,0) 62%),
         linear-gradient(158deg, #004b68 0%, #002b3d 56%, #001821 100%);
     }
     @keyframes heroFallbackDrift {
-      from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
-      to   { background-position: 0 0, 7% 4%, -6% 3%, 0 -3%, 0 0; }
+      from { background-position: 0 0, 0 0, 0 0, 0 0; }
+      to   { background-position: 7% 4%, -6% 3%, 0 -3%, 0 0; }
     }
     .hero__media-video {
       position: absolute; inset: 0;
@@ -737,14 +736,12 @@
       background: var(--brand-ink);
       color: #fff;
       --focus: #fff;
-      background-image:
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, .032) 0 1px, transparent 1px 96px);
     }
     /* AI band — green is the innovation accent (mirrors official white-band AI) */
     #ai.band--ink {
-      background-image:
+      background:
         radial-gradient(70% 90% at 8% 92%, color-mix(in srgb, var(--green) 14%, transparent), transparent 58%),
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, .032) 0 1px, transparent 1px 96px);
+        var(--brand-ink);
     }
     .band__head {
       display: grid;
@@ -1019,9 +1016,7 @@
     .vp__toggle:focus-visible { outline-offset: -4px; }
     .vp--all .vp__img { display: none; }
     .vp--all {
-      background:
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, .06) 0 1px, transparent 1px 46px),
-        linear-gradient(160deg, #006C99 0%, #003F55 62%, #032B39 100%);
+      background: linear-gradient(160deg, #006C99 0%, #003F55 62%, #032B39 100%);
     }
     .vp--all .vp__big {
       position: absolute; right: 16px; top: 46%;
@@ -1318,8 +1313,7 @@
       content: "";
       position: absolute; inset: 0;
       background:
-        radial-gradient(80% 130% at 88% 0%, rgba(255, 255, 255, .10) 0%, rgba(255, 255, 255, 0) 58%),
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 88px);
+        radial-gradient(80% 130% at 88% 0%, rgba(255, 255, 255, .10) 0%, rgba(255, 255, 255, 0) 58%);
       pointer-events: none;
     }
     .close__inner {

@@ -1,5 +1,5 @@
 {
-  "note": "Review-build placeholders. These stand in for Fullsteam's own photography and the unreleased hero sizzle master. Replace with licensed, client-supplied photography before launch.",
+  "note": "Review-build placeholders. These stand in for Fullsteam's own photography and the unreleased hero sizzle master. Replace with licensed, client-supplied photography before launch. Portfolio logos under assets/logos/ were copied from fullsteam.com vertical pages (Nov 2026) for review; Weddings & Events business-unit logos in assets/logos/weddings/ (BridalLive, Floranext, TPP, Aisle Planner Pro) exported from Figma FS-Design WF v2 (BridalLive 11518:6613, Floranext 11530:2, TPP 11514:52, Aisle Planner Pro 11518:6608; Nov 2026). BridalLive + Floranext wired as SVG (11530:2 replaces prior Floranext 11514:33). syvo.svg on disk is unused — slot 3 is TPP. Confirm client clearance (KB §29.7 / OI-16) before launch.",
   "licenseDefault": "Unsplash License",
   "licenseUrl": "https://unsplash.com/license",
   "usage": "Downloaded at display size and stored locally. Not hotlinked.",
@@ -46,6 +46,103 @@
       "author": "Jason Briscoe",
       "assetUrl": "https://images.unsplash.com/photo-1556910103-1c02745aae4d",
       "license": "Unsplash License"
+    },
+    {
+      "file": "assets/img/weddings-events.jpg",
+      "slot": "Vertical Software — Weddings & Events",
+      "subject": "Wedding venue with tables set",
+      "source": "Unsplash",
+      "author": "Wedding Dreamz",
+      "assetUrl": "https://images.unsplash.com/photo-1665607437981-973dcd6a22bb",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "assets/logos/weddings/bridal-live.svg",
+      "slot": "Vertical Software — Weddings & Events · BridalLive logo",
+      "subject": "BridalLive 1 [Vectorized]",
+      "source": "Figma FS-Design",
+      "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
+      "figmaNodeId": "11518:6613",
+      "figmaPage": "WF v2",
+      "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11518-6613",
+      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+    },
+    {
+      "file": "assets/logos/weddings/floranext.svg",
+      "slot": "Vertical Software — Weddings & Events · Floranext logo",
+      "subject": "Floranext 1 [Vectorized]",
+      "source": "Figma FS-Design",
+      "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
+      "figmaNodeId": "11530:2",
+      "figmaPage": "WF v2",
+      "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11530-2",
+      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+    },
+    {
+      "file": "assets/img/weddings-bridallive-product.png",
+      "slot": "Vertical Software — Weddings & Events · product screenshot",
+      "subject": "BridalLive product UI (BridalLive_Product)",
+      "source": "Figma FS-Design",
+      "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
+      "figmaNodeId": "11516:3",
+      "figmaPage": "WF v2",
+      "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11516-3",
+      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+    },
+    {
+      "file": "assets/img/weddings-floranext-table.png",
+      "slot": "Vertical Software — Weddings & Events · Floranext screen 02",
+      "subject": "Wedding table setting with florals (image 3)",
+      "source": "Figma FS-Design",
+      "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
+      "figmaNodeId": "11522:33",
+      "figmaPage": "WF v2",
+      "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11522-33",
+      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+    },
+    {
+      "file": "assets/img/weddings-reception-venue.png",
+      "slot": "Vertical Software — Weddings & Events · Aisle Planner Pro screen 03",
+      "subject": "Barn wedding reception venue (image 4)",
+      "source": "Figma FS-Design",
+      "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
+      "figmaNodeId": "11522:36",
+      "figmaPage": "WF v2",
+      "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11522-36",
+      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+    },
+    {
+      "file": "assets/img/weddings-bridal-boutique-aisle.png",
+      "slot": "Vertical Software — Weddings & Events · spare lifestyle (exported, unwired)",
+      "subject": "Bridal boutique dress aisle (image 5)",
+      "source": "Figma FS-Design",
+      "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
+      "figmaNodeId": "11522:39",
+      "figmaPage": "WF v2",
+      "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11522-39",
+      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+    },
+    {
+      "file": "assets/img/weddings-bridal-boutique-interior.png",
+      "slot": "Vertical Software — Weddings & Events · spare lifestyle (exported, unwired)",
+      "subject": "Bridal boutique seating and racks (image 6)",
+      "source": "Figma FS-Design",
+      "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
+      "figmaNodeId": "11522:42",
+      "figmaPage": "WF v2",
+      "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11522-42",
+      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+    },
+    {
+      "file": "assets/img/weddings-catering-kitchen.png",
+      "slot": "Vertical Software — Weddings & Events · spare lifestyle (exported, unwired; catering kitchen)",
+      "subject": "Commercial catering kitchen (image 2)",
+      "source": "Figma FS-Design",
+      "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
+      "figmaNodeId": "11518:6611",
+      "figmaPage": "WF v2",
+      "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11518-6611",
+      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
     },
     {
       "file": "assets/img/automotive.jpg",

@@ -157,6 +157,12 @@ On-page name is **Acquisitions** (2026-10-22). File name is unchanged. Sitemap l
 
 One page, 11 verticals, no child pages.
 
+**Client-review hi-fi (2026-11-03):** `03_Design/client-review/homepage/vertical-software.html`
+— same IA as this wireframe (sticky sidebar, inline panels, no child pages). **Weddings & Events**
+is the first panel with real copy, carousel story, logos, and screens; other verticals remain
+placeholders. Named products/stats in the build need **client clearance (KB §29.7 / OI-16)**.
+Build record: `client-review/homepage/design-notes.md` §2026-11-03.
+
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | H1 (page intent) | Framing | **Intent** | Investor-primary lens |
@@ -172,6 +178,24 @@ One page, 11 verticals, no child pages.
 | Customer and partner logos | Logos | Placeholder | Separate band from BU logos |
 | Product screenshots | Imagery | Placeholder | Own row (three) |
 | Operational advantages | — | **Removed 2026-10-30** | The operational-advantages content is gone from this page; it lives on Our Advantage under Operational Excellence. Do not reintroduce it here |
+
+### 5.0 Content depth tiers — client-review (2026-11-03)
+
+Not every vertical carries the same proof stack in the official HTML. **`data-content-depth`** on each panel (`min` · `standard` · `full`) gates which blocks render; see `design-notes.md` for the vertical assignment table. **Full** = Weddings reference only until other verticals are promoted. **Standard** = logos row without product screens. **Min** = story + stats only.
+
+### 5.1 Weddings & Events — client-review panel (2026-11-03)
+
+Wireframe slots above still govern intent; this table tracks the **official review build** only.
+
+| Slot | Role | Status | Note |
+|---|---|---|---|
+| Panel description + lede | Detail | **Draft — review** | Client-facing copy in `vertical-software.html`; not final until content track signs off |
+| Surprising stats (`PANEL_STATS`) | Proof | **Draft — review** | Weddings figures in JS; **confirm publishability (OI-16)** before launch |
+| Story imagery | Imagery | **Draft — review** | **Five-slide carousel** + figcaption *Weddings & Events · on the ground*; Unsplash + on-brand frames; kitchen export unused |
+| Business-unit logos | Logos | **Draft — review** | BridalLive · Floranext · TPP · Aisle Planner Pro via `manifest.json`; Syvo retired |
+| Product screenshots (row of three) | Imagery | **Draft — review** | Screen 01 BridalLive UI; screens 02–03 lifestyle placeholders pending real UI |
+| Panel FAQ title (`em` gold word) | Q&A | **Draft — review** | Styled in hi-fi; FAQ body slots still placeholder elsewhere on page |
+| Partner / customer logo band | Logos | Placeholder | Partners row hidden when manifest empty |
 
 ---
 

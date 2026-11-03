@@ -70,6 +70,9 @@ jobs:
              _site/03_Design/client-review/homepage/assets/
           cp 03_Design/client-review/homepage/assets/img/* \
              _site/03_Design/client-review/homepage/assets/img/
+          mkdir -p _site/03_Design/client-review/homepage/assets/logos
+          cp -R 03_Design/client-review/homepage/assets/logos/. \
+             _site/03_Design/client-review/homepage/assets/logos/
           # The frozen A/B arm, linked from the portal. It references ../assets
           # (the logos above) and the wireframe pages, both staged, so it opens
           # standalone from this path.

@@ -8,7 +8,8 @@
 > `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22); **Fullsteam Messaging Architecture** (marketing messaging architecture, received 2026-10-26 — distilled in §29, supersedes §22's pillars/themes)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22, superseded in part by **§29**); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-10-26 (**§29 — Fullsteam Messaging Architecture** from marketing: master thesis "Empower the Builders. Lead the Industry.", pillars renamed **Essential / Grow / Lead** (first alignment with the homepage's Acquire/Grow/Lead model), three new product proof points (3,500 wineries · 400k dresses · 1M boats) and five named partners — all **not publishable** until cleared. Adds **OI-15** (marketing wants a "dedicated investor track", which the §14 sitemap lock removed — client decision), **OI-16** (named-customer/product clearance), **OI-17** (cybersecurity claim). No IA, opening, or homepage change; raw copy kept in gitignored `clientDocs/`)
+> **Last updated:** 2026-11-03 (**Vertical Software client-review page** — `03_Design/client-review/homepage/vertical-software.html` published beside `index.html` via `pages.yml`; Weddings & Events panel art-directed (five-slide story carousel, manifest-driven BU logos, BridalLive product screen + lifestyle placeholders). **No sitemap/IA change** — still one Vertical Software page with 11 inline panels. Named products/stats **not publishable** until cleared — §29.7 / OI-16. Build record: `client-review/homepage/design-notes.md` §2026-11-03)
+> **Prior update:** 2026-10-26 (**§29 — Fullsteam Messaging Architecture** from marketing: master thesis "Empower the Builders. Lead the Industry.", pillars renamed **Essential / Grow / Lead** (first alignment with the homepage's Acquire/Grow/Lead model), three new product proof points (3,500 wineries · 400k dresses · 1M boats) and five named partners — all **not publishable** until cleared. Adds **OI-15** (marketing wants a "dedicated investor track", which the §14 sitemap lock removed — client decision), **OI-16** (named-customer/product clearance), **OI-17** (cybersecurity claim). No IA, opening, or homepage change; raw copy kept in gitignored `clientDocs/`)
 > **Prior update:** 2026-10-26 (official homepage: the 3-card proof band was **replaced by the
 > **scale chapter** — leader-table figures with count-up, a drawn stroke to a gold terminus, and a
 > word-by-word summary; the old band is saved whole for reuse at
@@ -2252,9 +2253,10 @@ the still-open client-doc exposure at `33c60f5`.
 > against `~/Downloads/Fullsteam Color Palette Cheat sheet.pdf` before treating them as final.
 
 **Text styles — reconciled 2026-11-02** to the official ledger homepage
-(`client-review/homepage/index.html` `:root` + `.display` ladder). Source of truth for sizes is
-the **1440px desktop reference** inside the clamp() values in code; Figma holds the fixed
-desktop targets.
+(`client-review/homepage/index.html` `:root` + `.display` ladder). The second client-review
+HTML page **`vertical-software.html`** (2026-11-03) reuses the same token stack and chrome;
+it is not a separate Figma surface yet. Source of truth for sizes is the **1440px desktop
+reference** inside the clamp() values in code; Figma holds the fixed desktop targets.
 
 | Style | Face | Size | Line height | Tracking | Role |
 |---|---|---|---|---|---|
@@ -2356,9 +2358,10 @@ Figma cannot express the CSS `background-size: 0% → 100%` wipe, so hover is re
 
 ---
 
-## 28. Official high-fidelity homepage — `03_Design/client-review/homepage/` (2026-10-25)
+## 28. Official client-review builds — `03_Design/client-review/homepage/` (2026-10-25)
 
-> **Status:** OFFICIAL · client-facing. The review portal links it and GitHub Pages publishes it.
+> **Status:** OFFICIAL · client-facing. The review portal links the homepage and GitHub Pages
+> publishes **`index.html`** and **`vertical-software.html`** (2026-11-03) from this folder.
 > **Promoted 2026-11-02:** the working copy is the **ledger redesign** (local section photography,
 > editorial band rhythm). The pre-promotion build is frozen at
 > `client-review/homepage-2026-10-29-official/` (not published). Build notes:
@@ -2552,10 +2555,21 @@ stats band's hard top edge against the Axis B photograph was never in scope. Ful
 - The careers band uses a **hotlinked Unsplash placeholder** (alt text says so); real team
   photos are still needed (§20 / OI-7).
 
-**Deployment.** `.github/workflows/pages.yml` stages `index.html` plus the two logo SVGs
-(the film frames are hotlinked, no media is copied). `design-notes.md` and
+**Deployment.** `.github/workflows/pages.yml` stages **`index.html`** and
+**`vertical-software.html`**, header logo SVGs, **`hero-fallback.mp4`**, **`assets/img/*`**, and
+**`assets/logos/`** (recursive copy). **`manifest.json`** under `assets/logos/` drives the
+Vertical Software logo grid at runtime; it is gitignored with the logo files but copied on deploy
+— do not commit or document force-add paths for those assets. `design-notes.md` and
 `linkedin-slots.md` are tracked but deliberately **not** staged. `.gitignore` treats the
 folder's `assets/` as an allow-list so an unlicensed image fails closed.
+
+**Vertical Software — client-review page (2026-11-03).** Second published HTML in the same
+folder; homepage links it (nine targets). Wireframe IA unchanged: one page, sticky sidebar, eleven
+inline panels — no child pages (`plans/sitemap-lock.md`). **Weddings & Events** is the first
+fully built panel (copy/stats, five-slide story carousel, manifest BU logos, product-screen row
+with one real BridalLive UI capture and two lifestyle placeholders). Remaining verticals are still
+placeholder content. Named marks and figures require **§29.7 / OI-16** clearance. Detail:
+`design-notes.md` §2026-11-03; credits: `assets/credits.json`.
 
 **Where the record lives.** Build/motion detail: `client-review/homepage/design-notes.md`.
 LinkedIn fill slots: `client-review/homepage/linkedin-slots.md`. Structural record stays

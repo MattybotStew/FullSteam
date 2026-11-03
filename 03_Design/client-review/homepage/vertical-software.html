@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>document.documentElement.classList.add("has-js");</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vertical Software — Fullsteam</title>
@@ -8,223 +9,176 @@
   <meta name="theme-color" content="#04141b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <style>
 /* ------------------------------------------------------------------
    Fullsteam — Vertical Software
-   Tokens lifted from the FS-Design system file (Fullsteam Brand /
-   Type ledger). Instrument Sans + Fragment Mono + Instrument Serif.
+   Tokens + type ledger aligned to client-review/homepage (2026-11-02).
 ------------------------------------------------------------------- */
 :root {
-  --ink: #04141b;
-  --ink-deep: #071820;
-  --ink-soft: #0c1b21;
-  --paper: #ffffff;
-  --surface: #f3f6f7;
-  --line: #dce3e6;
-  --line-strong: #c6d1d5;
+  --brand: #00587C;
+  --brand-deep: #003F55;
+  --brand-ink: #04141B;
+  --gold: #FFC600;
+  --green: #84BD00;
+  --green-ink: #4F750E;
 
-  --gold: #ffc600;
-  --gold-70: #ffd74d;
-  --gold-10: #fff9e5;
-  --blue: #00587c;
-  --blue-deep: #003f55;
-  --green: #84bd00;
+  --paper: #FFFFFF;
+  --surface: #F3F6F7;
+  --ink: #0C1B21;
+  --muted: #586A72;
+  --line: #DCE3E6;
+  --line-strong: #C6D1D5;
 
-  --text: #0c1b21;
-  --muted: #586a72;
-  --dark-text: #ffffff;
-  --dark-muted: rgba(255, 255, 255, 0.66);
-  --dark-line: rgba(255, 255, 255, 0.16);
+  --sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --mono: "Fragment Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-serif: "Instrument Serif", Georgia, serif;
-
-  --fs-hero: clamp(2.6rem, 7.1vw, 6.5rem);
-  --fs-section: clamp(2.1rem, 5vw, 4.75rem);
-  --fs-story: clamp(1.9rem, 3.4vw, 3.25rem);
-  --fs-stat: clamp(2.25rem, 4vw, 3.25rem);
-  --fs-lede: clamp(1.125rem, 1.35vw, 1.25rem);
-  --fs-body: 1.0625rem;
-  --fs-mono: 0.75rem;
-
-  --shell: 1072px;
-  --gutter: clamp(20px, 4vw, 24px);
-  --section-y: clamp(72px, 8.5vw, 128px);
-
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --dur: 240ms;
-
-  /* Official homepage chrome (client-review/homepage) */
+  --wrap: 1280px;
+  --gutter: clamp(20px, 4.4vw, 64px);
   --bar: 76px;
-  --brand: var(--blue);
-  --brand-ink: var(--ink);
-  --mono: var(--font-mono);
-  --e: cubic-bezier(0.22, 0.75, 0.24, 1);
-  --e-quick: cubic-bezier(0, 0, 0.2, 1);
-  --dark-hair: var(--dark-line);
+  --sect: clamp(84px, 10vw, 148px);
+
+  --t-hero: clamp(38px, min(10.4vw, 12vh), 118px);
+  --t-h2: clamp(38px, 5.2vw, 76px);
+  --t-h3: clamp(23px, 2.5vw, 32px);
+  --t-stat: clamp(54px, 6.2vw, 96px);
+  --t-lede: clamp(18px, 1.5vw, 22px);
+  --t-body: 17px;
+  --t-small: 15px;
+  --label: 12px;
+
+  --e: cubic-bezier(.22, .75, .24, 1);
+  --e-quick: cubic-bezier(0, 0, .2, 1);
+  --dark-hair: rgba(255, 255, 255, .16);
+  --focus: var(--brand);
+
+  --dur: 240ms;
 }
 
-*,
-*::before,
-*::after { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+}
 
 [id] { scroll-margin-top: 96px; }
 
 body {
   margin: 0;
   background: var(--paper);
-  color: var(--text);
-  font-family: var(--font-sans);
-  font-size: var(--fs-body);
-  line-height: 1.53;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  font-feature-settings: "kern" 1, "liga" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-img { max-width: 100%; display: block; }
+img, svg, video { display: block; max-width: 100%; }
 
-a { color: inherit; }
+a { color: inherit; text-decoration: none; }
 
-h1, h2, h3, p, figure, blockquote { margin: 0; }
+p { margin: 0; }
+figure, blockquote { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-weight: 500; }
 
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
-:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 3px;
+button { font: inherit; color: inherit; }
+
+::selection { background: var(--gold); color: var(--ink); }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
   border-radius: 2px;
 }
 
-.section--dark :focus-visible,
-.bar :focus-visible,
-.menu :focus-visible,
-.footer :focus-visible { outline-color: var(--gold); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
 
-.shell {
-  width: min(var(--shell), 100% - (var(--gutter) * 2));
+.skip-link {
+  position: fixed; left: 16px; top: -80px; z-index: 200;
+  padding: 14px 20px; border-radius: 999px;
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 14px;
+  transition: top .2s var(--e);
+}
+.skip-link:focus { top: 14px; }
+
+.wrap {
+  width: min(var(--wrap), 100% - (2 * var(--gutter)));
   margin-inline: auto;
 }
-
-.skip {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  background: var(--gold);
-  color: #000;
-  padding: 12px 18px;
-  font-weight: 700;
-  z-index: 200;
-}
-.skip:focus { left: 16px; top: 12px; }
 
 /* ---------- type primitives ---------- */
 
 .display {
-  font-family: var(--font-sans);
   font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.92;
+  line-height: .96;
+  letter-spacing: -.035em;
   text-wrap: balance;
 }
 
-.display em {
-  font-family: var(--font-serif);
+.display em, .serif-em {
+  font-family: var(--serif);
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: -.015em;
 }
 
 #verticals-title em,
 #faq-title em { color: var(--gold); letter-spacing: 0; }
 
-.kicker {
-  font-family: var(--font-mono);
-  font-size: var(--fs-mono);
-  line-height: 1.34;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--muted);
-}
-
-.kicker::before {
-  content: "";
-  width: 26px;
-  height: 1px;
-  background: var(--gold);
-  flex: none;
-}
-
-.section--dark .kicker,
-.hero .kicker { color: var(--dark-muted); }
+.display--xxl { font-size: var(--t-hero); line-height: .92; }
+.display--l { font-size: var(--t-h2); }
+.display--m { font-size: var(--t-h3); line-height: 1.1; letter-spacing: -.02em; }
 
 .lede {
-  font-size: var(--fs-lede);
+  font-size: var(--t-lede);
   line-height: 1.55;
   color: var(--muted);
-  max-width: 46ch;
+  max-width: 54ch;
+  text-wrap: pretty;
 }
 
+.hero .lede { color: rgba(255, 255, 255, .72); }
+
 .meta {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.1em;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--dark-muted);
+  color: rgba(255, 255, 255, .66);
 }
 
 /* ---------- buttons ---------- */
 
 .btn {
-  --btn-bg: var(--gold);
-  --btn-fg: #000;
-  --btn-line: var(--gold);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  height: 44px;
-  padding: 0 26px;
-  border: 1px solid var(--btn-line);
-  border-radius: 999px;
-  background: var(--btn-bg);
-  color: var(--btn-fg);
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.005em;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease), transform 160ms var(--ease);
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 44px; padding: 0 28px;
+  border: 0; border-radius: 999px;
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 14px; letter-spacing: -.01em;
+  white-space: nowrap; cursor: pointer;
+  transition: background-color 160ms var(--e-quick), transform 160ms var(--e-quick);
 }
-
-.btn:hover {
-  --btn-bg: #000;
-  --btn-fg: var(--gold);
-  --btn-line: var(--gold);
-}
-
+.btn:hover { background: color-mix(in srgb, var(--gold) 90%, #000); }
 .btn:active { transform: translateY(1px); }
-
+.btn--sm { padding: 0 18px; font-size: 13px; }
 .btn svg { width: 12px; height: 12px; flex: none; }
 
 .btn--ghost {
-  --btn-bg: transparent;
-  --btn-fg: #fff;
-  --btn-line: rgba(255, 255, 255, 0.55);
+  background: transparent; color: #fff;
+  border: 1px solid rgba(255, 255, 255, .34);
 }
-.btn--ghost:hover {
-  --btn-bg: var(--gold);
-  --btn-fg: #000;
-  --btn-line: var(--gold);
-}
+.btn--ghost:hover { background: rgba(255, 255, 255, .1); }
 
 /* ---------- header · official homepage chrome ---------- */
 
@@ -235,6 +189,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   gap: 20px;
   padding: 0 var(--gutter);
   color: #fff;
+  --focus: #fff;
   border-bottom: 1px solid transparent;
   transition: background-color .3s var(--e), color .3s var(--e), border-color .3s var(--e);
 }
@@ -242,8 +197,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   background: color-mix(in srgb, #fff 94%, transparent);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
-  color: var(--text);
+  color: var(--ink);
   border-bottom-color: var(--line);
+  --focus: var(--brand);
 }
 .bar.is-on-dark {
   background: color-mix(in srgb, var(--brand-ink) 86%, transparent);
@@ -285,13 +241,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 .bar__cta-short { display: none; }
-.bar .btn { min-height: 44px; padding: 0 28px; border-radius: 999px; font-weight: 700; font-size: 14px; }
-.bar .btn.btn--sm { padding: 0 18px; font-size: 13px; }
 @media (max-width: 620px) {
-  .bar__cta { padding-inline: 18px; }
   .bar__cta-long { display: none; }
   .bar__cta-short { display: inline; }
-  .bar__logo { width: 126px; height: 34px; }
 }
 
 .menu {
@@ -307,7 +259,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .menu[hidden] { display: none; }
 .menu__panel {
   width: min(390px, 100%);
-  background: #fff; color: var(--text);
+  background: #fff; color: var(--ink);
+  --focus: var(--brand);
   border-radius: 14px;
   padding: 10px;
   box-shadow: 0 1px 0 rgba(0, 20, 28, .05), 0 24px 70px rgba(0, 20, 28, .32);
@@ -358,15 +311,17 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   pointer-events: none;
 }
 body.menu-open .progress { opacity: 0; }
-body.menu-open { overflow: hidden; }
+body.menu-open,
+body.story-lightbox-open { overflow: hidden; }
 
 /* ---------- hero ---------- */
 
 .hero {
   position: relative;
-  background: var(--ink);
+  background: var(--brand-ink);
   color: #fff;
-  padding-top: calc(76px + clamp(40px, 5vw, 76px));
+  /* Clear fixed bar; extra inset after .index removal (2026-11-03) */
+  padding-top: calc(var(--bar) + clamp(48px, 6vw, 88px));
   padding-bottom: clamp(56px, 7vw, 104px);
   overflow: hidden;
 }
@@ -392,38 +347,26 @@ body.menu-open { overflow: hidden; }
 
 .hero__inner { position: relative; z-index: 1; }
 
-.hero__title {
-  font-size: var(--fs-hero);
-  max-width: 18ch;
-}
-
+.hero__title { max-width: 18ch; }
 .hero__title span { white-space: nowrap; }
-.hero__title em { color: var(--gold); }
+.hero__title em { color: var(--gold); letter-spacing: 0; }
 
-.hero__row { margin-top: clamp(20px, 3vw, 34px); }
-
+.hero__row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+  align-items: end;
+  margin-top: 0;
+}
+.hero__row .hero__title { grid-column: 1 / 8; }
 .hero__copy {
+  grid-column: 9 / 13;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px 48px;
-  margin-top: clamp(24px, 3vw, 40px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 8px;
 }
-.hero__copy .hero__actions { margin-top: 0; }
-
-.hero__copy .lede {
-  color: rgba(255, 255, 255, 0.78);
-  max-width: 44ch;
-}
-
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: clamp(24px, 3vw, 36px);
-}
-
 .hero__media {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -438,20 +381,22 @@ body.menu-open { overflow: hidden; }
 .frame {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 12px;
   background: var(--surface);
 }
 
-.frame img { width: 100%; height: 100%; object-fit: cover; }
+.frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(.9) contrast(1.03);
+}
 
 .frame__cap {
   position: absolute;
   left: 12px;
   bottom: 12px;
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.09em;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
   text-transform: uppercase;
   color: #fff;
   background: rgba(4, 20, 27, 0.74);
@@ -467,7 +412,7 @@ body.menu-open { overflow: hidden; }
   text-align: center;
   background:
     radial-gradient(circle at 50% 0%, rgba(0, 88, 124, 0.45), transparent 70%),
-    var(--ink);
+    var(--brand-ink);
   border-color: rgba(255, 255, 255, 0.14);
   padding: 28px 22px;
   color: #fff;
@@ -481,7 +426,7 @@ body.menu-open { overflow: hidden; }
   display: grid;
   place-items: center;
   color: var(--gold);
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   font-size: 0.75rem;
 }
 
@@ -493,7 +438,7 @@ body.menu-open { overflow: hidden; }
 }
 
 .frame--pending .pending__title {
-  font-family: var(--font-serif);
+  font-family: var(--serif);
   font-style: italic;
   font-size: clamp(1.5rem, 2.2vw, 2rem);
   line-height: 1.1;
@@ -501,11 +446,11 @@ body.menu-open { overflow: hidden; }
 }
 
 .frame--pending .pending__note {
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--dark-muted);
+  color: rgba(255, 255, 255, .66);
 }
 
 /* ---------- placeholder screen ---------- */
@@ -550,34 +495,38 @@ body.menu-open { overflow: hidden; }
   position: absolute;
   left: 12px;
   bottom: 8px;
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   font-size: 0.5rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #5c6c73;
 }
 
+.screen--photo {
+  padding: 0;
+  gap: 0;
+  background: #f2f6f7;
+}
+
+.screen--photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
 /* ---------- section head ---------- */
 
 .section__head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: clamp(24px, 4vw, 64px);
-  align-items: end;
-  margin-bottom: clamp(36px, 4.6vw, 60px);
+  margin-bottom: clamp(48px, 6vw, 84px);
 }
 
-.section__title {
-  font-size: var(--fs-section);
-  margin-top: 22px;
-  max-width: 18ch;
-}
-
-.section__aside { padding-bottom: 6px; }
+.section__title { max-width: 18ch; }
 
 /* ---------- verticals ---------- */
 
-.verticals { padding-block: var(--section-y); background: var(--paper); }
+.verticals { padding-block: var(--sect); background: var(--paper); }
 
 .engine {
   display: grid;
@@ -588,16 +537,6 @@ body.menu-open { overflow: hidden; }
 
 .rail { position: sticky; top: 104px; }
 
-.rail__label {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--ink);
-}
-
 .rail__item {
   position: relative;
   display: grid;
@@ -607,17 +546,17 @@ body.menu-open { overflow: hidden; }
   padding: 13px 12px 13px 12px;
   border-bottom: 1px solid var(--line);
   text-decoration: none;
-  color: var(--text);
-  transition: background 180ms var(--ease), color 180ms var(--ease),
-    padding-left 200ms var(--ease);
+  color: var(--ink);
+  transition: background 180ms var(--e), color 180ms var(--e),
+    padding-left 200ms var(--e);
 }
 
 .rail__num {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
+  font-family: var(--mono);
+  font-size: 11px;
   letter-spacing: 0.06em;
   color: #6a7a81;
-  transition: color 180ms var(--ease);
+  transition: color 180ms var(--e);
 }
 
 .rail__name {
@@ -633,7 +572,7 @@ body.menu-open { overflow: hidden; }
   border-radius: 50%;
   background: transparent;
   justify-self: end;
-  transition: background 180ms var(--ease);
+  transition: background 180ms var(--e);
 }
 
 .rail__item:hover { background: var(--surface); }
@@ -655,7 +594,7 @@ body.menu-open { overflow: hidden; }
 
 .panel[hidden] { display: none; }
 
-.panel.is-active { animation: panelIn 280ms var(--ease) both; }
+.panel.is-active { animation: panelIn 280ms var(--e) both; }
 
 @keyframes panelIn {
   from { opacity: 0; transform: translateY(10px); }
@@ -664,38 +603,30 @@ body.menu-open { overflow: hidden; }
 
 .panel__head { max-width: none; }
 
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.eyebrow__num {
-  display: inline-grid;
-  place-items: center;
-  min-width: 24px;
-  height: 20px;
-  padding: 0 6px;
-  background: var(--ink);
-  color: var(--gold);
-  border-radius: 2px;
-  font-size: 0.625rem;
-}
-
 .panel__title {
-  font-size: var(--fs-story);
   max-width: 18ch;
-  margin-top: 18px;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
+  margin-top: 0;
 }
 
-.panel__lede { margin-top: 18px; max-width: 52ch; }
+.panel__lede {
+  margin-top: 14px;
+  max-width: 52ch;
+  font-size: var(--t-lede);
+}
+
+/* Content depth — not every vertical ships the same proof stack (design-notes §2026-11-03) */
+.panel--depth-min .panel__lede { display: none; }
+.panel--depth-min .panel__copy p:first-child {
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 52ch;
+}
+.panel--depth-min .panel__copy p + p { margin-top: 1em; font-size: var(--t-body); color: var(--ink); }
+.panel--depth-min .logos,
+.panel--depth-min .screens { display: none; }
+
+.panel--depth-standard .screens { display: none; }
 
 .panel__body {
   display: grid;
@@ -708,12 +639,231 @@ body.menu-open { overflow: hidden; }
 }
 
 .panel__copy p + p { margin-top: 1em; }
-.panel__copy { max-width: 46ch; color: var(--text); }
+.panel__copy { max-width: 46ch; color: var(--ink); }
 
 .panel__copy p:first-child { font-size: 1.125rem; line-height: 1.5; }
 
 .frame--story { aspect-ratio: 4 / 3; }
-.frame--story img { width: 100%; height: 100%; object-fit: cover; }
+.frame--story img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.03); }
+
+/* Weddings story gallery — horizontal filmstrip (not product screens) */
+.frame--story.frame--gallery {
+  display: block;
+  aspect-ratio: unset;
+  background: var(--surface);
+}
+.frame--story.frame--gallery .story-carousel {
+  position: relative;
+}
+.frame--story.frame--gallery .story-carousel__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+.has-js .frame--story.frame--gallery .story-carousel__viewport {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.frame--story.frame--gallery .story-carousel__track {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+  height: clamp(200px, 26vw, 300px);
+  margin: 0;
+  padding: 0 0 2px;
+  list-style: none;
+}
+.frame--story.frame--gallery .story-carousel__slide {
+  flex: 0 0 auto;
+  height: 100%;
+  scroll-snap-align: start;
+}
+.story-gallery__open {
+  display: block;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  border-radius: 2px;
+  line-height: 0;
+}
+.story-gallery__open:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+.frame--story.frame--gallery .story-carousel__slide img {
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  display: block;
+  filter: saturate(.9) contrast(1.03);
+  pointer-events: none;
+}
+.story-carousel__controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+html:not(.has-js) .story-carousel__controls { display: none; }
+.story-carousel__btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: rgba(4, 20, 27, 0.72);
+  color: #fff;
+  cursor: pointer;
+  transition: background var(--dur) var(--e), border-color var(--dur) var(--e), opacity var(--dur) var(--e);
+}
+.story-carousel__btn:hover:not(:disabled) {
+  background: rgba(4, 20, 27, 0.9);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+.story-carousel__btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.story-carousel__btn:disabled { opacity: 0.35; cursor: default; }
+.story-carousel__btn svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.story-carousel__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 2px;
+}
+.story-carousel__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.42);
+  cursor: pointer;
+  transition: background var(--dur) var(--e), transform var(--dur) var(--e);
+}
+.story-carousel__dot[aria-current="true"] {
+  background: var(--gold);
+  transform: scale(1.12);
+}
+.story-carousel__dot:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+.story-carousel__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.story-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 48px);
+  background: rgba(4, 20, 27, 0.94);
+  --focus: #fff;
+}
+.story-lightbox[hidden] { display: none !important; }
+.story-lightbox__img {
+  max-width: min(1280px, 100%);
+  max-height: min(88vh, 100%);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: saturate(.95) contrast(1.02);
+}
+.story-lightbox__close,
+.story-lightbox__nav {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: rgba(4, 20, 27, 0.72);
+  color: #fff;
+  cursor: pointer;
+  transition: background var(--dur) var(--e), border-color var(--dur) var(--e);
+}
+.story-lightbox__close:hover,
+.story-lightbox__nav:hover:not(:disabled) {
+  background: rgba(4, 20, 27, 0.92);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+.story-lightbox__close {
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  font-size: 28px;
+  line-height: 1;
+}
+.story-lightbox__nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+}
+.story-lightbox__nav--prev { left: 16px; }
+.story-lightbox__nav--next { right: 16px; }
+.story-lightbox__nav:disabled { opacity: 0.35; cursor: default; }
+.story-lightbox__nav svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.story-lightbox__meta {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame--story.frame--gallery .story-carousel__viewport { scroll-behavior: auto; }
+  .story-carousel__btn,
+  .story-carousel__dot,
+  .story-lightbox__close,
+  .story-lightbox__nav { transition: none; }
+}
 
 /* stats */
 
@@ -732,25 +882,26 @@ body.menu-open { overflow: hidden; }
 .stat:last-child { border-right: 0; }
 
 .stat__val {
-  font-family: var(--font-sans);
-  font-size: var(--fs-stat);
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 1;
+  font-size: clamp(34px, 4.2vw, 72px);
+  font-weight: 500;
+  letter-spacing: -.04em;
+  line-height: .95;
+  font-variant-numeric: tabular-nums;
   color: var(--ink);
+  white-space: nowrap;
 }
 
 .stat__label {
-  margin-top: 10px;
-  font-size: 0.875rem;
+  margin-top: 12px;
+  font-size: var(--t-small);
   line-height: 1.35;
   color: var(--muted);
-  max-width: 22ch;
+  max-width: 26ch;
 }
 
 .stat__tag {
   margin-top: 8px;
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   font-size: 0.5625rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -776,19 +927,20 @@ body.menu-open { overflow: hidden; }
 }
 
 .logos__title {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.12em;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
-.logos__count {
-  font-family: var(--font-mono);
-  font-size: 0.5625rem;
-  letter-spacing: 0.1em;
-  color: #6f7f86;
-}
+/* Minimal chrome — section labels live in aria-label / sr-only, not mono headers */
+.logos__head,
+.screens__head { display: none; }
+
+.logos__group[aria-label],
+.screens[aria-label] { margin-top: clamp(32px, 4vw, 48px); }
+
 
 .logos__grid {
   display: grid;
@@ -807,16 +959,15 @@ body.menu-open { overflow: hidden; }
   background: linear-gradient(180deg, #fff, #fcfdfd);
 }
 
-.logos__grid span {
-  font-family: var(--font-mono);
-  font-size: 0.5625rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #6f7f86;
-  text-align: center;
+.logos__grid img {
+  max-width: 92%;
+  max-height: 52px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.88;
 }
-
-.logos__grid li:nth-child(2n) span { color: #7b8b92; }
 
 /* screens row */
 
@@ -848,7 +999,7 @@ body.menu-open { overflow: hidden; }
   margin-top: 28px;
   padding-top: 16px;
   border-top: 1px solid var(--line);
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   font-size: 0.625rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -859,16 +1010,16 @@ body.menu-open { overflow: hidden; }
 
 /* ---------- FAQ ---------- */
 
-.faq { padding-block: var(--section-y); background: var(--paper); }
+.faq { padding-block: var(--sect); background: var(--paper); }
 
 .faq__grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: clamp(28px, 5vw, 80px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 48px);
   align-items: start;
 }
 
-.faq__head { position: sticky; top: 112px; }
+.faq__head { position: static; max-width: 22ch; }
 
 
 .faq__list { border-top: 1px solid var(--ink); }
@@ -893,12 +1044,12 @@ body.menu-open { overflow: hidden; }
 
 .faq__item summary::after {
   content: "+";
-  font-family: var(--font-mono);
+  font-family: var(--mono);
   font-size: 1.125rem;
   line-height: 1;
   color: var(--muted);
   justify-self: end;
-  transition: transform 200ms var(--ease), color 200ms var(--ease);
+  transition: transform 200ms var(--e), color 200ms var(--e);
 }
 
 .faq__item[open] summary::after {
@@ -906,7 +1057,7 @@ body.menu-open { overflow: hidden; }
   color: var(--ink);
 }
 
-.faq__item summary:hover { color: var(--blue); }
+.faq__item summary:hover { color: var(--brand); }
 
 .faq__answer {
   padding: 0 46px 26px 0;
@@ -919,8 +1070,9 @@ body.menu-open { overflow: hidden; }
 .footer {
   background: #071820;
   color: rgba(255, 255, 255, .62);
+  --focus: #fff;
   padding: clamp(56px, 6vw, 76px) 0 28px;
-  font-size: 0.9375rem;
+  font-size: var(--t-small);
 }
 .footer__top {
   display: grid;
@@ -938,7 +1090,7 @@ body.menu-open { overflow: hidden; }
   font-family: var(--mono); font-size: 11px; font-weight: 400;
   letter-spacing: .12em; text-transform: uppercase;
   color: rgba(255, 255, 255, .58);
-  margin: 0 0 16px;
+  margin-bottom: 16px;
 }
 .footer ul { list-style: none; margin: 0; padding: 0; }
 .footer li + li { margin-top: 10px; }
@@ -971,6 +1123,8 @@ body.menu-open { overflow: hidden; }
 
 @media (max-width: 1080px) {
   .hero__row { grid-template-columns: minmax(0, 1fr); }
+  .hero__row .hero__title,
+  .hero__copy { grid-column: 1 / -1; }
 
   .engine { grid-template-columns: minmax(0, 1fr); gap: 28px; }
 
@@ -986,7 +1140,6 @@ body.menu-open { overflow: hidden; }
     -webkit-overflow-scrolling: touch;
   }
   .rail::-webkit-scrollbar { display: none; }
-  .rail__label { display: none; }
   .rail__list { display: flex; gap: 8px; }
 
   .rail__item {
@@ -1012,7 +1165,6 @@ body.menu-open { overflow: hidden; }
 }
 
 @media (max-width: 860px) {
-  .section__head { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .section__title { max-width: 22ch; }
   .panel__body { grid-template-columns: minmax(0, 1fr); }
   .frame--story { aspect-ratio: 16 / 10; }
@@ -1021,8 +1173,6 @@ body.menu-open { overflow: hidden; }
 }
 
 @media (max-width: 640px) {
-  :root { --fs-hero: clamp(2.5rem, 12vw, 3.1rem); }
-
   .panel__title { letter-spacing: -0.03em; }
 
   .stats { grid-template-columns: minmax(0, 1fr); }
@@ -1063,7 +1213,7 @@ body.menu-open { overflow: hidden; }
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="progress" id="progress" aria-hidden="true"></div>
 
   <header class="bar" id="bar">
@@ -1075,7 +1225,7 @@ body.menu-open { overflow: hidden; }
       <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="siteMenu">
         <span></span><span></span><span></span>
       </button>
-      <a class="btn btn--gold btn--sm bar__cta" href="#verticals">
+      <a class="btn btn--sm bar__cta" href="#verticals">
         <span class="bar__cta-long">Explore our verticals</span>
         <span class="bar__cta-short">Explore</span>
       </a>
@@ -1101,37 +1251,24 @@ body.menu-open { overflow: hidden; }
   <main id="main">
     <section class="hero" id="top" data-surface="dark">
       <div class="hero__glow" aria-hidden="true"></div>
-      <div class="shell hero__inner">
-        <p class="kicker">Vertical software</p>
+      <div class="wrap hero__inner">
         <div class="hero__row">
-          <h1 class="display hero__title"><span>Industry-specific,</span> <span>mission-critical</span> <em>software.</em></h1>
+          <h1 class="display display--xxl hero__title">Mission-critical <em>software.</em></h1>
           <div class="hero__copy">
             <p class="lede">Fullsteam owns the system of record an industry runs on — the software a business opens every morning, not a horizontal platform stretched to fit.</p>
-            <div class="hero__actions">
-              <a class="btn btn--gold" href="#verticals">Explore the eleven
-                <svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
-              </a>
-            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="verticals" id="verticals" data-surface="light" aria-labelledby="verticals-title">
-      <div class="shell">
-        <div class="section__head">
-          <div>
-            <p class="kicker">Verticals</p>
-            <h2 class="display section__title" id="verticals-title">Eleven industries, <em>one operating model.</em></h2>
-          </div>
-          <div class="section__aside">
-            <p class="lede">Each market runs on software that knows its rules. Pick a vertical to see what mission-critical means there — same content, different operating core.</p>
-          </div>
-        </div>
+      <div class="wrap">
+        <header class="section__head">
+          <h2 class="display display--l section__title" id="verticals-title">Eleven industries, <em>one operating model.</em></h2>
+        </header>
 
         <div class="engine">
           <nav class="rail" aria-label="Vertical index">
-            <p class="rail__label">The index — 11 markets</p>
             <ol class="rail__list">
               <li><a class="rail__item" href="#panel-hospitality" data-slug="hospitality"><span class="rail__num">01</span><span class="rail__name">Hospitality</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-weddings-events" data-slug="weddings-events"><span class="rail__num">02</span><span class="rail__name">Weddings &amp; Events</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-wine" data-slug="wine"><span class="rail__num">03</span><span class="rail__name">Wine</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-retail" data-slug="retail"><span class="rail__num">04</span><span class="rail__name">Retail</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-storage-marina" data-slug="storage-marina"><span class="rail__num">05</span><span class="rail__name">Storage &amp; Marina</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-health-wellness" data-slug="health-wellness"><span class="rail__num">06</span><span class="rail__name">Health &amp; Wellness</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-field-services" data-slug="field-services"><span class="rail__num">07</span><span class="rail__name">Field Services</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-transportation" data-slug="transportation"><span class="rail__num">08</span><span class="rail__name">Transportation</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-automotive" data-slug="automotive"><span class="rail__num">09</span><span class="rail__name">Automotive</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-association-management" data-slug="association-management"><span class="rail__num">10</span><span class="rail__name">Association Management</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-erp" data-slug="erp"><span class="rail__num">11</span><span class="rail__name">ERP</span><span class="rail__dot"></span></a></li>
             </ol>
@@ -1139,10 +1276,9 @@ body.menu-open { overflow: hidden; }
 
           <div class="panels">
             
-        <article class="panel" id="panel-hospitality" data-slug="hospitality" aria-labelledby="title-hospitality">
+        <article class="panel panel--depth-standard" id="panel-hospitality" data-slug="hospitality" data-content-depth="standard" aria-labelledby="title-hospitality">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">01</span> Vertical 01 / 11</p>
-            <h3 class="display panel__title" id="title-hospitality">Service runs on the software, not beside it.</h3>
+            <h3 class="display display--m panel__title" id="title-hospitality">Service runs on the software, not beside it.</h3>
             <p class="lede panel__lede">Covers, turns, tabs, and tips move faster than a back office can keep up. Hospitality software has to hold the whole service in one place.</p>
           </header>
 
@@ -1155,21 +1291,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1178,59 +1312,99 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
         </article>
-        <article class="panel" id="panel-weddings-events" data-slug="weddings-events" aria-labelledby="title-weddings-events">
+        <article class="panel panel--depth-full" id="panel-weddings-events" data-slug="weddings-events" data-content-depth="full" aria-labelledby="title-weddings-events">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">02</span> Vertical 02 / 11</p>
-            <h3 class="display panel__title" id="title-weddings-events">Every event is a one-off, and every one has a date.</h3>
-            <p class="lede panel__lede">Weddings and events run on timelines that do not move and details that cannot be re-run. The software has to hold both.</p>
+            <h3 class="display display--m panel__title" id="title-weddings-events">Every event is a one-off, and every one has a date.</h3>
+            <p class="lede panel__lede">Behind the biggest moments in people&rsquo;s lives is a network of small businesses that make them happen.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
-              <p>A venue sells a date, then assembles a hundred small dependencies around it: vendors, layouts, payments, staff, weather plans. Most of that coordination still lives in spreadsheets until the week of.</p>
-              <p>Vertical software earns its place by owning that assembly — the proposal, the timeline, the deposit schedule — so the team is running the event instead of reconciling it.</p>
+              <p>Our software runs more than 2,200 bridal boutiques around the world where the dress is found, powers the independent florists who design the bouquets and centerpieces, and helps more than 8,000 wedding and event professionals every month orchestrate every detail from the first inquiry to the last dance.</p>
+              <p>Built by bridal, floral, and event pros for their peers, we help turn once-in-a-lifetime celebrations into thriving, well-run businesses.</p>
             </div>
-            <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Weddings &amp; Events at work</p><p class="pending__note">Photography pending</p></figure>
+            <figure class="frame frame--story frame--gallery">
+              <div class="story-carousel" data-story-gallery role="region" aria-roledescription="gallery" aria-label="Weddings and events on the ground">
+                <div class="story-carousel__viewport" id="weddings-story-viewport" tabindex="0">
+                  <ul class="story-carousel__track">
+                    <li class="story-carousel__slide" id="weddings-story-slide-1" aria-label="1 of 5">
+                      <button type="button" class="story-gallery__open" aria-label="View larger: wedding venue">
+                        <img src="assets/img/weddings-events.jpg" alt="" loading="eager" decoding="async">
+                      </button>
+                    </li>
+                    <li class="story-carousel__slide" id="weddings-story-slide-2" aria-label="2 of 5" aria-hidden="true">
+                      <button type="button" class="story-gallery__open" aria-label="View larger: bridal boutique aisle">
+                        <img src="assets/img/weddings-bridal-boutique-aisle.png" alt="" loading="lazy" decoding="async">
+                      </button>
+                    </li>
+                    <li class="story-carousel__slide" id="weddings-story-slide-3" aria-label="3 of 5" aria-hidden="true">
+                      <button type="button" class="story-gallery__open" aria-label="View larger: bridal boutique interior">
+                        <img src="assets/img/weddings-bridal-boutique-interior.png" alt="" loading="lazy" decoding="async">
+                      </button>
+                    </li>
+                    <li class="story-carousel__slide" id="weddings-story-slide-4" aria-label="4 of 5" aria-hidden="true">
+                      <button type="button" class="story-gallery__open" aria-label="View larger: reception florals">
+                        <img src="assets/img/weddings-floranext-table.png" alt="" loading="lazy" decoding="async">
+                      </button>
+                    </li>
+                    <li class="story-carousel__slide" id="weddings-story-slide-5" aria-label="5 of 5" aria-hidden="true">
+                      <button type="button" class="story-gallery__open" aria-label="View larger: barn reception">
+                        <img src="assets/img/weddings-reception-venue.png" alt="" loading="lazy" decoding="async">
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+                <div class="story-carousel__controls">
+                  <button type="button" class="story-carousel__btn story-carousel__btn--prev" aria-label="Previous photo" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+                  </button>
+                  <div class="story-carousel__dots" role="group" aria-label="Photo navigation">
+                    <button type="button" class="story-carousel__dot" aria-label="Photo 1 of 5: wedding venue" aria-controls="weddings-story-slide-1" aria-current="true"></button>
+                    <button type="button" class="story-carousel__dot" aria-label="Photo 2 of 5: bridal boutique aisle" aria-controls="weddings-story-slide-2"></button>
+                    <button type="button" class="story-carousel__dot" aria-label="Photo 3 of 5: bridal boutique interior" aria-controls="weddings-story-slide-3"></button>
+                    <button type="button" class="story-carousel__dot" aria-label="Photo 4 of 5: reception florals" aria-controls="weddings-story-slide-4"></button>
+                    <button type="button" class="story-carousel__dot" aria-label="Photo 5 of 5: barn reception" aria-controls="weddings-story-slide-5"></button>
+                  </div>
+                  <button type="button" class="story-carousel__btn story-carousel__btn--next" aria-label="Next photo">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                  </button>
+                </div>
+                <p class="story-carousel__status" aria-live="polite" aria-atomic="true">Photo 1 of 5: wedding venue</p>
+                <figcaption class="frame__cap">Weddings &amp; Events · on the ground</figcaption>
+              </div>
+            </figure>
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">1.2M</p><p class="stat__label">Weddings since 2013</p></div><div class="stat"><p class="stat__val">424K</p><p class="stat__label">Dresses sold per year on average&mdash;brides, or bridezillas.</p></div><div class="stat"><p class="stat__val">5K+</p><p class="stat__label">Weddings across the U.S. on a typical day</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
           </div>
 
-          <div class="screens">
-            <div class="screens__head">
-              <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
-            </div>
-            <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
+          <div class="screens" aria-label="Product screenshots">
+            <figure class="screen screen--photo"><img src="assets/img/weddings-bridallive-product.png" alt="BridalLive software showing the appointment calendar and boutique workflow" loading="lazy" decoding="async"><figcaption class="screen__tag">BridalLive · Screen 01</figcaption></figure><figure class="screen screen--photo"><img src="assets/img/weddings-floranext-table.png" alt="Wedding reception table with floral centerpieces and candlelight" loading="lazy" decoding="async"><figcaption class="screen__tag">Floranext · Screen 02</figcaption></figure><figure class="screen screen--photo"><img src="assets/img/weddings-reception-venue.png" alt="Barn wedding reception with long tables, florals, and string lights" loading="lazy" decoding="async"><figcaption class="screen__tag">Aisle Planner Pro · Screen 03</figcaption></figure>
           </div>
         </article>
-        <article class="panel" id="panel-wine" data-slug="wine" aria-labelledby="title-wine">
+        <article class="panel panel--depth-standard" id="panel-wine" data-slug="wine" data-content-depth="standard" aria-labelledby="title-wine">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">03</span> Vertical 03 / 11</p>
-            <h3 class="display panel__title" id="title-wine">Vintage, allocation, and compliance in one ledger.</h3>
+            <h3 class="display display--m panel__title" id="title-wine">Vintage, allocation, and compliance in one ledger.</h3>
             <p class="lede panel__lede">Wine moves through clubs, allocations, tasting rooms, and three tiers of regulation. One bottle has to be right in every one of them.</p>
           </header>
 
@@ -1243,21 +1417,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1266,15 +1438,13 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
         </article>
-        <article class="panel" id="panel-retail" data-slug="retail" aria-labelledby="title-retail">
+        <article class="panel panel--depth-standard" id="panel-retail" data-slug="retail" data-content-depth="standard" aria-labelledby="title-retail">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">04</span> Vertical 04 / 11</p>
-            <h3 class="display panel__title" id="title-retail">The counter and the back office are one system.</h3>
+            <h3 class="display display--m panel__title" id="title-retail">The counter and the back office are one system.</h3>
             <p class="lede panel__lede">Independent retail lives between the shop floor and the books. The software has to close that gap every day.</p>
           </header>
 
@@ -1287,21 +1457,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1310,15 +1478,13 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
         </article>
-        <article class="panel" id="panel-storage-marina" data-slug="storage-marina" aria-labelledby="title-storage-marina">
+        <article class="panel panel--depth-min" id="panel-storage-marina" data-slug="storage-marina" data-content-depth="min" aria-labelledby="title-storage-marina">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">05</span> Vertical 05 / 11</p>
-            <h3 class="display panel__title" id="title-storage-marina">Recurring revenue with a physical constraint.</h3>
+            <h3 class="display display--m panel__title" id="title-storage-marina">Recurring revenue with a physical constraint.</h3>
             <p class="lede panel__lede">Units and slips are rented by the month and bounded by space. The software has to know both.</p>
           </header>
 
@@ -1331,21 +1497,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1354,15 +1518,13 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
         </article>
-        <article class="panel" id="panel-health-wellness" data-slug="health-wellness" aria-labelledby="title-health-wellness">
+        <article class="panel panel--depth-min" id="panel-health-wellness" data-slug="health-wellness" data-content-depth="min" aria-labelledby="title-health-wellness">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">06</span> Vertical 06 / 11</p>
-            <h3 class="display panel__title" id="title-health-wellness">Schedules, records, and billing that cannot drift.</h3>
+            <h3 class="display display--m panel__title" id="title-health-wellness">Schedules, records, and billing that cannot drift.</h3>
             <p class="lede panel__lede">A clinic runs on time it cannot get back. Software that drifts costs practitioners the hour and the claim.</p>
           </header>
 
@@ -1375,21 +1537,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1398,15 +1558,13 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
         </article>
-        <article class="panel" id="panel-field-services" data-slug="field-services" aria-labelledby="title-field-services">
+        <article class="panel panel--depth-min" id="panel-field-services" data-slug="field-services" data-content-depth="min" aria-labelledby="title-field-services">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">07</span> Vertical 07 / 11</p>
-            <h3 class="display panel__title" id="title-field-services">The job is finished in the field, not the office.</h3>
+            <h3 class="display display--m panel__title" id="title-field-services">The job is finished in the field, not the office.</h3>
             <p class="lede panel__lede">Dispatch is a promise about time. Field software has to keep it with bad signal and a full truck.</p>
           </header>
 
@@ -1419,21 +1577,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1442,15 +1598,13 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
         </article>
-        <article class="panel" id="panel-transportation" data-slug="transportation" aria-labelledby="title-transportation">
+        <article class="panel panel--depth-standard" id="panel-transportation" data-slug="transportation" data-content-depth="standard" aria-labelledby="title-transportation">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">08</span> Vertical 08 / 11</p>
-            <h3 class="display panel__title" id="title-transportation">Margin lives in the details of every load.</h3>
+            <h3 class="display display--m panel__title" id="title-transportation">Margin lives in the details of every load.</h3>
             <p class="lede panel__lede">Dispatch, compliance, and settlement have to agree before the truck leaves. Usually they do not.</p>
           </header>
 
@@ -1463,21 +1617,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1486,15 +1638,13 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
         </article>
-        <article class="panel" id="panel-automotive" data-slug="automotive" aria-labelledby="title-automotive">
+        <article class="panel panel--depth-standard" id="panel-automotive" data-slug="automotive" data-content-depth="standard" aria-labelledby="title-automotive">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">09</span> Vertical 09 / 11</p>
-            <h3 class="display panel__title" id="title-automotive">The lot, the bay, and the ledger.</h3>
+            <h3 class="display display--m panel__title" id="title-automotive">The lot, the bay, and the ledger.</h3>
             <p class="lede panel__lede">A dealership sells cars, time, and financing at the same counter. The software has to hold all three.</p>
           </header>
 
@@ -1507,21 +1657,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1530,15 +1678,13 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
         </article>
-        <article class="panel" id="panel-association-management" data-slug="association-management" aria-labelledby="title-association-management">
+        <article class="panel panel--depth-min" id="panel-association-management" data-slug="association-management" data-content-depth="min" aria-labelledby="title-association-management">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">10</span> Vertical 10 / 11</p>
-            <h3 class="display panel__title" id="title-association-management">Membership is a system, not a list.</h3>
+            <h3 class="display display--m panel__title" id="title-association-management">Membership is a system, not a list.</h3>
             <p class="lede panel__lede">Dues, renewals, events, and committees are one relationship seen from four angles.</p>
           </header>
 
@@ -1551,21 +1697,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1574,15 +1718,13 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
         </article>
-        <article class="panel" id="panel-erp" data-slug="erp" aria-labelledby="title-erp">
+        <article class="panel panel--depth-standard" id="panel-erp" data-slug="erp" data-content-depth="standard" aria-labelledby="title-erp">
           <header class="panel__head">
-            <p class="eyebrow"><span class="eyebrow__num">11</span> Vertical 11 / 11</p>
-            <h3 class="display panel__title" id="title-erp">The system of record for the whole operation.</h3>
+            <h3 class="display display--m panel__title" id="title-erp">The system of record for the whole operation.</h3>
             <p class="lede panel__lede">Finance, inventory, and production describe one business. ERP is where they have to agree.</p>
           </header>
 
@@ -1595,21 +1737,19 @@ body.menu-open { overflow: hidden; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p><p class="stat__tag">Figure pending</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p><p class="stat__tag">Figure pending</p></div>
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
-                <p class="logos__count">04 slots</p>
               </div>
               <ul class="logos__grid"><li><span>Customer 01</span></li><li><span>Customer 02</span></li><li><span>Customer 03</span></li><li><span>Customer 04</span></li></ul>
             </div>
@@ -1618,7 +1758,6 @@ body.menu-open { overflow: hidden; }
           <div class="screens">
             <div class="screens__head">
               <p class="logos__title">Product screenshots</p>
-              <p class="logos__count">Placeholder frames</p>
             </div>
             <div class="screen" role="img" aria-label="Product screenshot 01 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 01 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 02 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 02 · pending</p></div><div class="screen" role="img" aria-label="Product screenshot 03 — pending"><div class="screen__chrome"><i></i><i></i><i></i></div><div class="screen__bar screen__bar--dark" style="width:54%"></div><div class="screen__bar" style="width:82%"></div><div class="screen__bar" style="width:66%"></div><div class="screen__block"></div><p class="screen__tag">Screen 03 · pending</p></div>
           </div>
@@ -1629,10 +1768,9 @@ body.menu-open { overflow: hidden; }
     </section>
 
     <section class="faq" id="faq" data-surface="light" aria-labelledby="faq-title">
-      <div class="shell faq__grid">
+      <div class="wrap faq__grid">
         <div class="faq__head">
-          <p class="kicker">FAQ</p>
-          <h2 class="display section__title" id="faq-title">Common questions, <em>answered.</em></h2>
+          <h2 class="display display--l section__title" id="faq-title">Common questions, <em>answered.</em></h2>
         </div>
         <div class="faq__list">
           <details class="faq__item"><summary>Do you buy software companies, or add services to them?</summary><p class="faq__answer">We buy software businesses. Services do not lead. Software is the system of record, and AI and payments are added on top of it — not in place of it.</p></details><details class="faq__item"><summary>Do you change the brand or the team?</summary><p class="faq__answer">No. The companies keep their names, their teams, and their relationship with their customers. What changes is what sits behind them: shared engineering, go-to-market support, and capital.</p></details><details class="faq__item"><summary>Is AI part of this strategy?</summary><p class="faq__answer">Yes, as an addition to software that already runs the business — not as the headline. AI is most useful where the system of record is already in place.</p></details>
@@ -1641,8 +1779,20 @@ body.menu-open { overflow: hidden; }
     </section>
   </main>
 
+  <div class="story-lightbox" id="storyLightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged photo">
+    <button type="button" class="story-lightbox__close" id="storyLightboxClose" aria-label="Close">&times;</button>
+    <button type="button" class="story-lightbox__nav story-lightbox__nav--prev" id="storyLightboxPrev" aria-label="Previous photo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <img class="story-lightbox__img" id="storyLightboxImg" alt="">
+    <button type="button" class="story-lightbox__nav story-lightbox__nav--next" id="storyLightboxNext" aria-label="Next photo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <p class="story-lightbox__meta" id="storyLightboxMeta" aria-live="polite"></p>
+  </div>
+
   <footer class="footer" data-surface="dark">
-    <div class="shell">
+    <div class="wrap">
       <div class="footer__top">
         <div class="footer__brand">
           <a href="index.html" aria-label="Fullsteam home"><img src="assets/fullsteam-logo.svg" alt="" width="222" height="60" loading="lazy" decoding="async"></a>
@@ -1729,9 +1879,10 @@ body.menu-open { overflow: hidden; }
     if (bar) {
       var s = surfaceAtHeader();
       var dark = !s || s.getAttribute("data-surface") === "dark";
-      var inOpening = !!(s && s.id === "top");
+      /* Unlike homepage #top (pinned opening), this page’s #top is a normal dark
+         hero band — use is-on-dark scrim so the bar stays readable over the H1. */
       bar.classList.toggle("is-solid", !dark);
-      bar.classList.toggle("is-on-dark", dark && !inOpening);
+      bar.classList.toggle("is-on-dark", dark);
     }
     ticking = false;
   }
@@ -1881,6 +2032,263 @@ body.menu-open { overflow: hidden; }
     var slug = resolveHash();
     if (slug) setActive(slug);
   });
+})();
+
+(function () {
+  "use strict";
+
+  function fillLogos(group, items, label) {
+    if (!group) return;
+    if (!items || !items.length) {
+      group.hidden = true;
+      return;
+    }
+    group.hidden = false;
+    group.setAttribute("aria-label", label);
+    var title = group.querySelector(".logos__title");
+    if (title) {
+      title.textContent = label;
+      title.className = "sr-only";
+    }
+    var ul = group.querySelector(".logos__grid");
+    if (!ul) return;
+    ul.innerHTML = items.map(function (it) {
+      var alt = String(it.alt || "").replace(/"/g, "&quot;");
+      return '<li><img src="' + it.file + '" alt="' + alt + '" loading="lazy" decoding="async"></li>';
+    }).join("");
+  }
+
+  fetch("assets/logos/manifest.json")
+    .then(function (res) { return res.json(); })
+    .then(function (manifest) {
+      document.querySelectorAll("article.panel[id^='panel-']").forEach(function (article) {
+        var data = manifest[article.id];
+        if (!data) return;
+        var groups = article.querySelectorAll(".logos__group");
+        fillLogos(groups[0], data.units, "Business-unit software");
+        fillLogos(groups[1], data.partners, "Customers & partners");
+      });
+    })
+    .catch(function () { /* keep text placeholders if manifest missing */ });
+})();
+
+(function () {
+  "use strict";
+  /* Review-only placeholders — not cleared for publish (KB §20.7). */
+  var PANEL_STATS = {
+    hospitality: ["42K+", "11 yr", "118%"],
+    "weddings-events": ["1.2M", "424K", "5K+"],
+    wine: ["3.5K+", "12 yr", "121%"],
+    retail: ["18K+", "8 yr", "115%"],
+    "storage-marina": ["6.4K+", "14 yr", "109%"],
+    "health-wellness": ["12K+", "7 yr", "116%"],
+    "field-services": ["25K+", "10 yr", "114%"],
+    transportation: ["9.8K+", "13 yr", "117%"],
+    automotive: ["15K+", "9 yr", "113%"],
+    "association-management": ["4.2K+", "11 yr", "108%"],
+    erp: ["22K+", "15 yr", "119%"]
+  };
+
+  function formatStatAbbrev(raw) {
+    if (raw == null || raw === "" || raw === "—") return raw;
+    var s = String(raw).trim();
+    if (/yr|%/.test(s)) return s;
+    if (/[kKmM]/.test(s)) return s.replace(/k/g, "K");
+    var plus = s.endsWith("+");
+    var n = Number(s.replace(/,/g, "").replace(/\+$/, ""));
+    if (!isFinite(n)) return s;
+    if (n >= 1e6) {
+      var m = n / 1e6;
+      var mStr = m >= 10 ? String(Math.round(m)) : m.toFixed(1).replace(/\.0$/, "");
+      return mStr + "M" + (plus ? "+" : "");
+    }
+    if (n >= 10000) {
+      var k10 = n / 1000;
+      var kStr = k10 >= 100 ? String(Math.round(k10)) : k10.toFixed(1).replace(/\.0$/, "");
+      return kStr + "K" + (plus ? "+" : "");
+    }
+    if (n >= 1000) {
+      return n.toLocaleString("en-US") + (plus ? "+" : "");
+    }
+    return s;
+  }
+
+  document.querySelectorAll("article.panel[data-slug]").forEach(function (article) {
+    var stats = PANEL_STATS[article.getAttribute("data-slug")];
+    if (!stats) return;
+    article.querySelectorAll(".stat__val").forEach(function (el, i) {
+      if (stats[i]) el.textContent = formatStatAbbrev(stats[i]);
+    });
+  });
+})();
+
+(function () {
+  "use strict";
+
+  if (!document.documentElement.classList.contains("has-js")) return;
+
+  var root = document.querySelector("#panel-weddings-events [data-story-gallery]");
+  if (!root) return;
+
+  var viewport = root.querySelector(".story-carousel__viewport");
+  var slides = Array.prototype.slice.call(root.querySelectorAll(".story-carousel__slide"));
+  var openBtns = Array.prototype.slice.call(root.querySelectorAll(".story-gallery__open"));
+  var prevBtn = root.querySelector(".story-carousel__btn--prev");
+  var nextBtn = root.querySelector(".story-carousel__btn--next");
+  var dots = Array.prototype.slice.call(root.querySelectorAll(".story-carousel__dot"));
+  var status = root.querySelector(".story-carousel__status");
+  var lightbox = document.getElementById("storyLightbox");
+  var lightboxImg = document.getElementById("storyLightboxImg");
+  var lightboxMeta = document.getElementById("storyLightboxMeta");
+  var lightboxClose = document.getElementById("storyLightboxClose");
+  var lightboxPrev = document.getElementById("storyLightboxPrev");
+  var lightboxNext = document.getElementById("storyLightboxNext");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var slideLabels = [
+    "wedding venue",
+    "bridal boutique aisle",
+    "bridal boutique interior",
+    "reception florals",
+    "barn reception"
+  ];
+  var total = slides.length;
+  var syncTick = false;
+  var lightboxIndex = 0;
+  var lastFocus = null;
+
+  function slideImg(index) {
+    var slide = slides[index];
+    if (!slide) return null;
+    return slide.querySelector("img");
+  }
+
+  function currentIndex() {
+    if (!viewport || !slides.length) return 0;
+    var probe = viewport.scrollLeft + 12;
+    var best = 0;
+    var bestDist = Infinity;
+    for (var i = 0; i < slides.length; i++) {
+      var dist = Math.abs(slides[i].offsetLeft - probe);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    }
+    return best;
+  }
+
+  function scrollBehavior() {
+    return reduceMotion ? "auto" : "smooth";
+  }
+
+  function goTo(index) {
+    index = Math.min(total - 1, Math.max(0, index));
+    var slide = slides[index];
+    if (!slide || !viewport) return;
+    viewport.scrollTo({ left: slide.offsetLeft, behavior: scrollBehavior() });
+    syncUi(index);
+  }
+
+  function syncUi(index) {
+    if (typeof index !== "number") index = currentIndex();
+    slides.forEach(function (slide, i) {
+      slide.setAttribute("aria-hidden", i === index ? "false" : "true");
+    });
+    dots.forEach(function (dot, i) {
+      if (i === index) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+    if (prevBtn) prevBtn.disabled = index <= 0;
+    if (nextBtn) nextBtn.disabled = index >= total - 1;
+    if (status) {
+      status.textContent = "Photo " + (index + 1) + " of " + total + ": " + slideLabels[index];
+    }
+  }
+
+  function onScrollSync() {
+    if (syncTick) return;
+    syncTick = true;
+    window.requestAnimationFrame(function () {
+      syncTick = false;
+      syncUi(currentIndex());
+    });
+  }
+
+  function openLightbox(index) {
+    var img = slideImg(index);
+    if (!img || !lightbox || !lightboxImg) return;
+    lightboxIndex = index;
+    lastFocus = document.activeElement;
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = slideLabels[index] || "";
+    if (lightboxMeta) {
+      lightboxMeta.textContent = "Photo " + (index + 1) + " of " + total + " · " + slideLabels[index];
+    }
+    if (lightboxPrev) lightboxPrev.disabled = index <= 0;
+    if (lightboxNext) lightboxNext.disabled = index >= total - 1;
+    lightbox.hidden = false;
+    document.body.classList.add("story-lightbox-open");
+    if (lightboxClose) lightboxClose.focus();
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.hidden = true;
+    lightboxImg.src = "";
+    document.body.classList.remove("story-lightbox-open");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  function lightboxGo(delta) {
+    openLightbox(Math.min(total - 1, Math.max(0, lightboxIndex + delta)));
+  }
+
+  openBtns.forEach(function (btn, i) {
+    btn.addEventListener("click", function () { openLightbox(i); });
+  });
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", function () { goTo(currentIndex() - 1); });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener("click", function () { goTo(currentIndex() + 1); });
+  }
+  dots.forEach(function (dot, i) {
+    dot.addEventListener("click", function () { goTo(i); });
+  });
+
+  if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+  if (lightboxPrev) lightboxPrev.addEventListener("click", function () { lightboxGo(-1); });
+  if (lightboxNext) lightboxNext.addEventListener("click", function () { lightboxGo(1); });
+  if (lightbox) {
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (!lightbox || lightbox.hidden) return;
+    if (e.key === "Escape") { e.preventDefault(); closeLightbox(); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); lightboxGo(-1); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); lightboxGo(1); }
+  });
+
+  if (viewport) {
+    viewport.addEventListener("scroll", onScrollSync, { passive: true });
+    viewport.addEventListener("keydown", function (e) {
+      if (lightbox && !lightbox.hidden) return;
+      if (e.key === "ArrowLeft") { e.preventDefault(); goTo(currentIndex() - 1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); goTo(currentIndex() + 1); }
+      else if (e.key === "Home") { e.preventDefault(); goTo(0); }
+      else if (e.key === "End") { e.preventDefault(); goTo(total - 1); }
+    });
+  }
+
+  window.addEventListener("resize", function () {
+    goTo(currentIndex());
+  });
+
+  syncUi(0);
 })();
 
   </script>
