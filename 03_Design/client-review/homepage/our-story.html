@@ -422,18 +422,61 @@ body.story-lightbox-open { overflow: hidden; }
   color: var(--ink);
   --focus: var(--brand);
   padding: clamp(48px, 6vw, 72px) 0 clamp(40px, 5vw, 56px);
+  border-bottom: none;
 }
 
 .hero__lower {
   position: relative;
   z-index: 1;
-  background: var(--paper);
-  color: var(--ink);
-  --focus: var(--brand);
-  padding: clamp(40px, 5vw, 56px) 0 clamp(56px, 7vw, 88px);
-  border-top: 1px solid var(--line);
+  color: #fff;
+  --focus: #fff;
+  padding: clamp(48px, 6vw, 80px) 0 clamp(52px, 6.5vw, 76px);
+  border-top: none;
+  background:
+    radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 55%),
+    var(--brand-ink);
 }
 
+.story-proof__label {
+  font-family: var(--mono);
+  font-size: var(--label);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .52);
+  margin-bottom: clamp(18px, 2.4vw, 26px);
+}
+.story-proof__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(24px, 3.5vw, 48px);
+  padding-top: clamp(26px, 3.2vw, 34px);
+  border-top: 2px solid var(--gold);
+}
+.story-proof__cell {
+  min-width: 0;
+}
+.story-proof__n {
+  font-size: var(--t-stat);
+  font-weight: 500;
+  letter-spacing: -.045em;
+  line-height: .92;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+.story-proof__n em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.02em;
+}
+.story-proof__c {
+  margin-top: clamp(10px, 1.2vw, 14px);
+  font-size: var(--t-small);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, .58);
+  max-width: 18ch;
+  text-wrap: pretty;
+}
 .hero__actions {
   display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px;
   margin-top: clamp(28px, 3.5vw, 40px);
@@ -452,42 +495,6 @@ body.story-lightbox-open { overflow: hidden; }
   border-color: rgba(255, 255, 255, .85);
 }
 
-.proof-strip {
-  margin-top: 0;
-}
-.proof-strip__label {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 22px;
-}
-.proof-stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid var(--ink);
-}
-.proof-stat {
-  padding: 22px 20px 20px 0;
-  border-right: 1px solid var(--line);
-}
-.proof-stat:last-child { border-right: 0; }
-.proof-stat + .proof-stat { padding-left: 20px; }
-.proof-stat__n {
-  font-size: clamp(34px, 4vw, 56px);
-  font-weight: 500;
-  letter-spacing: -.04em;
-  line-height: .95;
-  font-variant-numeric: tabular-nums;
-}
-.proof-stat__c {
-  margin-top: 12px;
-  font-size: var(--t-small);
-  color: var(--muted);
-  max-width: 22ch;
-  line-height: 1.35;
-}
 #company-title em {
   color: var(--gold);
   font-family: var(--serif);
@@ -573,7 +580,7 @@ body.story-lightbox-open { overflow: hidden; }
   color: var(--muted);
   line-height: 1.6;
 }
-.split-head__aside p + p { margin-top: 1em; }
+.split-head__aside .arrow-link { margin-top: 0; }
 .arrow-link {
   display: inline-flex; align-items: center; gap: 8px;
   font-weight: 600; color: var(--brand);
@@ -725,11 +732,20 @@ body.story-lightbox-open { overflow: hidden; }
   gap: var(--tl-gap);
   align-items: start;
   padding: clamp(36px, 4.5vw, 52px) 0;
-  border-bottom: 1px solid var(--line);
   scroll-margin-top: calc(var(--bar) + 16px);
 }
+.tl-entry:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--tl-rail-col) + var(--tl-gap));
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--line);
+  pointer-events: none;
+}
 .tl-entry:first-child { padding-top: 8px; }
-.tl-entry:last-child { border-bottom: 0; padding-bottom: 0; }
+.tl-entry:last-child { padding-bottom: 0; }
 
 .tl-entry__thumb {
   grid-column: 2;
@@ -813,6 +829,7 @@ body.story-lightbox-open { overflow: hidden; }
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(28px, 3.5vw, 40px) clamp(20px, 2.5vw, 28px);
+  align-items: start;
 }
 .leader-card {
   text-align: center;
@@ -832,7 +849,7 @@ body.story-lightbox-open { overflow: hidden; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 18%;
+  object-position: center top;
   display: block;
   filter: saturate(.94) contrast(1.02);
 }
@@ -957,8 +974,7 @@ body.story-lightbox-open { overflow: hidden; }
 #leadership { scroll-margin-top: calc(var(--bar) + 12px); }
 
 @media (max-width: 1080px) {
-  .proof-stats { grid-template-columns: 1fr 1fr; }
-  .proof-stat:nth-child(2n) { border-right: 0; }
+  .story-proof__grid { grid-template-columns: 1fr 1fr; }
   .hero__stage { min-height: min(78svh, 720px); }
   .band__head h2,
   .band__head .lede,
@@ -1061,8 +1077,7 @@ body.story-lightbox-open { overflow: hidden; }
               <h2 class="display display--l" id="company-title">Mission and vision, in <em>their words.</em></h2>
             </div>
             <div class="split-head__aside">
-              <p>The holding-company story lives here in prose until the mission and vision video is ready. Narrative first — who Fullsteam is, why vertical software, and how the portfolio compounds.</p>
-              <p>Embedded expansion — payments, lending, insurance, and AI — sits on the software each business already runs. That layer is <a class="arrow-link" href="our-advantage.html">Our Advantage<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+              <p>The holding-company story lives here in prose until the mission and vision video is ready. Narrative first — who Fullsteam is, why vertical software, and how the portfolio compounds. Embedded expansion — payments, lending, insurance, and AI — sits on the software each business already runs. That layer is <a class="arrow-link" href="our-advantage.html">Our Advantage<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
             </div>
           </div>
           <div class="ai-video">
@@ -1076,25 +1091,26 @@ body.story-lightbox-open { overflow: hidden; }
         </div>
       </div>
 
-      <div class="hero__lower" data-surface="light">
+      <div class="hero__lower" data-surface="dark" aria-labelledby="story-proof-label">
         <div class="wrap">
-          <div class="proof-strip">
-            <div class="proof-stats">
-              <div class="proof-stat">
-                <p class="proof-stat__n">100+</p>
-                <p class="proof-stat__c">Software businesses <span class="sr-only">placeholder figure</span></p>
+          <div class="story-proof">
+            <p class="story-proof__label" id="story-proof-label">Scale at a glance</p>
+            <div class="story-proof__grid">
+              <div class="story-proof__cell">
+                <p class="story-proof__n">100+</p>
+                <p class="story-proof__c">Software businesses <span class="sr-only">placeholder figure</span></p>
               </div>
-              <div class="proof-stat">
-                <p class="proof-stat__n">2,000+</p>
-                <p class="proof-stat__c">Colleagues <span class="sr-only">placeholder figure</span></p>
+              <div class="story-proof__cell">
+                <p class="story-proof__n">2,000+</p>
+                <p class="story-proof__c">Colleagues <span class="sr-only">placeholder figure</span></p>
               </div>
-              <div class="proof-stat">
-                <p class="proof-stat__n">70,000+</p>
-                <p class="proof-stat__c">Business customers <span class="sr-only">placeholder figure</span></p>
+              <div class="story-proof__cell">
+                <p class="story-proof__n">70,000+</p>
+                <p class="story-proof__c">Business customers <span class="sr-only">placeholder figure</span></p>
               </div>
-              <div class="proof-stat">
-                <p class="proof-stat__n">$75B+</p>
-                <p class="proof-stat__c">Processed on Fullsteam Pay*</p>
+              <div class="story-proof__cell">
+                <p class="story-proof__n">$75B+</p>
+                <p class="story-proof__c">Processed on Fullsteam Pay</p>
               </div>
             </div>
           </div>
