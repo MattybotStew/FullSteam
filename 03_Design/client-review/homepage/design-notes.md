@@ -638,3 +638,54 @@ Careers' "People who pick up the problem" got the same treatment via `.band--sur
 Seven pages × 1440 / 390: **0 contrast failures** except the known brand-green `grow` (2.27:1,
 client's call), 0 console errors, 0 horizontal overflow, **0 broken internal links** — every
 `href` on every page returns 200.
+
+---
+
+## 2026-11-03 — responsive audit, and a deploy that no longer fails
+
+### The deploy was broken, not the pages
+
+`pages.yml` copied `assets/logos/` unconditionally, but that directory is **gitignored on purpose**
+(third-party marks pending clearance — KB §29.7 / OI-16). A hosted runner never has it, so `cp`
+exited non-zero under `set -euo pipefail` and killed the whole job before upload.
+
+The copy is now guarded: it runs when the directory exists (a local run, or after clearance +
+`git add`) and logs a `::notice::` when it doesn't. `vertical-software.html` already catches the
+missing `manifest.json`, so the panels fall back to their text placeholders — the site publishes
+either way. **Verified by running the exact `run:` block in a fresh clone**: exit 0 with no logos
+directory, exit 0 with a synthetic one, and the leak-check still passes.
+
+### Audit
+
+Seven pages × ten widths (320 → 1920). Method: document overflow, elements crossing the viewport
+outside a scroll container, text clipped by its own box, overlapping text rectangles, tap targets
+under 24px, sticky columns taller than the window, and hero content clipped on short viewports.
+
+| Check | Before | After |
+|---|---|---|
+| Horizontal overflow | our-story **+25px @320** | **0 on all 70 page×width pairs** |
+| Header overflow | contact **+7px @320** | 0 |
+| Tap targets < 24px (390) | footer links **19px**, contact rail **21px** | **0** |
+| Sticky column taller than window | our-story eras 653px in a 600px window; vertical-software rail 607px | static below 700px height |
+| Text overlaps | 0 | 0 |
+| Hero clipping at 568×320, 740×360, 390×480 | 0 | 0 |
+
+### Fixed
+
+1. **Our Story timeline at 320** — the entry grid was `rail | 152–184px thumb | text` at every
+   width, leaving the copy **78px** wide, so long words pushed the document 25px. Below 600px the
+   thumb now sits above the copy (`--tl-thumb: min(220px, 62vw)`), and the marker follows
+   automatically because it is positioned off `--tl-thumb`.
+2. **320px header** — logo 148 + actions 139 + 40px gutters = 327px. Below 380px the wordmark drops
+   to 124px, the bar gutter to 16px and the pill to 14px padding.
+3. **Footer and rail tap targets** — footer links were 19px tall; they get `padding-block: 9px` and
+   the inter-item margins collapse, so the block grows by a few pixels, not a few hundred.
+4. **`.arrow-link` / `.vp__link` hit areas** — a `::after` inset of −11px takes the taps without
+   moving the underline, which is part of the type.
+5. **Sticky traps** — `.rail` and `.chapters-eras` are 500–560px tall; on a short window their own
+   bottom is unreachable. Below 700px of viewport height they return to the flow.
+6. **Contact side rail** — the mailto / careers / scale links were 21px; they get `padding-block`
+   on touch widths.
+
+Chrome is duplicated per page, so items 2–3 live in a shared "responsive hardening" block present
+in all seven files, and the sticky gates sit at the end of the three pages that own a sticky column.

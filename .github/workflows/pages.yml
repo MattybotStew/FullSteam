@@ -76,9 +76,22 @@ jobs:
              _site/03_Design/client-review/homepage/assets/
           cp -R 03_Design/client-review/homepage/assets/img/. \
              _site/03_Design/client-review/homepage/assets/img/
+          # Portfolio logos are NOT in the repo on purpose: they are third-party
+          # marks pending clearance (KB 29.7 / OI-16) and .gitignore ignores
+          # assets/* wholesale. A hosted runner therefore never has these files,
+          # and an unguarded `cp` failed the entire deploy. Copy when the
+          # directory is present (a local run, or after clearance + git add) and
+          # publish without them otherwise - the vertical panels keep their text
+          # placeholders, because the manifest fetch is already guarded in
+          # vertical-software.html.
+          LOGOS=03_Design/client-review/homepage/assets/logos
           mkdir -p _site/03_Design/client-review/homepage/assets/logos
-          cp -R 03_Design/client-review/homepage/assets/logos/. \
-             _site/03_Design/client-review/homepage/assets/logos/
+          if [ -d "$LOGOS" ]; then
+            cp -R "$LOGOS"/. _site/03_Design/client-review/homepage/assets/logos/
+            echo "logos: staged $(find "$LOGOS" -type f | wc -l | tr -d ' ') files from $LOGOS"
+          else
+            echo "::notice title=Portfolio logos skipped::$LOGOS is not in the repo (gitignored, clearance pending) - the site ships without business-unit and partner logos"
+          fi
           # The frozen A/B arm, linked from the portal. It references ../assets
           # (the logos above) and the wireframe pages, both staged, so it opens
           # standalone from this path.

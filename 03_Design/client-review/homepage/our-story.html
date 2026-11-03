@@ -1021,7 +1021,63 @@ body.story-lightbox-open { overflow: hidden; }
   .tl-entry__marker { transition: none !important; }
 }
 
-    </style>
+    
+/* =================================================================
+   Responsive hardening (2026-11-03)
+   Chrome is duplicated per page, so these live in every file.
+   ================================================================= */
+@media (max-width: 380px) {
+  /* logo 148px + actions 139px + 40px gutters = 327px, 7px past a 320
+     viewport. Shrink the wordmark and tighten the pill instead of letting
+     the bar scroll. */
+  .bar { padding-inline: 16px; }
+  .bar__logo img { width: 124px; height: auto; }
+  .bar__cta { padding: 0 14px; }
+}
+
+@media (max-width: 640px) {
+  /* Footer links were 19px tall — under the 24px minimum target, and far
+     under a comfortable thumb size. Padding rather than margin keeps the
+     blocks even. */
+  .footer li + li { margin-top: 2px; }
+  .footer li a { display: inline-block; padding-block: 9px; }
+  .footer__sub li + li { margin-top: 0; }
+  .footer__sub a { padding-block: 7px; }
+  .footer__social { padding-block: 10px; }
+}
+
+/* Hit area without moving the underline: the border stays where the
+   type puts it, the ::after takes the taps. */
+@media (hover: none) {
+  .arrow-link, .vp__link { position: relative; }
+  .arrow-link::after, .vp__link::after {
+    content: "";
+    position: absolute;
+    inset: -11px -6px;
+  }
+}
+
+/* Our Story timeline — stack on narrow screens */
+@media (max-width: 600px) {
+  /* Three columns (rail | 152-184px thumb | text) leave the text ~78px at
+     320, which overflowed the page by 25px. Stack: thumb above, copy below. */
+  .tl-v2 { --tl-thumb: min(220px, 62vw); --tl-gap: 14px; }
+  .tl-entry {
+    grid-template-columns: var(--tl-rail-col) minmax(0, 1fr);
+    row-gap: 12px;
+  }
+  .tl-entry__thumb { grid-column: 2; grid-row: 1; }
+  .tl-entry__body { grid-column: 2; grid-row: 2; }
+}
+
+
+/* Short windows (laptop in landscape, split-screen) cannot fit a tall sticky
+   column, and a sticky block taller than the viewport hides its own bottom.
+   Below 700px of height the column goes back into the flow. */
+@media (max-height: 700px) {
+  .chapters-eras { position: static; }
+}
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
