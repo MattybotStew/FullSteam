@@ -431,6 +431,61 @@ body.story-lightbox-open { overflow: hidden; }
 }
 .rail__item[aria-current="true"] .rail__dot { background: var(--gold); }
 
+.rail__block--featured {
+  margin-bottom: 8px;
+  padding: 10px 8px 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--green) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--green) 32%, var(--line));
+}
+.rail__group--featured {
+  color: var(--green-ink);
+  margin-top: 0;
+}
+.rail__item--featured {
+  border-bottom-color: color-mix(in srgb, var(--green) 28%, var(--line));
+  font-weight: 600;
+}
+.rail__item--featured:not([aria-current="true"]) .rail__dot {
+  background: color-mix(in srgb, var(--green) 55%, transparent);
+}
+.rail__item--featured[aria-current="true"] {
+  background: var(--green);
+  box-shadow: none;
+  color: var(--paper);
+  font-weight: 700;
+  border-bottom-color: color-mix(in srgb, var(--green) 55%, var(--green-ink));
+}
+.rail__item--featured[aria-current="true"]:hover {
+  background: var(--green);
+  color: var(--paper);
+}
+.rail__item--featured[aria-current="true"] .rail__dot { background: var(--paper); }
+
+.panel--ai .panel__block--flush {
+  margin-top: 22px;
+  padding-top: 0;
+  border-top: 0;
+}
+.panel--ai .panel__lede { max-width: 55ch; color: var(--ink); font-size: var(--t-body); }
+.panel--ai .panel__head { max-width: none; }
+.panel--ai .panel__title { max-width: none; }
+
+.ai-video {
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--brand-ink);
+  border: 1px solid var(--line);
+}
+.ai-video__el {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  background: var(--brand-ink);
+}
+
 .panels { min-width: 0; }
 .panel[hidden] { display: none; }
 .panel.is-active { animation: panelIn 280ms var(--e) both; }
@@ -589,11 +644,6 @@ body.story-lightbox-open { overflow: hidden; }
 }
 .use-grid h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -.01em; }
 .use-grid p { font-size: var(--t-small); color: var(--muted); line-height: 1.45; }
-.use-grid .ex {
-  margin-top: 12px; padding-top: 12px;
-  border-top: 1px dashed var(--line-strong);
-  font-size: 14px; color: var(--ink);
-}
 
 .facts {
   display: grid;
@@ -619,21 +669,6 @@ body.story-lightbox-open { overflow: hidden; }
   margin-bottom: 8px;
 }
 .facts p { font-size: var(--t-small); line-height: 1.4; }
-
-.video-slot {
-  margin-top: clamp(24px, 3vw, 36px);
-  min-height: 320px;
-  display: grid; place-content: center;
-  background: var(--brand-ink);
-  color: rgba(255,255,255,.72);
-  border-radius: 4px;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 24px;
-}
 
 .panel--placeholder .panel__lede { display: block; }
 .placeholder-tag {
@@ -756,6 +791,20 @@ body.story-lightbox-open { overflow: hidden; }
     box-shadow: none; border-color: var(--ink);
     background: var(--ink); color: #fff;
   }
+  .rail__block--featured {
+    display: contents;
+    padding: 0; border: 0; background: none;
+  }
+  .rail__item--featured {
+    border-color: color-mix(in srgb, var(--green) 45%, var(--line));
+    font-weight: 600;
+  }
+  .rail__item--featured[aria-current="true"] {
+    border-color: var(--green);
+    background: var(--green);
+    color: var(--paper);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--green) 70%, transparent);
+  }
   .rail__dot { display: none; }
   .compare { grid-template-columns: 1fr; }
   .compare__col + .compare__col { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 24px; }
@@ -841,16 +890,18 @@ body.story-lightbox-open { overflow: hidden; }
       <div class="wrap">
         <div class="engine">
           <nav class="rail rail--oa" aria-label="Our Advantage index">
-            <p class="rail__group">Embedded Fintech</p>
             <div class="rail__lists">
+            <div class="rail__block rail__block--featured">
+              <p class="rail__group rail__group--featured">AI at Fullsteam</p>
+              <ol class="rail__list">
+                <li><a class="rail__item rail__item--featured" href="#ai" data-slug="ai"><span class="rail__name">AI at Fullsteam</span><span class="rail__dot"></span></a></li>
+              </ol>
+            </div>
+            <p class="rail__group">Embedded Fintech</p>
             <ol class="rail__list">
               <li><a class="rail__item" href="#payments" data-slug="payments"><span class="rail__name">Payments</span><span class="rail__dot"></span></a></li>
               <li><a class="rail__item" href="#lending" data-slug="lending"><span class="rail__name">Lending</span><span class="rail__dot"></span></a></li>
               <li><a class="rail__item" href="#insurance" data-slug="insurance"><span class="rail__name">Insurance</span><span class="rail__dot"></span></a></li>
-            </ol>
-            <p class="rail__group">AI at Fullsteam</p>
-            <ol class="rail__list">
-              <li><a class="rail__item" href="#ai" data-slug="ai"><span class="rail__name">AI at Fullsteam</span><span class="rail__dot"></span></a></li>
             </ol>
             <p class="rail__group">Operational Excellence</p>
             <ol class="rail__list">
@@ -862,6 +913,45 @@ body.story-lightbox-open { overflow: hidden; }
           </nav>
 
           <div class="panels">
+
+            <article class="panel panel--full panel--ai" id="ai" data-slug="ai" hidden aria-labelledby="title-ai">
+              <header class="panel__head">
+                <h2 class="display display--m panel__title" id="title-ai">Three AI use cases, then one video.</h2>
+                <p class="lede panel__lede">Use cases first. Proprietary vertical data is the differentiator: the AI starts from the system of record, not a generic model. Never a story about reducing staff. The homepage AI band is a wayfinder; the video lives here.</p>
+              </header>
+              <div class="panel__block panel__block--flush">
+                <p class="kicker">Use cases</p>
+                <div class="use-grid" aria-label="Three AI use cases">
+                  <article>
+                    <span>01</span>
+                    <h4>Modernize existing software</h4>
+                    <p>Smarter search, forecasting, and workflows inside the product customers already run&mdash;no migration, no re-platforming.</p>
+                  </article>
+                  <article>
+                    <span>02</span>
+                    <h4>Build new AI customer-facing features</h4>
+                    <p>Ship AI your end customers feel, grounded in the vertical&rsquo;s own data rather than a generic model.</p>
+                  </article>
+                  <article>
+                    <span>03</span>
+                    <h4>Automate business workflows</h4>
+                    <p>Invoicing, scheduling, reconciliation&mdash;the back office runs itself, and people stay on judgment calls.</p>
+                  </article>
+                </div>
+              </div>
+              <div class="panel__block">
+                <p class="kicker">Overview video</p>
+                <div class="ai-video">
+                  <video class="ai-video__el" controls playsinline preload="metadata"
+                         poster="assets/img/hero.jpg" width="1920" height="1080"
+                         aria-describedby="ai-video-desc">
+                    <source src="assets/hero-sizzle.mp4" type="video/mp4">
+                    <source src="assets/hero-fallback.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <p class="sr-only" id="ai-video-desc">One video for the whole AI story, not a video per use case. Review build uses the homepage hero reel until a dedicated AI story master is supplied.</p>
+              </div>
+            </article>
 
             <article class="panel panel--full" id="payments" data-slug="payments" aria-labelledby="title-payments">
               <header class="panel__head">
@@ -963,20 +1053,6 @@ body.story-lightbox-open { overflow: hidden; }
               <p class="placeholder-tag">Panel placeholder · content track</p>
             </article>
 
-            <article class="panel panel--placeholder" id="ai" data-slug="ai" hidden aria-labelledby="title-ai">
-              <header class="panel__head">
-                <h2 class="display display--m panel__title" id="title-ai">Three AI use cases, one story.</h2>
-                <p class="lede panel__lede">Use cases first. Proprietary vertical data is the differentiator — never a story about reducing staff.</p>
-              </header>
-              <div class="panel__block use-grid">
-                <article><span>01 — Modernize</span><h4>Modernize existing software</h4><p>One concrete use of AI inside software the business already runs.</p><p class="ex">Example: an older system gets a modern interface and faster search without a rewrite. [placeholder]</p></article>
-                <article><span>02 — Build</span><h4>Build customer-facing features</h4><p>A feature the customer sees, grounded in vertical data.</p><p class="ex">Example: a capability built from data only this industry has. [placeholder]</p></article>
-                <article><span>03 — Automate</span><h4>Automate business workflows</h4><p>Work that gets faster — never framed as staff reduction.</p><p class="ex">Example: repetitive back-office steps handled so a small team can do more. [placeholder]</p></article>
-              </div>
-              <div class="video-slot" role="img" aria-label="AI overview video — placeholder">Video — brings the three use cases together</div>
-              <p class="placeholder-tag">Panel placeholder · video asset not supplied</p>
-            </article>
-
             <article class="panel panel--placeholder" id="sales-marketing" data-slug="sales-marketing" hidden aria-labelledby="title-sales-marketing">
               <header class="panel__head">
                 <h2 class="display display--m panel__title" id="title-sales-marketing">Sales and marketing as an operational advantage.</h2>
@@ -1012,6 +1088,13 @@ body.story-lightbox-open { overflow: hidden; }
                 <article><span>Hiring</span><h4>A deeper bench</h4><p>When the team needs to grow, it hires from a much larger pipeline. [placeholder]</p></article>
                 <article><span>Mobility</span><h4>A career that can move</h4><p>Move between software businesses Fullsteam owns without leaving the company. [placeholder]</p></article>
                 <article><span>Support</span><h4>Back office at group level</h4><p>Finance, legal, HR, and compliance handled centrally so the business stays focused. [placeholder]</p></article>
+              </div>
+              <div class="panel__block">
+                <figure class="frame--pending" role="img" aria-label="Fullsteam colleagues at work — photography pending">
+                  <span class="pending__mark" aria-hidden="true"></span>
+                  <p class="pending__title">Talent</p>
+                  <p class="pending__note">Real colleagues · pending</p>
+                </figure>
               </div>
               <div class="panel__block facts facts--4">
                 <div><span>Scale</span><p>[placeholder] — &ldquo;2,000+ colleagues&rdquo; is publishability-gated (OI-5).</p></div>
@@ -1076,10 +1159,10 @@ body.story-lightbox-open { overflow: hidden; }
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
+                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#payments">Payments</a></li>
                 <li><a href="our-advantage.html#lending">Lending</a></li>
                 <li><a href="our-advantage.html#insurance">Insurance</a></li>
-                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
               </ul>
             </li>
             <li><a href="../../../02_Wireframes/active/pages/for-founders.html">Acquisitions</a></li>
@@ -1216,6 +1299,8 @@ body.story-lightbox-open { overflow: hidden; }
   var bySlug = {};
   panels.forEach(function (panel) { bySlug[panel.getAttribute("data-slug")] = panel; });
 
+  var DEFAULT_SLUG = "payments";
+
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function resolveHash() {
@@ -1248,8 +1333,9 @@ body.story-lightbox-open { overflow: hidden; }
     }
   }
 
-  var initial = resolveHash() || items[0].getAttribute("data-slug");
-  setActive(initial);
+  var initialHash = resolveHash();
+  var initial = initialHash || DEFAULT_SLUG;
+  setActive(initial, { scrollPanel: !!initialHash, scrollRail: !!initialHash });
 
   items.forEach(function (item) {
     item.addEventListener("click", function (event) {
@@ -1266,7 +1352,7 @@ body.story-lightbox-open { overflow: hidden; }
   });
 
   window.addEventListener("popstate", function () {
-    setActive(resolveHash() || items[0].getAttribute("data-slug"));
+    setActive(resolveHash() || DEFAULT_SLUG);
   });
 
   window.addEventListener("hashchange", function () {

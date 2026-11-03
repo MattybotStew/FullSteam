@@ -27,10 +27,11 @@ Review portal + `pages.yml` publish this folder (`index.html`, `vertical-softwar
 | Area | Build |
 |---|---|
 | Hero | Dark band, no mono beat (matches VS chrome rules); H1 *How we **grow** what we own.* + lede |
-| Sidebar | Three groups · seven items: Embedded Fintech (Payments, Lending, Insurance) · AI at Fullsteam · Operational Excellence (Sales & Marketing, Talent, Peer Community) |
-| Panels | Inline swap + `#payments` … `#peer-community` hash routing (same engine pattern as VS) |
+| Sidebar | Three groups · seven items: **AI at Fullsteam first** (featured rail block — **green** tint `#84BD00` / `--green-ink` label, stronger tab) · Embedded Fintech (Payments, Lending, Insurance) · Operational Excellence (Sales & Marketing, Talent, Peer Community). **Default panel without hash:** `#payments` (sidebar order ≠ default panel) |
+| Panels | Inline swap + hash routing (`#payments`, `#ai`, `#sales-marketing`, `#talent`, etc.) — one panel per sidebar item |
 | **Payments** | Full layout: compare columns, unreconciled stats + mono notes, hardware pending frame, testimonial placeholder |
-| **Other 6** | Structural placeholders — wireframe intent copy, cards/facts grids, pending photography/video where wireframe had slots |
+| **AI** | Full panel: three use-case cards + overview video (homepage hero sources until AI master). **Green** AI nav accent; active tab = paper on green |
+| **Other 3** | Lending, Insurance, Peer Community — structural placeholders |
 | FAQ | Three questions from wireframe; sticky H2 left / accordion right |
 | Cross-links | `index.html` + `vertical-software.html` menu/footer Our Advantage targets → `our-advantage.html` (in-folder) |
 | Deploy | `pages.yml` copies `our-advantage.html` beside homepage + VS |
@@ -41,6 +42,14 @@ Review portal + `pages.yml` publish this folder (`index.html`, `vertical-softwar
 **Preview (ledger):** `03_Design/client-review/homepage/our-advantage.html` — not
 `02_Wireframes/active/pages/our-advantage.html` (structural wireframe; banner + portal
 links updated 2026-11-03 so review traffic hits hi-fi).
+
+### 2026-11-03 — Our Advantage: AI prominence
+
+Client-review + wireframe sidebar: **AI at Fullsteam** group moved to the top (above Embedded Fintech). Featured rail block (**green**-tint panel, `--green-ink` group label, heavier tab weight, solid green active rail on desktop; green ring on mobile pill). **`#payments` remains the default** when the URL has no hash (`DEFAULT_SLUG` in panel JS). Footer Explore sub-links mirror AI-first order under Our Advantage.
+
+### 2026-11-03 — Our Advantage: AI accent green
+
+Per client direction: **green is the AI color** on this page (KB §15 `--green` / `--green-ink`). Replaced gold on `rail__block--featured`, `rail__item--featured`, and mobile AI pill active state. Site buttons/CTAs stay gold. AI `#ai` panel aligned to wireframe / Figma `11462:8214` (no `.ex` rows or dashed asset note in hi-fi). **Active AI tab:** `--green` fill with **`--paper` label + dot** (desktop rail + mobile pill; Figma parity).
 
 ### 2026-11-03 — Homepage: ledger line backgrounds removed
 

@@ -168,5 +168,21 @@
       "assetUrl": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
       "license": "Unsplash License"
     }
+  ],
+  "videos": [
+    {
+      "file": "assets/hero-sizzle.mp4",
+      "slot": "Our Advantage — AI video (primary source; same as homepage opening)",
+      "subject": "Fullsteam sizzle reel stand-in (1920×1080 H.264, silent)",
+      "source": "Client preview asset — unlicensed for public launch",
+      "license": "Replace with licensed master before launch"
+    },
+    {
+      "file": "assets/hero-fallback.mp4",
+      "slot": "Our Advantage — AI video (fallback source; same as homepage opening)",
+      "subject": "Mixkit free-licence kitchen clip (published Pages fallback)",
+      "source": "Mixkit",
+      "license": "Mixkit Free License"
+    }
   ]
 }

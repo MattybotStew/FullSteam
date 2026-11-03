@@ -238,15 +238,15 @@ On-page name is **Our Advantage** (client rename 2026-10-22, propagated repo-wid
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | Beat "Our Advantage" + H1 (intent) | Framing | **Intent** | Rename pending re-lock |
+| Sidebar — AI at Fullsteam | The list | Draft | Own group, **listed first** in the sticky nav (presentation order; IA unchanged). Nav wayfinder lands on `#ai`. **Hi-fi accent = Bio Green** (`#84BD00` / `#4F750E`), not gold — client-review `our-advantage.html` only |
 | Sidebar — Embedded fintech | The list | Draft | Payments · Lending · Insurance |
-| Sidebar — AI at Fullsteam | The list | Draft | Own group. Nav wayfinder lands on `#ai` |
 | Sidebar — Operational Excellence | The list | Draft — pending client ratification | Sales & Marketing · Talent · **Peer Community** (client's "or" option; was Vertical Expertise) |
 | Payments — why embedded is better | Detail | **Intent** | |
 | Payments — key stats | Proof | **Unreconciled** | Client lines (“$75B sales processed”, “top 20 payment processor”) vs KB §22.5 “$75B+ processed on Fullsteam Pay*” (cumulative). Not settled KPIs. OI-5 |
 | Payments — hardware photo + text | Detail | Placeholder | Stays inside Payments |
 | Payments — testimonial | Proof | Placeholder | Optional. Do not publish a named quote until confirmed |
-| AI — three use-case examples | Detail | **Intent** | Modernize existing software · new customer-facing features · automate workflows. Never headcount |
-| AI — video | Video | Placeholder | Brings the three use cases together. Asset not supplied. Homepage AI block is untouched |
+| AI — three use-case examples | Detail | **Draft — review** | Hi-fi `#ai` cards use homepage AI list copy (Modernize / Build / Automate; 01–03 mono). No `.ex` example lines. Never headcount |
+| AI — video | Video | **Draft — review** | Brings the three use cases together. Client-review `#ai` panel wires homepage hero sources (`assets/hero-sizzle.mp4` → `assets/hero-fallback.mp4`; poster `assets/img/hero.jpg`; native controls, 16:9) until a dedicated AI story master is supplied. Homepage AI band is still a wayfinder only |
 | Lending / Insurance panels | Detail | **Intent** | Unchanged overviews. No rates or terms |
 | **Sales & Marketing — overview** | Detail | **Intent** | How the group's go-to-market strength grows a business after the close. An overview, not a service menu — no CRM, lead source, or campaign names |
 | **Sales & Marketing — three cards** | Detail | **Intent** | Sales (knows the vertical) · Marketing (niche campaigns, real customer stories) · Cross-sell (payments, lending, insurance into the existing base). Body detail is `[placeholder]` |

@@ -350,7 +350,7 @@
       <div class="wrap">
         <p class="beat">Our Advantage</p>
         <h1>Intent: show how Fullsteam grows the software it owns.</h1>
-        <p class="anno">On-page name is <b>Our Advantage</b> (client request, 2026-10-22; replaces Embedded Offerings). The sitemap lock is not re-locked yet. The page is one left nav with three groups: <b>Embedded Fintech</b> (Payments, Lending, Insurance), <b>AI at Fullsteam</b> (its own panel — the nav item wayfinds here; no separate AI page), and <b>Operational Excellence</b> (Sales &amp; Marketing, Talent, Peer Community). All three groups are visible in the left navigation and swap the story inline (client, 2026-10-28). Software first. Hardware folds into Payments. Deep link is the hash (e.g. <code>#payments</code>, <code>#ai</code>, <code>#talent</code>). Primary lens: investors; founders secondary.</p>
+        <p class="anno">On-page name is <b>Our Advantage</b> (client request, 2026-10-22; replaces Embedded Offerings). The sitemap lock is not re-locked yet. The page is one left nav with three groups: <b>AI at Fullsteam</b> (its own panel — listed first for prominence; wayfinds here; no separate AI page), <b>Embedded Fintech</b> (Payments, Lending, Insurance), and <b>Operational Excellence</b> (Sales &amp; Marketing, Talent, Peer Community). All three groups are visible in the left navigation and swap the story inline (client, 2026-10-28). Presentation order only — same seven items and hashes. Software first. Hardware folds into Payments. Deep link is the hash (e.g. <code>#payments</code>, <code>#ai</code>, <code>#talent</code>). Default panel without a hash stays <code>#payments</code>. Primary lens: investors; founders secondary.</p>
       </div>
     </section>
 
@@ -360,12 +360,12 @@
           <nav class="oe-side" aria-label="Our Advantage">
             <p class="beat">Our Advantage</p>
             <div class="oe-side-list" role="tablist" aria-label="Our Advantage">
+              <p class="oe-group">AI at Fullsteam</p>
+              <button type="button" role="tab" id="tab-ai" aria-selected="false" aria-controls="ai" data-offering="ai">AI at Fullsteam</button>
               <p class="oe-group">Embedded Fintech</p>
               <button type="button" role="tab" id="tab-payments" aria-selected="true" aria-controls="payments" data-offering="payments">Payments</button>
               <button type="button" role="tab" id="tab-lending" aria-selected="false" aria-controls="lending" data-offering="lending">Lending</button>
               <button type="button" role="tab" id="tab-insurance" aria-selected="false" aria-controls="insurance" data-offering="insurance">Insurance</button>
-              <p class="oe-group">AI at Fullsteam</p>
-              <button type="button" role="tab" id="tab-ai" aria-selected="false" aria-controls="ai" data-offering="ai">AI at Fullsteam</button>
               <p class="oe-group">Operational Excellence</p>
               <button type="button" role="tab" id="tab-sales-marketing" aria-selected="false" aria-controls="sales-marketing" data-offering="sales-marketing">Sales &amp; Marketing</button>
               <button type="button" role="tab" id="tab-talent" aria-selected="false" aria-controls="talent" data-offering="talent">Talent</button>
@@ -639,6 +639,7 @@
       const buttons = [...root.querySelectorAll("[data-offering]")];
       const panels = [...root.querySelectorAll("[data-panel]")];
       const content = document.getElementById("oeContent");
+      const DEFAULT_OFFERING = "payments";
       const isId = (id) => panels.some((p) => p.dataset.panel === id);
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -714,7 +715,7 @@
       if (hash && document.getElementById(hash) && document.getElementById(hash).classList.contains("op-section")) {
         setTimeout(() => scrollToSection(hash, false), 50);
       } else {
-        show(isId(hash) ? hash : buttons[0].dataset.offering);
+        show(isId(hash) ? hash : DEFAULT_OFFERING);
       }
     })();
   </script>
