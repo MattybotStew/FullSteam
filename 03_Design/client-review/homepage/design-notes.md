@@ -325,3 +325,154 @@ document order. Type sizes match the official exactly at 1440 / 390 / 320.
 | Horizontal overflow | none | none | none |
 
 Verified at 1440×900, 1024×800, 390×844, 320×700, plus reduced-motion and no-JS.
+
+---
+
+## 2026-11-03 (client review) — Acquisitions naming + gold italics
+
+Applied to **this official build**. A scratch copy opened the same morning
+(`homepage-2026-11-03-working/`) was **discarded 2026-11-03** — it took a different direction and
+nothing was promoted from it.
+
+### Emphasis: every serif italic is brand gold
+
+`.display em, .serif-em` now carries `color: var(--gold)` as the base, so the accent is no
+longer limited to the four headlines named in the old `#modelTitle / #vertsTitle / #careersTitle
+/ #aiTitle` list (that rule is now just `letter-spacing: 0`). The founders headline's `<em>built.</em>`
+was the visible gap — it had no colour rule at all.
+
+Interior pages each got the same one-rule addition:
+
+```css
+.display em, .hero__title em, #faq-title em, h2 em, h3 em { color: var(--gold); }
+```
+
+`our-advantage.html` additionally overrides `.hero--light .hero__title em`, which had been
+**green-ink** under the EngineLight archetype (`design.md` §4.10) — that payoff is gold now too,
+per the client instruction, so the green-ink exception no longer exists anywhere.
+
+Verified: **0 emphasis `<em>` outside gold** across all six pages (the only remaining non-gold
+serif on the site is deliberate: none).
+
+> ⚠ Gold `#FFC600` on the paper surface measures **1.58:1**. This was raised in the design audit
+> as Q-CONTRAST-01 and is now the accepted brand treatment on the three light-band headlines
+> ("compounds.", "growing.", "2,000+ people.") and on the Our Advantage hero. Decorative display
+> type is exempt from WCAG 1.4.3, but it is the lightest reading experience on the site.
+
+### Acquisitions band on the homepage
+
+| | Was | Now |
+|---|---|---|
+| Eyebrow | `FOR FOUNDERS` (mono, uppercase) | removed — band opens on the H2; `.founders__kicker` CSS deleted with it |
+| CTA | "Explore more" | **"Explore Acquisitions"** |
+
+That CTA also closes an inconsistency this file's own header note has carried since the 2026-11-02
+build: line 41 lists `"Explore Acquisitions", not §28's "Explore more"` as a deliberate deviation,
+but the markup still shipped "Explore more". Note and build agree now.
+
+Nav and footer already read **Acquisitions** on all six pages (client rename, 2026-10-22). The
+`for-founders.html` filename and the `#for-founders` anchor are unchanged, so links still resolve.
+
+Verified at 1440 and 390: 0 console errors, 0 HTTP failures, no horizontal overflow.
+
+> **Discarded branch:** a scratch copy (`homepage-2026-11-03-working/`) held a separate refactor
+> from the same day — serif stripped site-wide, vertical tiles → typographic index, 4px ghost
+> buttons, `#FBFBFA` surface. It contradicted this build on typography, was not the source of
+> truth, and was **deleted 2026-11-03** (client decision). Not recoverable; not referenced by
+> `pages.yml` or the review portal.
+
+### Careers band head — vertical alignment fixed (2026-11-03)
+
+Reported off-centre. Cause: `.band__head` is a **12-column grid with `align-items: end`**, and the
+careers head put three items into it — `h2` (1/8), `.lede` (9/13) and `.careers__cta` (no
+`grid-column`, so it auto-placed into a **second row**, col 1). So the lede was bottom-aligned to
+the headline box instead of to the headline-plus-button block, and the CTA landed outside the
+header's own box (`cta.b 894` vs `head.b 868` at 1440).
+
+Fix: `h2` + CTA are wrapped in `.careers__intro` (1/8) and the head is `align-items: center`, so
+the lede centres against the whole left block.
+
+| | before | after |
+|---|---|---|
+| Lede centre vs left-block centre @1440 | +26px | **0** |
+| Lede centre vs left-block centre @2000 | +26px | **0** |
+| CTA inside the header box | no (26px out) | **yes** |
+
+The wrapper also had to go `grid-column: 1 / -1` in the `max-width: 1080px` and `600px` blocks —
+without it the headline stayed pinned to 5/8 of the page and wrapped to three short lines at 390
+("A great / place / to work."). Now: one line, full width, 350px.
+
+Verified 1440, 2000, 390: 0 console errors, no overflow.
+
+---
+
+## 2026-11-03 — homepage as the design system; interior pages reconciled
+
+Ran a rule-level diff of the `<style>` blocks across all six pages, with the homepage as the
+reference, then fixed every conflict where the homepage already states the answer. Tokens were
+already identical everywhere (`--brand`, `--gold`, `--sans/--serif/--mono`, `--t-*`, `--sect`) —
+the drift was all in **component usage**.
+
+### Fixed
+
+| Component | Conflict | Resolution |
+|---|---|---|
+| `.display em` | only the homepage's base rule carried `color: var(--gold)`; the other five relied on per-ID lists, so 8 Our Story timeline names and the Acquisitions hero rendered ink | base rule now states gold on all six, and the four one-off `#modelTitle / #vertsTitle / …` colour overrides are reduced to `letter-spacing: 0` |
+| Emphasis patches | my earlier per-page `!important` overrides became redundant and contradictory | deleted from all five pages; one rule now does the job |
+| `.arrow-link` | Our Story / Acquisitions used `gap 8px`, `color: var(--brand)`, **no underline**, 14px arrow | homepage pattern everywhere: `gap 10px`, `--t-small`, `1px solid currentColor` underline, 15px arrow with `translateX(4px)` on hover |
+| `.btn--ghost` | the homepage defined it white-on-dark only, so Our Story and Acquisitions each **invented `.btn--ghost-ink`** (`hero--narrative-full` special-cased inside it) | `.btn--ghost` is now surface-aware on all six; both invented variants deleted and their two CTAs use the shared class |
+| `.hero__title` tracking | Our Advantage / Our Story / Acquisitions carried `letter-spacing: -0.02em`; homepage display is `-0.035em` | removed the override — all six now measure `-3.78px` at 108px, `-4.2px` at 120px |
+| `.band` | homepage is `position: relative`; Our Story / Careers / Acquisitions were not | added |
+| `.band__head` rhythm | `clamp(40px, 5vw, 64px)` on two pages vs the homepage's `clamp(48px, 6vw, 84px)` | aligned |
+| `.ai-video` frame | `6px` on Our Story, `4px` on Our Advantage | `4px` both |
+| `.stat__c` | Careers dropped the `margin-top: 12px` under the number | restored |
+| FAQ toggle | three variants of `summary::after` (no `line-height`, colour transition on one of three) | one state set |
+
+**Also fixed, not a system conflict — a real defect:** `for-founders.html` overflowed **128px at
+390px** (`scrollWidth 518` vs `390`). `.founder-gallery__stage` combined `aspect-ratio: 16/9` with
+`min-height: 280px`, so the box derived its *width* from the minimum height (280 × 16/9 = 498px).
+Sized from the grid track below 900px instead (`min-height: 0; aspect-ratio: 4/3`) → **350 × 263**.
+
+### Measured after
+
+| | result |
+|---|---|
+| Emphasis `<em>` rendering off-gold | **0** on all six pages (only the Our Story timeline chapter names stay ink, by design — they're not `.display`) |
+| Hero display tracking | **-0.035em** on all six |
+| `.arrow-link` / `.btn--ghost` variants | **1 each**, shared |
+| Invented button variants | **0** (was `.btn--ghost-ink` ×2) |
+| Horizontal overflow @390 / 768 / 1440 | **none** on all six (was 128px on Acquisitions) |
+| Console errors / HTTP failures | 0 / 0 |
+
+### Round 2 — the page-tuned values, decided (2026-11-03, client)
+
+Each of these had drifted for a defensible local reason. Asked, decided, applied — the homepage's
+number wins in every case, so no interior page carries a private rhythm anymore.
+
+| Value | Was | Now (homepage) | Where |
+|---|---|---|---|
+| Close H2 measure | 16ch | **17ch** | Our Story, Acquisitions |
+| Close action gap | 14px | **20px** | Our Story, Acquisitions |
+| FAQ head rail | 290px | **250px** | Careers, Acquisitions (matches Our Advantage + Vertical Software) |
+| Stat numeral scale | `clamp(36px, 3.6vw, 64px)` | **`var(--t-stat)`** | Careers |
+| Band-head lede measure | `max-width: none` | **inherits the base 54ch** | Careers, Acquisitions |
+| Acquisitions ledger | 28px gutters, 28px step name, arrow `.75`, `min-height: 320px` | **34px, `clamp(24px,2.2vw,30px)`, `.4`, `380px`** | Acquisitions "How" |
+| NarrativeLight hero | 88svh / 880px (Acquisitions) | **92svh / 960px** | Acquisitions |
+| Dark-hero secondary text | `rgba(255,255,255,.82)` | **`.72`** | Our Story, Acquisitions |
+
+Both NarrativeLight heroes now measure **828px at 1440×900** — identical. The four-up ledger keeps
+four columns above 1080px and reads cleanly at 1100 (names wrap to two lines, copy holds ~30ch).
+
+**Second real defect found by measuring, not by reading:** the Acquisitions ledger's **≤1080px
+two-column mode was broken**. `.step { grid-row: 1 / -1 }` (the subgrid span) survived the
+column change, so every step stayed on the same rows — at 1000px the four columns collapsed to
+**65 / 69 / 374 / 409px** and steps 1–2 overlapped steps 3–4. Reset to plain flow in that
+breakpoint (`grid-row: auto`, `grid-template-rows: none`, flex column), mirroring what the
+homepage already does below 900px. Now 456px per column at 1000, two per row, no overlap, and
+**zero horizontal overflow at 390 / 768 / 1440** across all six pages.
+
+### Still deliberately page-specific (not drift)
+
+- `.frame--pending` placeholders — three shapes because three different assets are missing.
+- The numbered column in `.rail__item` — Vertical Software only; no other page has a rail.
+- `.split-head__aside` type scale — set against a narrower column, same family and colour.

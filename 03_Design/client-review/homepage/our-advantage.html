@@ -132,6 +132,7 @@ button { font: inherit; color: inherit; }
   font-style: italic;
   font-weight: 400;
   letter-spacing: -.015em;
+  color: var(--gold);
 }
 
 #faq-title em { color: var(--gold); letter-spacing: 0; }
@@ -180,6 +181,10 @@ button { font: inherit; color: inherit; }
   background: transparent; color: #fff;
   border: 1px solid rgba(255, 255, 255, .34);
 }
+[data-surface="light"] .btn--ghost,
+.hero--light .btn--ghost { color: var(--ink); border-color: var(--line); }
+[data-surface="light"] .btn--ghost:hover,
+.hero--light .btn--ghost:hover { background: var(--surface); border-color: var(--ink); }
 .btn--ghost:hover { background: rgba(255, 255, 255, .1); }
 
 /* ---------- header · official homepage chrome ---------- */
@@ -321,7 +326,7 @@ body.story-lightbox-open { overflow: hidden; }
 
 .hero__inner { position: relative; z-index: 1; }
 
-.hero__title { max-width: 20ch; letter-spacing: -0.02em; }
+.hero__title { max-width: 20ch; }
 .hero__title em { font-family: var(--serif); font-style: italic; letter-spacing: 0; }
 
 /* EngineLight — Our Advantage */
@@ -331,7 +336,6 @@ body.story-lightbox-open { overflow: hidden; }
   border-bottom: 1px solid var(--line);
 }
 
-.hero--light .hero__title em { color: var(--green-ink); }
 
 .hero--light .lede {
   color: var(--muted);
@@ -679,7 +683,7 @@ body.story-lightbox-open { overflow: hidden; }
 }
 .faq__item summary::-webkit-details-marker { display: none; }
 .faq__item summary::after {
-  content: "+"; font-family: var(--mono); font-size: 1.125rem;
+  content: "+"; font-family: var(--mono); font-size: 1.125rem; line-height: 1;
   color: var(--muted); justify-self: end;
   transition: color 200ms var(--e);
 }
@@ -807,7 +811,7 @@ body.story-lightbox-open { overflow: hidden; }
   }
 }
 
-  </style>
+    </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>

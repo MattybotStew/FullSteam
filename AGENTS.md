@@ -201,6 +201,14 @@ This file is the canonical agent entry point (works with Cursor, which reads
  - **`Design System` page = OFFICIAL, client-safe.** Holds `Fullsteam Brand` (**27** colour
    variables — KB §15 + ledger `color/ui/*`, **2026-11-02**) and **8** text styles (Instrument
    Sans + Fragment Mono + Instrument Serif payoff, reconciled **2026-11-02** to this homepage).
+ - **Repo→Figma token sync + fix pass ran 2026-11-03** on a **duplicate** page
+   `✅ Design [WIP] 2 — SYNC 2026-11-03`; the original page is untouched. Now: **453/763** text
+   nodes on an official style (3 styles added: `Body/Small`, `Body/Label`, `Mono/Label`),
+   **1,168/1,194** solid fills bound to `Fullsteam Brand`, hero overflow 1,310px → **0**, and the
+   opening's **Axis B state exists** for the first time as its own frame `Opening — Axis B state`.
+   Read **KB §27.8–§27.9** before touching styles or variables — they record the drift table, the
+   two API traps (binding drops `opacity`/`blendMode`; spread-based paint writes silently no-op),
+   and the open items **OI-21…OI-24**.
   - **`Explorations (internal)` page = QUARANTINED, never client-facing.** Holds the
     off-brand exploration palette. **Never point a client `FS-Design` link at it.**
   - **⚠ Three Button specs exist.** Figma has the exploration-02 pill (`radius 999px`);
@@ -231,6 +239,14 @@ This file is the canonical agent entry point (works with Cursor, which reads
   Mono). **Instrument Serif italic** is a **client-approved third voice**
   (2026-11-02) on the official homepage — payoff words, quotes, and emphasis
   (`em`); see KB §27.4. Do not use it for full headings or body paragraphs.
+  As of **2026-11-03 every serif italic emphasis is brand gold `#FFC600`**, set once
+  on the base `.display em, .serif-em` rule — never per headline, never `!important`.
+- **The homepage is the design system (client decision 2026-11-03).**
+  `client-review/homepage/index.html` defines the visual system; the five interior
+  pages conform to it rather than carrying private rhythms. If an interior page needs
+  a component the homepage lacks, add it to the homepage first — or ask. The full
+  conformance table, the two defects it surfaced, and the short list of deliberate
+  exceptions are in **KB §27.10**.
 - Two core stories: (1) acquire & grow vertical software, (2) expand via
   **Our Advantage** (payments, lending, insurance, hardware, integrations).
 - **The two stories are two axes, and the homepage names them:** (1) = **Axis A

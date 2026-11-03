@@ -74,6 +74,7 @@ _site/
 !03_Design/client-review/homepage/assets/credits.json
 !03_Design/client-review/homepage/assets/img/
 !03_Design/client-review/homepage/assets/img/**
+03_Design/client-review/homepage/assets/img/leaders/_source-fullsteam/
 
 # Frozen homepage snapshots — never commit the unlicensed sizzle preview
 03_Design/client-review/homepage-2026-10-29-official/assets/hero-sizzle.mp4

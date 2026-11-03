@@ -182,11 +182,14 @@
       font-style: italic;
       font-weight: 400;
       letter-spacing: -.015em;
+      /* 2026-11-03 (client) — every serif italic is brand gold, not just the
+         four headline payoffs listed here. KB §23.10 treatment, applied wide. */
+      color: var(--gold);
     }
-    /* KB §23.10 — one gold serif payoff word per headline (opening + model) */
     #modelTitle em,
     #vertsTitle em,
-    #careersTitle em { color: var(--gold); letter-spacing: 0; }
+    #careersTitle em,
+    #aiTitle em { letter-spacing: 0; }
     .display--xxl { font-size: var(--t-hero); line-height: .92; }
     .display--l { font-size: var(--t-h2); }
     .display--m { font-size: var(--t-h3); line-height: 1.1; letter-spacing: -.02em; }
@@ -235,11 +238,19 @@
     .btn--sm { padding: 0 18px; font-size: 13px; }
     .btn--ink { background: var(--ink); color: #fff; }
     .btn--ink:hover { background: color-mix(in srgb, var(--ink) 86%, #fff); }
+    /* Ghost = the secondary action. Surface-aware, so pages never need to
+       invent a variant: white hairline on dark, ink hairline on paper. */
     .btn--ghost {
       background: transparent; color: #fff;
       border: 1px solid rgba(255, 255, 255, .34);
     }
     .btn--ghost:hover { background: rgba(255, 255, 255, .1); }
+    [data-surface="light"] .btn--ghost,
+    .hero--light .btn--ghost,
+    .band--paper .btn--ghost { color: var(--ink); border-color: var(--line); }
+    [data-surface="light"] .btn--ghost:hover,
+    .hero--light .btn--ghost:hover,
+    .band--paper .btn--ghost:hover { background: var(--surface); border-color: var(--ink); }
     .btn__arrow { width: 16px; height: 16px; }
     .arrow-link {
       display: inline-flex; align-items: center; gap: 10px;
@@ -682,7 +693,7 @@
     html:not(.has-js) .axis-b__frame { min-height: 0; height: 0; }
     html:not(.has-js) .axis-b { min-height: 0; }
     html:not(.has-js) .r { opacity: 1; transform: none; filter: none; }
-    html:not(.has-js) .step { --lit: 1; }
+    html:not(.has-js) #scale .model-rule { transform: scaleX(1); }
     html:not(.has-js) .progress { display: none; }
     html:not(.has-js) .bar {
       position: relative;
@@ -721,7 +732,7 @@
       .menu__panel { animation: none; }
       .menu-btn span, .bar, .bar__logo img { transition: none; }
       .r { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
-      .step { --lit: 1; }
+      #scale.is-strokes-in .model-rule { transform: none; }
       .vp, .vp__img { transition: none !important; }
     }
     main:focus { outline: none; }
@@ -737,12 +748,6 @@
       color: #fff;
       --focus: #fff;
     }
-    /* AI band — green is the innovation accent (mirrors official white-band AI) */
-    #ai.band--ink {
-      background:
-        radial-gradient(70% 90% at 8% 92%, color-mix(in srgb, var(--green) 14%, transparent), transparent 58%),
-        var(--brand-ink);
-    }
     .band__head {
       display: grid;
       grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -753,6 +758,22 @@
     .band__head .index { grid-column: 1 / -1; }
     .band__head h2 { grid-column: 1 / 8; }
     .band__head .lede { grid-column: 9 / 13; padding-bottom: 8px; }
+
+    #scale .band__head--model {
+      margin-bottom: clamp(32px, 4vw, 48px);
+    }
+    #scale .model-rule {
+      grid-column: 1 / -1;
+      height: 2px;
+      background: var(--gold);
+      margin-top: clamp(24px, 3.2vw, 36px);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+    }
+    #scale.is-strokes-in .model-rule {
+      transform: scaleX(1);
+      transition: transform .85s var(--e);
+    }
 
     /* reveal ---------------------------------------------------------------- */
     .r {
@@ -776,7 +797,6 @@
          step 2's caption wrapped to two lines (2026-11-02). */
       grid-template-rows: auto auto auto 1fr;
       min-height: 380px;
-      border-top: 1px solid var(--ink);
     }
     .step {
       position: relative;
@@ -784,20 +804,6 @@
       grid-template-rows: subgrid;
       grid-row: 1 / -1;
       padding: 26px 34px 8px 0;
-      /* 0 → 1 as the band advances. Written per frame, no CSS transition
-         (§23.6 rule 2), so the draw cannot smear. */
-      --lit: 0;
-    }
-    /* the rule draws gold left→right as the band advances, one step at a time.
-       2px against the 1px ink rule so the lit segment reads at a glance without
-       shifting any layout (it is absolutely positioned). */
-    .step::before {
-      content: "";
-      position: absolute; top: -1px; left: 0;
-      height: 2px;
-      width: calc(var(--lit) * 100%);
-      background: var(--gold);
-      pointer-events: none;
     }
     .step:nth-child(1) { grid-column: 1; }
     .step:nth-child(2) { grid-column: 2; }
@@ -812,12 +818,13 @@
       font-family: var(--mono); font-size: var(--label);
       letter-spacing: .12em;
       color: var(--muted);
-      color: color-mix(in srgb, var(--ink) calc(var(--lit) * 100%), var(--muted));
     }
+    .step.in .step__n { color: var(--ink); }
     .step__arrow {
       width: 20px; height: 20px; color: var(--green-ink); flex: 0 0 auto;
-      opacity: calc(.4 + var(--lit) * .6);
+      opacity: .4;
     }
+    .step.in .step__arrow { opacity: 1; }
     .step__name { font-size: clamp(24px, 2.2vw, 30px); font-weight: 500; letter-spacing: -.02em; }
     .step__copy {
       font-size: var(--t-body); color: var(--muted);
@@ -858,27 +865,15 @@
     .ai__left .lede { margin-top: 26px; }
     .ai__left .arrow-link { margin-top: 34px; color: var(--green); }
     .ai__left .arrow-link:hover { color: #fff; }
-    .ai__mark {
-      display: inline-block;
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      color: var(--green);
-      letter-spacing: -.02em;
-    }
     #ai .index::before { background: var(--green); }
-    #ai .ai__left h2::after {
-      content: "";
-      display: block;
-      width: 64px;
-      height: 2px;
-      background: var(--green);
-      margin-top: 26px;
-    }
     .ai__list { border-top: 2px solid var(--green); }
     .ai__item {
       display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 20px;
       padding: 30px 0 32px;
-      border-bottom: 1px solid var(--dark-hair);
       transition: transform .35s var(--e);
+    }
+    .ai__item + .ai__item {
+      border-top: 1px solid var(--dark-hair);
     }
     .ai__item:hover { transform: translateX(6px); }
     .ai__n {
@@ -893,14 +888,17 @@
     .ai__item p { margin-top: 10px; font-size: var(--t-small); line-height: 1.6; color: rgba(255, 255, 255, .66); max-width: 46ch; }
     .ai__exit {
       margin: clamp(40px, 5vw, 56px) 0 0;
-      padding-top: 22px;
+      padding-top: clamp(22px, 3vw, 32px);
       border-top: 1px solid var(--dark-hair);
-      max-width: 28ch;
+      width: 100%;
+      max-width: none;
       font-family: var(--serif);
       font-style: italic;
-      font-size: clamp(21px, 2.3vw, 32px);
-      line-height: 1.25;
-      color: rgba(255, 255, 255, .66);
+      font-size: clamp(26px, 3.8vw, 52px);
+      line-height: 1.12;
+      letter-spacing: -.02em;
+      color: rgba(255, 255, 255, .72);
+      text-wrap: balance;
     }
     /* ======================================================================
        03 · Verticals — a gallery that opens
@@ -1054,14 +1052,6 @@
       align-items: center;
     }
     .founders h2 { max-width: 14ch; }
-    .founders__kicker {
-      margin: 0;
-      font-family: var(--mono);
-      font-size: var(--label);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, .95);
-    }
     .founders__body {
       margin-top: 28px;
       color: rgba(255, 255, 255, .72);
@@ -1125,7 +1115,15 @@
     /* ======================================================================
        05 · Careers
        ====================================================================== */
-    .careers__head { margin-bottom: clamp(40px, 5vw, 64px); }
+    /* 2026-11-03 — the head was a 12-col grid with the CTA on a second row, so
+       the lede bottom-aligned against the headline and the button fell outside
+       the header's box. Two columns now, centred against each other. */
+    .careers__head {
+      margin-bottom: clamp(40px, 5vw, 64px);
+      align-items: center;
+    }
+    .careers__intro { grid-column: 1 / 8; }
+    .careers__head .lede { grid-column: 9 / 13; }
     .careers__cta { margin: 28px 0 0; }
     .careers__media {
       position: relative;
@@ -1395,6 +1393,9 @@
     @media (max-width: 1080px) {
       .band__head h2 { grid-column: 1 / 9; }
       .band__head .lede { grid-column: 1 / -1; max-width: 46ch; padding-top: 8px; }
+      /* the careers head wraps h2 + CTA together, so the wrapper has to go
+         full-width too or the headline stays stuck at 5/8 of the page */
+      .careers__intro { grid-column: 1 / -1; }
     }
     @media (max-height: 560px) {
       .opening__inner { padding-top: calc(var(--bar) + 10px); padding-bottom: 56px; }
@@ -1454,6 +1455,7 @@
       .opening__foot { font-size: 10px; letter-spacing: .1em; }
       .opening__foot .opening__meta { display: none; }
       .band__head h2 { grid-column: 1 / -1; }
+      .careers__intro { grid-column: 1 / -1; }
       .posts__head { flex-direction: column; align-items: flex-start; }
       .careers__chip { left: 12px; bottom: 12px; }
       .founders__quote blockquote { font-size: clamp(23px, 6.6vw, 30px); }
@@ -1570,8 +1572,9 @@
          =================================================================== -->
     <section class="band band--paper" id="scale" data-surface="light" aria-labelledby="modelTitle">
       <div class="wrap">
-        <header class="band__head">
+        <header class="band__head band__head--model">
           <h2 class="display display--l r" id="modelTitle">How a Fullsteam company <em>compounds.</em></h2>
+          <div class="model-rule" aria-hidden="true"></div>
         </header>
 
         <ol class="steps" id="model-steps">
@@ -1637,7 +1640,7 @@
       <div class="wrap">
         <div class="ai">
           <div class="ai__left">
-            <h2 class="display display--l r" id="aiTitle"><span class="ai__mark">AI</span> that already knows the business.</h2>
+            <h2 class="display display--l r" id="aiTitle">AI that already knows the <em>business.</em></h2>
             <p class="lede r" style="--d:70ms">Use cases first &mdash; built on proprietary vertical data, not generic models.</p>
             <p class="r" style="--d:140ms">
               <a class="arrow-link" href="our-advantage.html#ai">
@@ -1786,12 +1789,11 @@
       <div class="wrap">
         <div class="founders__grid">
           <div class="r">
-            <p class="founders__kicker">For founders</p>
             <h2 class="display display--l" id="foundersTitle">A home for the business you <em>built.</em></h2>
             <p class="founders__body">We don&rsquo;t buy your business and shelve it. The product keeps its name, the team keeps
               its people, and it keeps growing &mdash; with a much larger company behind it.</p>
             <p class="founders__cta">
-              <a class="btn" href="for-founders.html">Explore more</a>
+              <a class="btn" href="for-founders.html">Explore Acquisitions</a>
             </p>
           </div>
           <figure class="founders__media r" style="--d:110ms">
@@ -1828,9 +1830,11 @@
     <section class="band band--paper" id="careers" data-surface="light" aria-labelledby="careersTitle">
       <div class="wrap">
         <header class="band__head careers__head">
-          <h2 class="display display--l r" id="careersTitle">A great place to <em>work.</em></h2>
+          <div class="careers__intro">
+            <h2 class="display display--l r" id="careersTitle">A great place to <em>work.</em></h2>
+            <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
+          </div>
           <p class="lede r" style="--d:80ms">Real people building software for real industries &mdash; mostly remote, small teams, room to grow.</p>
-          <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
         </header>
 
         <figure class="careers__media r">
@@ -2085,7 +2089,6 @@
            exempt — chrome floats there by design. */
         bar.classList.toggle('is-on-dark', dark && !inOpening);
         renderAxisB();
-        lightSteps();
         ticking = false;
       }
 
@@ -2231,13 +2234,39 @@
       var revealEls = $$('.r').filter(function (el) {
         return !(el.classList.contains('step') && el.closest('#model-steps'));
       });
+      var stepEls = $$('.step');
+      var stepNumbers = stepEls.map(function (s) { return $$('[data-count]', s); });
+      var counted = [];
       var STEP_STAGGER_MS = 260;
+      var scaleBand = $('#scale');
+      var modelStrokesVisible = reduce.matches;
+
+      function showModelStrokes() {
+        if (modelStrokesVisible) return;
+        modelStrokesVisible = true;
+        if (scaleBand) scaleBand.classList.add('is-strokes-in');
+      }
 
       function revealModelStepsStaggered() {
+        if (!modelStepEls.length) return;
+        if (reduce.matches) {
+          modelStepEls.forEach(function (step, i) {
+            step.classList.add('in');
+            if (stepNumbers[i].length && !counted[i]) {
+              counted[i] = true;
+              stepNumbers[i].forEach(runCount);
+            }
+          });
+          return;
+        }
         modelStepEls.forEach(function (step, i) {
           step.style.setProperty('--d', '0ms');
           window.setTimeout(function () {
             step.classList.add('in');
+            if (stepNumbers[i].length && !counted[i]) {
+              counted[i] = true;
+              stepNumbers[i].forEach(runCount);
+            }
           }, i * STEP_STAGGER_MS);
         });
       }
@@ -2257,6 +2286,7 @@
           var stepsIo = new IntersectionObserver(function (entries) {
             entries.forEach(function (e) {
               if (!e.isIntersecting) return;
+              showModelStrokes();
               revealModelStepsStaggered();
               stepsIo.unobserve(e.target);
             });
@@ -2265,6 +2295,7 @@
         }
       } else {
         revealEls.forEach(function (el) { el.classList.add('in'); });
+        showModelStrokes();
         revealModelStepsStaggered();
       }
 
@@ -2292,43 +2323,8 @@
         window.requestAnimationFrame(step);
       }
 
-      /* --------------------------------------------------------------------
-         The model band lights Acquire → Grow → Lead as it advances.
-         Progress is the band's own position (not scrollY), so it reads the
-         same at every viewport height.
-         ------------------------------------------------------------------ */
-      var modelBand = $('#scale');
-      var stepEls = $$('.step');
-      var stepNumbers = stepEls.map(function (s) { return $$('[data-count]', s); });
-      var counted = [];
-
-      function lightSteps() {
-        if (!stepEls.length) return;
-
-        if (reduce.matches) {
-          stepEls.forEach(function (s, i) {
-            s.style.setProperty('--lit', '1');
-            if (stepNumbers[i].length && !counted[i]) {
-              counted[i] = true;
-              stepNumbers[i].forEach(runCount);
-            }
-          });
-          return;
-        }
-
-        var vh = window.innerHeight;
-        var r = modelBand.getBoundingClientRect();
-        var span = r.height + vh * 0.34;
-        var p = clamp01((vh * 0.80 - r.top) / (span > 0 ? span : 1));
-
-        stepEls.forEach(function (s, i) {
-          var t = clamp01((p - (0.04 + i * 0.20)) / 0.18);
-          s.style.setProperty('--lit', t.toFixed(3));
-          if (t > 0.55 && !counted[i]) {
-            counted[i] = true;
-            if (stepNumbers[i].length) stepNumbers[i].forEach(runCount);
-          }
-        });
+      if (reduce.matches && scaleBand) {
+        scaleBand.classList.add('is-strokes-in');
       }
 
       /* --------------------------------------------------------------------

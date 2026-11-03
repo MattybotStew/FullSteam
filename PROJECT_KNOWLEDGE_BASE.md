@@ -2356,6 +2356,196 @@ Figma cannot express the CSS `background-size: 0% → 100%` wipe, so hover is re
   `page.appendChild()` before `combineAsVariants`, and sweep up orphans after any throw.
 - `combineAsVariants` requires all grouped nodes on the same page as the parent.
 
+### 27.8 Figma audit + repo→Figma sync (2026-11-03)
+
+> **Authority for this sync:** the shared `:root` block that all six built pages carry
+> (`--brand #00587C`, `--brand-deep #003F55`, `--brand-ink #04141B`, `--gold #FFC600`,
+> `--green #84BD00`, `--green-ink #4F750E`, `--surface #F3F6F7`, `--ink #0C1B21`,
+> `--muted #586A72`, `--line #DCE3E6`) plus the 27-variable `Fullsteam Brand` collection.
+> Verified identical on `index`, `vertical-software`, `our-advantage`, `our-story`,
+> `careers`, `for-founders`.
+
+**Where the work landed.** A duplicate page **`✅ Design [WIP] 2 — SYNC 2026-11-03`**
+(`11537:8849`) holds all ten top-level frames from `✅ Design [WIP] 2` (`11511:2918`), laid out
+from origin. **The original page was not written to** — every write in this pass targeted the
+copy. Promote by copying frames over once the diff is accepted.
+
+**What the base page actually is.** Not a design source: an HTML→Figma structural conversion.
+2,815 nodes, **0 components / 0 instances**, **0 of 759 text nodes on an official style** before
+this pass, 7 hand-copied headers and footers. Known conversion defects left untouched (tier 2,
+see open items): the hero frame is 819 tall but its children run to **y=2,129** with
+`clipsContent: false`; the hero H1's auto-layout is three empty placeholder wrappers
+(`Placeholder for Text:margin`, two `Text:margin`) while the real headline sits in an
+absolutely-positioned sibling at `y=-21`; **Axis B is absent** — `Heading 2 → Text:transform`
+(`11530:2051`) is empty, so the file documents only Axis A of the two-state opening
+(KB §23.10); the AI headline's serif "AI" and sans "that already knows the business." share the
+same origin (`x80`, `y≈2000`) and render on top of each other.
+
+**Applied to the copy.**
+
+| Pass | Result |
+|---|---|
+| Text styles | **221 of 759** text nodes bound (was 0) — `Mono/Kicker` 96 · `Body/Default` 54 · `Display/Section` 35 · `Body/Lede` 24 · `Display/Serif-Payoff` 9 · `Display/Hero` 2 · `Display/Stat` 1 |
+| Fills/strokes | **1,164 of 1,190** solid paints bound to `Fullsteam Brand` (was ~250); **26 left hardcoded**, all non-token literals |
+| Drift corrected | **77 paints** rewritten to locked values, then bound |
+| Parity | **1,580 paints compared** against the source frame-by-frame — **0 mismatches** once the intended drift corrections are excluded |
+
+> Counts in this table are the **sync pass only**. The structural fixes that follow in §27.9 lift
+> coverage to **453 of 763** text nodes and add the missing Axis B state — read §27.9 for the
+> current state of the copy.
+
+**Drift corrected** (only two are pure Figma errors; the rest are build drift the file faithfully copied):
+
+| Figma value | → | Basis |
+|---|---|---|
+| `#FEC50A` ×2 (VS header vectors) | `#FFC600` | **Figma-only.** This is the quarantined exploration gold (KB §27.3) — never legitimate. |
+| `#005978` ×9 (Our Advantage) | `#00587C` | **Figma-only.** Off locked Bio Blue. |
+| `#6A7A81` ×10, `#5C6C73`, `#F2F6F7` | `#586A72` / `#586A72` / `#F3F6F7` | Present in `vertical-software.html` as page-local literals (lines 580, 524, 511/530) — **build drift**, now bound to `ui/muted` / `ui/surface`. |
+
+**Still hardcoded, deliberately.** `#24343A` 10 · `#071820` 8 · `#0B1A20` 5 · `#0A222C` 2 ·
+`#4F750E` 1. The first four are one-off ink literals the build also uses; `#4F750E` is
+`--green-ink`, a real repo token with **no variable** in the collection. Normalising these is a
+palette decision, not a sync — see open items.
+
+**Blocked: the style set does not cover the build.** 538 text nodes stay unstyled because no
+official style matches them. Top groups: `Instrument Sans Regular 15/23` **117** ·
+`Fragment Mono Regular 10/16` **46** · `Instrument Sans Medium 15/19` **36** ·
+`Instrument Sans Regular 14/22` **35** · `Instrument Sans Medium 20/26` 24 ·
+`Fragment Mono Regular 18/18` 21. `--t-small` (15px) is the build's workhorse size and it has
+no style at all. **Also structural:** 20 section H2s and the 17-node pull quote are **mixed-font
+nodes**, which cannot hold a text style without flattening the serif `em` — the three-voice rule
+(KB §27.4) is incompatible with one-node-per-heading styling until those are rebuilt as single
+styled runs.
+
+**Blocked: fixed styles vs computed sizes.** The styles hold desktop **max** values (hero 118,
+section 76); the frames hold **clamp() values at 1440×900** (hero 108–120, section 74.9). Two
+consequences found by rendering: forcing `Display/Hero` onto the VS heroes (108 → 118) made the
+detached serif "software" collide with "critical", and forcing `Display/Serif-Payoff` (76) onto
+the word-exploded pull quote (63.36) collided all 17 words. Both were **reverted**; the 2 Hero
+bindings that remain are the homepage Axis A lines (120 → 118, safe).
+
+**Two API traps worth remembering** (beyond §27.7):
+
+1. **`setBoundVariableForPaint` drops `opacity`, `blendMode` and `visible`.** Binding without
+   re-applying them silently flattened **341 translucent paints** to full opacity and reset
+   **9 logo `SATURATION` overlays** to `NORMAL` (which paints them as opaque white blocks over
+   the logo images). Always rebuild the paint and re-copy those three fields, then diff against
+   the source.
+2. **Spread-based paint writes silently no-op.** `node.fills = node.fills.map(f => ({...f, blendMode}))`
+   reported success and changed nothing, because the spread carries `boundVariables`. A paint
+   rebuilt as a **fresh plain object** (`{type, color, opacity, blendMode, visible}`) writes
+   correctly. `figma.loadFontAsync` must also be awaited before any `fontSize` write, or the
+   write throws while leaving the node half-mutated.
+3. `node.textStyleId` reads **flaky** in this runtime (the §27.6 pattern): after a pass that
+   reported 241 bindings the property returned `''` for 83 of them, and a later read showed only
+   158. Re-read after a fresh `getNodeByIdAsync`, and reconcile against `getLocalTextStylesAsync`.
+
+**Open items raised by this pass** — numbered **OI-21…OI-24** (OI-17 was already taken by §29.9,
+the cybersecurity claim; do not reuse 15–17).
+
+- **OI-21 — style coverage. PART-CLOSED 2026-11-03** (§27.9): `Body/Small`, `Body/Label` and
+  `Mono/Label` now exist and are applied. Still open: `Instrument Sans Regular 14/22` (35),
+  `Medium 20/26` (24), `Mono 18/18` (21) and the semi/bold 13–14px UI cluster have no style, and
+  **mixed-font nodes can never carry one**.
+- **OI-22 — clamp vs fixed.** Decide whether Figma frames represent the 1440×900 rendering
+  (hero 108) or the clamp maxima (hero 118). They cannot both be true; today the file mixes both.
+  A wrong choice breaks layouts — see the two reverts in §27.8.
+- **OI-23 — `--green-ink` has no variable.** Add `color/brand/green-ink` `#4F750E` to
+  `Fullsteam Brand`, or fold it into `green/90`.
+- **OI-24 — the four ink literals** (`#24343A`, `#071820`, `#0B1A20`, `#0A222C`) are not tokens in
+  either track. Collapse to `ui/ink` / `ui/brand-ink` or promote.
+- **Build-side cleanup (not done — the pages are client-reviewed):** `vertical-software.html`
+  carries three off-token colours (`#6a7a81`, `#5c6c73`, `#f2f6f7`) that no other page uses.
+
+### 27.9 Fixes applied to the copy (2026-11-03, same session)
+
+All on `✅ Design [WIP] 2 — SYNC 2026-11-03` (`11537:8849`). The original page is still untouched.
+Screenshots verified after each step; §27.8's counts are the sync pass only, these supersede them.
+
+| Fix | Node | Result |
+|---|---|---|
+| **Hero overflow removed** | `11537:9431` | Deleted `Placeholder for Section` (1440×819, empty) and `Container:margin` (1440×1310 → nested 2129 at y=−819). Hero children now run **0→819 against an 819 frame: overflow 1,310px → 0**, so exports no longer carry dead space. |
+| **Axis B state built** | new frame `11537:11684` | New frame **`Opening — Axis B state`** (1440×819) beside the homepage: a clone of the hero plate with Axis A's copy hidden and `Heading 2 → Text:transform` (empty since conversion) filled with **"Then we build / what makes it / grow."** — Instrument Sans Medium 118/116, centred to match Axis A, `grow.` in Instrument Serif Italic gold. The three wrapper frames carried **opacity 0** from the source (Axis B is scroll-revealed); set to 1 here. Both states of the opening now exist in the file for the first time. |
+| **AI headline collision fixed** | `11537:9526` | The serif "AI" was a separate node stacked on the sans line at the same origin. Merged into one node — `"AI that already knows the business."` — with chars 0–2 set to Instrument Serif Italic, bound `color/brand/green`, tracking −1.52px (matches `.ai__mark`). Orphan "AI" node deleted. |
+| **AI step numbers made visible** | `11537:9538/9546/9554` | Were `#000000` on `#04141B` (**1.1:1**). Bound to `color/brand/green/70` `#A9D14D`, which reproduces the CSS `color-mix(green 55%, white 55%)` construction. |
+| **Three missing text styles added** | `Design System` | `Body/Small` 15/23 · `Body/Label` 15/19 · `Mono/Label` 10/16 — all three described in-style with their source selector. File now holds **11** text styles. **No specimens are drawn on the `Design System` page yet.** |
+| **230 more nodes styled** | — | `Body/Small` 137 · `Mono/Label` 52 · `Body/Label` 41 — applied where size *and* line-height already matched, so **geometry is unchanged by construction**. |
+
+**Coverage after the fix pass**
+
+| | before sync | after sync | after fixes |
+|---|---|---|---|
+| Text nodes on an official style | 0 / 759 | 221 / 759 | **453 / 763 (59.4%)** |
+| Solid paints bound to `Fullsteam Brand` | ~250 | 1,164 / 1,190 | **1,168 / 1,194** |
+| Hero overflow past its frame | 1,310px | 1,310px | **0** |
+| Opening states documented | 1 (Axis A) | 1 (Axis A) | **2** |
+
+**Still not fixed, and why**
+
+- **The hero H1 is still fake auto-layout.** `Heading 1` holds an empty `Placeholder for Text:margin`
+  (114) plus two `Text:margin` wrappers, while the real "We acquire" line sits in a 790×157 sibling
+  at `y=−21`. Restructuring it changes the H1's height (157 vs 114) and shifts the headline ~43px,
+  breaking visual parity with the built page. Left as debt on purpose — **fix it in a pass where the
+  page is allowed to move**, not during a token sync.
+- **The 17-node pull quote** (`Quote`) — words are separate absolutely-positioned text nodes at
+  63.36px. Same class of debt; restyling it collides the words (verified).
+- **Mixed-font headings (20)** cannot take a text style without flattening the serif `em`.
+- **Contrast findings are build-side, not Figma-side**: gold payoff words on paper ≈1.6:1, white on
+  `#84BD00` rail item ≈2.0:1, white vertical labels on unscrimmed photography. Fixing them in Figma
+  alone would desync the file from the build — they need a build change and a client call.
+- **No responsive frames.** Seven 1440-only page frames plus the new state; the build is clamp-based.
+
+### 27.10 The homepage is the design system (client decision, 2026-11-03)
+
+**Rule:** `03_Design/client-review/homepage/index.html` defines the visual system. The five
+interior pages (Vertical Software, Our Advantage, Our Story, Careers, Acquisitions) **conform to
+it**; they do not carry private rhythms. When an interior page needs something the homepage does
+not have, add the component to the homepage first — or ask.
+
+**What that meant in practice.** Tokens were already identical on all six pages (`:root` block
+verified byte-for-byte); the drift was entirely in **component usage**. Reconciled 2026-11-03:
+
+| Component | Rule now | Was |
+|---|---|---|
+| `.display em, .serif-em` | Instrument Serif italic **+ `color: var(--gold)`** on the base rule | gold only on four named headline IDs; 8 Our Story timeline names and the Acquisitions `built.` rendered ink. Per-page `!important` patches deleted. |
+| `.arrow-link` | `gap 10px`, `--t-small`, `1px solid currentColor` underline, 15px arrow, `translateX(4px)` on hover | two pages: `gap 8px`, brand-blue, **no** underline, 14px arrow |
+| `.btn--ghost` | **surface-aware** — white hairline on dark, ink hairline on paper (`[data-surface="light"]`, `.hero--light`, `.band--paper`) | white-on-dark only, so two pages invented `.btn--ghost-ink` (both deleted) |
+| `.hero__title` tracking | `-0.035em` (`-3.78px` at 108px) | three pages overrode to `-0.02em` |
+| `.band` | `position: relative; padding: var(--sect) 0` | three pages without the positioning context |
+| `.band__head` rhythm | `margin-bottom: clamp(48px, 6vw, 84px)`; lede inherits the 54ch measure | `clamp(40px,5vw,64px)`; two pages set `max-width: none` |
+| `.close h2` / `.close__actions` | `17ch` / `gap 20px` | `16ch` / `14px` |
+| `.faq__head` rail | `250px` | two pages at `290px` |
+| `.stat__n` | `var(--t-stat)`; `.stat__c` `margin-top: 12px` | Careers had its own `clamp(36px,3.6vw,64px)` |
+| `.ai-video` | `border-radius: 4px` | `6px` on one page |
+| NarrativeLight hero | `min(92svh, 960px)`; dark-hero lede `rgba(255,255,255,.72)` | Our Story 92svh / Acquisitions 88svh; both ledes at `.82` |
+| Acquisitions ledger | homepage step metrics — 34px gutters, `clamp(24px,2.2vw,30px)` name, arrow `.4`, `min-height: 380px` (4 columns retained) | 28px gutters, 28px name, arrow `.75`, 320px |
+
+**Two real defects the reconciliation surfaced** (both pre-existing, both now fixed):
+
+1. **Acquisitions overflowed 128px at 390px.** `.founder-gallery__stage` combined
+   `aspect-ratio: 16/9` with `min-height: 280px`, so the box derived its *width* from the minimum
+   height (280 × 16/9 = 498px). Sized from the grid track below 900px instead → 350 × 263.
+2. **The Acquisitions ledger's ≤1080px two-column mode was broken.** The subgrid span
+   `.step { grid-row: 1 / -1 }` survived the column change, so at 1000px the four columns
+   collapsed to 65 / 69 / 374 / 409px and steps overlapped. Reset to plain flow in that
+   breakpoint, as the homepage already does below 900px.
+
+Verified after: **0** emphasis elements rendering off-gold, hero tracking uniform, **0** invented
+button variants, **0** horizontal overflow at 390 / 768 / 1440 on all six pages, 0 console errors,
+0 HTTP failures.
+
+**Deliberately still page-specific:** `.frame--pending` placeholder shapes (three assets missing),
+the numbered column in `.rail__item` (Vertical Software only), `.split-head__aside` type scale.
+
+**Two open calls, logged not fixed.** Gold italic on paper measures **1.58:1** — accepted as the
+brand treatment, not a WCAG-passing text colour (see the contrast finding above). And the copy tic
+**"X, not Y"** appears 8 times across the build — a writing pass, not a design one.
+
+**A divergent scratch build was discarded the same day.** `03_Design/client-review/homepage-2026-11-03-working/`
+held a morning refactor (serif stripped site-wide, vertical tiles → typographic index, 4px ghost
+buttons, `#FBFBFA` surface) that contradicted this build on typography. Deleted 2026-11-03 by
+client decision; nothing was promoted from it and it is not referenced by `pages.yml`.
+
 ---
 
 ## 28. Official client-review builds — `03_Design/client-review/homepage/` (2026-10-25)

@@ -131,6 +131,7 @@ button { font: inherit; color: inherit; }
   font-style: italic;
   font-weight: 400;
   letter-spacing: -.015em;
+  color: var(--gold);
 }
 
 #verticals-title em,
@@ -180,6 +181,10 @@ button { font: inherit; color: inherit; }
   background: transparent; color: #fff;
   border: 1px solid rgba(255, 255, 255, .34);
 }
+[data-surface="light"] .btn--ghost,
+.hero--light .btn--ghost { color: var(--ink); border-color: var(--line); }
+[data-surface="light"] .btn--ghost:hover,
+.hero--light .btn--ghost:hover { background: var(--surface); border-color: var(--ink); }
 .btn--ghost:hover { background: rgba(255, 255, 255, .1); }
 
 /* ---------- header · official homepage chrome ---------- */
@@ -1250,7 +1255,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   }
 }
 
-  </style>
+    </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
