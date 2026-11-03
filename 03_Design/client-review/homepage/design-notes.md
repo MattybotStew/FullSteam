@@ -476,3 +476,82 @@ homepage already does below 900px. Now 456px per column at 1000, two per row, no
 - `.frame--pending` placeholders — three shapes because three different assets are missing.
 - The numbered column in `.rail__item` — Vertical Software only; no other page has a rail.
 - `.split-head__aside` type scale — set against a narrower column, same family and colour.
+
+---
+
+## 2026-11-03 — gold text now passes AA: `--accent` follows the surface
+
+Brand gold `#FFC600` is a mark, not a text colour. On paper it measured **1.58:1** (AA needs 3:1
+for ≥24px, 4.5:1 below that). A sweep found **18 of 39** gold elements on white or `--surface`.
+
+### The fix: one custom property, scoped by surface
+
+Same mechanism the build already used for `--focus`, so it needs no per-rule override and no
+`!important`:
+
+```css
+:root                  { --gold-display: #AD8700; --gold-ink: #956800; --accent: var(--gold); }
+[data-surface="light"] { --accent: var(--gold-display); }
+[data-surface="dark"]  { --accent: var(--gold); }
+```
+
+| Token | Value | White | `--surface` | `--brand-ink` | Use |
+|---|---|---|---|---|---|
+| `--gold` | `#FFC600` | 1.58 | 1.45 | 11.89 | **marks** — rules, borders, dot fills, buttons; gold *text* on dark |
+| `--gold-display` | `#AD8700` | 3.36 | 3.10 | 5.28 | gold text ≥24px on light (AA large) |
+| `--gold-ink` | `#956800` | 4.93 | 4.54 | 3.60 | gold text any size on light |
+
+All three are the brand hue (46.6°) at different lightness — no new colour family. Every gold `em`
+on the build is ≥34px, so `--gold-display` ships; `--gold-ink` is the escape hatch for any future
+small gold text.
+
+`color: var(--gold)` → `color: var(--accent)` in **35 text rules** across the six pages. An
+attribute-only override was tried first and lost to ID-specificity rules (`#faq-title em` at
+1,0,1 beats `[data-surface="light"] .display em`), which is exactly why the property is scoped on
+the surface block instead of on the selector.
+
+### Surfaces had to be declared, not inferred
+
+`data-surface` already existed on most sections. Three gaps were fixed:
+
+- the five dark `.vp` cards sit inside the light verticals band → `data-surface="dark"` each;
+- `.vp--all`, the index cell, paints a **dark blue gradient** → also `data-surface="dark"`
+  (brand gold measures 3.70:1 at the gradient's lightest corner, 9.46:1 at its darkest);
+- the Acquisitions `.founder-gallery__stage` (a video frame) sits inside a light band → dark.
+
+The opening's three dark sections (`.hero--axis-a`, `.axis-b`, both `.hero--narrative-full`) also
+gained the attribute for consistency, though `:root` already resolved them to brand gold.
+
+### Hero payoff words over photography — checked with pixels, not with math
+
+Token math can't see photographs, so each hero `em` was sampled from a real screenshot with the
+text hidden (`color: transparent`) and the background luminance measured pixel by pixel:
+
+| Hero | Median | 5th percentile | Below 3:1 |
+|---|---|---|---|
+| Homepage Axis A | 9.02 | 6.74 | 0% |
+| Vertical Software | 11.89 | 11.89 | 0% |
+| Our Story | 11.32 | 9.21 | 3.5% |
+| Acquisitions | 11.19 | 9.22 | 1.2% |
+
+The Our Story / Acquisitions percentages were the neighbouring **white** headline glyphs sitting
+inside the sampled box, not photo highlights — visible the moment the sampled region was rendered
+as an image. **The scrim was already sufficient**, so a directional wash that had been added
+speculatively was reverted: the photograph is unchanged and only the token moved.
+
+### Measured after
+
+| | result |
+|---|---|
+| Gold text below its AA threshold | **0** — 63 elements × 1440 / 1024 / 768 / 390 |
+| Smallest gold text on the build | 34px (Acquisitions gallery title) — all large, so 3:1 applies |
+| Console errors / HTTP failures | 0 / 0 |
+| Horizontal overflow @ 390 / 768 / 1024 / 1440 | none, all six pages |
+
+### Found in the same sweep, deliberately not fixed
+
+- **White on `--green #84BD00`** — the active "AI at Fullsteam" rail item, **2.27:1**. Fixing it
+  means either ink text on green or a darker green; both change a client-approved look, so it needs
+  a call.
+- **9px `.frame--pending` annotations** — "Client-supplied · not cleared", **2.97:1**. Review
+  scaffolding rather than client copy, and below any legible size regardless.

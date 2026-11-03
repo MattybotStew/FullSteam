@@ -21,6 +21,10 @@
   --brand-deep: #003F55;
   --brand-ink: #04141B;
   --gold: #FFC600;
+  /* Text-safe golds — same hue as --gold, darkened until they pass. */
+  --gold-display: #AD8700;  /* display type only (>=24px): 3.36:1 */
+  --gold-ink: #956800;      /* any size: 4.93:1 on white, 4.54:1 on --surface */
+  --accent: var(--gold);
   --green: #84BD00;
   --green-ink: #4F750E;
 
@@ -56,6 +60,11 @@
 
   --dur: 240ms;
 }
+
+/* Surfaces declare the text accent, so gold copy passes AA without a per-rule
+   override and without !important. Add data-surface to any new painted block. */
+[data-surface="light"] { --accent: var(--gold-display); }
+[data-surface="dark"] { --accent: var(--gold); }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -132,10 +141,10 @@ button { font: inherit; color: inherit; }
   font-style: italic;
   font-weight: 400;
   letter-spacing: -.015em;
-  color: var(--gold);
+  color: var(--accent);
 }
 
-#faq-title em { color: var(--gold); letter-spacing: 0; }
+#faq-title em { color: var(--accent); letter-spacing: 0; }
 
 #faq-title em { display: block; }
 
@@ -339,7 +348,7 @@ body.menu-open { overflow: hidden; }
 .band--ink .section-note { color: rgba(255, 255, 255, .72); }
 .band--ink .section-note strong { color: #fff; }
 .band--ink .band__head h2 em,
-.band--ink h2 em { color: var(--gold); }
+.band--ink h2 em { color: var(--accent); }
 
 .band__head {
   display: grid;
@@ -349,7 +358,7 @@ body.menu-open { overflow: hidden; }
   margin-bottom: clamp(48px, 6vw, 84px);
 }
 .band__head h2 { grid-column: 1 / 8; }
-.band__head h2 em { color: var(--gold); font-family: var(--serif); font-style: italic; }
+.band__head h2 em { color: var(--accent); font-family: var(--serif); font-style: italic; }
 .band__head .lede { grid-column: 9 / 13; padding-bottom: 8px; }
 
 .band__head--stack {
@@ -359,7 +368,7 @@ body.menu-open { overflow: hidden; }
 .band__head--stack h2 { max-width: 22ch; }
 .band__head--stack .lede { margin-top: 18px; max-width: 52ch; }
 
-#thrives-title em { color: var(--gold); }
+#thrives-title em { color: var(--accent); }
 
 .hero {
   position: relative;
@@ -400,7 +409,7 @@ body.menu-open { overflow: hidden; }
   font-family: var(--serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--gold);
+  color: var(--accent);
   letter-spacing: -.015em;
 }
 .hero--media-dark .hero__copy-col .lede {

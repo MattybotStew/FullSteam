@@ -239,8 +239,10 @@ This file is the canonical agent entry point (works with Cursor, which reads
   Mono). **Instrument Serif italic** is a **client-approved third voice**
   (2026-11-02) on the official homepage — payoff words, quotes, and emphasis
   (`em`); see KB §27.4. Do not use it for full headings or body paragraphs.
-  As of **2026-11-03 every serif italic emphasis is brand gold `#FFC600`**, set once
-  on the base `.display em, .serif-em` rule — never per headline, never `!important`.
+  As of **2026-11-03 gold text follows its surface**: `--accent` resolves to brand gold
+  `#FFC600` on dark surfaces and to `--gold-display #AD8700` on light ones (`--gold-ink
+  #956800` for any size under 24px). Set once on the base `.display em, .serif-em` rule —
+  never per headline, never `!important`. **Never put `#FFC600` text on paper**: 1.58:1.
 - **The homepage is the design system (client decision 2026-11-03).**
   `client-review/homepage/index.html` defines the visual system; the five interior
   pages conform to it rather than carrying private rhythms. If an interior page needs

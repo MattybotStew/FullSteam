@@ -17,6 +17,10 @@
   --brand-deep: #003F55;
   --brand-ink: #04141B;
   --gold: #FFC600;
+  /* Text-safe golds — same hue as --gold, darkened until they pass. */
+  --gold-display: #AD8700;  /* display type only (>=24px): 3.36:1 */
+  --gold-ink: #956800;      /* any size: 4.93:1 on white, 4.54:1 on --surface */
+  --accent: var(--gold);
   --green: #84BD00;
   --green-ink: #4F750E;
 
@@ -52,6 +56,11 @@
 
   --dur: 240ms;
 }
+
+/* Surfaces declare the text accent, so gold copy passes AA without a per-rule
+   override and without !important. Add data-surface to any new painted block. */
+[data-surface="light"] { --accent: var(--gold-display); }
+[data-surface="dark"] { --accent: var(--gold); }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -128,7 +137,7 @@ button { font: inherit; color: inherit; }
   font-style: italic;
   font-weight: 400;
   letter-spacing: -.015em;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 /* One weight per role — sans medium for display, 400 everywhere else */
@@ -137,7 +146,7 @@ button { font: inherit; color: inherit; }
 }
 .band__head h2 em { font-weight: 400; }
 
-#faq-title em { color: var(--gold); letter-spacing: 0; }
+#faq-title em { color: var(--accent); letter-spacing: 0; }
 
 #faq-title em { display: block; }
 
@@ -328,7 +337,7 @@ body.menu-open { overflow: hidden; }
   --focus: #fff;
 }
 .band--ink .lede { color: rgba(255, 255, 255, .72); }
-.band--ink h2 em { color: var(--gold); }
+.band--ink h2 em { color: var(--accent); }
 
 .band__head {
   display: grid;
@@ -338,7 +347,7 @@ body.menu-open { overflow: hidden; }
   margin-bottom: clamp(48px, 6vw, 84px);
 }
 .band__head h2 { grid-column: 1 / 8; }
-.band__head h2 em { color: var(--gold); font-family: var(--serif); font-style: italic; }
+.band__head h2 em { color: var(--accent); font-family: var(--serif); font-style: italic; }
 .band__head .lede { grid-column: 9 / 13; padding-bottom: 8px; }
 .band__head--solo h2 { grid-column: 1 / -1; max-width: 22ch; }
 
@@ -405,7 +414,7 @@ body.menu-open { overflow: hidden; }
   color: #fff;
   text-shadow: 0 2px 28px rgba(0, 20, 28, .45);
 }
-.hero--narrative-full .hero__title em { color: var(--gold); }
+.hero--narrative-full .hero__title em { color: var(--accent); }
 .hero--narrative-full .lede {
   color: rgba(255, 255, 255, .72);
   max-width: 52ch;
@@ -590,7 +599,7 @@ body.menu-open { overflow: hidden; }
   max-width: 22ch;
   text-wrap: balance;
 }
-.founder-gallery__title em { font-style: italic; color: var(--gold); }
+.founder-gallery__title em { font-style: italic; color: var(--accent); }
 .founder-gallery__badge {
   position: absolute;
   top: 16px;
@@ -801,7 +810,7 @@ body.menu-open { overflow: hidden; }
   align-items: end;
 }
 .close h2 { max-width: 17ch; }
-.close h2 em { color: var(--gold); }
+.close h2 em { color: var(--accent); }
 .close__lede {
   margin-top: 18px;
   font-size: var(--t-lede);
@@ -825,7 +834,7 @@ body.menu-open { overflow: hidden; }
 .faq__head { position: sticky; top: calc(var(--bar) + 24px); max-width: 250px; }
 .faq__title { max-width: none; line-height: 0.945; letter-spacing: -0.035em; }
 .faq__title-sans { display: block; }
-#faq-title em { color: var(--gold); letter-spacing: 0; display: block; }
+#faq-title em { color: var(--accent); letter-spacing: 0; display: block; }
 .faq__list { border-top: 1px solid var(--ink); }
 .faq__item { border-bottom: 1px solid var(--line); }
 .faq__item summary {
@@ -1081,7 +1090,7 @@ body.menu-open { overflow: hidden; }
 
   <main id="main">
 
-    <section class="hero hero--narrative-full" id="top">
+    <section data-surface="dark" class="hero hero--narrative-full" id="top">
       <div class="hero__stage" data-surface="dark" aria-labelledby="acq-title">
         <div class="hero__media" aria-hidden="true">
           <div class="hero__media-fallback"></div>
@@ -1104,7 +1113,7 @@ body.menu-open { overflow: hidden; }
             <h2 class="display display--l" id="featured-title">Founders, in <em>their words.</em></h2>
           </header>
           <div class="founder-gallery" id="founderGallery" data-surface="light">
-            <div class="founder-gallery__stage">
+            <div class="founder-gallery__stage" data-surface="dark">
               <img class="founder-gallery__poster" id="founderGalleryPoster" src="assets/img/founders.jpg" alt="" width="1920" height="1280" decoding="async">
               <div class="founder-gallery__scrim" aria-hidden="true"></div>
               <video class="founder-gallery__video" id="founderGalleryVideo" playsinline preload="metadata" poster="assets/img/founders.jpg" aria-hidden="true" tabindex="-1">

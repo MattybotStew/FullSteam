@@ -20,6 +20,10 @@
   --brand-deep: #003F55;
   --brand-ink: #04141B;
   --gold: #FFC600;
+  /* Text-safe golds — same hue as --gold, darkened until they pass. */
+  --gold-display: #AD8700;  /* display type only (>=24px): 3.36:1 */
+  --gold-ink: #956800;      /* any size: 4.93:1 on white, 4.54:1 on --surface */
+  --accent: var(--gold);
   --green: #84BD00;
   --green-ink: #4F750E;
 
@@ -55,6 +59,11 @@
 
   --dur: 240ms;
 }
+
+/* Surfaces declare the text accent, so gold copy passes AA without a per-rule
+   override and without !important. Add data-surface to any new painted block. */
+[data-surface="light"] { --accent: var(--gold-display); }
+[data-surface="dark"] { --accent: var(--gold); }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -131,11 +140,11 @@ button { font: inherit; color: inherit; }
   font-style: italic;
   font-weight: 400;
   letter-spacing: -.015em;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 #verticals-title em,
-#faq-title em { color: var(--gold); letter-spacing: 0; }
+#faq-title em { color: var(--accent); letter-spacing: 0; }
 
 #faq-title em { display: block; }
 
@@ -331,7 +340,7 @@ body.story-lightbox-open { overflow: hidden; }
 .hero__title em {
   font-family: var(--serif);
   font-style: italic;
-  color: var(--gold);
+  color: var(--accent);
   letter-spacing: 0;
 }
 
@@ -452,7 +461,7 @@ body.story-lightbox-open { overflow: hidden; }
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: var(--gold);
+  color: var(--accent);
   font-family: var(--mono);
   font-size: 0.75rem;
 }

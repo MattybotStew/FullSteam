@@ -83,6 +83,10 @@
       --brand-deep: #003F55;
       --brand-ink: #04141B;
       --gold: #FFC600;
+      /* Text-safe golds — same hue as --gold, darkened until they pass. */
+      --gold-display: #AD8700;  /* display type only (>=24px): 3.36:1 */
+      --gold-ink: #956800;      /* any size: 4.93:1 on white, 4.54:1 on --surface */
+      --accent: var(--gold);
       --green: #84BD00;
       --green-ink: #4F750E;
 
@@ -120,6 +124,11 @@
       --dark-hair: rgba(255, 255, 255, .16);
       --focus: var(--brand);
     }
+
+/* Surfaces declare the text accent, so gold copy passes AA without a per-rule
+   override and without !important. Add data-surface to any new painted block. */
+[data-surface="light"] { --accent: var(--gold-display); }
+[data-surface="dark"] { --accent: var(--gold); }
 
     *, *::before, *::after { box-sizing: border-box; }
     html {
@@ -184,7 +193,7 @@
       letter-spacing: -.015em;
       /* 2026-11-03 (client) — every serif italic is brand gold, not just the
          four headline payoffs listed here. KB §23.10 treatment, applied wide. */
-      color: var(--gold);
+      color: var(--accent);
     }
     #modelTitle em,
     #vertsTitle em,
@@ -550,13 +559,13 @@
       font-style: italic;
       font-weight: 400;
       letter-spacing: 0;
-      color: var(--gold);
+      color: var(--accent);
       line-height: 0;
       padding-inline: 0.12em;
       margin-inline: -0.12em;
     }
     .hero--axis-a .hero__title { color: #fff; text-shadow: 0 2px 30px rgba(0,20,28,.45); }
-    .hero--axis-a .hero__title em { color: var(--gold); }
+    .hero--axis-a .hero__title em { color: var(--accent); }
     .hero__title .line {
       display: block;
       position: relative;
@@ -682,7 +691,7 @@
     }
     .axis-b__headlines .hero__title--software .line em {
       display: inline-block;
-      color: var(--gold);
+      color: var(--accent);
       transform: scale(calc(0.9 + 0.1 * var(--line-op, 0)));
     }
     .axis-b__headlines .hero__title--software .line[data-li="1"] { --line-op: var(--pSoftIn, 1); }
@@ -994,7 +1003,7 @@
       letter-spacing: -.04em;
       line-height: 1;
       font-variant-numeric: tabular-nums;
-      color: var(--gold);
+      color: var(--accent);
       text-transform: none;
     }
     .vp__link {
@@ -1520,7 +1529,7 @@
          licensed sizzle master in as the FIRST <source> when it exists.
          =================================================================== -->
     <div class="opening-stage" id="top" data-surface="dark">
-      <section class="hero hero--axis-a" id="heroAxisA" aria-labelledby="heroTitle">
+      <section class="hero hero--axis-a" data-surface="dark" id="heroAxisA" aria-labelledby="heroTitle">
         <div class="hero__media" aria-hidden="true">
           <div class="hero__media-fallback"></div>
           <video class="hero__media-video" id="heroSizzle"
@@ -1547,7 +1556,7 @@
       </section>
 
       <div class="axis-b-stage" id="axisBStage">
-        <section class="axis-b" id="axisB" aria-labelledby="axisBTitle">
+        <section class="axis-b" data-surface="dark" id="axisB" aria-labelledby="axisBTitle">
           <div class="axis-b__shell">
             <div class="axis-b__frame" id="axisBFrame" aria-hidden="true"></div>
           </div>
@@ -1688,7 +1697,7 @@
         </header>
 
         <div class="verts__stage r" id="vertStage" role="group" aria-label="Featured vertical markets">
-          <article class="vp is-open">
+          <article class="vp is-open" data-surface="dark">
             <img class="vp__img" src="assets/img/erp.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="935">
             <div class="vp__shade" aria-hidden="true"></div>
             <button class="vp__toggle" type="button" aria-expanded="true" aria-controls="vp-0">
@@ -1703,7 +1712,7 @@
             </a>
           </article>
 
-          <article class="vp">
+          <article class="vp" data-surface="dark">
             <img class="vp__img" src="assets/img/wine.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="933">
             <div class="vp__shade" aria-hidden="true"></div>
             <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-1">
@@ -1718,7 +1727,7 @@
             </a>
           </article>
 
-          <article class="vp">
+          <article class="vp" data-surface="dark">
             <img class="vp__img" src="assets/img/transport.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="933">
             <div class="vp__shade" aria-hidden="true"></div>
             <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-2">
@@ -1733,7 +1742,7 @@
             </a>
           </article>
 
-          <article class="vp">
+          <article class="vp" data-surface="dark">
             <img class="vp__img" src="assets/img/hospitality.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="933">
             <div class="vp__shade" aria-hidden="true"></div>
             <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-3">
@@ -1748,7 +1757,7 @@
             </a>
           </article>
 
-          <article class="vp">
+          <article class="vp" data-surface="dark">
             <img class="vp__img" src="assets/img/automotive.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="932">
             <div class="vp__shade" aria-hidden="true"></div>
             <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-4">
@@ -1763,7 +1772,7 @@
             </a>
           </article>
 
-          <article class="vp vp--all">
+          <article class="vp vp--all" data-surface="dark">
             <span class="vp__big" aria-hidden="true">11</span>
             <div class="vp__shade" aria-hidden="true"></div>
             <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-5">

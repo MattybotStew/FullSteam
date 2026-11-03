@@ -21,6 +21,10 @@
   --brand-deep: #003F55;
   --brand-ink: #04141B;
   --gold: #FFC600;
+  /* Text-safe golds — same hue as --gold, darkened until they pass. */
+  --gold-display: #AD8700;  /* display type only (>=24px): 3.36:1 */
+  --gold-ink: #956800;      /* any size: 4.93:1 on white, 4.54:1 on --surface */
+  --accent: var(--gold);
   --green: #84BD00;
   --green-ink: #4F750E;
 
@@ -56,6 +60,11 @@
 
   --dur: 240ms;
 }
+
+/* Surfaces declare the text accent, so gold copy passes AA without a per-rule
+   override and without !important. Add data-surface to any new painted block. */
+[data-surface="light"] { --accent: var(--gold-display); }
+[data-surface="dark"] { --accent: var(--gold); }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -132,10 +141,10 @@ button { font: inherit; color: inherit; }
   font-style: italic;
   font-weight: 400;
   letter-spacing: -.015em;
-  color: var(--gold);
+  color: var(--accent);
 }
 
-#faq-title em { color: var(--gold); letter-spacing: 0; }
+#faq-title em { color: var(--accent); letter-spacing: 0; }
 
 #faq-title em { display: block; }
 
@@ -413,7 +422,7 @@ body.story-lightbox-open { overflow: hidden; }
   color: #fff;
   text-shadow: 0 2px 28px rgba(0, 20, 28, .45);
 }
-.hero--narrative-full .hero__title em { color: var(--gold); }
+.hero--narrative-full .hero__title em { color: var(--accent); }
 .hero--narrative-full .lede {
   color: rgba(255, 255, 255, .72);
   max-width: 52ch;
@@ -488,7 +497,7 @@ body.story-lightbox-open { overflow: hidden; }
 }
 
 #company-title em {
-  color: var(--gold);
+  color: var(--accent);
   font-family: var(--serif);
   font-style: italic;
 }
@@ -544,8 +553,8 @@ body.story-lightbox-open { overflow: hidden; }
   margin-bottom: clamp(48px, 6vw, 84px);
 }
 .band__head h2 { grid-column: 1 / 8; }
-.band__head h2 em { color: var(--gold); font-family: var(--serif); font-style: italic; }
-.band--ink .band__head h2 em { color: var(--gold); }
+.band__head h2 em { color: var(--accent); font-family: var(--serif); font-style: italic; }
+.band--ink .band__head h2 em { color: var(--accent); }
 .band__head .lede { grid-column: 9 / 13; padding-bottom: 8px; }
 .band__head .chapters-intro {
   grid-column: 9 / 13;
@@ -900,7 +909,7 @@ body.story-lightbox-open { overflow: hidden; }
   align-items: end;
 }
 .close h2 { max-width: 17ch; }
-.close h2 em { color: var(--gold); }
+.close h2 em { color: var(--accent); }
 .close__lede {
   margin-top: 18px;
   font-size: var(--t-lede);
@@ -1048,7 +1057,7 @@ body.story-lightbox-open { overflow: hidden; }
   </div>
 
   <main id="main">
-    <section class="hero hero--narrative-full" id="top">
+    <section data-surface="dark" class="hero hero--narrative-full" id="top">
       <div class="hero__stage" data-surface="dark">
         <div class="hero__media" aria-hidden="true">
           <div class="hero__media-fallback"></div>
