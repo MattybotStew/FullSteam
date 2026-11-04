@@ -798,3 +798,31 @@ italic's descender, so everything below it was masked out. The fix is to **pad t
 equal negative margins**, so the mask covers the whole word while the line break, heading
 height (145px at 1440) and baseline stay exactly where they were. Verified at 1440 / 1024 /
 768 / 390 / 320 in the final state and mid-wipe, with no horizontal overflow.
+
+---
+
+## 2026-11-03 — Our Story: the timeline plates are drawn out of the rail
+
+**File:** `our-story.html` · **Scope:** the eight `.tl-entry__thumb` plates in `#timeline-v2`
+· **Request:** client — "bring the images in a cool way animation style."
+
+Each thumbnail is now **wiped open from the rail side** while it settles: the plate uncovers
+left → right (`clip-path: inset(0 100% 0 0 round 6px)` → `inset(0 round 6px)`, 0.9s), the
+photo comes down out of a **1.16 over-scale** (1.25s), out of a **9px blur** (0.85s), and out
+of a **half-saturated tint**. It reads as a print being pulled out of the timeline rather than
+a box that fades in — the wipe starts at the rail, so the entrance points back at the entry's
+position in the story.
+
+Once settled, the photo **drifts ~6px against its frame** as the entry crosses the viewport
+(`--tl-py`, written per frame). The drift rides the `translate` property, not `transform`, so
+the per-frame writes cannot be caught by the scale transition.
+
+**Guards — this is a JS-opt-in effect.** The hidden state is scoped to `.tl-anim`, which is only
+added when `prefers-reduced-motion` is off; with JS disabled or motion reduced, the stills are
+simply there. Trigger is a dedicated `IntersectionObserver` (rootMargin `0 0 8%`, threshold .1)
+that fires just before the plate enters, so the wipe is underway rather than late.
+
+Verified: final state sharp and full-frame at 1440 / 390; **0 horizontal overflow** both widths;
+`clip-path` resolves to `inset(0px round 6px)` when settled; reduced motion leaves `clip-path:
+none` with no `tl-anim` class. The 1.09 resting scale is what gives the parallax its room — the
+thumbs are square crops, so the extra 9% is not visible as a change of framing.

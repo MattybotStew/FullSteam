@@ -768,6 +768,33 @@ body.story-lightbox-open { overflow: hidden; }
   object-position: center center;
   display: block;
   filter: saturate(.92) contrast(1.03);
+  transform: scale(1.09);
+  /* parallax rides `translate` so it can be written per frame without the
+     transform transition below swallowing it (2026-11-03) */
+  translate: 0 var(--tl-py, 0px);
+}
+
+/* Timeline plates — drawn out of the rail (2026-11-03) ---------------------
+   The photo is wiped open from the rail side while it settles out of a
+   slight over-scale, a blur, and a desaturated tint, so each entry reads as
+   a print pulled out of the timeline rather than a box that fades in. The
+   hidden state is scoped to .tl-anim, which JS only sets when motion is
+   allowed — with JS off or reduced motion the stills are simply there. */
+.tl-anim .tl-entry__thumb {
+  clip-path: inset(0 100% 0 0 round 6px);
+  transition: clip-path .9s var(--e);
+}
+.tl-anim .tl-entry__thumb img {
+  transform: scale(1.16);
+  filter: blur(9px) saturate(.45) contrast(1.03);
+  transition: transform 1.25s var(--e), filter .85s var(--e);
+}
+.tl-anim .tl-entry.is-in .tl-entry__thumb {
+  clip-path: inset(0 0 0 0 round 6px);
+}
+.tl-anim .tl-entry.is-in .tl-entry__thumb img {
+  transform: scale(1.09);
+  filter: blur(0) saturate(.92) contrast(1.03);
 }
 
 .tl-entry__body { grid-column: 3; }
@@ -1440,6 +1467,40 @@ body.story-lightbox-open { overflow: hidden; }
   var tlProgressCurrent = 0;
   var tlReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var tlRailTop = 8;
+  var tlThumbs = tlRoot ? Array.prototype.slice.call(tlRoot.querySelectorAll(".tl-entry__thumb")) : [];
+  /* Thumbnail choreography is opt-in from JS so a no-JS or reduced-motion
+     visitor gets the stills, never a masked-out plate. */
+  var tlAnim = !!tlRoot && !tlReduceMotion;
+
+  if (tlAnim) {
+    tlRoot.classList.add("tl-anim");
+    if ("IntersectionObserver" in window) {
+      var tlThumbIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("is-in");
+          tlThumbIo.unobserve(e.target);
+        });
+      }, { rootMargin: "0px 0px 8% 0px", threshold: 0.1 });
+      tlEntries.forEach(function (el) { tlThumbIo.observe(el); });
+    } else {
+      tlEntries.forEach(function (el) { el.classList.add("is-in"); });
+    }
+  }
+
+  /* Depth pass: the plate drifts a few pixels against its frame as the entry
+     crosses the viewport. Writes `--tl-py` only, which no transition touches. */
+  function updateThumbParallax() {
+    if (!tlAnim) return;
+    var vh = window.innerHeight || 1;
+    for (var i = 0; i < tlThumbs.length; i++) {
+      var r = tlThumbs[i].getBoundingClientRect();
+      if (r.bottom < -120 || r.top > vh + 120) continue;
+      var p = (r.top + r.height / 2 - vh / 2) / (vh / 2);
+      p = Math.max(-1, Math.min(1, p));
+      tlThumbs[i].style.setProperty("--tl-py", (p * 6).toFixed(2) + "px");
+    }
+  }
 
   function markerCenterY(entry) {
     if (!tlRoot) return 0;
@@ -1485,6 +1546,7 @@ body.story-lightbox-open { overflow: hidden; }
     tlProgressTarget = scrollProbe;
 
     setTimelineActive(active);
+    updateThumbParallax();
 
     if (tlProgress && tlReduceMotion) {
       tlProgressCurrent = tlProgressTarget;
