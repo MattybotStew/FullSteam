@@ -86,6 +86,9 @@ This file is the canonical agent entry point (works with Cursor, which reads
   category landing pages. See `plans/sitemap-lock.md` and KB §14.
 - We are in the **Sitemap/Wireframe** milestone; the **homepage** is the active
   design surface and is still being iterated.
+- **Client review 2026-11-09 (KB §28.10)** is the current hi-fi pass. Read it before
+  changing interior chrome, the Vertical Software hero, vertical panels, the Our Advantage
+  sidebar, the footer, or the Our Story timeline. Wireframes were not redrawn.
 - **The official high-fidelity homepage is `03_Design/client-review/homepage/`**
   (promoted **2026-11-02** — ledger redesign; prior build frozen at
   `client-review/homepage-2026-10-29-official/`). It is **client-facing and tracked**:
@@ -98,10 +101,10 @@ This file is the canonical agent entry point (works with Cursor, which reads
   (KB §23.10) → **How a Fullsteam company compounds** model steps → AI → verticals gallery
   → founders → careers → close. Same narrative order as the 2026-10-29 build; new editorial
   layout and type ladder. Build notes: `client-review/homepage/design-notes.md`.
-- **Interior hero archetypes (hi-fi, `design.md` §4.10):** subpages do **not** share one dark hero
-  template — Vertical Software = **MediaDark** (imagery band); Our Advantage = **EngineLight** (paper
+- **Interior hero archetypes (hi-fi, `design.md` §4.10, amended 2026-11-09):** subpages do **not** share one dark hero
+  template. **Vertical Software** is a **paper-mesh** hero (left-aligned, not MediaDark — see that page’s bullet). Our Advantage = **EngineLight** (paper
   hero → sidebar engine). **Our Story** and **Acquisitions** = **NarrativeLight**; **Careers** =
-  **MediaDark** split hero; Contact / legal remain wireframe until promoted.
+  **MediaDark** split hero. **Contact** is a promoted hi-fi page (`contact.html`, paper hero). Legal pages remain wireframe.
 - **Vertical Software — second client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/vertical-software.html`, linked from the homepage
   (`index.html`, nine gallery/CTA targets vs wireframe cross-links). **IA unchanged** — single
@@ -113,6 +116,9 @@ This file is the canonical agent entry point (works with Cursor, which reads
   are min or standard with placeholders. Named products/figures need **client clearance
   (KB §29.7 / OI-16)** before publish. Provenance: `assets/credits.json`; build:
   `design-notes.md` §2026-11-03.
+  **Amended 2026-11-09 (KB §28.10):** panels are a title plus one paragraph (lede removed). Logo rows are full-width and labeled — business units, then stats, then customers & partners. Min still hides logos; screens stay on Weddings only.
+  **Hero (2026-11-09):** left-aligned paper mesh, not the dark imagery band. Headline is two lines that must not reflow into one: “Mission-critical” in Instrument Sans, “software.” on its own line in Instrument Serif italic **Bio Blue** (`#00587C`). Type matches the homepage hero (`clamp(50px, 8.34vw, 120px)` — 120px at 1440). Content padding is 90px desktop, 48px under 900px, 32px under 640px. Mesh pools to the right; type stays on paper. Do not restore MediaDark or put gold on “software.”
+  **Figma:** frame **`11541:657`** “Vertical Software — Fullsteam” on page `✅ Design [WIP] 2` (file `3oHvScSPrK5l6N1qfv9WCw`) was redrawn **2026-11-09** to that hero plus the solid white header. Edit that frame in place. Do not recapture it as the old dark plate.
 - **Our Advantage — third client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/our-advantage.html`, linked from homepage and Vertical
   Software chrome. **IA unchanged** — single page, sticky sidebar with three groups
@@ -125,8 +131,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Our Story — fourth client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/our-story.html`, linked from homepage, Vertical Software,
   and Our Advantage chrome. **IA unchanged** — NarrativeLight hero (compact AGL + portrait bleed +
-  proof placeholders), 01 company mission/vision video slot, 02 chapter timeline (six rows,
-  years pending), `#leadership` ink band (six card placeholders), homepage-style close. Figma
+  proof placeholders), 01 company mission/vision video slot, 02 chapter timeline (**four milestones, years removed** — founding, office openings, building on LLMs, SDR team expansion; KB **§28.10**, 2026-11-09), `#leadership` ink band (six card placeholders), homepage-style close. Figma
   wireframe **`11489:10772`**. Build: `design-notes.md` §2026-11-03.
 - **Careers — fifth client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/careers.html`, linked from the homepage (menu, careers
@@ -155,6 +160,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
   **⚠ Two CTA wordings are live.** The site-wide locked label is "Explore our vertical
   solutions"; the homepage builds (official + 2026-11-02) ship **"Explore our verticals"**
   per the 2026-10-29 client note (KB §28.3). Global ratification is still open.
+  **Interior header (2026-11-09):** Our Advantage, Vertical Software, Our Story, Careers, Acquisitions, and Contact use a **solid white** bar from first paint (`#fff`, ink logo, ink menu, gold Explore fill). It stays white over dark bands. The homepage opening bar stays transparent over the dark plate. Menu foot line is **Building on Great** (menu only).
 - **Homepage opening = Axis A → copy swap → Axis B (locked 2026-09-24 · Axis A amended
   2026-10-01 · transition amended 2026-10-29).** The first viewport is a **two-state pinned
   sequence**, not one hero: Axis A (what Fullsteam owns) hands off to Axis B (the growth model)
@@ -273,14 +279,13 @@ This file is the canonical agent entry point (works with Cursor, which reads
   the CTA stays **"Explore our vertical solutions."**
 - **Vertical Software is a single page** (revised 2026-09-15 · sidebar inline 2026-10-01): a
   **sticky sidebar** lists all 11 verticals and **swaps the story inline** (no modal, no tiles);
-  **no child pages**, no category labels. The Menu overlay lists the same 11 flat (two columns).
+  **no child pages**, no category labels. The Menu overlay is a **single column** and does not list the 11 verticals (they stay on this page).
   Homepage shows a revenue-ordered subset only. **find-your-vertical** type-ahead filters the
-  sidebar (not header search).
+  sidebar (not header search). **Hero and panels as of 2026-11-09:** see the client-review bullet above and KB **§28.10**.
 - **Our Advantage is a single page** (clarified 2026-09-28 · layout changed 2026-10-01):
   all four offerings (**Payments, Lending, Insurance, AI at Fullsteam**) sit on one page as a
   **sticky sidebar that swaps content inline** on a **white background** — the same pattern as
-  Vertical Software (this **replaced** the earlier 2026-10-01 horizontal filmstrip; **flag for
-  client ratification**). **No child pages** — **AI is a card/panel, not its own page** (supersedes
+  Vertical Software (this **replaced** the earlier 2026-10-01 horizontal filmstrip). **Group order (2026-11-09, Figma `11541:1393`):** Embedded Fintech, then AI at Fullsteam (mono label plus a `--green-ink` frame; the active row is bright green with ink type), then Operational Excellence. Seven links. `#ai` stays the default panel. **No child pages** — **AI is a card/panel, not its own page** (supersedes
   the 2026-09-10 "AI is its own page"). **Hardware and Integrations are not separate pages** (folded
   into Payments / the Our Advantage page), 2026-09-10.
 - **Wireframe headlines are intent, not copy (2026-10-01):** every content `h1/h2/h3` across the
