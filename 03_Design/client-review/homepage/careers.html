@@ -199,30 +199,26 @@ button { font: inherit; color: inherit; }
 
 /* ---------- header · official homepage chrome ---------- */
 
+/* Interior chrome is a solid white bar on first paint and over every
+   surface. Scroll still toggles is-solid / is-on-dark; neither may
+   reintroduce a translucent mix or an ink scrim. Gold stays the Explore fill. */
 .bar {
   position: fixed; inset: 0 0 auto 0; z-index: 90;
   height: var(--bar);
   display: flex; align-items: center; justify-content: space-between;
   gap: 20px;
   padding: 0 var(--gutter);
-  color: #fff;
-  --focus: #fff;
-  border-bottom: 1px solid transparent;
-  transition: background-color .3s var(--e), color .3s var(--e), border-color .3s var(--e);
+  background: #fff;
+  color: var(--ink);
+  --focus: var(--brand);
+  border-bottom: 1px solid var(--line);
 }
-.bar.is-solid {
-  background: color-mix(in srgb, #fff 94%, transparent);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+.bar.is-solid,
+.bar.is-on-dark {
+  background: #fff;
   color: var(--ink);
   border-bottom-color: var(--line);
   --focus: var(--brand);
-}
-.bar.is-on-dark {
-  background: color-mix(in srgb, var(--brand-ink) 86%, transparent);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  border-bottom-color: var(--dark-hair);
 }
 .bar__logo {
   position: relative; display: block;
@@ -236,10 +232,12 @@ button { font: inherit; color: inherit; }
   object-fit: contain; object-position: left center;
   transition: opacity .25s var(--e);
 }
-.logo--w { opacity: 1; }
-.logo--ink { opacity: 0; }
-.bar.is-solid .logo--w { opacity: 0; }
-.bar.is-solid .logo--ink { opacity: 1; }
+.logo--w { opacity: 0; }
+.logo--ink { opacity: 1; }
+.bar.is-solid .logo--w,
+.bar.is-on-dark .logo--w { opacity: 0; }
+.bar.is-solid .logo--ink,
+.bar.is-on-dark .logo--ink { opacity: 1; }
 .bar__actions { display: flex; align-items: center; gap: 10px; }
 .menu-btn {
   display: grid; place-content: center; gap: 5px;
@@ -750,6 +748,14 @@ body.menu-open { overflow: hidden; }
 .footer__sub a:hover { color: #fff; }
 .footer a { transition: color .14s var(--e-quick); }
 .footer a:hover { color: #fff; }
+.footer__cat > a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.footer__cat > a:hover { color: #fff; }
 .footer__bottom {
   padding-top: 24px;
   display: flex; align-items: center; justify-content: space-between;
@@ -896,7 +902,7 @@ body.menu-open { overflow: hidden; }
       <a href="for-founders.html">Acquisitions</a>
       <a href="careers.html" aria-current="page">Careers</a>
       <div class="menu__foot">
-        <span>A home for vertical software</span>
+        <span>Building on Great</span>
         <span>&copy; 2026</span>
       </div>
     </div>
@@ -1148,13 +1154,13 @@ body.menu-open { overflow: hidden; }
           <h3>Explore</h3>
           <ul>
             <li><a href="vertical-software.html">Vertical Software</a></li>
+            <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#payments">Payments</a></li>
-                <li><a href="our-advantage.html#lending">Lending</a></li>
-                <li><a href="our-advantage.html#insurance">Insurance</a></li>
+                <li><a href="our-advantage.html#payments">Embedded Fintech</a></li>
+                <li><a href="our-advantage.html#sales-marketing">Operational Excellence</a></li>
               </ul>
             </li>
             <li><a href="for-founders.html">Acquisitions</a></li>

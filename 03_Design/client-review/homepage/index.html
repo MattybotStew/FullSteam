@@ -954,6 +954,10 @@
       display: flex; gap: 6px;
       height: clamp(430px, 60vh, 620px);
     }
+    a.vp {
+      color: #fff;
+      text-decoration: none;
+    }
     .vp {
       position: relative;
       flex: 1 1 0;
@@ -980,14 +984,12 @@
         linear-gradient(90deg, rgba(3, 16, 22, .34), rgba(3, 16, 22, 0) 55%);
       pointer-events: none;
     }
-    .vp__toggle {
+    .vp__face {
       position: absolute; inset: 0; z-index: 2;
       display: flex; flex-direction: column; justify-content: flex-end;
       padding: 22px;
-      border: 0; background: transparent;
       color: #fff; text-align: left;
-      cursor: pointer;
-      --focus: #fff;
+      pointer-events: none;
     }
     .vp__idx {
       position: absolute; top: 20px; left: 22px;
@@ -1054,11 +1056,41 @@
       padding-bottom: 3px;
     }
     .vp.is-open .vp__link {
-      opacity: 1; visibility: visible; pointer-events: auto;
+      opacity: 1; visibility: visible;
       transition: opacity .3s var(--e), visibility 0s;
     }
-    .vp.is-open .vp__toggle { padding-bottom: 62px; }
-    .vp__toggle:focus-visible { outline-offset: -4px; }
+    .vp.is-open .vp__face { padding-bottom: 62px; }
+    a.vp:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+    /* Hover expands the card under the pointer. The resting .is-open card
+       returns when the pointer leaves. The whole card is the link. */
+    @media (hover: hover) and (pointer: fine) and (min-width: 901px) {
+      .verts__stage:hover .vp,
+      .verts__stage:focus-within .vp { flex-grow: 1; }
+      .verts__stage:hover .vp:hover,
+      .verts__stage:focus-within .vp:focus-visible { flex-grow: 2.7; }
+      .verts__stage:hover .vp .vp__details,
+      .verts__stage:focus-within .vp .vp__details { max-height: 0; opacity: 0; }
+      .verts__stage:hover .vp:hover .vp__details,
+      .verts__stage:focus-within .vp:focus-visible .vp__details { max-height: 240px; opacity: 1; }
+      .verts__stage:hover .vp .vp__name,
+      .verts__stage:focus-within .vp .vp__name {
+        font-size: clamp(13px, 1.05vw, 16px);
+      }
+      .verts__stage:hover .vp:hover .vp__name,
+      .verts__stage:focus-within .vp:focus-visible .vp__name {
+        font-size: clamp(28px, 2.9vw, 40px);
+      }
+      .verts__stage:hover .vp .vp__link,
+      .verts__stage:focus-within .vp .vp__link { opacity: 0; visibility: hidden; }
+      .verts__stage:hover .vp:hover .vp__link,
+      .verts__stage:focus-within .vp:focus-visible .vp__link {
+        opacity: 1; visibility: visible;
+      }
+      .verts__stage:hover .vp .vp__face,
+      .verts__stage:focus-within .vp .vp__face { padding-bottom: 22px; }
+      .verts__stage:hover .vp:hover .vp__face,
+      .verts__stage:focus-within .vp:focus-visible .vp__face { padding-bottom: 62px; }
+    }
     .vp--all .vp__img { display: none; }
     .vp--all {
       background: linear-gradient(160deg, #006C99 0%, #003F55 62%, #032B39 100%);
@@ -1419,6 +1451,14 @@
     .footer__sub a:hover { color: #fff; }
     .footer a { transition: color .14s var(--e-quick); }
     .footer a:hover { color: #fff; }
+    .footer__cat > a {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+    .footer__cat > a:hover { color: #fff; }
     .footer__bottom {
       padding-top: 24px;
       display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
@@ -1470,7 +1510,7 @@
       .vp { flex: none; height: 92px; transition: height .45s var(--e); }
       .vp.is-open { height: 330px; }
       .vp__name, .vp.is-open .vp__name { white-space: normal; }
-      .vp__toggle { padding: 18px 20px; }
+      .vp__face { padding: 18px 20px; }
       .vp__idx { top: 16px; left: 20px; }
       .vp__details { max-height: 0; }
       .vp.is-open .vp__details { max-height: 260px; }
@@ -1543,8 +1583,8 @@
 /* Hit area without moving the underline: the border stays where the
    type puts it, the ::after takes the taps. */
 @media (hover: none) {
-  .arrow-link, .vp__link { position: relative; }
-  .arrow-link::after, .vp__link::after {
+  .arrow-link { position: relative; }
+  .arrow-link::after {
     content: "";
     position: absolute;
     inset: -11px -6px;
@@ -1585,7 +1625,7 @@
       <a href="for-founders.html">Acquisitions</a>
       <a href="careers.html">Careers</a>
       <div class="menu__foot">
-        <span>A home for vertical software</span>
+        <span>Building on Great</span>
         <span>&copy; 2026</span>
       </div>
     </div>
@@ -1770,95 +1810,95 @@
         </header>
 
         <div class="verts__stage r" id="vertStage" role="group" aria-label="Featured vertical markets">
-          <article class="vp is-open" data-surface="dark">
+          <a class="vp is-open" href="vertical-software.html#erp" data-surface="dark">
             <img class="vp__img" src="assets/img/erp.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="935">
             <div class="vp__shade" aria-hidden="true"></div>
-            <button class="vp__toggle" type="button" aria-expanded="true" aria-controls="vp-0">
+            <span class="vp__face">
               <span class="vp__name">ERP</span>
               <span class="vp__details" id="vp-0">
                 <span class="vp__meta">4.2M</span>
                 <span class="vp__desc">work orders a year</span>
               </span>
-            </button>
-            <a class="vp__link" href="vertical-software.html#erp">Learn more
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-            </a>
-          </article>
+              <span class="vp__link">Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </a>
 
-          <article class="vp" data-surface="dark">
+          <a class="vp" href="vertical-software.html#wine" data-surface="dark">
             <img class="vp__img" src="assets/img/wine.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="933">
             <div class="vp__shade" aria-hidden="true"></div>
-            <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-1">
+            <span class="vp__face">
               <span class="vp__name">Wine</span>
               <span class="vp__details" id="vp-1">
                 <span class="vp__meta">28M</span>
                 <span class="vp__desc">bottles shipped a year</span>
               </span>
-            </button>
-            <a class="vp__link" href="vertical-software.html#wine">Learn more
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-            </a>
-          </article>
+              <span class="vp__link">Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </a>
 
-          <article class="vp" data-surface="dark">
+          <a class="vp" href="vertical-software.html#transportation" data-surface="dark">
             <img class="vp__img" src="assets/img/transport.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="933">
             <div class="vp__shade" aria-hidden="true"></div>
-            <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-2">
+            <span class="vp__face">
               <span class="vp__name">Transportation</span>
               <span class="vp__details" id="vp-2">
                 <span class="vp__meta">6.5M</span>
                 <span class="vp__desc">black-car rides a year</span>
               </span>
-            </button>
-            <a class="vp__link" href="vertical-software.html#transportation">Learn more
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-            </a>
-          </article>
+              <span class="vp__link">Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </a>
 
-          <article class="vp" data-surface="dark">
+          <a class="vp" href="vertical-software.html#hospitality" data-surface="dark">
             <img class="vp__img" src="assets/img/hospitality.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="933">
             <div class="vp__shade" aria-hidden="true"></div>
-            <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-3">
+            <span class="vp__face">
               <span class="vp__name">Hospitality</span>
               <span class="vp__details" id="vp-3">
                 <span class="vp__meta">9.1M</span>
                 <span class="vp__desc">covers served a year</span>
               </span>
-            </button>
-            <a class="vp__link" href="vertical-software.html#hospitality">Learn more
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-            </a>
-          </article>
+              <span class="vp__link">Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </a>
 
-          <article class="vp" data-surface="dark">
+          <a class="vp" href="vertical-software.html#automotive" data-surface="dark">
             <img class="vp__img" src="assets/img/automotive.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="932">
             <div class="vp__shade" aria-hidden="true"></div>
-            <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-4">
+            <span class="vp__face">
               <span class="vp__name">Automotive</span>
               <span class="vp__details" id="vp-4">
                 <span class="vp__meta">3.8M</span>
                 <span class="vp__desc">oil changes booked a year</span>
               </span>
-            </button>
-            <a class="vp__link" href="vertical-software.html#automotive">Learn more
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-            </a>
-          </article>
+              <span class="vp__link">Learn more
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </a>
 
-          <article class="vp vp--all" data-surface="dark">
+          <a class="vp vp--all" href="vertical-software.html" data-surface="dark">
             <span class="vp__big" aria-hidden="true">11</span>
             <div class="vp__shade" aria-hidden="true"></div>
-            <button class="vp__toggle" type="button" aria-expanded="false" aria-controls="vp-5">
+            <span class="vp__face">
               <span class="vp__name">All verticals</span>
               <span class="vp__details" id="vp-5">
                 <span class="vp__meta">11</span>
                 <span class="vp__desc">vertical software businesses, each a category leader in its own market.</span>
               </span>
-            </button>
-            <a class="vp__link" href="vertical-software.html">Explore all verticals
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-            </a>
-          </article>
+              <span class="vp__link">Explore all verticals
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </span>
+            </span>
+          </a>
         </div>
         <p class="verts__exit r">Growth needs more than ownership &mdash; it needs intelligence.</p>
       </div>
@@ -2083,13 +2123,13 @@
           <h3>Explore</h3>
           <ul>
             <li><a href="vertical-software.html">Vertical Software</a></li>
+            <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#payments">Payments</a></li>
-                <li><a href="our-advantage.html#lending">Lending</a></li>
-                <li><a href="our-advantage.html#insurance">Insurance</a></li>
+                <li><a href="our-advantage.html#payments">Embedded Fintech</a></li>
+                <li><a href="our-advantage.html#sales-marketing">Operational Excellence</a></li>
               </ul>
             </li>
             <li><a href="for-founders.html">Acquisitions</a></li>
@@ -2171,6 +2211,7 @@
            exempt — chrome floats there by design. */
         bar.classList.toggle('is-on-dark', dark && !inOpening);
         renderAxisB();
+        revealStepsFromScroll();
         ticking = false;
       }
 
@@ -2319,7 +2360,7 @@
       var stepEls = $$('.step');
       var stepNumbers = stepEls.map(function (s) { return $$('[data-count]', s); });
       var counted = [];
-      var STEP_STAGGER_MS = 260;
+      var STEP_STAGGER_MS = 420;
       var scaleBand = $('#scale');
       var modelStrokesVisible = reduce.matches;
 
@@ -2329,27 +2370,44 @@
         if (scaleBand) scaleBand.classList.add('is-strokes-in');
       }
 
-      function revealModelStepsStaggered() {
-        if (!modelStepEls.length) return;
-        if (reduce.matches) {
-          modelStepEls.forEach(function (step, i) {
-            step.classList.add('in');
-            if (stepNumbers[i].length && !counted[i]) {
-              counted[i] = true;
-              stepNumbers[i].forEach(runCount);
-            }
-          });
-          return;
+      function revealStep(step, i) {
+        if (step.classList.contains('in')) return;
+        step.classList.add('in');
+        if (i === 0) showModelStrokes();
+        if (stepNumbers[i] && stepNumbers[i].length && !counted[i]) {
+          counted[i] = true;
+          stepNumbers[i].forEach(runCount);
         }
+      }
+
+      /* Acquire, Grow, Lead light up as the band travels through the viewport.
+         Side-by-side columns share one vertical position, so desktop uses scroll
+         progress through #scale. Stacked columns each wait for their own top. */
+      function revealStepsFromScroll() {
+        if (!modelStepEls.length || reduce.matches) return;
+        var vh = window.innerHeight || 1;
+        var stacked = window.innerWidth <= 900;
+        var gates = [0.05, 0.4, 0.74];
+        var p = 1;
+        if (!stacked && scaleBand) {
+          var rect = scaleBand.getBoundingClientRect();
+          var start = vh * 0.92;
+          var end = vh * 0.18;
+          p = clamp01((start - rect.top) / (start - end));
+        }
+        var batch = [];
         modelStepEls.forEach(function (step, i) {
+          if (step.classList.contains('in') || step._arming) return;
+          var ready = stacked
+            ? step.getBoundingClientRect().top < vh * 0.78
+            : p >= gates[i];
+          if (ready) batch.push(i);
+        });
+        batch.forEach(function (i, n) {
+          var step = modelStepEls[i];
+          step._arming = true;
           step.style.setProperty('--d', '0ms');
-          window.setTimeout(function () {
-            step.classList.add('in');
-            if (stepNumbers[i].length && !counted[i]) {
-              counted[i] = true;
-              stepNumbers[i].forEach(runCount);
-            }
-          }, i * STEP_STAGGER_MS);
+          window.setTimeout(function () { revealStep(step, i); }, n * STEP_STAGGER_MS);
         });
       }
 
@@ -2363,22 +2421,10 @@
           });
         }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
         revealEls.forEach(function (el) { io.observe(el); });
-
-        if (modelStepEls.length) {
-          var stepsIo = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) {
-              if (!e.isIntersecting) return;
-              showModelStrokes();
-              revealModelStepsStaggered();
-              stepsIo.unobserve(e.target);
-            });
-          }, { rootMargin: '0px 0px -10% 0px', threshold: 0.18 });
-          stepsIo.observe(modelStepEls[0]);
-        }
       } else {
         revealEls.forEach(function (el) { el.classList.add('in'); });
         showModelStrokes();
-        revealModelStepsStaggered();
+        modelStepEls.forEach(revealStep);
       }
 
       /* --------------------------------------------------------------------
@@ -2408,24 +2454,6 @@
       if (reduce.matches && scaleBand) {
         scaleBand.classList.add('is-strokes-in');
       }
-
-      /* --------------------------------------------------------------------
-         Verticals accordion
-         ------------------------------------------------------------------ */
-      var panels = $$('.vp');
-      panels.forEach(function (panel) {
-        var toggle = $('.vp__toggle', panel);
-        toggle.addEventListener('click', function () {
-          /* one panel always stays open — collapsing the last one left the
-             gallery as a row of empty strips */
-          if (panel.classList.contains('is-open')) return;
-          panels.forEach(function (p) {
-            var open = p === panel;
-            p.classList.toggle('is-open', open);
-            $('.vp__toggle', p).setAttribute('aria-expanded', String(open));
-          });
-        });
-      });
 
       /* --------------------------------------------------------------------
          LinkedIn scroller

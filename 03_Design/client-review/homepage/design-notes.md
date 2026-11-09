@@ -19,6 +19,23 @@ but staged on deploy).
 
 ---
 
+## 2026-11-09 — client review pass
+
+Notes from the morning review, applied on the hi-fi pages in this folder. Sitemap unchanged. Wireframes not redrawn. Record: KB **§28.10**.
+
+| Area | What changed |
+|---|---|
+| Menu | Foot line is **Building on Great** on every client-review page. |
+| Homepage · model | Acquire, Grow, Lead reveal in sequence from scroll progress through `#scale` (420ms only when more than one column crosses in the same frame). Narrow layout reveals each column as it enters. |
+| Homepage · verticals | Hover expands. The card is one link (`vertical-software.html#…`). Resting state keeps the first card open. |
+| Footer | AI at Fullsteam is a green category link. Advantage sublinks: Payments, Embedded Fintech (both `#payments`), Operational Excellence (`#sales-marketing`). Leadership scrolls to `#leadership`. |
+| Vertical Software | Lede removed; one paragraph under the title. Logo rows are separate, labeled, and full width: business units, then stats, then customers & partners. Depth tiers still hide logos on min and screens except full. |
+| Our Advantage | Sidebar matches Figma `11541:1393`: Embedded Fintech, then an AI mono label over a solid `--green-ink` frame (active row is bright green, ink type), then Operational Excellence. Seven links. Default panel remains `#ai`. |
+| Our Story | Timeline kept. Years and the year jump are removed. Four milestones: founding, office openings, building on LLMs, SDR team expansion. |
+| Header | Interior pages (Our Advantage, Vertical Software, Our Story, Careers, Acquisitions, Contact) use a solid white bar (`#fff`, ink logo and menu, gold Explore fill) from first paint. Homepage opening bar is unchanged. |
+
+---
+
 ## 2026-11-03 — Acquisitions page (client-review hi-fi)
 
 **File:** `for-founders.html` (on-page name **Acquisitions**) · **Wireframe:**

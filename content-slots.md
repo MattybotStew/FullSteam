@@ -191,15 +191,15 @@ until assets and clearance exist.
 hides sections; markup for hidden blocks usually stays in the DOM for the content track.
 Promote/demote by changing class + attribute only (`vertical-software.html`).
 
-**Block order (every vertical):** `panel__head` (H3 + optional lede) → `panel__body` (copy + story
-photo or gallery) → `stats` → `logos` (BU + optional partners, from `manifest.json`) → `screens`
-(product UI row). **Story imagery** = “on the ground” (Weddings: scroll gallery + lightbox).
-**Product screenshots** = `.screens` row — not the story gallery.
+**Block order (every vertical, 2026-11-09):** `panel__head` (H3 only — **no lede**) → `panel__body`
+(one paragraph + story photo or gallery) → **Business units** logo row → `stats` → **Customers &
+partners** logo row → `screens` (full tier only). **Story imagery** = “on the ground” (Weddings:
+scroll gallery + lightbox). **Product screenshots** = `.screens` row — not the story gallery.
 
 | Tier | What renders | Verticals |
 |---|---|---|
-| **min** | Title · story · stats. Lede hidden; **first body ¶** reads as lede. No logos, no screens. | Storage & Marina · Health & Wellness · Field Services · Association Management |
-| **standard** | min + visible lede + logo grids. No screens. | Hospitality · Wine · Retail · Transportation · Automotive · ERP |
+| **min** | Title · one paragraph · story · stats. No logos, no screens. | Storage & Marina · Health & Wellness · Field Services · Association Management |
+| **standard** | min + the two full-width logo rows. No screens. | Hospitality · Wine · Retail · Transportation · Automotive · ERP |
 | **full** | standard + screens row. Weddings also has story gallery (reference). | Weddings & Events only (until others promoted) |
 
 **Shorthand for stakeholders:** 4 light · 6 with brands, no UI · 1 full reference (Weddings).
@@ -238,8 +238,8 @@ On-page name is **Our Advantage** (client rename 2026-10-22, propagated repo-wid
 | Slot | Role | Status | Note |
 |---|---|---|---|
 | Beat "Our Advantage" + H1 (intent) | Framing | **Intent** | Rename pending re-lock |
-| Sidebar — AI at Fullsteam | The list | Draft | Own group, **listed first** in the sticky nav (presentation order; IA unchanged). Nav wayfinder lands on `#ai`. **Hi-fi accent = Bio Green** (`#84BD00` / `#4F750E`), not gold — client-review `our-advantage.html` only |
-| Sidebar — Embedded fintech | The list | Draft | Payments · Lending · Insurance |
+| Sidebar — Embedded fintech | The list | Draft | **Listed first** (2026-11-09, Figma `11541:1393`). Payments · Lending · Insurance. |
+| Sidebar — AI at Fullsteam | The list | Draft | **Second.** Mono group label, then a `--green-ink` frame around the row. Active row is bright green with ink type. Nav wayfinder still lands on `#ai` when the URL has no hash. **Hi-fi accent = Bio Green**, not gold — client-review `our-advantage.html` only |
 | Sidebar — Operational Excellence | The list | Draft — pending client ratification | Sales & Marketing · Talent · **Peer Community** (client's "or" option; was Vertical Expertise) |
 | Payments — why embedded is better | Detail | **Intent** | |
 | Payments — key stats | Proof | **Unreconciled** | Client lines (“$75B sales processed”, “top 20 payment processor”) vs KB §22.5 “$75B+ processed on Fullsteam Pay*” (cumulative). Not settled KPIs. OI-5 |

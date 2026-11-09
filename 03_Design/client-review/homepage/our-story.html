@@ -199,30 +199,26 @@ button { font: inherit; color: inherit; }
 
 /* ---------- header · official homepage chrome ---------- */
 
+/* Interior chrome is a solid white bar on first paint and over every
+   surface. Scroll still toggles is-solid / is-on-dark; neither may
+   reintroduce a translucent mix or an ink scrim. Gold stays the Explore fill. */
 .bar {
   position: fixed; inset: 0 0 auto 0; z-index: 90;
   height: var(--bar);
   display: flex; align-items: center; justify-content: space-between;
   gap: 20px;
   padding: 0 var(--gutter);
-  color: #fff;
-  --focus: #fff;
-  border-bottom: 1px solid transparent;
-  transition: background-color .3s var(--e), color .3s var(--e), border-color .3s var(--e);
+  background: #fff;
+  color: var(--ink);
+  --focus: var(--brand);
+  border-bottom: 1px solid var(--line);
 }
-.bar.is-solid {
-  background: color-mix(in srgb, #fff 94%, transparent);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+.bar.is-solid,
+.bar.is-on-dark {
+  background: #fff;
   color: var(--ink);
   border-bottom-color: var(--line);
   --focus: var(--brand);
-}
-.bar.is-on-dark {
-  background: color-mix(in srgb, var(--brand-ink) 86%, transparent);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  border-bottom-color: var(--dark-hair);
 }
 .bar__logo {
   position: relative; display: block;
@@ -236,10 +232,12 @@ button { font: inherit; color: inherit; }
   object-fit: contain; object-position: left center;
   transition: opacity .25s var(--e);
 }
-.logo--w { opacity: 1; }
-.logo--ink { opacity: 0; }
-.bar.is-solid .logo--w { opacity: 0; }
-.bar.is-solid .logo--ink { opacity: 1; }
+.logo--w { opacity: 0; }
+.logo--ink { opacity: 1; }
+.bar.is-solid .logo--w,
+.bar.is-on-dark .logo--w { opacity: 0; }
+.bar.is-solid .logo--ink,
+.bar.is-on-dark .logo--ink { opacity: 1; }
 .bar__actions { display: flex; align-items: center; gap: 10px; }
 .menu-btn {
   display: grid; place-content: center; gap: 5px;
@@ -831,19 +829,20 @@ body.story-lightbox-open { overflow: hidden; }
 }
 
 .tl-entry__year {
-  font-size: clamp(40px, 5vw, 64px);
-  font-weight: 500;
-  letter-spacing: -.04em;
-  line-height: .95;
-  font-variant-numeric: tabular-nums;
-  margin-bottom: clamp(14px, 2vw, 20px);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
 }
 .tl-entry__title {
-  font-size: clamp(22px, 2.4vw, 30px);
+  font-size: clamp(32px, 4vw, 52px);
   font-weight: 500;
-  letter-spacing: -.02em;
+  letter-spacing: -.03em;
   margin-bottom: 14px;
-  line-height: 1.15;
+  line-height: 1.05;
 }
 .tl-entry__title em {
   font-family: var(--serif);
@@ -991,6 +990,14 @@ body.story-lightbox-open { overflow: hidden; }
 .footer__sub a:hover { color: #fff; }
 .footer a { text-decoration: none; color: rgba(255, 255, 255, .86); transition: color .14s var(--e-quick); }
 .footer a:hover { color: #fff; }
+.footer__cat > a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.footer__cat > a:hover { color: #fff; }
 .footer__bottom {
   padding-top: 24px;
   display: flex; align-items: center; justify-content: space-between;
@@ -1135,7 +1142,7 @@ body.story-lightbox-open { overflow: hidden; }
       <a href="for-founders.html">Acquisitions</a>
       <a href="careers.html">Careers</a>
       <div class="menu__foot">
-        <span>A home for vertical software</span>
+        <span>Building on Great</span>
         <span>&copy; 2026</span>
       </div>
     </div>
@@ -1218,117 +1225,69 @@ body.story-lightbox-open { overflow: hidden; }
         <div class="chapters-layout">
           <aside class="chapters-eras" aria-label="Timeline eras">
             <div class="era era--current" data-era="founding">
-              <p class="era__label">Era 01</p>
+              <p class="era__label">01</p>
               <p class="era__name"><em>Founding</em></p>
-              <p class="era__range">2018–2019</p>
               <span class="era__rule" aria-hidden="true"></span>
             </div>
-            <div class="era" data-era="resilience">
-              <p class="era__label">Era 02</p>
-              <p class="era__name"><em>Resilience</em></p>
-              <p class="era__range">2020–2021</p>
+            <div class="era" data-era="offices">
+              <p class="era__label">02</p>
+              <p class="era__name"><em>Offices</em></p>
               <span class="era__rule" aria-hidden="true"></span>
             </div>
-            <div class="era" data-era="scale">
-              <p class="era__label">Era 03</p>
-              <p class="era__name"><em>Scale</em></p>
-              <p class="era__range">2022–2023</p>
+            <div class="era" data-era="llms">
+              <p class="era__label">03</p>
+              <p class="era__name"><em>LLMs</em></p>
               <span class="era__rule" aria-hidden="true"></span>
             </div>
-            <div class="era" data-era="acceleration">
-              <p class="era__label">Era 04</p>
-              <p class="era__name"><em>Acceleration</em></p>
-              <p class="era__range">2024–2025</p>
+            <div class="era" data-era="sdr">
+              <p class="era__label">04</p>
+              <p class="era__name"><em>SDR team</em></p>
               <span class="era__rule" aria-hidden="true"></span>
             </div>
           </aside>
 
           <div class="chapters-main">
-            <nav class="tl-jump" aria-label="Jump to year">
+            <nav class="tl-jump" aria-label="Jump to milestone">
               <span class="tl-jump__label">Jump to</span>
-              <a href="#y2018">2018</a>
-              <a href="#y2019">2019</a>
-              <a href="#y2020">2020</a>
-              <a href="#y2021">2021</a>
-              <a href="#y2022">2022</a>
-              <a href="#y2023">2023</a>
-              <a href="#y2024">2024</a>
-              <a href="#y2025">2025</a>
+              <a href="#milestone-founding">Founding</a>
+              <a href="#milestone-offices">Offices</a>
+              <a href="#milestone-llms">LLMs</a>
+              <a href="#milestone-sdr">SDR team</a>
             </nav>
 
             <div class="tl-v2" id="timeline-v2">
               <div class="tl-v2__progress" id="tlProgress" aria-hidden="true"></div>
 
-              <article class="tl-entry is-active" id="y2018" data-era="founding">
+              <article class="tl-entry is-active" id="milestone-founding" data-era="founding">
                 <span class="tl-entry__marker" aria-hidden="true"></span>
                 <figure class="tl-entry__thumb"><img src="assets/img/founders.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
                 <div class="tl-entry__body">
-                  <p class="tl-entry__year">2018</p>
-                  <h3 class="tl-entry__title"><em>Founded with purpose</em></h3>
-                  <p class="tl-entry__copy">Fullsteam launched to power vertical software through integrated payments and shared services — six acquisitions, offices in Auburn and New York, and a proprietary payments platform in year one.</p>
+                  <h3 class="tl-entry__title"><em>Founding</em></h3>
+                  <p class="tl-entry__copy">Fullsteam launched to power vertical software through integrated payments and shared services — a permanent home for the companies that join, with their names and teams intact.</p>
                 </div>
               </article>
-              <article class="tl-entry" id="y2019" data-era="founding">
-                <span class="tl-entry__marker" aria-hidden="true"></span>
-                <figure class="tl-entry__thumb"><img src="assets/img/hospitality.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
-                <div class="tl-entry__body">
-                  <p class="tl-entry__year">2019</p>
-                  <h3 class="tl-entry__title"><em>Expanding capabilities</em></h3>
-                  <p class="tl-entry__copy">Payments went live with Visa PayFac registration and PCI certification; fifteen more companies joined the platform across self-storage, parking, eyecare, and more.</p>
-                </div>
-              </article>
-              <article class="tl-entry" id="y2020" data-era="resilience">
+              <article class="tl-entry" id="milestone-offices" data-era="offices">
                 <span class="tl-entry__marker" aria-hidden="true"></span>
                 <figure class="tl-entry__thumb"><img src="assets/img/careers.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
                 <div class="tl-entry__body">
-                  <p class="tl-entry__year">2020</p>
-                  <h3 class="tl-entry__title"><em>Building resilience</em></h3>
-                  <p class="tl-entry__copy">Payments volume doubled while the team scaled — vertical software became essential infrastructure for customers navigating the pandemic.</p>
+                  <h3 class="tl-entry__title"><em>Office openings</em></h3>
+                  <p class="tl-entry__copy">The first offices opened in Auburn and New York, close to the operators building the software and the customers running it.</p>
                 </div>
               </article>
-              <article class="tl-entry" id="y2021" data-era="resilience">
-                <span class="tl-entry__marker" aria-hidden="true"></span>
-                <figure class="tl-entry__thumb"><img src="assets/img/wine.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
-                <div class="tl-entry__body">
-                  <p class="tl-entry__year">2021</p>
-                  <h3 class="tl-entry__title"><em>Breaking new ground</em></h3>
-                  <p class="tl-entry__copy">The first international acquisition — Commerce7 in Canada — plus meaningful gains in revenue and transaction volume.</p>
-                </div>
-              </article>
-              <article class="tl-entry" id="y2022" data-era="scale">
-                <span class="tl-entry__marker" aria-hidden="true"></span>
-                <figure class="tl-entry__thumb"><img src="assets/img/transport.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
-                <div class="tl-entry__body">
-                  <p class="tl-entry__year">2022</p>
-                  <h3 class="tl-entry__title"><em>Growth in motion</em></h3>
-                  <p class="tl-entry__copy">Fifty-plus acquisitions, more than a thousand colleagues, and a step-change in revenue and payments footprint.</p>
-                </div>
-              </article>
-              <article class="tl-entry" id="y2023" data-era="scale">
+              <article class="tl-entry" id="milestone-llms" data-era="llms">
                 <span class="tl-entry__marker" aria-hidden="true"></span>
                 <figure class="tl-entry__thumb"><img src="assets/img/erp.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
                 <div class="tl-entry__body">
-                  <p class="tl-entry__year">2023</p>
-                  <h3 class="tl-entry__title"><em>Reaching new heights</em></h3>
-                  <p class="tl-entry__copy">Record monthly payment volume, landmark acquisitions including Silverware and Maestro, and a major recapitalization.</p>
+                  <h3 class="tl-entry__title"><em>Building on LLMs</em></h3>
+                  <p class="tl-entry__copy">AI tools are built on the vertical data the software already holds — large language models applied to one industry’s work, not a generic model set on top.</p>
                 </div>
               </article>
-              <article class="tl-entry" id="y2024" data-era="acceleration">
+              <article class="tl-entry" id="milestone-sdr" data-era="sdr">
                 <span class="tl-entry__marker" aria-hidden="true"></span>
-                <figure class="tl-entry__thumb"><img src="assets/img/weddings-events.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
+                <figure class="tl-entry__thumb"><img src="assets/img/hospitality.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
                 <div class="tl-entry__body">
-                  <p class="tl-entry__year">2024</p>
-                  <h3 class="tl-entry__title"><em>Accelerating progress</em></h3>
-                  <p class="tl-entry__copy">Eleven acquisitions, strong ARR growth, the first insurance offering, and a unified go-to-market kickoff.</p>
-                </div>
-              </article>
-              <article class="tl-entry" id="y2025" data-era="acceleration">
-                <span class="tl-entry__marker" aria-hidden="true"></span>
-                <figure class="tl-entry__thumb"><img src="assets/img/automotive.jpg" alt="" width="800" height="800" loading="lazy" decoding="async"></figure>
-                <div class="tl-entry__body">
-                  <p class="tl-entry__year">2025</p>
-                  <h3 class="tl-entry__title"><em>Building for the future</em></h3>
-                  <p class="tl-entry__copy">AI-based tools, sales and marketing investment, and new acquisitions — a future-proof home for vertical software to compound.</p>
+                  <h3 class="tl-entry__title"><em>SDR team expansion</em></h3>
+                  <p class="tl-entry__copy">Sales and marketing investment grew the team that opens conversations with founders and customers. The people who built the software stay. The bench behind them gets deeper.</p>
                 </div>
               </article>
             </div>
@@ -1402,13 +1361,13 @@ body.story-lightbox-open { overflow: hidden; }
           <h3>Explore</h3>
           <ul>
             <li><a href="vertical-software.html">Vertical Software</a></li>
+            <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#payments">Payments</a></li>
-                <li><a href="our-advantage.html#lending">Lending</a></li>
-                <li><a href="our-advantage.html#insurance">Insurance</a></li>
+                <li><a href="our-advantage.html#payments">Embedded Fintech</a></li>
+                <li><a href="our-advantage.html#sales-marketing">Operational Excellence</a></li>
               </ul>
             </li>
             <li><a href="for-founders.html">Acquisitions</a></li>
@@ -1418,7 +1377,7 @@ body.story-lightbox-open { overflow: hidden; }
           <h3>Company</h3>
           <ul>
             <li><a href="our-story.html">Our Story</a></li>
-            <li><a href="our-story.html#leadership">Leadership</a></li>
+            <li><a href="#leadership">Leadership</a></li>
             <li><a href="careers.html">Careers</a></li>
             <li><a href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener">Open roles &nearr;</a></li>
           </ul>

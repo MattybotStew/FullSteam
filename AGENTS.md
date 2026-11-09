@@ -116,8 +116,9 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Our Advantage — third client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/our-advantage.html`, linked from homepage and Vertical
   Software chrome. **IA unchanged** — single page, sticky sidebar with three groups
-  (**AI at Fullsteam first**, featured rail · Embedded Fintech · Operational Excellence),
-  seven inline panels (`#ai` default without hash). **Payments** full ledger shape;
+  (**Embedded Fintech**, then **AI at Fullsteam** — mono label plus a `--green-ink` frame around the
+  bright-green row, Figma `11541:1393`, client 2026-11-09 — then **Operational Excellence**;
+  `#ai` stays the default panel), seven inline panels (`#ai` default without hash). **Payments** full ledger shape;
   **AI** full panel (use cases + video; **green** featured-rail accent); Sales & Marketing / Talent / Lending / Insurance / Peer Community panel placeholders until M2. Figma AI reference **`11462:8214`** (WF v2 chunk).
   FAQ matches Vertical Software two-column pattern. Figma wireframe reference **`11489:10607`**
   on WF v2; hi-fi Figma frame not yet captured. Build: `design-notes.md` §2026-11-03.

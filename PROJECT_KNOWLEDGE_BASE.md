@@ -8,7 +8,8 @@
 > `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22); **Fullsteam Messaging Architecture** (marketing messaging architecture, received 2026-10-26 — distilled in §29, supersedes §22's pillars/themes)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22, superseded in part by **§29**); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-11-03 (**Vertical Software client-review** — `vertical-software.html` on Pages; **panel content depth tiers** locked — §28.9: min / standard / full proof stacks; Weddings = full reference with story gallery + lightbox. Named products/stats **not publishable** until cleared — §29.7 / OI-16. Build: `design-notes.md` §2026-11-03; slots: `content-slots.md` §5.0)
+> **Last updated:** 2026-11-09 (**client-review pass** — menu tagline **Building on Great**; homepage Acquire/Grow/Lead reveals on scroll; vertical cards hover-expand and the whole card links; footer AI header + Advantage sublinks Payments / Embedded Fintech / Operational Excellence; Leadership is `#leadership`; vertical panels drop the lede and split logo rows; Our Advantage sidebar matches Figma `11541:1393` — Embedded Fintech, AI label plus green-ink frame, Operational Excellence; Our Story timeline is four milestones, years de-emphasized. **§28.10**. No sitemap change.)
+> **Prior update:** 2026-11-03 (**Vertical Software client-review** — `vertical-software.html` on Pages; **panel content depth tiers** locked — §28.9: min / standard / full proof stacks; Weddings = full reference with story gallery + lightbox. Named products/stats **not publishable** until cleared — §29.7 / OI-16. Build: `design-notes.md` §2026-11-03; slots: `content-slots.md` §5.0)
 > **Prior update:** 2026-10-26 (**§29 — Fullsteam Messaging Architecture** from marketing: master thesis "Empower the Builders. Lead the Industry.", pillars renamed **Essential / Grow / Lead** (first alignment with the homepage's Acquire/Grow/Lead model), three new product proof points (3,500 wineries · 400k dresses · 1M boats) and five named partners — all **not publishable** until cleared. Adds **OI-15** (marketing wants a "dedicated investor track", which the §14 sitemap lock removed — client decision), **OI-16** (named-customer/product clearance), **OI-17** (cybersecurity claim). No IA, opening, or homepage change; raw copy kept in gitignored `clientDocs/`)
 > **Prior update:** 2026-10-26 (official homepage: the 3-card proof band was **replaced by the
 > **scale chapter** — leader-table figures with count-up, a drawn stroke to a gold terminus, and a
@@ -2822,7 +2823,7 @@ matching `panel--depth-*`. CSS hides blocks; markup for hidden sections usually 
 so the content track can fill slots without restructuring HTML. Promote/demote by changing class +
 attribute only.
 
-**Shared panel stack (top → bottom).** Every vertical uses the same block order:
+**Shared panel stack (top → bottom).** Amended **2026-11-09** — see **§28.10**. The lede is gone, and logo rows are split around the stats. Historical order below is the 2026-11-03 stack:
 
 | Block | Role |
 |---|---|
@@ -2861,6 +2862,20 @@ it is now **forked into a sandbox**: `03_Design/explorations/homev5/` is a byte-
 **Try changes in `homev5/`, then port the diff back deliberately** — do not edit
 `client-review/homepage/index.html` as an experiment, and do not copy the whole sandbox file
 back over it. See `03_Design/explorations/homev5/direction.md`.
+
+### 28.10 Client review — 2026-11-09
+
+Applied on the official client-review HTML (`03_Design/client-review/homepage/`). **No sitemap or IA change.** Wireframes were not redrawn.
+
+| Surface | Change |
+|---|---|
+| Menu | Foot line is **Building on Great**. Page titles, hero lines, and the footer sentence are unchanged. |
+| Homepage model | Acquire, Grow, and Lead reveal in that order as `#scale` scrolls through the viewport. On a narrow screen each column waits for its own position. |
+| Homepage verticals | Hover expands a card (desktop). The whole card links to that vertical. One card stays open at rest. |
+| Footer | **AI at Fullsteam** is its own category link (green). Under Our Advantage: **Payments**, **Embedded Fintech** (both open `#payments`), **Operational Excellence** (`#sales-marketing`). **Leadership** is `our-story.html#leadership`; on Our Story itself it is `#leadership`. |
+| Vertical Software | Every panel is a title plus one paragraph (the lede is removed). Then, where the tier shows logos: **Business units** (full width) → **stats** → **Customers & partners** (full width). Product screens stay last on the full tier. Min panels still hide both logo rows. |
+| Our Advantage sidebar | Matches Figma `11541:1393`. Groups: **Embedded Fintech** (Payments, Lending, Insurance), **AI at Fullsteam** (mono label, then a `--green-ink` frame around the bright-green active row), **Operational Excellence** (Sales & Marketing, Talent, Peer Community). `#ai` is still the panel when the URL has no hash. |
+| Our Story timeline | Kept. Year numerals and the year jump are gone. Four milestones: founding, office openings (Auburn and New York), building on LLMs, SDR team expansion. Copy does not add dates or headcount. |
 
 ---
 
