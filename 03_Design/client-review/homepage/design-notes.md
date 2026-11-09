@@ -187,9 +187,13 @@ force-add gitignored logo assets to git — describe deploy staging only in docs
 
 | Tier | Class | Sections shown | Verticals (11) |
 |------|--------|----------------|----------------|
-| **Min** | `panel--depth-min` | H3 · story + photo · stats (no visible lede — first body ¶ acts as lede) | Storage & Marina · Health & Wellness · Field Services · Association Management |
-| **Standard** | `panel--depth-standard` | Min + visible **`panel__lede`** + **logo grids** (manifest when present) | Hospitality · Wine · Retail · Transportation · Automotive · ERP |
+| **Min** | `panel--depth-min` | H3 · one paragraph + photo · stats | Storage & Marina · Health & Wellness · Field Services · Association Management |
+| **Standard** | `panel--depth-standard` | Min + **business-unit logo band** + **customer/partner logo band** (manifest when present) | Hospitality · Wine · Retail · Transportation · Automotive · ERP |
 | **Full** | `panel--depth-full` | Standard + **product screen row** (and story gallery on Weddings) | **Weddings & Events** (reference) |
+
+Band order is **content → Business-unit logos → stats → Customers & partners** (2026-11-09).
+The `panel__lede` subtitle layer was removed from every panel on 2026-11-09; each panel body is
+a single paragraph.
 
 Promote/demote a vertical by changing class + `data-content-depth` only — markup blocks stay in the DOM for the content track.
 
@@ -843,3 +847,40 @@ Verified: final state sharp and full-frame at 1440 / 390; **0 horizontal overflo
 `clip-path` resolves to `inset(0px round 6px)` when settled; reduced motion leaves `clip-path:
 none` with no `tl-anim` class. The 1.09 resting scale is what gives the parallax its room — the
 thumbs are square crops, so the extra 9% is not visible as a change of framing.
+
+---
+
+## 2026-11-09 — client-review fixes: panels, logo bands, footer, tagline
+
+**Files:** `vertical-software.html`, `our-advantage.html` · **Request:** the 2026-11-09 client
+feedback list (KB §28.10).
+
+**Vertical panels — one paragraph, no subtitle layer.** The `panel__lede` subtitle is gone from
+all 11 panels (was the second type line under the H3, visible on standard/full depth). Each
+`panel__copy` is now a **single paragraph** — the first body paragraph is kept, and the second
+("We build for the operating core…" / "Built by bridal, floral, and event pros…") is dropped
+because it was the marketing-heavy half the client asked to lose. The `.panel__lede` CSS and the
+`.panel--depth-min .panel__lede` rule are removed; min depth still styles `.panel__copy p:first-child`
+as the lede. Result: **title + short paragraph**, everywhere.
+
+**Logo bands — split and reordered.** Each panel is now, in order:
+`content (title + paragraph + story frame)` → **`div.logos.logos--units`** (Business-unit
+software) → `div.stats` → **`div.logos.logos--partners`** (Customers & partners) → `div.screens`.
+Three changes made this read as two sections rather than one 2-up grid:
+1. `.logos` is **one column** (`minmax(0,1fr)`) so each band spans the content column full width.
+2. `.logos__grid` is **4 columns** on desktop, **2** at ≤640px (was 2 everywhere).
+3. `.logos__head` is **visible again** — it was in the "minimal chrome" `display:none` bundle.
+   The manifest JS no longer flips the title to `.sr-only`, so fetched logos keep their label.
+`.screens__head` stays hidden (product screenshots were not part of the ask).
+
+**Footer — Advantage block.** `vertical-software.html` and `our-advantage.html` carried the old
+structure (AI + Payments/Lending/Insurance inside `footer__sub`). Both now match `index.html`:
+`li.footer__cat` → **AI at Fullsteam** (green mono, own category) and `Our Advantage` sublinks
+**Payments · Embedded Fintech · Operational Excellence**. Added the missing `.footer__cat` CSS to
+both files. Leadership stays a `#leadership` anchor.
+
+**Navigation tagline.** Both files still read `A home for vertical software` in `.menu__foot`;
+now **Building on Great** on all seven client-review pages.
+
+Verified at 1440 / 390: panel order reads units → stats → partners, labels visible, 4-up then
+2-up grids, one paragraph per panel, tagline and footer sublinks correct.

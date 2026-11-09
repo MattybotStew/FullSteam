@@ -748,14 +748,7 @@ body.story-lightbox-open { overflow: hidden; }
   margin-top: 0;
 }
 
-.panel__lede {
-  margin-top: 14px;
-  max-width: 52ch;
-  font-size: var(--t-lede);
-}
-
 /* Content depth — not every vertical ships the same proof stack (design-notes §2026-11-03) */
-.panel--depth-min .panel__lede { display: none; }
 .panel--depth-min .panel__copy p:first-child {
   font-size: var(--t-lede);
   line-height: 1.55;
@@ -1052,7 +1045,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 
 .logos {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(24px, 3.4vw, 44px);
   margin-top: clamp(32px, 4vw, 48px);
 }
@@ -1074,8 +1067,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   color: var(--muted);
 }
 
-/* Minimal chrome — section labels live in aria-label / sr-only, not mono headers */
-.logos__head,
+/* Section labels are visible on the split logo bands (2026-11-09 client review) */
 .screens__head { display: none; }
 
 .logos__group[aria-label],
@@ -1084,7 +1076,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 
 .logos__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   border-left: 1px solid var(--line);
   border-top: 1px solid var(--line);
 }
@@ -1258,6 +1250,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 .footer__sub li + li { margin-top: 9px; }
 .footer__sub a { font-size: 14px; color: rgba(255, 255, 255, .5); }
 .footer__sub a:hover { color: #fff; }
+.footer__cat > a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.footer__cat > a:hover { color: #fff; }
 .footer a { text-decoration: none; color: rgba(255, 255, 255, .86); transition: color .14s var(--e-quick); }
 .footer a:hover { color: #fff; }
 .footer__bottom {
@@ -1344,6 +1344,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   .stat:last-child { border-bottom: 0; }
 
   .logos { grid-template-columns: minmax(0, 1fr); }
+  .logos__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .screens { grid-template-columns: minmax(0, 1fr); }
   .screens .screen { aspect-ratio: 16 / 9; }
 
@@ -1442,7 +1443,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
       <a href="for-founders.html">Acquisitions</a>
       <a href="careers.html">Careers</a>
       <div class="menu__foot">
-        <span>A home for vertical software</span>
+        <span>Building on Great</span>
         <span>&copy; 2026</span>
       </div>
     </div>
@@ -1484,28 +1485,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-standard" id="panel-hospitality" data-slug="hospitality" data-content-depth="standard" aria-labelledby="title-hospitality">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-hospitality">Service runs on the software, not beside it.</h3>
-            <p class="lede panel__lede">Covers, turns, tabs, and tips move faster than a back office can keep up. Hospitality software has to hold the whole service in one place.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>A restaurant's night is a sequence of commitments: the reservation book, the floor plan, the check, the tip pool, the close. Software that models only the point of sale leaves the rest of the shift in notebooks and group chats.</p>
-              <p>We build for the operating core — the part a general platform cannot reach without becoming a hospitality company. The brand, the team, and the way the house runs stay exactly where they are.</p>
             </div>
             <figure class="frame frame--story"><img src="assets/img/hospitality.jpg" alt="A professional kitchen during service" loading="lazy" decoding="async"><figcaption class="frame__cap">Hospitality · on the ground</figcaption></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1524,13 +1526,11 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-full" id="panel-weddings-events" data-slug="weddings-events" data-content-depth="full" aria-labelledby="title-weddings-events">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-weddings-events">Every event is a one-off, and every one has a date.</h3>
-            <p class="lede panel__lede">Behind the biggest moments in people&rsquo;s lives is a network of small businesses that make them happen.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>Our software runs more than 2,200 bridal boutiques around the world where the dress is found, powers the independent florists who design the bouquets and centerpieces, and helps more than 8,000 wedding and event professionals every month orchestrate every detail from the first inquiry to the last dance.</p>
-              <p>Built by bridal, floral, and event pros for their peers, we help turn once-in-a-lifetime celebrations into thriving, well-run businesses.</p>
             </div>
             <figure class="frame frame--story frame--gallery">
               <div class="story-carousel" data-story-gallery role="region" aria-roledescription="gallery" aria-label="Weddings and events on the ground">
@@ -1584,17 +1584,20 @@ html:not(.has-js) .story-carousel__controls { display: none; }
             </figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">1.2M</p><p class="stat__label">Weddings since 2013</p></div><div class="stat"><p class="stat__val">424K</p><p class="stat__label">Dresses sold per year on average&mdash;brides, or bridezillas.</p></div><div class="stat"><p class="stat__val">5K+</p><p class="stat__label">Weddings across the U.S. on a typical day</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">1.2M</p><p class="stat__label">Weddings since 2013</p></div><div class="stat"><p class="stat__val">424K</p><p class="stat__label">Dresses sold per year on average&mdash;brides, or bridezillas.</p></div><div class="stat"><p class="stat__val">5K+</p><p class="stat__label">Weddings across the U.S. on a typical day</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1610,28 +1613,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-standard" id="panel-wine" data-slug="wine" data-content-depth="standard" aria-labelledby="title-wine">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-wine">Vintage, allocation, and compliance in one ledger.</h3>
-            <p class="lede panel__lede">Wine moves through clubs, allocations, tasting rooms, and three tiers of regulation. One bottle has to be right in every one of them.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>A winery's inventory is not a count; it is a set of commitments by vintage, club tier, and channel. Compliance adds a second ledger on top, and the two disagree at the worst possible moment.</p>
-              <p>Software built for the category keeps allocation, membership, and reporting on the same record — which is what lets a small team sell direct without losing the thread.</p>
             </div>
             <figure class="frame frame--story"><img src="assets/img/wine.jpg" alt="Barrels in a wine cellar" loading="lazy" decoding="async"><figcaption class="frame__cap">Wine · on the ground</figcaption></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1650,28 +1654,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-standard" id="panel-retail" data-slug="retail" data-content-depth="standard" aria-labelledby="title-retail">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-retail">The counter and the back office are one system.</h3>
-            <p class="lede panel__lede">Independent retail lives between the shop floor and the books. The software has to close that gap every day.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>Pricing, purchasing, loyalty, and shrink all meet at the counter, usually in front of a customer. When the systems behind them disagree, the store absorbs the cost in time and trust.</p>
-              <p>We back software that treats inventory and margin as one problem, so an owner can see the business as it actually runs — not a month later in a spreadsheet.</p>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Retail at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1690,28 +1695,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-min" id="panel-storage-marina" data-slug="storage-marina" data-content-depth="min" aria-labelledby="title-storage-marina">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-storage-marina">Recurring revenue with a physical constraint.</h3>
-            <p class="lede panel__lede">Units and slips are rented by the month and bounded by space. The software has to know both.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>Occupancy, waitlists, gate access, and autopay are simple in a demo and stubborn in practice: seasonal demand, delinquencies, and a site manager who needs answers on a phone.</p>
-              <p>Vertical software makes the physical inventory legible — what is vacant, what is promised, what is late — and turns the monthly cycle into something that runs itself.</p>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Storage &amp; Marina at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1730,28 +1736,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-min" id="panel-health-wellness" data-slug="health-wellness" data-content-depth="min" aria-labelledby="title-health-wellness">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-health-wellness">Schedules, records, and billing that cannot drift.</h3>
-            <p class="lede panel__lede">A clinic runs on time it cannot get back. Software that drifts costs practitioners the hour and the claim.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>Appointments, intake, treatment notes, and reimbursement are one continuous record in practice, and three disconnected systems in most software. The gap shows up as no-shows and denials.</p>
-              <p>We build for the clinical day as it happens — the calendar, the chart, the claim — so the front desk and the practitioner work from the same version of the truth.</p>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Health &amp; Wellness at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1770,28 +1777,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-min" id="panel-field-services" data-slug="field-services" data-content-depth="min" aria-labelledby="title-field-services">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-field-services">The job is finished in the field, not the office.</h3>
-            <p class="lede panel__lede">Dispatch is a promise about time. Field software has to keep it with bad signal and a full truck.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>A technician needs the history, the parts, the checklist, and the invoice before leaving the driveway. The office needs the schedule to survive traffic, weather, and a job that runs long.</p>
-              <p>Software built for the trade closes the loop on site: the work order becomes the invoice, and the office sees the day as it is actually going.</p>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Field Services at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1810,28 +1818,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-standard" id="panel-transportation" data-slug="transportation" data-content-depth="standard" aria-labelledby="title-transportation">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-transportation">Margin lives in the details of every load.</h3>
-            <p class="lede panel__lede">Dispatch, compliance, and settlement have to agree before the truck leaves. Usually they do not.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>A carrier prices a load, assigns a driver, tracks hours, and settles pay against rules that change by state and by customer. Every handoff is a chance to lose margin quietly.</p>
-              <p>Category software keeps the load, the driver, and the paperwork on one record — so the numbers hold from quote to settlement.</p>
             </div>
             <figure class="frame frame--story"><img src="assets/img/transport.jpg" alt="A logistics warehouse in operation" loading="lazy" decoding="async"><figcaption class="frame__cap">Transportation · on the ground</figcaption></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1850,28 +1859,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-standard" id="panel-automotive" data-slug="automotive" data-content-depth="standard" aria-labelledby="title-automotive">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-automotive">The lot, the bay, and the ledger.</h3>
-            <p class="lede panel__lede">A dealership sells cars, time, and financing at the same counter. The software has to hold all three.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>Inventory ages, service bays fill, and finance paperwork has to be right the first time. Most dealers run that on systems that were never designed to talk to each other.</p>
-              <p>Vertical software connects the vehicle record to the customer and the transaction, so the store can move at the speed of the sale.</p>
             </div>
             <figure class="frame frame--story"><img src="assets/img/automotive.jpg" alt="A car on the road" loading="lazy" decoding="async"><figcaption class="frame__cap">Automotive · on the ground</figcaption></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1890,28 +1900,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-min" id="panel-association-management" data-slug="association-management" data-content-depth="min" aria-labelledby="title-association-management">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-association-management">Membership is a system, not a list.</h3>
-            <p class="lede panel__lede">Dues, renewals, events, and committees are one relationship seen from four angles.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>An association's value is its record of who belongs, what they are entitled to, and what they have done. Spreadsheets and bolt-on tools make that record expensive to keep.</p>
-              <p>Software built for associations keeps the member at the centre — renewal, registration, and reporting — so staff spend their time on the mission instead of the database.</p>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Association Management at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -1930,28 +1941,29 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <article class="panel panel--depth-standard" id="panel-erp" data-slug="erp" data-content-depth="standard" aria-labelledby="title-erp">
           <header class="panel__head">
             <h3 class="display display--m panel__title" id="title-erp">The system of record for the whole operation.</h3>
-            <p class="lede panel__lede">Finance, inventory, and production describe one business. ERP is where they have to agree.</p>
           </header>
 
           <div class="panel__body">
             <div class="panel__copy">
               <p>Mid-market operators outgrow entry-level accounting long before they can absorb an enterprise implementation. The gap is where the business runs on exports and reconciliation.</p>
-              <p>We back ERP that fits the operation it serves — the same ledger across purchasing, production, and reporting, without a two-year programme to get there.</p>
             </div>
             <figure class="frame frame--story"><img src="assets/img/erp.jpg" alt="An open-plan office floor" loading="lazy" decoding="async"><figcaption class="frame__cap">ERP · on the ground</figcaption></figure>
           </div>
 
-          <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
-          </div>
-
-          <div class="logos">
+          <div class="logos logos--units">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Business-unit software</p>
               </div>
               <ul class="logos__grid"><li><span>Business unit 01</span></li><li><span>Business unit 02</span></li><li><span>Business unit 03</span></li><li><span>Business unit 04</span></li></ul>
             </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+          </div>
+
+          <div class="logos logos--partners">
             <div class="logos__group">
               <div class="logos__head">
                 <p class="logos__title">Customers &amp; partners</p>
@@ -2010,13 +2022,13 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           <h3>Explore</h3>
           <ul>
             <li><a href="#top">Vertical Software</a></li>
+            <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#payments">Payments</a></li>
-                <li><a href="our-advantage.html#lending">Lending</a></li>
-                <li><a href="our-advantage.html#insurance">Insurance</a></li>
+                <li><a href="our-advantage.html#payments">Embedded Fintech</a></li>
+                <li><a href="our-advantage.html#sales-marketing">Operational Excellence</a></li>
               </ul>
             </li>
             <li><a href="for-founders.html">Acquisitions</a></li>
@@ -2255,7 +2267,6 @@ html:not(.has-js) .story-carousel__controls { display: none; }
     var title = group.querySelector(".logos__title");
     if (title) {
       title.textContent = label;
-      title.className = "sr-only";
     }
     var ul = group.querySelector(".logos__grid");
     if (!ul) return;
