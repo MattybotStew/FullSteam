@@ -33,6 +33,7 @@ Notes from the morning review, applied on the hi-fi pages in this folder. Sitema
 | Our Advantage | Sidebar matches Figma `11541:1393`: Embedded Fintech, then an AI mono label over a solid `--green-ink` frame (active row is bright green, ink type), then Operational Excellence. Seven links. Default panel remains `#ai`. |
 | Our Story | Timeline kept. Years and the year jump are removed. Four milestones: founding, office openings, building on LLMs, SDR team expansion. |
 | Header | Interior pages (Our Advantage, Vertical Software, Our Story, Careers, Acquisitions, Contact) use a solid white bar (`#fff`, ink logo and menu, gold Explore fill) from first paint. Homepage opening bar is unchanged. |
+| Interior heroes | One paper-mesh recipe, photography as a CSS background field (`.hero__photo`), not inline furniture. Vertical Software stays type-only. Our Advantage = till field. Our Story = three-pane industry field. Acquisitions = right-edge bleed. Careers = type-only, same recipe as Vertical Software. Contact = corridor field + Direct lines card. Gold is a mark, never text. |
 
 ---
 

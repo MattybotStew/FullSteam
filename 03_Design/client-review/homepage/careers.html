@@ -377,66 +377,170 @@ body.menu-open { overflow: hidden; }
 }
 .hero__inner { position: relative; z-index: 1; }
 
-.hero--media-dark {
-  background: var(--brand-ink);
-  color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, .08);
+/* ---------- paper-mesh hero · interior pages (2026-11-09) ----------
+   One recipe, a different composition on every page. Paper ground, mesh
+   pooled right and bottom, left-aligned copy, 90 / 48 / 32 content padding,
+   a serif-italic payoff, photography. The bar is solid white. Gold is a mark
+   here and never text. Born on Vertical Software; each page draws its own
+   imagery as a CSS background field (.hero__photo), never as inline furniture. */
+.hero--mesh {
+  position: relative;
+  isolation: isolate;
+  min-height: 0;
+  background: color-mix(in srgb, var(--gold) 6%, var(--paper));
+  color: var(--ink);
+  --accent: var(--ink);
+  --focus: var(--brand);
+  border-bottom: 1px solid var(--line);
+  padding: calc(var(--bar) + clamp(16px, 2vw, 28px)) 0 clamp(28px, 3.2vw, 44px);
+  overflow: hidden;
 }
-.hero--media-dark .hero__glow {
+.hero--mesh .hero__field {
+  position: absolute; inset: 0; z-index: 0;
+  overflow: hidden; pointer-events: none;
+  mask-image: linear-gradient(180deg, transparent 0%, transparent 18%, rgba(0,0,0,.2) 40%, rgba(0,0,0,.7) 68%, #000 88%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 18%, rgba(0,0,0,.2) 40%, rgba(0,0,0,.7) 68%, #000 88%);
+}
+.hero--mesh .hero__field-inner { position: absolute; inset: 0; }
+.hero--mesh .hero__blob {
+  position: absolute; display: block; width: 96vmax; height: 96vmax; margin: -48vmax 0 0 -48vmax; border-radius: 50%; transform-origin: 50% 50%;
+}
+.hero--mesh .hero__blob--blue { left: 2%; top: 98%; background: radial-gradient(closest-side, color-mix(in srgb, var(--brand-sky, #00c8ff) 78%, var(--brand)) 0%, color-mix(in srgb, var(--brand-sky, #00c8ff) 66%, var(--brand)) 62%, color-mix(in srgb, var(--brand-sky, #00c8ff) 30%, var(--brand)) 84%, transparent 100%); opacity: .96; }
+.hero--mesh .hero__blob--gold { left: 50%; top: 108%; width: 84vmax; height: 84vmax; margin: -42vmax 0 0 -42vmax; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 72%, #ff6a00) 0%, color-mix(in srgb, var(--gold) 92%, #ff9d00) 58%, color-mix(in srgb, var(--gold) 90%, #ffe9a3) 82%, transparent 100%); opacity: .92; }
+.hero--mesh .hero__blob--green { left: 92%; top: 100%; background: radial-gradient(closest-side, color-mix(in srgb, var(--green) 82%, #1a6f4a) 0%, color-mix(in srgb, var(--green) 70%, #1a6f4a) 62%, color-mix(in srgb, var(--green) 44%, #7fc0a0) 84%, transparent 100%); opacity: .78; }
+.hero--mesh .hero__light { position: absolute; left: 50%; top: 116%; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,252,240,.72) 0%, rgba(255,250,225,.30) 38%, transparent 74%); opacity: .34; }
+.hero--mesh .hero__plate {
   position: absolute;
-  inset: -20% -10% auto auto;
-  width: min(760px, 80vw);
-  height: min(760px, 80vw);
-  background:
-    radial-gradient(closest-side at 60% 40%, rgba(255, 198, 0, 0.12), transparent),
-    radial-gradient(closest-side at 40% 60%, rgba(0, 88, 124, 0.45), transparent);
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: min(980px, 78%);
+  height: 100%;
+  border-radius: 0;
+  transform: none;
+  filter: none;
+  background: color-mix(in srgb, var(--gold) 6%, var(--paper));
+  opacity: 1;
   pointer-events: none;
+  mask-image: linear-gradient(90deg, #000 0%, #000 68%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 68%, transparent 100%);
 }
+.hero--mesh .hero__grain { position: absolute; inset: -8%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncG type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncB type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncA type='table' tableValues='1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 160px 160px; opacity: .34; mix-blend-mode: multiply; pointer-events: none; }
+.hero--mesh .hero__plate { width: min(860px, 64%); }
+@keyframes heroDriftA {
+  0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
+  30%  { transform: translate3d(56%, 32%, 0) scale(1.14);  opacity: .62; }
+  65%  { transform: translate3d(18%, -16%, 0) scale(.90);  opacity: .34; }
+  100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
+}
+@keyframes heroDriftB {
+  0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .62; }
+  32%  { transform: translate3d(-38%, 40%, 0) scale(1.16); opacity: .78; }
+  68%  { transform: translate3d(-10%, -20%, 0) scale(.90); opacity: .50; }
+  100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .62; }
+}
+@keyframes heroDriftC {
+  0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
+  36%  { transform: translate3d(-44%, -38%, 0) scale(1.18); opacity: .70; }
+  72%  { transform: translate3d(13%, -9%, 0) scale(.90);    opacity: .36; }
+  100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
+}
+.hero--mesh .hero__blob--blue  { animation: heroDriftA 15s cubic-bezier(.45,.05,.55,.95) infinite; }
+.hero--mesh .hero__blob--gold  { animation: heroDriftB 17s cubic-bezier(.45,.05,.55,.95) infinite; }
+.hero--mesh .hero__blob--green { animation: heroDriftC 14s cubic-bezier(.45,.05,.55,.95) infinite; }
+@media (prefers-reduced-motion: reduce) { .hero--mesh .hero__blob, .hero--mesh .hero__light, .hero--mesh .hero__grain { animation: none !important; } }
 
-.hero__split {
+.hero--mesh .hero__center {
+  position: relative;
+  z-index: 2;
+  padding-top: 90px;
+  padding-bottom: 90px;
+}
+@media (max-width: 900px) { .hero--mesh .hero__center { padding-top: 48px; padding-bottom: 48px; } }
+@media (max-width: 640px) { .hero--mesh .hero__center { padding-top: 32px; padding-bottom: 32px; } }
+.hero--mesh .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, clamp(300px, 38vw, 520px));
-  gap: clamp(28px, 4.5vw, 64px);
+  grid-template-columns: minmax(0, var(--copy, 1.12fr)) minmax(0, var(--art, .88fr));
+  gap: clamp(28px, 4.4vw, 72px);
   align-items: center;
 }
-.hero__copy-col { min-width: 0; }
-.hero--media-dark .hero__title {
-  max-width: 14ch;
-  letter-spacing: -.035em;
+.hero--mesh .hero__copy { min-width: 0; }
+.hero--mesh .hero__title {
+  margin: 0;
+  max-width: none;
+  font-size: var(--hero-t, clamp(44px, 7vw, 100px));
+  font-weight: 500;
+  line-height: .95;
+  letter-spacing: -0.035em;
+  text-align: left;
+  color: var(--ink);
 }
-.hero--media-dark .hero__title em {
+.hero--mesh .hero__title .hero__line { display: block; white-space: nowrap; }
+.hero--mesh .hero__title em {
   font-family: var(--serif);
   font-style: italic;
   font-weight: 400;
-  color: var(--accent);
-  letter-spacing: -.015em;
+  letter-spacing: -0.01em;
+  color: var(--brand);
 }
-.hero--media-dark .hero__copy-col .lede {
-  margin-top: clamp(22px, 2.6vw, 30px);
-  max-width: 52ch;
-  color: rgba(255, 255, 255, .72);
+.hero--mesh .lede {
+  margin-top: clamp(14px, 1.8vw, 22px);
+  max-width: 50ch;
+  font-size: var(--t-lede);
+  color: var(--muted);
+  text-align: left;
 }
-.hero__figure { margin: 0; width: 100%; }
-.hero__figure__frame {
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, .06);
-  border: 1px solid rgba(255, 255, 255, .12);
+.hero--mesh .hero__actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px;
+  margin-top: clamp(24px, 3vw, 34px);
 }
-.hero__figure img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center 42%;
-  filter: saturate(.92) contrast(1.03);
+.hero--mesh .hero__photo {
+  position: absolute;
+  z-index: 0;
+  top: 0; right: 0; bottom: 0;
+  width: min(52%, 840px);
+  pointer-events: none;
+  background-image: var(--hero-img);
+  background-size: cover;
+  background-position: var(--hero-pos, 50% 50%);
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+}
+.hero--photo { min-height: min(68vh, 640px); }
+.hero--photo .hero__copy { max-width: min(640px, 56%); position: relative; z-index: 2; }
+.hero--photo .hero__grid { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 900px) {
+  .hero--mesh .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .hero--mesh .hero__photo {
+    position: relative;
+    width: 100%;
+    height: clamp(220px, 48vw, 340px);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+  }
+  .hero--photo { min-height: 0; }
+  .hero--photo .hero__copy { max-width: none; }
+}
+@media (max-width: 480px) {
+  .hero--mesh .hero__title .hero__line { white-space: normal; }
+}
+/* Careers — type-only paper mesh, same recipe as Vertical Software. */
+.hero--careers .hero__title { font-size: clamp(50px, 8.34vw, 120px); }
+.hero--careers .hero__plate { width: min(980px, 78%); }
+.hero--careers .hero__copy { max-width: none; }
+.hero--careers .lede { max-width: 58ch; }
+.hero--careers .factband {
+  background: #fff;
+  padding-inline: clamp(20px, 2.4vw, 28px);
 }
 
 .factband {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: clamp(38px, 4.6vw, 58px);
-  border-top: 1px solid rgba(255, 255, 255, .22);
-  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
 }
 .factband__cell {
   padding: clamp(20px, 2.4vw, 28px) 0;
@@ -446,7 +550,7 @@ body.menu-open { overflow: hidden; }
   flex-wrap: wrap;
 }
 .factband__cell + .factband__cell {
-  border-left: 1px solid rgba(255, 255, 255, .14);
+  border-left: 1px solid var(--line);
   padding-left: clamp(20px, 3vw, 40px);
 }
 .factband__n {
@@ -455,11 +559,11 @@ body.menu-open { overflow: hidden; }
   letter-spacing: -.035em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
-  color: #fff;
+  color: var(--ink);
 }
 .factband__c {
   font-size: var(--t-small);
-  color: rgba(255, 255, 255, .68);
+  color: var(--muted);
   max-width: 24ch;
 }
 
@@ -807,12 +911,6 @@ body.menu-open { overflow: hidden; }
   }
   .values { grid-template-columns: minmax(0, 1fr); }
   .value { min-height: 0; }
-  .hero__split {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-  }
-  .hero__figure { max-width: min(100%, 420px); }
-  .hero--media-dark .hero__title { max-width: none; }
 }
 
 @media (max-width: 860px) {
@@ -912,21 +1010,20 @@ body.menu-open { overflow: hidden; }
   
   <main id="main">
 
-    <section class="hero hero--media-dark" id="top" data-surface="dark" aria-labelledby="careers-title">
-      <div class="hero__glow" aria-hidden="true"></div>
-      <div class="wrap hero__inner">
-        <div class="hero__split">
-          <div class="hero__copy-col">
-            <h1 class="display display--xxl hero__title" id="careers-title">A big company that does <em>not</em> work like one.</h1>
-            <p class="lede">2,000+ people across 11 verticals &mdash; mostly remote, close to the decisions, and working on software real industries depend on. Careers here move sideways into new verticals, not up a rigid ladder.</p>
-          </div>
-          <figure class="hero__figure">
-            <div class="hero__figure__frame">
-              <img src="assets/img/careers/hero-team.jpg" alt="Placeholder photo: a happy team collaborating in a bright office"
-                   width="1200" height="1200" decoding="async" fetchpriority="high">
-            </div>
-          </figure>
+    <section class="hero hero--mesh hero--careers" id="top" data-surface="light" aria-labelledby="careers-title">
+      <div class="hero__field" aria-hidden="true">
+        <div class="hero__field-inner">
+          <span class="hero__blob hero__blob--blue"></span>
+          <span class="hero__blob hero__blob--gold"></span>
+          <span class="hero__blob hero__blob--green"></span>
+          <span class="hero__light"></span>
         </div>
+        <div class="hero__grain"></div>
+      </div>
+      <div class="hero__plate" aria-hidden="true"></div>
+      <div class="wrap hero__center">
+        <h1 class="hero__title" id="careers-title"><span class="hero__line">A big company</span><span class="hero__line">that does <em>not</em></span><span class="hero__line">work like one.</span></h1>
+        <p class="lede">2,000+ people across 11 verticals &mdash; mostly remote, close to the decisions, and working on software real industries depend on. Careers here move sideways into new verticals, not up a rigid ladder.</p>
         <div class="factband">
           <div class="factband__cell">
             <p class="factband__n">2,000+</p>

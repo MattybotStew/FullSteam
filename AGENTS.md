@@ -101,10 +101,8 @@ This file is the canonical agent entry point (works with Cursor, which reads
   (KB §23.10) → **How a Fullsteam company compounds** model steps → AI → verticals gallery
   → founders → careers → close. Same narrative order as the 2026-10-29 build; new editorial
   layout and type ladder. Build notes: `client-review/homepage/design-notes.md`.
-- **Interior hero archetypes (hi-fi, `design.md` §4.10, amended 2026-11-09):** subpages do **not** share one dark hero
-  template. **Vertical Software** is a **paper-mesh** hero (left-aligned, not MediaDark — see that page’s bullet). Our Advantage = **EngineLight** (paper
-  hero → sidebar engine). **Our Story** and **Acquisitions** = **NarrativeLight**; **Careers** =
-  **MediaDark** split hero. **Contact** is a promoted hi-fi page (`contact.html`, paper hero). Legal pages remain wireframe.
+- **Interior hero archetypes (hi-fi, `design.md` §4.10, amended 2026-11-09):** subpages share one **paper-mesh** recipe (left type, 90/48/32 padding, serif-italic payoff, mesh pooled right, solid white bar) but **each page has its own photographic field**. Photography is a **CSS background** on `.hero__photo` — masked into the right of the stage, never inline furniture (no polaroids, arches, phones, or inset cards). Do not clone Vertical Software’s type-only plate across the rest. Recipes:
+  **Vertical Software** = type only, no photo. **Our Advantage** = till photograph as the field, green payoff. **Our Story** = three industry photographs as a triptych field. **Acquisitions** = one photograph bleeding off the right. **Careers** = type-only paper mesh, same recipe as Vertical Software (factband under the lede). **Contact** = corridor as the field, Direct lines card sitting on it. Legal pages remain wireframe.
 - **Vertical Software — second client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/vertical-software.html`, linked from the homepage
   (`index.html`, nine gallery/CTA targets vs wireframe cross-links). **IA unchanged** — single

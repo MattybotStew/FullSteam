@@ -192,9 +192,9 @@ button { font: inherit; color: inherit; }
   border: 1px solid rgba(255, 255, 255, .34);
 }
 [data-surface="light"] .btn--ghost,
-.hero--axis-a .btn--ghost { color: var(--ink); border-color: var(--line); }
+.hero--mesh .btn--ghost { color: var(--ink); border-color: var(--line); }
 [data-surface="light"] .btn--ghost:hover,
-.hero--axis-a .btn--ghost:hover { background: var(--surface); border-color: var(--ink); }
+.hero--mesh .btn--ghost:hover { background: var(--surface); border-color: var(--ink); }
 .btn--ghost:hover { background: rgba(255, 255, 255, .1); }
 
 /* ---------- header · official homepage chrome ---------- */
@@ -338,78 +338,56 @@ body.story-lightbox-open { overflow: hidden; }
 
 .hero__title { max-width: 20ch; }
 .hero__title em { font-family: var(--serif); font-style: italic; letter-spacing: 0; }
-/* Our Advantage keeps its brand-green payoff word (client direction). The hero
-   now uses the 2026-11-09 paper-mesh treatment shared with Vertical Software:
-   left-aligned copy, 90/48/32 padding, homepage-scale type, mesh pooling right. */
-.hero--axis-a .hero__title em { color: var(--green); }
-
-/* Paper-mesh hero — shared with the Vertical Software page (2026-11-09). */
-.hero--axis-a {
+/* ---------- paper-mesh hero · interior pages (2026-11-09) ----------
+   One recipe, a different composition on every page. Paper ground, mesh
+   pooled right and bottom, left-aligned copy, 90 / 48 / 32 content padding,
+   a serif-italic payoff, photography. The bar is solid white. Gold is a mark
+   here and never text. Born on Vertical Software; each page draws its own
+   imagery as a CSS background field (.hero__photo), never as inline furniture. */
+.hero--mesh {
   position: relative;
+  isolation: isolate;
   min-height: 0;
   background: color-mix(in srgb, var(--gold) 6%, var(--paper));
   color: var(--ink);
-  display: block;
-  text-align: left;
+  --accent: var(--ink);
+  --focus: var(--brand);
   border-bottom: 1px solid var(--line);
   padding: calc(var(--bar) + clamp(16px, 2vw, 28px)) 0 clamp(28px, 3.2vw, 44px);
   overflow: hidden;
 }
-.hero--axis-a .hero__field {
+.hero--mesh .hero__field {
   position: absolute; inset: 0; z-index: 0;
   overflow: hidden; pointer-events: none;
   mask-image: linear-gradient(180deg, transparent 0%, transparent 18%, rgba(0,0,0,.2) 40%, rgba(0,0,0,.7) 68%, #000 88%);
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 18%, rgba(0,0,0,.2) 40%, rgba(0,0,0,.7) 68%, #000 88%);
 }
-.hero--axis-a .hero__field-inner { position: absolute; inset: 0; }
-.hero--axis-a .hero__blob {
+.hero--mesh .hero__field-inner { position: absolute; inset: 0; }
+.hero--mesh .hero__blob {
   position: absolute; display: block; width: 96vmax; height: 96vmax; margin: -48vmax 0 0 -48vmax; border-radius: 50%; transform-origin: 50% 50%;
 }
-.hero--axis-a .hero__blob--blue { left: 2%; top: 98%; background: radial-gradient(closest-side, color-mix(in srgb, var(--brand-sky, #00c8ff) 78%, var(--brand)) 0%, color-mix(in srgb, var(--brand-sky, #00c8ff) 66%, var(--brand)) 62%, color-mix(in srgb, var(--brand-sky, #00c8ff) 30%, var(--brand)) 84%, transparent 100%); opacity: .96; }
-.hero--axis-a .hero__blob--gold { left: 50%; top: 108%; width: 84vmax; height: 84vmax; margin: -42vmax 0 0 -42vmax; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 72%, #ff6a00) 0%, color-mix(in srgb, var(--gold) 92%, #ff9d00) 58%, color-mix(in srgb, var(--gold) 90%, #ffe9a3) 82%, transparent 100%); opacity: .92; }
-.hero--axis-a .hero__blob--green { left: 92%; top: 100%; background: radial-gradient(closest-side, color-mix(in srgb, var(--green) 82%, #1a6f4a) 0%, color-mix(in srgb, var(--green) 70%, #1a6f4a) 62%, color-mix(in srgb, var(--green) 44%, #7fc0a0) 84%, transparent 100%); opacity: .78; }
-.hero--axis-a .hero__light { position: absolute; left: 50%; top: 116%; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,252,240,.72) 0%, rgba(255,250,225,.30) 38%, transparent 74%); opacity: .34; }
-.hero--axis-a .hero__plate {
-  position: absolute; z-index: 1; left: 0; top: 0;
-  width: min(980px, 78%); height: 100%;
-  border-radius: 0; transform: none; filter: none;
+.hero--mesh .hero__blob--blue { left: 2%; top: 98%; background: radial-gradient(closest-side, color-mix(in srgb, var(--brand-sky, #00c8ff) 78%, var(--brand)) 0%, color-mix(in srgb, var(--brand-sky, #00c8ff) 66%, var(--brand)) 62%, color-mix(in srgb, var(--brand-sky, #00c8ff) 30%, var(--brand)) 84%, transparent 100%); opacity: .96; }
+.hero--mesh .hero__blob--gold { left: 50%; top: 108%; width: 84vmax; height: 84vmax; margin: -42vmax 0 0 -42vmax; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 72%, #ff6a00) 0%, color-mix(in srgb, var(--gold) 92%, #ff9d00) 58%, color-mix(in srgb, var(--gold) 90%, #ffe9a3) 82%, transparent 100%); opacity: .92; }
+.hero--mesh .hero__blob--green { left: 92%; top: 100%; background: radial-gradient(closest-side, color-mix(in srgb, var(--green) 82%, #1a6f4a) 0%, color-mix(in srgb, var(--green) 70%, #1a6f4a) 62%, color-mix(in srgb, var(--green) 44%, #7fc0a0) 84%, transparent 100%); opacity: .78; }
+.hero--mesh .hero__light { position: absolute; left: 50%; top: 116%; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,252,240,.72) 0%, rgba(255,250,225,.30) 38%, transparent 74%); opacity: .34; }
+.hero--mesh .hero__plate {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: min(980px, 78%);
+  height: 100%;
+  border-radius: 0;
+  transform: none;
+  filter: none;
   background: color-mix(in srgb, var(--gold) 6%, var(--paper));
-  opacity: 1; pointer-events: none;
+  opacity: 1;
+  pointer-events: none;
   mask-image: linear-gradient(90deg, #000 0%, #000 68%, transparent 100%);
   -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 68%, transparent 100%);
 }
-.hero--axis-a .hero__grain { position: absolute; inset: -8%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncG type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncB type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncA type='table' tableValues='1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 160px 160px; opacity: .34; mix-blend-mode: multiply; pointer-events: none; }
-.hero--axis-a .hero__center {
-  position: relative;
-  z-index: 2;
-  padding-top: 90px;
-  padding-bottom: 90px;
-}
-@media (max-width: 900px) {
-  .hero--axis-a .hero__center { padding-top: 48px; padding-bottom: 48px; }
-}
-@media (max-width: 640px) {
-  .hero--axis-a .hero__center { padding-top: 32px; padding-bottom: 32px; }
-}
-.hero--axis-a .hero__title {
-  margin: 0;
-  max-width: none;
-  line-height: .95;
-  color: var(--ink);
-  font-weight: 500;
-  text-align: left;
-  text-wrap: balance;
-  font-size: clamp(50px, 8.34vw, 120px);
-  letter-spacing: -0.035em;
-}
-.hero--axis-a .hero__title em { font-style: italic; font-weight: 400; }
-.hero--axis-a .lede {
-  margin-top: clamp(10px, 1.4vw, 16px);
-  max-width: 58ch;
-  font-size: var(--t-lede);
-  color: var(--muted);
-  text-align: left;
-}
+.hero--mesh .hero__grain { position: absolute; inset: -8%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncG type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncB type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncA type='table' tableValues='1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 160px 160px; opacity: .34; mix-blend-mode: multiply; pointer-events: none; }
+.hero--mesh .hero__plate { width: min(860px, 64%); }
 @keyframes heroDriftA {
   0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
   30%  { transform: translate3d(56%, 32%, 0) scale(1.14);  opacity: .62; }
@@ -428,10 +406,94 @@ body.story-lightbox-open { overflow: hidden; }
   72%  { transform: translate3d(13%, -9%, 0) scale(.90);    opacity: .36; }
   100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
 }
-.hero--axis-a .hero__blob--blue  { animation: heroDriftA 15s cubic-bezier(.45,.05,.55,.95) infinite; }
-.hero--axis-a .hero__blob--gold  { animation: heroDriftB 17s cubic-bezier(.45,.05,.55,.95) infinite; }
-.hero--axis-a .hero__blob--green { animation: heroDriftC 14s cubic-bezier(.45,.05,.55,.95) infinite; }
-@media (prefers-reduced-motion: reduce) { .hero--axis-a .hero__blob, .hero--axis-a .hero__light, .hero--axis-a .hero__grain { animation: none !important; } }
+.hero--mesh .hero__blob--blue  { animation: heroDriftA 15s cubic-bezier(.45,.05,.55,.95) infinite; }
+.hero--mesh .hero__blob--gold  { animation: heroDriftB 17s cubic-bezier(.45,.05,.55,.95) infinite; }
+.hero--mesh .hero__blob--green { animation: heroDriftC 14s cubic-bezier(.45,.05,.55,.95) infinite; }
+@media (prefers-reduced-motion: reduce) { .hero--mesh .hero__blob, .hero--mesh .hero__light, .hero--mesh .hero__grain { animation: none !important; } }
+
+.hero--mesh .hero__center {
+  position: relative;
+  z-index: 2;
+  padding-top: 90px;
+  padding-bottom: 90px;
+}
+@media (max-width: 900px) { .hero--mesh .hero__center { padding-top: 48px; padding-bottom: 48px; } }
+@media (max-width: 640px) { .hero--mesh .hero__center { padding-top: 32px; padding-bottom: 32px; } }
+.hero--mesh .hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, var(--copy, 1.12fr)) minmax(0, var(--art, .88fr));
+  gap: clamp(28px, 4.4vw, 72px);
+  align-items: center;
+}
+.hero--mesh .hero__copy { min-width: 0; }
+.hero--mesh .hero__title {
+  margin: 0;
+  max-width: none;
+  font-size: var(--hero-t, clamp(44px, 7vw, 100px));
+  font-weight: 500;
+  line-height: .95;
+  letter-spacing: -0.035em;
+  text-align: left;
+  color: var(--ink);
+}
+.hero--mesh .hero__title .hero__line { display: block; white-space: nowrap; }
+.hero--mesh .hero__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--brand);
+}
+.hero--mesh .lede {
+  margin-top: clamp(14px, 1.8vw, 22px);
+  max-width: 50ch;
+  font-size: var(--t-lede);
+  color: var(--muted);
+  text-align: left;
+}
+.hero--mesh .hero__actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px;
+  margin-top: clamp(24px, 3vw, 34px);
+}
+.hero--mesh .hero__photo {
+  position: absolute;
+  z-index: 0;
+  top: 0; right: 0; bottom: 0;
+  width: min(52%, 840px);
+  pointer-events: none;
+  background-image: var(--hero-img);
+  background-size: cover;
+  background-position: var(--hero-pos, 50% 50%);
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+}
+.hero--photo { min-height: min(68vh, 640px); }
+.hero--photo .hero__copy { max-width: min(640px, 56%); position: relative; z-index: 2; }
+.hero--photo .hero__grid { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 900px) {
+  .hero--mesh .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .hero--mesh .hero__photo {
+    position: relative;
+    width: 100%;
+    height: clamp(220px, 48vw, 340px);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+  }
+  .hero--photo { min-height: 0; }
+  .hero--photo .hero__copy { max-width: none; }
+}
+@media (max-width: 480px) {
+  .hero--mesh .hero__title .hero__line { white-space: normal; }
+}
+/* Our Advantage — till as a photographic field. Green payoff (client). */
+.hero--adv {
+  --hero-t: clamp(44px, 7.2vw, 104px);
+  --hero-img: url("assets/img/founders.jpg");
+  --hero-pos: 46% 48%;
+}
+.hero--adv .hero__title em { color: var(--green); }
+.hero--adv .hero__photo { width: min(54%, 860px); }
 
 
 /* ---------- offerings layout ---------- */
@@ -996,7 +1058,7 @@ body.story-lightbox-open { overflow: hidden; }
   </div>
 
   <main id="main">
-    <section class="hero hero--axis-a" id="top" data-surface="light" aria-labelledby="heroTitle">
+    <section class="hero hero--mesh hero--adv hero--photo" id="top" data-surface="light" aria-labelledby="heroTitle">
       <div class="hero__field" aria-hidden="true">
         <div class="hero__field-inner">
           <span class="hero__blob hero__blob--blue"></span>
@@ -1004,13 +1066,18 @@ body.story-lightbox-open { overflow: hidden; }
           <span class="hero__blob hero__blob--green"></span>
           <span class="hero__light"></span>
         </div>
-        <div class="hero__grain" aria-hidden="true"></div>
+        <div class="hero__grain"></div>
       </div>
       <div class="hero__plate" aria-hidden="true"></div>
       <div class="wrap hero__center">
-        <h1 class="hero__title" id="heroTitle">How we <em>grow</em><br>what we own.</h1>
-        <p class="lede">Software is the system of record. Embedded fintech, AI, and operational excellence sit on top of it — helping each business scale without changing its name, team, or customer relationship.</p>
+        <div class="hero__grid">
+          <div class="hero__copy">
+            <h1 class="hero__title" id="heroTitle"><span class="hero__line">How we <em>grow</em></span><span class="hero__line">what we own.</span></h1>
+            <p class="lede">Software is the system of record. Embedded fintech, AI, and operational excellence sit on top of it — helping each business scale without changing its name, team, or customer relationship.</p>
+          </div>
+        </div>
       </div>
+      <div class="hero__photo" aria-hidden="true"></div>
     </section>
 
     <section class="offerings" id="offerings" data-surface="light" aria-label="Our Advantage offerings">
