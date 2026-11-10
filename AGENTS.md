@@ -120,10 +120,10 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Our Advantage — third client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/our-advantage.html`, linked from homepage and Vertical
   Software chrome. **IA unchanged** — single page, sticky sidebar with three groups
-  (**Embedded Fintech**, then **AI at Fullsteam** — mono label plus a `--green-ink` frame around the
-  bright-green row, Figma `11541:1393`, client 2026-11-09 — then **Operational Excellence**;
+  (**Embedded Fintech**, then **AI at Fullsteam** — mono group label, and the AI row's label carries a
+  brand gradient shimmer, replacing the `--green-ink` frame on 2026-11-10, Figma `11541:1393` parity dropped — then **Operational Excellence**;
   `#payments` is the default panel, changed 2026-11-10 — was `#ai`), seven inline panels (`#payments` without hash). **Payments** full ledger shape;
-  **AI** full panel (use cases + video; **green** featured-rail accent); Sales & Marketing / Talent / Lending / Insurance / Peer Community panel placeholders until M2. Figma AI reference **`11462:8214`** (WF v2 chunk).
+  **AI** full panel (use cases + video; green was its rail accent until 2026-11-10, when the rail row became a gradient shimmer); Sales & Marketing / Talent / Lending / Insurance / Peer Community panel placeholders until M2. Figma AI reference **`11462:8214`** (WF v2 chunk).
   FAQ matches Vertical Software two-column pattern. Figma wireframe reference **`11489:10607`**
   on WF v2; hi-fi Figma frame not yet captured. Build: `design-notes.md` §2026-11-03.
 - **Our Story — fourth client-review HTML page (2026-11-03):**
@@ -283,7 +283,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Our Advantage is a single page** (clarified 2026-09-28 · layout changed 2026-10-01):
   all four offerings (**Payments, Lending, Insurance, AI at Fullsteam**) sit on one page as a
   **sticky sidebar that swaps content inline** on a **white background** — the same pattern as
-  Vertical Software (this **replaced** the earlier 2026-10-01 horizontal filmstrip). **Group order (2026-11-09, Figma `11541:1393`):** Embedded Fintech, then AI at Fullsteam (mono label plus a `--green-ink` frame; the active row is bright green with ink type), then Operational Excellence. Seven links. `#payments` is the default panel (2026-11-10; was `#ai`). **No child pages** — **AI is a card/panel, not its own page** (supersedes
+  Vertical Software (this **replaced** the earlier 2026-10-01 horizontal filmstrip). **Group order (2026-11-09, Figma `11541:1393`):** Embedded Fintech, then AI at Fullsteam (mono group label; the AI row's **label** is a brand gradient shimmer — Bio Blue → Green → Gold — since 2026-11-10, which replaced the `--green-ink` frame and drops Figma parity for that row), then Operational Excellence. Seven links. `#payments` is the default panel (2026-11-10; was `#ai`). **No child pages** — **AI is a card/panel, not its own page** (supersedes
   the 2026-09-10 "AI is its own page"). **Hardware and Integrations are not separate pages** (folded
   into Payments / the Our Advantage page), 2026-09-10.
 - **Wireframe headlines are intent, not copy (2026-10-01):** every content `h1/h2/h3` across the

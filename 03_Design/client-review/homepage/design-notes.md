@@ -19,6 +19,22 @@ but staged on deploy).
 
 ---
 
+## 2026-11-10 — Our Advantage: AI tab is a gradient shimmer
+
+The AI rail row is no longer the 2026-11-09 `--green-ink` featured frame. It is a **plain rail
+item whose label carries a brand shimmer**: ink base with a Bio Blue → Green → Gold sweep
+(`.rail__name--ai`, `3s`-scale `300%` background, `4s linear infinite`, `background-clip: text`).
+The mono `AI at Fullsteam` group label and the seven-link group order are unchanged; so is the
+`#payments` default. Active/hover states now use the same gold inset rule as every other row.
+
+- Removed with the frame: `.rail__block--featured`, `.rail__item--featured`, and their mobile
+  (≤1080px) pill overrides. **This drops Figma `11541:1393` parity for the AI row.**
+- `prefers-reduced-motion` stops the sweep at `background-position: 55%` — the gold band — so
+  motion-off renders the label ink→gold rather than a static ink label.
+- Landed in commit `b5aa12f` alongside the Payments-default change; recorded here now.
+
+---
+
 ## 2026-11-10 — Contact: Vertical Software hero
 
 `contact.html` now uses the **Vertical Software type-only paper-mesh hero** instead of the
@@ -63,7 +79,7 @@ Notes from the morning review, applied on the hi-fi pages in this folder. Sitema
 | Homepage · verticals | Hover expands. The card is one link (`vertical-software.html#…`). Resting state keeps the first card open. |
 | Footer | AI at Fullsteam is a green category link. Advantage sublinks: Payments, Embedded Fintech (both `#payments`), Operational Excellence (`#sales-marketing`). Leadership scrolls to `#leadership`. |
 | Vertical Software | Lede removed; one paragraph under the title. Logo rows are separate, labeled, and full width: business units, then stats, then customers & partners. Depth tiers still hide logos on min and screens except full. |
-| Our Advantage | Sidebar matches Figma `11541:1393`: Embedded Fintech, then an AI mono label over a solid `--green-ink` frame (active row is bright green, ink type), then Operational Excellence. Seven links. Default panel is `#payments` (changed 2026-11-10; was `#ai`). |
+| Our Advantage | Sidebar matches Figma `11541:1393`: Embedded Fintech, then an AI mono label over the AI row, then Operational Excellence. **The AI row itself is now a gradient shimmer label, not the `--green-ink` frame** (2026-11-10 — see the entry above; Figma parity for that row dropped). Seven links. Default panel is `#payments` (changed 2026-11-10; was `#ai`). |
 | Our Story | Timeline kept. Years and the year jump are removed. Four milestones: founding, office openings, building on LLMs, SDR team expansion. |
 | Header | Interior pages (Our Advantage, Vertical Software, Our Story, Careers, Acquisitions, Contact) use a solid white bar (`#fff`, ink logo and menu, gold Explore fill) from first paint. Homepage opening bar is unchanged. |
 | Interior heroes | One paper-mesh recipe, photography as a CSS background field (`.hero__photo`), not inline furniture. Join is an 8% mask, not a 20% dissolve. Photo pages hide the mesh. Vertical Software stays type-only. Our Advantage = till field, cropped to the work. Our Story = flush triptych (fade on the wine pane only). Acquisitions = 10-28 Axis A recipe (centered type on mesh) with founder videos as filmstrip tabs under the copy. Careers = type-only, shorter stage. Contact = Vertical Software type-only mesh with the Direct lines as an in-flow hairline row (changed 2026-11-10; was a corridor photograph + card). Gold is a mark, never text. |
