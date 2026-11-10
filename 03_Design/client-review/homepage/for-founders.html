@@ -327,7 +327,7 @@ body.menu-open { overflow: hidden; }
 
 
 .band { position: relative; padding: var(--sect) 0; }
-#why { padding-top: 0; }
+#why { padding-top: clamp(64px, 7.5vw, 112px); }
 .band--paper { background: var(--paper); }
 .band--surface { background: var(--surface); }
 .band--ink {
@@ -481,26 +481,33 @@ body.menu-open { overflow: hidden; }
   position: absolute;
   z-index: 0;
   top: 0; right: 0; bottom: 0;
-  width: min(52%, 840px);
+  width: min(56%, 900px);
+  overflow: hidden;
   pointer-events: none;
   background-image: var(--hero-img);
   background-size: cover;
   background-position: var(--hero-pos, 50% 50%);
   background-repeat: no-repeat;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
 }
-.hero--photo { min-height: min(68vh, 640px); }
-.hero--photo .hero__copy { max-width: min(640px, 56%); position: relative; z-index: 2; }
+.hero--photo { min-height: min(72vh, 680px); }
+.hero--photo .hero__copy { max-width: min(620px, 50%); position: relative; z-index: 2; }
 .hero--photo .hero__grid { grid-template-columns: minmax(0, 1fr); }
+.hero--photo .hero__field { opacity: 0; }
+.hero--photo .hero__plate {
+  width: min(760px, 54%);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
+}
 @media (max-width: 900px) {
   .hero--mesh .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
   .hero--mesh .hero__photo {
     position: relative;
     width: 100%;
     height: clamp(220px, 48vw, 340px);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
   }
   .hero--photo { min-height: 0; }
   .hero--photo .hero__copy { max-width: none; }
@@ -513,21 +520,280 @@ body.menu-open { overflow: hidden; }
   min-height: 0;
   padding: calc(var(--bar) + clamp(16px, 2vw, 28px)) 0 clamp(28px, 3.2vw, 44px);
 }
-/* Acquisitions — one photograph as a field, bleeding off the right. */
+/* Acquisitions — 10-28 Axis A recipe: centered type on mesh, video tabs under. */
 .hero--acq {
-  --hero-t: clamp(40px, 7vw, 100px);
-  --hero-img: url("assets/img/hospitality.jpg");
-  --hero-pos: 56% 42%;
+  --hero-t: clamp(44px, 7.4vw, 108px);
+  --brand-sky: #00c8ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: min(100svh, 920px);
+  padding: calc(var(--bar) + 28px) 0 clamp(28px, 3.5vw, 40px);
 }
-.hero--acq .hero__blob--green { display: none; }
-.hero--acq .hero__blob--blue { left: 74%; }
-.hero--acq .hero__photo { width: min(48%, 780px); }
+.hero--acq .hero__photo { display: none; }
+.hero--acq .hero__plate {
+  left: 50%;
+  top: 42%;
+  width: min(920px, 72%);
+  height: min(420px, 48%);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: .92;
+  mask-image: none;
+  -webkit-mask-image: none;
+  background: color-mix(in srgb, var(--gold) 8%, var(--paper));
+}
+.hero--acq .hero__field {
+  mask-image: none;
+  -webkit-mask-image: none;
+  opacity: 1;
+}
+.hero--acq .hero__blob--blue { left: 8%; top: 108%; }
+.hero--acq .hero__blob--gold { left: 52%; top: 118%; }
+.hero--acq .hero__blob--green { left: 90%; top: 112%; }
+.hero--acq .hero__center {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 24px;
+  padding-bottom: 12px;
+  width: 100%;
+  max-width: none;
+}
+.hero--acq .hero__grid {
+  display: block;
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+.hero--acq .hero__copy {
+  max-width: none;
+  text-align: center;
+  margin: 0 auto;
+}
+.hero--acq .hero__title {
+  text-align: center;
+  max-width: 16ch;
+  margin-inline: auto;
+}
+.hero--acq .hero__title .hero__line { white-space: nowrap; }
+.hero--acq .lede {
+  margin-inline: auto;
+  text-align: center;
+  max-width: 46ch;
+}
+.hero--acq .hero__actions {
+  justify-content: center;
+}
 .hero--acq .btn--ghost {
   background: #fff;
 }
 .hero--acq .btn--ghost:hover {
   background: #fff;
   border-color: var(--ink);
+}
+
+/* Filmstrip of founder videos under the copy (10-28 vert-film pattern). */
+.hero--acq .founder-film {
+  position: relative;
+  z-index: 2;
+  width: min(1280px, 100% - (var(--gutter) * 2));
+  margin: clamp(18px, 3vh, 28px) auto 0;
+}
+.hero--acq .founder-film__viewport {
+  overflow: visible;
+  width: 100%;
+}
+/* Tabs share the content width four-up so every story is reachable without
+   scrolling; the old track was wider than the viewport, which clipped the
+   fourth tab behind a mask. */
+.hero--acq .founder-film__track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(8px, 1.1vw, 14px);
+  width: 100%;
+  padding: 4px 0 8px;
+}
+.hero--acq .founder-film__tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1vw, 14px);
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(80px, 6vw, 96px);
+  padding: clamp(8px, .8vw, 12px);
+  border: 1px solid rgba(12, 27, 33, .14);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, .9);
+  color: var(--ink);
+  text-align: left;
+  opacity: 1;
+  transition: transform .18s var(--e-quick), background-color .18s var(--e-quick), border-color .18s var(--e-quick), box-shadow .18s var(--e-quick);
+}
+.hero--acq .founder-film__tab:hover {
+  transform: translateY(-2px);
+  background: #fff;
+  border-color: rgba(12, 27, 33, .28);
+  box-shadow: 0 12px 26px rgba(4,20,27,.12);
+}
+
+/* Square thumbnail on the left; the label + title float to its right. */
+.hero--acq .founder-film__thumb {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(38px, 4.1vw, 62px);
+  aspect-ratio: 1 / 1;
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--brand-ink);
+}
+.hero--acq .founder-film__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+}
+.hero--acq .founder-film__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(4,20,27,.55) 100%);
+  pointer-events: none;
+}
+.hero--acq .founder-film__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: clamp(20px, 1.6vw, 26px);
+  height: clamp(20px, 1.6vw, 26px);
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--ink);
+  background: var(--gold);
+  box-shadow: 0 6px 14px rgba(0,20,28,.22);
+  pointer-events: none;
+}
+.hero--acq .founder-film__play svg { width: 10px; height: 10px; margin-left: 1px; }
+
+.hero--acq .founder-film__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.hero--acq .founder-film__badge {
+  padding: 3px 6px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: .08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(12,27,33,.06);
+  border: 1px solid rgba(12,27,33,.10);
+  pointer-events: none;
+}
+.hero--acq .founder-film__name {
+  font-size: clamp(12px, .9vw, 14px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  text-wrap: balance;
+  pointer-events: none;
+}
+
+/* Video modal ------------------------------------------------------------- */
+.film-modal {
+  position: relative;
+  width: min(1120px, 92vw);
+  max-width: none;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: #04141B;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 40px 90px rgba(0,0,0,.55);
+}
+.film-modal::backdrop {
+  background: rgba(4, 20, 27, .84);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.film-modal__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  object-fit: cover;
+}
+.film-modal__caption {
+  margin: 0;
+  padding: 14px 18px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.72);
+}
+.film-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--ink);
+  background: var(--gold);
+  box-shadow: 0 6px 16px rgba(0,0,0,.3);
+}
+.film-modal__close svg { width: 16px; height: 16px; }
+.film-modal__close:hover { background: #fff; }
+@media (max-width: 560px) {
+  .film-modal__close { width: 32px; height: 32px; top: 6px; right: 6px; }
+  .film-modal__caption { font-size: 10px; padding: 10px 12px 12px; }
+}
+@media (max-width: 1080px) {
+  .hero--acq .founder-film__track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 900px) {
+  .hero--acq { min-height: 0; }
+  .hero--acq .hero__title .hero__line { white-space: normal; }
+}
+@media (max-width: 560px) {
+  .hero--acq .founder-film__track {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .hero--acq .founder-film__tab {
+    min-height: 72px;
+  }
+  .hero--acq .founder-film__thumb {
+    width: 40px;
+  }
 }
 
 .hero__company {
@@ -1232,8 +1498,7 @@ body.menu-open { overflow: hidden; }
 
   <main id="main">
 
-    <section data-surface="light" class="hero hero--narrative-full" id="top">
-      <div class="hero__stage hero--mesh hero--acq hero--photo" data-surface="light" aria-labelledby="acq-title">
+    <section class="hero hero--mesh hero--acq" id="top" data-surface="light" aria-labelledby="acq-title">
       <div class="hero__field" aria-hidden="true">
         <div class="hero__field-inner">
           <span class="hero__blob hero__blob--blue"></span>
@@ -1244,72 +1509,77 @@ body.menu-open { overflow: hidden; }
         <div class="hero__grain"></div>
       </div>
       <div class="hero__plate" aria-hidden="true"></div>
-        <div class="wrap hero__center">
-          <div class="hero__grid">
-            <div class="hero__copy">
-              <h1 class="hero__title" id="acq-title"><span class="hero__line">A home for the</span><span class="hero__line">business you</span><em class="hero__line">built.</em></h1>
-              <p class="lede">We buy and grow industry-specific software companies &mdash; systems of record with AI, payments, and operational excellence built in. Software first, a close you can count on, and a bigger team to scale what you started.</p>
-              <div class="hero__actions">
-                <a class="btn" href="mailto:acquisitions@fullsteam.com">Start a conversation</a>
-                <a class="btn btn--ghost" href="#why">Why Fullsteam</a>
-              </div>
+      <div class="wrap hero__center">
+        <div class="hero__grid">
+          <div class="hero__copy">
+            <h1 class="hero__title" id="acq-title"><span class="hero__line">A home for the</span><span class="hero__line">business you</span><em class="hero__line">built.</em></h1>
+            <p class="lede">We buy and grow industry-specific software companies &mdash; systems of record with AI, payments, and operational excellence built in.</p>
+            <div class="hero__actions">
+              <a class="btn" href="mailto:acquisitions@fullsteam.com">Start a conversation</a>
+              <a class="btn btn--ghost" href="#why">Why Fullsteam</a>
             </div>
           </div>
         </div>
-        <div class="hero__photo" aria-hidden="true"></div>
       </div>
-
-      <div class="hero__company" id="featured" data-surface="light" aria-labelledby="featured-title">
-        <div class="wrap">
-          <header class="band__head band__head--solo" style="margin-bottom: clamp(28px, 3.5vw, 40px);">
-            <h2 class="display display--l" id="featured-title">Founders, in <em>their words.</em></h2>
-          </header>
-          <div class="founder-gallery" id="founderGallery" data-surface="light">
-            <div class="founder-gallery__stage" data-surface="dark">
-              <img class="founder-gallery__poster" id="founderGalleryPoster" src="assets/img/founders.jpg" alt="" width="1920" height="1280" decoding="async">
-              <div class="founder-gallery__scrim" aria-hidden="true"></div>
-              <video class="founder-gallery__video" id="founderGalleryVideo" playsinline preload="metadata" poster="assets/img/founders.jpg" aria-hidden="true" tabindex="-1">
-                <source src="assets/hero-sizzle.mp4" type="video/mp4">
-                <source src="assets/hero-fallback.mp4" type="video/mp4">
-              </video>
-              <button type="button" class="founder-gallery__play" id="founderGalleryPlay" aria-label="Play featured founder story">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg>
-              </button>
-              <div class="founder-gallery__meta">
-                <p class="founder-gallery__role" id="founderGalleryRole">Featured founder story</p>
-                <p class="founder-gallery__title" id="founderGalleryTitle">Built to keep its <em>name.</em></p>
-              </div>
-              <span class="founder-gallery__badge" id="founderGalleryBadge">Demo reel · replace with client asset</span>
-            </div>
-            <ul class="founder-gallery__rail" role="tablist" aria-label="Founder stories">
-              <li>
-                <button type="button" class="founder-gallery__thumb" role="tab" id="founder-tab-0" aria-selected="true" aria-controls="founderGallery" data-poster="assets/img/founders.jpg" data-video="assets/hero-sizzle.mp4" data-role="Featured founder story" data-title="Built to keep its name." data-badge="Demo reel · replace with client asset" data-play="1">
-                  <span class="founder-gallery__thumb-media"><img src="assets/img/founders.jpg" alt="" width="400" height="250" loading="lazy" decoding="async"></span>
-                  <span class="founder-gallery__thumb-copy"><span class="founder-gallery__thumb-label">Featured story</span><span class="founder-gallery__thumb-note">Video · demo</span></span>
-                </button>
-              </li>
-              <li>
-                <button type="button" class="founder-gallery__thumb" role="tab" id="founder-tab-1" aria-selected="false" aria-controls="founderGallery" data-poster="assets/img/careers/voice-founder-stayed.jpg" data-role="The founder who stayed" data-title="Same team, bigger runway." data-badge="Client asset pending" data-play="0">
-                  <span class="founder-gallery__thumb-media"><img src="assets/img/careers/voice-founder-stayed.jpg" alt="" width="400" height="250" loading="lazy" decoding="async"></span>
-                  <span class="founder-gallery__thumb-copy"><span class="founder-gallery__thumb-label">Founder who stayed</span><span class="founder-gallery__thumb-note">Video pending</span></span>
-                </button>
-              </li>
-              <li>
-                <button type="button" class="founder-gallery__thumb" role="tab" id="founder-tab-2" aria-selected="false" aria-controls="founderGallery" data-poster="assets/img/careers/voice-founder.jpg" data-role="The founder who sold" data-title="Not an exit — a home." data-badge="Client asset pending" data-play="0">
-                  <span class="founder-gallery__thumb-media"><img src="assets/img/careers/voice-founder.jpg" alt="" width="400" height="250" loading="lazy" decoding="async"></span>
-                  <span class="founder-gallery__thumb-copy"><span class="founder-gallery__thumb-label">Founder who sold</span><span class="founder-gallery__thumb-note">Video pending</span></span>
-                </button>
-              </li>
-              <li>
-                <button type="button" class="founder-gallery__thumb" role="tab" id="founder-tab-3" aria-selected="false" aria-controls="founderGallery" data-poster="assets/img/careers/voice-employee.jpg" data-role="Operator perspective" data-title="What changed after close." data-badge="Client asset pending" data-play="0">
-                  <span class="founder-gallery__thumb-media"><img src="assets/img/careers/voice-employee.jpg" alt="" width="400" height="250" loading="lazy" decoding="async"></span>
-                  <span class="founder-gallery__thumb-copy"><span class="founder-gallery__thumb-label">Operator view</span><span class="founder-gallery__thumb-note">Video pending</span></span>
-                </button>
-              </li>
-            </ul>
+      <div class="founder-film" id="founderGallery" role="group" aria-label="Fullsteam stories">
+        <div class="founder-film__viewport">
+          <div class="founder-film__track">
+            <!-- All four slots are videos; the demo reel stands in for every clip until
+                 the client supplies the real founder films (design-notes 2026-11-09). -->
+            <button type="button" class="founder-film__tab" id="founder-tab-0" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
+              <span class="founder-film__thumb">
+                <img class="founder-film__media" src="assets/img/careers/voice-founder.jpg" alt="" width="720" height="405" decoding="async">
+                <span class="founder-film__scrim" aria-hidden="true"></span>
+                <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
+              </span>
+              <span class="founder-film__body">
+                <span class="founder-film__badge">Company film</span>
+                <span class="founder-film__name">Featured story</span>
+              </span>
+            </button>
+            <button type="button" class="founder-film__tab" id="founder-tab-1" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
+              <span class="founder-film__thumb">
+                <img class="founder-film__media" src="assets/img/careers/voice-founder-stayed.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
+                <span class="founder-film__scrim" aria-hidden="true"></span>
+                <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
+              </span>
+              <span class="founder-film__body">
+                <span class="founder-film__badge">Founder story</span>
+                <span class="founder-film__name">Why the founder stayed</span>
+              </span>
+            </button>
+            <button type="button" class="founder-film__tab" id="founder-tab-2" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
+              <span class="founder-film__thumb">
+                <img class="founder-film__media" src="assets/img/careers/voice-employee.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
+                <span class="founder-film__scrim" aria-hidden="true"></span>
+                <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
+              </span>
+              <span class="founder-film__body">
+                <span class="founder-film__badge">Employee story</span>
+                <span class="founder-film__name">A day on the operating team</span>
+              </span>
+            </button>
+            <button type="button" class="founder-film__tab" id="founder-tab-3" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
+              <span class="founder-film__thumb">
+                <img class="founder-film__media" src="assets/img/founders.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
+                <span class="founder-film__scrim" aria-hidden="true"></span>
+                <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
+              </span>
+              <span class="founder-film__body">
+                <span class="founder-film__badge">Leadership</span>
+                <span class="founder-film__name">Built to keep its name</span>
+              </span>
+            </button>
           </div>
         </div>
       </div>
+      <dialog class="film-modal" id="filmModal" aria-label="Video player">
+        <button type="button" class="film-modal__close" aria-label="Close video">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <video class="film-modal__video" controls playsinline preload="metadata"></video>
+        <p class="film-modal__caption" id="filmModalCaption"></p>
+      </dialog>
     </section>
 
     <section class="band band--paper" id="why" data-surface="light" aria-labelledby="why-title">
@@ -1569,93 +1839,50 @@ body.menu-open { overflow: hidden; }
     });
   }
 
-  var founderGallery = document.getElementById("founderGallery");
-  if (founderGallery) {
-    var fgPoster = document.getElementById("founderGalleryPoster");
-    var fgVideo = document.getElementById("founderGalleryVideo");
-    var fgPlay = document.getElementById("founderGalleryPlay");
-    var fgRole = document.getElementById("founderGalleryRole");
-    var fgTitle = document.getElementById("founderGalleryTitle");
-    var fgBadge = document.getElementById("founderGalleryBadge");
-    var fgTabs = founderGallery.querySelectorAll(".founder-gallery__thumb");
-    var fgCurrentVideo = "assets/hero-sizzle.mp4";
+  var founderFilm = document.getElementById("founderGallery");
+  var filmModal = document.getElementById("filmModal");
+  if (founderFilm && filmModal && typeof filmModal.showModal === "function") {
+    var fgTabs = founderFilm.querySelectorAll(".founder-film__tab");
+    var filmVideo = filmModal.querySelector(".film-modal__video");
+    var filmCaption = document.getElementById("filmModalCaption");
+    var filmClose = filmModal.querySelector(".film-modal__close");
+    var filmTrigger = null;
 
-    function fgStop() {
-      founderGallery.classList.remove("is-playing");
-      if (fgVideo) {
-        fgVideo.pause();
-        fgVideo.currentTime = 0;
-        fgVideo.controls = false;
-        fgVideo.setAttribute("aria-hidden", "true");
-      }
+    function openFilm(tab) {
+      var src = tab.getAttribute("data-video");
+      if (!src) return;
+      filmTrigger = tab;
+      var badge = tab.querySelector(".founder-film__badge");
+      var name = tab.querySelector(".founder-film__name");
+      filmCaption.textContent = (badge ? badge.textContent.trim() : "") +
+        (name ? " — " + name.textContent.trim() : "");
+      filmVideo.src = src;
+      filmModal.showModal();
+      filmVideo.play().catch(function () { /* autoplay policy: controls remain */ });
     }
 
-    function fgTitleHtml(text) {
-      var parts = text.trim().split(/\s+/);
-      if (parts.length < 2) return text;
-      var last = parts.pop();
-      return parts.join(" ") + " <em>" + last.replace(/\.$/, "") + ".</em>";
-    }
-
-    function fgSelectTab(tab) {
-      fgTabs.forEach(function (t) {
-        t.setAttribute("aria-selected", t === tab ? "true" : "false");
-      });
-      fgStop();
-      var poster = tab.getAttribute("data-poster");
-      var video = tab.getAttribute("data-video");
-      var canPlay = tab.getAttribute("data-play") === "1";
-      if (fgPoster && poster) {
-        fgPoster.src = poster;
-        fgPoster.alt = tab.getAttribute("data-role") || "";
-      }
-      if (fgVideo) {
-        if (video && canPlay) {
-          fgCurrentVideo = video;
-          fgVideo.src = video;
-          fgVideo.poster = poster || "";
-          fgVideo.load();
-        } else {
-          fgVideo.removeAttribute("src");
-          fgVideo.load();
-        }
-      }
-      if (fgRole) fgRole.textContent = tab.getAttribute("data-role") || "";
-      if (fgTitle) {
-        var title = tab.getAttribute("data-title") || "";
-        fgTitle.innerHTML = fgTitleHtml(title);
-      }
-      if (fgBadge) {
-        fgBadge.textContent = tab.getAttribute("data-badge") || "";
-        fgBadge.hidden = !tab.getAttribute("data-badge");
-      }
-      founderGallery.classList.toggle("is-pending", !canPlay);
-      if (fgPlay) {
-        fgPlay.hidden = !canPlay;
-        fgPlay.setAttribute("aria-label", "Play: " + (tab.getAttribute("data-role") || "founder story"));
-      }
+    function closeFilm() {
+      if (filmModal.open) filmModal.close();
     }
 
     fgTabs.forEach(function (tab) {
-      tab.addEventListener("click", function () { fgSelectTab(tab); });
+      tab.addEventListener("click", function () { openFilm(tab); });
     });
 
-    if (fgPlay && fgVideo) {
-      fgPlay.addEventListener("click", function () {
-        if (founderGallery.classList.contains("is-pending")) return;
-        founderGallery.classList.add("is-playing");
-        fgVideo.setAttribute("aria-hidden", "false");
-        fgVideo.controls = true;
-        fgVideo.play().catch(function () { /* autoplay policy */ });
-      });
-      fgVideo.addEventListener("ended", fgStop);
-      fgVideo.addEventListener("pause", function () {
-        if (fgVideo.currentTime > 0 && !fgVideo.ended) return;
-      });
-    }
+    filmClose.addEventListener("click", closeFilm);
 
-    var fgInitial = founderGallery.querySelector('.founder-gallery__thumb[aria-selected="true"]');
-    if (fgInitial) fgSelectTab(fgInitial);
+    filmModal.addEventListener("click", function (e) {
+      if (e.target === filmModal) closeFilm();
+    });
+
+    filmModal.addEventListener("close", function () {
+      filmVideo.pause();
+      filmVideo.removeAttribute("src");
+      filmVideo.load();
+      filmCaption.textContent = "";
+      if (filmTrigger) filmTrigger.focus();
+      filmTrigger = null;
+    });
   }
 
 })();

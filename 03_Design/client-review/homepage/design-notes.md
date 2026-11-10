@@ -33,7 +33,7 @@ Notes from the morning review, applied on the hi-fi pages in this folder. Sitema
 | Our Advantage | Sidebar matches Figma `11541:1393`: Embedded Fintech, then an AI mono label over a solid `--green-ink` frame (active row is bright green, ink type), then Operational Excellence. Seven links. Default panel remains `#ai`. |
 | Our Story | Timeline kept. Years and the year jump are removed. Four milestones: founding, office openings, building on LLMs, SDR team expansion. |
 | Header | Interior pages (Our Advantage, Vertical Software, Our Story, Careers, Acquisitions, Contact) use a solid white bar (`#fff`, ink logo and menu, gold Explore fill) from first paint. Homepage opening bar is unchanged. |
-| Interior heroes | One paper-mesh recipe, photography as a CSS background field (`.hero__photo`), not inline furniture. Vertical Software stays type-only. Our Advantage = till field. Our Story = three-pane industry field. Acquisitions = right-edge bleed. Careers = type-only, same recipe as Vertical Software. Contact = corridor field + Direct lines card. Gold is a mark, never text. |
+| Interior heroes | One paper-mesh recipe, photography as a CSS background field (`.hero__photo`), not inline furniture. Join is an 8% mask, not a 20% dissolve. Photo pages hide the mesh. Vertical Software stays type-only. Our Advantage = till field, cropped to the work. Our Story = flush triptych (fade on the wine pane only). Acquisitions = 10-28 Axis A recipe (centered type on mesh) with founder videos as filmstrip tabs under the copy. Careers = type-only, shorter stage. Contact = quieted corridor + Direct lines card. Gold is a mark, never text. |
 
 ---
 
@@ -45,7 +45,7 @@ Notes from the morning review, applied on the hi-fi pages in this folder. Sitema
 
 | Area | Build |
 |---|---|
-| Hero | **NarrativeLight** stack: ink **photo hero** + CTAs → white **hero__company** with **founder video gallery** (16:9 stage + thumb rail; demo reel on slot 1) |
+| Hero | **10-28 Axis A recipe:** centered type on paper mesh, founder videos as a filmstrip of tabs under the copy. Demo reel on slot 1. |
 | 01 Why Fullsteam | Paper solo `band__head` + **two-col** ledger (Careers pattern) |
 | 02 How it works | **Surface band**; homepage-style **four-column steps** ledger (talk → fit → close → continuity) — no deal terms |
 | 03 What we look for | **Ink band** · homepage-style **founders split** + serif quote · **Explore our vertical solutions** → VS |

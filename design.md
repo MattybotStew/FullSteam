@@ -352,8 +352,9 @@ body copy. Change **at least two** of {surface, accent, layout, media/module} be
 |-----------|---------------|---------------|---------|--------|-----------------|-------|
 | **MediaDark** | Vertical Software | Portfolio — what we own | Dark ink plate | Gold serif payoff | Split title + lede; **media band** below (customer + product stills) | Required — see `content-slots.md` §5 |
 | **EngineLight** | Our Advantage | Growth engine — how we grow | Paper / light band | Green (`--green-ink` payoff) | Stacked H1 + lede; hands off to white sidebar engine | None (no VS-style photo grid) |
-| **NarrativeLight** | Our Story, Acquisitions (when promoted) | Trust / founder path | Paper | Gold CTAs | One in-hero module (AGL strip or jump links + video slot) | Bleed portraits or featured video |
-| **CompactLight** | Careers, Contact, legal (when promoted) | Utility / conversion | Paper | Gold buttons | Short H1 + lede | Optional single banner (Careers) |
+| **NarrativeLight** | Our Story | Trust / company path | Paper mesh | Serif payoff | Left type + photographic field | Flush industry triptych (fade on wine pane only) |
+| **FounderFilm** | Acquisitions (`for-founders.html`) | Founder path | Paper mesh | Gold CTAs | **10-28 Axis A recipe:** centered H1 / lede / CTAs | Founder videos as a filmstrip of tabs under the copy (`.founder-film`) — not a side stage |
+| **CompactLight** | Careers, Contact, legal (when promoted) | Utility / conversion | Paper | Gold buttons | Short H1 + lede; Careers matches Vertical Software type-only mesh | Optional factband (Careers); Contact uses quieted corridor field |
 
 **Axis mapping:** Portfolio axis → **MediaDark** (Vertical Software). Embedded expansion axis →
 **EngineLight** (Our Advantage). Wireframe intent for VS hero imagery and OA light `page-hero` live in

@@ -453,26 +453,33 @@ body.menu-open { overflow: hidden; }
   position: absolute;
   z-index: 0;
   top: 0; right: 0; bottom: 0;
-  width: min(52%, 840px);
+  width: min(56%, 900px);
+  overflow: hidden;
   pointer-events: none;
   background-image: var(--hero-img);
   background-size: cover;
   background-position: var(--hero-pos, 50% 50%);
   background-repeat: no-repeat;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
 }
-.hero--photo { min-height: min(68vh, 640px); }
-.hero--photo .hero__copy { max-width: min(640px, 56%); position: relative; z-index: 2; }
+.hero--photo { min-height: min(72vh, 680px); }
+.hero--photo .hero__copy { max-width: min(620px, 50%); position: relative; z-index: 2; }
 .hero--photo .hero__grid { grid-template-columns: minmax(0, 1fr); }
+.hero--photo .hero__field { opacity: 0; }
+.hero--photo .hero__plate {
+  width: min(760px, 54%);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
+}
 @media (max-width: 900px) {
   .hero--mesh .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
   .hero--mesh .hero__photo {
     position: relative;
     width: 100%;
     height: clamp(220px, 48vw, 340px);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
   }
   .hero--photo { min-height: 0; }
   .hero--photo .hero__copy { max-width: none; }
@@ -484,10 +491,17 @@ body.menu-open { overflow: hidden; }
 .hero--contact {
   --hero-t: clamp(44px, 7.4vw, 104px);
   --hero-img: url("assets/img/erp.jpg");
-  --hero-pos: 50% 60%;
+  --hero-pos: 58% 52%;
 }
-.hero--contact .hero__field { opacity: .6; }
 .hero--contact .hero__center { position: relative; }
+.hero--contact .hero__photo { width: min(50%, 800px); }
+.hero--contact .hero__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--ink) 28%, transparent) 55%);
+  pointer-events: none;
+}
 .hero__jumps {
   display: flex; flex-wrap: wrap; gap: 14px clamp(20px, 3vw, 40px);
   margin-top: clamp(24px, 3vw, 36px);

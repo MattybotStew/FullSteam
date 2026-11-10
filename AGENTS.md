@@ -101,8 +101,8 @@ This file is the canonical agent entry point (works with Cursor, which reads
   (KB §23.10) → **How a Fullsteam company compounds** model steps → AI → verticals gallery
   → founders → careers → close. Same narrative order as the 2026-10-29 build; new editorial
   layout and type ladder. Build notes: `client-review/homepage/design-notes.md`.
-- **Interior hero archetypes (hi-fi, `design.md` §4.10, amended 2026-11-09):** subpages share one **paper-mesh** recipe (left type, 90/48/32 padding, serif-italic payoff, mesh pooled right, solid white bar) but **each page has its own photographic field**. Photography is a **CSS background** on `.hero__photo` — masked into the right of the stage, never inline furniture (no polaroids, arches, phones, or inset cards). Do not clone Vertical Software’s type-only plate across the rest. Recipes:
-  **Vertical Software** = type only, no photo. **Our Advantage** = till photograph as the field, green payoff. **Our Story** = three industry photographs as a triptych field. **Acquisitions** = one photograph bleeding off the right. **Careers** = type-only paper mesh, same recipe as Vertical Software (factband under the lede). **Contact** = corridor as the field, Direct lines card sitting on it. Legal pages remain wireframe.
+- **Interior hero archetypes (hi-fi, `design.md` §4.10, amended 2026-11-09):** subpages share one **paper-mesh** system (serif-italic payoff, solid white bar, gold as a mark never text on paper) but **each page has its own composition**. Default interior recipe is left type, 90/48/32 content padding, mesh pooled right. Photography is a **CSS background** on `.hero__photo` — a short 8% join into the paper, never a 20% dissolve, never inline furniture (no polaroids, arches, phones, or inset cards). **Photo pages turn the mesh off**; mesh is atmosphere for type-only / filmstrip plates. Do not clone one page’s hero onto another. Recipes:
+  **Vertical Software** = type only, left-aligned, no photo. **Our Advantage** = till photograph as the field, tighter crop on the work, green payoff. **Our Story** = three industry photographs as a flush triptych (fade only on the wine pane). **Acquisitions** = **10-28 Axis A recipe** — centered type on paper mesh, founder videos as a **filmstrip of tabs under the copy** (`.founder-film`), not a side stage and not a lifestyle still. **Careers** = type-only paper mesh, same left recipe as Vertical Software (factband under the lede; shorter stage). **Contact** = quieted corridor field, Direct lines card sitting on it. Legal pages remain wireframe.
 - **Vertical Software — second client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/vertical-software.html`, linked from the homepage
   (`index.html`, nine gallery/CTA targets vs wireframe cross-links). **IA unchanged** — single
@@ -128,20 +128,20 @@ This file is the canonical agent entry point (works with Cursor, which reads
   on WF v2; hi-fi Figma frame not yet captured. Build: `design-notes.md` §2026-11-03.
 - **Our Story — fourth client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/our-story.html`, linked from homepage, Vertical Software,
-  and Our Advantage chrome. **IA unchanged** — NarrativeLight hero (compact AGL + portrait bleed +
-  proof placeholders), 01 company mission/vision video slot, 02 chapter timeline (**four milestones, years removed** — founding, office openings, building on LLMs, SDR team expansion; KB **§28.10**, 2026-11-09), `#leadership` ink band (six card placeholders), homepage-style close. Figma
+  and Our Advantage chrome. **IA unchanged** — paper-mesh hero with industry **triptych field**
+  (wine / warehouse / auto; fade on the wine pane only), 01 company mission/vision video slot, 02 chapter timeline (**four milestones, years removed** — founding, office openings, building on LLMs, SDR team expansion; KB **§28.10**, 2026-11-09), `#leadership` ink band (six card placeholders; heading centered), homepage-style close. Figma
   wireframe **`11489:10772`**. Build: `design-notes.md` §2026-11-03.
 - **Careers — fifth client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/careers.html`, linked from the homepage (menu, careers
   band, footer) and from Vertical Software, Our Advantage, and Our Story chrome. **IA unchanged** —
-  single leaf page; **MediaDark** split hero (approved 2026-11-03), stat grid, dark testimonials
+  single leaf page; **type-only paper-mesh hero** (same recipe as Vertical Software; shorter stage; white factband cells), stat grid, dark testimonials
   and open roles, homepage LinkedIn scroller, FAQ. Build: `design-notes.md` §2026-11-03.
-- **Acquisitions — sixth client-review HTML page (2026-11-03):**
+- **Acquisitions — sixth client-review HTML page (2026-11-03 · hero amended 2026-11-09):**
   `03_Design/client-review/homepage/for-founders.html` (on-page label **Acquisitions**), linked
   from homepage founders band, menu, and footer across hi-fi pages. **IA unchanged** — wireframe
-  order: **NarrativeLight** photo hero + founder **video gallery** → Why (two-col) → How (four-step
+  order stands. **Hero (2026-11-09):** matches `homepage-2026-10-28` Axis A — centered H1 / lede / CTAs on paper mesh; founder videos sit as a **filmstrip of tabs under the text** (`.founder-film`), not a right-hand stage and not a kitchen still. Demo reel on slot 1; other slots pending client assets. Below the hero: Why (two-col) → How (four-step
   ledger) → What we look for (ink split + quote) → FAQ → **Contact us** close. No lead form.
-  Deploy: `pages.yml`; portal + wireframe hi-fi banner. Build: `design-notes.md` §2026-11-03.
+  Deploy: `pages.yml`; portal + wireframe hi-fi banner. Build: `design-notes.md` §2026-11-03 / §2026-11-09.
 - **Frozen prior official — `03_Design/client-review/homepage-2026-10-29-official/`**
   (snapshot of `homepage/` at promotion). Dark scale chapter, `vpanel` verticals, pre-ledger
   chrome. Read-only reference; not linked from the review portal or staged by `pages.yml`.

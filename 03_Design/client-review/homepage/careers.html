@@ -498,26 +498,33 @@ body.menu-open { overflow: hidden; }
   position: absolute;
   z-index: 0;
   top: 0; right: 0; bottom: 0;
-  width: min(52%, 840px);
+  width: min(56%, 900px);
+  overflow: hidden;
   pointer-events: none;
   background-image: var(--hero-img);
   background-size: cover;
   background-position: var(--hero-pos, 50% 50%);
   background-repeat: no-repeat;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 20%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
 }
-.hero--photo { min-height: min(68vh, 640px); }
-.hero--photo .hero__copy { max-width: min(640px, 56%); position: relative; z-index: 2; }
+.hero--photo { min-height: min(72vh, 680px); }
+.hero--photo .hero__copy { max-width: min(620px, 50%); position: relative; z-index: 2; }
 .hero--photo .hero__grid { grid-template-columns: minmax(0, 1fr); }
+.hero--photo .hero__field { opacity: 0; }
+.hero--photo .hero__plate {
+  width: min(760px, 54%);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
+}
 @media (max-width: 900px) {
   .hero--mesh .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
   .hero--mesh .hero__photo {
     position: relative;
     width: 100%;
     height: clamp(220px, 48vw, 340px);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
   }
   .hero--photo { min-height: 0; }
   .hero--photo .hero__copy { max-width: none; }
@@ -530,6 +537,13 @@ body.menu-open { overflow: hidden; }
 .hero--careers .hero__plate { width: min(980px, 78%); }
 .hero--careers .hero__copy { max-width: none; }
 .hero--careers .lede { max-width: 58ch; }
+.hero--careers .hero__center {
+  padding-top: clamp(56px, 6vw, 72px);
+  padding-bottom: clamp(40px, 4.4vw, 56px);
+}
+.hero--careers .hero__blob--blue { top: 108%; }
+.hero--careers .hero__blob--gold { top: 120%; }
+.hero--careers .hero__blob--green { left: 90%; top: 118%; }
 .hero--careers .factband {
   background: #fff;
   padding-inline: clamp(20px, 2.4vw, 28px);
