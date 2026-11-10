@@ -256,6 +256,12 @@ button { font: inherit; color: inherit; }
   border-bottom: 1px solid rgba(255, 255, 255, .12);
 }
 .footer__brand img { width: 168px; height: auto; opacity: .96; }
+.footer__tagline {
+  margin-top: 14px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .58);
+}
 .footer__line { margin-top: 20px; max-width: 30ch; line-height: 1.6; color: rgba(255, 255, 255, .6); }
 .footer h3 {
   font-family: var(--mono); font-size: 11px; font-weight: 400;
@@ -272,10 +278,6 @@ button { font: inherit; color: inherit; }
 .footer__sub a:hover { color: #fff; }
 .footer a:hover { color: #fff; }
 .footer__cat > a {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
   color: var(--green);
 }
 .footer__cat > a:hover { color: #fff; }

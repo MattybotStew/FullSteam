@@ -147,66 +147,6 @@ body.story-lightbox-open { overflow: hidden; }
   .hero--story .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
 }
 
-.story-spine {
-  position: relative;
-  z-index: 2;
-  background: var(--paper);
-  border-top: 1px solid var(--line-strong, var(--line));
-  border-bottom: 1px solid var(--line);
-}
-.story-spine ol {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-.story-spine li { border-left: 1px solid var(--line); }
-.story-spine li:first-child { border-left: 0; }
-.story-spine a {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: clamp(16px, 1.8vw, 24px) clamp(14px, 1.4vw, 22px) clamp(12px, 1.4vw, 18px) 0;
-  text-decoration: none;
-  color: inherit;
-}
-.story-spine li:first-child a { padding-left: 0; }
-.story-spine li + li a { padding-left: clamp(14px, 1.4vw, 22px); }
-.story-spine__n {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: .18em;
-  color: var(--muted);
-}
-.story-spine__name {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: clamp(17px, 1.45vw, 22px);
-  line-height: 1.12;
-  color: var(--ink);
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-  transition: color .2s var(--e-quick), border-color .2s var(--e-quick);
-}
-.story-spine a:hover .story-spine__name,
-.story-spine a:focus-visible .story-spine__name {
-  color: var(--brand);
-  border-bottom-color: currentColor;
-}
-@media (max-width: 900px) {
-  .story-spine ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .story-spine li:nth-child(3) { border-left: 0; }
-  .story-spine li:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .story-spine li:nth-child(3) a { padding-left: 0; }
-}
-@media (max-width: 420px) {
-  .story-spine ol { grid-template-columns: minmax(0, 1fr); }
-  .story-spine li { border-left: 0; }
-  .story-spine li + li { border-top: 1px solid var(--line); }
-  .story-spine li + li a { padding-left: 0; }
-}
-
 .hero__company {
   position: relative;
   z-index: 1;
@@ -869,16 +809,6 @@ body.story-lightbox-open { overflow: hidden; }
           </div>
         </div>
       </div>
-      <nav class="story-spine" aria-label="Our story chapters">
-        <div class="wrap">
-          <ol>
-            <li><a href="#milestone-founding"><span class="story-spine__n">01</span><span class="story-spine__name">Founding</span></a></li>
-            <li><a href="#milestone-offices"><span class="story-spine__n">02</span><span class="story-spine__name">Office openings</span></a></li>
-            <li><a href="#milestone-llms"><span class="story-spine__n">03</span><span class="story-spine__name">Building on LLMs</span></a></li>
-            <li><a href="#milestone-sdr"><span class="story-spine__n">04</span><span class="story-spine__name">SDR team expansion</span></a></li>
-          </ol>
-        </div>
-      </nav>
 
       <div class="hero__company" id="company" data-surface="light" aria-labelledby="company-title">
         <div class="wrap">
@@ -1060,19 +990,19 @@ body.story-lightbox-open { overflow: hidden; }
       <div class="footer__top">
         <div class="footer__brand">
           <a href="index.html" aria-label="Fullsteam home"><img src="assets/fullsteam-logo.svg" alt="" width="222" height="60" loading="lazy" decoding="async"></a>
-          <p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
+                    <p class="footer__tagline">Building on Great</p>
+<p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
             and AI that grow them.</p>
         </div>
         <div>
           <h3>Explore</h3>
           <ul>
             <li><a href="vertical-software.html">Vertical Software</a></li>
-            <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="our-advantage.html#payments">Payments</a></li>
-                <li><a href="our-advantage.html#payments">Embedded Fintech</a></li>
+                <li><a href="our-advantage.html#payments">Embedded FinTech</a></li>
+                <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#sales-marketing">Operational Excellence</a></li>
               </ul>
             </li>

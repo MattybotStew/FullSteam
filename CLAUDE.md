@@ -13,6 +13,26 @@ branched.
 
 ## Resolved 2026-11-10
 
+### 0. Client feedback round (applied)
+
+- **Vertical Software** — every panel's title moved into the left column above its
+  paragraph (`.panel__intro`), and the `border-top` rule above `.panel__body` is gone, so
+  the title's first line sits level with the top of the figure. All 11 panels.
+- **Acquisitions hero** — one film card, labelled **"See a Featured Story"**; the two CTA
+  buttons are gone. The other three cards are preserved as a dormant HTML comment inside
+  `.founder-film__track`, and the four-up grid is preserved as a commented CSS block —
+  restore both together when the real founder films land.
+- **Footer (all seven pages)** — Our Advantage now carries exactly three sub-labels:
+  **Embedded FinTech · AI at Fullsteam (green) · Operational Excellence**. The standalone
+  AI category and the separate "Payments" link are gone (Embedded FinTech still lands on
+  `#payments`). `.footer__cat > a` is now a colour-only rule (no mono/uppercase) so it sits
+  in the list evenly. **Building on Great** sits between the logo and the blurb.
+- **Our Story** — the chapter index under the hero is gone (see below); nothing else in
+  the top section changed.
+- **Homepage model band** — Acquire/Grow/Lead each have their own IntersectionObserver and
+  fire independently (measured at scrollY 2020 / 2180 / 2340 at 1440), instead of the old
+  gate array with a 420 ms batch timer. Counters run per column as it lights.
+
 ### 1. Shared stylesheets can now deploy (needs the files committed)
 
 `assets/site.css` and `assets/hero.css` were both unreachable on Pages: `assets/*` deny-lists
@@ -60,6 +80,9 @@ Three pages set it explicitly (`our-advantage`, `our-story`, `vertical-software`
 So the "explicit .86" version is the **minority**, not the majority. Unifying on it brightens
 every footer link on four pages. Unifying on the plain version would dim three. Either way it is
 a taste call with a visible change on one group — not a cleanup. Decision needed before touching.
+
+(The **AI at Fullsteam** label is exempt: those three pages restate `.footer__cat > a { color:
+var(--green) }` locally, because their `.footer a` rule outranks `site.css` on order alone.)
 
 ### 6. Hero dye-lot colours — client decision
 

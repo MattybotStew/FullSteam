@@ -1826,19 +1826,19 @@
       <div class="footer__top">
         <div class="footer__brand">
           <img src="assets/fullsteam-logo.svg" alt="Fullsteam" width="222" height="60" loading="lazy" decoding="async">
-          <p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
+                    <p class="footer__tagline">Building on Great</p>
+<p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
             and AI that grow them.</p>
         </div>
         <div>
           <h3>Explore</h3>
           <ul>
             <li><a href="vertical-software.html">Vertical Software</a></li>
-            <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="our-advantage.html#payments">Payments</a></li>
-                <li><a href="our-advantage.html#payments">Embedded Fintech</a></li>
+                <li><a href="our-advantage.html#payments">Embedded FinTech</a></li>
+                <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#sales-marketing">Operational Excellence</a></li>
               </ul>
             </li>
@@ -1921,7 +1921,6 @@
            exempt — chrome floats there by design. */
         bar.classList.toggle('is-on-dark', dark && !inOpening);
         renderAxisB();
-        revealStepsFromScroll();
         ticking = false;
       }
 
@@ -2070,7 +2069,6 @@
       var stepEls = $$('.step');
       var stepNumbers = stepEls.map(function (s) { return $$('[data-count]', s); });
       var counted = [];
-      var STEP_STAGGER_MS = 420;
       var scaleBand = $('#scale');
       var modelStrokesVisible = reduce.matches;
 
@@ -2090,34 +2088,27 @@
         }
       }
 
-      /* Acquire, Grow, Lead light up as the band travels through the viewport.
-         Side-by-side columns share one vertical position, so desktop uses scroll
-         progress through #scale. Stacked columns each wait for their own top. */
-      function revealStepsFromScroll() {
-        if (!modelStepEls.length || reduce.matches) return;
-        var vh = window.innerHeight || 1;
-        var stacked = window.innerWidth <= 900;
-        var gates = [0.05, 0.4, 0.74];
-        var p = 1;
-        if (!stacked && scaleBand) {
-          var rect = scaleBand.getBoundingClientRect();
-          var start = vh * 0.92;
-          var end = vh * 0.18;
-          p = clamp01((start - rect.top) / (start - end));
+      /* Acquire, Grow and Lead light up independently (client, 2026-11-10).
+         Each column has its own observer, so it reveals — and runs its own
+         counters — the moment it reaches its trigger line, with no shared band
+         gate and no batch timer. The three columns share one vertical position
+         on desktop, so each takes a progressively deeper bottom margin to keep
+         the sequence; stacked, they are already at different heights. */
+      function armSteps() {
+        if (reduce.matches || !('IntersectionObserver' in window)) {
+          modelStepEls.forEach(revealStep);
+          return;
         }
-        var batch = [];
         modelStepEls.forEach(function (step, i) {
-          if (step.classList.contains('in') || step._arming) return;
-          var ready = stacked
-            ? step.getBoundingClientRect().top < vh * 0.78
-            : p >= gates[i];
-          if (ready) batch.push(i);
-        });
-        batch.forEach(function (i, n) {
-          var step = modelStepEls[i];
-          step._arming = true;
-          step.style.setProperty('--d', '0ms');
-          window.setTimeout(function () { revealStep(step, i); }, n * STEP_STAGGER_MS);
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              io.disconnect();
+              step.style.setProperty('--d', '0ms');
+              revealStep(step, i);
+            });
+          }, { rootMargin: '0px 0px -' + (8 + i * 18) + '% 0px', threshold: 0.15 });
+          io.observe(step);
         });
       }
 
@@ -2134,8 +2125,8 @@
       } else {
         revealEls.forEach(function (el) { el.classList.add('in'); });
         showModelStrokes();
-        modelStepEls.forEach(revealStep);
       }
+      armSteps();
 
       /* --------------------------------------------------------------------
          Counters — driven by the step lighting below, so the figures land in

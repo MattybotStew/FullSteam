@@ -211,16 +211,6 @@ body.menu-open { overflow: hidden; }
   text-align: center;
   max-width: 46ch;
 }
-.hero--acq .hero__actions {
-  justify-content: center;
-}
-.hero--acq .btn--ghost {
-  background: #fff;
-}
-.hero--acq .btn--ghost:hover {
-  background: #fff;
-  border-color: var(--ink);
-}
 
 /* Filmstrip of founder videos under the copy (10-28 vert-film pattern). */
 .hero--acq .founder-film {
@@ -233,16 +223,26 @@ body.menu-open { overflow: hidden; }
   overflow: visible;
   width: 100%;
 }
-/* Tabs share the content width four-up so every story is reachable without
-   scrolling; the old track was wider than the viewport, which clipped the
-   fourth tab behind a mask. */
+/* One film card, centred under the copy at the width it had as a four-up cell.
+   The four-up strip is preserved for when the remaining stories land — swap the
+   grid below back to `repeat(4, minmax(0, 1fr))` (drop justify-content) and
+   un-comment the three dormant cards in the markup. The <=1080px two-up rule and
+   the <=560px single-column rule come back with it. */
 .hero--acq .founder-film__track {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 310px);
+  justify-content: center;
   gap: clamp(8px, 1.1vw, 14px);
   width: 100%;
   padding: 4px 0 8px;
 }
+/*
+@media (max-width: 1080px) {
+  .hero--acq .founder-film__track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+*/
 .hero--acq .founder-film__tab {
   position: relative;
   display: flex;
@@ -400,11 +400,6 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 560px) {
   .film-modal__close { width: 32px; height: 32px; top: 6px; right: 6px; }
   .film-modal__caption { font-size: 10px; padding: 10px 12px 12px; }
-}
-@media (max-width: 1080px) {
-  .hero--acq .founder-film__track {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 @media (max-width: 900px) {
   .hero--acq { min-height: 0; }
@@ -1090,18 +1085,15 @@ body.menu-open { overflow: hidden; }
           <div class="hero__copy">
             <h1 class="hero__title" id="acq-title"><span class="hero__line">A home for the</span><span class="hero__line">business you</span><em class="hero__line">built.</em></h1>
             <p class="lede">We buy and grow industry-specific software companies &mdash; systems of record with AI, payments, and operational excellence built in.</p>
-            <div class="hero__actions">
-              <a class="btn" href="mailto:acquisitions@fullsteam.com">Start a conversation</a>
-              <a class="btn btn--ghost" href="#why">Why Fullsteam</a>
-            </div>
           </div>
         </div>
       </div>
       <div class="founder-film" id="founderGallery" role="group" aria-label="Fullsteam stories">
         <div class="founder-film__viewport">
           <div class="founder-film__track">
-            <!-- All four slots are videos; the demo reel stands in for every clip until
-                 the client supplies the real founder films (design-notes 2026-11-09). -->
+            <!-- One film slot. The four founder stories all played the same placeholder
+                 demo reel (design-notes 2026-11-09), so the strip is a single card under
+                 the copy until the client supplies the real founder films. -->
             <button type="button" class="founder-film__tab" id="founder-tab-0" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
               <span class="founder-film__thumb">
                 <img class="founder-film__media" src="assets/img/careers/voice-founder.jpg" alt="" width="720" height="405" decoding="async">
@@ -1110,9 +1102,13 @@ body.menu-open { overflow: hidden; }
               </span>
               <span class="founder-film__body">
                 <span class="founder-film__badge">Company film</span>
-                <span class="founder-film__name">Featured story</span>
+                <span class="founder-film__name">See a Featured Story</span>
               </span>
             </button>
+            <!-- Dormant: the other three stories return as soon as the client supplies
+                 the real founder films. To restore — remove this wrapper comment and set
+                 .founder-film__track back to repeat(4, minmax(0,1fr)) (see the CSS note).
+
             <button type="button" class="founder-film__tab" id="founder-tab-1" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
               <span class="founder-film__thumb">
                 <img class="founder-film__media" src="assets/img/careers/voice-founder-stayed.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
@@ -1124,6 +1120,7 @@ body.menu-open { overflow: hidden; }
                 <span class="founder-film__name">Why the founder stayed</span>
               </span>
             </button>
+
             <button type="button" class="founder-film__tab" id="founder-tab-2" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
               <span class="founder-film__thumb">
                 <img class="founder-film__media" src="assets/img/careers/voice-employee.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
@@ -1135,6 +1132,7 @@ body.menu-open { overflow: hidden; }
                 <span class="founder-film__name">A day on the operating team</span>
               </span>
             </button>
+
             <button type="button" class="founder-film__tab" id="founder-tab-3" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
               <span class="founder-film__thumb">
                 <img class="founder-film__media" src="assets/img/founders.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
@@ -1146,6 +1144,7 @@ body.menu-open { overflow: hidden; }
                 <span class="founder-film__name">Built to keep its name</span>
               </span>
             </button>
+            -->
           </div>
         </div>
       </div>
@@ -1271,19 +1270,19 @@ body.menu-open { overflow: hidden; }
       <div class="footer__top">
         <div class="footer__brand">
           <a href="index.html" aria-label="Fullsteam home"><img src="assets/fullsteam-logo.svg" alt="" width="222" height="60" loading="lazy" decoding="async"></a>
-          <p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
+                    <p class="footer__tagline">Building on Great</p>
+<p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
             and AI that grow them.</p>
         </div>
         <div>
           <h3>Explore</h3>
           <ul>
             <li><a href="vertical-software.html">Vertical Software</a></li>
-            <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="our-advantage.html#payments">Payments</a></li>
-                <li><a href="our-advantage.html#payments">Embedded Fintech</a></li>
+                <li><a href="our-advantage.html#payments">Embedded FinTech</a></li>
+                <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#sales-marketing">Operational Excellence</a></li>
               </ul>
             </li>

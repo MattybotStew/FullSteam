@@ -442,15 +442,21 @@ body.story-lightbox-open { overflow: hidden; }
 
 .panel--depth-standard .screens { display: none; }
 
+/* No rule above the body (client, 2026-11-10): the title now leads the left
+   column so its first line sits level with the top of the figure. */
 .panel__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
   gap: clamp(24px, 3.4vw, 48px);
   align-items: start;
-  margin-top: clamp(28px, 3.6vw, 44px);
-  padding-top: clamp(24px, 3vw, 36px);
-  border-top: 1px solid var(--line);
 }
+.panel__intro {
+  display: grid;
+  gap: clamp(14px, 1.6vw, 22px);
+  align-content: start;
+  min-width: 0;
+}
+.panel__head { margin: 0; }
 
 .panel__copy p + p { margin-top: 1em; }
 .panel__copy { max-width: 46ch; color: var(--ink); }
@@ -892,6 +898,10 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 }
 .footer ul { list-style: none; margin: 0; padding: 0; }
 .footer a { text-decoration: none; color: rgba(255, 255, 255, .86); transition: color .14s var(--e-quick); }
+/* The AI category link is green. assets/site.css carries the same rule, but it
+   loads before this <style>; .footer a above sets a colour at the same
+   specificity (0,1,1), so the green is restated here to keep its order. */
+.footer__cat > a { color: var(--green); }
 
 /* ---------- responsive ---------- */
 
@@ -1102,13 +1112,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           <div class="panels">
             
         <article class="panel panel--depth-standard" id="panel-hospitality" data-slug="hospitality" data-content-depth="standard" aria-labelledby="title-hospitality">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-hospitality">Service runs on the software, not beside it.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>A restaurant's night is a sequence of commitments: the reservation book, the floor plan, the check, the tip pool, the close. Software that models only the point of sale leaves the rest of the shift in notebooks and group chats.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-hospitality">Service runs on the software, not beside it.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>A restaurant's night is a sequence of commitments: the reservation book, the floor plan, the check, the tip pool, the close. Software that models only the point of sale leaves the rest of the shift in notebooks and group chats.</p>
+              </div>
             </div>
             <figure class="frame frame--story"><img src="assets/img/hospitality.jpg" alt="A professional kitchen during service" loading="lazy" decoding="async"><figcaption class="frame__cap">Hospitality · on the ground</figcaption></figure>
           </div>
@@ -1143,13 +1154,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-full" id="panel-weddings-events" data-slug="weddings-events" data-content-depth="full" aria-labelledby="title-weddings-events">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-weddings-events">Every event is a one-off, and every one has a date.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>Our software runs more than 2,200 bridal boutiques around the world where the dress is found, powers the independent florists who design the bouquets and centerpieces, and helps more than 8,000 wedding and event professionals every month orchestrate every detail from the first inquiry to the last dance.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-weddings-events">Every event is a one-off, and every one has a date.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>Our software runs more than 2,200 bridal boutiques around the world where the dress is found, powers the independent florists who design the bouquets and centerpieces, and helps more than 8,000 wedding and event professionals every month orchestrate every detail from the first inquiry to the last dance.</p>
+              </div>
             </div>
             <figure class="frame frame--story frame--gallery">
               <div class="story-carousel" data-story-gallery role="region" aria-roledescription="gallery" aria-label="Weddings and events on the ground">
@@ -1230,13 +1242,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-standard" id="panel-wine" data-slug="wine" data-content-depth="standard" aria-labelledby="title-wine">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-wine">Vintage, allocation, and compliance in one ledger.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>A winery's inventory is not a count; it is a set of commitments by vintage, club tier, and channel. Compliance adds a second ledger on top, and the two disagree at the worst possible moment.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-wine">Vintage, allocation, and compliance in one ledger.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>A winery's inventory is not a count; it is a set of commitments by vintage, club tier, and channel. Compliance adds a second ledger on top, and the two disagree at the worst possible moment.</p>
+              </div>
             </div>
             <figure class="frame frame--story"><img src="assets/img/wine.jpg" alt="Barrels in a wine cellar" loading="lazy" decoding="async"><figcaption class="frame__cap">Wine · on the ground</figcaption></figure>
           </div>
@@ -1271,13 +1284,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-standard" id="panel-retail" data-slug="retail" data-content-depth="standard" aria-labelledby="title-retail">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-retail">The counter and the back office are one system.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>Pricing, purchasing, loyalty, and shrink all meet at the counter, usually in front of a customer. When the systems behind them disagree, the store absorbs the cost in time and trust.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-retail">The counter and the back office are one system.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>Pricing, purchasing, loyalty, and shrink all meet at the counter, usually in front of a customer. When the systems behind them disagree, the store absorbs the cost in time and trust.</p>
+              </div>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Retail at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
@@ -1312,13 +1326,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-min" id="panel-storage-marina" data-slug="storage-marina" data-content-depth="min" aria-labelledby="title-storage-marina">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-storage-marina">Recurring revenue with a physical constraint.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>Occupancy, waitlists, gate access, and autopay are simple in a demo and stubborn in practice: seasonal demand, delinquencies, and a site manager who needs answers on a phone.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-storage-marina">Recurring revenue with a physical constraint.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>Occupancy, waitlists, gate access, and autopay are simple in a demo and stubborn in practice: seasonal demand, delinquencies, and a site manager who needs answers on a phone.</p>
+              </div>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Storage &amp; Marina at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
@@ -1353,13 +1368,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-min" id="panel-health-wellness" data-slug="health-wellness" data-content-depth="min" aria-labelledby="title-health-wellness">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-health-wellness">Schedules, records, and billing that cannot drift.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>Appointments, intake, treatment notes, and reimbursement are one continuous record in practice, and three disconnected systems in most software. The gap shows up as no-shows and denials.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-health-wellness">Schedules, records, and billing that cannot drift.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>Appointments, intake, treatment notes, and reimbursement are one continuous record in practice, and three disconnected systems in most software. The gap shows up as no-shows and denials.</p>
+              </div>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Health &amp; Wellness at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
@@ -1394,13 +1410,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-min" id="panel-field-services" data-slug="field-services" data-content-depth="min" aria-labelledby="title-field-services">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-field-services">The job is finished in the field, not the office.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>A technician needs the history, the parts, the checklist, and the invoice before leaving the driveway. The office needs the schedule to survive traffic, weather, and a job that runs long.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-field-services">The job is finished in the field, not the office.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>A technician needs the history, the parts, the checklist, and the invoice before leaving the driveway. The office needs the schedule to survive traffic, weather, and a job that runs long.</p>
+              </div>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Field Services at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
@@ -1435,13 +1452,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-standard" id="panel-transportation" data-slug="transportation" data-content-depth="standard" aria-labelledby="title-transportation">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-transportation">Margin lives in the details of every load.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>A carrier prices a load, assigns a driver, tracks hours, and settles pay against rules that change by state and by customer. Every handoff is a chance to lose margin quietly.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-transportation">Margin lives in the details of every load.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>A carrier prices a load, assigns a driver, tracks hours, and settles pay against rules that change by state and by customer. Every handoff is a chance to lose margin quietly.</p>
+              </div>
             </div>
             <figure class="frame frame--story"><img src="assets/img/transport.jpg" alt="A logistics warehouse in operation" loading="lazy" decoding="async"><figcaption class="frame__cap">Transportation · on the ground</figcaption></figure>
           </div>
@@ -1476,13 +1494,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-standard" id="panel-automotive" data-slug="automotive" data-content-depth="standard" aria-labelledby="title-automotive">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-automotive">The lot, the bay, and the ledger.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>Inventory ages, service bays fill, and finance paperwork has to be right the first time. Most dealers run that on systems that were never designed to talk to each other.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-automotive">The lot, the bay, and the ledger.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>Inventory ages, service bays fill, and finance paperwork has to be right the first time. Most dealers run that on systems that were never designed to talk to each other.</p>
+              </div>
             </div>
             <figure class="frame frame--story"><img src="assets/img/automotive.jpg" alt="A car on the road" loading="lazy" decoding="async"><figcaption class="frame__cap">Automotive · on the ground</figcaption></figure>
           </div>
@@ -1517,13 +1536,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-min" id="panel-association-management" data-slug="association-management" data-content-depth="min" aria-labelledby="title-association-management">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-association-management">Membership is a system, not a list.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>An association's value is its record of who belongs, what they are entitled to, and what they have done. Spreadsheets and bolt-on tools make that record expensive to keep.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-association-management">Membership is a system, not a list.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>An association's value is its record of who belongs, what they are entitled to, and what they have done. Spreadsheets and bolt-on tools make that record expensive to keep.</p>
+              </div>
             </div>
             <figure class="frame frame--story frame--pending"><span class="pending__mark" aria-hidden="true"></span><p class="pending__title">Association Management at work</p><p class="pending__note">Photography pending</p></figure>
           </div>
@@ -1558,13 +1578,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
         </article>
         <article class="panel panel--depth-standard" id="panel-erp" data-slug="erp" data-content-depth="standard" aria-labelledby="title-erp">
-          <header class="panel__head">
-            <h3 class="display display--m panel__title" id="title-erp">The system of record for the whole operation.</h3>
-          </header>
-
           <div class="panel__body">
-            <div class="panel__copy">
-              <p>Mid-market operators outgrow entry-level accounting long before they can absorb an enterprise implementation. The gap is where the business runs on exports and reconciliation.</p>
+            <div class="panel__intro">
+              <header class="panel__head">
+                <h3 class="display display--m panel__title" id="title-erp">The system of record for the whole operation.</h3>
+              </header>
+              <div class="panel__copy">
+                <p>Mid-market operators outgrow entry-level accounting long before they can absorb an enterprise implementation. The gap is where the business runs on exports and reconciliation.</p>
+              </div>
             </div>
             <figure class="frame frame--story"><img src="assets/img/erp.jpg" alt="An open-plan office floor" loading="lazy" decoding="async"><figcaption class="frame__cap">ERP · on the ground</figcaption></figure>
           </div>
@@ -1634,19 +1655,19 @@ html:not(.has-js) .story-carousel__controls { display: none; }
       <div class="footer__top">
         <div class="footer__brand">
           <a href="index.html" aria-label="Fullsteam home"><img src="assets/fullsteam-logo.svg" alt="" width="222" height="60" loading="lazy" decoding="async"></a>
-          <p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
+                    <p class="footer__tagline">Building on Great</p>
+<p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
             and AI that grow them.</p>
         </div>
         <div>
           <h3>Explore</h3>
           <ul>
             <li><a href="#top">Vertical Software</a></li>
-            <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="our-advantage.html#payments">Payments</a></li>
-                <li><a href="our-advantage.html#payments">Embedded Fintech</a></li>
+                <li><a href="our-advantage.html#payments">Embedded FinTech</a></li>
+                <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#sales-marketing">Operational Excellence</a></li>
               </ul>
             </li>

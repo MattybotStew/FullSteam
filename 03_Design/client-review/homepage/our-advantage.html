@@ -481,6 +481,10 @@ body.story-lightbox-open { overflow: hidden; }
 .faq__answer { padding: 0 46px 26px 0; color: var(--muted); max-width: 62ch; }
 .footer ul { list-style: none; margin: 0; padding: 0; }
 .footer a { text-decoration: none; color: rgba(255, 255, 255, .86); transition: color .14s var(--e-quick); }
+/* The AI category link is green. assets/site.css carries the same rule, but it
+   loads before this <style>; .footer a above sets a colour at the same
+   specificity (0,1,1), so the green is restated here to keep its order. */
+.footer__cat > a { color: var(--green); }
 
 @media (max-width: 1080px) {
   .engine { grid-template-columns: minmax(0, 1fr); gap: 28px; }
@@ -906,19 +910,19 @@ body.story-lightbox-open { overflow: hidden; }
       <div class="footer__top">
         <div class="footer__brand">
           <a href="index.html" aria-label="Fullsteam home"><img src="assets/fullsteam-logo.svg" alt="" width="222" height="60" loading="lazy" decoding="async"></a>
-          <p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
+                    <p class="footer__tagline">Building on Great</p>
+<p class="footer__line">A home for vertical software businesses &mdash; and the payments, lending,
             and AI that grow them.</p>
         </div>
         <div>
           <h3>Explore</h3>
           <ul>
             <li><a href="vertical-software.html">Vertical Software</a></li>
-            <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
             <li>
               <a href="our-advantage.html">Our Advantage</a>
               <ul class="footer__sub">
-                <li><a href="our-advantage.html#payments">Payments</a></li>
-                <li><a href="our-advantage.html#payments">Embedded Fintech</a></li>
+                <li><a href="our-advantage.html#payments">Embedded FinTech</a></li>
+                <li class="footer__cat"><a href="our-advantage.html#ai">AI at Fullsteam</a></li>
                 <li><a href="our-advantage.html#sales-marketing">Operational Excellence</a></li>
               </ul>
             </li>
