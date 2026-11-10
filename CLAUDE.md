@@ -29,9 +29,14 @@ branched.
   in the list evenly. **Building on Great** sits between the logo and the blurb.
 - **Our Story** — the chapter index under the hero is gone (see below); nothing else in
   the top section changed.
-- **Homepage model band** — Acquire/Grow/Lead each have their own IntersectionObserver and
-  fire independently (measured at scrollY 2020 / 2180 / 2340 at 1440), instead of the old
-  gate array with a 420 ms batch timer. Counters run per column as it lights.
+- **Homepage model band** — Acquire/Grow/Lead run as a **chained sequence**: Acquire lights
+  on scroll, its counters run to completion, then Grow lights, then Lead (`32bc961`,
+  2026-11-10 — chosen over the earlier independent-observer version in `6b6ae08`). Do not
+  "fix" this back to independent firing; it is deliberate. Reduced-motion shows final figures.
+- **Interior hero blobs** — each hero now declares its own `--blob-a/b/c` brand colours at
+  `opacity: 1` (`8d00eee`), replacing the old cyan/orange/teal dye-lot mixes.
+- **Acquisitions film card** — 16:9 thumb (104–140px) with the play badge bottom-right
+  (`c23c8db`); the card itself sits under the lede, under the copy column.
 
 ### 1. Shared stylesheets can now deploy (needs the files committed)
 
@@ -84,10 +89,12 @@ a taste call with a visible change on one group — not a cleanup. Decision need
 (The **AI at Fullsteam** label is exempt: those three pages restate `.footer__cat > a { color:
 var(--green) }` locally, because their `.footer a` rule outranks `site.css` on order alone.)
 
-### 6. Hero dye-lot colours — client decision
+### 6. Hero dye-lot colours — resolved 2026-11-10
 
-The hero blob gradients use `#00C8FF`, `#FF6A00`, `#FF9D00`, `#FFE9A3`. Not KB §15 colours, but
-they are art direction rather than token drift. Kept, flagged for the client.
+The old mixes (`#00C8FF`, `#FF6A00`, `#FF9D00`, `#FFE9A3`) are gone. `8d00eee` gives each
+interior hero its own `--blob-a/b/c` pair from the brand palette at `opacity: 1`
+(Careers `#2F86B0 / #FFC600 / #C9E88A`, Our Story `#84BD00 / #00587C / #FFC600`). Page
+backgrounds are unchanged. No action needed unless the client wants the mixes back.
 
 ### 7. The `.vp--all` gradient — not a one-line fix
 
