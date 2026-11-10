@@ -749,6 +749,13 @@ body.story-lightbox-open { overflow: hidden; }
 @media (max-height: 700px) {
   .chapters-eras { position: static; }
 }
+
+/* Hero blob palette (2026-11-10): each hero leads with a different brand colour;
+   the page background is unchanged. Overrides the shared hero.css blobs. */
+.hero--story { --blob-a: #84BD00; --blob-b: #00587C; --blob-c: #FFC600; }
+.hero--story .hero__blob--blue  { background: radial-gradient(closest-side, var(--blob-a) 0%, color-mix(in srgb, var(--blob-a) 88%, transparent) 62%, color-mix(in srgb, var(--blob-a) 46%, transparent) 84%, transparent 100%);  opacity: 1; }
+.hero--story .hero__blob--gold  { background: radial-gradient(closest-side, var(--blob-b) 0%, color-mix(in srgb, var(--blob-b) 88%, transparent) 62%, color-mix(in srgb, var(--blob-b) 46%, transparent) 84%, transparent 100%);  opacity: 1; }
+.hero--story .hero__blob--green { background: radial-gradient(closest-side, var(--blob-c) 0%, color-mix(in srgb, var(--blob-c) 88%, transparent) 62%, color-mix(in srgb, var(--blob-c) 46%, transparent) 84%, transparent 100%);  opacity: 1; }
 </style>
   <link rel="stylesheet" href="assets/hero.css">
 </head>

@@ -232,6 +232,13 @@ body.menu-open { overflow: hidden; }
   .footer__top { grid-template-columns: 1fr; }
   .footer__bottom { flex-direction: column; align-items: flex-start; }
 }
+
+/* Hero blob palette (2026-11-10): each hero leads with a different brand colour;
+   the page background is unchanged. Overrides the shared hero.css blobs. */
+.hero--compact { --blob-a: #B7D96A; --blob-b: #00587C; --blob-c: #FFE38A; }
+.hero--compact .hero__blob--blue  { background: radial-gradient(closest-side, var(--blob-a) 0%, color-mix(in srgb, var(--blob-a) 88%, transparent) 62%, color-mix(in srgb, var(--blob-a) 46%, transparent) 84%, transparent 100%);  opacity: 1; }
+.hero--compact .hero__blob--gold  { background: radial-gradient(closest-side, var(--blob-b) 0%, color-mix(in srgb, var(--blob-b) 88%, transparent) 62%, color-mix(in srgb, var(--blob-b) 46%, transparent) 84%, transparent 100%);  opacity: 1; }
+.hero--compact .hero__blob--green { background: radial-gradient(closest-side, var(--blob-c) 0%, color-mix(in srgb, var(--blob-c) 88%, transparent) 62%, color-mix(in srgb, var(--blob-c) 46%, transparent) 84%, transparent 100%);  opacity: 1; }
 </style>
   <link rel="stylesheet" href="assets/hero.css">
 </head>
