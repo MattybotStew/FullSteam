@@ -363,9 +363,10 @@ body.story-lightbox-open { overflow: hidden; }
 /* ---------- paper-mesh hero · interior pages (2026-11-09) ----------
    One recipe, a different composition on every page. Paper ground, mesh
    pooled right and bottom, left-aligned copy, 90 / 48 / 32 content padding,
-   a serif-italic payoff, photography. The bar is solid white. Gold is a mark
-   here and never text. Born on Vertical Software; each page draws its own
-   imagery as a CSS background field (.hero__photo), never as inline furniture. */
+   a serif-italic payoff. The bar is solid white. Gold is a mark here and
+   never text. Born on Vertical Software. This page's composition is
+   TYPE-ONLY: the statement, then the four chapters as an index (see
+   .story-spine). The industry photography lives in the timeline below. */
 .hero--mesh {
   position: relative;
   isolation: isolate;
@@ -477,40 +478,8 @@ body.story-lightbox-open { overflow: hidden; }
   display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px;
   margin-top: clamp(24px, 3vw, 34px);
 }
-.hero--mesh .hero__photo {
-  position: absolute;
-  z-index: 0;
-  top: 0; right: 0; bottom: 0;
-  width: min(56%, 900px);
-  overflow: hidden;
-  pointer-events: none;
-  background-image: var(--hero-img);
-  background-size: cover;
-  background-position: var(--hero-pos, 50% 50%);
-  background-repeat: no-repeat;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
-}
-.hero--photo { min-height: min(72vh, 680px); }
-.hero--photo .hero__copy { max-width: min(620px, 50%); position: relative; z-index: 2; }
-.hero--photo .hero__grid { grid-template-columns: minmax(0, 1fr); }
-.hero--photo .hero__field { opacity: 0; }
-.hero--photo .hero__plate {
-  width: min(760px, 54%);
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
-}
 @media (max-width: 900px) {
   .hero--mesh .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
-  .hero--mesh .hero__photo {
-    position: relative;
-    width: 100%;
-    height: clamp(220px, 48vw, 340px);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
-  }
-  .hero--photo { min-height: 0; }
-  .hero--photo .hero__copy { max-width: none; }
 }
 @media (max-width: 480px) {
   .hero--mesh .hero__title .hero__line { white-space: normal; }
@@ -520,33 +489,71 @@ body.story-lightbox-open { overflow: hidden; }
   min-height: 0;
   padding: calc(var(--bar) + clamp(16px, 2vw, 28px)) 0 clamp(28px, 3.2vw, 44px);
 }
-/* Our Story — three industries as a photographic field, not prints. */
-.hero--story { --hero-t: clamp(34px, 5.5vw, 80px); }
-.hero--story .hero__photo {
-  width: min(54%, 840px);
+/* Our Story — the hero is the company's own spine: the statement, then the
+   four chapters as an index. Type-only. The industry photography belongs to
+   the timeline below, not to a stock triptych up here. */
+.hero--story { --hero-t: clamp(44px, 7.2vw, 112px); }
+.hero--story .hero__center { padding-bottom: clamp(28px, 3vw, 44px); }
+
+.story-spine {
+  position: relative;
+  z-index: 2;
+  background: var(--paper);
+  border-top: 1px solid var(--line-strong, var(--line));
+  border-bottom: 1px solid var(--line);
+}
+.story-spine ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1.18fr 1fr;
-  gap: 3px;
-  background-image: none;
-  overflow: hidden;
-  -webkit-mask-image: none;
-  mask-image: none;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-.hero--story .hero__photo span {
-  display: block;
-  min-width: 0;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
+.story-spine li { border-left: 1px solid var(--line); }
+.story-spine li:first-child { border-left: 0; }
+.story-spine a {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(16px, 1.8vw, 24px) clamp(14px, 1.4vw, 22px) clamp(12px, 1.4vw, 18px) 0;
+  text-decoration: none;
+  color: inherit;
 }
-.hero--story .hero__pane--a {
-  background-image: url("assets/img/wine.jpg");
-  background-position: 38% 50%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 14%);
+.story-spine li:first-child a { padding-left: 0; }
+.story-spine li + li a { padding-left: clamp(14px, 1.4vw, 22px); }
+.story-spine__n {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .18em;
+  color: var(--muted);
 }
-.hero--story .hero__pane--b { background-image: url("assets/img/transport.jpg"); background-position: 55% 42%; }
-.hero--story .hero__pane--c { background-image: url("assets/img/automotive.jpg"); background-position: 32% 44%; }
+.story-spine__name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(17px, 1.45vw, 22px);
+  line-height: 1.12;
+  color: var(--ink);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color .2s var(--e-quick), border-color .2s var(--e-quick);
+}
+.story-spine a:hover .story-spine__name,
+.story-spine a:focus-visible .story-spine__name {
+  color: var(--brand);
+  border-bottom-color: currentColor;
+}
+@media (max-width: 900px) {
+  .story-spine ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .story-spine li:nth-child(3) { border-left: 0; }
+  .story-spine li:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .story-spine li:nth-child(3) a { padding-left: 0; }
+}
+@media (max-width: 420px) {
+  .story-spine ol { grid-template-columns: minmax(0, 1fr); }
+  .story-spine li { border-left: 0; }
+  .story-spine li + li { border-top: 1px solid var(--line); }
+  .story-spine li + li a { padding-left: 0; }
+}
 
 .hero__company {
   position: relative;
@@ -785,47 +792,6 @@ body.story-lightbox-open { overflow: hidden; }
 .era:not(.era--current) { opacity: .38; }
 
 .chapters-main { min-width: 0; }
-
-.tl-jump {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 12px;
-  padding-bottom: clamp(24px, 3vw, 32px);
-  margin-bottom: clamp(8px, 1vw, 12px);
-  border-bottom: 1px solid var(--line);
-}
-.tl-jump__label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-right: 4px;
-}
-.tl-jump a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 3.25rem;
-  padding: 8px 14px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink);
-  text-decoration: none;
-  transition: border-color .14s var(--e-quick), background .14s var(--e-quick);
-}
-.tl-jump a:hover {
-  border-color: var(--ink);
-  background: var(--surface);
-}
-.tl-jump a.is-active {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--paper);
-}
 
 .tl-v2 {
   position: relative;
@@ -1277,8 +1243,8 @@ body.story-lightbox-open { overflow: hidden; }
   </div>
 
   <main id="main">
-    <section data-surface="light" class="hero hero--narrative-full" id="top">
-      <div class="hero__stage hero--mesh hero--story hero--photo" data-surface="light">
+    <section data-surface="light" class="hero hero--narrative-full" id="top" aria-labelledby="story-title">
+      <div class="hero__stage hero--mesh hero--story" data-surface="light">
       <div class="hero__field" aria-hidden="true">
         <div class="hero__field-inner">
           <span class="hero__blob hero__blob--blue"></span>
@@ -1292,21 +1258,22 @@ body.story-lightbox-open { overflow: hidden; }
         <div class="wrap hero__center">
           <div class="hero__grid">
             <div class="hero__copy">
-              <h1 class="hero__title"><span class="hero__line">Many businesses,</span><span class="hero__line">one <em>permanent</em> home.</span></h1>
+              <h1 class="hero__title" id="story-title"><span class="hero__line">Many businesses,</span><span class="hero__line">one <em>permanent</em> home.</span></h1>
               <p class="lede">We acquire industry-specific software, grow it with AI, embedded payments, and operational excellence, and lead the category it serves.</p>
-              <div class="hero__actions">
-                <a class="btn" href="vertical-software.html">Explore our verticals</a>
-                <a class="btn btn--ghost" href="#leadership">Leadership</a>
-              </div>
             </div>
           </div>
         </div>
-        <div class="hero__photo" aria-hidden="true">
-          <span class="hero__pane--a"></span>
-          <span class="hero__pane--b"></span>
-          <span class="hero__pane--c"></span>
-        </div>
       </div>
+      <nav class="story-spine" aria-label="Our story chapters">
+        <div class="wrap">
+          <ol>
+            <li><a href="#milestone-founding"><span class="story-spine__n">01</span><span class="story-spine__name">Founding</span></a></li>
+            <li><a href="#milestone-offices"><span class="story-spine__n">02</span><span class="story-spine__name">Office openings</span></a></li>
+            <li><a href="#milestone-llms"><span class="story-spine__n">03</span><span class="story-spine__name">Building on LLMs</span></a></li>
+            <li><a href="#milestone-sdr"><span class="story-spine__n">04</span><span class="story-spine__name">SDR team expansion</span></a></li>
+          </ol>
+        </div>
+      </nav>
 
       <div class="hero__company" id="company" data-surface="light" aria-labelledby="company-title">
         <div class="wrap">
@@ -1389,14 +1356,6 @@ body.story-lightbox-open { overflow: hidden; }
           </aside>
 
           <div class="chapters-main">
-            <nav class="tl-jump" aria-label="Jump to milestone">
-              <span class="tl-jump__label">Jump to</span>
-              <a href="#milestone-founding">Founding</a>
-              <a href="#milestone-offices">Offices</a>
-              <a href="#milestone-llms">LLMs</a>
-              <a href="#milestone-sdr">SDR team</a>
-            </nav>
-
             <div class="tl-v2" id="timeline-v2">
               <div class="tl-v2__progress" id="tlProgress" aria-hidden="true"></div>
 

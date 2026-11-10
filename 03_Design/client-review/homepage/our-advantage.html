@@ -336,9 +336,9 @@ body.story-lightbox-open { overflow: hidden; }
 /* ---------- paper-mesh hero · interior pages (2026-11-09) ----------
    One recipe, a different composition on every page. Paper ground, mesh
    pooled right and bottom, left-aligned copy, 90 / 48 / 32 content padding,
-   a serif-italic payoff, photography. The bar is solid white. Gold is a mark
-   here and never text. Born on Vertical Software; each page draws its own
-   imagery as a CSS background field (.hero__photo), never as inline furniture. */
+   a serif-italic payoff. The bar is solid white. Gold is a mark here and
+   never text. Born on Vertical Software. This page is TYPE-ONLY — no
+   photographic field — and runs its own mesh dye lot (see .hero--adv). */
 .hero--mesh {
   position: relative;
   isolation: isolate;
@@ -450,52 +450,51 @@ body.story-lightbox-open { overflow: hidden; }
   display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px;
   margin-top: clamp(24px, 3vw, 34px);
 }
-.hero--mesh .hero__photo {
-  position: absolute;
-  z-index: 0;
-  top: 0; right: 0; bottom: 0;
-  width: min(56%, 900px);
-  overflow: hidden;
-  pointer-events: none;
-  background-image: var(--hero-img);
-  background-size: cover;
-  background-position: var(--hero-pos, 50% 50%);
-  background-repeat: no-repeat;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
-}
-.hero--photo { min-height: min(72vh, 680px); }
-.hero--photo .hero__copy { max-width: min(620px, 50%); position: relative; z-index: 2; }
-.hero--photo .hero__grid { grid-template-columns: minmax(0, 1fr); }
-.hero--photo .hero__field { opacity: 0; }
-.hero--photo .hero__plate {
-  width: min(760px, 54%);
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
-}
 @media (max-width: 900px) {
   .hero--mesh .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
-  .hero--mesh .hero__photo {
-    position: relative;
-    width: 100%;
-    height: clamp(220px, 48vw, 340px);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
-  }
-  .hero--photo { min-height: 0; }
-  .hero--photo .hero__copy { max-width: none; }
 }
 @media (max-width: 480px) {
   .hero--mesh .hero__title .hero__line { white-space: normal; }
 }
-/* Our Advantage — till as a photographic field. Green payoff (client). */
+/* Our Advantage — same paper-mesh mechanics as Vertical Software, its own
+   dye lot: the three brand colours at full strength (no cyan / orange / teal
+   mixes), green payoff. Type-only: no photographic field. */
 .hero--adv {
-  --hero-t: clamp(44px, 7.2vw, 104px);
-  --hero-img: url("assets/img/founders.jpg");
-  --hero-pos: 64% 40%;
+  --hero-t: clamp(50px, 8.34vw, 120px);
 }
+.hero--adv .hero__grid { grid-template-columns: minmax(0, 1fr); }
+.hero--adv .hero__copy { max-width: 100%; }
+.hero--adv .hero__title { max-width: 18ch; }
 .hero--adv .hero__title em { color: var(--green); }
-.hero--adv .hero__photo { width: min(60%, 960px); }
+
+.hero--adv .hero__blob--blue {
+  left: 76%; top: 92%;
+  width: 96vmax; height: 96vmax; margin: -48vmax 0 0 -48vmax;
+  background: radial-gradient(closest-side,
+    color-mix(in srgb, #0096C7 66%, var(--brand)) 0%,
+    var(--brand) 58%,
+    color-mix(in srgb, var(--brand) 42%, transparent) 88%,
+    transparent 100%);
+  opacity: .92;
+}
+.hero--adv .hero__blob--gold {
+  left: 44%; top: 114%; width: 56vmax; height: 56vmax; margin: -28vmax 0 0 -28vmax;
+  background: radial-gradient(closest-side,
+    color-mix(in srgb, var(--gold) 62%, #FFF3C4) 0%,
+    var(--gold) 62%,
+    color-mix(in srgb, var(--gold) 28%, transparent) 88%,
+    transparent 100%);
+  opacity: .45;
+}
+.hero--adv .hero__blob--green {
+  left: 104%; top: 106%;
+  background: radial-gradient(closest-side,
+    color-mix(in srgb, var(--green) 80%, #3F7A00) 0%,
+    color-mix(in srgb, var(--green) 88%, #3F7A00) 58%,
+    color-mix(in srgb, var(--green) 40%, transparent) 88%,
+    transparent 100%);
+  opacity: .9;
+}
 
 
 /* ---------- offerings layout ---------- */
@@ -1060,7 +1059,7 @@ body.story-lightbox-open { overflow: hidden; }
   </div>
 
   <main id="main">
-    <section class="hero hero--mesh hero--adv hero--photo" id="top" data-surface="light" aria-labelledby="heroTitle">
+    <section class="hero hero--mesh hero--adv" id="top" data-surface="light" aria-labelledby="heroTitle">
       <div class="hero__field" aria-hidden="true">
         <div class="hero__field-inner">
           <span class="hero__blob hero__blob--blue"></span>
@@ -1079,7 +1078,6 @@ body.story-lightbox-open { overflow: hidden; }
           </div>
         </div>
       </div>
-      <div class="hero__photo" aria-hidden="true"></div>
     </section>
 
     <section class="offerings" id="offerings" data-surface="light" aria-label="Our Advantage offerings">

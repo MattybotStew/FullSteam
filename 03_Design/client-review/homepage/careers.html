@@ -377,12 +377,19 @@ body.menu-open { overflow: hidden; }
 }
 .hero__inner { position: relative; z-index: 1; }
 
+.hero--narrative-full {
+  padding: 0;
+  border-bottom: 0;
+  background: var(--paper);
+  color: var(--ink);
+  --focus: var(--brand);
+}
 /* ---------- paper-mesh hero · interior pages (2026-11-09) ----------
    One recipe, a different composition on every page. Paper ground, mesh
    pooled right and bottom, left-aligned copy, 90 / 48 / 32 content padding,
-   a serif-italic payoff, photography. The bar is solid white. Gold is a mark
-   here and never text. Born on Vertical Software; each page draws its own
-   imagery as a CSS background field (.hero__photo), never as inline furniture. */
+   a serif-italic payoff. The bar is solid white. Gold is a mark here and
+   never text. Careers matches Our Story: type on mesh, then a paper index
+   band (.factband) under the stage — not a card floating in the hero. */
 .hero--mesh {
   position: relative;
   isolation: isolate;
@@ -532,53 +539,71 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 480px) {
   .hero--mesh .hero__title .hero__line { white-space: normal; }
 }
-/* Careers — type-only paper mesh, same recipe as Vertical Software. */
+.hero__stage.hero--mesh {
+  display: block;
+  min-height: 0;
+  padding: calc(var(--bar) + clamp(16px, 2vw, 28px)) 0 clamp(28px, 3.2vw, 44px);
+}
+/* Careers — type-only paper mesh + paper factband (Our Story spine pattern). */
 .hero--careers .hero__title { font-size: clamp(50px, 8.34vw, 120px); }
 .hero--careers .hero__plate { width: min(980px, 78%); }
 .hero--careers .hero__copy { max-width: none; }
 .hero--careers .lede { max-width: 58ch; }
+.hero--careers {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
 .hero--careers .hero__center {
   padding-top: clamp(56px, 6vw, 72px);
-  padding-bottom: clamp(40px, 4.4vw, 56px);
+  padding-bottom: clamp(28px, 3vw, 44px);
 }
 .hero--careers .hero__blob--blue { top: 108%; }
 .hero--careers .hero__blob--gold { top: 120%; }
 .hero--careers .hero__blob--green { left: 90%; top: 118%; }
-.hero--careers .factband {
-  background: #fff;
-  padding-inline: clamp(20px, 2.4vw, 28px);
-}
 
+/* Careers proof band — same role as Our Story's .story-spine: paper index
+   under the mesh, not a card floating inside it. */
 .factband {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: clamp(38px, 4.6vw, 58px);
-  border-top: 1px solid var(--ink);
+  position: relative;
+  z-index: 2;
+  background: var(--paper);
+  border-top: 1px solid var(--line-strong, var(--line));
   border-bottom: 1px solid var(--line);
 }
+.factband__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .factband__cell {
-  padding: clamp(20px, 2.4vw, 28px) 0;
+  padding: clamp(18px, 2vw, 28px) 0;
   display: flex;
-  align-items: center;
-  gap: clamp(16px, 2vw, 28px);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
 }
 .factband__cell + .factband__cell {
   border-left: 1px solid var(--line);
-  padding-left: clamp(20px, 3vw, 40px);
+  padding-left: clamp(18px, 2.2vw, 32px);
 }
+.factband__cell:first-child { padding-right: clamp(18px, 2.2vw, 32px); }
 .factband__n {
-  font-size: clamp(30px, 3.2vw, 42px);
+  font-size: clamp(34px, 3.6vw, 48px);
   font-weight: 500;
-  letter-spacing: -.035em;
-  line-height: 1;
+  letter-spacing: -.04em;
+  line-height: .95;
   font-variant-numeric: tabular-nums;
   color: var(--ink);
 }
 .factband__c {
-  font-size: var(--t-small);
-  color: var(--muted);
-  max-width: 24ch;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(17px, 1.45vw, 22px);
+  line-height: 1.2;
+  color: var(--ink);
+  max-width: 28ch;
 }
 
 .two-col {
@@ -911,10 +936,11 @@ body.menu-open { overflow: hidden; }
 }
 
 @media (max-width: 680px) {
-  .factband { grid-template-columns: minmax(0, 1fr); }
+  .factband__grid { grid-template-columns: minmax(0, 1fr); }
+  .factband__cell:first-child { padding-right: 0; }
   .factband__cell + .factband__cell {
     border-left: 0;
-    border-top: 1px solid rgba(255, 255, 255, .14);
+    border-top: 1px solid var(--line);
     padding-left: 0;
   }
   .two-col { grid-template-columns: minmax(0, 1fr); }
@@ -1024,28 +1050,38 @@ body.menu-open { overflow: hidden; }
   
   <main id="main">
 
-    <section class="hero hero--mesh hero--careers" id="top" data-surface="light" aria-labelledby="careers-title">
-      <div class="hero__field" aria-hidden="true">
-        <div class="hero__field-inner">
-          <span class="hero__blob hero__blob--blue"></span>
-          <span class="hero__blob hero__blob--gold"></span>
-          <span class="hero__blob hero__blob--green"></span>
-          <span class="hero__light"></span>
-        </div>
-        <div class="hero__grain"></div>
-      </div>
-      <div class="hero__plate" aria-hidden="true"></div>
-      <div class="wrap hero__center">
-        <h1 class="hero__title" id="careers-title"><span class="hero__line">A big company</span><span class="hero__line">that does <em>not</em></span><span class="hero__line">work like one.</span></h1>
-        <p class="lede">2,000+ people across 11 verticals &mdash; mostly remote, close to the decisions, and working on software real industries depend on. Careers here move sideways into new verticals, not up a rigid ladder.</p>
-        <div class="factband">
-          <div class="factband__cell">
-            <p class="factband__n">2,000+</p>
-            <p class="factband__c">Colleagues, mostly remote and close to the work</p>
+    <section class="hero hero--narrative-full" id="top" data-surface="light" aria-labelledby="careers-title">
+      <div class="hero__stage hero--mesh hero--careers" data-surface="light">
+        <div class="hero__field" aria-hidden="true">
+          <div class="hero__field-inner">
+            <span class="hero__blob hero__blob--blue"></span>
+            <span class="hero__blob hero__blob--gold"></span>
+            <span class="hero__blob hero__blob--green"></span>
+            <span class="hero__light"></span>
           </div>
-          <div class="factband__cell">
-            <p class="factband__n">11</p>
-            <p class="factband__c">Verticals, one team and one set of shared services</p>
+          <div class="hero__grain"></div>
+        </div>
+        <div class="hero__plate" aria-hidden="true"></div>
+        <div class="wrap hero__center">
+          <div class="hero__grid">
+            <div class="hero__copy">
+              <h1 class="hero__title" id="careers-title"><span class="hero__line">A big company</span><span class="hero__line">that does <em>not</em></span><span class="hero__line">work like one.</span></h1>
+              <p class="lede">2,000+ people across 11 verticals &mdash; mostly remote, close to the decisions, and working on software real industries depend on. Careers here move sideways into new verticals, not up a rigid ladder.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="factband" aria-label="Careers at a glance">
+        <div class="wrap">
+          <div class="factband__grid">
+            <div class="factband__cell">
+              <p class="factband__n">2,000+</p>
+              <p class="factband__c">Colleagues, mostly remote and close to the work</p>
+            </div>
+            <div class="factband__cell">
+              <p class="factband__n">11</p>
+              <p class="factband__c">Verticals, one team and one set of shared services</p>
+            </div>
           </div>
         </div>
       </div>

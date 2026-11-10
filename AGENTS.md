@@ -102,7 +102,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
   → founders → careers → close. Same narrative order as the 2026-10-29 build; new editorial
   layout and type ladder. Build notes: `client-review/homepage/design-notes.md`.
 - **Interior hero archetypes (hi-fi, `design.md` §4.10, amended 2026-11-09):** subpages share one **paper-mesh** system (serif-italic payoff, solid white bar, gold as a mark never text on paper) but **each page has its own composition**. Default interior recipe is left type, 90/48/32 content padding, mesh pooled right. Photography is a **CSS background** on `.hero__photo` — a short 8% join into the paper, never a 20% dissolve, never inline furniture (no polaroids, arches, phones, or inset cards). **Photo pages turn the mesh off**; mesh is atmosphere for type-only / filmstrip plates. Do not clone one page’s hero onto another. Recipes:
-  **Vertical Software** = type only, left-aligned, no photo. **Our Advantage** = till photograph as the field, tighter crop on the work, green payoff. **Our Story** = three industry photographs as a flush triptych (fade only on the wine pane). **Acquisitions** = **10-28 Axis A recipe** — centered type on paper mesh, founder videos as a **filmstrip of tabs under the copy** (`.founder-film`), not a side stage and not a lifestyle still. **Careers** = type-only paper mesh, same left recipe as Vertical Software (factband under the lede; shorter stage). **Contact** = quieted corridor field, Direct lines card sitting on it. Legal pages remain wireframe.
+  **Vertical Software** = type only, left-aligned, no photo. **Our Advantage** = till photograph as the field, tighter crop on the work, green payoff. **Our Story** = three industry photographs as a flush triptych (fade only on the wine pane). **Acquisitions** = **10-28 Axis A recipe** — centered type on paper mesh, founder videos as a **filmstrip of tabs under the copy** (`.founder-film`), not a side stage and not a lifestyle still. **Careers** = type-only paper mesh (same left recipe as Vertical Software), then a paper **factband** under the stage — same role as Our Story’s `.story-spine`, not a card inside the mesh. **Contact** = quieted corridor field, Direct lines card sitting on it. Legal pages remain wireframe.
 - **Vertical Software — second client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/vertical-software.html`, linked from the homepage
   (`index.html`, nine gallery/CTA targets vs wireframe cross-links). **IA unchanged** — single
@@ -134,7 +134,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
 - **Careers — fifth client-review HTML page (2026-11-03):**
   `03_Design/client-review/homepage/careers.html`, linked from the homepage (menu, careers
   band, footer) and from Vertical Software, Our Advantage, and Our Story chrome. **IA unchanged** —
-  single leaf page; **type-only paper-mesh hero** (same recipe as Vertical Software; shorter stage; white factband cells), stat grid, dark testimonials
+  single leaf page; **type-only paper-mesh hero** (same recipe as Vertical Software), then a paper **factband** under the stage (Our Story spine pattern — 2,000+ / 11 Verticals), stat grid, dark testimonials
   and open roles, homepage LinkedIn scroller, FAQ. Build: `design-notes.md` §2026-11-03.
 - **Acquisitions — sixth client-review HTML page (2026-11-03 · hero amended 2026-11-09):**
   `03_Design/client-review/homepage/for-founders.html` (on-page label **Acquisitions**), linked
