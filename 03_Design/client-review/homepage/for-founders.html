@@ -216,8 +216,12 @@ body.menu-open { overflow: hidden; }
 .hero--acq .founder-film {
   position: relative;
   z-index: 2;
-  width: min(1280px, 100% - (var(--gutter) * 2));
-  margin: clamp(18px, 3vh, 28px) auto 0;
+  width: 100%;
+  /* Sits where the hero CTAs used to, directly under the lede. The inline
+     padding keeps the card on the page gutters at narrow widths, where the
+     hero copy itself runs full-bleed. */
+  padding-inline: var(--gutter);
+  margin: clamp(24px, 3vw, 36px) auto 0;
 }
 .hero--acq .founder-film__viewport {
   overflow: visible;
@@ -1085,66 +1089,66 @@ body.menu-open { overflow: hidden; }
           <div class="hero__copy">
             <h1 class="hero__title" id="acq-title"><span class="hero__line">A home for the</span><span class="hero__line">business you</span><em class="hero__line">built.</em></h1>
             <p class="lede">We buy and grow industry-specific software companies &mdash; systems of record with AI, payments, and operational excellence built in.</p>
-          </div>
-        </div>
-      </div>
-      <div class="founder-film" id="founderGallery" role="group" aria-label="Fullsteam stories">
-        <div class="founder-film__viewport">
-          <div class="founder-film__track">
-            <!-- One film slot. The four founder stories all played the same placeholder
-                 demo reel (design-notes 2026-11-09), so the strip is a single card under
-                 the copy until the client supplies the real founder films. -->
-            <button type="button" class="founder-film__tab" id="founder-tab-0" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
-              <span class="founder-film__thumb">
-                <img class="founder-film__media" src="assets/img/careers/voice-founder.jpg" alt="" width="720" height="405" decoding="async">
-                <span class="founder-film__scrim" aria-hidden="true"></span>
-                <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
-              </span>
-              <span class="founder-film__body">
-                <span class="founder-film__badge">Company film</span>
-                <span class="founder-film__name">See a Featured Story</span>
-              </span>
-            </button>
-            <!-- Dormant: the other three stories return as soon as the client supplies
-                 the real founder films. To restore — remove this wrapper comment and set
-                 .founder-film__track back to repeat(4, minmax(0,1fr)) (see the CSS note).
+            <div class="founder-film" id="founderGallery" role="group" aria-label="Fullsteam stories">
+              <div class="founder-film__viewport">
+                <div class="founder-film__track">
+                  <!-- One film slot. The four founder stories all played the same placeholder
+                       demo reel (design-notes 2026-11-09), so the strip is a single card under
+                       the copy until the client supplies the real founder films. -->
+                  <button type="button" class="founder-film__tab" id="founder-tab-0" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
+                    <span class="founder-film__thumb">
+                      <img class="founder-film__media" src="assets/img/careers/voice-founder.jpg" alt="" width="720" height="405" decoding="async">
+                      <span class="founder-film__scrim" aria-hidden="true"></span>
+                      <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
+                    </span>
+                    <span class="founder-film__body">
+                      <span class="founder-film__badge">Company film</span>
+                      <span class="founder-film__name">See a Featured Story</span>
+                    </span>
+                  </button>
+                  <!-- Dormant: the other three stories return as soon as the client supplies
+                       the real founder films. To restore — remove this wrapper comment and set
+                       .founder-film__track back to repeat(4, minmax(0,1fr)) (see the CSS note).
 
-            <button type="button" class="founder-film__tab" id="founder-tab-1" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
-              <span class="founder-film__thumb">
-                <img class="founder-film__media" src="assets/img/careers/voice-founder-stayed.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
-                <span class="founder-film__scrim" aria-hidden="true"></span>
-                <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
-              </span>
-              <span class="founder-film__body">
-                <span class="founder-film__badge">Founder story</span>
-                <span class="founder-film__name">Why the founder stayed</span>
-              </span>
-            </button>
+                  <button type="button" class="founder-film__tab" id="founder-tab-1" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
+                    <span class="founder-film__thumb">
+                      <img class="founder-film__media" src="assets/img/careers/voice-founder-stayed.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
+                      <span class="founder-film__scrim" aria-hidden="true"></span>
+                      <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
+                    </span>
+                    <span class="founder-film__body">
+                      <span class="founder-film__badge">Founder story</span>
+                      <span class="founder-film__name">Why the founder stayed</span>
+                    </span>
+                  </button>
 
-            <button type="button" class="founder-film__tab" id="founder-tab-2" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
-              <span class="founder-film__thumb">
-                <img class="founder-film__media" src="assets/img/careers/voice-employee.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
-                <span class="founder-film__scrim" aria-hidden="true"></span>
-                <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
-              </span>
-              <span class="founder-film__body">
-                <span class="founder-film__badge">Employee story</span>
-                <span class="founder-film__name">A day on the operating team</span>
-              </span>
-            </button>
+                  <button type="button" class="founder-film__tab" id="founder-tab-2" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
+                    <span class="founder-film__thumb">
+                      <img class="founder-film__media" src="assets/img/careers/voice-employee.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
+                      <span class="founder-film__scrim" aria-hidden="true"></span>
+                      <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
+                    </span>
+                    <span class="founder-film__body">
+                      <span class="founder-film__badge">Employee story</span>
+                      <span class="founder-film__name">A day on the operating team</span>
+                    </span>
+                  </button>
 
-            <button type="button" class="founder-film__tab" id="founder-tab-3" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
-              <span class="founder-film__thumb">
-                <img class="founder-film__media" src="assets/img/founders.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
-                <span class="founder-film__scrim" aria-hidden="true"></span>
-                <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
-              </span>
-              <span class="founder-film__body">
-                <span class="founder-film__badge">Leadership</span>
-                <span class="founder-film__name">Built to keep its name</span>
-              </span>
-            </button>
-            -->
+                  <button type="button" class="founder-film__tab" id="founder-tab-3" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
+                    <span class="founder-film__thumb">
+                      <img class="founder-film__media" src="assets/img/founders.jpg" alt="" width="720" height="405" loading="lazy" decoding="async">
+                      <span class="founder-film__scrim" aria-hidden="true"></span>
+                      <span class="founder-film__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></span>
+                    </span>
+                    <span class="founder-film__body">
+                      <span class="founder-film__badge">Leadership</span>
+                      <span class="founder-film__name">Built to keep its name</span>
+                    </span>
+                  </button>
+                  -->
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
