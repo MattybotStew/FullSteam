@@ -555,42 +555,36 @@ body.story-lightbox-open { overflow: hidden; }
 }
 .rail__item[aria-current="true"] .rail__dot { background: var(--gold); }
 
-.rail__block--featured {
-  margin-bottom: 8px;
-  padding: 6px 8px;
-  border-radius: 6px;
-  background: var(--green-ink);
-  border: 1px solid color-mix(in srgb, var(--green-ink) 72%, #000);
+/* AI tab — brand shimmer (ink base + Bio Blue→Green→Gold sweep) */
+.rail__name--ai {
+  background-image: linear-gradient(
+    90deg,
+    currentColor 0%,
+    currentColor 33%,
+    #00587C 40%,
+    #84BD00 50%,
+    #FFC600 60%,
+    currentColor 67%,
+    currentColor 100%
+  );
+  background-size: 300% 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* Keep color as ink so currentColor in the gradient resolves; fill is transparent. */
+  -webkit-text-fill-color: transparent;
+  animation: ai-gradient-shift 4s linear infinite;
 }
-.rail__block--featured .rail__list { margin: 0; }
-.rail__block--featured .rail__item {
-  border-bottom: 0;
-  color: var(--paper);
+@keyframes ai-gradient-shift {
+  to { background-position: 0% 0; }
 }
-.rail__block--featured .rail__item:hover {
-  background: color-mix(in srgb, var(--paper) 14%, transparent);
+@media (prefers-reduced-motion: reduce) {
+  .rail__name--ai {
+    animation: none;
+    background-position: 55% 0;
+  }
 }
-.rail__item--featured {
-  border-bottom-color: transparent;
-  font-weight: 600;
-}
-.rail__item--featured:not([aria-current="true"]) .rail__dot {
-  background: color-mix(in srgb, var(--paper) 65%, transparent);
-}
-.rail__item--featured[aria-current="true"] {
-  background: var(--green);
-  box-shadow: none;
-  /* Ink, not paper: white on #84BD00 is 2.27:1. Ink is 8.26:1 and the bright
-     fill still carries the "active" signal against the --green-ink block. */
-  color: var(--brand-ink);
-  font-weight: 700;
-  border-bottom-color: color-mix(in srgb, var(--green) 55%, var(--green-ink));
-}
-.rail__item--featured[aria-current="true"]:hover {
-  background: var(--green);
-  color: var(--brand-ink);
-}
-.rail__item--featured[aria-current="true"] .rail__dot { background: var(--brand-ink); }
 
 .panel--ai .panel__block--flush {
   margin-top: 22px;
@@ -932,22 +926,6 @@ body.story-lightbox-open { overflow: hidden; }
     box-shadow: none; border-color: var(--ink);
     background: var(--ink); color: #fff;
   }
-  .rail__block--featured {
-    display: contents;
-    padding: 0; border: 0; background: none;
-  }
-  .rail__item--featured {
-    border-color: color-mix(in srgb, var(--green-ink) 72%, #000);
-    background: var(--green-ink);
-    color: var(--paper);
-    font-weight: 600;
-  }
-  .rail__item--featured[aria-current="true"] {
-    border-color: var(--green);
-    background: var(--green);
-    color: var(--brand-ink);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--green) 70%, transparent);
-  }
   .rail__dot { display: none; }
   .compare { grid-template-columns: 1fr; }
   .compare__col + .compare__col { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 24px; }
@@ -1087,16 +1065,14 @@ body.story-lightbox-open { overflow: hidden; }
             <div class="rail__lists">
             <p class="rail__group">Embedded Fintech</p>
             <ol class="rail__list">
-              <li><a class="rail__item" href="#payments" data-slug="payments"><span class="rail__name">Payments</span><span class="rail__dot"></span></a></li>
+              <li><a class="rail__item" href="#payments" data-slug="payments" aria-current="true"><span class="rail__name">Payments</span><span class="rail__dot"></span></a></li>
               <li><a class="rail__item" href="#lending" data-slug="lending"><span class="rail__name">Lending</span><span class="rail__dot"></span></a></li>
               <li><a class="rail__item" href="#insurance" data-slug="insurance"><span class="rail__name">Insurance</span><span class="rail__dot"></span></a></li>
             </ol>
             <p class="rail__group">AI at Fullsteam</p>
-            <div class="rail__block rail__block--featured" aria-label="AI at Fullsteam">
-              <ol class="rail__list">
-                <li><a class="rail__item rail__item--featured" href="#ai" data-slug="ai" aria-current="true"><span class="rail__name">AI at Fullsteam</span><span class="rail__dot"></span></a></li>
-              </ol>
-            </div>
+            <ol class="rail__list">
+              <li><a class="rail__item" href="#ai" data-slug="ai"><span class="rail__name rail__name--ai">AI at Fullsteam</span><span class="rail__dot"></span></a></li>
+            </ol>
             <p class="rail__group">Operational Excellence</p>
             <ol class="rail__list">
               <li><a class="rail__item" href="#sales-marketing" data-slug="sales-marketing"><span class="rail__name">Sales &amp; Marketing</span><span class="rail__dot"></span></a></li>
@@ -1108,7 +1084,7 @@ body.story-lightbox-open { overflow: hidden; }
 
           <div class="panels">
 
-            <article class="panel panel--full panel--ai is-active" id="ai" data-slug="ai" aria-labelledby="title-ai">
+            <article class="panel panel--full panel--ai" id="ai" data-slug="ai" hidden aria-labelledby="title-ai">
               <header class="panel__head">
                 <h2 class="display display--m panel__title" id="title-ai">Three AI use cases, then one video.</h2>
                 <p class="lede panel__lede">Use cases first. Proprietary vertical data is the differentiator: the AI starts from the system of record, not a generic model. Never a story about reducing staff. The homepage AI band is a wayfinder; the video lives here.</p>
@@ -1147,7 +1123,7 @@ body.story-lightbox-open { overflow: hidden; }
               </div>
             </article>
 
-            <article class="panel panel--full" id="payments" data-slug="payments" hidden aria-labelledby="title-payments">
+            <article class="panel panel--full is-active" id="payments" data-slug="payments" aria-labelledby="title-payments">
               <header class="panel__head">
                 <h2 class="display display--m panel__title" id="title-payments">Embedded payments beat bolted-on every time.</h2>
                 <p class="lede panel__lede">Payments should feel invisible — the value is how deeply they live inside the software each business already runs.</p>
@@ -1493,7 +1469,7 @@ body.story-lightbox-open { overflow: hidden; }
   var bySlug = {};
   panels.forEach(function (panel) { bySlug[panel.getAttribute("data-slug")] = panel; });
 
-  var DEFAULT_SLUG = "ai";
+  var DEFAULT_SLUG = "payments";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

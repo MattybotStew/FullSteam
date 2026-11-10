@@ -14,7 +14,8 @@
 
 /* ------------------------------------------------------------------
    Fullsteam — Contact
-   MediaDark hero + interior bands · Figma 11489:9827.
+   Type-only paper-mesh hero (Vertical Software recipe, 2026-11-10)
+   + interior bands · Figma 11489:9827.
 ------------------------------------------------------------------- */
 :root {
   --brand: #00587C;
@@ -335,9 +336,9 @@ body.menu-open { overflow: hidden; }
 /* ---------- paper-mesh hero · interior pages (2026-11-09) ----------
    One recipe, a different composition on every page. Paper ground, mesh
    pooled right and bottom, left-aligned copy, 90 / 48 / 32 content padding,
-   a serif-italic payoff, photography. The bar is solid white. Gold is a mark
-   here and never text. Born on Vertical Software; each page draws its own
-   imagery as a CSS background field (.hero__photo), never as inline furniture. */
+   a serif-italic payoff. The bar is solid white. Gold is a mark here and
+   never text. Born on Vertical Software. Contact (2026-11-10) uses the
+   type-only composition, with no photographic field. */
 .hero--mesh {
   position: relative;
   isolation: isolate;
@@ -413,13 +414,6 @@ body.menu-open { overflow: hidden; }
 }
 @media (max-width: 900px) { .hero--mesh .hero__center { padding-top: 48px; padding-bottom: 48px; } }
 @media (max-width: 640px) { .hero--mesh .hero__center { padding-top: 32px; padding-bottom: 32px; } }
-.hero--mesh .hero__grid {
-  display: grid;
-  grid-template-columns: minmax(0, var(--copy, 1.12fr)) minmax(0, var(--art, .88fr));
-  gap: clamp(28px, 4.4vw, 72px);
-  align-items: center;
-}
-.hero--mesh .hero__copy { min-width: 0; }
 .hero--mesh .hero__title {
   margin: 0;
   max-width: none;
@@ -449,80 +443,35 @@ body.menu-open { overflow: hidden; }
   display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px;
   margin-top: clamp(24px, 3vw, 34px);
 }
-.hero--mesh .hero__photo {
-  position: absolute;
-  z-index: 0;
-  top: 0; right: 0; bottom: 0;
-  width: min(56%, 900px);
-  overflow: hidden;
-  pointer-events: none;
-  background-image: var(--hero-img);
-  background-size: cover;
-  background-position: var(--hero-pos, 50% 50%);
-  background-repeat: no-repeat;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
-}
-.hero--photo { min-height: min(72vh, 680px); }
-.hero--photo .hero__copy { max-width: min(620px, 50%); position: relative; z-index: 2; }
-.hero--photo .hero__grid { grid-template-columns: minmax(0, 1fr); }
-.hero--photo .hero__field { opacity: 0; }
-.hero--photo .hero__plate {
-  width: min(760px, 54%);
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 88%, transparent 100%);
-}
-@media (max-width: 900px) {
-  .hero--mesh .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
-  .hero--mesh .hero__photo {
-    position: relative;
-    width: 100%;
-    height: clamp(220px, 48vw, 340px);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 12%);
-  }
-  .hero--photo { min-height: 0; }
-  .hero--photo .hero__copy { max-width: none; }
-}
 @media (max-width: 480px) {
   .hero--mesh .hero__title .hero__line { white-space: normal; }
 }
-/* Contact — corridor as a field; Direct lines sit on the photograph. */
+/* Contact — type-only paper-mesh hero (Vertical Software recipe, 2026-11-10).
+   No photograph and no inset card: the mesh is the field, the copy runs in the
+   page column at the Vertical Software scale, and the Direct lines sit in the
+   same column as a hairline ledger row. 90 / 48 / 32 content padding. */
 .hero--contact {
-  --hero-t: clamp(44px, 7.4vw, 104px);
-  --hero-img: url("assets/img/erp.jpg");
-  --hero-pos: 58% 52%;
+  --hero-t: clamp(50px, 8.34vw, 120px);
 }
-.hero--contact .hero__center { position: relative; }
-.hero--contact .hero__photo { width: min(50%, 800px); }
-.hero--contact .hero__photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--ink) 28%, transparent) 55%);
-  pointer-events: none;
-}
+.hero--contact .lede { max-width: 58ch; }
 .hero__jumps {
   display: flex; flex-wrap: wrap; gap: 14px clamp(20px, 3vw, 40px);
   margin-top: clamp(24px, 3vw, 36px);
 }
 
 /* Direct lines — the one place on the site where a phone-call detail belongs:
-   a contact page should answer "how do I reach a person" above the fold. */
+   a contact page should answer "how do I reach a person" above the fold.
+   In flow, under the jumps, separated by a hairline rather than a white card. */
 .hero__lines {
-  position: absolute;
-  right: 0;
-  bottom: 28px;
-  z-index: 3;
-  width: min(320px, 84%);
-  padding: 4px 20px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: 0 24px 44px -24px rgba(12, 27, 33, .4);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 clamp(20px, 3vw, 40px);
+  max-width: 780px;
+  margin-top: clamp(28px, 3.4vw, 44px);
+  padding-top: 4px;
+  border-top: 1px solid var(--line);
 }
-.hero__lines .hero__line { display: grid; gap: 5px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-.hero__lines .hero__line:last-child { border-bottom: 0; }
+.hero__lines .hero__line { display: grid; gap: 5px; padding: 16px 0 0; }
 .hero__k {
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
   text-transform: uppercase; color: var(--muted);
@@ -531,13 +480,9 @@ body.menu-open { overflow: hidden; }
 .hero__v a { border-bottom: 1px solid var(--line-strong); }
 .hero__v a:hover { border-color: var(--ink); }
 @media (max-width: 900px) {
-  .hero__lines {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin: 28px 0 8px;
-    width: min(360px, 100%);
-  }
+  .hero__lines { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .hero__lines .hero__line { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .hero__lines .hero__line:last-child { border-bottom: 0; padding-bottom: 0; }
 }
 
 .arrow-link {
@@ -771,7 +716,7 @@ body.menu-open { overflow: hidden; }
 
   <main id="main">
 
-    <section class="hero hero--mesh hero--contact hero--photo" id="top" data-surface="light" aria-labelledby="contact-title">
+    <section class="hero hero--mesh hero--contact" id="top" data-surface="light" aria-labelledby="contact-title">
       <div class="hero__field" aria-hidden="true">
         <div class="hero__field-inner">
           <span class="hero__blob hero__blob--blue"></span>
@@ -783,11 +728,9 @@ body.menu-open { overflow: hidden; }
       </div>
       <div class="hero__plate" aria-hidden="true"></div>
       <div class="wrap hero__center">
-        <div class="hero__grid">
-          <div class="hero__copy">
-            <h1 class="hero__title" id="contact-title"><span class="hero__line">Ask for a</span><em class="hero__line">conversation.</em></h1>
-            <p class="lede">Fullsteam acquires vertical software companies and grows them with payments, lending, and AI. If you run one, work at one, or invest in them, this is the shortest way in &mdash; no campaign, no funnel, no lead scoring.</p>
-            <div class="hero__jumps">
+        <h1 class="hero__title" id="contact-title"><span class="hero__line">Ask for a</span><em class="hero__line">conversation.</em></h1>
+        <p class="lede">Fullsteam acquires vertical software companies and grows them with payments, lending, and AI. If you run one, work at one, or invest in them, this is the shortest way in &mdash; no campaign, no funnel, no lead scoring.</p>
+        <div class="hero__jumps">
           <a class="arrow-link" href="#form">Write to us
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
           </a>
@@ -797,8 +740,6 @@ body.menu-open { overflow: hidden; }
           <a class="arrow-link" href="#partner">Partner &amp; investor inquiries
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
           </a>
-            </div>
-          </div>
         </div>
         <aside class="hero__lines" aria-label="Direct lines">
             <div class="hero__line">
@@ -815,7 +756,6 @@ body.menu-open { overflow: hidden; }
             </div>
         </aside>
       </div>
-      <div class="hero__photo" aria-hidden="true"></div>
     </section>
 
     <section class="band band--surface route" id="route" data-surface="light" aria-labelledby="route-title">

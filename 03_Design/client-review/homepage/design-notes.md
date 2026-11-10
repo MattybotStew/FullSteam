@@ -19,6 +19,39 @@ but staged on deploy).
 
 ---
 
+## 2026-11-10 — Contact: Vertical Software hero
+
+`contact.html` now uses the **Vertical Software type-only paper-mesh hero** instead of the
+quieted corridor photograph.
+
+- Section is `hero--mesh hero--contact` — `hero--photo` and the `.hero__photo` field are gone,
+  along with the corridor image (`--hero-img` / `--hero-pos`) and the photo-mode CSS. The mesh is
+  the whole field, pooling right and bottom.
+- Composition matches Vertical Software: left-aligned in the page column, title at
+  `clamp(50px, 8.34vw, 120px)` (120px at 1440), second line Instrument Serif italic in **Bio Blue**
+  (`--brand`), lede at `58ch`, 90 / 48 / 32 content padding, solid white bar above.
+- **Direct lines** moved from an absolute white card over the photograph to an in-flow
+  **hairline ledger row** under the arrow links: top rule, three mono-labelled columns (Direct /
+  Careers / Offices), stacking to a single bordered list under 900px. Content and links unchanged.
+- `hero__grid` / `hero__copy` rules were removed with the photo layout — nothing else used them.
+
+Verified 1440 / 1024 / 768 / 390: title position and size match Vertical Software at the same
+widths, no horizontal overflow, Direct lines legible on the mesh and fully stacked on mobile.
+
+---
+
+## 2026-11-10 — Our Advantage: Payments is the default panel
+
+`our-advantage.html` without a hash now opens **Payments** instead of **AI at Fullsteam**
+(`DEFAULT_SLUG = "payments"`). Markup matches: the Payments rail item carries
+`aria-current="true"` and the Payments panel is `is-active`; the AI item and panel fall back
+to their inactive/hidden state. Explicit hashes still select any panel
+(`#ai`, `#lending`, `#insurance`, `#sales-marketing`, `#talent`, `#peer-community`), so every
+existing deep link — including the homepage AI band and menu `our-advantage.html#ai` — is
+unchanged. This reverses the 2026-11-03 AI-default decision; sidebar order is untouched.
+
+---
+
 ## 2026-11-09 — client review pass
 
 Notes from the morning review, applied on the hi-fi pages in this folder. Sitemap unchanged. Wireframes not redrawn. Record: KB **§28.10**.
@@ -30,10 +63,10 @@ Notes from the morning review, applied on the hi-fi pages in this folder. Sitema
 | Homepage · verticals | Hover expands. The card is one link (`vertical-software.html#…`). Resting state keeps the first card open. |
 | Footer | AI at Fullsteam is a green category link. Advantage sublinks: Payments, Embedded Fintech (both `#payments`), Operational Excellence (`#sales-marketing`). Leadership scrolls to `#leadership`. |
 | Vertical Software | Lede removed; one paragraph under the title. Logo rows are separate, labeled, and full width: business units, then stats, then customers & partners. Depth tiers still hide logos on min and screens except full. |
-| Our Advantage | Sidebar matches Figma `11541:1393`: Embedded Fintech, then an AI mono label over a solid `--green-ink` frame (active row is bright green, ink type), then Operational Excellence. Seven links. Default panel remains `#ai`. |
+| Our Advantage | Sidebar matches Figma `11541:1393`: Embedded Fintech, then an AI mono label over a solid `--green-ink` frame (active row is bright green, ink type), then Operational Excellence. Seven links. Default panel is `#payments` (changed 2026-11-10; was `#ai`). |
 | Our Story | Timeline kept. Years and the year jump are removed. Four milestones: founding, office openings, building on LLMs, SDR team expansion. |
 | Header | Interior pages (Our Advantage, Vertical Software, Our Story, Careers, Acquisitions, Contact) use a solid white bar (`#fff`, ink logo and menu, gold Explore fill) from first paint. Homepage opening bar is unchanged. |
-| Interior heroes | One paper-mesh recipe, photography as a CSS background field (`.hero__photo`), not inline furniture. Join is an 8% mask, not a 20% dissolve. Photo pages hide the mesh. Vertical Software stays type-only. Our Advantage = till field, cropped to the work. Our Story = flush triptych (fade on the wine pane only). Acquisitions = 10-28 Axis A recipe (centered type on mesh) with founder videos as filmstrip tabs under the copy. Careers = type-only, shorter stage. Contact = quieted corridor + Direct lines card. Gold is a mark, never text. |
+| Interior heroes | One paper-mesh recipe, photography as a CSS background field (`.hero__photo`), not inline furniture. Join is an 8% mask, not a 20% dissolve. Photo pages hide the mesh. Vertical Software stays type-only. Our Advantage = till field, cropped to the work. Our Story = flush triptych (fade on the wine pane only). Acquisitions = 10-28 Axis A recipe (centered type on mesh) with founder videos as filmstrip tabs under the copy. Careers = type-only, shorter stage. Contact = Vertical Software type-only mesh with the Direct lines as an in-flow hairline row (changed 2026-11-10; was a corridor photograph + card). Gold is a mark, never text. |
 
 ---
 
@@ -113,7 +146,7 @@ links updated 2026-11-03 so review traffic hits hi-fi).
 
 ### 2026-11-03 — Our Advantage: AI prominence
 
-Client-review + wireframe sidebar: **AI at Fullsteam** group moved to the top (above Embedded Fintech). Featured rail block (**`--green-ink`** outer wrapper, paper tab label; active = lime **`--green`** fill on desktop; mobile pill matches ink/green states). **`#ai` is the default** when the URL has no hash (`DEFAULT_SLUG` in panel JS). Footer Explore sub-links mirror AI-first order under Our Advantage.
+Client-review + wireframe sidebar: **AI at Fullsteam** group moved to the top (above Embedded Fintech). Featured rail block (**`--green-ink`** outer wrapper, paper tab label; active = lime **`--green`** fill on desktop; mobile pill matches ink/green states). **`#ai` is the default** when the URL has no hash (`DEFAULT_SLUG` in panel JS) — **superseded 2026-11-10, default is `#payments`**. Footer Explore sub-links mirror AI-first order under Our Advantage.
 
 ### 2026-11-03 — Our Advantage: AI accent green
 
