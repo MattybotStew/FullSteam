@@ -2140,7 +2140,7 @@
         if (!isFinite(to)) { if (onDone) onDone(); return; }
         if (reduce.matches) { el.textContent = prefix + format(to) + suffix; if (onDone) onDone(); return; }
         var start = null;
-        var dur = 2600;
+        var dur = 2340;
         function step(ts) {
           if (start === null) start = ts;
           var t = clamp01((ts - start) / dur);

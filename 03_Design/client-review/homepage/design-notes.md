@@ -961,3 +961,5 @@ Verified at 1440 / 390: panel order reads units → stats → partners, labels v
 compounding-model steps). The 70,000+ / $75B / #20 / 2,000+ / 11 counters were landing too fast to
 read as they light in sequence with each step's rule. Easing (cubic-out), stagger, and the
 `prefers-reduced-motion` early-out are unchanged — reduced motion still snaps to the final value.
+
+**Follow-up (same day):** 2600ms → **2340ms** (10% faster) at the client's direction.
