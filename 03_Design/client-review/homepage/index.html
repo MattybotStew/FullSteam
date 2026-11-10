@@ -2066,8 +2066,6 @@
       var revealEls = $$('.r').filter(function (el) {
         return !(el.classList.contains('step') && el.closest('#model-steps'));
       });
-      var stepEls = $$('.step');
-      var stepNumbers = stepEls.map(function (s) { return $$('[data-count]', s); });
       var counted = [];
       var scaleBand = $('#scale');
       var modelStrokesVisible = reduce.matches;
@@ -2078,38 +2076,40 @@
         if (scaleBand) scaleBand.classList.add('is-strokes-in');
       }
 
-      function revealStep(step, i) {
-        if (step.classList.contains('in')) return;
+      /* Chained sequence (client, 2026-11-10): Acquire lights when it scrolls
+         into view; its counters run to completion; only then does Grow light,
+         and Grow's counters finish before Lead lights. Each step is revealed
+         once, and a step with no counters hands off straight away. */
+      function revealStep(i) {
+        var step = modelStepEls[i];
+        if (!step || step.classList.contains('in')) return;
+        step.style.setProperty('--d', '0ms');
         step.classList.add('in');
         if (i === 0) showModelStrokes();
-        if (stepNumbers[i] && stepNumbers[i].length && !counted[i]) {
-          counted[i] = true;
-          stepNumbers[i].forEach(runCount);
-        }
+        var nums = $$('[data-count]', step);
+        var next = function () { if (i + 1 < modelStepEls.length) revealStep(i + 1); };
+        if (!nums.length || counted[i]) { next(); return; }
+        counted[i] = true;
+        var pending = nums.length;
+        nums.forEach(function (el) {
+          runCount(el, function () { pending -= 1; if (pending === 0) next(); });
+        });
       }
 
-      /* Acquire, Grow and Lead light up independently (client, 2026-11-10).
-         Each column has its own observer, so it reveals — and runs its own
-         counters — the moment it reaches its trigger line, with no shared band
-         gate and no batch timer. The three columns share one vertical position
-         on desktop, so each takes a progressively deeper bottom margin to keep
-         the sequence; stacked, they are already at different heights. */
       function armSteps() {
+        if (!modelStepEls.length) return;
         if (reduce.matches || !('IntersectionObserver' in window)) {
-          modelStepEls.forEach(revealStep);
+          revealStep(0);
           return;
         }
-        modelStepEls.forEach(function (step, i) {
-          var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) {
-              if (!e.isIntersecting) return;
-              io.disconnect();
-              step.style.setProperty('--d', '0ms');
-              revealStep(step, i);
-            });
-          }, { rootMargin: '0px 0px -' + (8 + i * 18) + '% 0px', threshold: 0.15 });
-          io.observe(step);
-        });
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            io.disconnect();
+            revealStep(0);
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.15 });
+        io.observe(modelStepEls[0]);
       }
 
       if ('IntersectionObserver' in window && !reduce.matches) {
@@ -2133,12 +2133,12 @@
          sequence with the rule rather than all at once.
          ------------------------------------------------------------------ */
       function format(n) { return Math.round(n).toLocaleString('en-US'); }
-      function runCount(el) {
+      function runCount(el, onDone) {
         var to = parseFloat(el.getAttribute('data-count'));
         var prefix = el.getAttribute('data-prefix') || '';
         var suffix = el.getAttribute('data-suffix') || '';
-        if (!isFinite(to)) return;
-        if (reduce.matches) { el.textContent = prefix + format(to) + suffix; return; }
+        if (!isFinite(to)) { if (onDone) onDone(); return; }
+        if (reduce.matches) { el.textContent = prefix + format(to) + suffix; if (onDone) onDone(); return; }
         var start = null;
         var dur = 1300;
         function step(ts) {
@@ -2147,7 +2147,7 @@
           var eased = 1 - Math.pow(1 - t, 3);
           el.textContent = prefix + format(to * eased) + suffix;
           if (t < 1) window.requestAnimationFrame(step);
-          else el.textContent = prefix + format(to) + suffix;
+          else { el.textContent = prefix + format(to) + suffix; if (onDone) onDone(); }
         }
         window.requestAnimationFrame(step);
       }
