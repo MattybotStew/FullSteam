@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
   <style>
 
 /* ------------------------------------------------------------------
@@ -17,186 +18,10 @@
    Type-only paper-mesh hero (Vertical Software recipe, 2026-11-10)
    + interior bands · Figma 11489:9827.
 ------------------------------------------------------------------- */
-:root {
-  --brand: #00587C;
-  --brand-deep: #003F55;
-  --brand-ink: #04141B;
-  --gold: #FFC600;
-  /* Emphasis text colour, re-pointed per surface (see [data-surface]
-     below). Brand gold is 1.58:1 on paper — a mark, not text — so on
-     light surfaces emphasis stays ink: one uniform colour, no darkened
-     gold variant anywhere. */
-  --accent: var(--gold);
-  --green: #84BD00;
-  --green-ink: #4F750E;
-
-  --paper: #FFFFFF;
-  --surface: #F3F6F7;
-  --ink: #0C1B21;
-  --muted: #586A72;
-  --line: #DCE3E6;
-  --line-strong: #C6D1D5;
-
-  --sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
-  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --mono: "Fragment Mono", ui-monospace, SFMono-Regular, monospace;
-
-  --wrap: 1280px;
-  --gutter: clamp(20px, 4.4vw, 64px);
-  --bar: 76px;
-  --sect: clamp(84px, 10vw, 148px);
-
-  --t-hero: clamp(38px, min(10.4vw, 12vh), 118px);
-  --t-h2: clamp(38px, 5.2vw, 76px);
-  --t-h3: clamp(23px, 2.5vw, 32px);
-  --t-stat: clamp(54px, 6.2vw, 96px);
-  --t-lede: clamp(18px, 1.5vw, 22px);
-  --t-body: 17px;
-  --t-small: 15px;
-  --label: 12px;
-
-  --e: cubic-bezier(.22, .75, .24, 1);
-  --e-quick: cubic-bezier(0, 0, .2, 1);
-  --dark-hair: rgba(255, 255, 255, .16);
-  --focus: var(--brand);
-
-  --dur: 240ms;
-}
-
-/* Surfaces declare the text accent, so gold copy passes AA without a per-rule
-   override and without !important. Add data-surface to any new painted block. */
-[data-surface="light"] { --accent: var(--ink); }
-[data-surface="dark"] { --accent: var(--gold); }
-
-*, *::before, *::after { box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  scrollbar-gutter: stable;
-  -webkit-text-size-adjust: 100%;
-}
-
-[id] { scroll-margin-top: 96px; }
-
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: var(--t-body);
-  line-height: 1.55;
-  font-feature-settings: "kern" 1, "liga" 1;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-img, svg, video { display: block; max-width: 100%; }
-
-a { color: inherit; text-decoration: none; }
-
-p { margin: 0; }
-figure, blockquote { margin: 0; }
-h1, h2, h3, h4 { margin: 0; font-weight: 500; }
-
-ul, ol { margin: 0; padding: 0; list-style: none; }
-
-button { font: inherit; color: inherit; }
-
-::selection { background: var(--gold); color: var(--ink); }
-
-:where(a, button, [tabindex]):focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 4px;
-  border-radius: 2px;
-}
-
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
-
-.skip-link {
-  position: fixed; left: 16px; top: -80px; z-index: 200;
-  padding: 14px 20px; border-radius: 999px;
-  background: var(--gold); color: var(--ink);
-  font-weight: 700; font-size: 14px;
-  transition: top .2s var(--e);
-}
-.skip-link:focus { top: 14px; }
-
-.wrap {
-  width: min(var(--wrap), 100% - (2 * var(--gutter)));
-  margin-inline: auto;
-}
-
-/* ---------- type primitives ---------- */
-
-.display {
-  font-weight: 500;
-  line-height: .96;
-  letter-spacing: -.035em;
-  text-wrap: balance;
-}
-
-.display em, .serif-em {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -.015em;
-  color: var(--accent);
-}
 
 #faq-title em { color: var(--accent); letter-spacing: 0; }
 
 #faq-title em { display: block; }
-
-.display--xxl { font-size: var(--t-hero); line-height: .92; }
-.display--l { font-size: var(--t-h2); }
-.display--m { font-size: var(--t-h3); line-height: 1.1; letter-spacing: -.02em; }
-
-.lede {
-  font-size: var(--t-lede);
-  line-height: 1.55;
-  color: var(--muted);
-  max-width: 54ch;
-  text-wrap: pretty;
-}
-
-.hero--media-dark .lede { color: rgba(255, 255, 255, .72); }
-
-.meta {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, .66);
-}
-
-/* ---------- buttons ---------- */
-
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: 44px; padding: 0 28px;
-  border: 0; border-radius: 999px;
-  background: var(--gold); color: var(--ink);
-  font-weight: 700; font-size: 14px; letter-spacing: -.01em;
-  white-space: nowrap; cursor: pointer;
-  transition: background-color 160ms var(--e-quick), transform 160ms var(--e-quick);
-}
-.btn:hover { background: color-mix(in srgb, var(--gold) 90%, #000); }
-.btn:active { transform: translateY(1px); }
-.btn--sm { padding: 0 18px; font-size: 13px; }
-.btn svg { width: 12px; height: 12px; flex: none; }
-
-.btn--ghost {
-  background: transparent; color: #fff;
-  border: 1px solid rgba(255, 255, 255, .34);
-}
-[data-surface="light"] .btn--ghost,
-.hero--light .btn--ghost { color: var(--ink); border-color: var(--line); }
-[data-surface="light"] .btn--ghost:hover,
-.hero--light .btn--ghost:hover { background: var(--surface); border-color: var(--ink); }
-.btn--ghost:hover { background: rgba(255, 255, 255, .1); }
 
 /* ---------- header · official homepage chrome ---------- */
 
@@ -221,96 +46,19 @@ button { font: inherit; color: inherit; }
   border-bottom-color: var(--line);
   --focus: var(--brand);
 }
-.bar__logo {
-  position: relative; display: block;
-  width: 148px; height: 40px;
-  flex: 0 0 auto;
-  z-index: 2;
-}
-.bar__logo img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: contain; object-position: left center;
-  transition: opacity .25s var(--e);
-}
 .logo--w { opacity: 0; }
 .logo--ink { opacity: 1; }
 .bar.is-solid .logo--w,
 .bar.is-on-dark .logo--w { opacity: 0; }
 .bar.is-solid .logo--ink,
 .bar.is-on-dark .logo--ink { opacity: 1; }
-.bar__actions { display: flex; align-items: center; gap: 10px; }
-.menu-btn {
-  display: grid; place-content: center; gap: 5px;
-  width: 46px; height: 46px;
-  border: 0; border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-  color: inherit;
-}
-.menu-btn span {
-  display: block; width: 22px; height: 1.5px;
-  background: currentColor; border-radius: 2px;
-  transition: transform .22s var(--e), opacity .18s var(--e);
-}
-.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-.bar__cta-short { display: none; }
 @media (max-width: 620px) {
   .bar__cta-long { display: none; }
   .bar__cta-short { display: inline; }
 }
-
-.menu {
-  position: fixed; inset: 0; z-index: 88;
-  display: flex; justify-content: flex-end; align-items: flex-start;
-  padding: calc(var(--bar) + 10px) var(--gutter) 24px;
-  background: rgba(4, 20, 27, .46);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-  overflow: auto;
-  overscroll-behavior: contain;
-}
-.menu[hidden] { display: none; }
-.menu__panel {
-  width: min(390px, 100%);
-  background: #fff; color: var(--ink);
-  --focus: var(--brand);
-  border-radius: 14px;
-  padding: 10px;
-  box-shadow: 0 1px 0 rgba(0, 20, 28, .05), 0 24px 70px rgba(0, 20, 28, .32);
-  animation: menu-in 190ms var(--e-quick) both;
-}
 @keyframes menu-in {
   from { opacity: 0; transform: translateY(-8px); }
   to { opacity: 1; transform: none; }
-}
-.menu__panel a {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 12px;
-  padding: 14px 16px;
-  border-radius: 10px;
-  font-size: 18px; font-weight: 600; letter-spacing: -.01em;
-  text-decoration: none;
-  transition: background-color 140ms var(--e-quick), color 140ms var(--e-quick);
-}
-.menu__panel a::after {
-  content: "\2192";
-  color: var(--brand);
-  opacity: 0;
-  transform: translateX(-5px);
-  transition: opacity .16s var(--e-quick), transform .16s var(--e-quick);
-}
-.menu__panel a:hover::after { opacity: 1; transform: none; }
-.menu__panel a:hover { background: var(--surface); color: var(--brand); }
-.menu__foot {
-  margin: 8px 6px 4px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: space-between;
-  font-family: var(--mono); font-size: 11px;
-  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
 }
 .progress {
   position: fixed; top: 0; left: 0; right: 0; height: 2px;
@@ -332,57 +80,6 @@ body.menu-open { overflow: hidden; }
 .band { position: relative; padding: var(--sect) 0; }
 .band--paper { background: var(--paper); }
 .band--surface { background: var(--surface); }
-
-/* ---------- paper-mesh hero · interior pages (2026-11-09) ----------
-   One recipe, a different composition on every page. Paper ground, mesh
-   pooled right and bottom, left-aligned copy, 90 / 48 / 32 content padding,
-   a serif-italic payoff. The bar is solid white. Gold is a mark here and
-   never text. Born on Vertical Software. Contact (2026-11-10) uses the
-   type-only composition, with no photographic field. */
-.hero--mesh {
-  position: relative;
-  isolation: isolate;
-  min-height: 0;
-  background: color-mix(in srgb, var(--gold) 6%, var(--paper));
-  color: var(--ink);
-  --accent: var(--ink);
-  --focus: var(--brand);
-  border-bottom: 1px solid var(--line);
-  padding: calc(var(--bar) + clamp(16px, 2vw, 28px)) 0 clamp(28px, 3.2vw, 44px);
-  overflow: hidden;
-}
-.hero--mesh .hero__field {
-  position: absolute; inset: 0; z-index: 0;
-  overflow: hidden; pointer-events: none;
-  mask-image: linear-gradient(180deg, transparent 0%, transparent 18%, rgba(0,0,0,.2) 40%, rgba(0,0,0,.7) 68%, #000 88%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 18%, rgba(0,0,0,.2) 40%, rgba(0,0,0,.7) 68%, #000 88%);
-}
-.hero--mesh .hero__field-inner { position: absolute; inset: 0; }
-.hero--mesh .hero__blob {
-  position: absolute; display: block; width: 96vmax; height: 96vmax; margin: -48vmax 0 0 -48vmax; border-radius: 50%; transform-origin: 50% 50%;
-}
-.hero--mesh .hero__blob--blue { left: 2%; top: 98%; background: radial-gradient(closest-side, color-mix(in srgb, var(--brand-sky, #00c8ff) 78%, var(--brand)) 0%, color-mix(in srgb, var(--brand-sky, #00c8ff) 66%, var(--brand)) 62%, color-mix(in srgb, var(--brand-sky, #00c8ff) 30%, var(--brand)) 84%, transparent 100%); opacity: .96; }
-.hero--mesh .hero__blob--gold { left: 50%; top: 108%; width: 84vmax; height: 84vmax; margin: -42vmax 0 0 -42vmax; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 72%, #ff6a00) 0%, color-mix(in srgb, var(--gold) 92%, #ff9d00) 58%, color-mix(in srgb, var(--gold) 90%, #ffe9a3) 82%, transparent 100%); opacity: .92; }
-.hero--mesh .hero__blob--green { left: 92%; top: 100%; background: radial-gradient(closest-side, color-mix(in srgb, var(--green) 82%, #1a6f4a) 0%, color-mix(in srgb, var(--green) 70%, #1a6f4a) 62%, color-mix(in srgb, var(--green) 44%, #7fc0a0) 84%, transparent 100%); opacity: .78; }
-.hero--mesh .hero__light { position: absolute; left: 50%; top: 116%; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,252,240,.72) 0%, rgba(255,250,225,.30) 38%, transparent 74%); opacity: .34; }
-.hero--mesh .hero__plate {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: min(980px, 78%);
-  height: 100%;
-  border-radius: 0;
-  transform: none;
-  filter: none;
-  background: color-mix(in srgb, var(--gold) 6%, var(--paper));
-  opacity: 1;
-  pointer-events: none;
-  mask-image: linear-gradient(90deg, #000 0%, #000 68%, transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 68%, transparent 100%);
-}
-.hero--mesh .hero__grain { position: absolute; inset: -8%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncG type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncB type='linear' slope='1.15' intercept='-.36'/%3E%3CfeFuncA type='table' tableValues='1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 160px 160px; opacity: .34; mix-blend-mode: multiply; pointer-events: none; }
-.hero--mesh .hero__plate { width: min(860px, 64%); }
 @keyframes heroDriftA {
   0%   { transform: translate3d(0, 0, 0) scale(1);         opacity: .46; }
   30%  { transform: translate3d(56%, 32%, 0) scale(1.14);  opacity: .62; }
@@ -400,89 +97,6 @@ body.menu-open { overflow: hidden; }
   36%  { transform: translate3d(-44%, -38%, 0) scale(1.18); opacity: .70; }
   72%  { transform: translate3d(13%, -9%, 0) scale(.90);    opacity: .36; }
   100% { transform: translate3d(0, 0, 0) scale(1);         opacity: .52; }
-}
-.hero--mesh .hero__blob--blue  { animation: heroDriftA 15s cubic-bezier(.45,.05,.55,.95) infinite; }
-.hero--mesh .hero__blob--gold  { animation: heroDriftB 17s cubic-bezier(.45,.05,.55,.95) infinite; }
-.hero--mesh .hero__blob--green { animation: heroDriftC 14s cubic-bezier(.45,.05,.55,.95) infinite; }
-@media (prefers-reduced-motion: reduce) { .hero--mesh .hero__blob, .hero--mesh .hero__light, .hero--mesh .hero__grain { animation: none !important; } }
-
-.hero--mesh .hero__center {
-  position: relative;
-  z-index: 2;
-  padding-top: 90px;
-  padding-bottom: 90px;
-}
-@media (max-width: 900px) { .hero--mesh .hero__center { padding-top: 48px; padding-bottom: 48px; } }
-@media (max-width: 640px) { .hero--mesh .hero__center { padding-top: 32px; padding-bottom: 32px; } }
-.hero--mesh .hero__title {
-  margin: 0;
-  max-width: none;
-  font-size: var(--hero-t, clamp(44px, 7vw, 100px));
-  font-weight: 500;
-  line-height: .95;
-  letter-spacing: -0.035em;
-  text-align: left;
-  color: var(--ink);
-}
-.hero--mesh .hero__title .hero__line { display: block; white-space: nowrap; }
-.hero--mesh .hero__title em {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  color: var(--brand);
-}
-.hero--mesh .lede {
-  margin-top: clamp(14px, 1.8vw, 22px);
-  max-width: 50ch;
-  font-size: var(--t-lede);
-  color: var(--muted);
-  text-align: left;
-}
-.hero--mesh .hero__actions {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px;
-  margin-top: clamp(24px, 3vw, 34px);
-}
-@media (max-width: 480px) {
-  .hero--mesh .hero__title .hero__line { white-space: normal; }
-}
-/* Contact — type-only paper-mesh hero (Vertical Software recipe, 2026-11-10).
-   No photograph and no inset card: the mesh is the field, the copy runs in the
-   page column at the Vertical Software scale, and the Direct lines sit in the
-   same column as a hairline ledger row. 90 / 48 / 32 content padding. */
-.hero--contact {
-  --hero-t: clamp(50px, 8.34vw, 120px);
-}
-.hero--contact .lede { max-width: 58ch; }
-.hero__jumps {
-  display: flex; flex-wrap: wrap; gap: 14px clamp(20px, 3vw, 40px);
-  margin-top: clamp(24px, 3vw, 36px);
-}
-
-/* Direct lines — the one place on the site where a phone-call detail belongs:
-   a contact page should answer "how do I reach a person" above the fold.
-   In flow, under the jumps, separated by a hairline rather than a white card. */
-.hero__lines {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0 clamp(20px, 3vw, 40px);
-  max-width: 780px;
-  margin-top: clamp(28px, 3.4vw, 44px);
-  padding-top: 4px;
-  border-top: 1px solid var(--line);
-}
-.hero__lines .hero__line { display: grid; gap: 5px; padding: 16px 0 0; }
-.hero__k {
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--muted);
-}
-.hero__v { font-weight: 600; font-size: var(--t-small); }
-.hero__v a { border-bottom: 1px solid var(--line-strong); }
-.hero__v a:hover { border-color: var(--ink); }
-@media (max-width: 900px) {
-  .hero__lines { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .hero__lines .hero__line { padding: 14px 0; border-bottom: 1px solid var(--line); }
-  .hero__lines .hero__line:last-child { border-bottom: 0; padding-bottom: 0; }
 }
 
 .arrow-link {
@@ -560,8 +174,6 @@ body.menu-open { overflow: hidden; }
   .form-grid { grid-template-columns: 1fr; gap: clamp(32px, 5vw, 48px); }
   .side { position: static; }
 }
-@media (max-width: 1080px) {
-}
 @media (max-width: 900px) {
   .route__inner { grid-template-columns: 1fr; align-items: start; gap: 18px; }
   .route__inner .btn { justify-self: start; }
@@ -610,63 +222,7 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 640px) {
   .side__foot a, .hero__v a { display: inline-block; padding-block: 6px; }
 }
-
-/* ---------- footer ---------- */
-/* Lifted from the shared chrome block. contact.html was assembled from
-   careers.html and this range — footer base + its two responsive rules — was
-   left behind with the careers-only CSS, so the published footer rendered as
-   unstyled stacked links with a full-bleed LinkedIn glyph. */
-.footer {
-  background: #071820;
-  color: rgba(255, 255, 255, .62);
-  --focus: #fff;
-  padding: clamp(56px, 6vw, 76px) 0 28px;
-  font-size: var(--t-small);
-}
-.footer__top {
-  display: grid;
-  grid-template-columns: 2.2fr repeat(4, minmax(0, 1fr));
-  gap: 32px;
-  padding-bottom: clamp(40px, 5vw, 60px);
-  border-bottom: 1px solid rgba(255, 255, 255, .12);
-}
-.footer__brand img { width: 168px; height: auto; opacity: .96; }
-.footer__line { margin-top: 20px; max-width: 30ch; line-height: 1.6; color: rgba(255, 255, 255, .6); }
-.footer h3 {
-  font-family: var(--mono); font-size: 11px; font-weight: 400;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: rgba(255, 255, 255, .58); margin-bottom: 16px;
-}
-.footer li + li { margin-top: 10px; }
-.footer ul.footer__sub {
-  margin-top: 12px; margin-left: 2px; padding-left: 16px;
-  border-left: 1px solid rgba(255, 255, 255, .14);
-}
-.footer__sub li + li { margin-top: 9px; }
-.footer__sub a { font-size: 14px; color: rgba(255, 255, 255, .5); }
-.footer__sub a:hover { color: #fff; }
 .footer a { transition: color .14s var(--e-quick); }
-.footer a:hover { color: #fff; }
-.footer__cat > a {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--green);
-}
-.footer__cat > a:hover { color: #fff; }
-.footer__bottom {
-  padding-top: 24px;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 20px; flex-wrap: wrap;
-  font-family: var(--mono); font-size: 10px;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: rgba(255, 255, 255, .56);
-}
-.footer__social { display: inline-flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, .7); }
-.footer__muted { color: inherit; }
-.footer__social svg { width: 16px; height: 16px; fill: currentColor; }
-.footer__social:hover { color: #fff; }
 
 @media (max-width: 860px) {
   .footer__top { grid-template-columns: 1fr 1fr; gap: 34px 24px; }
@@ -677,6 +233,7 @@ body.menu-open { overflow: hidden; }
   .footer__bottom { flex-direction: column; align-items: flex-start; }
 }
 </style>
+  <link rel="stylesheet" href="assets/hero.css">
 </head>
 <body>
 
@@ -716,7 +273,7 @@ body.menu-open { overflow: hidden; }
 
   <main id="main">
 
-    <section class="hero hero--mesh hero--contact" id="top" data-surface="light" aria-labelledby="contact-title">
+    <section class="hero hero--compact" data-surface="light" id="top" aria-labelledby="contact-title">
       <div class="hero__field" aria-hidden="true">
         <div class="hero__field-inner">
           <span class="hero__blob hero__blob--blue"></span>
@@ -741,20 +298,7 @@ body.menu-open { overflow: hidden; }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
           </a>
         </div>
-        <aside class="hero__lines" aria-label="Direct lines">
-            <div class="hero__line">
-              <span class="hero__k">Direct</span>
-              <span class="hero__v"><a href="mailto:acquisitions@fullsteam.com">acquisitions@fullsteam.com</a></span>
-            </div>
-            <div class="hero__line">
-              <span class="hero__k">Careers</span>
-              <span class="hero__v"><a href="careers.html">Open roles &nearr;</a></span>
-            </div>
-            <div class="hero__line">
-              <span class="hero__k">Offices</span>
-              <span class="hero__v">Auburn, Alabama &middot; New York</span>
-            </div>
-        </aside>
+        
       </div>
     </section>
 

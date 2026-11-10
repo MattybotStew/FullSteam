@@ -74,127 +74,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add('has-js');</script>
+  <link rel="stylesheet" href="assets/site.css">
   <style>
     /* ======================================================================
-       Fullsteam design tokens — KB §15 palette, KB §27 typography
+       Fullsteam — homepage-only tokens
+       The palette, type scale and spacing tokens live in assets/site.css
+       (KB §15 / §27). Only the opening's own measurements are kept here.
        ====================================================================== */
     :root {
-      --brand: #00587C;
-      --brand-deep: #003F55;
-      --brand-ink: #04141B;
-      --gold: #FFC600;
-      /* Emphasis text colour, re-pointed per surface (see [data-surface]
-         below). Brand gold is 1.58:1 on paper — a mark, not text — so on
-         light surfaces emphasis stays ink: one uniform colour, no darkened
-         gold variant anywhere. */
-      --accent: var(--gold);
-      --green: #84BD00;
-      --green-ink: #4F750E;
-
-      --paper: #FFFFFF;
-      --surface: #F3F6F7;
-      --ink: #0C1B21;
-      --muted: #586A72;
-      --line: #DCE3E6;
-
-      --sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
-      --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-      --mono: "Fragment Mono", ui-monospace, SFMono-Regular, monospace;
-
-      --wrap: 1280px;
-      --gutter: clamp(20px, 4.4vw, 64px);
-      --bar: 76px;
-      --sect: clamp(84px, 10vw, 148px);
-      /* Opening · ported from the official 2026-10-29 build (KB §23.10) */
+      /* Homepage-only tokens. Shared tokens live in assets/site.css. */
       --axis-b-travel: 160vh;
       --display-xl: clamp(50px, 8.34vw, 120px);
       --track-display-xl: -.035em;
-
-      --t-hero: clamp(38px, min(10.4vw, 12vh), 118px);
-      --t-h2: clamp(38px, 5.2vw, 76px);
-      --t-h3: clamp(23px, 2.5vw, 32px);
-      --t-stat: clamp(54px, 6.2vw, 96px);
-      --t-lede: clamp(18px, 1.5vw, 22px);
-      --t-body: 17px;
-      --t-small: 15px;
-      --label: 12px;
-
-      --e: cubic-bezier(.22, .75, .24, 1);
-      --e-quick: cubic-bezier(0, 0, .2, 1);
       --frame-hair: rgba(255, 255, 255, .18);
-      --dark-hair: rgba(255, 255, 255, .16);
-      --focus: var(--brand);
-    }
-
-/* Surfaces declare the text accent, so gold copy passes AA without a per-rule
-   override and without !important. Add data-surface to any new painted block. */
-[data-surface="light"] { --accent: var(--ink); }
-[data-surface="dark"] { --accent: var(--gold); }
-
-    *, *::before, *::after { box-sizing: border-box; }
-    html {
-      scroll-behavior: smooth;
-      scrollbar-gutter: stable;
-      -webkit-text-size-adjust: 100%;
-    }
-    body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--ink);
-      font-family: var(--sans);
-      font-size: var(--t-body);
-      line-height: 1.55;
-      font-feature-settings: "kern" 1, "liga" 1;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-    img, svg, video { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
-    p { margin: 0; }
-    figure, blockquote { margin: 0; }
-    h1, h2, h3, h4 { margin: 0; font-weight: 500; }
-    ul, ol { margin: 0; padding: 0; list-style: none; }
-    button { font: inherit; color: inherit; }
-    ::selection { background: var(--gold); color: var(--ink); }
-    :where(a, button, [tabindex]):focus-visible {
-      outline: 2px solid var(--focus);
-      outline-offset: 4px;
-      border-radius: 2px;
-    }
-
-    .sr-only {
-      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-    }
-    .skip-link {
-      position: fixed; left: 16px; top: -80px; z-index: 200;
-      padding: 14px 20px; border-radius: 999px;
-      background: var(--gold); color: var(--ink);
-      font-weight: 700; font-size: 14px;
-      transition: top .2s var(--e);
-    }
-    .skip-link:focus { top: 14px; }
-
-    .wrap {
-      width: min(var(--wrap), 100% - (2 * var(--gutter)));
-      margin-inline: auto;
-    }
-
-    /* type ------------------------------------------------------------------ */
-    .display {
-      font-weight: 500;
-      line-height: .96;
-      letter-spacing: -.035em;
-      text-wrap: balance;
-    }
-    .display em, .serif-em {
-      font-family: var(--serif);
-      font-style: italic;
-      font-weight: 400;
-      letter-spacing: -.015em;
-      /* 2026-11-03 (client) — every serif italic is brand gold, not just the
-         four headline payoffs listed here. KB §23.10 treatment, applied wide. */
-      color: var(--accent);
     }
     #modelTitle em,
     #vertsTitle em,
@@ -231,16 +123,6 @@
     .in .write-in,
     .write-in.in { --wi: 132%; }
     html:not(.has-js) .write-in { --wi: 132%; }
-    .display--xxl { font-size: var(--t-hero); line-height: .92; }
-    .display--l { font-size: var(--t-h2); }
-    .display--m { font-size: var(--t-h3); line-height: 1.1; letter-spacing: -.02em; }
-    .lede {
-      font-size: var(--t-lede);
-      line-height: 1.55;
-      color: var(--muted);
-      max-width: 54ch;
-      text-wrap: pretty;
-    }
     .band--ink .lede, .founders .lede, .close .lede { color: rgba(255, 255, 255, .72); }
 
     .index {
@@ -263,29 +145,8 @@
     }
     .band--ink .index, .founders .index { color: rgba(255, 255, 255, .6); }
     .band--ink .index b, .founders .index b { color: #fff; }
-
-    /* buttons --------------------------------------------------------------- */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      min-height: 44px; padding: 0 28px;
-      border: 0; border-radius: 999px;
-      background: var(--gold); color: var(--ink);
-      font-weight: 700; font-size: 14px; letter-spacing: -.01em;
-      white-space: nowrap; cursor: pointer;
-      transition: background-color 160ms var(--e-quick), transform 160ms var(--e-quick);
-    }
-    .btn:hover { background: color-mix(in srgb, var(--gold) 90%, #000); }
-    .btn:active { transform: translateY(1px); }
-    .btn--sm { padding: 0 18px; font-size: 13px; }
     .btn--ink { background: var(--ink); color: #fff; }
     .btn--ink:hover { background: color-mix(in srgb, var(--ink) 86%, #fff); }
-    /* Ghost = the secondary action. Surface-aware, so pages never need to
-       invent a variant: white hairline on dark, ink hairline on paper. */
-    .btn--ghost {
-      background: transparent; color: #fff;
-      border: 1px solid rgba(255, 255, 255, .34);
-    }
-    .btn--ghost:hover { background: rgba(255, 255, 255, .1); }
     [data-surface="light"] .btn--ghost,
     .hero--light .btn--ghost,
     .band--paper .btn--ghost { color: var(--ink); border-color: var(--line); }
@@ -336,66 +197,14 @@
       backdrop-filter: blur(14px);
       border-bottom-color: var(--dark-hair);
     }
-    .bar__logo {
-      position: relative; display: block;
-      width: 148px; height: 40px;
-      flex: 0 0 auto;
-      z-index: 2;
-    }
-    .bar__logo img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: contain; object-position: left center;
-      transition: opacity .25s var(--e);
-    }
     .logo--w { opacity: 1; }
     .logo--ink { opacity: 0; }
     .bar.is-solid .logo--w { opacity: 0; }
     .bar.is-solid .logo--ink { opacity: 1; }
-
-    .bar__actions { display: flex; align-items: center; gap: 10px; }
-    .menu-btn {
-      display: grid; place-content: center; gap: 5px;
-      width: 46px; height: 46px;
-      border: 0; border-radius: 50%;
-      background: transparent;
-      cursor: pointer;
-    }
-    .menu-btn span {
-      display: block; width: 22px; height: 1.5px;
-      background: currentColor; border-radius: 2px;
-      transition: transform .22s var(--e), opacity .18s var(--e);
-    }
-    .menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-    .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .bar__cta-short { display: none; }
     @media (max-width: 620px) {
       .bar__cta { padding-inline: 18px; }
       .bar__cta-long { display: none; }
       .bar__cta-short { display: inline; }
-    }
-
-    /* menu ------------------------------------------------------------------ */
-    .menu {
-      position: fixed; inset: 0; z-index: 88;
-      display: flex; justify-content: flex-end; align-items: flex-start;
-      padding: calc(var(--bar) + 10px) var(--gutter) 24px;
-      background: rgba(4, 20, 27, .46);
-      -webkit-backdrop-filter: blur(3px);
-      backdrop-filter: blur(3px);
-      overflow: auto;
-      overscroll-behavior: contain;
-    }
-    .menu[hidden] { display: none; }
-    .menu__panel {
-      width: min(390px, 100%);
-      background: #fff; color: var(--ink);
-      --focus: var(--brand);
-      border-radius: 14px;
-      padding: 10px;
-      box-shadow: 0 1px 0 rgba(0, 20, 28, .05), 0 24px 70px rgba(0, 20, 28, .32);
-      animation: menu-in 190ms var(--e-quick) both;
     }
     @keyframes menu-in {
       from { opacity: 0; transform: translateY(-8px); }
@@ -406,31 +215,6 @@
       letter-spacing: .14em; text-transform: uppercase;
       color: var(--muted);
       padding: 12px 16px 8px;
-    }
-    .menu__panel a {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 10px;
-      font-size: 18px; font-weight: 600; letter-spacing: -.01em;
-      transition: background-color 140ms var(--e-quick), color 140ms var(--e-quick);
-    }
-    .menu__panel a::after {
-      content: "\2192";
-      color: var(--brand);
-      opacity: 0;
-      transform: translateX(-5px);
-      transition: opacity .16s var(--e-quick), transform .16s var(--e-quick);
-    }
-    .menu__panel a:hover::after { opacity: 1; transform: none; }
-    .menu__panel a:hover { background: var(--surface); color: var(--brand); }
-    .menu__foot {
-      margin: 8px 6px 4px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: space-between;
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
     }
 
     /* scroll progress ------------------------------------------------------- */
@@ -1410,69 +1194,7 @@
     }
     .close__alt { color: rgba(255, 255, 255, .84); }
     .close__alt:hover { color: #fff; }
-
-    /* ======================================================================
-       Footer
-       ====================================================================== */
-    .footer {
-      background: #071820;
-      color: rgba(255, 255, 255, .62);
-      --focus: #fff;
-      padding: clamp(56px, 6vw, 76px) 0 28px;
-      font-size: var(--t-small);
-    }
-    .footer__top {
-      display: grid;
-      grid-template-columns: 2.2fr repeat(4, minmax(0, 1fr));
-      gap: 32px;
-      padding-bottom: clamp(40px, 5vw, 60px);
-      border-bottom: 1px solid rgba(255, 255, 255, .12);
-    }
-    .footer__brand img { width: 168px; height: auto; opacity: .96; }
-    .footer__line { margin-top: 20px; max-width: 30ch; line-height: 1.6; color: rgba(255, 255, 255, .6); }
-    .footer h3 {
-      font-family: var(--mono); font-size: 11px; font-weight: 400;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: rgba(255, 255, 255, .58);
-      margin-bottom: 16px;
-    }
-    .footer li + li { margin-top: 10px; }
-    /* Our Advantage preview (2026-11-02). The page asks you to "Explore Our
-       Advantage" at the close but never showed what it is anywhere; the four
-       offerings now sit here as a nested group. */
-    .footer ul.footer__sub {
-      margin-top: 12px;
-      margin-left: 2px;
-      padding-left: 16px;
-      border-left: 1px solid rgba(255, 255, 255, .14);
-    }
-    .footer__sub li + li { margin-top: 9px; }
-    .footer__sub a { font-size: 14px; color: rgba(255, 255, 255, .5); }
-    .footer__sub a:hover { color: #fff; }
     .footer a { transition: color .14s var(--e-quick); }
-    .footer a:hover { color: #fff; }
-    .footer__cat > a {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--green);
-    }
-    .footer__cat > a:hover { color: #fff; }
-    .footer__bottom {
-      padding-top: 24px;
-      display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
-      font-family: var(--mono); font-size: 10px;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: rgba(255, 255, 255, .56);
-    }
-    .footer__social {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: rgba(255, 255, 255, .7);
-    }
-    .footer__muted { color: inherit; }
-    .footer__social svg { width: 16px; height: 16px; fill: currentColor; }
-    .footer__social:hover { color: #fff; }
 
     /* ======================================================================
        Responsive
@@ -1810,7 +1532,7 @@
         </header>
 
         <div class="verts__stage r" id="vertStage" role="group" aria-label="Featured vertical markets">
-          <a class="vp is-open" href="vertical-software.html#erp" data-surface="dark">
+          <a class="vp is-open" href="vertical-software.html#panel-erp" data-surface="dark">
             <img class="vp__img" src="assets/img/erp.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="935">
             <div class="vp__shade" aria-hidden="true"></div>
             <span class="vp__face">
@@ -1825,7 +1547,7 @@
             </span>
           </a>
 
-          <a class="vp" href="vertical-software.html#wine" data-surface="dark">
+          <a class="vp" href="vertical-software.html#panel-wine" data-surface="dark">
             <img class="vp__img" src="assets/img/wine.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="933">
             <div class="vp__shade" aria-hidden="true"></div>
             <span class="vp__face">
@@ -1840,7 +1562,7 @@
             </span>
           </a>
 
-          <a class="vp" href="vertical-software.html#transportation" data-surface="dark">
+          <a class="vp" href="vertical-software.html#panel-transportation" data-surface="dark">
             <img class="vp__img" src="assets/img/transport.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="933">
             <div class="vp__shade" aria-hidden="true"></div>
             <span class="vp__face">
@@ -1855,7 +1577,7 @@
             </span>
           </a>
 
-          <a class="vp" href="vertical-software.html#hospitality" data-surface="dark">
+          <a class="vp" href="vertical-software.html#panel-hospitality" data-surface="dark">
             <img class="vp__img" src="assets/img/hospitality.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="933">
             <div class="vp__shade" aria-hidden="true"></div>
             <span class="vp__face">
@@ -1870,7 +1592,7 @@
             </span>
           </a>
 
-          <a class="vp" href="vertical-software.html#automotive" data-surface="dark">
+          <a class="vp" href="vertical-software.html#panel-automotive" data-surface="dark">
             <img class="vp__img" src="assets/img/automotive.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" width="1400" height="932">
             <div class="vp__shade" aria-hidden="true"></div>
             <span class="vp__face">
@@ -1959,18 +1681,10 @@
           <p class="lede r" style="--d:80ms">Real people building software for real industries &mdash; mostly remote, small teams, room to grow.</p>
         </header>
 
-        <figure class="careers__media r">
-          <img src="assets/img/careers.jpg" alt="Placeholder photo: the team working together at a shared table"
-               width="1400" height="919" loading="lazy" decoding="async">
-          <figcaption class="careers__chip">Mostly remote &middot; Small teams</figcaption>
-        </figure>
-
         <ol class="voices">
           <li class="voice r">
             <div class="voice__top">
-              <img class="voice__face" alt="" aria-hidden="true" width="56" height="56"
-                loading="lazy" decoding="async"
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;crop=faces&amp;w=160&amp;h=160&amp;q=70">
+              <img class="voice__face" src="assets/img/careers/voice-founder.jpg" alt="" aria-hidden="true" width="56" height="56" loading="lazy" decoding="async">
               <span class="voice__role">The founder</span>
             </div>
             <blockquote><p>&ldquo;We sold to a company that wanted what we had built to keep working. Two years on
@@ -1979,9 +1693,7 @@
           </li>
           <li class="voice r" style="--d:80ms">
             <div class="voice__top">
-              <img class="voice__face" alt="" aria-hidden="true" width="56" height="56"
-                loading="lazy" decoding="async"
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;crop=faces&amp;w=160&amp;h=160&amp;q=70">
+              <img class="voice__face" src="assets/img/careers/voice-founder-stayed.jpg" alt="" aria-hidden="true" width="56" height="56" loading="lazy" decoding="async">
               <span class="voice__role">The founder who stayed</span>
             </div>
             <blockquote><p>&ldquo;I came in as the founder of a six-person team. The difference was what came next:
@@ -1990,9 +1702,7 @@
           </li>
           <li class="voice r" style="--d:160ms">
             <div class="voice__top">
-              <img class="voice__face" alt="" aria-hidden="true" width="56" height="56"
-                loading="lazy" decoding="async"
-                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&amp;fit=crop&amp;crop=faces&amp;w=160&amp;h=160&amp;q=70">
+              <img class="voice__face" src="assets/img/careers/voice-employee.jpg" alt="" aria-hidden="true" width="56" height="56" loading="lazy" decoding="async">
               <span class="voice__role">The employee</span>
             </div>
             <blockquote><p>&ldquo;Nobody here is a ticket in a queue. You learn the industry, you talk to the
@@ -2155,8 +1865,8 @@
         <div>
           <h3>Legal</h3>
           <ul>
-            <li><a href="../../../02_Wireframes/active/pages/privacy.html">Privacy</a></li>
-            <li><a href="../../../02_Wireframes/active/pages/terms.html">Terms</a></li>
+            <li><span class="footer__muted">Privacy</span></li>
+            <li><span class="footer__muted">Terms</span></li>
             <li><span class="footer__muted">Complaints</span></li>
           </ul>
         </div>

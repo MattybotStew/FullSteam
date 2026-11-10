@@ -73,6 +73,8 @@ jobs:
           cp 03_Design/client-review/homepage/assets/fullsteam-logo.svg \
              03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg \
              03_Design/client-review/homepage/assets/hero-fallback.mp4 \
+             03_Design/client-review/homepage/assets/site.css \
+             03_Design/client-review/homepage/assets/hero.css \
              _site/03_Design/client-review/homepage/assets/
           cp -R 03_Design/client-review/homepage/assets/img/. \
              _site/03_Design/client-review/homepage/assets/img/

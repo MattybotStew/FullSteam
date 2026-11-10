@@ -71,6 +71,11 @@ _site/
 !03_Design/client-review/homepage/assets/fullsteam-logo.svg
 !03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg
 !03_Design/client-review/homepage/assets/hero-fallback.mp4
+# Shared stylesheets for the client-review pages (plain CSS, no third-party
+# media). site.css is the base every page links before its own <style>;
+# hero.css is the interior hero, linked after it. Both are staged by pages.yml.
+!03_Design/client-review/homepage/assets/hero.css
+!03_Design/client-review/homepage/assets/site.css
 !03_Design/client-review/homepage/assets/credits.json
 !03_Design/client-review/homepage/assets/img/
 !03_Design/client-review/homepage/assets/img/**
