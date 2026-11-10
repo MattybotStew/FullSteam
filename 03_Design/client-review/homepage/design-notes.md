@@ -35,6 +35,26 @@ The mono `AI at Fullsteam` group label and the seven-link group order are unchan
 
 ---
 
+## 2026-11-10 — Figma `✅ Design [WIP] 2` synced to the repo
+
+Frames rebuilt/checked against `03_Design/client-review/homepage/` via the Desktop Bridge. Page
+frames live on `✅ Design [WIP] 2` (file `3oHvScSPrK5l6N1qfv9WCw`).
+
+| Frame | Change |
+|---|---|
+| Our Advantage `11541:1376` | Sidebar rebuilt to the repo state: **Payments active** (surface fill, 2px gold inset rule, gold dot, SemiBold), AI row is a **plain link with a gradient-shimmer label** — no `--green-ink` frame. **Payments panel built** (1402 tall: title / lede / copy / embedded-vs-bolted-on / key stats / hardware split / quote), AI panel kept but hidden. Section now 1690; frame 3347. Annotations on the rail and the AI row record the default panel and the 4s shimmer. |
+| Contact `11546:3377` | Corridor photo field and the floating Direct-lines card hidden. Hero rebuilt **type-only paper mesh**: 120px H1 (`--hero-t`), serif-italic payoff in Bio Blue, 90/48/32 padding, mesh pooled right/bottom, **Direct lines as an in-flow hairline ledger row**. Frame 2408. |
+| Careers `11541:2866` | Stale placeholder **photo figure hidden** — the page is type-only. H1 120px (three lines), lede block at 681, stage 730, factband 162. Frame 5853. |
+| Acquisitions `11541:2185` | Hero rescaled to the **10-28 Axis A recipe**: H1 106.56px across three lines with the serif-italic payoff, lede 662, CTAs, filmstrip 98 tall at y 761, hero 900. Added the missing 108px top padding to the "Your name stays" band. Frame 5097. |
+| Our Story `11541:1666` | Hero stage 498 → **604** (type block + bottom padding). Frame 5580. |
+
+**Still drifted, deliberately:** Vertical Software `11541:657` is 3158 vs 3200 in the repo (hero
+672 vs 640, verticals band 1511 vs 1587 — panel content heights differ slightly); Our Story's
+timeline band is 80px taller than the repo; the homepage frame is the **static Axis A capture**
+(7815 vs 9391 scroll height — the 200vh pin cannot be represented as a static frame).
+
+---
+
 ## 2026-11-10 — Contact: Vertical Software hero
 
 `contact.html` now uses the **Vertical Software type-only paper-mesh hero** instead of the
