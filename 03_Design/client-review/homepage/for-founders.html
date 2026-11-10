@@ -273,12 +273,12 @@ body.menu-open { overflow: hidden; }
   box-shadow: 0 12px 26px rgba(4,20,27,.12);
 }
 
-/* Square thumbnail on the left; the label + title float to its right. */
+/* 16:9 thumbnail on the left; the label + title float to its right. */
 .hero--acq .founder-film__thumb {
   position: relative;
   flex: 0 0 auto;
-  width: clamp(38px, 4.1vw, 62px);
-  aspect-ratio: 1 / 1;
+  width: clamp(104px, 10vw, 140px);
+  aspect-ratio: 16 / 9;
   border-radius: 7px;
   overflow: hidden;
   background: var(--brand-ink);
@@ -299,12 +299,11 @@ body.menu-open { overflow: hidden; }
 }
 .hero--acq .founder-film__play {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  right: 6px;
+  bottom: 6px;
   z-index: 2;
-  transform: translate(-50%, -50%);
-  width: clamp(20px, 1.6vw, 26px);
-  height: clamp(20px, 1.6vw, 26px);
+  width: clamp(20px, 1.6vw, 24px);
+  height: clamp(20px, 1.6vw, 24px);
   border: 0;
   border-radius: 50%;
   display: grid;
@@ -418,7 +417,7 @@ body.menu-open { overflow: hidden; }
     min-height: 72px;
   }
   .hero--acq .founder-film__thumb {
-    width: 40px;
+    width: 88px;
   }
 }
 
@@ -1105,7 +1104,7 @@ body.menu-open { overflow: hidden; }
                       <span class="founder-film__badge">Company film</span>
                       <span class="founder-film__name">See a Featured Story</span>
                     </span>
-                  </button>
+                                    </button>
                   <!-- Dormant: the other three stories return as soon as the client supplies
                        the real founder films. To restore — remove this wrapper comment and set
                        .founder-film__track back to repeat(4, minmax(0,1fr)) (see the CSS note).
@@ -1120,7 +1119,7 @@ body.menu-open { overflow: hidden; }
                       <span class="founder-film__badge">Founder story</span>
                       <span class="founder-film__name">Why the founder stayed</span>
                     </span>
-                  </button>
+                                    </button>
 
                   <button type="button" class="founder-film__tab" id="founder-tab-2" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
                     <span class="founder-film__thumb">
@@ -1132,7 +1131,7 @@ body.menu-open { overflow: hidden; }
                       <span class="founder-film__badge">Employee story</span>
                       <span class="founder-film__name">A day on the operating team</span>
                     </span>
-                  </button>
+                                    </button>
 
                   <button type="button" class="founder-film__tab" id="founder-tab-3" aria-haspopup="dialog" data-video="assets/hero-sizzle.mp4">
                     <span class="founder-film__thumb">
@@ -1144,7 +1143,7 @@ body.menu-open { overflow: hidden; }
                       <span class="founder-film__badge">Leadership</span>
                       <span class="founder-film__name">Built to keep its name</span>
                     </span>
-                  </button>
+                                    </button>
                   -->
                 </div>
               </div>
