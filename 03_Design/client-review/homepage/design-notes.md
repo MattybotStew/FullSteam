@@ -954,3 +954,10 @@ now **Building on Great** on all seven client-review pages.
 
 Verified at 1440 / 390: panel order reads units → stats → partners, labels visible, 4-up then
 2-up grids, one paragraph per panel, tagline and footer sublinks correct.
+
+## 2026-11-10 — homepage counters run slower
+
+`runCount()` duration **1300ms → 2600ms** (`index.html`, the `.stat__n[data-count]` figures in the
+compounding-model steps). The 70,000+ / $75B / #20 / 2,000+ / 11 counters were landing too fast to
+read as they light in sequence with each step's rule. Easing (cubic-out), stagger, and the
+`prefers-reduced-motion` early-out are unchanged — reduced motion still snaps to the final value.
