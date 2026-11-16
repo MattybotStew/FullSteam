@@ -44,6 +44,16 @@ them in place (layout and tokens untouched except where the copy forced a change
 The eleven Vertical Software tabs and the seven Our Advantage tabs are broken out as comment
 threads on `11541:2` and `11541:1376` respectively (one thread per tab, slots in render order).
 
+**Tab copy sheets (2026-11-16):** because a Figma page frame only ever shows one panel, each tab
+also exists as its own **620px card** next to its parent frame, stacked top to bottom — eleven
+cards at x = 38,200 right of `Vertical Software` (`11541:657`), seven at x = 42,700 right of
+`Our Advantage` (`11541:1376`). Names are `Vertical Software — TAB 01 · HOSPITALITY` …
+`TAB 11 · ERP` and `Our Advantage — TAB 01 · PAYMENTS` … `TAB 07 · PEER COMMUNITY`. Each card
+carries tier, live title, live paragraph, and the remaining slots (stats, logo rows, screens,
+facts) with a `YOUR COPY ↓` field at the bottom. The columns deliberately sit inside the gaps
+before the next page frame (dialog at x=38,882, Our Story at x=43,486) — widening the cards past
+620px will collide with them.
+
 ---
 
 ## 2026-11-16 — Figma copy deck applied (homepage, Vertical Software, Acquisitions, Careers)
