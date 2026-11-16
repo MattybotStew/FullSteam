@@ -19,6 +19,43 @@ but staged on deploy).
 
 ---
 
+## 2026-11-16 — Figma copy deck applied (homepage, Vertical Software, Acquisitions, Careers)
+
+The client left 27 page-level comments on the homepage frame (`11541:2`) in `✅ Design [WIP] 2`,
+written as a copy deck walked top-to-bottom: homepage → Vertical Software → Acquisitions →
+Careers. Eleven landed earlier the same day (`e1661d0`, `e0207c4`). The rest landed here.
+
+- **Homepage AI band** — `We use AI where it solves a real problem inside the software.` added as
+  the paragraph under the lede `Practical AI built into the software.` (the two sit back to back;
+  if the client wants one of them as an eyebrow instead, it is a one-line move).
+- **Vertical Software hero** — H1 `Essential vertical` / `software.` (still two lines, still
+  Instrument Serif italic Bio Blue on `software.`) and the lede is now
+  `Systems of record built around how each industry works.` The previous lede's
+  "not a horizontal platform stretched to fit" contrast is gone — it was replaced, not
+  reflowed. The 2026-11-09 hero recipe is otherwise unchanged.
+- **Acquisitions hero** — new mono eyebrow `For founders` (`.hero--acq .hero__eyebrow`, same
+  treatment as the homepage's `.hero__eyebrow`, but ink-muted on paper rather than white),
+  H1 `Build on what / you already made / great.` (three lines, so the nowrap lines stay inside
+  the 16ch cap), lede `More relevant. More capable. More competitive.`
+  Step 04 copy is now `We work toward a smooth transition, then add operational expertise,
+  back-office support, enterprise-grade cybersecurity, and embedded tools to help it grow.`
+- **Careers `#how-it-feels`** — the section was rewritten, not extended:
+  eyebrow `Across the Fullsteam network`, H2 `Own the work. Keep growing.` (replaces
+  "Room to own the work."), the intro replaces the old lede, and the two-cell `.two-col`
+  block (The problem is yours to pick up / A bigger company behind a small team) is replaced
+  by a four-card `.value-cards` ledger grid: Ownership, Proactive problem-solvers,
+  Career mobility, Industry impact. `.two-col` CSS is removed with its last use.
+  **⚠ One judgement call:** the deck gives three card paragraphs for four cards. They were
+  paired by fit — Ownership gets "Take on real problems…", Proactive problem-solvers gets
+  "Work on software real industries depend on…", Career mobility gets "Learn new
+  industries…", and Industry impact is left with the short `Software with real-world impact.`
+  Confirm with the client; swapping them is a copy-only edit.
+- Not applied, still open in Figma: the 2026-10-26 LinkedIn-post font-size request, and the
+  2026-10-29 "remove acquire / move to lead" reorder (that is a structure change to the
+  compounds model, not a copy edit — the three steps are untouched).
+
+---
+
 ## 2026-11-10 — Our Advantage: AI tab is a gradient shimmer
 
 The AI rail row is no longer the 2026-11-09 `--green-ink` featured frame. It is a **plain rail

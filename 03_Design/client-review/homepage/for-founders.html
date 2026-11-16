@@ -200,6 +200,16 @@ body.menu-open { overflow: hidden; }
   text-align: center;
   margin: 0 auto;
 }
+/* Audience label above the H1 (client copy, 2026-11-16). A label, not a claim —
+   same mono treatment as the homepage's .hero__eyebrow, ink-muted on paper. */
+.hero--acq .hero__eyebrow {
+  margin: 0 0 clamp(13px, 1.5vw, 20px);
+  font-family: var(--mono);
+  font-size: var(--label); line-height: 1.6;
+  letter-spacing: .14em; text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+}
 .hero--acq .hero__title {
   text-align: center;
   max-width: 16ch;
@@ -1093,8 +1103,9 @@ body.menu-open { overflow: hidden; }
       <div class="wrap hero__center">
         <div class="hero__grid">
           <div class="hero__copy">
-            <h1 class="hero__title" id="acq-title"><span class="hero__line">A home for the</span><span class="hero__line">business you</span><em class="hero__line">built.</em></h1>
-            <p class="lede">We buy and grow industry-specific software companies &mdash; systems of record with AI, payments, and operational excellence built in.</p>
+            <p class="hero__eyebrow">For founders</p>
+            <h1 class="hero__title" id="acq-title"><span class="hero__line">Build on what</span><span class="hero__line">you already made</span><em class="hero__line">great.</em></h1>
+            <p class="lede">More relevant. More capable. More competitive.</p>
             <div class="founder-film" id="founderGallery" role="group" aria-label="Fullsteam stories">
               <div class="founder-film__viewport">
                 <div class="founder-film__track">
@@ -1221,7 +1232,7 @@ body.menu-open { overflow: hidden; }
               <span class="step__n">Step 04</span>
             </div>
             <h3 class="step__name">The business keeps going.</h3>
-            <p class="step__copy">The brand stays standalone, the team stays in place, and growth comes from shared services behind the scenes.</p>
+            <p class="step__copy">We work toward a smooth transition, then add operational expertise, back-office support, enterprise-grade cybersecurity, and embedded tools to help it grow.</p>
           </li>
         </ol>
       </div>

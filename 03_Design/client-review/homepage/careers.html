@@ -224,30 +224,41 @@ body.menu-open { overflow: hidden; }
   max-width: 28ch;
 }
 
-.two-col {
+/* What the network offers (client copy, 2026-11-16) — four value cards on the
+   same hairline ledger grid as the stats block below. Replaced the old
+   two-cell .two-col block in #how-it-feels. */
+.eyebrow {
+  margin-bottom: clamp(14px, 1.6vw, 20px);
+  font-family: var(--mono);
+  font-size: var(--label);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.value-cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--line);
+}
+.value-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(22px, 2.6vw, 30px) clamp(18px, 2vw, 24px) clamp(26px, 3vw, 34px);
+  border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
-.two-col__cell {
-  padding: clamp(24px, 3vw, 34px) 0 clamp(28px, 3.4vw, 40px);
-}
-.two-col__cell + .two-col__cell {
-  border-left: 1px solid var(--line);
-  padding-left: clamp(24px, 3.4vw, 44px);
-}
-.two-col__cell h3 {
-  font-size: clamp(19px, 1.7vw, 23px);
+.value-card h3 {
+  font-size: clamp(18px, 1.6vw, 21px);
   font-weight: 600;
   letter-spacing: -.015em;
   line-height: 1.25;
-  max-width: 24ch;
 }
-.two-col__cell p {
-  margin-top: 12px;
+.value-card p {
   color: var(--muted);
-  max-width: 40ch;
+  font-size: var(--t-small);
+  line-height: 1.5;
   text-wrap: pretty;
 }
 
@@ -496,6 +507,7 @@ body.menu-open { overflow: hidden; }
   .voice-card:first-child { padding-top: 0; }
   .voice-card:last-child { padding-bottom: 0; }
   .values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .value-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .faq__head { position: static; max-width: none; }
   .faq__grid { grid-template-columns: minmax(0, 1fr); }
   .faq__item summary { padding: 20px 0; }
@@ -510,12 +522,7 @@ body.menu-open { overflow: hidden; }
     border-top: 1px solid var(--line);
     padding-left: 0;
   }
-  .two-col { grid-template-columns: minmax(0, 1fr); }
-  .two-col__cell + .two-col__cell {
-    border-left: 0;
-    border-top: 1px solid var(--line);
-    padding-left: 0;
-  }
+  .value-cards { grid-template-columns: minmax(0, 1fr); }
   .values { grid-template-columns: minmax(0, 1fr); }
   .value { min-height: 0; }
 }
@@ -664,18 +671,27 @@ body.menu-open { overflow: hidden; }
 
     <section class="band band--paper" id="how-it-feels" data-surface="light" aria-labelledby="feels-title">
       <div class="wrap">
+        <p class="eyebrow">Across the Fullsteam network</p>
         <div class="band__head">
-          <h2 class="display display--l" id="feels-title">Room to <em>own</em><br>the work.</h2>
-          <p class="lede">Small teams, short lines to the people making decisions, and software that real industries run on. You see the result in the product, not in a status deck.</p>
+          <h2 class="display display--l" id="feels-title">Own the work. Keep <em>growing.</em></h2>
+          <p class="lede">Across 100+ business units, people take ownership, learn new industries, and work directly with leaders</p>
         </div>
-        <div class="two-col">
-          <div class="two-col__cell">
-            <h3>The problem is yours to pick up.</h3>
-            <p>Engineers, support, and product sit close to the customer and the industry. If something is broken or slow, the person who notices can usually fix it &mdash; without waiting on a committee.</p>
+        <div class="value-cards">
+          <div class="value-card">
+            <h3>Ownership</h3>
+            <p>Take on real problems and move ideas forward without layers of rigid rules.</p>
           </div>
-          <div class="two-col__cell">
-            <h3>A bigger company behind a small team.</h3>
-            <p>Each business keeps its name, its customers, and its own way of working. What sits behind it is shared: engineering, go-to-market support, payments, and capital when it is needed.</p>
+          <div class="value-card">
+            <h3>Proactive problem-solvers</h3>
+            <p>Work on software real industries depend on, close to the customers and problems that shape the product.</p>
+          </div>
+          <div class="value-card">
+            <h3>Career mobility</h3>
+            <p>Learn new industries, take on new challenges, and build a career across more than 100 business units.</p>
+          </div>
+          <div class="value-card">
+            <h3>Industry impact</h3>
+            <p>Software with real-world impact.</p>
           </div>
         </div>
         <p class="section-note">Most Fullsteam people work remotely, with teams distributed across the U.S. and Europe. The businesses in the portfolio stay close to the industries they serve.</p>
