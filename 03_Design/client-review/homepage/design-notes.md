@@ -19,6 +19,30 @@ but staged on deploy).
 
 ---
 
+## 2026-11-16 (night) — Privacy, Terms and 404 now exist as hi-fi frames
+
+The last three site pages had no hi-fi frame (Privacy and Terms were wireframes on `⚠️ WF v2`;
+404 existed nowhere). All three are now built on `✅ Design [WIP] 2`, to the right of Contact:
+
+| Frame | Node | x |
+|---|---|---|
+| `Privacy — Fullsteam` | `11732:125` | 59,608 |
+| `Terms — Fullsteam` | `11732:369` | 61,248 |
+| `404 — Fullsteam` | `11732:532` | 62,888 |
+
+- **Privacy / Terms** clone the Contact frame, so header, footer and paper field are inherited, and
+  replace Main Content with one 1440 section: mono eyebrow, 72px `Instrument Sans Medium` H1 with
+  −2px tracking, 22px lede, mono "last updated" line, then H2 24 / body 17·28 blocks in a 760px
+  column. **All copy is placeholder and says so on the page** — nothing here has been through
+  legal review, and the contact addresses (`privacy@`, `legal@`) are unconfirmed.
+- **404** clones the Contact hero (type on paper mesh) and keeps it: eyebrow `PAGE NOT FOUND`,
+  H1 `This page / moved on.` (serif italic on the second line), one lede, and two links —
+  `Back to the homepage`, `Explore our verticals`. The third Contact link was removed.
+- **Not done on purpose:** no repo HTML for these three. They stay wireframe in the site build
+  until legal supplies copy; the frames exist so the client can see the shape.
+
+---
+
 ## 2026-11-16 (evening) — cleanup pass: font size, green-ink token, decisions logged
 
 - **LinkedIn post body 14px → 15px** (`--t-small`) on the homepage strip and the careers page —
