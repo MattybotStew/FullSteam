@@ -19,6 +19,33 @@ but staged on deploy).
 
 ---
 
+## 2026-11-16 (later) — the same copy pushed into FS-Design frames
+
+The frames on `✅ Design [WIP] 2` still held the pre-11-16 copy, so the deck was written into
+them in place (layout and tokens untouched except where the copy forced a change):
+
+- **`11541:657` Vertical Software** — H1 → `Essential vertical / software.` (same two-run
+  Medium + Serif Italic split), lede → the systems-of-record line.
+- **`11541:2185` Acquisitions** — new mono eyebrow `FOR FOUNDERS` (Fragment Mono 12, tracking
+  1.68, 19.2 leading, ink-muted) added at the top of the `Heading 1` frame; H1 → three lines
+  ending in serif-italic `great.`; lede → `More relevant. More capable. More competitive.`;
+  Step 04 copy replaced.
+- **`11541:2866` Careers** — eyebrow `ACROSS THE FULLSTEAM NETWORK`, H2 → `Own the work. /
+  Keep growing.` (italic on `growing.`), intro line replaced, and the two-column block rebuilt as
+  four cards: Ownership / Proactive problem-solvers / Career mobility / Industry impact.
+  **Mechanism note:** the block was a Figma **grid**; its fixed 640px tracks would not take four
+  columns through the plugin API (`gridColumnCount = 4` grew the frame to 2560 and the cells
+  overlapped). It is now a **horizontal auto-layout** frame, four FILL cells at ~320px. If
+  someone converts it back to a grid, set four 320px tracks first.
+- **`11541:2` homepage** — AI paragraph `We use AI where it solves a real problem inside the
+  software.` inserted between `Practical AI built into the software.` and the AI link. The rest
+  of the frame already carried the 11-16 copy (model steps, AI list, exit lines, founders band).
+
+The eleven Vertical Software tabs and the seven Our Advantage tabs are broken out as comment
+threads on `11541:2` and `11541:1376` respectively (one thread per tab, slots in render order).
+
+---
+
 ## 2026-11-16 — Figma copy deck applied (homepage, Vertical Software, Acquisitions, Careers)
 
 The client left 27 page-level comments on the homepage frame (`11541:2`) in `✅ Design [WIP] 2`,
