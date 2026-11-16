@@ -19,6 +19,31 @@ but staged on deploy).
 
 ---
 
+## 2026-11-16 (late) — client answered Hospitality, Weddings, Wine
+
+Three tab cards came back with real copy, and it is now in both tracks:
+
+- **Hospitality** — new paragraph (resort front desk → golf → tour operator), three client stat
+  labels (golf rounds via Priswing, RoomKey 2025, WRP 2025) and values `15M / 2.5M / 9M`, set
+  through `PANEL_STATS` so `formatStatAbbrev` keeps the house abbreviations.
+- **Weddings & Events** — paragraph replaced with the client's 84-word version (adds the
+  "network of small businesses" opening and the "built by bridal, floral, and event pros" close).
+- **Wine** — title now `Wine sells better when you know who you're selling to.`, paragraph replaced
+  with the DTC-platform version, and stat 1 becomes `3,500+  Wineries operating on the
+  Commerce7 platform`. Stats 2–3 deliberately stay placeholders.
+
+**Figma:** the Vertical Software frame's Hospitality panel takes the same paragraph, labels and
+values. Its stat labels had `WIDTH_AND_HEIGHT` text boxes and overflowed into each other at 15px —
+they were switched to `HEIGHT` at 260px so they wrap like the page does.
+
+**⚠ Tab-card drift, fixed:** the 18 cards were sitting in a **horizontal row across the page
+frames** at y = −9701, not stacked in the two columns the notes below describe. They are back at
+x = 38,200 (Vertical Software, 11 cards) and x = 42,700 (Our Advantage, 7 cards), stacked with
+36px gaps — no card now intersects a page frame. Worth re-checking after any bulk card edit, since
+setting `y` during creation did not hold.
+
+---
+
 ## 2026-11-16 (night) — Privacy, Terms and 404 now exist as hi-fi frames
 
 The last three site pages had no hi-fi frame (Privacy and Terms were wireframes on `⚠️ WF v2`;
