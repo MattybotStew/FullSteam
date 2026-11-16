@@ -2926,7 +2926,13 @@ Sans, **“Great.”** in Instrument Serif italic inside `<em class="write-in">`
 left → right on the `.r` reveal. Payoff resolves to ink on paper (never gold text on light), and
 "Great" is capitalised as the tagline is. Steps, counters, rule, and step copy are **unchanged** —
 this is a naming change on one heading, not a band redesign. Copy record: `content-slots.md` 03;
-build: `design-notes.md` §2026-11-16 (evening, reprise).
+build: `design-notes.md` §2026-11-16 (evening, reprise). **Figma `FS-Design` synced the same day** —
+frame `11541:2`: H2 node `11541:48` re-run in mixed Instrument Sans Medium / Instrument Serif
+Italic, its 145px fixed frame and header grid row hugged to the new single line (band 1064 → 993,
+frame 7815 → 7744), and the hero "Video" fill `11541:14` swapped from the watermarked Adobe Stock
+still to a 1440×819 still of the client montage. Figma cannot hold video; the still is the
+stand-in. Remaining known drift: the Figma close band still reads "See how we build on great."
+against the live "Ready to see where your business can go next?" — pending a decision.
 
 ---
 

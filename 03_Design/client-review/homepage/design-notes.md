@@ -37,6 +37,22 @@ after the `.r` reveal.
 
 Copy record: `content-slots.md` 03.
 
+**Figma `FS-Design` brought level (same day).** Homepage frame **`11541:2`** on `✅ Design [WIP] 2`:
+
+- H2 node `11541:48` now reads **"Building on Great."** with the same mixed-font runs it had
+  (Instrument Sans Medium for "Building on", Instrument Serif Italic for "Great."). Its frame
+  `11541:47` was FIXED at 145px (two lines of the old, longer headline) — set to hug (72px) and the
+  header grid's first row `145 → 73`, so the band tightens by exactly the 72px the shorter line
+  frees: **section 1064 → 993** (live build: 995), and every section below reflows up with it.
+  Frame height re-hugged 7815 → **7744**.
+- Hero `11541:14` ("Video") had the **Adobe Stock preview still** (watermark in frame). Replaced
+  with a full-bleed 1440×819 still from the new montage (t = 1.0s, the lobby shot the clip opens
+  on). Figma cannot hold video, so the still is the stand-in; the scrim layers above it are
+  unchanged and white type still reads.
+- **Known drift, not touched:** the close band `11541:522` still reads "See how we build on great."
+  where the live page says "Ready to see where your business can go next?" — different length,
+  different wrap, so syncing it is a layout change, not a text swap. Flagged for a decision.
+
 ---
 
 ## 2026-11-16 (evening) — the real hero clip lands
