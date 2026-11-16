@@ -8,7 +8,8 @@
 > `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22); **Fullsteam Messaging Architecture** (marketing messaging architecture, received 2026-10-26 — distilled in §29, supersedes §22's pillars/themes)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22, superseded in part by **§29**); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-11-10 (**Our Advantage + Contact pass** — `#payments` is the default panel (was `#ai`); the AI rail row is a brand gradient shimmer, replacing the 2026-11-09 `--green-ink` frame; Contact uses the Vertical Software type-only mesh hero instead of the corridor photograph. Docs-only record; no sitemap change.)
+> **Last updated:** 2026-11-16 (**hero clip replaced** — the client's `fullsteam-hero-video-2.mp4` verticals montage transcoded to a 1600×900 5.2 MB hero cut plus a 960×540 2.8 MB mobile cut, both now published; contrast re-measured at ~8:1. Media-only swap, no IA or opening change — **§28.11**.)
+> **Prior update:** 2026-11-10 (**Our Advantage + Contact pass** — `#payments` is the default panel (was `#ai`); the AI rail row is a brand gradient shimmer, replacing the 2026-11-09 `--green-ink` frame; Contact uses the Vertical Software type-only mesh hero instead of the corridor photograph. Docs-only record; no sitemap change.)
 > **Prior update:** 2026-11-09 (**client-review pass** — menu tagline **Building on Great**; homepage Acquire/Grow/Lead reveals on scroll; vertical cards hover-expand and the whole card links; footer AI header + Advantage sublinks Payments / Embedded Fintech / Operational Excellence; Leadership is `#leadership`; vertical panels drop the lede and split logo rows; Our Advantage sidebar matches Figma `11541:1393` — Embedded Fintech, AI label plus green-ink frame, Operational Excellence; Our Story timeline is four milestones, years de-emphasized; interior heroes as photographic fields / type-only mesh; **Acquisitions hero = 10-28 Axis A + founder video filmstrip**. **§28.10**. No sitemap change.)
 > **Prior update:** 2026-11-03 (**Vertical Software client-review** — `vertical-software.html` on Pages; **panel content depth tiers** locked — §28.9: min / standard / full proof stacks; Weddings = full reference with story gallery + lightbox. Named products/stats **not publishable** until cleared — §29.7 / OI-16. Build: `design-notes.md` §2026-11-03; slots: `content-slots.md` §5.0)
 > **Prior update:** 2026-10-26 (**§29 — Fullsteam Messaging Architecture** from marketing: master thesis "Empower the Builders. Lead the Industry.", pillars renamed **Essential / Grow / Lead** (first alignment with the homepage's Acquire/Grow/Lead model), three new product proof points (3,500 wineries · 400k dresses · 1M boats) and five named partners — all **not publishable** until cleared. Adds **OI-15** (marketing wants a "dedicated investor track", which the §14 sitemap lock removed — client decision), **OI-16** (named-customer/product clearance), **OI-17** (cybersecurity claim). No IA, opening, or homepage change; raw copy kept in gitignored `clientDocs/`)
@@ -2885,6 +2886,36 @@ Applied on the official client-review HTML (`03_Design/client-review/homepage/`)
 | Our Advantage sidebar | Matches Figma `11541:1393` except the AI row. Groups: **Embedded Fintech** (Payments, Lending, Insurance), **AI at Fullsteam** (mono group label; the AI row's label is a brand gradient shimmer since 2026-11-10 — the `--green-ink` frame is gone), **Operational Excellence** (Sales & Marketing, Talent, Peer Community). `#payments` is the panel when the URL has no hash (2026-11-10; was `#ai`). |
 | Our Story timeline | Kept. Year numerals and the year jump are gone. Four milestones: founding, office openings (Auburn and New York), building on LLMs, SDR team expansion. Copy does not add dates or headcount. |
 | Interior heroes | Paper-mesh system; photography as a CSS field (8% join), not furniture. Photo pages hide the mesh. **Vertical Software** / **Careers** = type-only. **Our Advantage** = till field. **Our Story** = flush triptych. **Contact** = Vertical Software type-only mesh, Direct lines as an in-flow hairline row (2026-11-10; was corridor + card). **Acquisitions** = **10-28 Axis A recipe**: centered type on mesh, founder videos as a filmstrip of tabs under the copy (`.founder-film`). Solid white interior header from first paint. |
+
+### 28.11 The real hero clip (2026-11-16)
+
+The client supplied `fullsteam-hero-video-2.mp4` (1920×1080, 24 fps, **89.4 s**, 167.8 MB,
+unused AAC track) — a **15-shot verticals montage**, ~6 s per shot, one shot per vertical. It
+replaces the Adobe Stock preview **and** the Mixkit stand-in on the official homepage. **No
+sitemap, IA, copy, or opening-strategy change** — this is a media swap inside §23's locked
+two-state opening.
+
+| File | Size | Spec |
+|---|---|---|
+| `assets/hero-sizzle.mp4` | **5.2 MB** (486 kbps) | 1600×900, CRF 35, 24 fps, silent, `+faststart`, 2 s GOP |
+| `assets/hero-sizzle-mobile.mp4` | **2.8 MB** (261 kbps) | 960×540, CRF 33; served by `<source media="(max-width: 900px)">` |
+| `assets/hero-fallback.mp4` | 1.6 MB | unchanged; last `<source>` behind the clip |
+
+- **Both cuts are now published.** They are allow-listed in `.gitignore` and staged by
+  `pages.yml`, so the hosted review plays real footage instead of the brand field. The
+  "unlicensed Adobe preview" caveat that kept the old clip off Pages is **retired**, not
+  overridden — the file it referred to no longer exists in that folder.
+- **1600×900, not 1080p:** the plate is `object-fit: cover` under a heavy double scrim; the extra
+  resolution was invisible and cost ~1.4 MB. Re-encode from the master if launch wants 1080p.
+- **Contrast re-measured** across 16 sampled timestamps (type band, scrim composited): worst-case
+  p99 frame luminance **0.081**, i.e. **~8:1** for white display type. The 2026-10-29 flag
+  (3.26:1 on the old clip's specular frames) is cleared. Scrim values were **not** retuned.
+- **One file, four slots** — the AI panel (Our Advantage), the mission video (Our Story), and the
+  four Acquisitions founder-film tabs all point at the same asset. That was already true of the
+  previous preview; only `index.html` gained the mobile `<source>`. Provenance:
+  `assets/credits.json`; build: `design-notes.md` §2026-11-16 (evening).
+- The 167 MB master is **gitignored at the repo root** (`/*.mp4`) — it is an input, not a site
+  asset.
 
 ---
 

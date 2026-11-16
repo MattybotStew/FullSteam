@@ -58,9 +58,12 @@ jobs:
           # (sizzle-video opening → copy-swap Axis B, Acquire/Grow/Lead process
           # band, verticals accordion, AI, founders, way-finder), plus the
           # interior pages: Vertical Software, Our Advantage, Our Story, Careers, Acquisitions.
-          # HTML + logos + hero fallback + local section photography (2026-11-02
-          # ledger build). design-notes.md and linkedin-slots.md stay out of
-          # _site on purpose. hero-sizzle.mp4 is gitignored and not staged.
+          # HTML + logos + hero clip + local section photography (2026-11-02
+          # ledger build; hero clip replaced 2026-11-16). design-notes.md and
+          # linkedin-slots.md stay out of _site on purpose. The hero plays
+          # assets/hero-sizzle.mp4 (client montage, 5.2 MB) — the 960×540
+          # hero-sizzle-mobile.mp4 is picked by <source media> under 900px, and
+          # hero-fallback.mp4 is the last-resort source.
           mkdir -p _site/03_Design/client-review/homepage/assets/img
           cp 03_Design/client-review/homepage/index.html \
              03_Design/client-review/homepage/vertical-software.html \
@@ -73,6 +76,8 @@ jobs:
           cp 03_Design/client-review/homepage/assets/fullsteam-logo.svg \
              03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg \
              03_Design/client-review/homepage/assets/hero-fallback.mp4 \
+             03_Design/client-review/homepage/assets/hero-sizzle.mp4 \
+             03_Design/client-review/homepage/assets/hero-sizzle-mobile.mp4 \
              03_Design/client-review/homepage/assets/site.css \
              03_Design/client-review/homepage/assets/hero.css \
              _site/03_Design/client-review/homepage/assets/

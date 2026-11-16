@@ -93,7 +93,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
   (promoted **2026-11-02** — ledger redesign; prior build frozen at
   `client-review/homepage-2026-10-29-official/`). It is **client-facing and tracked**:
   the review portal links it and Pages publishes it (`index.html`, **`vertical-software.html`**,
- **`our-advantage.html`**, **`our-story.html`**, **`careers.html`**, **`for-founders.html`**, header logos, hero fallback, `assets/img/` section photography;
+ **`our-advantage.html`**, **`our-story.html`**, **`careers.html`**, **`for-founders.html`**, header logos, **`hero-sizzle.mp4` + its 960×540 mobile cut (client montage, published 2026-11-16)**, hero fallback, `assets/img/` section photography;
   **`assets/logos/`** +
   **`manifest.json`** are **tracked and published** as of 2026-11-03, when the client cleared the
   portfolio marks; `pages.yml` copies them and skips the step if the directory is ever absent).

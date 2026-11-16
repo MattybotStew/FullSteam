@@ -19,6 +19,78 @@ but staged on deploy).
 
 ---
 
+## 2026-11-16 (evening) — the real hero clip lands
+
+The client supplied `fullsteam-hero-video-2.mp4` at the repo root: **1920×1080, 24 fps, 89.4 s,
+14.7 Mbps, 167.8 MB**, with an AAC track a muted hero never uses. It is a **15-shot verticals
+montage** (~6 s per shot: golf, town high street, auto detailing, wine shop, footwear, optical,
+retirement window, marina storage, bridal, event dining, print shop, warehouse, barrels, hotel,
+car interior) — so it replaces both the Adobe Stock preview and the Mixkit stand-in as real
+Fullsteam footage.
+
+Two H.264 cuts, no audio, `+faststart`, 2 s GOP, lanczos scale + light `hqdn3d` (the grain was
+paying for itself in bytes and the clip sits under a 0.58-alpha scrim):
+
+| File | Size | Spec | Served |
+|---|---|---|---|
+| `assets/hero-sizzle.mp4` | **5.2 MB** (486 kbps) | 1600×900, CRF 35, slow | default |
+| `assets/hero-sizzle-mobile.mp4` | **2.8 MB** (261 kbps) | 960×540, CRF 33 | `<source media="(max-width: 900px)">` |
+
+**Why 1600×900 and not 1080p:** the full-bleed plate is `object-fit: cover` behind a heavy
+double scrim, so the last 20% of resolution was invisible at a 1.4 MB premium. Verified at 1:1 —
+the residual blocking in the darkest areas sits under the scrim.
+
+**Why two files:** `media` on `<source>` is honoured (verified in Chromium at 390 and 1440 — the
+phone fetched only the mobile cut), so a phone decodes 2.8 MB instead of 5.2 MB without any JS
+resize listener. `hero-fallback.mp4` stays as the last `<source>`.
+
+**Contrast:** re-measured the same way as the 2026-10-29 clip — the type band across 16 sampled
+timestamps now bottoms out at ~8:1 for white display type (p99 frame luminance 0.081 behind the
+scrim, worst case). The old clip's 3.26:1 flag is gone; the scrim was left untouched.
+
+**The clip is shared.** `assets/hero-sizzle.mp4` is also the AI-panel video on Our Advantage, the
+mission video on Our Story, and all four Acquisitions founder-film tabs — those slots now play the
+montage too. That is the same placeholder relationship they had with the Adobe preview (one clip,
+four slots), so nothing new was introduced; it is recorded in `assets/credits.json`.
+
+**Published.** `hero-sizzle.mp4` is no longer the unlicensed Adobe preview, so the offer is taken:
+`.gitignore` allow-lists both cuts and `pages.yml` stages them. The hosted review now plays the
+footage instead of falling back to the brand field. Deck note: the Adobe preview it replaced was
+1920×1080; this cut is 1600×900. If a full 1080p hero is wanted for launch, re-encode from the
+client master (`fullsteam-hero-video-2.mp4`, now gitignored at the repo root) rather than
+upscaling this one.
+
+---
+
+## 2026-11-16 (late) — client answered Hospitality, Weddings, Wine, then five more
+
+**Second wave** (20 comments between 20:02 and 20:13): Retail, Storage & Marina, Health & Wellness,
+Field Services and Transportation now carry client paragraphs, plus Retail's title
+(“Great specialty retailers know their products and customers better than anyone.”) and
+Transportation's (“From quote request to airport dropoff, Fullsteam software keeps people moving.”).
+
+Stats landed for three of them, applied through `PANEL_STATS` so the abbreviation formatter keeps
+the house shape:
+
+| Panel | Values | Labels |
+|---|---|---|
+| Retail | `287K+` | Pairs of shoes sold online per year on average |
+| Health & Wellness | `343K+` / `7.2M` / `240K+` | Clients supported using eRSP in 2025 / Visits logged in eRSP in 2025 / Claims submitted through eRSP in 2025 |
+| Transportation | `3M+` | Annual customer bookings via Fasttrack |
+
+Rows 2–3 stay placeholders wherever the client supplied only one figure.
+
+**Business-unit names arrived for six panels** (Hospitality 7, Retail 5, Storage 2, Health 4,
+Field Services 4, Transportation 6, plus Wine's notable customer Screaming Eagle and New Balance /
+the 14 Field Services customers). **The manifest was not renamed**: the files are anonymous
+(`*-units-1.png` …) and file order is not proof of brand order — Health's current row even contains
+Rosy Salon, which is not in the client's list. Counts per panel are recorded in
+`04_Content/vertical-software-panels.md`; a brand-to-file map makes it mechanical.
+
+Still drafts: **Automotive, Association Management, ERP**.
+
+---
+
 ## 2026-11-16 (late) — client answered Hospitality, Weddings, Wine
 
 Three tab cards came back with real copy, and it is now in both tracks:

@@ -50,9 +50,10 @@
   exit + arrival copy swap over one continuous shot, and the --b-wash floor.
 
   Adapted for this build:
-    · assets/hero-fallback.mp4 (free licence, tracked) is the only <source>.
-      The licensed sizzle master goes in as the FIRST <source> when it exists —
-      layer order already assumes it.
+    · assets/hero-sizzle.mp4 (the client's verticals montage) is the FIRST
+      <source>; assets/hero-fallback.mp4 (free licence) is the last-resort
+      source behind it. A 960×540 cut of the same film is served under 900px
+      via <source media>, so a phone decodes 2.8 MB, not 5.2 MB.
     · The official lets its ink band swallow Axis B. This page's next band is
       PAPER, so B rises with the leaving plate (--b-lift) and dissolves
       (--b-out); a pure fade left white type on white for the last ~130px.
@@ -1358,10 +1359,11 @@
          Opening · Axis A (portfolio) → copy swap → Axis B (growth engine)
          Ported from the official 2026-10-29 build. Layer order matters:
          field (poster) → clip → scrim → Axis B wash. The scrim sits over both
-         the poster and the footage, so type contrast does not move when a
-         licensed clip replaces the placeholder.
-         ⚠ assets/hero-fallback.mp4 is the free-licence stand-in. Drop the
-         licensed sizzle master in as the FIRST <source> when it exists.
+         the poster and the footage, so type contrast does not move when the
+         clip changes.
+         Clip: assets/hero-sizzle.mp4 (client master, 1600×900, 89s, silent,
+         5.2 MB) with a 960×540 mobile cut behind a media query.
+         assets/hero-fallback.mp4 is the free-licence last resort.
          =================================================================== -->
     <div class="opening-stage" id="top" data-surface="dark">
       <section class="hero hero--axis-a" data-surface="dark" id="heroAxisA" aria-labelledby="heroTitle">
@@ -1370,6 +1372,7 @@
           <video class="hero__media-video" id="heroSizzle"
                  autoplay muted loop playsinline disablepictureinpicture
                  preload="auto" tabindex="-1">
+            <source src="assets/hero-sizzle-mobile.mp4" type="video/mp4" media="(max-width: 900px)">
             <source src="assets/hero-sizzle.mp4" type="video/mp4">
             <source src="assets/hero-fallback.mp4" type="video/mp4">
           </video>

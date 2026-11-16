@@ -55,22 +55,33 @@ _site/
 !03_Design/explorations/02-video-hero/assets/fullsteam-logo.svg
 !03_Design/explorations/02-video-hero/assets/hero-stock.mp4
 
+# Client-supplied media masters land at the repo root (e.g. a 167 MB hero cut).
+# They are inputs, not site assets — the transcoded deliverable lives in
+# 03_Design/client-review/homepage/assets/. Never commit the master: the repo is
+# public and Pages stages an explicit allow-list.
+/*.mp4
+/*.mov
+/*.webm
+
 # Client review — the OFFICIAL high-fidelity screens. Tracked and published on
 # purpose (the review portal links them). Unlike explorations/, these are
 # client-facing: no internal notes, no unreviewed directions, no third-party
 # media that is not licensed. Only the HTML + logo assets are staged for Pages.
-# NOTE 2026-10-29: assets/hero-sizzle.mp4 lives here but is NOT allow-listed —
-# the current file is an Adobe Stock PREVIEW (watermark baked in). Allow it only
-# together with the licensed master, and add the matching `cp` to
-# .github/workflows/pages.yml at the same time.
+# 2026-11-16: assets/hero-sizzle.mp4 is now the CLIENT-SUPPLIED verticals
+# montage (fullsteam-hero-video-2.mp4, 1920×1080 master), transcoded for the
+# hero and allow-listed — the unlicensed Adobe Stock preview it replaced is
+# gone. hero-sizzle-mobile.mp4 is the 960×540 cut served under 900px. Their
+# `cp` lines live in .github/workflows/pages.yml; add both together.
 #
 # assets/hero-fallback.mp4 IS allow-listed: it is the Mixkit free-licence kitchen
 # clip already tracked at 03_Design/explorations/02-video-hero/assets/hero-stock.mp4,
-# and it is what the published page plays while the sizzle master is unlicensed.
+# and it is the last-resort source behind the sizzle master.
 03_Design/client-review/homepage/assets/*
 !03_Design/client-review/homepage/assets/fullsteam-logo.svg
 !03_Design/client-review/homepage/assets/fullsteam-logo-dark.svg
 !03_Design/client-review/homepage/assets/hero-fallback.mp4
+!03_Design/client-review/homepage/assets/hero-sizzle.mp4
+!03_Design/client-review/homepage/assets/hero-sizzle-mobile.mp4
 # Shared stylesheets for the client-review pages (plain CSS, no third-party
 # media). site.css is the base every page links before its own <style>;
 # hero.css is the interior hero, linked after it. Both are staged by pages.yml.
