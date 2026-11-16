@@ -322,13 +322,24 @@ body.menu-open { overflow: hidden; }
 .band--ink .voice-card__role { color: rgba(255, 255, 255, .55); }
 .band--ink .voice-card__attr { color: rgba(255, 255, 255, .62); }
 .band--ink .voice-card blockquote { color: rgba(255, 255, 255, .94); }
-.band--ink .voice-card__face { border-color: rgba(255, 255, 255, .22); }
+.band--ink .voice-card__face { border-color: rgba(255, 255, 255, .22); color: #fff; background: rgba(255, 255, 255, .06); }
 .voice-card__top { display: flex; align-items: center; gap: 14px; }
 .voice-card__face {
+  display: grid;
+  place-items: center;
   width: 56px; height: 56px; border-radius: 50%;
-  object-fit: cover; object-position: center;
   border: 1px solid rgba(0, 0, 0, .12);
+  background: var(--surface, #f4f1ea);
+  color: var(--ink, #0c1b21);
   flex: 0 0 auto;
+}
+.voice-card__face svg {
+  width: 24px; height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .voice-card__role {
   font-family: var(--mono);
@@ -724,27 +735,33 @@ body.menu-open { overflow: hidden; }
         <div class="voices-grid">
           <article class="voice-card">
             <div class="voice-card__top">
-              <img class="voice-card__face" alt="" aria-hidden="true" width="56" height="56" loading="lazy" decoding="async" src="assets/img/careers/voice-founder.jpg">
-              <p class="voice-card__role">The founder</p>
+              <span class="voice-card__face" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.5 12.2l1.8 1.8 3.4-3.8"/></svg>
+              </span>
+              <p class="voice-card__role">Ownership</p>
             </div>
-            <blockquote><p>&ldquo;We sold to a company that wanted what we had built to keep working. Two years on it still runs on our name, our team, and our roadmap.&rdquo;</p></blockquote>
+            <blockquote><p>Take on real problems and move ideas forward without layers of rigid rules.</p></blockquote>
             <p class="voice-card__attr">Founder, acquired vertical software company</p>
           </article>
           <article class="voice-card">
             <div class="voice-card__top">
-              <img class="voice-card__face" alt="" aria-hidden="true" width="56" height="56" loading="lazy" decoding="async" src="assets/img/careers/voice-founder-stayed.jpg">
-              <p class="voice-card__role">The founder who stayed</p>
+              <span class="voice-card__face" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 19h4v-4h4v-4h4V7h4"/></svg>
+              </span>
+              <p class="voice-card__role">Career mobility</p>
             </div>
-            <blockquote><p>&ldquo;I came in as the founder of a six-person team. The difference was what came next: I stayed, and I now run a business three times the size.&rdquo;</p></blockquote>
-            <p class="voice-card__attr">Founder, now leading a larger business unit</p>
+            <blockquote><p>I came in as the founder of a six-person team. The difference was what came next: I stayed, and I now run a business three times the size.</p></blockquote>
+            <p class="voice-card__attr">Across the Fullsteam network</p>
           </article>
           <article class="voice-card">
             <div class="voice-card__top">
-              <img class="voice-card__face" alt="" aria-hidden="true" width="56" height="56" loading="lazy" decoding="async" src="assets/img/careers/voice-employee.jpg">
-              <p class="voice-card__role">The employee</p>
+              <span class="voice-card__face" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 18h16"/><path d="M6 18V9l6-4 6 4v9"/><path d="M10 18v-5h4v5"/></svg>
+              </span>
+              <p class="voice-card__role">Industry impact</p>
             </div>
-            <blockquote><p>&ldquo;Nobody here is a ticket in a queue. You learn the industry, you talk to the customers, and you ship.&rdquo;</p></blockquote>
-            <p class="voice-card__attr">Support engineer, Fullsteam</p>
+            <blockquote><p>Work on software real industries depend on, close to the customers and problems that shape the product.</p></blockquote>
+            <p class="voice-card__attr">Software with real-world impact</p>
           </article>
         </div>
       </div>

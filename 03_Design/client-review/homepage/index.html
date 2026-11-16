@@ -92,7 +92,8 @@
     #modelTitle em,
     #vertsTitle em,
     #careersTitle em,
-    #aiTitle em { letter-spacing: 0; }
+    #aiTitle em,
+    #foundersTitle em { letter-spacing: 0; }
 
     /* write-in (2026-11-03, client) ----------------------------------------
        The serif italic payoff is unmasked left → right so it reads as being
@@ -291,12 +292,12 @@
       display: block;
       background: transparent;
     }
-    /* the wash over the footage — two layers, darkest where the words are */
+    /* the wash over the footage — two layers; light mid so the photo reads */
     .hero__media-scrim {
       position: absolute; inset: 0;
       background:
-        radial-gradient(88% 62% at 50% 47%, rgba(0,15,22,.58) 0%, rgba(0,15,22,.50) 46%, rgba(0,15,22,.18) 76%, rgba(0,15,22,0) 100%),
-        linear-gradient(180deg, rgba(0,15,22,.62) 0%, rgba(0,15,22,.40) 34%, rgba(0,15,22,.44) 72%, rgba(0,15,22,.66) 100%);
+        radial-gradient(88% 62% at 50% 47%, rgba(0,15,22,.18) 0%, rgba(0,15,22,.05) 5%, rgba(0,15,22,.05) 45%, rgba(0,15,22,0) 60%),
+        linear-gradient(180deg, rgba(0,15,22,.10) 0%, rgba(0,15,22,.20) 16%, rgba(0,15,22,.20) 72%, rgba(0,15,22,.10) 100%);
     }
     /* Axis B's floor: the frames B lands on are not the ones A opened on, so
        the wash deepens as B arrives (--b-wash, 0 → 1) and eases back out. */
@@ -915,6 +916,15 @@
       gap: clamp(36px, 6vw, 88px);
       align-items: center;
     }
+    .founders__eyebrow {
+      margin: 0 0 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .72);
+    }
     .founders h2 { max-width: 14ch; }
     .founders__body {
       margin-top: 28px;
@@ -982,6 +992,15 @@
     /* 2026-11-03 — the head was a 12-col grid with the CTA on a second row, so
        the lede bottom-aligned against the headline and the button fell outside
        the header's box. Two columns now, centred against each other. */
+    .careers__eyebrow {
+      margin: 0 0 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
     .careers__head {
       margin-bottom: clamp(40px, 5vw, 64px);
       align-items: center;
@@ -1037,17 +1056,25 @@
     .voice:nth-child(3) { grid-column: 3; }
     .voice + .voice { border-left: 1px solid var(--line); padding-left: 34px; }
     .voice__top { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
-    /* Stock portraits (Unsplash) — composite voices, same sources as official build */
+    /* Value-theme marks — replaced headshots when voices became Ownership /
+       Career mobility / Industry impact (copy deck 2026-11-16). */
     .voice__face {
-      display: block;
+      display: grid;
+      place-items: center;
       width: 56px; height: 56px;
       border-radius: 50%;
-      object-fit: cover;
-      object-position: center;
       border: 1px solid var(--line);
-      background: #fff;
+      background: var(--surface);
+      color: var(--ink);
       flex: 0 0 auto;
-      filter: saturate(.94) contrast(1.03);
+    }
+    .voice__face svg {
+      width: 24px; height: 24px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
     .voice__role {
       font-family: var(--mono); font-size: 11px;
@@ -1487,9 +1514,8 @@
       <div class="wrap">
         <div class="ai">
           <div class="ai__left">
-            <h2 class="display display--l r" id="aiTitle">AI that already knows the <em class="write-in">business.</em></h2>
-            <p class="lede r" style="--d:70ms">Practical AI built into the software.</p>
-            <p class="r" style="--d:105ms">We use AI where it solves a real problem inside the software.</p>
+            <h2 class="display display--l r" id="aiTitle">Practical AI built into the <em class="write-in">software.</em></h2>
+            <p class="lede r" style="--d:70ms">We use AI where it solves a real problem inside the software.</p>
             <p class="r" style="--d:140ms">
               <a class="arrow-link" href="our-advantage.html#ai">
                 See AI at Fullsteam
@@ -1532,7 +1558,7 @@
     <section class="band band--paper" id="verticals" data-surface="light" aria-labelledby="vertsTitle">
       <div class="wrap">
         <header class="band__head">
-          <h2 class="display display--l r" id="vertsTitle">Keep the businesses <em class="write-in">growing.</em></h2>
+          <h2 class="display display--l r" id="vertsTitle">Essential vertical <em class="write-in">software.</em></h2>
         </header>
 
         <div class="verts__stage r" id="vertStage" role="group" aria-label="Featured vertical markets">
@@ -1626,7 +1652,7 @@
             </span>
           </a>
         </div>
-        <p class="verts__exit r">Growth needs more than ownership &mdash; it needs intelligence.</p>
+        <p class="verts__exit r">Systems of record built around how each industry works.</p>
       </div>
     </section>
 
@@ -1637,8 +1663,9 @@
       <div class="wrap">
         <div class="founders__grid">
           <div class="r">
+            <p class="founders__eyebrow">For founders</p>
             <h2 class="display display--l" id="foundersTitle">Build on what you already made <em class="write-in">great.</em></h2>
-            <p class="founders__body">We work toward a smooth transition, then add operational expertise, back-office support, enterprise-grade cybersecurity, and embedded tools to help it grow.</p>
+            <p class="founders__body">More relevant. More capable. More competitive.</p>
             <p class="founders__cta">
               <a class="btn" href="for-founders.html">Explore Acquisitions</a>
             </p>
@@ -1678,39 +1705,44 @@
       <div class="wrap">
         <header class="band__head careers__head">
           <div class="careers__intro">
-            <h2 class="display display--l r" id="careersTitle">A great place to <em class="write-in">work.</em></h2>
+            <p class="careers__eyebrow">Across the Fullsteam network</p>
+            <h2 class="display display--l r" id="careersTitle">Own the work. Keep <em class="write-in">growing.</em></h2>
             <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
           </div>
-          <p class="lede r" style="--d:80ms">Take on real problems and move ideas forward without layers of rigid rules.</p>
+          <p class="lede r" style="--d:80ms">Across 100+ business units, people take ownership, learn new industries, and work directly with leaders</p>
         </header>
 
         <ol class="voices">
           <li class="voice r">
             <div class="voice__top">
-              <img class="voice__face" src="assets/img/careers/voice-founder.jpg" alt="" aria-hidden="true" width="56" height="56" loading="lazy" decoding="async">
-              <span class="voice__role">The founder</span>
+              <span class="voice__face" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.5 12.2l1.8 1.8 3.4-3.8"/></svg>
+              </span>
+              <span class="voice__role">Ownership</span>
             </div>
-            <blockquote><p>&ldquo;We sold to a company that wanted what we had built to keep working. Two years on
-              it still runs on our name, our team, and our roadmap.&rdquo;</p></blockquote>
+            <blockquote><p>Take on real problems and move ideas forward without layers of rigid rules.</p></blockquote>
             <p class="voice__attr">Founder, acquired vertical software company</p>
           </li>
           <li class="voice r" style="--d:80ms">
             <div class="voice__top">
-              <img class="voice__face" src="assets/img/careers/voice-founder-stayed.jpg" alt="" aria-hidden="true" width="56" height="56" loading="lazy" decoding="async">
-              <span class="voice__role">The founder who stayed</span>
+              <span class="voice__face" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 19h4v-4h4v-4h4V7h4"/></svg>
+              </span>
+              <span class="voice__role">Career mobility</span>
             </div>
-            <blockquote><p>&ldquo;I came in as the founder of a six-person team. The difference was what came next:
-              I stayed, and I now run a business three times the size.&rdquo;</p></blockquote>
-            <p class="voice__attr">Founder, now leading a larger business unit</p>
+            <blockquote><p>I came in as the founder of a six-person team. The difference was what came next:
+              I stayed, and I now run a business three times the size.</p></blockquote>
+            <p class="voice__attr">Across the Fullsteam network</p>
           </li>
           <li class="voice r" style="--d:160ms">
             <div class="voice__top">
-              <img class="voice__face" src="assets/img/careers/voice-employee.jpg" alt="" aria-hidden="true" width="56" height="56" loading="lazy" decoding="async">
-              <span class="voice__role">The employee</span>
+              <span class="voice__face" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 18h16"/><path d="M6 18V9l6-4 6 4v9"/><path d="M10 18v-5h4v5"/></svg>
+              </span>
+              <span class="voice__role">Industry impact</span>
             </div>
-            <blockquote><p>&ldquo;Nobody here is a ticket in a queue. You learn the industry, you talk to the
-              customers, and you ship.&rdquo;</p></blockquote>
-            <p class="voice__attr">Support engineer, Fullsteam</p>
+            <blockquote><p>Work on software real industries depend on, close to the customers and problems that shape the product.</p></blockquote>
+            <p class="voice__attr">Software with real-world impact</p>
           </li>
         </ol>
 
@@ -1812,7 +1844,7 @@
     <section class="close" id="close" data-surface="dark" aria-labelledby="closeTitle">
       <div class="wrap close__inner">
         <div class="r">
-          <h2 class="display display--l" id="closeTitle">Ready to see where your business can <em class="write-in">go next?</em></h2>
+          <h2 class="display display--l" id="closeTitle">See how we build on <em class="write-in">great.</em></h2>
         </div>
         <div class="close__actions r" style="--d:100ms">
           <a class="btn" href="our-advantage.html">Explore Our Advantage</a>
