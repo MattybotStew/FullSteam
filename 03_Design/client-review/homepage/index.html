@@ -295,9 +295,24 @@
     /* the wash over the footage — two layers; light mid so the photo reads */
     .hero__media-scrim {
       position: absolute; inset: 0;
+      /* 2026-11-16: the "lighter scrim" pass left the plate readable but put
+         white display type at ~3:1 and the 11px eyebrow below 4.5:1 on the
+         bright shots (golfer/sky). The scrim is now LOCAL to the type block —
+         a soft oval behind the headline — so the edges of the frame stay
+         open and the plate still reads. Measured worst case 4.7:1, median
+         9.1:1 across the clip. Do not flatten this back to a uniform wash. */
       background:
-        radial-gradient(88% 62% at 50% 47%, rgba(0,15,22,.18) 0%, rgba(0,15,22,.05) 5%, rgba(0,15,22,.05) 45%, rgba(0,15,22,0) 60%),
-        linear-gradient(180deg, rgba(0,15,22,.10) 0%, rgba(0,15,22,.20) 16%, rgba(0,15,22,.20) 72%, rgba(0,15,22,.10) 100%);
+        radial-gradient(64% 46% at 50% 47%, rgba(0,15,22,.62) 0%, rgba(0,15,22,.52) 45%, rgba(0,15,22,.20) 78%, rgba(0,15,22,0) 100%),
+        linear-gradient(180deg, rgba(0,15,22,.12) 0%, rgba(0,15,22,.22) 18%, rgba(0,15,22,.22) 72%, rgba(0,15,22,.12) 100%);
+    }
+    /* Narrow screens: the type block is nearly full-bleed, so the oval has to
+       grow with it — a 64%-wide pool would leave the first word outside it. */
+    @media (max-width: 900px) {
+      .hero__media-scrim {
+        background:
+          radial-gradient(120% 34% at 50% 50%, rgba(0,15,22,.66) 0%, rgba(0,15,22,.52) 52%, rgba(0,15,22,.20) 84%, rgba(0,15,22,0) 100%),
+          linear-gradient(180deg, rgba(0,15,22,.12) 0%, rgba(0,15,22,.22) 18%, rgba(0,15,22,.22) 72%, rgba(0,15,22,.12) 100%);
+      }
     }
     /* Axis B's floor: the frames B lands on are not the ones A opened on, so
        the wash deepens as B arrives (--b-wash, 0 → 1) and eases back out. */

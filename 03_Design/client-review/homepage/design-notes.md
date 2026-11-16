@@ -19,6 +19,39 @@ but staged on deploy).
 
 ---
 
+## 2026-11-17 (early) — the hero scrim: local, not lighter-everywhere
+
+The 2026-11-16 copy-deck pass **lightened the whole media scrim**
+(`rgba(0,15,22,.58/.50)` → `.18/.05` at the centre) "so the plate reads". It does read — but the
+type stopped: measured on the golfer/sky shot, the headline band fell to **3.1:1 median / 2.8:1 at
+p90**, and the 11px eyebrow had no ground under it at all.
+
+Fix is **local, not global**: the scrim is now a soft ink oval behind the type block, so the pool of
+shade moves with the words and the edges of the frame stay open. The flat vertical wash is a
+whisper (`.12 → .22 → .12`).
+
+| | median | p90 | p99 | worst |
+|---|---|---|---|---|
+| Before (lightened wash) | 3.14 | 2.80 | — | — |
+| After, desktop 1440 | **9.12** | 7.05 | 5.44 | **4.69** |
+| After, mobile 390 | **14.07** | 8.39 | 7.63 | **6.87** |
+
+Measured with `.hero__center` hidden, on the brightest shot in the clip (golfer against the sky),
+crop = the type band. White display type needs 3:1 and the eyebrow 4.5:1 — both clear now, and the
+plate is still bright at top and bottom.
+
+- Narrow screens get their own oval (`120% 34%`) because the type block is nearly full-bleed there;
+  a 64%-wide pool would leave "We acquire" outside it.
+- **Do not flatten this back to a uniform wash** — a uniform wash dark enough for the eyebrow greys
+  the whole photograph. The comment sits in the CSS.
+- My own earlier note in this file ("scrim values were not retuned") was true when written and is
+  now superseded by this section.
+
+Also resolved since the last entry: the **close band drift is gone**. The copy-deck pass changed the
+live H2 to "See how we build on great.", which is what the Figma frame already said — the two agree.
+
+---
+
 ## 2026-11-16 (evening, reprise) — the model band is named "Building on Great."
 
 `#scale`'s H2 was `How a Fullsteam company <em>compounds.</em>`; it is now
@@ -84,8 +117,9 @@ resize listener. `hero-fallback.mp4` stays as the last `<source>`.
 
 **Contrast:** measured the same way as the 2026-10-29 clip — the type band across 16 sampled
 timestamps bottoms out at ~8:1 for white display type (worst-case p99 frame luminance behind the
-scrim). Content, crop, and the `object-fit: cover` plate are unchanged from the build that was
-measured, so the bitrate change does not move luminance; the scrim was left untouched.
+scrim). Content, crop, and the `object-fit: cover` plate are unchanged by the re-encode, so the
+bitrate change does not move luminance. *The scrim itself was retuned separately — see the 2026-11-17
+entry at the top of this file.*
 
 **The clip is shared.** `assets/hero-sizzle.mp4` is also the AI-panel video on Our Advantage, the
 mission video on Our Story, and all four Acquisitions founder-film tabs — those slots now play the

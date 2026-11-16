@@ -2917,8 +2917,13 @@ two-state opening.
   place the image is read — but at 1080p the encode is now effectively the master at 1:1.
 - **Contrast re-measured** across 16 sampled timestamps (type band, scrim composited): worst-case
   p99 frame luminance behind the scrim, i.e. **~8:1** for white display type. The 2026-10-29 flag
-  (3.26:1 on the old clip's specular frames) is cleared. Scrim values were **not** retuned — the
-  content and crop are identical between the two encodes, so the bitrate change does not move it.
+  (3.26:1 on the old clip's specular frames) is cleared.
+- **The scrim was re-tuned on 2026-11-17.** A 2026-11-16 copy-deck pass had lightened it to a near-
+  flat wash (`rgba(0,15,22,.18/.05)` at the centre), which dropped the headline band to **3.1:1
+  median / 2.8:1 p90** and left the 11px eyebrow without ground. It is now a **local ink oval behind
+  the type block** (plus a whisper of vertical wash), giving **9.1:1 median / 4.7:1 worst at 1440**
+  and **14.1:1 / 6.9:1 at 390**, with the top and bottom of the plate still open. Do not flatten it
+  back to a uniform wash. Detail: `design-notes.md` §2026-11-17.
 - **One file, four slots** — the AI panel (Our Advantage), the mission video (Our Story), and the
   four Acquisitions founder-film tabs all point at the same asset. That was already true of the
   previous preview; only `index.html` gained the mobile `<source>`. Provenance:
@@ -2938,8 +2943,8 @@ frame `11541:2`: H2 node `11541:48` re-run in mixed Instrument Sans Medium / Ins
 Italic, its 145px fixed frame and header grid row hugged to the new single line (band 1064 → 993,
 frame 7815 → 7744), and the hero "Video" fill `11541:14` swapped from the watermarked Adobe Stock
 still to a 1440×819 still of the client montage. Figma cannot hold video; the still is the
-stand-in. Remaining known drift: the Figma close band still reads "See how we build on great."
-against the live "Ready to see where your business can go next?" — pending a decision.
+stand-in. Remaining known drift: none — the live close band was changed to "See how we build on
+great." (copy-deck pass), which is what the Figma frame already said.
 
 ---
 
