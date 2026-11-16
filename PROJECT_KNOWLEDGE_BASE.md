@@ -8,7 +8,7 @@
 > `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22); **Fullsteam Messaging Architecture** (marketing messaging architecture, received 2026-10-26 — distilled in §29, supersedes §22's pillars/themes)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22, superseded in part by **§29**); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-11-16 (**hero clip replaced** — the client's `fullsteam-hero-video-2.mp4` verticals montage transcoded to a 1600×900 5.2 MB hero cut plus a 960×540 2.8 MB mobile cut, both now published; contrast re-measured at ~8:1. Media-only swap, no IA or opening change — **§28.11**.)
+> **Last updated:** 2026-11-16 (**hero clip + model band** — the client's `fullsteam-hero-video-2.mp4` verticals montage transcoded to a 1600×900 5.2 MB hero cut plus a 960×540 2.8 MB mobile cut, both now published; contrast re-measured at ~8:1 (**§28.11**); and the model band's H2 is now **“Building on Great.”** with the serif-italic write-in payoff (**§28.12**). Media/copy only — no IA or opening change.)
 > **Prior update:** 2026-11-10 (**Our Advantage + Contact pass** — `#payments` is the default panel (was `#ai`); the AI rail row is a brand gradient shimmer, replacing the 2026-11-09 `--green-ink` frame; Contact uses the Vertical Software type-only mesh hero instead of the corridor photograph. Docs-only record; no sitemap change.)
 > **Prior update:** 2026-11-09 (**client-review pass** — menu tagline **Building on Great**; homepage Acquire/Grow/Lead reveals on scroll; vertical cards hover-expand and the whole card links; footer AI header + Advantage sublinks Payments / Embedded Fintech / Operational Excellence; Leadership is `#leadership`; vertical panels drop the lede and split logo rows; Our Advantage sidebar matches Figma `11541:1393` — Embedded Fintech, AI label plus green-ink frame, Operational Excellence; Our Story timeline is four milestones, years de-emphasized; interior heroes as photographic fields / type-only mesh; **Acquisitions hero = 10-28 Axis A + founder video filmstrip**. **§28.10**. No sitemap change.)
 > **Prior update:** 2026-11-03 (**Vertical Software client-review** — `vertical-software.html` on Pages; **panel content depth tiers** locked — §28.9: min / standard / full proof stacks; Weddings = full reference with story gallery + lightbox. Named products/stats **not publishable** until cleared — §29.7 / OI-16. Build: `design-notes.md` §2026-11-03; slots: `content-slots.md` §5.0)
@@ -2916,6 +2916,17 @@ two-state opening.
   `assets/credits.json`; build: `design-notes.md` §2026-11-16 (evening).
 - The 167 MB master is **gitignored at the repo root** (`/*.mp4`) — it is an input, not a site
   asset.
+
+### 28.12 Homepage model band renamed (2026-11-16)
+
+`#scale`'s H2 changed from **“How a Fullsteam company compounds.”** to
+**“Building on Great.”** at the user's direction — the site-wide tagline (menu foot, §28.10) promoted
+to a section headline. Same treatment as the page's other band heads: "Building on" in Instrument
+Sans, **“Great.”** in Instrument Serif italic inside `<em class="write-in">`, so it still writes in
+left → right on the `.r` reveal. Payoff resolves to ink on paper (never gold text on light), and
+"Great" is capitalised as the tagline is. Steps, counters, rule, and step copy are **unchanged** —
+this is a naming change on one heading, not a band redesign. Copy record: `content-slots.md` 03;
+build: `design-notes.md` §2026-11-16 (evening, reprise).
 
 ---
 

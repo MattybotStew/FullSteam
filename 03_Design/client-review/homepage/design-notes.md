@@ -19,6 +19,26 @@ but staged on deploy).
 
 ---
 
+## 2026-11-16 (evening, reprise) — the model band is named "Building on Great."
+
+`#scale`'s H2 was `How a Fullsteam company <em>compounds.</em>`; it is now
+**`Building on <em class="write-in">Great.</em>`** — the site-wide tagline (menu foot, 2026-11-09), set in
+the same shape as every other band head on the page: Instrument Sans for "Building on", Instrument
+Serif italic for the payoff, `<em class="write-in">` so the mask still writes "Great." in left → right
+after the `.r` reveal.
+
+- Nothing else in the band moved — the three steps (Acquire / Grow / Lead), the rule, the counters,
+  and the step copy are untouched.
+- The write-in mask needed no new rules; `.write-in` already pads to the glyph extents, and the
+  heading is short enough to hold one line at 390 and 1440. Verified the animation runs:
+  `--wi` 0% → 23% → 93% → 118% → 132% across the 0.95s + 0.16s transition.
+- Payoff colour is ink on paper, not gold — the existing light-surface `--accent` rule. "Great" is
+  capitalised because it is the tagline, unlike the founders band's lowercase "great."
+
+Copy record: `content-slots.md` 03.
+
+---
+
 ## 2026-11-16 (evening) — the real hero clip lands
 
 The client supplied `fullsteam-hero-video-2.mp4` at the repo root: **1920×1080, 24 fps, 89.4 s,

@@ -98,7 +98,7 @@ This file is the canonical agent entry point (works with Cursor, which reads
   **`manifest.json`** are **tracked and published** as of 2026-11-03, when the client cleared the
   portfolio marks; `pages.yml` copies them and skips the step if the directory is ever absent).
   Structure: **Axis A → copy swap → Axis B** opening
-  (KB §23.10) → **How a Fullsteam company compounds** model steps → AI → verticals gallery
+  (KB §23.10) → **Building on Great** model steps → AI → verticals gallery
   → founders → careers → close. Same narrative order as the 2026-10-29 build; new editorial
   layout and type ladder. Build notes: `client-review/homepage/design-notes.md`.
 - **Interior hero archetypes (hi-fi, `design.md` §4.10, amended 2026-11-09):** subpages share one **paper-mesh** system (serif-italic payoff, solid white bar, gold as a mark never text on paper) but **each page has its own composition**. Default interior recipe is left type, 90/48/32 content padding, mesh pooled right. Photography is a **CSS background** on `.hero__photo` — a short 8% join into the paper, never a 20% dissolve, never inline furniture (no polaroids, arches, phones, or inset cards). **Photo pages turn the mesh off**; mesh is atmosphere for type-only / filmstrip plates. Do not clone one page’s hero onto another — **Contact is the one sanctioned copy of the Vertical Software composition (2026-11-10, at the user's direction)**. Recipes:
