@@ -204,6 +204,11 @@ scroll gallery + lightbox). **Product screenshots** = `.screens` row — not the
 
 **Shorthand for stakeholders:** 4 light · 6 with brands, no UI · 1 full reference (Weddings).
 
+**Panel-by-panel copy sheet (2026-11-16):** [`04_Content/vertical-software-panels.md`](./04_Content/vertical-software-panels.md)
+breaks all eleven tabs out in rail order — live title, live paragraph, the three stat slots,
+both logo rows, and (Weddings only) screens + story gallery — with a blank field per slot for
+the copy to come back in. Use it for the content handoff; this table stays the status ledger.
+
 ### 5.1 Weddings & Events — client-review panel (2026-11-03)
 
 Wireframe slots above still govern intent; this table tracks the **official review build** only.
