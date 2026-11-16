@@ -2451,11 +2451,18 @@ the cybersecurity claim; do not reuse 15–17).
   **mixed-font nodes can never carry one**.
 - **OI-22 — clamp vs fixed.** Decide whether Figma frames represent the 1440×900 rendering
   (hero 108) or the clamp maxima (hero 118). They cannot both be true; today the file mixes both.
-  A wrong choice breaks layouts — see the two reverts in §27.8.
-- **OI-23 — `--green-ink` has no variable.** Add `color/brand/green-ink` `#4F750E` to
-  `Fullsteam Brand`, or fold it into `green/90`.
+  A wrong choice breaks layouts — see the two reverts in §27.8. **Recommendation (2026-11-16):**
+  frames = **clamp maxima** (1440×900 viewport), because every frame is built at 1440 and the
+  maxima are what the page actually renders at that width. The 108px hero in the file is the
+  clamp's *floor* value and should be corrected where it appears.
+- **OI-23 — `--green-ink` has no variable. CLOSED 2026-11-16.** `color/brand/green-ink` `#4F750E`
+  exists in `Fullsteam Brand` (`VariableID:11727:124`). The home for it is the two tracks' shared
+  dark-green-on-paper use; existing hex uses in the pages were not rebound.
 - **OI-24 — the four ink literals** (`#24343A`, `#071820`, `#0B1A20`, `#0A222C`) are not tokens in
-  either track. Collapse to `ui/ink` / `ui/brand-ink` or promote.
+  either track. Collapse to `ui/ink` / `ui/brand-ink` or promote. **Recommendation (2026-11-16):**
+  bind them to `color/ui/ink` where the semantic role is already the same (body copy, dark plates),
+  and leave `#24343A` — the LinkedIn card body ink — as its own `color/ui/ink-soft` if it reads
+  differently on the surface before collapsing. Do not rename without checking `assets/site.css`.
 - **Build-side cleanup (not done — the pages are client-reviewed):** `vertical-software.html`
   carries three off-token colours (`#6a7a81`, `#5c6c73`, `#f2f6f7`) that no other page uses.
 

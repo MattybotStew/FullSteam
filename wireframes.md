@@ -352,6 +352,11 @@ Anything present on some pages but not others is drift — decide once and apply
   questionnaire's 14px radius (never built). Exploration 02 won by default, not by decision.
   **Needs an explicit call**, because the wireframes and Figma currently disagree and someone
   will eventually build from the wrong one. See KB §27.5.
+  **Recommendation (2026-11-16):** ship **radius 999px**. Every client-facing page in
+  `03_Design/client-review/homepage/` (`.btn`) uses the full pill, and Figma already carries it;
+  the wireframe's `radius: 0` is review skin from a track that was never restyled, not a design
+  position. If the client wants square, the change is one line in the six review pages plus Figma
+  — but it has to be said out loud first.
 - **OI-14 — Interior rename, applied; formal re-lock pending.** *(raised 2026-10-22)* Client feedback asked the site to say **Our Advantage** (was Embedded Offerings), **Acquisitions** (was For Founders), and a six-item menu: Vertical Software · Our Advantage · AI at Fullsteam · Our Story · Acquisitions · Careers. AI at Fullsteam wayfinds to the Our Advantage `#ai` panel — no new page. Interior pages and the shared menu/footer (including the homepage chrome labels only) show that set, and the label is **propagated through every repo doc** (2026-10-22): `plans/sitemap-lock.md`, KB §14, `design.md`, this file, and the root README. The **sitemap structure is not re-locked** — labels only, lock date still 2026-09-14. Files stay `our-advantage.html` and `for-founders.html`. Homepage sections were not rebuilt. Payment stats on the Payments panel are client-supplied and **unreconciled** with KB §22.5 (`$75B+ processed on Fullsteam Pay*`, cumulative; no “top 20 payment processor”).
 - **OI-13 — Exploration palette drift.** *(raised 2026-10-17)* `03_Design/explorations/` runs on
   `#003F55` / `#FEC50A` / `#00202B`, none of which are KB §15. `#003F55` is the hero canvas and

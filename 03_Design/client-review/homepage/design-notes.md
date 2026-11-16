@@ -19,6 +19,22 @@ but staged on deploy).
 
 ---
 
+## 2026-11-16 (evening) — cleanup pass: font size, green-ink token, decisions logged
+
+- **LinkedIn post body 14px → 15px** (`--t-small`) on the homepage strip and the careers page —
+  the 2026-10-26 Figma comment, answered in Figma. Cards stayed even; no reflow.
+- **`color/brand/green-ink` `#4F750E`** added to the `Fullsteam Brand` collection
+  (`VariableID:11727:124`, description points at OI-23). Closes **OI-23**; existing hex uses were
+  not rebound — that is OI-24's job.
+- **"Remove acquire / move to lead" (2026-10-29) not applied, answered in Figma.** Two steps
+  would break the Acquire/Grow/Lead ↔ Essential/Grow/Lead alignment in KB §29. That is a
+  positioning change, not a copy edit.
+- **Decisions logged with a recommendation, not applied:** OI-22 (frames = clamp maxima) and
+  OI-12 (Button = 999px pill). Both need one word from the client before anything is restyled.
+- Checked the seven pages for broken internal links, missing assets, duplicate IDs: clean.
+
+---
+
 ## 2026-11-16 (later) — the same copy pushed into FS-Design frames
 
 The frames on `✅ Design [WIP] 2` still held the pre-11-16 copy, so the deck was written into
