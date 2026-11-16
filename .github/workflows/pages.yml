@@ -61,9 +61,9 @@ jobs:
           # HTML + logos + hero clip + local section photography (2026-11-02
           # ledger build; hero clip replaced 2026-11-16). design-notes.md and
           # linkedin-slots.md stay out of _site on purpose. The hero plays
-          # assets/hero-sizzle.mp4 (client montage, 5.2 MB) — the 960×540
-          # hero-sizzle-mobile.mp4 is picked by <source media> under 900px, and
-          # hero-fallback.mp4 is the last-resort source.
+          # assets/hero-sizzle.mp4 (client montage, 1920×1080, 40 MB) — the
+          # 1280×720 hero-sizzle-mobile.mp4 (18 MB) is picked by <source media>
+          # under 900px, and hero-fallback.mp4 is the last-resort source.
           mkdir -p _site/03_Design/client-review/homepage/assets/img
           cp 03_Design/client-review/homepage/index.html \
              03_Design/client-review/homepage/vertical-software.html \

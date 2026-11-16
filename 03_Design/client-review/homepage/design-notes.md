@@ -64,25 +64,28 @@ retirement window, marina storage, bridal, event dining, print shop, warehouse, 
 car interior) — so it replaces both the Adobe Stock preview and the Mixkit stand-in as real
 Fullsteam footage.
 
-Two H.264 cuts, no audio, `+faststart`, 2 s GOP, lanczos scale + light `hqdn3d` (the grain was
-paying for itself in bytes and the clip sits under a 0.58-alpha scrim):
+Two H.264 cuts, no audio, `+faststart`, 2 s GOP.
 
 | File | Size | Spec | Served |
 |---|---|---|---|
-| `assets/hero-sizzle.mp4` | **5.2 MB** (486 kbps) | 1600×900, CRF 35, slow | default |
-| `assets/hero-sizzle-mobile.mp4` | **2.8 MB** (261 kbps) | 960×540, CRF 33 | `<source media="(max-width: 900px)">` |
+| `assets/hero-sizzle.mp4` | **40 MB** (3.77 Mbps) | 1920×1080, CRF 20, slow | default |
+| `assets/hero-sizzle-mobile.mp4` | **18 MB** (1.64 Mbps) | 1280×720, CRF 21, lanczos | `<source media="(max-width: 900px)">` |
 
-**Why 1600×900 and not 1080p:** the full-bleed plate is `object-fit: cover` behind a heavy
-double scrim, so the last 20% of resolution was invisible at a 1.4 MB premium. Verified at 1:1 —
-the residual blocking in the darkest areas sits under the scrim.
+**Quality first (revised the same evening, at the client's direction).** The first pair was a
+1600×900 CRF 35 / 960×540 CRF 33 compromise — 5.2 MB and 2.8 MB — with light `hqdn3d`. The client
+asked for the original quality back, so both cuts were re-encoded from the master at **full
+resolution, CRF 20/21, no denoise**: 40 MB + 18 MB. Checked at 1:1 on an 800×450 crop of a sunset
+shot — no banding, no blocking, effectively the master. The cost is explicit: the mobile file is
+18 MB, so a phone on cellular now pays for it.
 
 **Why two files:** `media` on `<source>` is honoured (verified in Chromium at 390 and 1440 — the
-phone fetched only the mobile cut), so a phone decodes 2.8 MB instead of 5.2 MB without any JS
+phone fetched only the mobile cut), so a phone decodes 18 MB instead of 40 MB without any JS
 resize listener. `hero-fallback.mp4` stays as the last `<source>`.
 
-**Contrast:** re-measured the same way as the 2026-10-29 clip — the type band across 16 sampled
-timestamps now bottoms out at ~8:1 for white display type (p99 frame luminance 0.081 behind the
-scrim, worst case). The old clip's 3.26:1 flag is gone; the scrim was left untouched.
+**Contrast:** measured the same way as the 2026-10-29 clip — the type band across 16 sampled
+timestamps bottoms out at ~8:1 for white display type (worst-case p99 frame luminance behind the
+scrim). Content, crop, and the `object-fit: cover` plate are unchanged from the build that was
+measured, so the bitrate change does not move luminance; the scrim was left untouched.
 
 **The clip is shared.** `assets/hero-sizzle.mp4` is also the AI-panel video on Our Advantage, the
 mission video on Our Story, and all four Acquisitions founder-film tabs — those slots now play the
@@ -91,10 +94,8 @@ four slots), so nothing new was introduced; it is recorded in `assets/credits.js
 
 **Published.** `hero-sizzle.mp4` is no longer the unlicensed Adobe preview, so the offer is taken:
 `.gitignore` allow-lists both cuts and `pages.yml` stages them. The hosted review now plays the
-footage instead of falling back to the brand field. Deck note: the Adobe preview it replaced was
-1920×1080; this cut is 1600×900. If a full 1080p hero is wanted for launch, re-encode from the
-client master (`fullsteam-hero-video-2.mp4`, now gitignored at the repo root) rather than
-upscaling this one.
+footage instead of falling back to the brand field. The 167.8 MB master stays at the repo root,
+gitignored — it is an input, not a site asset.
 
 ---
 

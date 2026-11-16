@@ -272,14 +272,14 @@
     {
       "file": "assets/hero-sizzle.mp4",
       "slot": "Homepage opening (Axis A/B media plane); also the AI panel video on Our Advantage, the mission video on Our Story, and the Acquisitions founder-film tabs (they share this one placeholder). Desktop cut.",
-      "subject": "Fullsteam verticals montage — 15 shots across the portfolio (1600×900 H.264, 89s, silent, 5.2 MB). Transcoded 2026-11-16 from the client master `fullsteam-hero-video-2.mp4`.",
+      "subject": "Fullsteam verticals montage — 15 shots across the portfolio (1920×1080 H.264, 89s, silent, 40 MB). Transcoded 2026-11-16 from the client master `fullsteam-hero-video-2.mp4` at full quality (CRF 20, no denoise).",
       "source": "Client-supplied (fullsteam-hero-video-2.mp4)",
       "license": "Fullsteam-owned footage, cleared for the review build. Confirm master clearance (KB §29.7 / OI-16) before launch."
     },
     {
       "file": "assets/hero-sizzle-mobile.mp4",
       "slot": "Homepage opening — same clip under 900px viewport (chosen by <source media>)",
-      "subject": "960×540 cut of the same montage (89s, silent, 2.8 MB)",
+      "subject": "1280×720 cut of the same montage (89s, silent, 18 MB)",
       "source": "Client-supplied (fullsteam-hero-video-2.mp4)",
       "license": "Fullsteam-owned footage, cleared for the review build"
     },

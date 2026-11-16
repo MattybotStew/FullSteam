@@ -70,7 +70,7 @@ _site/
 # 2026-11-16: assets/hero-sizzle.mp4 is now the CLIENT-SUPPLIED verticals
 # montage (fullsteam-hero-video-2.mp4, 1920×1080 master), transcoded for the
 # hero and allow-listed — the unlicensed Adobe Stock preview it replaced is
-# gone. hero-sizzle-mobile.mp4 is the 960×540 cut served under 900px. Their
+# gone. hero-sizzle-mobile.mp4 is the 1280×720 cut served under 900px. Their
 # `cp` lines live in .github/workflows/pages.yml; add both together.
 #
 # assets/hero-fallback.mp4 IS allow-listed: it is the Mixkit free-licence kitchen
