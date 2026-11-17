@@ -78,14 +78,6 @@
       {
         "file": "assets/logos/retail/new-balance.svg",
         "alt": "New Balance"
-      },
-      {
-        "file": "assets/logos/retail-partners-2.png",
-        "alt": "Customer logo"
-      },
-      {
-        "file": "assets/logos/retail-partners-3.png",
-        "alt": "Customer logo"
       }
     ]
   },
@@ -121,12 +113,7 @@
         "alt": "Aura"
       }
     ],
-    "partners": [
-      {
-        "file": "assets/logos/health-wellness-partners-1.png",
-        "alt": "Customer logo"
-      }
-    ]
+    "partners": []
   },
   "panel-field-services": {
     "units": [
@@ -147,12 +134,7 @@
         "alt": "BlueFolder"
       }
     ],
-    "partners": [
-      {
-        "file": "assets/logos/field-services-partners-1.png",
-        "alt": "Customer logo"
-      }
-    ]
+    "partners": []
   },
   "panel-transportation": {
     "units": [
@@ -190,16 +172,7 @@
         "alt": "AutoFluent"
       }
     ],
-    "partners": [
-      {
-        "file": "assets/logos/automotive-partners-2.png",
-        "alt": "Customer logo"
-      },
-      {
-        "file": "assets/logos/automotive-partners-3.png",
-        "alt": "Customer logo"
-      }
-    ]
+    "partners": []
   },
   "panel-association-management": {
     "units": [
@@ -220,12 +193,7 @@
         "alt": "Business-unit software logo"
       }
     ],
-    "partners": [
-      {
-        "file": "assets/logos/association-management-partners-3.png",
-        "alt": "Customer logo"
-      }
-    ]
+    "partners": []
   },
   "panel-erp": {
     "units": [
@@ -246,15 +214,6 @@
         "alt": "ShopWorks"
       }
     ],
-    "partners": [
-      {
-        "file": "assets/logos/erp-partners-1.png",
-        "alt": "Customer logo"
-      },
-      {
-        "file": "assets/logos/erp-partners-2.png",
-        "alt": "Customer logo"
-      }
-    ]
+    "partners": []
   }
 }

@@ -442,6 +442,7 @@ body.story-lightbox-open { overflow: hidden; }
 .panel--depth-min .panel__copy p + p { margin-top: 1em; font-size: var(--t-body); color: var(--ink); }
 .panel--depth-min .logos,
 .panel--depth-min .screens { display: none; }
+.panel--depth-standard .screens { display: none; }
 
 
 /* No rule above the body (client, 2026-11-10): the title now leads the left
@@ -711,6 +712,34 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   font-variant-numeric: tabular-nums;
   color: var(--ink);
   white-space: nowrap;
+}
+
+/* Metric status markers — a placeholder or a client-supplied figure awaiting
+   clearance is never presented as settled. The legend under the row explains
+   the marks; the values and labels are supplied by the tab deck. */
+.stat[data-status] .stat__val::after {
+  font-size: .32em;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  vertical-align: super;
+  margin-left: .18em;
+  color: #7f8f95;
+  font-variant-numeric: normal;
+}
+.stat[data-status="placeholder"] .stat__val::after { content: "†"; }
+.stat[data-status="pending"] .stat__val::after { content: "‡"; }
+
+.stats__note {
+  grid-column: 1 / -1;
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #77878d;
 }
 
 .stat__label {
@@ -1147,7 +1176,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">15M</p><p class="stat__label">Rounds of golf priced annually (Priswing)</p></div><div class="stat"><p class="stat__val">2.5M</p><p class="stat__label">Hotel room nights booked through RoomKey in 2025</p></div><div class="stat"><p class="stat__val">9M</p><p class="stat__label">Hotel room nights booked through WRP in 2025</p></div>
+            <div class="stat" data-status="pending"><p class="stat__val">15M</p><p class="stat__label">Rounds of golf priced annually (Priswing)</p></div><div class="stat" data-status="pending"><p class="stat__val">2.5M</p><p class="stat__label">Hotel room nights booked through RoomKey in 2025</p></div><div class="stat" data-status="pending"><p class="stat__val">9M</p><p class="stat__label">Hotel room nights booked through WRP in 2025</p></div> <p class="stats__note">‡ Client-supplied — clearance pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1238,7 +1267,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">1.2M</p><p class="stat__label">Weddings since 2013</p></div><div class="stat"><p class="stat__val">424K</p><p class="stat__label">Dresses sold per year on average&mdash;brides, or bridezillas.</p></div><div class="stat"><p class="stat__val">5K+</p><p class="stat__label">Weddings across the U.S. on a typical day</p></div>
+            <div class="stat" data-status="pending"><p class="stat__val">1.2M</p><p class="stat__label">Weddings since 2013</p></div><div class="stat" data-status="pending"><p class="stat__val">424K</p><p class="stat__label">Dresses sold per year on average&mdash;brides, or bridezillas.</p></div><div class="stat" data-status="pending"><p class="stat__val">5K+</p><p class="stat__label">Weddings across the U.S. on a typical day</p></div> <p class="stats__note">‡ Client-supplied — clearance pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1251,7 +1280,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="screens" aria-label="Product screenshots">
-            <figure class="screen screen--photo"><img src="assets/img/ui/bridallive-1610.png" alt="BridalLive software showing the fitting-room calendar and appointment detail" loading="lazy" decoding="async"><figcaption class="screen__tag">BridalLive · Screen 01</figcaption></figure><figure class="screen screen--photo"><img src="assets/img/ui/floranext.svg" alt="Floranext UI preview — floral order overview" loading="lazy" decoding="async"><figcaption class="screen__tag">Floranext · Screen 02</figcaption></figure><figure class="screen screen--photo"><img src="assets/img/ui/aisle-planner-pro.svg" alt="Aisle Planner Pro UI preview — wedding task schedule" loading="lazy" decoding="async"><figcaption class="screen__tag">Aisle Planner Pro · Screen 03</figcaption></figure>
+            <figure class="screen screen--photo"><img src="assets/img/ui/bridallive-1610.png" alt="BridalLive software showing the fitting-room calendar and appointment detail" loading="lazy" decoding="async"><figcaption class="screen__tag">BridalLive · Screen 01</figcaption></figure><figure class="screen screen--photo"><img src="assets/img/ui/floranext.svg" alt="Floranext UI preview — floral order overview" loading="lazy" decoding="async"><figcaption class="screen__tag">Floranext · UI placeholder</figcaption></figure><figure class="screen screen--photo"><img src="assets/img/ui/aisle-planner-pro.svg" alt="Aisle Planner Pro UI preview — wedding task schedule" loading="lazy" decoding="async"><figcaption class="screen__tag">Aisle Planner Pro · UI placeholder</figcaption></figure>
           </div>
         </article>
         <article class="panel panel--depth-standard" id="panel-wine" data-slug="wine" data-content-depth="standard" aria-labelledby="title-wine">
@@ -1277,7 +1306,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">3,500+</p><p class="stat__label">Wineries operating on the Commerce7 platform</p></div><div class="stat"><p class="stat__val">12 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">121%</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat" data-status="pending"><p class="stat__val">3,500+</p><p class="stat__label">Wineries operating on the Commerce7 platform</p></div><div class="stat" data-status="placeholder"><p class="stat__val">12 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat" data-status="placeholder"><p class="stat__val">121%</p><p class="stat__label">Net revenue retention</p></div> <p class="stats__note">† Placeholder — value and definition pending · ‡ Client-supplied — clearance pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1319,7 +1348,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">287K+</p><p class="stat__label">Pairs of shoes sold online per year on average</p></div><div class="stat"><p class="stat__val">8 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">115%</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat" data-status="pending"><p class="stat__val">287K+</p><p class="stat__label">Pairs of shoes sold online per year on average</p></div><div class="stat" data-status="placeholder"><p class="stat__val">8 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat" data-status="placeholder"><p class="stat__val">115%</p><p class="stat__label">Net revenue retention</p></div> <p class="stats__note">† Placeholder — value and definition pending · ‡ Client-supplied — clearance pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1361,7 +1390,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">6.4K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">14 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">109%</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat" data-status="placeholder"><p class="stat__val">6.4K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat" data-status="placeholder"><p class="stat__val">14 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat" data-status="placeholder"><p class="stat__val">109%</p><p class="stat__label">Net revenue retention</p></div> <p class="stats__note">† Placeholder — value and definition pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1403,7 +1432,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">343K+</p><p class="stat__label">Clients supported using eRSP in 2025</p></div><div class="stat"><p class="stat__val">7.2M</p><p class="stat__label">Visits logged in eRSP in 2025</p></div><div class="stat"><p class="stat__val">240K+</p><p class="stat__label">Claims submitted through eRSP in 2025</p></div>
+            <div class="stat" data-status="pending"><p class="stat__val">343K+</p><p class="stat__label">Clients supported using eRSP in 2025</p></div><div class="stat" data-status="pending"><p class="stat__val">7.2M</p><p class="stat__label">Visits logged in eRSP in 2025</p></div><div class="stat" data-status="pending"><p class="stat__val">240K+</p><p class="stat__label">Claims submitted through eRSP in 2025</p></div> <p class="stats__note">‡ Client-supplied — clearance pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1445,7 +1474,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">25K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">10 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">114%</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat" data-status="placeholder"><p class="stat__val">25K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat" data-status="placeholder"><p class="stat__val">10 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat" data-status="placeholder"><p class="stat__val">114%</p><p class="stat__label">Net revenue retention</p></div> <p class="stats__note">† Placeholder — value and definition pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1487,7 +1516,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">3M+</p><p class="stat__label">Annual customer bookings via Fasttrack</p></div><div class="stat"><p class="stat__val">13 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">117%</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat" data-status="pending"><p class="stat__val">3M+</p><p class="stat__label">Annual customer bookings via Fasttrak</p></div><div class="stat" data-status="placeholder"><p class="stat__val">13 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat" data-status="placeholder"><p class="stat__val">117%</p><p class="stat__label">Net revenue retention</p></div> <p class="stats__note">† Placeholder — value and definition pending · ‡ Client-supplied — clearance pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1529,7 +1558,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">15K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">9 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">113%</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat" data-status="placeholder"><p class="stat__val">15K+</p><p class="stat__label">Definition pending</p></div><div class="stat" data-status="placeholder"><p class="stat__val">9 yr</p><p class="stat__label">Definition pending</p></div><div class="stat" data-status="placeholder"><p class="stat__val">113%</p><p class="stat__label">Definition pending</p></div> <p class="stats__note">† Placeholder — value and definition pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1571,7 +1600,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">4.2K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">11 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">108%</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat" data-status="placeholder"><p class="stat__val">4.2K+</p><p class="stat__label">Definition pending</p></div><div class="stat" data-status="placeholder"><p class="stat__val">11 yr</p><p class="stat__label">Definition pending</p></div><div class="stat" data-status="placeholder"><p class="stat__val">108%</p><p class="stat__label">Definition pending</p></div> <p class="stats__note">† Placeholder — value and definition pending</p>
           </div>
 
           <div class="logos logos--partners">
@@ -1613,7 +1642,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">22K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">15 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">119%</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat" data-status="placeholder"><p class="stat__val">22K+</p><p class="stat__label">Definition pending</p></div><div class="stat" data-status="placeholder"><p class="stat__val">15 yr</p><p class="stat__label">Definition pending</p></div><div class="stat" data-status="placeholder"><p class="stat__val">119%</p><p class="stat__label">Definition pending</p></div> <p class="stats__note">† Placeholder — value and definition pending</p>
           </div>
 
           <div class="logos logos--partners">

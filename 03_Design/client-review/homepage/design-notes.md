@@ -34,6 +34,35 @@ Homepage `index.html` copy edits, then the same lines written into FS-Design fra
 
 ---
 
+## 2026-11-17 — Vertical tabs: tab-deck copy pass (status marks, tier rules, supplied data only)
+
+Applied the client's tab-by-tab notes. Structure and copy preserved except where a change was
+explicitly requested.
+
+- **Tier rules restored:** standard panels hide product screenshots again (7 panels no longer
+  carry the row); Weddings (full) keeps them; min panels hide logos and screens.
+- **Metrics are marked, never presented as settled.** Each stat carries a status:
+  **† placeholder** (value and/or definition pending) or **‡ client-supplied, clearance pending**,
+  rendered as a small superscript and explained by a legend under the row. Panels: Hospitality and
+  Weddings all ‡; Wine / Retail / Transportation first ‡ then two †; Storage, Field Services,
+  Automotive, Association, ERP all †; Health & Wellness all ‡.
+- **Unsupplied labels are not inferred:** Automotive, Association Management and ERP now read
+  "Definition pending" instead of the invented labels, with the † legend.
+- **Copy:** Wine fixed to "…who **you're** selling to." (explicit). Wedding's "brides, or
+  bridezillas" retained pending the copy review. Wine keeps both the 4,000-winery sentence and the
+  3,500+ Commerce7 stat, per the instruction to confirm scope before changing either.
+- **Naming:** the Transportation stat now reads **Fasttrak**, matching the business-unit list.
+- **Customer/partner rows only use supplied data:** Retail shows New Balance only (the two
+  unmatched logos are removed); Automotive, ERP, Transportation, Wine, Health, Field, Association
+  and Storage have no partner row. Hospitality keeps Arryved pending the classification decision.
+- **No invented assets:** the named-but-unfiled customers (Oakmont, Seminole, Shinnecock, Fairmont,
+  Banff, Screaming Eagle, the 14 Field Services names) stay out of the UI as asset requirements.
+- **Open items recorded:** Arryved classification; Retail 5-names/4-assets mapping; Transportation
+  6-names/4-assets mapping; Automotive/Association/ERP metric definitions; Weddings "bridezillas"
+  retain-or-cut; Wine 4,000 vs 3,500+ scope.
+
+---
+
 ## 2026-11-17 — Vertical tabs: screens row + logo mapping
 
 **Screens are UI and fit the block.** The row is 16:10; the old slots were CSS skeletons with
