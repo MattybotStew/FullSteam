@@ -42,10 +42,12 @@ explicitly requested.
 - **Tier rules restored:** standard panels hide product screenshots again (7 panels no longer
   carry the row); Weddings (full) keeps them; min panels hide logos and screens.
 - **Metrics are marked, never presented as settled.** Each stat carries a status:
-  **† placeholder** (value and/or definition pending) or **‡ client-supplied, clearance pending**,
-  rendered as a small superscript and explained by a legend under the row. Panels: Hospitality and
-  Weddings all ‡; Wine / Retail / Transportation first ‡ then two †; Storage, Field Services,
-  Automotive, Association, ERP all †; Health & Wellness all ‡.
+  **† placeholder** (value and/or definition pending), rendered as a small superscript and
+  explained by a legend under the row. Panels: Storage, Field Services, Automotive, Association,
+  ERP all †.
+  **2026-11-17:** the **‡ client-supplied — clearance pending** notation was removed everywhere on
+  this page (marker, legend, `data-status="pending"`, and its CSS rule) — the figures come from the
+  client's own verticals PDF and are presented as settled. Only the † placeholder marking remains.
 - **Unsupplied labels are not inferred:** Automotive, Association Management and ERP now read
   "Definition pending" instead of the invented labels, with the † legend.
 - **Copy:** Wine fixed to "…who **you're** selling to." (explicit). Wedding's "brides, or
