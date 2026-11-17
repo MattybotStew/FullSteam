@@ -19,6 +19,50 @@ but staged on deploy).
 
 ---
 
+## 2026-11-17 (later) — founders / careers copy pass + Figma sync
+
+Homepage `index.html` copy edits, then the same lines written into FS-Design frame
+**`11770:5946`** (`05 For founders` / `06 Careers + LinkedIn`):
+
+- **Founders body** → the smooth-transition / ops / cybersecurity / embedded-tools line.
+- **Founders closer** → `More relevant. More capable. More competitive.` as a statement
+  (`<p>`, not a quote). Figma: the word-by-word quote nodes were removed and replaced
+  with one Instrument Serif italic line.
+- **Careers eyebrow** `Across the Fullsteam network` deleted (head tightened in Figma).
+- **Ownership attr** → `Proactive problem-solvers`.
+- **LinkedIn posts dek** under "From the company page" deleted.
+
+---
+
+## 2026-11-17 — Figma homepage rebuilt from the live page
+
+The official `FS-Design` homepage frame **`11541:2`** was replaced in place (same
+position, same name, `✅ Design [WIP] 2`) with a frame generated from this folder's
+`index.html`, so the file stops drifting from the repo. New frame: **`11770:5946`**,
+1440 × **7276**, grouped into nine bands — `00 Header`, `01 Opening — Axis A`,
+`02 Building on Great`, `03 AI at Fullsteam`, `04 Vertical software`, `05 For founders`,
+`06 Careers + LinkedIn`, `07 Close`, `08 Footer`.
+
+- **What changed vs the old frame:** the founders quote ("We stopped asking what to
+  build next…") is back *(superseded later the same day — see entry above)*, the careers
+  band is the tightened 2026-11-16 copy deck
+  (1,559px, was 2,033), the vertical panel names are horizontal again, and the opening
+  is the current scrim/hero still (video stand-in at t=1.0s). Frame height 7,744 → 7,276.
+- **Opening runway trimmed:** the live page's `opening-stage` is 2,340px (900px plate +
+  1,440px pin travel). The frame shows the visible plate only and every band is pulled
+  up by that 1,440px — same convention as the previous frame.
+- **Fidelity:** real Instrument Sans / Instrument Serif Italic / Fragment Mono text nodes
+  (one per browser line box, so nothing re-wraps), real photography as image fills,
+  gradients re-expressed as Figma gradient fills, SVG marks rebuilt as vectors.
+- **Tooling:** `tools/html2figma/extract_hifi.js` (browser: geometry + type + images +
+  gradients + fixed/sticky paint order) and `tools/html2figma/build_hifi.js`
+  (Figma: replay + `IMG::` placeholders), spec at
+  `tools/html2figma/out/homepage-hifi.exact.json`. Wireframe-grade `extract.js` is
+  unchanged. Images are attached per node with `figma_set_image_fill` after the build;
+  logos are `createNodeFromSvg`.
+
+---
+
 ## 2026-11-17 (early) — the hero scrim: local, not lighter-everywhere
 
 The 2026-11-16 copy-deck pass **lightened the whole media scrim**

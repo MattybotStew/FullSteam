@@ -952,15 +952,17 @@
       position: absolute; inset: 0;
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
     }
+    /* Statement under the founders grid — same closer role as .ai__exit, not a quote. */
     .founders__quote {
       margin: clamp(56px, 7vw, 96px) 0 0;
       padding: clamp(34px, 4vw, 48px) 0 0;
       border-top: 1px solid var(--dark-hair);
       border-bottom: 0;
       font-family: var(--serif); font-style: italic;
-      font-size: clamp(30px, 4.4vw, 64px);
-      line-height: 1.08;
+      font-size: clamp(26px, 3.8vw, 52px);
+      line-height: 1.12;
       letter-spacing: -.02em;
+      color: rgba(255, 255, 255, .72);
       text-wrap: balance;
     }
     .founders__quote .fw { display: inline-block; }
@@ -1296,7 +1298,7 @@
       .careers__intro { grid-column: 1 / -1; }
       .posts__head { flex-direction: column; align-items: flex-start; }
       .careers__chip { left: 12px; bottom: 12px; }
-      .founders__quote blockquote { font-size: clamp(23px, 6.6vw, 30px); }
+      .founders__quote { font-size: clamp(23px, 6.6vw, 30px); }
       .footer__top { grid-template-columns: 1fr; }
       .footer__bottom { flex-direction: column; align-items: flex-start; }
     }
@@ -1666,7 +1668,7 @@
           <div class="r">
             <p class="founders__eyebrow">For founders</p>
             <h2 class="display display--l" id="foundersTitle">Build on what you already made <em class="write-in">great.</em></h2>
-            <p class="founders__body">More relevant. More capable. More competitive.</p>
+            <p class="founders__body">We work toward a smooth transition, then add operational expertise, back-office support, enterprise-grade cybersecurity, and embedded tools to help it grow.</p>
             <p class="founders__cta">
               <a class="btn" href="for-founders.html">Explore Acquisitions</a>
             </p>
@@ -1677,25 +1679,14 @@
           </figure>
         </div>
 
-        <blockquote class="founders__quote">
-          <span class="fw" style="--i:0">&ldquo;We</span>
-          <span class="fw" style="--i:1">stopped</span>
-          <span class="fw" style="--i:2">asking</span>
-          <span class="fw" style="--i:3">what</span>
-          <span class="fw" style="--i:4">to</span>
-          <span class="fw" style="--i:5">build</span>
-          <span class="fw" style="--i:6">next</span>
-          <span class="fw" style="--i:7">and</span>
-          <span class="fw" style="--i:8">started</span>
-          <span class="fw" style="--i:9">asking</span>
-          <span class="fw" style="--i:10">where</span>
-          <span class="fw" style="--i:11">everything</span>
-          <span class="fw" style="--i:12">we</span>
-          <span class="fw" style="--i:13">had</span>
-          <span class="fw" style="--i:14">built</span>
-          <span class="fw" style="--i:15">could</span>
-          <span class="fw" style="--i:16">go.&rdquo;</span>
-        </blockquote>
+        <p class="founders__quote">
+          <span class="fw" style="--i:0">More</span>
+          <span class="fw" style="--i:1">relevant.</span>
+          <span class="fw" style="--i:2">More</span>
+          <span class="fw" style="--i:3">capable.</span>
+          <span class="fw" style="--i:4">More</span>
+          <span class="fw" style="--i:5">competitive.</span>
+        </p>
       </div>
     </section>
 
@@ -1706,7 +1697,6 @@
       <div class="wrap">
         <header class="band__head careers__head">
           <div class="careers__intro">
-            <p class="careers__eyebrow">Across the Fullsteam network</p>
             <h2 class="display display--l r" id="careersTitle">Own the work. Keep <em class="write-in">growing.</em></h2>
             <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
           </div>
@@ -1722,7 +1712,7 @@
               <span class="voice__role">Ownership</span>
             </div>
             <blockquote><p>Take on real problems and move ideas forward without layers of rigid rules.</p></blockquote>
-            <p class="voice__attr">Founder, acquired vertical software company</p>
+            <p class="voice__attr">Proactive problem-solvers</p>
           </li>
           <li class="voice r" style="--d:80ms">
             <div class="voice__top">
@@ -1751,7 +1741,6 @@
           <div class="posts__head">
             <div>
               <h3 id="careersPostsTitle">From the company page</h3>
-              <p>Straight from the Fullsteam page on LinkedIn &mdash; hiring, people, and product news.</p>
             </div>
             <div class="posts__nav">
               <button class="posts__btn" id="postsPrev" type="button" aria-label="Previous posts" disabled>
@@ -2262,7 +2251,7 @@
         });
       }
 
-      /* Founders pull quote: word-by-word assembly (official build). */
+      /* Founders closer: word-by-word assembly (official build). */
       (function () {
         var q = document.querySelector('.founders__quote');
         if (!q) return;
