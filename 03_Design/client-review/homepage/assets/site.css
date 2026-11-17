@@ -293,3 +293,11 @@ button { font: inherit; color: inherit; }
 .footer__muted { color: inherit; }
 .footer__social svg { width: 16px; height: 16px; fill: currentColor; }
 .footer__social:hover { color: #fff; }
+
+
+/* ---------------------------------------------------------------------- internal notes
+   Production notes (ticket ids, publishability caveats, "content track"
+   markers) stay in the markup for the content team but never render in the
+   client build. Reveal them on demand with: document.body.classList.add('show-internal') */
+.internal-note { display: none !important; }
+body.show-internal .internal-note { display: revert !important; }

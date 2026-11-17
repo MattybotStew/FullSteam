@@ -457,7 +457,7 @@ body.story-lightbox-open { overflow: hidden; }
   gap: clamp(28px, 5vw, 80px);
   align-items: start;
 }
-.faq__head { position: sticky; top: calc(var(--bar) + 24px); max-width: 250px; }
+.faq__head { position: sticky; top: calc(var(--bar) + 24px); max-width: none; }
 .faq__title { max-width: none; line-height: 0.945; letter-spacing: -0.035em; }
 .faq__title-sans { display: block; }
 .faq__list { border-top: 1px solid var(--ink); }
@@ -762,17 +762,17 @@ body.story-lightbox-open { overflow: hidden; }
                   <div class="stat">
                     <p class="stat__val">$75B</p>
                     <p class="stat__label">Sales processed</p>
-                    <p class="stat__note">Client-supplied · not a settled KPI</p>
+                    <p class="stat__note internal-note">Client-supplied · not a settled KPI</p>
                   </div>
                   <div class="stat">
-                    <p class="stat__val">Top 20</p>
-                    <p class="stat__label">Payment processor</p>
-                    <p class="stat__note">Client-supplied · unreconciled with KB</p>
+                    <p class="stat__val">#28</p>
+                    <p class="stat__label">U.S. merchant acquirer</p>
+                    <p class="stat__note internal-note">Client-supplied · unreconciled with KB</p>
                   </div>
                   <div class="stat">
                     <p class="stat__val">480M+</p>
                     <p class="stat__label">Transactions</p>
-                    <p class="stat__note">Placeholder · publishability pending</p>
+                    <p class="stat__note internal-note">Placeholder · publishability pending</p>
                   </div>
                 </div>
               </div>
@@ -783,14 +783,10 @@ body.story-lightbox-open { overflow: hidden; }
                 </figure>
                 <div>
                   <h3 class="display display--m" style="font-size:clamp(20px,2vw,26px);max-width:20ch;">Hardware in the same story.</h3>
-                  <p class="panel__copy" style="margin-top:14px;">The counter, the terminal, the card in hand — how the embedded payment reaches the customer. Hardware stays inside Payments, not on its own page. No device brands until the client confirms them.</p>
+                  <p class="panel__copy" style="margin-top:14px;">The counter, the terminal, the card in hand — how the embedded payment reaches the customer.</p>
                 </div>
               </div>
 
-              <blockquote class="quote-block">
-                Testimonial placeholder — include only if the client confirms a publishable quote.
-                <cite>Attribution pending</cite>
-              </blockquote>
             </article>
 
             <article class="panel panel--placeholder" id="lending" data-slug="lending" hidden aria-labelledby="title-lending">
@@ -798,14 +794,14 @@ body.story-lightbox-open { overflow: hidden; }
                 <h2 class="display display--m panel__title" id="title-lending">Lending as an embedded offering.</h2>
                 <p class="lede panel__lede">Capital that sits inside the software — an offering, not a product sheet.</p>
               </header>
-              <div class="panel__copy"><p>No rates, terms, or eligibility rules in this build — structural placeholder until the content track supplies detail.</p></div>
+              <div class="panel__copy internal-note"><p>No rates, terms, or eligibility rules in this build.</p></div>
               <div class="panel__block facts facts--4">
-                <div><span>Capital</span><p>Borrow against future transactions. Placeholder.</p></div>
-                <div><span>Pays back</span><p>Structural label only. Detail unpublished.</p></div>
+                <div><span>Capital</span><p>Borrow against future transactions.</p></div>
+                <div class="internal-note"><span>Pays back</span><p>Structural label only. Detail unpublished.</p></div>
                 <div><span>Who it is for</span><p>The software businesses already here.</p></div>
-                <div><span>Constraint</span><p>No rates, terms, or eligibility claims.</p></div>
+                <div class="internal-note"><span>Constraint</span><p>No rates, terms, or eligibility claims.</p></div>
               </div>
-              <p class="placeholder-tag">Panel placeholder · content track</p>
+              <p class="placeholder-tag internal-note">Panel placeholder · content track</p>
             </article>
 
             <article class="panel panel--placeholder" id="insurance" data-slug="insurance" hidden aria-labelledby="title-insurance">
@@ -814,11 +810,11 @@ body.story-lightbox-open { overflow: hidden; }
                 <p class="lede panel__lede">Coverage that sits inside the software the business already runs, not in a separate storefront.</p>
               </header>
               <div class="panel__block facts">
-                <div><span>What it covers</span><p>Coverage detail unpublished. Placeholder.</p></div>
+                <div class="internal-note"><span>What it covers</span><p>Coverage detail unpublished.</p></div>
                 <div><span>How it sits</span><p>Embedded, not a separate storefront.</p></div>
-                <div><span>Proof</span><p>Generic until the client confirms a story.</p></div>
+                <div class="internal-note"><span>Proof</span><p>Generic until the client confirms a story.</p></div>
               </div>
-              <p class="placeholder-tag">Panel placeholder · content track</p>
+              <p class="placeholder-tag internal-note">Panel placeholder · content track</p>
             </article>
 
             <article class="panel panel--placeholder" id="sales-marketing" data-slug="sales-marketing" hidden aria-labelledby="title-sales-marketing">
@@ -827,9 +823,9 @@ body.story-lightbox-open { overflow: hidden; }
                 <p class="lede panel__lede">The business keeps its name, customers, and team. Fullsteam adds reach — people who know the industry and campaigns written for one niche audience.</p>
               </header>
               <div class="panel__block use-grid">
-                <article><span>Sales</span><h4>Speaks the vertical</h4><p>Go-to-market that knows the buyers, the season, and how this industry buys. [placeholder]</p></article>
-                <article><span>Marketing</span><h4>Reaches the right audience</h4><p>Content and campaigns for one niche — real customer stories and local examples. [placeholder]</p></article>
-                <article><span>Cross-sell</span><h4>What the parent can sell in</h4><p>Payments, lending, and insurance to customers the software already serves. [placeholder]</p></article>
+                <article><span>Sales</span><h4>Speaks the vertical</h4><p>Go-to-market that knows the buyers, the season, and how this industry buys.</p></article>
+                <article><span>Marketing</span><h4>Reaches the right audience</h4><p>Content and campaigns for one niche — real customer stories and local examples.</p></article>
+                <article><span>Cross-sell</span><h4>What the parent can sell in</h4><p>Payments, lending, and insurance to customers the software already serves.</p></article>
               </div>
               <div class="panel__block">
                 <figure class="frame--pending" role="img" aria-label="Sales and marketing team — photography pending">
@@ -840,11 +836,11 @@ body.story-lightbox-open { overflow: hidden; }
               </div>
               <div class="panel__block facts facts--4">
                 <div><span>Reach</span><p>One sales and marketing organization across every business Fullsteam owns.</p></div>
-                <div><span>Scale</span><p>[placeholder] — &ldquo;100+ businesses&rdquo; is publishability-gated (OI-5).</p></div>
-                <div><span>Proof</span><p>[placeholder] — no pipeline, conversion, or growth-rate figures published.</p></div>
+                <div><span>Scale</span><p>One go-to-market organization across eleven vertical software businesses.</p></div>
+                <div class="internal-note"><span>Proof</span><p>No pipeline, conversion, or growth-rate figures published.</p></div>
                 <div><span>Constraint</span><p>Never imply the business needed a new sales team to keep running.</p></div>
               </div>
-              <p class="placeholder-tag">Panel placeholder · content track</p>
+              <p class="placeholder-tag internal-note">Panel placeholder · content track</p>
             </article>
 
             <article class="panel panel--placeholder" id="talent" data-slug="talent" hidden aria-labelledby="title-talent">
@@ -853,9 +849,9 @@ body.story-lightbox-open { overflow: hidden; }
                 <p class="lede panel__lede">The team that built the software stays and gains a much larger company behind it — hiring, back office, and career paths from Fullsteam; identity stays with the vertical.</p>
               </header>
               <div class="panel__block use-grid">
-                <article><span>Hiring</span><h4>A deeper bench</h4><p>When the team needs to grow, it hires from a much larger pipeline. [placeholder]</p></article>
-                <article><span>Mobility</span><h4>A career that can move</h4><p>Move between software businesses Fullsteam owns without leaving the company. [placeholder]</p></article>
-                <article><span>Support</span><h4>Back office at group level</h4><p>Finance, legal, HR, and compliance handled centrally so the business stays focused. [placeholder]</p></article>
+                <article><span>Hiring</span><h4>A deeper bench</h4><p>When the team needs to grow, it hires from a much larger pipeline.</p></article>
+                <article><span>Mobility</span><h4>A career that can move</h4><p>Move between software businesses Fullsteam owns without leaving the company.</p></article>
+                <article><span>Support</span><h4>Back office at group level</h4><p>Finance, legal, HR, and compliance handled centrally so the business stays focused.</p></article>
               </div>
               <div class="panel__block">
                 <figure class="frame--pending" role="img" aria-label="Fullsteam colleagues at work — photography pending">
@@ -865,13 +861,13 @@ body.story-lightbox-open { overflow: hidden; }
                 </figure>
               </div>
               <div class="panel__block facts facts--4">
-                <div><span>Scale</span><p>[placeholder] — &ldquo;2,000+ colleagues&rdquo; is publishability-gated (OI-5).</p></div>
+                <div><span>Scale</span><p>2,000+ colleagues across the portfolio.</p></div>
                 <div><span>Culture</span><p>A big company that doesn&rsquo;t operate like one — mostly remote, small-team autonomy.</p></div>
-                <div><span>Proof</span><p>[placeholder] — no attrition, hiring, or retention figures published.</p></div>
+                <div class="internal-note"><span>Proof</span><p>No attrition, hiring, or retention figures published.</p></div>
                 <div><span>Constraint</span><p>Never a story about replacing the team that came with the business.</p></div>
               </div>
               <p style="margin-top:24px"><a class="btn btn--sm" href="https://fullsteam.wd1.myworkdayjobs.com/External" target="_blank" rel="noopener noreferrer">See open roles</a></p>
-              <p class="placeholder-tag">Panel placeholder · content track</p>
+              <p class="placeholder-tag internal-note">Panel placeholder · content track</p>
             </article>
 
             <article class="panel panel--placeholder" id="peer-community" data-slug="peer-community" hidden aria-labelledby="title-peer-community">
@@ -880,17 +876,17 @@ body.story-lightbox-open { overflow: hidden; }
                 <p class="lede panel__lede">Fullsteam buys software where deep industry knowledge is the product — sharing patterns across the portfolio without forcing a different playbook on every business.</p>
               </header>
               <div class="panel__block use-grid">
-                <article><span>Industry knowledge</span><h4>Expertise stays with the software</h4><p>Workflows, regulations, and buyers in each niche stay inside the business. [placeholder]</p></article>
-                <article><span>Shared learnings</span><h4>Without homogenizing brands</h4><p>When a problem comes up in one vertical, share what worked elsewhere without changing culture. [placeholder]</p></article>
-                <article><span>Peer community</span><h4>Leaders learning from leaders</h4><p>Operators compare notes across software businesses — a community of practice, not a corporate playbook. [placeholder]</p></article>
+                <article><span>Industry knowledge</span><h4>Expertise stays with the software</h4><p>Workflows, regulations, and buyers in each niche stay inside the business.</p></article>
+                <article><span>Shared learnings</span><h4>Without homogenizing brands</h4><p>When a problem comes up in one vertical, share what worked elsewhere without changing culture.</p></article>
+                <article><span>Peer community</span><h4>Leaders learning from leaders</h4><p>Operators compare notes across software businesses — a community of practice, not a corporate playbook.</p></article>
               </div>
               <div class="panel__block facts facts--4">
                 <div><span>Focus</span><p>Software first — industry-specific, mission-critical.</p></div>
-                <div><span>Scale</span><p>11 verticals settled; &ldquo;100+ businesses&rdquo; publishability-gated (OI-5).</p></div>
-                <div><span>Proof</span><p>[placeholder] — no cross-vertical metrics published.</p></div>
+                <div><span>Scale</span><p>Eleven vertical software businesses.</p></div>
+                <div class="internal-note"><span>Proof</span><p>No cross-vertical metrics published.</p></div>
                 <div><span>Constraint</span><p>Never a one-size-fits-all playbook. Each business keeps its identity.</p></div>
               </div>
-              <p class="placeholder-tag">Panel placeholder · content track</p>
+              <p class="placeholder-tag internal-note">Panel placeholder · content track</p>
             </article>
 
           </div>

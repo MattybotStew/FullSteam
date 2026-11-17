@@ -34,6 +34,150 @@ Homepage `index.html` copy edits, then the same lines written into FS-Design fra
 
 ---
 
+## 2026-11-17 — Vertical tabs built out from the client tab deck
+
+Source: `vert-tabs.pdf` (Figma export, 2026-11-17) — the eleven tab frames with per-vertical
+copy, stats, business-unit logos, and customer/partner notes. Content is client-approved; the
+delivery annotations in the deck (clearance status, "your copy") are not published.
+
+- **Copy** — all eleven panels now carry the deck's title + paragraph verbatim. One correction:
+  Wine's paragraph reads **"more than 4,000 wineries"** (the page had 3,500, which is the
+  Commerce7 platform stat, not the audience count).
+- **Stats** — values written into the markup (no-JS parity) and kept in `PANEL_STATS` for the
+  abbreviated re-render. Hospitality corrected to the deck's **2.5M / 9M** (was 2.53M / 8.95M);
+  Health renders **343K+ / 7.2M / 240K+**.
+- **Logo rows** — empty rows can no longer ship: `.logos[hidden]` now actually hides (the group's
+  own `display` was overriding the `hidden` attribute), and the wrapper is hidden with it. That
+  removes the "Customer 01–04" placeholders that were visible on Wine, Weddings, Storage,
+  Transportation and the other panels with no partner artwork.
+- **Alt text** — 33 auto-generated alts ("Logo with…", "retail units 4", "Transportation") replaced
+  with neutral descriptions where the artwork-to-name mapping is still unconfirmed (per the deck),
+  and with real names where the file is identified (EyeCloudPro, Dumpster Rental Systems,
+  Enrollware).
+- **Tiers unchanged** — Weddings stays the full reference panel (story gallery + screens); the
+  standard tier shows copy, stat row and logo rows; the min tier shows copy, photo placeholder and
+  stats.
+- **Still pending (not in the deck as artwork):** named-but-unfiled customers — Screaming Eagle
+  (Wine), New Balance (Retail), Arryved's named venues (Hospitality), and the 14 Field Services
+  customers. They stay out of the logo rows until files arrive; hiding an empty row is better than
+  a placeholder.
+- **Photos** — min-tier panels keep the designed pending-photo tile; real photography does not exist
+  yet for Storage & Marina, Health & Wellness, Field Services, or Association Management.
+
+---
+
+## 2026-11-17 — P0 credibility pass (notes parked, rank reconciled)
+
+From the Impeccable critique (P0): client-facing pages were rendering production notes, and three
+pages carried a rank that contradicted the Nilsen card on the same screen.
+
+**Internal notes.** A shared `.internal-note { display:none }` rule (`assets/site.css`) now hides
+every production marker in the client build while keeping it in the markup for the content track.
+Reveal on demand with `document.body.classList.add('show-internal')`.
+
+- Our Advantage: the three `stat__note` caveats ("Client-supplied · not a settled KPI", "unreconciled
+  with KB", "Placeholder · publishability pending"), five `placeholder-tag` chips, the Lending
+  "structural placeholder" line, the Insurance/Lending meta rows, the Sales/Talent/Peer Scale and
+  Proof ticket rows, and the empty testimonial blockquote.
+- Our Story: "The holding-company story lives here in prose until the mission and vision video is
+  ready. Narrative first —" is hidden; the paragraph now opens on "Who Fullsteam is…".
+- Acquisitions: the "What we look for" lede dropped its two internal sentences ("Lead with the
+  vertical, not an acquisition count." / "Named case studies stay generic until the client confirms
+  publishability.") and its "Structural steps only" clause.
+- Inline `[placeholder]` tokens removed from nine article lines; the Sales/Talent/Peer Scale rows
+  now carry published facts (eleven verticals, 2,000+ colleagues) instead of ticket text.
+
+**Rank.** `#20 largest payment processor` (homepage + Careers) and `Top 20 / Payment processor`
+(Our Advantage) are retired. All three now read **#28 among U.S. merchant acquirers**, matching the
+Nilsen card in the LinkedIn strip — the only figure with a named, dated source (the client's own
+post). **Decision pending client sign-off**: if `#20` is the true figure, revert these three spots
+and the Nilsen card together; the KB note (2026-10-29) still records the conflict.
+
+Verified in the browser across all six pages + Contact: no rendered `client` / `publishability` /
+`placeholder` / `pending` / `unreconciled` / `OI-` strings; one rank string (`#28`) site-wide.
+Screenshots checked for holes in the hidden rows.
+
+---
+
+## 2026-11-17 — typeset pass on the interior pages
+
+`/impeccable typeset` on the five L1 pages + Contact, same scope as the homepage hero
+pass: roles, scale, tracking, line breaks. No copy, layout or colour changes.
+
+| | before | after | why |
+|---|---|---|---|
+| `assets/hero.css` `.hero__title` tracking | `-0.035em` | **`-0.03em`** | Matches the homepage hero pass; the same counters were closing at 100px+. |
+| `.hero__line` ≤640px | `white-space: normal` | **nowrap + `font-size: min(var(--hero-t), 12vw)`** | Free wrapping broke the locked phrases: Careers read “A big / company / that does not / work / like one.” at 320. Now Careers, Our Advantage, Contact and Acquisitions hold their phrase lines (38.4px at 320, 46.8 at 390). |
+| Vertical Software / Our Story at ≤640 | wrapped | **kept wrapping, at page size** (`--hero-t` restored) | Their longest lines are 18 and 19 characters and would need 27–36px to stay whole; they read better as words than as a shrunken line. Our Story's h1 carries `.hero__title--wrap`. |
+| `.faq__head` (VS, OA, Acquisitions, Careers) | `max-width: 250px` | **`max-width: none`** | The FAQ h2 is 75px at 1440; “questions,” is 335px and overflowed its own 250px box by 85px. The grid column is 480px, so the heading now uses it. No visual change at 1440 beyond removing the silent overflow. |
+| Careers card roles / art captions | `line-height: 1.25` | **`1.3`** | Under the 1.3 floor at 17–21px. |
+
+Verified 320 / 390 / 768 / 1440 on all six: no document overflow, H1 phrase counts hold,
+FAQ head no longer overflows. Detector after: the remaining findings are the intended
+Instrument Serif italic payoffs, the single-family choice (`overused-font`), and
+10–11px mono labels — a system-level decision left alone rather than resizing 30+ rail
+and index labels in an approved layout.
+
+⚠ **Figma drift:** the interior frames (`11541:657` VS, `11541:1376` OA, `11541:1666`
+Our Story, `11541:2185` Acquisitions, `11541:2866` Careers, `11546:3377` Contact) still
+carry the old `-0.035em` hero tracking and the 250px FAQ head. Re-extract to resync.
+
+---
+
+## 2026-11-17 — hero typeset pass (desktop tracking + small-phone ramp)
+
+`/impeccable typeset` on the opening. Copy, families, weights and the two-state model are
+untouched; three typographic fixes:
+
+| | before | after | why |
+|---|---|---|---|
+| Display tracking (`--track-display-xl`) | `-.035em` | **`-.03em`** | -4.2px at 120px closed the counters of “great software”; -3.6px keeps the display cut and reads cleaner. Still inside the -0.04em floor. |
+| ≤389px headline ramp | `50px` floor | **`clamp(38px, 12vw, 49px)`** + `.line` padding-inline `.16em → .1em` | At 320 “great software” is 313px wide against a 272px measure, so the locked three-line H1 wrapped to four and pushed the payoff into the gutter. It now holds three lines from 320 up; the 50px floor resumes at 390. |
+| ≤700px eyebrow | 11px / `.14em` / 1.6 | **12px / `.1em` / 1.65**, no inline padding | 11px at .14em read as fine print and ran long over the plate; 12px at .1em stacks to two lines on a 390 and stays legible. |
+
+Also `font-synthesis: none` on `.hero__title` so a missing face can never fake the weight.
+
+Verified at 320 / 360 / 390 / 414 / 600 / 768 / 1024 / 1440: no horizontal overflow, H1 is
+exactly three lines at every width (both Axis A and Axis B), eyebrow 3 lines at 320 and 2 at
+390+. Detector: only the known `italic-serif-display` warnings — that face is the
+client-approved payoff, not the primary headline, so they are intended.
+
+Deliberately kept against the Impeccable craft floor: the 120px display size (the committed
+world overrides the 6rem guide) and the eyebrow (a brief-mandated audience label with a real
+job, not decoration — DESIGN.md §4.1, the G-8 fix).
+
+⚠ **Figma drift:** the official frame `11770:5946` was built at `-.035em`, so the hero H1
+nodes are 0.6px/char tighter than the page. Re-run the extractor to resync.
+
+---
+
+## 2026-11-17 — revbuild picked up: Figma homepage re-synced to the copy pass
+
+The Cursor copy pass (`7e44820` — founders closer as a statement, careers eyebrow and
+LinkedIn dek removed, `Proactive problem-solvers`) had left the official frame
+**`11770:5946` empty** (0 children, 7186 tall) and two `TMP … band` crops floating over
+Vertical Software. Both temp frames are deleted; the official frame is rebuilt from the
+current `index.html` in place at `34278, -9701`.
+
+- **Frame:** 1440 × **7186** (live document 8626 − the 1440px opening pin travel), same
+  nine bands: `00 Header` · `01 Opening — Axis A` · `02 Building on Great` ·
+  `03 AI at Fullsteam` · `04 Vertical software` · `05 For founders` ·
+  `06 Careers + LinkedIn` · `07 Close` · `08 Footer`.
+- **Section heights now:** steps 995 · AI 892 · verticals 1214 · founders 943 ·
+  careers 1492 · close 321 · footer 429.
+- **Copy reflected:** the founders closer is one Instrument Serif italic line
+  (“More relevant. More capable. More competitive.”), no careers eyebrow, no LinkedIn dek.
+  Hero still is the t=1.0s plate from `hero-sizzle.mp4`.
+- **Measured at 1440 CSS px** — a first pass ran at the default Playwright width (1728)
+  and produced a spec wider than the frame; that build was discarded and the extractor
+  now needs the browser resized to 1440 before it runs.
+- Regenerated with `extract_hifi.js` / `build_hifi.js`; spec at
+  `out/homepage-hifi.exact.json` (371 nodes). The `out/hifi-chunks/`,
+  `out/hifi-figma-scripts/` and `out/homepage-hifi.trimmed.json` artifacts from the
+  earlier chunked attempt are superseded and left untouched.
+
+---
+
 ## 2026-11-17 — Figma homepage rebuilt from the live page
 
 The official `FS-Design` homepage frame **`11541:2`** was replaced in place (same

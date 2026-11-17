@@ -63,29 +63,29 @@
     "units": [
       {
         "file": "assets/logos/retail-units-1.png",
-        "alt": "Logo with "
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/retail-units-2.png",
-        "alt": "Logo with "
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/retail-units-3.png",
-        "alt": "The letters \\"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/retail-units-4.png",
-        "alt": "retail units 4"
+        "alt": "Business-unit software logo"
       }
     ],
     "partners": [
       {
         "file": "assets/logos/retail-partners-2.png",
-        "alt": "retail partners 2"
+        "alt": "Customer logo"
       },
       {
         "file": "assets/logos/retail-partners-3.png",
-        "alt": "retail partners 3"
+        "alt": "Customer logo"
       }
     ]
   },
@@ -93,19 +93,19 @@
     "units": [
       {
         "file": "assets/logos/storage-marina-units-1.png",
-        "alt": "Storage Marina"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/storage-marina-units-2.png",
-        "alt": "Storage"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/storage-marina-units-3.png",
-        "alt": "storage marina units 3"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/storage-marina-units-4.png",
-        "alt": "Storage Marina"
+        "alt": "Business-unit software logo"
       }
     ],
     "partners": []
@@ -114,11 +114,11 @@
     "units": [
       {
         "file": "assets/logos/health-wellness-units-1.png",
-        "alt": "Health Wellness"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/health-wellness-units-2.png",
-        "alt": "EyeCloudPro logo: eye icon next to grey text."
+        "alt": "EyeCloudPro"
       },
       {
         "file": "assets/logos/health-wellness-units-3.png",
@@ -126,13 +126,13 @@
       },
       {
         "file": "assets/logos/health-wellness-units-4.png",
-        "alt": "Logo with three gray circles and the word "
+        "alt": "Business-unit software logo"
       }
     ],
     "partners": [
       {
         "file": "assets/logos/health-wellness-partners-1.png",
-        "alt": "Health Wellness"
+        "alt": "Customer logo"
       }
     ]
   },
@@ -140,25 +140,25 @@
     "units": [
       {
         "file": "assets/logos/field-services-units-1.png",
-        "alt": "Field"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/field-services-units-2.png",
-        "alt": "Logo with the word "
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/field-services-units-3.png",
-        "alt": "The word "
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/field-services-units-4.png",
-        "alt": "DRS in gray stylized font."
+        "alt": "Dumpster Rental Systems"
       }
     ],
     "partners": [
       {
         "file": "assets/logos/field-services-partners-1.png",
-        "alt": "Field"
+        "alt": "Customer logo"
       }
     ]
   },
@@ -170,15 +170,15 @@
       },
       {
         "file": "assets/logos/transportation-units-2.png",
-        "alt": "Transportation"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/transportation-units-3.png",
-        "alt": "transportation units 3"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/transportation-units-4.png",
-        "alt": "Transportation"
+        "alt": "Business-unit software logo"
       }
     ],
     "partners": []
@@ -191,7 +191,7 @@
       },
       {
         "file": "assets/logos/automotive-units-2.png",
-        "alt": "automotive units 2"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/automotive-units-3.png",
@@ -199,17 +199,17 @@
       },
       {
         "file": "assets/logos/automotive-units-4.png",
-        "alt": "Automotive Units 4"
+        "alt": "Business-unit software logo"
       }
     ],
     "partners": [
       {
         "file": "assets/logos/automotive-partners-2.png",
-        "alt": "automotive partners 2"
+        "alt": "Customer logo"
       },
       {
         "file": "assets/logos/automotive-partners-3.png",
-        "alt": "automotive partners 3"
+        "alt": "Customer logo"
       }
     ]
   },
@@ -217,25 +217,25 @@
     "units": [
       {
         "file": "assets/logos/association-management-units-1.png",
-        "alt": "Association"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/association-management-units-2.png",
-        "alt": "Association Management"
+        "alt": "Business-unit software logo"
       },
       {
         "file": "assets/logos/association-management-units-3.png",
-        "alt": "Enrollware text in gray."
+        "alt": "Enrollware"
       },
       {
         "file": "assets/logos/association-management-units-4.png",
-        "alt": "White text "
+        "alt": "Business-unit software logo"
       }
     ],
     "partners": [
       {
         "file": "assets/logos/association-management-partners-3.png",
-        "alt": "Association Management"
+        "alt": "Customer logo"
       }
     ]
   },
@@ -261,11 +261,11 @@
     "partners": [
       {
         "file": "assets/logos/erp-partners-1.png",
-        "alt": "erp partners 1"
+        "alt": "Customer logo"
       },
       {
         "file": "assets/logos/erp-partners-2.png",
-        "alt": "Erp"
+        "alt": "Customer logo"
       }
     ]
   }

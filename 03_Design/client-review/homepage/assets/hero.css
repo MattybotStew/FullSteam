@@ -28,7 +28,9 @@
   font-size: var(--hero-t, clamp(50px, 8.34vw, 120px));
   font-weight: 500;
   line-height: .95;
-  letter-spacing: -0.035em;
+  /* Matches the homepage hero pass (2026-11-17): -0.035em closed the counters of
+     the long words at 100px+; one step opens them without losing the display cut. */
+  letter-spacing: -0.03em;
   text-align: left;
   color: var(--ink, #04141B);
   text-wrap: balance;
@@ -41,7 +43,24 @@
   letter-spacing: -0.01em;
   color: var(--brand, var(--ink));
 }
-@media (max-width: 640px) { .hero__title .hero__line { white-space: normal; } }
+@media (max-width: 640px) {
+  /* Phones used to switch the locked phrases to free wrapping, which read as
+     "A big / company / that does not / work / like one." at 320. Keep each
+     phrase on its own line and let the type shrink to the measure instead;
+     --hero-t takes over again above ~417px, so nothing changes at 768+. */
+  .hero__title { font-size: min(var(--hero-t, clamp(50px, 8.34vw, 120px)), 12vw); }
+  .hero__title .hero__line { white-space: nowrap; }
+  /* Vertical Software's first line is 18 characters — it cannot hold at 320
+     without dropping under 36px, and reads better as three words. Our Story's
+     second line is 19 characters and opts back into wrapping for the same
+     reason, so both keep their page size and let the words break. */
+  .hero--axis-a .hero__title,
+  .hero__title--wrap { font-size: var(--hero-t, clamp(50px, 8.34vw, 120px)); }
+  .hero--axis-a .hero__title .hero__line { white-space: normal; }
+}
+/* Our Story's second line is 19 characters; at 320 it would need 27px to stay
+   on one line, so that page opts back into wrapping. */
+.hero__title--wrap .hero__line { white-space: normal; }
 
 .hero .lede {
   margin-top: clamp(14px, 1.8vw, 22px);

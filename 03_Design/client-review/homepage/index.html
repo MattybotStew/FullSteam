@@ -15,9 +15,9 @@
   Assets are local. Photography is licensed stock standing in for the real
   Fullsteam photography and the sizzle master, which do not exist yet; the
   credits sidecar is assets/credits.json. Figures remain the client-reviewed
-  set: 70,000+ / $75B / 2,000+ / 11. The "#20 largest processor" line was
-  dropped because it contradicts the #28 Nilsen figure used further down the
-  page (see content-slots.md §2, row 03).
+  set: 70,000+ / $75B / 2,000+ / 11. The rank now uses the #28 Nilsen figure (the
+  client's own post) everywhere; the unreconciled "#20 largest processor" line
+  is retired pending client confirmation (content-slots.md §2, row 03).
 
   ---------------------------------------------------------------------------
   2026-11-02 REVIEW PASS — see ./design-notes.md for the full table.
@@ -86,7 +86,10 @@
       /* Homepage-only tokens. Shared tokens live in assets/site.css. */
       --axis-b-travel: 160vh;
       --display-xl: clamp(50px, 8.34vw, 120px);
-      --track-display-xl: -.035em;
+      /* Display tracking holds at -0.03em: at 120px the -0.035em setting closed
+         the counters of "great software"; one step opens them without losing the
+         display cut. Below 390px the headline gets its own ramp (see .hero__headlines). */
+      --track-display-xl: -.03em;
       --frame-hair: rgba(255, 255, 255, .18);
     }
     #modelTitle em,
@@ -360,7 +363,14 @@
       color: rgba(255,255,255,.92);
     }
     @media (max-width: 700px) {
-      .hero__eyebrow { font-size: 11px; }
+      /* The audience line stacks on phones. 11px at .14em read as fine print and
+         ran long; 12px at .1em holds it to two lines on a 390 and keeps it legible. */
+      .hero__eyebrow {
+        font-size: 12px;
+        letter-spacing: .1em;
+        line-height: 1.65;
+        padding-inline: 0;
+      }
     }
 
     .hero__title {
@@ -368,6 +378,7 @@
       margin: 0;
       line-height: var(--lh);
       font-weight: 500;
+      font-synthesis: none;
       text-align: center;
       text-wrap: balance;
       text-shadow: none;
@@ -420,6 +431,16 @@
     }
     .hero__title--portfolio { color: var(--ink); text-shadow: none; }
     .hero__title .line em:only-child { line-height: 1.05; overflow: visible; }
+
+    /* Small phones: the locked three-line H1 must stay three lines. At the 50px
+       floor "great software" is 313px wide and a 320 viewport only offers 272px,
+       so it wrapped to a fourth line and pushed the payoff into the gutter. The
+       ramp and the slimmer line padding keep each phrase on its own line from
+       320 up; 390 onward the desktop floor (50px) takes over again. */
+    @media (max-width: 389px) {
+      .hero__headlines { --title-max: clamp(38px, 12vw, 49px); }
+      .hero__title .line { padding-inline: 0.1em; }
+    }
 
     /* ---- entrance: each line rises out of its own baseline, resolving out of
        a depth-of-field blur. 260ms stagger; the gap carries the drama. */
@@ -1483,8 +1504,8 @@
                 <p class="stat__c">in sales processed through our software</p>
               </div>
               <div class="step__stat">
-                <p class="stat__n" data-count="20" data-prefix="#">#20</p>
-                <p class="stat__c">largest payment processor</p>
+                <p class="stat__n" data-count="28" data-prefix="#">#28</p>
+                <p class="stat__c">among U.S. merchant acquirers</p>
               </div>
             </div>
           </li>

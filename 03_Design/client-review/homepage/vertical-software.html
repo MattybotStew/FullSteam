@@ -757,6 +757,8 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 /* Section labels are visible on the split logo bands (2026-11-09 client review) */
 .screens__head { display: none; }
 
+.logos[hidden], .logos__group[hidden] { display: none !important; }
+
 .logos__group[aria-label],
 .screens[aria-label] { margin-top: clamp(32px, 4vw, 48px); }
 
@@ -840,7 +842,9 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 .faq__head {
   position: sticky;
   top: calc(var(--bar) + 24px);
-  max-width: 250px;
+  /* The h2 is 75px at 1440; "questions," is 335px, so a 250px cap made the
+     heading overflow its own box. Let it use the grid column. */
+  max-width: none;
 }
 
 /* Figma FS-Design WF v2 — node 11530:1210 (Common / questions, / answered.) */
@@ -1141,7 +1145,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Rounds of golf priced annually (Priswing)</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Hotel room nights booked through RoomKey in 2025</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Hotel room nights booked through WRP in 2025</p></div>
+            <div class="stat"><p class="stat__val">15M</p><p class="stat__label">Rounds of golf priced annually (Priswing)</p></div><div class="stat"><p class="stat__val">2.5M</p><p class="stat__label">Hotel room nights booked through RoomKey in 2025</p></div><div class="stat"><p class="stat__val">9M</p><p class="stat__label">Hotel room nights booked through WRP in 2025</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1255,7 +1259,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
                 <h3 class="display display--m panel__title" id="title-wine">Wine sells better when you know who you&#8217;re selling to.</h3>
               </header>
               <div class="panel__copy">
-                <p>Our direct-to-consumer commerce platform gives more than 3,500 wineries around the world a single view of every guest across the tasting room, wine club, online store, and reservations, with recommendations, churn predictions, and agentic actions taken to increase revenue. Other platforms manage the transaction; we help wineries grow the relationship.</p>
+                <p>Our direct-to-consumer commerce platform gives more than 4,000 wineries around the world a single view of every guest across the tasting room, wine club, online store, and reservations, with recommendations, churn predictions, and agentic actions taken to increase revenue. Other platforms manage the transaction; we help wineries grow the relationship.</p>
               </div>
             </div>
             <figure class="frame frame--story"><img src="assets/img/wine.jpg" alt="Barrels in a wine cellar" loading="lazy" decoding="async"><figcaption class="frame__cap">Wine · on the ground</figcaption></figure>
@@ -1271,7 +1275,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Wineries operating on the Commerce7 platform</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat"><p class="stat__val">3,500+</p><p class="stat__label">Wineries operating on the Commerce7 platform</p></div><div class="stat"><p class="stat__val">12 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">121%</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1313,7 +1317,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Pairs of shoes sold online per year on average</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat"><p class="stat__val">287K+</p><p class="stat__label">Pairs of shoes sold online per year on average</p></div><div class="stat"><p class="stat__val">8 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">115%</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1355,7 +1359,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat"><p class="stat__val">6.4K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">14 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">109%</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1397,7 +1401,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Clients supported using eRSP in 2025</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Visits logged in eRSP in 2025</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Claims submitted through eRSP in 2025</p></div>
+            <div class="stat"><p class="stat__val">343K+</p><p class="stat__label">Clients supported using eRSP in 2025</p></div><div class="stat"><p class="stat__val">7.2M</p><p class="stat__label">Visits logged in eRSP in 2025</p></div><div class="stat"><p class="stat__val">240K+</p><p class="stat__label">Claims submitted through eRSP in 2025</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1439,7 +1443,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat"><p class="stat__val">25K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">10 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">114%</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1481,7 +1485,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Annual customer bookings via Fasttrack</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat"><p class="stat__val">3M+</p><p class="stat__label">Annual customer bookings via Fasttrack</p></div><div class="stat"><p class="stat__val">13 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">117%</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1523,7 +1527,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat"><p class="stat__val">15K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">9 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">113%</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1565,7 +1569,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat"><p class="stat__val">4.2K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">11 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">108%</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1607,7 +1611,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
           </div>
 
           <div class="stats">
-            <div class="stat"><p class="stat__val">—</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">—</p><p class="stat__label">Net revenue retention</p></div>
+            <div class="stat"><p class="stat__val">22K+</p><p class="stat__label">Operators running the software daily</p></div><div class="stat"><p class="stat__val">15 yr</p><p class="stat__label">Average customer tenure</p></div><div class="stat"><p class="stat__val">119%</p><p class="stat__label">Net revenue retention</p></div>
           </div>
 
           <div class="logos logos--partners">
@@ -1905,11 +1909,14 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 
   function fillLogos(group, items, label) {
     if (!group) return;
+    var wrap = group.closest(".logos");
     if (!items || !items.length) {
       group.hidden = true;
+      if (wrap) wrap.hidden = true;
       return;
     }
     group.hidden = false;
+    if (wrap) wrap.hidden = false;
     group.setAttribute("aria-label", label);
     var title = group.querySelector(".logos__title");
     if (title) {
@@ -1939,9 +1946,10 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 
 (function () {
   "use strict";
-  /* Review-only placeholders — not cleared for publish (KB §20.7). */
+  /* Client-approved tab content (2026-11-17). Values are also written into the
+     markup; this map keeps the abbreviated format when the page re-renders. */
   var PANEL_STATS = {
-    hospitality: ["15M", "2.53M", "8.95M"],
+    hospitality: ["15M", "2.5M", "9M"],
     "weddings-events": ["1.2M", "424K", "5K+"],
     wine: ["3,500+", "12 yr", "121%"],
     retail: ["287K+", "8 yr", "115%"],
