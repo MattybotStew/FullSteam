@@ -1,5 +1,5 @@
 {
-  "note": "Review-build placeholders. These stand in for Fullsteam's own photography and the unreleased hero sizzle master. Replace with licensed, client-supplied photography before launch. Portfolio logos under assets/logos/ were copied from fullsteam.com vertical pages (Nov 2026) for review; Weddings & Events business-unit logos in assets/logos/weddings/ (BridalLive, Floranext, TPP, Aisle Planner Pro) exported from Figma FS-Design WF v2 (BridalLive 11518:6613, Floranext 11530:2, TPP 11514:52, Aisle Planner Pro 11518:6608; Nov 2026). BridalLive + Floranext wired as SVG (11530:2 replaces prior Floranext 11514:33). syvo.svg on disk is unused — slot 3 is TPP. Confirm client clearance (KB §29.7 / OI-16) before launch.",
+  "note": "Review-build placeholders. These stand in for Fullsteam's own photography and the unreleased hero sizzle master. Replace with licensed, client-supplied photography before launch. Portfolio logos under assets/logos/ were copied from fullsteam.com vertical pages (Nov 2026) for review; Weddings & Events business-unit logos in assets/logos/weddings/ (BridalLive, Floranext, TPP, Aisle Planner Pro) exported from Figma FS-Design WF v2 (BridalLive 11518:6613, Floranext 11530:2, TPP 11514:52, Aisle Planner Pro 11518:6608; Nov 2026). BridalLive + Floranext wired as SVG (11530:2 replaces prior Floranext 11514:33). syvo.svg on disk is unused \u2014 slot 3 is TPP. Confirm client clearance (KB \u00a729.7 / OI-16) before launch. Customer/partner marks added 2026-11-17: New Balance (Wikimedia Commons, File:New_Balance_logo.svg, PD-textlogo), CounselEAR (getcounselear.com logo asset), BlueFolder (bluefolder.com logo asset). All third-party marks remain trademarks of their owners and need client clearance before launch.",
   "licenseDefault": "Unsplash License",
   "licenseUrl": "https://unsplash.com/license",
   "usage": "Downloaded at display size and stored locally. Not hotlinked.",
@@ -14,7 +14,7 @@
     },
     {
       "file": "assets/img/erp.jpg",
-      "slot": "Verticals — ERP",
+      "slot": "Verticals \u2014 ERP",
       "subject": "Modern open-plan office",
       "source": "Unsplash",
       "author": "Nastuh Abootalebi",
@@ -23,7 +23,7 @@
     },
     {
       "file": "assets/img/wine.jpg",
-      "slot": "Verticals — Wine",
+      "slot": "Verticals \u2014 Wine",
       "subject": "Wine cellar and barrels",
       "source": "Unsplash",
       "assetUrl": "https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea",
@@ -31,7 +31,7 @@
     },
     {
       "file": "assets/img/transport.jpg",
-      "slot": "Verticals — Transportation",
+      "slot": "Verticals \u2014 Transportation",
       "subject": "Logistics warehouse",
       "source": "Unsplash",
       "author": "CHUTTERSNAP",
@@ -40,7 +40,7 @@
     },
     {
       "file": "assets/img/hospitality.jpg",
-      "slot": "Verticals — Hospitality",
+      "slot": "Verticals \u2014 Hospitality",
       "subject": "Professional kitchen",
       "source": "Unsplash",
       "author": "Jason Briscoe",
@@ -49,7 +49,7 @@
     },
     {
       "file": "assets/img/weddings-events.jpg",
-      "slot": "Vertical Software — Weddings & Events",
+      "slot": "Vertical Software \u2014 Weddings & Events",
       "subject": "Wedding venue with tables set",
       "source": "Unsplash",
       "author": "Wedding Dreamz",
@@ -58,95 +58,95 @@
     },
     {
       "file": "assets/logos/weddings/bridal-live.svg",
-      "slot": "Vertical Software — Weddings & Events · BridalLive logo",
+      "slot": "Vertical Software \u2014 Weddings & Events \u00b7 BridalLive logo",
       "subject": "BridalLive 1 [Vectorized]",
       "source": "Figma FS-Design",
       "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
       "figmaNodeId": "11518:6613",
       "figmaPage": "WF v2",
       "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11518-6613",
-      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+      "license": "Fullsteam client asset \u2014 confirm publishability (KB \u00a729.7) before launch"
     },
     {
       "file": "assets/logos/weddings/floranext.svg",
-      "slot": "Vertical Software — Weddings & Events · Floranext logo",
+      "slot": "Vertical Software \u2014 Weddings & Events \u00b7 Floranext logo",
       "subject": "Floranext 1 [Vectorized]",
       "source": "Figma FS-Design",
       "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
       "figmaNodeId": "11530:2",
       "figmaPage": "WF v2",
       "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11530-2",
-      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+      "license": "Fullsteam client asset \u2014 confirm publishability (KB \u00a729.7) before launch"
     },
     {
       "file": "assets/img/weddings-bridallive-product.png",
-      "slot": "Vertical Software — Weddings & Events · product screenshot",
+      "slot": "Vertical Software \u2014 Weddings & Events \u00b7 product screenshot",
       "subject": "BridalLive product UI (BridalLive_Product)",
       "source": "Figma FS-Design",
       "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
       "figmaNodeId": "11516:3",
       "figmaPage": "WF v2",
       "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11516-3",
-      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+      "license": "Fullsteam client asset \u2014 confirm publishability (KB \u00a729.7) before launch"
     },
     {
       "file": "assets/img/weddings-floranext-table.png",
-      "slot": "Vertical Software — Weddings & Events · Floranext screen 02",
+      "slot": "Vertical Software \u2014 Weddings & Events \u00b7 Floranext screen 02",
       "subject": "Wedding table setting with florals (image 3)",
       "source": "Figma FS-Design",
       "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
       "figmaNodeId": "11522:33",
       "figmaPage": "WF v2",
       "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11522-33",
-      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+      "license": "Fullsteam client asset \u2014 confirm publishability (KB \u00a729.7) before launch"
     },
     {
       "file": "assets/img/weddings-reception-venue.png",
-      "slot": "Vertical Software — Weddings & Events · Aisle Planner Pro screen 03",
+      "slot": "Vertical Software \u2014 Weddings & Events \u00b7 Aisle Planner Pro screen 03",
       "subject": "Barn wedding reception venue (image 4)",
       "source": "Figma FS-Design",
       "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
       "figmaNodeId": "11522:36",
       "figmaPage": "WF v2",
       "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11522-36",
-      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+      "license": "Fullsteam client asset \u2014 confirm publishability (KB \u00a729.7) before launch"
     },
     {
       "file": "assets/img/weddings-bridal-boutique-aisle.png",
-      "slot": "Vertical Software — Weddings & Events · spare lifestyle (exported, unwired)",
+      "slot": "Vertical Software \u2014 Weddings & Events \u00b7 spare lifestyle (exported, unwired)",
       "subject": "Bridal boutique dress aisle (image 5)",
       "source": "Figma FS-Design",
       "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
       "figmaNodeId": "11522:39",
       "figmaPage": "WF v2",
       "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11522-39",
-      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+      "license": "Fullsteam client asset \u2014 confirm publishability (KB \u00a729.7) before launch"
     },
     {
       "file": "assets/img/weddings-bridal-boutique-interior.png",
-      "slot": "Vertical Software — Weddings & Events · spare lifestyle (exported, unwired)",
+      "slot": "Vertical Software \u2014 Weddings & Events \u00b7 spare lifestyle (exported, unwired)",
       "subject": "Bridal boutique seating and racks (image 6)",
       "source": "Figma FS-Design",
       "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
       "figmaNodeId": "11522:42",
       "figmaPage": "WF v2",
       "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11522-42",
-      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+      "license": "Fullsteam client asset \u2014 confirm publishability (KB \u00a729.7) before launch"
     },
     {
       "file": "assets/img/weddings-catering-kitchen.png",
-      "slot": "Vertical Software — Weddings & Events · spare lifestyle (exported, unwired; catering kitchen)",
+      "slot": "Vertical Software \u2014 Weddings & Events \u00b7 spare lifestyle (exported, unwired; catering kitchen)",
       "subject": "Commercial catering kitchen (image 2)",
       "source": "Figma FS-Design",
       "figmaFile": "3oHvScSPrK5l6N1qfv9WCw",
       "figmaNodeId": "11518:6611",
       "figmaPage": "WF v2",
       "assetUrl": "https://www.figma.com/design/3oHvScSPrK5l6N1qfv9WCw/FS-Design?node-id=11518-6611",
-      "license": "Fullsteam client asset — confirm publishability (KB §29.7) before launch"
+      "license": "Fullsteam client asset \u2014 confirm publishability (KB \u00a729.7) before launch"
     },
     {
       "file": "assets/img/automotive.jpg",
-      "slot": "Verticals — Automotive",
+      "slot": "Verticals \u2014 Automotive",
       "subject": "Car on the road",
       "source": "Unsplash",
       "assetUrl": "https://images.unsplash.com/photo-1502877338535-766e1452684a",
@@ -170,7 +170,7 @@
     },
     {
       "file": "assets/img/careers/hero-team.jpg",
-      "slot": "Careers — CompactLight hero (square)",
+      "slot": "Careers \u2014 CompactLight hero (square)",
       "subject": "Team collaborating in a bright office",
       "source": "Unsplash",
       "assetUrl": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7",
@@ -179,7 +179,7 @@
     },
     {
       "file": "assets/img/leaders/lawler.jpg",
-      "slot": "Our Story — leadership (review stand-in)",
+      "slot": "Our Story \u2014 leadership (review stand-in)",
       "subject": "Professional portrait stand-in for Michael Lawler",
       "source": "Unsplash",
       "assetUrl": "https://unsplash.com/photos/pAtA8xe_iVM",
@@ -188,7 +188,7 @@
     },
     {
       "file": "assets/img/leaders/colella.jpg",
-      "slot": "Our Story — leadership (review stand-in)",
+      "slot": "Our Story \u2014 leadership (review stand-in)",
       "subject": "Professional portrait stand-in for Greg Colella",
       "source": "Unsplash",
       "assetUrl": "https://unsplash.com/photos/QXevDflbl8A",
@@ -197,7 +197,7 @@
     },
     {
       "file": "assets/img/leaders/freund.jpg",
-      "slot": "Our Story — leadership (review stand-in)",
+      "slot": "Our Story \u2014 leadership (review stand-in)",
       "subject": "Professional portrait stand-in for Charles Freund",
       "source": "Unsplash",
       "assetUrl": "https://unsplash.com/photos/0Zx1bDv5BNY",
@@ -206,7 +206,7 @@
     },
     {
       "file": "assets/img/leaders/izzo.jpg",
-      "slot": "Our Story — leadership (review stand-in)",
+      "slot": "Our Story \u2014 leadership (review stand-in)",
       "subject": "Professional portrait stand-in for Dirk Izzo",
       "source": "Unsplash",
       "assetUrl": "https://unsplash.com/photos/XiUd5LzIk_o",
@@ -215,7 +215,7 @@
     },
     {
       "file": "assets/img/leaders/byrd.jpg",
-      "slot": "Our Story — leadership (review stand-in)",
+      "slot": "Our Story \u2014 leadership (review stand-in)",
       "subject": "Professional portrait stand-in for Fred Byrd",
       "source": "Unsplash",
       "assetUrl": "https://unsplash.com/photos/OLW0n3Yrvjs",
@@ -224,7 +224,7 @@
     },
     {
       "file": "assets/img/leaders/kallenbach.jpg",
-      "slot": "Our Story — leadership (review stand-in)",
+      "slot": "Our Story \u2014 leadership (review stand-in)",
       "subject": "Professional portrait stand-in for Charles Kallenbach",
       "source": "Unsplash",
       "assetUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9",
@@ -233,7 +233,7 @@
     },
     {
       "file": "assets/img/careers/voice-founder.jpg",
-      "slot": "Careers — testimonial portrait (founder voice)",
+      "slot": "Careers \u2014 testimonial portrait (founder voice)",
       "subject": "Placeholder headshot",
       "source": "Unsplash",
       "assetUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2",
@@ -242,7 +242,7 @@
     },
     {
       "file": "assets/img/careers/voice-founder-stayed.jpg",
-      "slot": "Careers — testimonial portrait (founder who stayed)",
+      "slot": "Careers \u2014 testimonial portrait (founder who stayed)",
       "subject": "Placeholder headshot",
       "source": "Unsplash",
       "assetUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
@@ -251,7 +251,7 @@
     },
     {
       "file": "assets/img/careers/voice-employee.jpg",
-      "slot": "Careers — testimonial portrait (employee voice)",
+      "slot": "Careers \u2014 testimonial portrait (employee voice)",
       "subject": "Placeholder headshot",
       "source": "Unsplash",
       "assetUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956",
@@ -260,7 +260,7 @@
     },
     {
       "file": "assets/img/payments-hardware.jpg",
-      "slot": "Our Advantage — Payments hardware",
+      "slot": "Our Advantage \u2014 Payments hardware",
       "subject": "Point-of-sale terminal being used at a salon shelf (cropped 4:3 below the terminal badge)",
       "source": "Unsplash",
       "author": "SumUp (@sumup)",
@@ -272,14 +272,14 @@
     {
       "file": "assets/hero-sizzle.mp4",
       "slot": "Homepage opening (Axis A/B media plane); also the AI panel video on Our Advantage, the mission video on Our Story, and the Acquisitions founder-film tabs (they share this one placeholder). Desktop cut.",
-      "subject": "Fullsteam verticals montage — 15 shots across the portfolio (1920×1080 H.264, 89s, silent, 40 MB). Transcoded 2026-11-16 from the client master `fullsteam-hero-video-2.mp4` at full quality (CRF 20, no denoise).",
+      "subject": "Fullsteam verticals montage \u2014 15 shots across the portfolio (1920\u00d71080 H.264, 89s, silent, 40 MB). Transcoded 2026-11-16 from the client master `fullsteam-hero-video-2.mp4` at full quality (CRF 20, no denoise).",
       "source": "Client-supplied (fullsteam-hero-video-2.mp4)",
-      "license": "Fullsteam-owned footage, cleared for the review build. Confirm master clearance (KB §29.7 / OI-16) before launch."
+      "license": "Fullsteam-owned footage, cleared for the review build. Confirm master clearance (KB \u00a729.7 / OI-16) before launch."
     },
     {
       "file": "assets/hero-sizzle-mobile.mp4",
-      "slot": "Homepage opening — same clip under 900px viewport (chosen by <source media>)",
-      "subject": "1280×720 cut of the same montage (89s, silent, 18 MB)",
+      "slot": "Homepage opening \u2014 same clip under 900px viewport (chosen by <source media>)",
+      "subject": "1280\u00d7720 cut of the same montage (89s, silent, 18 MB)",
       "source": "Client-supplied (fullsteam-hero-video-2.mp4)",
       "license": "Fullsteam-owned footage, cleared for the review build"
     },

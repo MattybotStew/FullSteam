@@ -70,15 +70,15 @@
         "alt": "Business-unit software logo"
       },
       {
-        "file": "assets/logos/retail-units-3.png",
-        "alt": "Business-unit software logo"
-      },
-      {
         "file": "assets/logos/retail-units-4.png",
         "alt": "Business-unit software logo"
       }
     ],
     "partners": [
+      {
+        "file": "assets/logos/retail/new-balance.svg",
+        "alt": "New Balance"
+      },
       {
         "file": "assets/logos/retail-partners-2.png",
         "alt": "Customer logo"
@@ -93,19 +93,11 @@
     "units": [
       {
         "file": "assets/logos/storage-marina-units-1.png",
-        "alt": "Business-unit software logo"
-      },
-      {
-        "file": "assets/logos/storage-marina-units-2.png",
-        "alt": "Business-unit software logo"
+        "alt": "Storage Commander"
       },
       {
         "file": "assets/logos/storage-marina-units-3.png",
-        "alt": "Business-unit software logo"
-      },
-      {
-        "file": "assets/logos/storage-marina-units-4.png",
-        "alt": "Business-unit software logo"
+        "alt": "SpeedyDock"
       }
     ],
     "partners": []
@@ -113,20 +105,20 @@
   "panel-health-wellness": {
     "units": [
       {
+        "file": "assets/logos/health-wellness-counselear.png",
+        "alt": "CounselEAR"
+      },
+      {
         "file": "assets/logos/health-wellness-units-1.png",
-        "alt": "Business-unit software logo"
+        "alt": "EZClaim"
       },
       {
         "file": "assets/logos/health-wellness-units-2.png",
         "alt": "EyeCloudPro"
       },
       {
-        "file": "assets/logos/health-wellness-units-3.png",
-        "alt": "Rosy Salon Software"
-      },
-      {
         "file": "assets/logos/health-wellness-units-4.png",
-        "alt": "Business-unit software logo"
+        "alt": "Aura"
       }
     ],
     "partners": [
@@ -140,19 +132,19 @@
     "units": [
       {
         "file": "assets/logos/field-services-units-1.png",
-        "alt": "Business-unit software logo"
-      },
-      {
-        "file": "assets/logos/field-services-units-2.png",
-        "alt": "Business-unit software logo"
-      },
-      {
-        "file": "assets/logos/field-services-units-3.png",
-        "alt": "Business-unit software logo"
+        "alt": "Event Rental Systems"
       },
       {
         "file": "assets/logos/field-services-units-4.png",
         "alt": "Dumpster Rental Systems"
+      },
+      {
+        "file": "assets/logos/field-services-units-3.png",
+        "alt": "Vonigo"
+      },
+      {
+        "file": "assets/logos/field-services-bluefolder.png",
+        "alt": "BlueFolder"
       }
     ],
     "partners": [
@@ -196,10 +188,6 @@
       {
         "file": "assets/logos/automotive-units-3.png",
         "alt": "AutoFluent"
-      },
-      {
-        "file": "assets/logos/automotive-units-4.png",
-        "alt": "Business-unit software logo"
       }
     ],
     "partners": [

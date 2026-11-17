@@ -34,6 +34,37 @@ Homepage `index.html` copy edits, then the same lines written into FS-Design fra
 
 ---
 
+## 2026-11-17 — Vertical tabs: screens row + logo mapping
+
+**Screens are UI and fit the block.** The row is 16:10; the old slots were CSS skeletons with
+"Screen 01 · pending" tags, and the Weddings panel paired one real (portrait) capture with two
+lifestyle photos labelled as product UI.
+
+- Added `assets/img/ui/`: `product-ui.svg`, `product-ui-records.svg`, `product-ui-schedule.svg`
+  and two product-specific previews (`floranext.svg`, `aisle-planner-pro.svg`) — 1600×1000,
+  brand-tinted app shells (sidebar, KPI row, table) drawn as vectors, so they fit the block
+  exactly at any size and weigh ~7 KB each.
+- `bridallive-1610.png` — the real BridalLive capture padded to 16:10 on paper (was 1262×1556
+  and being cropped by `object-fit: cover`). Screen 01 keeps the real UI; 02/03 are previews.
+- Screens now render at the **standard** tier as well as full (min still hides them), so seven
+  panels carry the row.
+- Caption tags got a translucent plate so they stay legible over the UI.
+
+**Logo mapping from the tab deck, applied:**
+
+| Panel | Row |
+|---|---|
+| Storage & Marina | **Storage Commander · SpeedyDock** (the 4-file row held duplicates and the Fullsteam insurance lockup; it now has the two real units) |
+| Health & Wellness | **CounselEAR · EZClaim · EyeCloudPro · Aura** (Rosy Salon removed — not on the approved list; CounselEAR fetched from getcounselear.com) |
+| Field Services | **Event Rental Systems · Dumpster Rental Systems · Vonigo · BlueFolder** ("evolve" removed; BlueFolder fetched from bluefolder.com) |
+| Retail | **Customers & partners** now leads with **New Balance** (Wikimedia Commons, PD-textlogo) |
+
+- Duplicate artwork removed everywhere a row reused the same file (retail units 4→3, automotive
+  units 4→3); alts now name the identified brands.
+- Third-party marks remain trademarks; clearance still required (credits.json note updated).
+
+---
+
 ## 2026-11-17 — Vertical tabs built out from the client tab deck
 
 Source: `vert-tabs.pdf` (Figma export, 2026-11-17) — the eleven tab frames with per-vertical
