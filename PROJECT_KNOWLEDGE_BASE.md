@@ -8,7 +8,8 @@
 > `clientDocs/Fullsteam Strategic Messaging Architecture V2.docx` (client messaging/positioning architecture, Sept 2026 — distilled in §22); **Fullsteam Messaging Architecture** (marketing messaging architecture, received 2026-10-26 — distilled in §29, supersedes §22's pillars/themes)
 > **Type:** Agency Brief — Website Strategy and Storytelling (Kickoff)
 > **Status:** Discovery complete — interview findings synthesized (§20); Sitemap/Wireframe in progress; **content track kicked off** (§21); **client messaging architecture distilled** (§22, superseded in part by **§29**); **homepage opening strategy locked** (§23)
-> **Last updated:** 2026-11-16 (**hero clip + model band** — the client's `fullsteam-hero-video-2.mp4` verticals montage transcoded at full quality to a **1920×1080 40 MB** hero cut plus a **1280×720 18 MB** mobile cut (the earlier 5.2 MB / 2.8 MB pair was replaced at the client's direction), both published (**§28.11**); and the model band's H2 is now **“Building on Great.”** with the serif-italic write-in payoff (**§28.12**). Media/copy only — no IA or opening change.)
+> **Last updated:** 2026-11-18 (**client feedback PDF** — homepage menu label, hero eyebrow, Axis B line, model-band copy and figures, verticals title and hover, and the Vertical Software sidebar numerals. **§28.13**. “Building on Great.” stays serif italic on paper. No IA or opening-structure change.)
+> **Prior update:** 2026-11-16 (**hero clip + model band** — the client's `fullsteam-hero-video-2.mp4` verticals montage transcoded at full quality to a **1920×1080 40 MB** hero cut plus a **1280×720 18 MB** mobile cut (the earlier 5.2 MB / 2.8 MB pair was replaced at the client's direction), both published (**§28.11**); and the model band's H2 is now **“Building on Great.”** with the serif-italic write-in payoff (**§28.12**). Media/copy only — no IA or opening change.)
 > **Prior update:** 2026-11-10 (**Our Advantage + Contact pass** — `#payments` is the default panel (was `#ai`); the AI rail row is a brand gradient shimmer, replacing the 2026-11-09 `--green-ink` frame; Contact uses the Vertical Software type-only mesh hero instead of the corridor photograph. Docs-only record; no sitemap change.)
 > **Prior update:** 2026-11-09 (**client-review pass** — menu tagline **Building on Great**; homepage Acquire/Grow/Lead reveals on scroll; vertical cards hover-expand and the whole card links; footer AI header + Advantage sublinks Payments / Embedded Fintech / Operational Excellence; Leadership is `#leadership`; vertical panels drop the lede and split logo rows; Our Advantage sidebar matches Figma `11541:1393` — Embedded Fintech, AI label plus green-ink frame, Operational Excellence; Our Story timeline is four milestones, years de-emphasized; interior heroes as photographic fields / type-only mesh; **Acquisitions hero = 10-28 Axis A + founder video filmstrip**. **§28.10**. No sitemap change.)
 > **Prior update:** 2026-11-03 (**Vertical Software client-review** — `vertical-software.html` on Pages; **panel content depth tiers** locked — §28.9: min / standard / full proof stacks; Weddings = full reference with story gallery + lightbox. Named products/stats **not publishable** until cleared — §29.7 / OI-16. Build: `design-notes.md` §2026-11-03; slots: `content-slots.md` §5.0)
@@ -2945,6 +2946,21 @@ frame 7815 → 7744), and the hero "Video" fill `11541:14` swapped from the wate
 still to a 1440×819 still of the client montage. Figma cannot hold video; the still is the
 stand-in. Remaining known drift: none — the live close band was changed to "See how we build on
 great." (copy-deck pass), which is what the Figma frame already said.
+
+### 28.13 Client feedback PDF (2026-11-18)
+
+One-page notes in `Fullsteam Feedback .pdf` (Desktop), applied on the official client-review HTML. **No sitemap or IA change.** The opening is still Axis A → copy swap → Axis B (§23.10). Wireframes were not redrawn. Figma was not updated in this pass.
+
+| Surface | Change |
+|---|---|
+| Homepage menu | The word “Menu” at the top of the open panel is gone. Interior menus never carried it. |
+| Hero | The audience eyebrow is gone. Axis A is unchanged (“We acquire / great software / companies.”). Axis B is **“Powering our / verticals with / payments and / AI.”** “AI.” is its own line and uses the Our Advantage AI-tab gradient shimmer (Bio Blue → Green → Gold). Axis A’s “companies.” stays gold. |
+| Building on Great | **Unchanged.** The note asked for bold yellow “Great”. Declined: gold text on paper stays out (§27, 1.58:1). The heading remains Instrument Serif italic, ink on paper. |
+| Model columns | Step 01 / 02 / 03 labels and the column arrows are gone. Copy and figures are the client’s: Acquire keeps 70,000 and then ticks 70,001, 70,002… (reduced motion stays at 70,000); Grow is $75B “processed by Fullsteam” and **28th**, counted down from 99, “largest processor in the USA (according to Nilson)”; Lead is **19** “market leading products” and **100%** “adoption of AIDLC across verticals.” 2,000+ employees and 11 verticals left this band. |
+| Homepage verticals | Title is “System of record vertical software.” The parenthetical “(action)” in the note was treated as their flag, not a word in the headline. The italic line under the cards is gone. Card names keep one size so the name and the rule under it do not jump when a card opens. |
+| Vertical Software | Sidebar numerals 01–11 are gone. The current-item dot stays. |
+
+Build: `design-notes.md` §2026-11-18.
 
 ---
 

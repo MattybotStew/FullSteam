@@ -19,6 +19,16 @@ but staged on deploy).
 
 ---
 
+## 2026-11-18 — client feedback PDF (homepage + vertical index)
+
+Applied `Fullsteam Feedback .pdf`. **“Building on Great.” is unchanged** — the note asked for bold yellow “Great” on the paper heading, and that was declined (gold stays a mark on paper).
+
+- **Menu** — the “Menu” label is gone from the homepage panel. Interior pages never had it.
+- **Hero** — audience eyebrow removed. Axis A stays “We acquire / great software / companies.” Axis B is now “Powering our / verticals with / payments and / AI.”, still a copy swap. “AI.” is its own line and uses the Our Advantage AI-tab gradient shimmer (Bio Blue → Green → Gold), so the payoff does not wrap on a phone. Axis A’s “companies.” stays gold.
+- **Model band** — Step 01/02/03 and the column arrows are gone. Acquire, Grow, and Lead take the client’s sentences. Figures: 70,000 then a slow tick (70,001, 70,002…; reduced motion stays at 70,000); $75B “processed by Fullsteam”; 28th counted down from 99, “largest processor in the USA (according to Nilson)”; 19 “market leading products”; 100% “adoption of AIDLC across verticals.” The 2,000+ and 11 figures left this band.
+- **Homepage verticals** — title is “System of record vertical software.” The italic exit line under the cards is gone. Card names no longer change size on hover, so the name and the rule under it stay put while the card opens.
+- **Vertical Software** — the 01–11 numerals are gone from the sidebar. Names and the current-item dot remain.
+
 ## 2026-11-17 (later) — founders / careers copy pass + Figma sync
 
 Homepage `index.html` copy edits, then the same lines written into FS-Design frame

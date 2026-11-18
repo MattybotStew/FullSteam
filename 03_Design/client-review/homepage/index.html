@@ -14,10 +14,10 @@
 
   Assets are local. Photography is licensed stock standing in for the real
   Fullsteam photography and the sizzle master, which do not exist yet; the
-  credits sidecar is assets/credits.json. Figures remain the client-reviewed
-  set: 70,000+ / $75B / 2,000+ / 11. The rank now uses the #28 Nilsen figure (the
-  client's own post) everywhere; the unreconciled "#20 largest processor" line
-  is retired pending client confirmation (content-slots.md §2, row 03).
+  credits sidecar is assets/credits.json. Model-band figures (client, 2026-11-18):
+  70,000 and still counting / $75B / 28th (Nilson, counted down from 99) /
+  19 products / 100% AIDLC. "Building on Great." keeps its serif-italic payoff
+  on paper — the gold-on-paper request was declined.
 
   ---------------------------------------------------------------------------
   2026-11-02 REVIEW PASS — see ./design-notes.md for the full table.
@@ -215,13 +215,6 @@
       from { opacity: 0; transform: translateY(-8px); }
       to { opacity: 1; transform: none; }
     }
-    .menu__panel p {
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--muted);
-      padding: 12px 16px 8px;
-    }
-
     /* scroll progress ------------------------------------------------------- */
     .progress {
       position: fixed; top: 0; left: 0; right: 0; height: 2px;
@@ -335,7 +328,6 @@
     .hero--axis-a .hero__title .line:nth-child(1) { --a-exit: var(--a-exit-1, 0); }
     .hero--axis-a .hero__title .line:nth-child(2) { --a-exit: var(--a-exit-2, 0); }
     .hero--axis-a .hero__title .line:nth-child(3) { --a-exit: var(--a-exit-3, 0); }
-    .hero--axis-a .hero__eyebrow { opacity: calc(1 - var(--a-exit-1, 0)); transition: none; }
 
     .hero__headlines {
       --title-max: var(--display-xl);
@@ -347,32 +339,6 @@
       align-items: center;
       justify-content: center;
     }
-    /* The eyebrow names the three audiences so the reader knows within one line
-       whether the page is for them. A LABEL, not a claim — it must not merge
-       Axis A's identity statement with Axis B's (§23.6 rule 1). Absolutely
-       positioned off the headline box so the H1 does not move a pixel. */
-    .hero__eyebrow {
-      position: absolute;
-      bottom: 100%; left: 0; right: 0;
-      margin: 0 0 clamp(13px, 1.5vw, 20px);
-      padding: 0 24px;
-      font-family: var(--mono);
-      font-size: var(--label); line-height: 1.6;
-      letter-spacing: .14em; text-transform: uppercase;
-      text-align: center; text-wrap: balance;
-      color: rgba(255,255,255,.92);
-    }
-    @media (max-width: 700px) {
-      /* The audience line stacks on phones. 11px at .14em read as fine print and
-         ran long; 12px at .1em holds it to two lines on a 390 and keeps it legible. */
-      .hero__eyebrow {
-        font-size: 12px;
-        letter-spacing: .1em;
-        line-height: 1.65;
-        padding-inline: 0;
-      }
-    }
-
     .hero__title {
       --lh: 0.95;
       margin: 0;
@@ -519,9 +485,9 @@
     }
     .has-js .axis-b__headlines.is-live { visibility: visible; }
 
-    /* Axis B shares the hero's media, so it shares its type treatment: white
-       display, one gold serif word. Two colour systems in one continuous shot
-       read as a cut. */
+    /* Axis B shares the hero's media and the white display. "AI." reuses the
+       Our Advantage rail shimmer: the same Bio Blue → Green → Gold sweep on
+       the type color. Axis A's "companies." stays gold. */
     .axis-b__headlines .hero__title--software { color: #fff; text-shadow: 0 2px 30px rgba(0,20,28,.45); }
     .has-js .axis-b__headlines .hero__title--software .line {
       opacity: var(--line-op, 0);
@@ -531,12 +497,35 @@
     }
     .axis-b__headlines .hero__title--software .line em {
       display: inline-block;
-      color: var(--accent);
+      /* White, not gold: currentColor is the resting stop in the rail shimmer. */
+      color: #fff;
+      background-image: linear-gradient(
+        90deg,
+        currentColor 0%,
+        currentColor 33%,
+        #00587C 40%,
+        #84BD00 50%,
+        #FFC600 60%,
+        currentColor 67%,
+        currentColor 100%
+      );
+      background-size: 300% 100%;
+      background-repeat: no-repeat;
+      background-position: 100% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+      animation: ai-gradient-shift 4s linear infinite;
       transform: scale(calc(0.9 + 0.1 * var(--line-op, 0)));
+    }
+    @keyframes ai-gradient-shift {
+      to { background-position: 0% 0; }
     }
     .axis-b__headlines .hero__title--software .line[data-li="1"] { --line-op: var(--pSoftIn, 1); }
     .axis-b__headlines .hero__title--software .line[data-li="2"] { --line-op: var(--pLine2, 1); }
     .axis-b__headlines .hero__title--software .line[data-li="3"] { --line-op: var(--pLine3, 1); }
+    .axis-b__headlines .hero__title--software .line[data-li="4"] { --line-op: var(--pLine4, 1); }
 
     /* no-JS: both states in document order, A's plate then B's band */
     html:not(.has-js) .axis-b__frame { min-height: 0; height: 0; }
@@ -576,6 +565,11 @@
       }
       .has-js .axis-b__headlines .hero__title--software .line {
         opacity: 1; transform: none; filter: none;
+      }
+      .axis-b__headlines .hero__title--software .line em {
+        animation: none;
+        background-position: 55% 0;
+        transform: none;
       }
       .hero--axis-a .hero__title .line { opacity: 1; transform: none; filter: none; }
       .menu__panel { animation: none; }
@@ -643,10 +637,10 @@
     .steps {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      /* Four rows: top / name / copy / stat. Subgrid keeps the stat rule on one
+      /* Three rows: name / copy / stat. Subgrid keeps the stat rule on one
          line across all three columns — it drifted by 30px before, because only
          step 2's caption wrapped to two lines (2026-11-02). */
-      grid-template-rows: auto auto auto 1fr;
+      grid-template-rows: auto auto 1fr;
       min-height: 380px;
     }
     .step {
@@ -660,22 +654,6 @@
     .step:nth-child(2) { grid-column: 2; }
     .step:nth-child(3) { grid-column: 3; }
     .step + .step { border-left: 1px solid var(--line); padding-left: 34px; }
-    .step__top {
-      display: flex; align-items: baseline; justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 26px;
-    }
-    .step__n {
-      font-family: var(--mono); font-size: var(--label);
-      letter-spacing: .12em;
-      color: var(--muted);
-    }
-    .step.in .step__n { color: var(--ink); }
-    .step__arrow {
-      width: 20px; height: 20px; color: var(--green-ink); flex: 0 0 auto;
-      opacity: .4;
-    }
-    .step.in .step__arrow { opacity: 1; }
     .step__name { font-size: clamp(24px, 2.2vw, 30px); font-weight: 500; letter-spacing: -.02em; }
     .step__copy {
       font-size: var(--t-body); color: var(--muted);
@@ -798,6 +776,7 @@
       padding: 22px;
       color: #fff; text-align: left;
       pointer-events: none;
+      transition: padding-bottom .55s var(--e);
     }
     .vp__idx {
       position: absolute; top: 20px; left: 22px;
@@ -805,24 +784,20 @@
       color: rgba(255, 255, 255, .75);
     }
     .vp__name {
-      display: block;
-      font-size: clamp(17px, 1.6vw, 21px);
+      display: flex; align-items: flex-end;
+      min-height: 2.5em;
+      font-size: clamp(16px, 1.35vw, 20px);
       font-weight: 500; letter-spacing: -.015em;
-      white-space: nowrap;
-      transition: font-size .4s var(--e);
+      line-height: 1.25;
+      white-space: normal;
     }
-    .vp.is-open .vp__name { font-size: clamp(28px, 2.9vw, 40px); }
     @media (min-width: 901px) {
       /* Horizontal names (2026-11-02). §28 records the client note "collapsed
-         strips carry a HORIZONTAL name (no vertical writing anywhere)". These
-         were set vertical-rl again; narrow panels now wrap instead of rotating. */
-      .vp:not(.is-open) .vp__name {
-        white-space: normal;
-        font-size: clamp(13px, 1.05vw, 16px);
-        line-height: 1.28;
-        letter-spacing: -.005em;
-        max-width: 100%;
-      }
+         strips carry a HORIZONTAL name (no vertical writing anywhere)".
+         Size does not change on open or hover (2026-11-18): growing the type
+         while the card widened made the name and the rule under it jump.
+         The two-line slot keeps that rule put when a name wraps down to one. */
+      .vp__name { max-width: 100%; }
     }
     .vp__details {
       display: block;
@@ -880,14 +855,6 @@
       .verts__stage:focus-within .vp .vp__details { max-height: 0; opacity: 0; }
       .verts__stage:hover .vp:hover .vp__details,
       .verts__stage:focus-within .vp:focus-visible .vp__details { max-height: 240px; opacity: 1; }
-      .verts__stage:hover .vp .vp__name,
-      .verts__stage:focus-within .vp .vp__name {
-        font-size: clamp(13px, 1.05vw, 16px);
-      }
-      .verts__stage:hover .vp:hover .vp__name,
-      .verts__stage:focus-within .vp:focus-visible .vp__name {
-        font-size: clamp(28px, 2.9vw, 40px);
-      }
       .verts__stage:hover .vp .vp__link,
       .verts__stage:focus-within .vp .vp__link { opacity: 0; visibility: hidden; }
       .verts__stage:hover .vp:hover .vp__link,
@@ -910,18 +877,6 @@
       font-weight: 500; letter-spacing: -.06em;
       color: rgba(255, 255, 255, .13);
       pointer-events: none;
-    }
-    .verts__exit {
-      margin: clamp(44px, 6vh, 72px) 0 0;
-      padding-top: 22px;
-      border-top: 1px solid var(--line);
-      max-width: 42ch;
-      font-family: var(--serif);
-      font-style: italic;
-      font-size: clamp(21px, 2.3vw, 32px);
-      line-height: 1.25;
-      color: var(--mut);
-      text-wrap: pretty;
     }
     /* ======================================================================
        04 · Founders
@@ -1391,7 +1346,6 @@
 
   <div class="menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
     <div class="menu__panel" id="menuPanel">
-      <p>Menu</p>
       <a href="vertical-software.html">Vertical Software</a>
       <a href="our-advantage.html">Our Advantage</a>
       <a href="our-advantage.html#ai">AI at Fullsteam</a>
@@ -1434,7 +1388,6 @@
 
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
-            <p class="hero__eyebrow">For founders, investors, and the teams who build the software</p>
             <h1 class="hero__title hero__title--portfolio" id="heroTitle">
               <span class="line"><span class="ln">We acquire</span></span>
               <span class="line"><span class="ln">great software</span></span>
@@ -1455,9 +1408,10 @@
       <div class="axis-b__headlines" id="axisBHeadlines">
         <div class="hero__headlines">
           <h2 class="hero__title hero__title--software" id="axisBTitle">
-            <span class="line" data-li="1">Then we build</span>
-            <span class="line" data-li="2">what makes it</span>
-            <span class="line" data-li="3"><em>grow.</em></span>
+            <span class="line" data-li="1">Powering our</span>
+            <span class="line" data-li="2">verticals with</span>
+            <span class="line" data-li="3">payments and</span>
+            <span class="line" data-li="4"><em>AI.</em></span>
           </h2>
         </div>
         <!-- No CTA in the opening (client, 2026-10-29: "Leave a single CTA or
@@ -1477,53 +1431,42 @@
 
         <ol class="steps" id="model-steps">
           <li class="step r">
-            <div class="step__top">
-              <span class="step__n">Step 01</span>
-              <svg class="step__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-            </div>
             <h3 class="step__name">Acquire</h3>
-            <p class="step__copy">We acquire essential, mission-critical vertical software.</p>
+            <p class="step__copy">We acquire system of record vertical software at the heart of a customer&rsquo;s operations.</p>
             <div class="step__stats">
               <div class="step__stat">
-                <p class="stat__n" data-count="70000" data-suffix="+">70,000+</p>
-                <p class="stat__c">customers rely on our software</p>
+                <p class="stat__n" data-count="70000" data-creep>70,000</p>
+                <p class="stat__c">customers who rely on our software&hellip; and counting</p>
               </div>
             </div>
           </li>
 
           <li class="step r">
-            <div class="step__top">
-              <span class="step__n">Step 02</span>
-              <svg class="step__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-            </div>
             <h3 class="step__name">Grow</h3>
-            <p class="step__copy">Embedded payments, lending, and insurance can open new revenue paths.</p>
+            <p class="step__copy">Embedding verticalized payments better serves customers.</p>
             <div class="step__stats">
               <div class="step__stat">
                 <p class="stat__n" data-count="75" data-prefix="$" data-suffix="B">$75B</p>
-                <p class="stat__c">in sales processed through our software</p>
+                <p class="stat__c">processed by Fullsteam</p>
               </div>
               <div class="step__stat">
-                <p class="stat__n" data-count="28" data-prefix="#">#28</p>
-                <p class="stat__c">among U.S. merchant acquirers</p>
+                <p class="stat__n" data-count="28" data-from="99" data-ordinal>28th</p>
+                <p class="stat__c">largest processor in the USA (according to Nilson)</p>
               </div>
             </div>
           </li>
 
           <li class="step r">
-            <div class="step__top">
-              <span class="step__n">Step 03</span>
-            </div>
             <h3 class="step__name">Lead</h3>
-            <p class="step__copy">We help software businesses build stronger products and lead.</p>
+            <p class="step__copy">Our companies embrace agentic operations to build market-leading products.</p>
             <div class="step__stats">
               <div class="step__stat">
-                <p class="stat__n" data-count="2000" data-suffix="+">2,000+</p>
-                <p class="stat__c">employees across our companies</p>
+                <p class="stat__n" data-count="19">19</p>
+                <p class="stat__c">market leading products</p>
               </div>
               <div class="step__stat">
-                <p class="stat__n" data-count="11">11</p>
-                <p class="stat__c">vertical markets, each a system of record</p>
+                <p class="stat__n" data-count="100" data-suffix="%">100%</p>
+                <p class="stat__c">adoption of AIDLC across verticals</p>
               </div>
             </div>
           </li>
@@ -1582,7 +1525,7 @@
     <section class="band band--paper" id="verticals" data-surface="light" aria-labelledby="vertsTitle">
       <div class="wrap">
         <header class="band__head">
-          <h2 class="display display--l r" id="vertsTitle">Essential vertical <em class="write-in">software.</em></h2>
+          <h2 class="display display--l r" id="vertsTitle">System of record vertical <em class="write-in">software.</em></h2>
         </header>
 
         <div class="verts__stage r" id="vertStage" role="group" aria-label="Featured vertical markets">
@@ -1676,7 +1619,6 @@
             </span>
           </a>
         </div>
-        <p class="verts__exit r">Systems of record built around how each industry works.</p>
       </div>
     </section>
 
@@ -2038,6 +1980,7 @@
             axisBHeadlines.style.setProperty('--pSoftIn', '1');
             axisBHeadlines.style.setProperty('--pLine2', '1');
             axisBHeadlines.style.setProperty('--pLine3', '1');
+            axisBHeadlines.style.setProperty('--pLine4', '1');
             axisBHeadlines.classList.add('is-live');
           }
           return;
@@ -2060,8 +2003,9 @@
         var a3 = smooth(seg(t, 0.18, 0.34));
 
         var b1 = smooth(seg(t, 0.28, 0.46));
-        var b2 = smooth(seg(t, 0.36, 0.56));
-        var b3 = smooth(seg(t, 0.44, 0.70));
+        var b2 = smooth(seg(t, 0.36, 0.54));
+        var b3 = smooth(seg(t, 0.44, 0.62));
+        var b4 = smooth(seg(t, 0.52, 0.74));
 
         var wash = smooth(seg(t, 0.24, 0.60));
 
@@ -2075,6 +2019,7 @@
           axisBHeadlines.style.setProperty('--pSoftIn', b1.toFixed(4));
           axisBHeadlines.style.setProperty('--pLine2', b2.toFixed(4));
           axisBHeadlines.style.setProperty('--pLine3', b3.toFixed(4));
+          axisBHeadlines.style.setProperty('--pLine4', b4.toFixed(4));
           /* clear B before the paper band reaches it. The copy rides up with
              the leaving plate and dissolves, so it always exits faster than the
              white edge climbs — a pure fade let white type sit on white for the
@@ -2179,21 +2124,59 @@
          sequence with the rule rather than all at once.
          ------------------------------------------------------------------ */
       function format(n) { return Math.round(n).toLocaleString('en-US'); }
+      function ordinalSuffix(n) {
+        var v = n % 100;
+        if (v >= 11 && v <= 13) return 'th';
+        switch (n % 10) {
+          case 1: return 'st';
+          case 2: return 'nd';
+          case 3: return 'rd';
+          default: return 'th';
+        }
+      }
+      function paintCount(el, n, prefix, suffix) {
+        var rounded = Math.round(n);
+        var end = el.hasAttribute('data-ordinal') ? ordinalSuffix(rounded) : suffix;
+        el.textContent = prefix + format(rounded) + end;
+      }
+      /* data-creep: the figure is already the floor (70,000). It then ticks
+         70,001, 70,002… on its own. The chain treats the floor as completion
+         so Grow does not wait on a counter that never ends. Reduced motion
+         stays on the floor. */
+      function startCreep(el, value, prefix, suffix) {
+        if (el._creeping) return;
+        el._creeping = true;
+        var n = value;
+        function tick() {
+          n += 1;
+          paintCount(el, n, prefix, suffix);
+          window.setTimeout(tick, 1500);
+        }
+        window.setTimeout(tick, 1500);
+      }
       function runCount(el, onDone) {
         var to = parseFloat(el.getAttribute('data-count'));
+        var fromAttr = el.getAttribute('data-from');
+        var from = fromAttr != null && fromAttr !== '' ? parseFloat(fromAttr) : 0;
         var prefix = el.getAttribute('data-prefix') || '';
         var suffix = el.getAttribute('data-suffix') || '';
-        if (!isFinite(to)) { if (onDone) onDone(); return; }
-        if (reduce.matches) { el.textContent = prefix + format(to) + suffix; if (onDone) onDone(); return; }
+        var creep = el.hasAttribute('data-creep');
+        if (!isFinite(to) || !isFinite(from)) { if (onDone) onDone(); return; }
+        if (reduce.matches || creep) {
+          paintCount(el, to, prefix, suffix);
+          if (onDone) onDone();
+          if (creep && !reduce.matches) startCreep(el, to, prefix, suffix);
+          return;
+        }
         var start = null;
         var dur = 2340;
         function step(ts) {
           if (start === null) start = ts;
           var t = clamp01((ts - start) / dur);
           var eased = 1 - Math.pow(1 - t, 3);
-          el.textContent = prefix + format(to * eased) + suffix;
+          paintCount(el, from + (to - from) * eased, prefix, suffix);
           if (t < 1) window.requestAnimationFrame(step);
-          else { el.textContent = prefix + format(to) + suffix; if (onDone) onDone(); }
+          else { paintCount(el, to, prefix, suffix); if (onDone) onDone(); }
         }
         window.requestAnimationFrame(step);
       }

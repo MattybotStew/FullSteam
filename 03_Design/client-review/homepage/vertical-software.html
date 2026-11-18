@@ -364,7 +364,7 @@ body.story-lightbox-open { overflow: hidden; }
 .rail__item {
   position: relative;
   display: grid;
-  grid-template-columns: 26px minmax(0, 1fr) 10px;
+  grid-template-columns: minmax(0, 1fr) 10px;
   align-items: center;
   gap: 10px;
   padding: 13px 12px 13px 12px;
@@ -373,14 +373,6 @@ body.story-lightbox-open { overflow: hidden; }
   color: var(--ink);
   transition: background 180ms var(--e), color 180ms var(--e),
     padding-left 200ms var(--e);
-}
-
-.rail__num {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--muted);   /* was #6a7a81 — 4.46:1, just under AA */
-  transition: color 180ms var(--e);
 }
 
 .rail__name {
@@ -400,7 +392,6 @@ body.story-lightbox-open { overflow: hidden; }
 }
 
 .rail__item:hover { background: var(--surface); }
-.rail__item:hover .rail__num { color: var(--muted); }
 
 .rail__item[aria-current="true"] {
   background: var(--surface);
@@ -409,7 +400,6 @@ body.story-lightbox-open { overflow: hidden; }
 }
 
 .rail__item[aria-current="true"] .rail__name { font-weight: 600; }
-.rail__item[aria-current="true"] .rail__num { color: var(--muted); }
 .rail__item[aria-current="true"] .rail__dot { background: var(--gold); }
 
 /* ---------- panel ---------- */
@@ -963,7 +953,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   .rail__list { display: flex; gap: 8px; }
 
   .rail__item {
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
     gap: 8px;
     padding: 10px 14px;
     border: 1px solid var(--line);
@@ -977,8 +967,6 @@ html:not(.has-js) .story-carousel__controls { display: none; }
     background: var(--ink);
     color: #fff;
   }
-  /* the active pill paints --ink, so --muted numerals are 3.11:1 there */
-  .rail__item[aria-current="true"] .rail__num { color: rgba(255, 255, 255, .78); }
   .rail__dot { display: none; }
 
   .faq__head { position: static; }
@@ -1146,7 +1134,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
         <div class="engine">
           <nav class="rail" aria-label="Vertical index">
             <ol class="rail__list">
-              <li><a class="rail__item" href="#panel-hospitality" data-slug="hospitality"><span class="rail__num">01</span><span class="rail__name">Hospitality</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-weddings-events" data-slug="weddings-events"><span class="rail__num">02</span><span class="rail__name">Weddings &amp; Events</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-wine" data-slug="wine"><span class="rail__num">03</span><span class="rail__name">Wine</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-retail" data-slug="retail"><span class="rail__num">04</span><span class="rail__name">Retail</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-storage-marina" data-slug="storage-marina"><span class="rail__num">05</span><span class="rail__name">Storage &amp; Marina</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-health-wellness" data-slug="health-wellness"><span class="rail__num">06</span><span class="rail__name">Health &amp; Wellness</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-field-services" data-slug="field-services"><span class="rail__num">07</span><span class="rail__name">Field Services</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-transportation" data-slug="transportation"><span class="rail__num">08</span><span class="rail__name">Transportation</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-automotive" data-slug="automotive"><span class="rail__num">09</span><span class="rail__name">Automotive</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-association-management" data-slug="association-management"><span class="rail__num">10</span><span class="rail__name">Association Management</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-erp" data-slug="erp"><span class="rail__num">11</span><span class="rail__name">ERP</span><span class="rail__dot"></span></a></li>
+              <li><a class="rail__item" href="#panel-hospitality" data-slug="hospitality"><span class="rail__name">Hospitality</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-weddings-events" data-slug="weddings-events"><span class="rail__name">Weddings &amp; Events</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-wine" data-slug="wine"><span class="rail__name">Wine</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-retail" data-slug="retail"><span class="rail__name">Retail</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-storage-marina" data-slug="storage-marina"><span class="rail__name">Storage &amp; Marina</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-health-wellness" data-slug="health-wellness"><span class="rail__name">Health &amp; Wellness</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-field-services" data-slug="field-services"><span class="rail__name">Field Services</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-transportation" data-slug="transportation"><span class="rail__name">Transportation</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-automotive" data-slug="automotive"><span class="rail__name">Automotive</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-association-management" data-slug="association-management"><span class="rail__name">Association Management</span><span class="rail__dot"></span></a></li><li><a class="rail__item" href="#panel-erp" data-slug="erp"><span class="rail__name">ERP</span><span class="rail__dot"></span></a></li>
             </ol>
           </nav>
 
