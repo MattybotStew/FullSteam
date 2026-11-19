@@ -2162,10 +2162,9 @@
         var suffix = el.getAttribute('data-suffix') || '';
         var creep = el.hasAttribute('data-creep');
         if (!isFinite(to) || !isFinite(from)) { if (onDone) onDone(); return; }
-        if (reduce.matches || creep) {
+        if (reduce.matches) {
           paintCount(el, to, prefix, suffix);
           if (onDone) onDone();
-          if (creep && !reduce.matches) startCreep(el, to, prefix, suffix);
           return;
         }
         var start = null;
@@ -2176,7 +2175,12 @@
           var eased = 1 - Math.pow(1 - t, 3);
           paintCount(el, from + (to - from) * eased, prefix, suffix);
           if (t < 1) window.requestAnimationFrame(step);
-          else { paintCount(el, to, prefix, suffix); if (onDone) onDone(); }
+          else {
+            paintCount(el, to, prefix, suffix);
+            /* data-creep: count up to the floor first, then keep ticking. */
+            if (creep) startCreep(el, to, prefix, suffix);
+            if (onDone) onDone();
+          }
         }
         window.requestAnimationFrame(step);
       }
