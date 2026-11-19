@@ -37,7 +37,7 @@
 
   --wrap: 1280px;
   --gutter: clamp(20px, 4.4vw, 64px);
-  --bar: 76px;
+  --bar: 84px; /* +10% header scale, 2026-11-19 */
   --sect: clamp(84px, 10vw, 148px);
 
   --t-hero: clamp(38px, min(10.4vw, 12vh), 118px);
@@ -165,7 +165,7 @@ button { font: inherit; color: inherit; }
 /* ---------------------------------------------------------------------- header chrome */
 .bar__logo {
   position: relative; display: block;
-  width: 148px; height: 40px;
+  width: 163px; height: 44px; /* was 148×40 — +10% 2026-11-19 */
   flex: 0 0 auto;
   z-index: 2;
 }
@@ -175,24 +175,38 @@ button { font: inherit; color: inherit; }
   object-fit: contain; object-position: left center;
   transition: opacity .25s var(--e);
 }
-.bar__actions { display: flex; align-items: center; gap: 10px; }
+.bar__actions { display: flex; align-items: center; gap: 11px; }
 .bar__cta-short { display: none; }
+/* header CTA runs 10% larger than the base .btn (2026-11-19) */
+.bar__cta { min-height: 48px; padding: 0 20px; font-size: 14px; }
 .menu-btn {
-  display: grid; place-content: center; gap: 5px;
-  width: 46px; height: 46px;
+  display: grid; place-content: center; gap: 5.5px;
+  width: 51px; height: 51px;
   border: 0; border-radius: 50%;
   background: transparent;
   cursor: pointer;
   color: inherit;
 }
 .menu-btn span {
-  display: block; width: 22px; height: 1.5px;
+  display: block; width: 24px; height: 1.6px;
   background: currentColor; border-radius: 2px;
   transition: transform .22s var(--e), opacity .18s var(--e);
 }
-.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.1px) rotate(45deg); }
 .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.1px) rotate(-45deg); }
+
+/* Mobile keeps the pre-2026-11-19 header scale — the +10% is desktop-only.
+   The bar height and wordmark are reset by each page's ≤600px block; this
+   covers the two elements that have no per-page mobile rule. */
+@media (max-width: 600px) {
+  .bar__actions { gap: 10px; }
+  .bar__cta { min-height: 44px; padding: 0 18px; font-size: 13px; }
+  .menu-btn { width: 46px; height: 46px; gap: 5px; }
+  .menu-btn span { width: 22px; height: 1.5px; }
+  .menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+}
 .menu {
   position: fixed; inset: 0; z-index: 88;
   display: flex; justify-content: flex-end; align-items: flex-start;

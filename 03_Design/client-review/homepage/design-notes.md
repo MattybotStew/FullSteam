@@ -19,6 +19,28 @@ but staged on deploy).
 
 ---
 
+## 2026-11-19 — header elements +10% (desktop only)
+
+At the user's request, every header element grew 10% **on desktop** (site-wide
+chrome, all six hi-fi pages — the tokens live in `assets/site.css`, so nothing is
+per-page except the breakpoint rescues). **Mobile is unchanged**: a `max-width:
+600px` block in `site.css` restores the menu button, its bars, the CTA, and the
+actions gap; each page's ≤600px block still sets bar 68px / wordmark 126×34.
+
+- **Bar** `--bar` 76 → **84px** (`assets/hero.css` fallback updated to match).
+- **Logo** 148×40 → **163×44px**.
+- **Menu button** 46×46 → **51×51px**; the three bars 22×1.5 → 24×1.6px, gap
+  5 → 5.5px, so the open-state X translate becomes ±7.1px.
+- **Header CTA** now overrides the base `.btn--sm` — `min-height` 44 → **48px**,
+  padding 18 → **20px**, 13 → **14px** type (scoped to `.bar__cta`, so the inline
+  “See open roles” pill is unchanged).
+- **Mobile:** unchanged at 68px bar / 126×34 wordmark / 46px menu / 44px pill.
+  The ≤380px 320px rescue is the original one again. **Contact** was the one page
+  with no ≤600px header tier, so its actions group ran 10px past a 320px viewport
+  even before this change; it now carries the same mobile block as the other five.
+  Verified by measurement at 320 / 360 / 380 / 400 / 601 / 640 / 768 / 1440 — no
+  horizontal overflow at any width.
+
 ## 2026-11-18 — client feedback PDF (homepage + vertical index)
 
 Applied `Fullsteam Feedback .pdf`. **“Building on Great.” is unchanged** — the note asked for bold yellow “Great” on the paper heading, and that was declined (gold stays a mark on paper).

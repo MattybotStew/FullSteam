@@ -13,7 +13,7 @@
   background: color-mix(in srgb, var(--gold, #d4a24c) 6%, var(--paper, #fff));
   color: var(--ink, #04141B);
   border-bottom: 1px solid var(--line, rgba(4,20,27,.14));
-  padding: calc(var(--bar, 76px) + clamp(16px, 2vw, 28px)) 0 clamp(28px, 3.2vw, 44px);
+  padding: calc(var(--bar, 84px) + clamp(16px, 2vw, 28px)) 0 clamp(28px, 3.2vw, 44px);
 }
 .hero[data-surface="dark"] { background: var(--ink, #04141B); color: #fff; }
 .hero[data-surface="dark"] .lede { color: rgba(255,255,255,.72); }
