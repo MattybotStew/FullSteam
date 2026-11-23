@@ -688,21 +688,6 @@
     .ai__item:hover { transform: translateX(6px); }
     .ai__item h3 { font-size: clamp(20px, 1.9vw, 25px); font-weight: 500; letter-spacing: -.015em; }
     .ai__item p { margin-top: 10px; font-size: var(--t-small); line-height: 1.6; color: rgba(255, 255, 255, .66); max-width: 46ch; }
-    .ai__exit {
-      margin: clamp(40px, 5vw, 56px) 0 0;
-      padding-top: clamp(22px, 3vw, 32px);
-      border-top: 1px solid var(--dark-hair);
-      width: 100%;
-      max-width: none;
-      font-family: inherit;
-      font-style: normal;
-      font-weight: 500;
-      font-size: clamp(26px, 3.8vw, 52px);
-      line-height: 1.12;
-      letter-spacing: -.02em;
-      color: rgba(255, 255, 255, .72);
-      text-wrap: balance;
-    }
     /* ======================================================================
        03 · Verticals — a gallery that opens
        ====================================================================== */
@@ -837,16 +822,47 @@
       .verts__stage:focus-within .vp:focus-visible .vp__face { padding-bottom: 62px; }
     }
     .vp--all .vp__img { display: none; }
-    .vp--all {
-      background: linear-gradient(160deg, #006C99 0%, #003F55 62%, #032B39 100%);
+    .vp--all { background: #032B39; }
+    .vp--all .vp__clouds {
+      position: absolute; inset: -30%;
+      z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .vp--all .vp__cloud {
+      position: absolute; border-radius: 50%;
+      animation: heroDrift 16s cubic-bezier(.45,.05,.55,.95) infinite;
+    }
+    .vp--all .vp__cloud--blue {
+      width: 78%; height: 70%; left: -8%; top: -18%;
+      background: radial-gradient(closest-side, #2F86B0 0%, rgba(47,134,176,.35) 62%, transparent 78%);
+    }
+    .vp--all .vp__cloud--gold {
+      width: 70%; height: 62%; right: -18%; bottom: -8%;
+      background: radial-gradient(closest-side, #FFC600 0%, rgba(255,198,0,.28) 58%, transparent 76%);
+      animation-duration: 19s;
+    }
+    .vp--all .vp__cloud--green {
+      width: 72%; height: 64%; left: 18%; bottom: -28%;
+      background: radial-gradient(closest-side, #84BD00 0%, rgba(132,189,0,.3) 58%, transparent 76%);
+      animation-duration: 14s;
+    }
+    .vp--all .vp__shade {
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(3, 16, 22, .12) 0%, rgba(3, 16, 22, .55) 100%);
     }
     .vp--all .vp__big {
-      position: absolute; right: 16px; top: 46%;
+      position: absolute; right: 16px; top: 46%; z-index: 1;
       transform: translateY(-50%);
       font-size: clamp(80px, 9vw, 150px);
       font-weight: 500; letter-spacing: -.06em;
-      color: rgba(255, 255, 255, .13);
+      color: rgba(255, 255, 255, .16);
       pointer-events: none;
+    }
+    @keyframes heroDrift {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(8%, -6%, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .vp--all .vp__cloud { animation: none !important; }
     }
     /* ======================================================================
        04 · Founders
@@ -872,7 +888,7 @@
       text-transform: uppercase;
       color: rgba(255, 255, 255, .72);
     }
-    .founders h2 { max-width: 14ch; }
+    .founders h2 { max-width: 16ch; }
     .founders__body {
       margin-top: 28px;
       color: rgba(255, 255, 255, .72);
@@ -1008,22 +1024,13 @@
     /* Value-theme marks — replaced headshots when voices became Ownership /
        Career mobility / Industry impact (copy deck 2026-11-16). */
     .voice__face {
-      display: grid;
-      place-items: center;
-      width: 56px; height: 56px;
+      width: 64px; height: 64px;
       border-radius: 50%;
       border: 1px solid var(--line);
-      background: var(--surface);
-      color: var(--ink);
+      background: #fff;
+      object-fit: cover;
+      object-position: center 18%;
       flex: 0 0 auto;
-    }
-    .voice__face svg {
-      width: 24px; height: 24px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
     }
     .voice__role {
       font-family: var(--mono); font-size: 11px;
@@ -1462,12 +1469,12 @@
 
           <ul class="ai__list">
             <li class="ai__item r" style="--d:0ms">
-              <h3>Modernize existing software</h3>
-              <p>Add smarter search, forecasting, and workflows to software customers already use.</p>
+              <h3>Utilize AI product development standards</h3>
+              <p>Agentic development (AIDLC) provides faster time to market and increased capacity.</p>
             </li>
             <li class="ai__item r" style="--d:90ms">
               <h3>Build new AI customer-facing features</h3>
-              <p>Build useful AI features with the vertical&rsquo;s own data.</p>
+              <p>Create AI features in-product that customers want.</p>
             </li>
             <li class="ai__item r" style="--d:180ms">
               <h3>Automate business workflows</h3>
@@ -1475,7 +1482,6 @@
             </li>
           </ul>
         </div>
-        <p class="ai__exit r">Spend more time on what you do best.</p>
       </div>
     </section>
 
@@ -1496,8 +1502,8 @@
             <span class="vp__face">
               <span class="vp__name">ERP</span>
               <span class="vp__details" id="vp-0">
-                <span class="vp__meta">4.2M</span>
-                <span class="vp__desc">work orders a year</span>
+                <span class="vp__meta">+$25B</span>
+                <span class="vp__desc">in gross customer merchandise value</span>
               </span>
               <span class="vp__link">Learn more
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
@@ -1511,8 +1517,8 @@
             <span class="vp__face">
               <span class="vp__name">Wine</span>
               <span class="vp__details" id="vp-1">
-                <span class="vp__meta">28M</span>
-                <span class="vp__desc">bottles shipped a year</span>
+                <span class="vp__meta">+3M</span>
+                <span class="vp__desc">unique consumers purchase wine</span>
               </span>
               <span class="vp__link">Learn more
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
@@ -1526,8 +1532,8 @@
             <span class="vp__face">
               <span class="vp__name">Transportation</span>
               <span class="vp__details" id="vp-2">
-                <span class="vp__meta">6.5M</span>
-                <span class="vp__desc">black-car rides a year</span>
+                <span class="vp__meta">25M</span>
+                <span class="vp__desc">reservations fulfilled annually</span>
               </span>
               <span class="vp__link">Learn more
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
@@ -1541,8 +1547,8 @@
             <span class="vp__face">
               <span class="vp__name">Hospitality</span>
               <span class="vp__details" id="vp-3">
-                <span class="vp__meta">9.1M</span>
-                <span class="vp__desc">covers served a year</span>
+                <span class="vp__meta">15M</span>
+                <span class="vp__desc">room nights booked annually at our properties</span>
               </span>
               <span class="vp__link">Learn more
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
@@ -1556,8 +1562,8 @@
             <span class="vp__face">
               <span class="vp__name">Automotive</span>
               <span class="vp__details" id="vp-4">
-                <span class="vp__meta">3.8M</span>
-                <span class="vp__desc">oil changes booked a year</span>
+                <span class="vp__meta">+30M</span>
+                <span class="vp__desc">cars serviced annually by our customers</span>
               </span>
               <span class="vp__link">Learn more
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
@@ -1566,6 +1572,11 @@
           </a>
 
           <a class="vp vp--all" href="vertical-software.html" data-surface="dark">
+            <span class="vp__clouds" aria-hidden="true">
+              <span class="vp__cloud vp__cloud--blue"></span>
+              <span class="vp__cloud vp__cloud--gold"></span>
+              <span class="vp__cloud vp__cloud--green"></span>
+            </span>
             <span class="vp__big" aria-hidden="true">11</span>
             <div class="vp__shade" aria-hidden="true"></div>
             <span class="vp__face">
@@ -1590,11 +1601,10 @@
       <div class="wrap">
         <div class="founders__grid">
           <div class="r">
-            <p class="founders__eyebrow">For founders</p>
-            <h2 class="display display--l" id="foundersTitle">Build on what you already made great.</h2>
-            <p class="founders__body">We work toward a smooth transition, then add operational expertise, back-office support, enterprise-grade cybersecurity, and embedded tools to help it grow.</p>
+            <h2 class="display display--l" id="foundersTitle">Acquisition is just the first step</h2>
+            <p class="founders__body">Building on great means we work together to grow your business. We believe customers are best served with agentic product development and embedded fintech products.</p>
             <p class="founders__cta">
-              <a class="btn" href="for-founders.html">Explore Acquisitions</a>
+              <a class="btn" href="for-founders.html">Explore an Acquisition</a>
             </p>
           </div>
           <figure class="founders__media r" style="--d:110ms">
@@ -1603,14 +1613,6 @@
           </figure>
         </div>
 
-        <p class="founders__quote">
-          <span class="fw" style="--i:0">More</span>
-          <span class="fw" style="--i:1">relevant.</span>
-          <span class="fw" style="--i:2">More</span>
-          <span class="fw" style="--i:3">capable.</span>
-          <span class="fw" style="--i:4">More</span>
-          <span class="fw" style="--i:5">competitive.</span>
-        </p>
       </div>
     </section>
 
@@ -1621,49 +1623,42 @@
       <div class="wrap">
         <header class="band__head careers__head">
           <div class="careers__intro">
-            <h2 class="display display--l r" id="careersTitle">Own the work. Keep growing.</h2>
+            <h2 class="display display--l r" id="careersTitle">Real people. Real impact.</h2>
             <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
           </div>
-          <p class="lede r" style="--d:80ms">Across 100+ business units, people take ownership, learn new industries, and work directly with leaders</p>
         </header>
 
         <ol class="voices">
           <li class="voice r">
             <div class="voice__top">
-              <span class="voice__face" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.5 12.2l1.8 1.8 3.4-3.8"/></svg>
-              </span>
-              <span class="voice__role">Vertical President</span>
+              <img class="voice__face" src="assets/img/voices/tim-mckee.png" alt="" width="233" height="231">
+              <span class="voice__role">Vertical President, BridalLive</span>
             </div>
-            <blockquote><p>I&rsquo;ve had the opportunity to take on new challenges and advance professionally in a company that invests in its people.</p></blockquote>
-            <p class="voice__attr">Tim Mckee, Vertical President, BridalLive</p>
+            <blockquote><p>I&rsquo;ve had the opportunity to take on new challenges and advance professionally in a company that invests in its people. The culture here is rooted in excellence, professionalism, and collaboration across all departments. It&rsquo;s exciting to be part of a company at the forefront of SaaS and payments technology, delivering solutions that shape the future of the industries we serve.</p></blockquote>
+            <p class="voice__attr">Tim Mckee</p>
           </li>
           <li class="voice r" style="--d:80ms">
             <div class="voice__top">
-              <span class="voice__face" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M4 19h4v-4h4v-4h4V7h4"/></svg>
-              </span>
-              <span class="voice__role">Talent</span>
+              <img class="voice__face" src="assets/img/voices/xavier-codrington.png" alt="" width="244" height="244">
+              <span class="voice__role">Manager, Operations</span>
             </div>
-            <blockquote><p>Fullsteam is a company that cares about their employees. It is refreshing to work at a company where you can feel valued every day.</p></blockquote>
-            <p class="voice__attr">Megan Huffman, Senior Talent Acquisition Partner</p>
+            <blockquote><p>What I&rsquo;ve enjoyed most at Fullsteam is the ownership I&rsquo;ve had over meaningful work and the genuine support to grow into larger roles. Leadership has been both empowering and impactful, creating an environment where, if you&rsquo;re ready to build something, you truly can.</p></blockquote>
+            <p class="voice__attr">Xavier Codrington</p>
           </li>
           <li class="voice r" style="--d:160ms">
             <div class="voice__top">
-              <span class="voice__face" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M4 18h16"/><path d="M6 18V9l6-4 6 4v9"/><path d="M10 18v-5h4v5"/></svg>
-              </span>
-              <span class="voice__role">Sales</span>
+              <img class="voice__face" src="assets/img/voices/taylor-straight.png" alt="" width="770" height="770">
+              <span class="voice__role">Senior Director, Finance</span>
             </div>
-            <blockquote><p>Fullsteam just feels real. Everyone, no matter their role, treats you with respect and kindness. We&rsquo;re all trying to get better together.</p></blockquote>
-            <p class="voice__attr">Thomas Fancher, Sr. Sales Development Representative</p>
+            <blockquote><p>I&rsquo;ve liked working at Fullsteam because they really believe in investing in their employees, with a big focus on promoting from within. It&rsquo;s also been fun getting to come to work every day and solve unique challenges, in an environment where every team member and department wants each other to win and have successes just as much as they do.</p></blockquote>
+            <p class="voice__attr">Taylor Straight</p>
           </li>
         </ol>
 
         <div class="posts">
           <div class="posts__head">
             <div>
-              <h3 id="careersPostsTitle">From the company page</h3>
+              <h3 id="careersPostsTitle">See what we&rsquo;re building</h3>
             </div>
             <div class="posts__nav">
               <button class="posts__btn" id="postsPrev" type="button" aria-label="Previous posts" disabled>

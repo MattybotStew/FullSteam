@@ -15,37 +15,30 @@
     {
       "file": "assets/img/erp.jpg",
       "slot": "Verticals \u2014 ERP",
-      "subject": "Modern open-plan office",
-      "source": "Unsplash",
-      "author": "Nastuh Abootalebi",
-      "assetUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c",
-      "license": "Unsplash License"
+      "subject": "Window-coverings factory floor, fabric rolls and blind slats",
+      "source": "Generated review stand-in, 2026-11-23",
+      "license": "Review placeholder \u2014 replace with licensed photography before launch"
     },
     {
       "file": "assets/img/wine.jpg",
       "slot": "Verticals \u2014 Wine",
-      "subject": "Wine cellar and barrels",
-      "source": "Unsplash",
-      "assetUrl": "https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea",
-      "license": "Unsplash License"
+      "subject": "Wine bottles in a wooden shipping crate",
+      "source": "Generated review stand-in, 2026-11-23",
+      "license": "Review placeholder \u2014 replace with licensed photography before launch"
     },
     {
       "file": "assets/img/transport.jpg",
       "slot": "Verticals \u2014 Transportation",
-      "subject": "Logistics warehouse",
-      "source": "Unsplash",
-      "author": "CHUTTERSNAP",
-      "assetUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d",
-      "license": "Unsplash License"
+      "subject": "Black-car fleet at an airport curb",
+      "source": "Generated review stand-in, 2026-11-23",
+      "license": "Review placeholder \u2014 replace with licensed photography before launch"
     },
     {
       "file": "assets/img/hospitality.jpg",
       "slot": "Verticals \u2014 Hospitality",
-      "subject": "Professional kitchen",
-      "source": "Unsplash",
-      "author": "Jason Briscoe",
-      "assetUrl": "https://images.unsplash.com/photo-1556910103-1c02745aae4d",
-      "license": "Unsplash License"
+      "subject": "Hotel check-in desk",
+      "source": "Generated review stand-in, 2026-11-23",
+      "license": "Review placeholder \u2014 replace with licensed photography before launch"
     },
     {
       "file": "assets/img/weddings-events.jpg",
@@ -147,10 +140,33 @@
     {
       "file": "assets/img/automotive.jpg",
       "slot": "Verticals \u2014 Automotive",
-      "subject": "Car on the road",
-      "source": "Unsplash",
-      "assetUrl": "https://images.unsplash.com/photo-1502877338535-766e1452684a",
-      "license": "Unsplash License"
+      "subject": "A car being detailed in a service bay",
+      "source": "Generated review stand-in, 2026-11-23",
+      "license": "Review placeholder \u2014 replace with licensed photography before launch"
+    },
+    {
+      "file": "assets/img/voices/tim-mckee.png",
+      "slot": "Homepage careers \u2014 Tim Mckee",
+      "subject": "Portrait published on fullsteam.com/employees",
+      "source": "fullsteam.com/employees",
+      "assetUrl": "https://www.fullsteam.com/employees",
+      "license": "Fullsteam client asset \u2014 confirm publishability before launch"
+    },
+    {
+      "file": "assets/img/voices/xavier-codrington.png",
+      "slot": "Homepage careers \u2014 Xavier Codrington",
+      "subject": "Portrait published on fullsteam.com/employees",
+      "source": "fullsteam.com/employees",
+      "assetUrl": "https://www.fullsteam.com/employees",
+      "license": "Fullsteam client asset \u2014 confirm publishability before launch"
+    },
+    {
+      "file": "assets/img/voices/taylor-straight.png",
+      "slot": "Homepage careers \u2014 Taylor Straight",
+      "subject": "Portrait published on fullsteam.com/employees",
+      "source": "fullsteam.com/employees",
+      "assetUrl": "https://www.fullsteam.com/employees",
+      "license": "Fullsteam client asset \u2014 confirm publishability before launch"
     },
     {
       "file": "assets/img/founders.jpg",
