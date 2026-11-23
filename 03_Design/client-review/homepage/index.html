@@ -16,8 +16,15 @@
   Fullsteam photography and the sizzle master, which do not exist yet; the
   credits sidecar is assets/credits.json. Model-band figures (client, 2026-11-18):
   70,000 and still counting / $75B / 28th (Nilson, counted down from 99) /
-  19 products / 100% AIDLC. "Building on Great." keeps its serif-italic payoff
-  on paper — the gold-on-paper request was declined.
+  19 products / 100% AIDLC.
+
+  Italic rule (client, 2026-11-23) — homepage only until the other pages
+  are reviewed. Instrument Serif italic is emphasis, not a last-word
+  decoration. Use it in two places: a title of a published work (the
+  Nilsen Report), and nowhere else on this page. The opening hero and
+  the section headlines are roman. A whole line set in italic (the AI
+  closer, the founders closer) is roman too. Names, job titles, product
+  names, and figures stay roman.
 
   ---------------------------------------------------------------------------
   2026-11-02 REVIEW PASS — see ./design-notes.md for the full table.
@@ -85,10 +92,9 @@
     :root {
       /* Homepage-only tokens. Shared tokens live in assets/site.css. */
       --axis-b-travel: 160vh;
-      --display-xl: clamp(50px, 8.34vw, 120px);
-      /* Display tracking holds at -0.03em: at 120px the -0.035em setting closed
-         the counters of "great software"; one step opens them without losing the
-         display cut. Below 390px the headline gets its own ramp (see .hero__headlines). */
+      /* Wide enough that each hero is three lines: "great vertical software"
+         and "industry-defining" stay on one line. */
+      --display-xl: clamp(26px, 7.6vw, 112px);
       --track-display-xl: -.03em;
       --frame-hair: rgba(255, 255, 255, .18);
     }
@@ -328,11 +334,12 @@
     .hero--axis-a .hero__title .line:nth-child(1) { --a-exit: var(--a-exit-1, 0); }
     .hero--axis-a .hero__title .line:nth-child(2) { --a-exit: var(--a-exit-2, 0); }
     .hero--axis-a .hero__title .line:nth-child(3) { --a-exit: var(--a-exit-3, 0); }
+    .hero--axis-a .hero__title .line:nth-child(4) { --a-exit: var(--a-exit-4, 0); }
 
     .hero__headlines {
       --title-max: var(--display-xl);
       position: relative;
-      width: min(1100px, calc(100vw - 48px));
+      width: min(1480px, calc(100vw - 40px));
       min-height: clamp(8.4rem, 22.8vw, 18.6rem);
       margin: 0;
       display: flex;
@@ -371,6 +378,7 @@
       box-sizing: border-box;
       width: 100%;
       padding-inline: 0.16em;
+      white-space: nowrap;
     }
     /* Axis A masks each line so the type rises out of its own baseline. Scoped
        to the opening: Axis B reuses .line for a scroll reveal and must not clip.
@@ -398,14 +406,10 @@
     .hero__title--portfolio { color: var(--ink); text-shadow: none; }
     .hero__title .line em:only-child { line-height: 1.05; overflow: visible; }
 
-    /* Small phones: the locked three-line H1 must stay three lines. At the 50px
-       floor "great software" is 313px wide and a 320 viewport only offers 272px,
-       so it wrapped to a fourth line and pushed the payoff into the gutter. The
-       ramp and the slimmer line padding keep each phrase on its own line from
-       320 up; 390 onward the desktop floor (50px) takes over again. */
+    /* The size ramp lives on --display-xl. Small phones only shed a little
+       side padding so "industry-defining" keeps its own line. */
     @media (max-width: 389px) {
-      .hero__headlines { --title-max: clamp(38px, 12vw, 49px); }
-      .hero__title .line { padding-inline: 0.1em; }
+      .hero__title .line { padding-inline: 0.08em; }
     }
 
     /* ---- entrance: each line rises out of its own baseline, resolving out of
@@ -485,9 +489,8 @@
     }
     .has-js .axis-b__headlines.is-live { visibility: visible; }
 
-    /* Axis B shares the hero's media and the white display. "AI." reuses the
-       Our Advantage rail shimmer: the same Bio Blue → Green → Gold sweep on
-       the type color. Axis A's "companies." stays gold. */
+    /* Axis B shares the hero's media and the white display. "technology." is
+       the gold serif payoff, same as Axis A's "companies." */
     .axis-b__headlines .hero__title--software { color: #fff; text-shadow: 0 2px 30px rgba(0,20,28,.45); }
     .has-js .axis-b__headlines .hero__title--software .line {
       opacity: var(--line-op, 0);
@@ -497,30 +500,9 @@
     }
     .axis-b__headlines .hero__title--software .line em {
       display: inline-block;
-      /* White, not gold: currentColor is the resting stop in the rail shimmer. */
-      color: #fff;
-      background-image: linear-gradient(
-        90deg,
-        currentColor 0%,
-        currentColor 33%,
-        #00587C 40%,
-        #84BD00 50%,
-        #FFC600 60%,
-        currentColor 67%,
-        currentColor 100%
-      );
-      background-size: 300% 100%;
-      background-repeat: no-repeat;
-      background-position: 100% 0;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--accent);
       text-shadow: none;
-      animation: ai-gradient-shift 4s linear infinite;
       transform: scale(calc(0.9 + 0.1 * var(--line-op, 0)));
-    }
-    @keyframes ai-gradient-shift {
-      to { background-position: 0% 0; }
     }
     .axis-b__headlines .hero__title--software .line[data-li="1"] { --line-op: var(--pSoftIn, 1); }
     .axis-b__headlines .hero__title--software .line[data-li="2"] { --line-op: var(--pLine2, 1); }
@@ -567,8 +549,6 @@
         opacity: 1; transform: none; filter: none;
       }
       .axis-b__headlines .hero__title--software .line em {
-        animation: none;
-        background-position: 55% 0;
         transform: none;
       }
       .hero--axis-a .hero__title .line { opacity: 1; transform: none; filter: none; }
@@ -690,18 +670,15 @@
        ====================================================================== */
     .ai { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
     .ai__left { position: sticky; top: calc(var(--bar) + 44px); align-self: start; }
-    /* AI band: brand green carries the headline and the payoff word goes white.
-       Green on --brand-ink is 8.26:1 and white 18.7:1, so this reads better
-       than gold on ink here — and keeps green as the AI signal. */
-    .ai__left h2 { max-width: 16ch; color: var(--green); }
-    .ai__left h2 em { color: #fff; }
+    /* The band is white type. Green is the AI signal, and only the word AI. */
+    .ai__left h2 { max-width: 16ch; color: #fff; }
+    .ai__left h2 .ai-word { color: var(--green); }
     .ai__left .lede { margin-top: 26px; }
     .ai__left .arrow-link { margin-top: 34px; color: var(--green); }
     .ai__left .arrow-link:hover { color: #fff; }
     #ai .index::before { background: var(--green); }
-    .ai__list { border-top: 2px solid var(--green); }
+    .ai__list { border-top: 2px solid var(--green); list-style: none; margin: 0; padding: 0; }
     .ai__item {
-      display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 20px;
       padding: 30px 0 32px;
       transition: transform .35s var(--e);
     }
@@ -709,14 +686,6 @@
       border-top: 1px solid var(--dark-hair);
     }
     .ai__item:hover { transform: translateX(6px); }
-    .ai__n {
-      font-family: var(--mono); font-size: var(--label);
-      letter-spacing: .1em;
-      color: color-mix(in srgb, var(--green) 55%, rgba(255, 255, 255, .55));
-      padding-top: 5px;
-      transition: color .25s var(--e);
-    }
-    .ai__item:hover .ai__n { color: var(--green); }
     .ai__item h3 { font-size: clamp(20px, 1.9vw, 25px); font-weight: 500; letter-spacing: -.015em; }
     .ai__item p { margin-top: 10px; font-size: var(--t-small); line-height: 1.6; color: rgba(255, 255, 255, .66); max-width: 46ch; }
     .ai__exit {
@@ -725,8 +694,9 @@
       border-top: 1px solid var(--dark-hair);
       width: 100%;
       max-width: none;
-      font-family: var(--serif);
-      font-style: italic;
+      font-family: inherit;
+      font-style: normal;
+      font-weight: 500;
       font-size: clamp(26px, 3.8vw, 52px);
       line-height: 1.12;
       letter-spacing: -.02em;
@@ -934,7 +904,7 @@
       padding: clamp(34px, 4vw, 48px) 0 0;
       border-top: 1px solid var(--dark-hair);
       border-bottom: 0;
-      font-family: var(--serif); font-style: italic;
+      font-family: inherit; font-style: normal; font-weight: 500;
       font-size: clamp(26px, 3.8vw, 52px);
       line-height: 1.12;
       letter-spacing: -.02em;
@@ -1390,8 +1360,8 @@
           <div class="hero__headlines">
             <h1 class="hero__title hero__title--portfolio" id="heroTitle">
               <span class="line"><span class="ln">We acquire</span></span>
-              <span class="line"><span class="ln">great software</span></span>
-              <span class="line line--payoff"><span class="ln"><em>companies.</em></span></span>
+              <span class="line"><span class="ln">great vertical software</span></span>
+              <span class="line line--payoff"><span class="ln">companies.</span></span>
             </h1>
           </div>
         </div>
@@ -1408,10 +1378,9 @@
       <div class="axis-b__headlines" id="axisBHeadlines">
         <div class="hero__headlines">
           <h2 class="hero__title hero__title--software" id="axisBTitle">
-            <span class="line" data-li="1">Powering our</span>
-            <span class="line" data-li="2">verticals with</span>
-            <span class="line" data-li="3">payments and</span>
-            <span class="line" data-li="4"><em>AI.</em></span>
+            <span class="line" data-li="1">And build</span>
+            <span class="line" data-li="2">industry-defining</span>
+            <span class="line" data-li="3">technology.</span>
           </h2>
         </div>
         <!-- No CTA in the opening (client, 2026-10-29: "Leave a single CTA or
@@ -1425,7 +1394,7 @@
     <section class="band band--paper" id="scale" data-surface="light" aria-labelledby="modelTitle">
       <div class="wrap">
         <header class="band__head band__head--model">
-          <h2 class="display display--l r" id="modelTitle">Building on <em class="write-in">Great.</em></h2>
+          <h2 class="display display--l r" id="modelTitle">Building on Great.</h2>
           <div class="model-rule" aria-hidden="true"></div>
         </header>
 
@@ -1443,7 +1412,7 @@
 
           <li class="step r">
             <h3 class="step__name">Grow</h3>
-            <p class="step__copy">Embedding verticalized payments better serves customers.</p>
+            <p class="step__copy">We expand opportunities with AI, embedded fintech, and operational excellence.</p>
             <div class="step__stats">
               <div class="step__stat">
                 <p class="stat__n" data-count="75" data-prefix="$" data-suffix="B">$75B</p>
@@ -1458,7 +1427,7 @@
 
           <li class="step r">
             <h3 class="step__name">Lead</h3>
-            <p class="step__copy">Our companies embrace agentic operations to build market-leading products.</p>
+            <p class="step__copy">Modern, AI-ready platforms that set the pace for their industries.</p>
             <div class="step__stats">
               <div class="step__stat">
                 <p class="stat__n" data-count="19">19</p>
@@ -1481,8 +1450,8 @@
       <div class="wrap">
         <div class="ai">
           <div class="ai__left">
-            <h2 class="display display--l r" id="aiTitle">Practical AI built into the <em class="write-in">software.</em></h2>
-            <p class="lede r" style="--d:70ms">We use AI where it solves a real problem inside the software.</p>
+            <h2 class="display display--l r" id="aiTitle">Practical <span class="ai-word">AI</span>, from code to customer.</h2>
+            <p class="lede r" style="--d:70ms">We employ AI when it adds real customer value.</p>
             <p class="r" style="--d:140ms">
               <a class="arrow-link" href="our-advantage.html#ai">
                 See AI at Fullsteam
@@ -1491,29 +1460,20 @@
             </p>
           </div>
 
-          <ol class="ai__list">
+          <ul class="ai__list">
             <li class="ai__item r" style="--d:0ms">
-              <span class="ai__n">01</span>
-              <div>
-                <h3>Modernize existing software</h3>
-                <p>Add smarter search, forecasting, and workflows to software customers already use.</p>
-              </div>
+              <h3>Modernize existing software</h3>
+              <p>Add smarter search, forecasting, and workflows to software customers already use.</p>
             </li>
             <li class="ai__item r" style="--d:90ms">
-              <span class="ai__n">02</span>
-              <div>
-                <h3>Build new AI customer-facing features</h3>
-                <p>Build useful AI features with the vertical&rsquo;s own data.</p>
-              </div>
+              <h3>Build new AI customer-facing features</h3>
+              <p>Build useful AI features with the vertical&rsquo;s own data.</p>
             </li>
             <li class="ai__item r" style="--d:180ms">
-              <span class="ai__n">03</span>
-              <div>
-                <h3>Automate business workflows</h3>
-                <p>Automate repetitive work so teams can focus on products, customers, and growth.</p>
-              </div>
+              <h3>Automate business workflows</h3>
+              <p>Automate repetitive work so teams can focus on products, customers, and growth.</p>
             </li>
-          </ol>
+          </ul>
         </div>
         <p class="ai__exit r">Spend more time on what you do best.</p>
       </div>
@@ -1525,7 +1485,8 @@
     <section class="band band--paper" id="verticals" data-surface="light" aria-labelledby="vertsTitle">
       <div class="wrap">
         <header class="band__head">
-          <h2 class="display display--l r" id="vertsTitle">System of record vertical <em class="write-in">software.</em></h2>
+          <h2 class="display display--l r" id="vertsTitle">Essential software for key industries.</h2>
+          <p class="lede r" style="--d:80ms">Our software is the system of record for the businesses and industries powering our economy.</p>
         </header>
 
         <div class="verts__stage r" id="vertStage" role="group" aria-label="Featured vertical markets">
@@ -1630,7 +1591,7 @@
         <div class="founders__grid">
           <div class="r">
             <p class="founders__eyebrow">For founders</p>
-            <h2 class="display display--l" id="foundersTitle">Build on what you already made <em class="write-in">great.</em></h2>
+            <h2 class="display display--l" id="foundersTitle">Build on what you already made great.</h2>
             <p class="founders__body">We work toward a smooth transition, then add operational expertise, back-office support, enterprise-grade cybersecurity, and embedded tools to help it grow.</p>
             <p class="founders__cta">
               <a class="btn" href="for-founders.html">Explore Acquisitions</a>
@@ -1660,7 +1621,7 @@
       <div class="wrap">
         <header class="band__head careers__head">
           <div class="careers__intro">
-            <h2 class="display display--l r" id="careersTitle">Own the work. Keep <em class="write-in">growing.</em></h2>
+            <h2 class="display display--l r" id="careersTitle">Own the work. Keep growing.</h2>
             <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
           </div>
           <p class="lede r" style="--d:80ms">Across 100+ business units, people take ownership, learn new industries, and work directly with leaders</p>
@@ -1721,7 +1682,7 @@
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Oct 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">Supporting our customers starts with our people and the expertise they bring. We&rsquo;re hiring a <em>Senior Information Security &amp; Compliance Business Partner</em>.</p>
+              <p class="li__text">Supporting our customers starts with our people and the expertise they bring. We&rsquo;re hiring a Senior Information Security &amp; Compliance Business Partner.</p>
               <div class="li__art">
                 <span class="li__art-kicker">Now hiring</span>
                 <strong>Senior Information Security &amp; Compliance Business Partner</strong>
@@ -1735,7 +1696,7 @@
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Oct 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">Career growth can take many forms. For <em>Xavier Codrington</em>, it has meant taking on new challenges and growing into a leadership role.</p>
+              <p class="li__text">Career growth can take many forms. For Xavier Codrington, it has meant taking on new challenges and growing into a leadership role.</p>
               <div class="li__art li__art--ink">
                 <span class="li__art-kicker">Fullsteam Voices</span>
                 <strong>Xavier Codrington</strong>
@@ -1749,7 +1710,7 @@
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Jul 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">We&rsquo;re proud to celebrate our Vice President and CISO, <em>Emily Traylor</em>, on receiving Auburn&rsquo;s 2026 Young Alumni Achievement Award.</p>
+              <p class="li__text">We&rsquo;re proud to celebrate our Vice President and CISO, Emily Traylor, on receiving Auburn&rsquo;s 2026 Young Alumni Achievement Award.</p>
               <div class="li__art li__art--gold">
                 <span class="li__art-kicker">Auburn Alumni Association</span>
                 <strong>2026 Young Alumni Achievement Award</strong>
@@ -1763,7 +1724,7 @@
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Jun 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">Hotels and resorts have long used revenue management to optimize room inventory. With <em>Priswing</em>, golf resort operators can price the same way.</p>
+              <p class="li__text">Hotels and resorts have long used revenue management to optimize room inventory. With Priswing, golf resort operators can price the same way.</p>
               <div class="li__art li__art--blue">
                 <span class="li__art-kicker">HITEC 2026 &middot; San Antonio</span>
                 <strong>Bringing golf into the hospitality technology conversation</strong>
@@ -1780,7 +1741,7 @@
               <p class="li__text">Each year the <em>Nilsen Report</em> maps the companies shaping the payments industry. Fullsteam moved up to #28 among top U.S. merchant acquirers, climbing five spots &mdash; and was named among the fastest-growing by volume processed.</p>
               <div class="li__art">
                 <span class="li__art-kicker">Nilsen Report</span>
-                <strong>Breaking into the top <em>30</em></strong>
+                <strong>Breaking into the top 30</strong>
                 <span>#28 among U.S. merchant acquirers &middot; up five spots</span>
               </div>
               <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
@@ -1797,7 +1758,7 @@
     <section class="close" id="close" data-surface="dark" aria-labelledby="closeTitle">
       <div class="wrap close__inner">
         <div class="r">
-          <h2 class="display display--l" id="closeTitle">See how we build on <em class="write-in">great.</em></h2>
+          <h2 class="display display--l" id="closeTitle">See how we build on great.</h2>
         </div>
         <div class="close__actions r" style="--d:100ms">
           <a class="btn" href="our-advantage.html">Explore Our Advantage</a>
@@ -1975,6 +1936,7 @@
             heroA.style.setProperty('--a-exit-1', '0');
             heroA.style.setProperty('--a-exit-2', '0');
             heroA.style.setProperty('--a-exit-3', '0');
+            heroA.style.setProperty('--a-exit-4', '0');
           }
           if (axisBHeadlines) {
             axisBHeadlines.style.setProperty('--pSoftIn', '1');
@@ -2001,10 +1963,11 @@
         var a1 = smooth(seg(t, 0.10, 0.26));
         var a2 = smooth(seg(t, 0.14, 0.30));
         var a3 = smooth(seg(t, 0.18, 0.34));
+        var a4 = smooth(seg(t, 0.22, 0.40));
 
-        var b1 = smooth(seg(t, 0.28, 0.46));
-        var b2 = smooth(seg(t, 0.36, 0.54));
-        var b3 = smooth(seg(t, 0.44, 0.62));
+        var b1 = smooth(seg(t, 0.32, 0.50));
+        var b2 = smooth(seg(t, 0.40, 0.58));
+        var b3 = smooth(seg(t, 0.48, 0.66));
         var b4 = smooth(seg(t, 0.52, 0.74));
 
         var wash = smooth(seg(t, 0.24, 0.60));
@@ -2013,6 +1976,7 @@
           heroA.style.setProperty('--a-exit-1', a1.toFixed(4));
           heroA.style.setProperty('--a-exit-2', a2.toFixed(4));
           heroA.style.setProperty('--a-exit-3', a3.toFixed(4));
+          heroA.style.setProperty('--a-exit-4', a4.toFixed(4));
           heroA.style.setProperty('--b-wash', wash.toFixed(4));
         }
         if (axisBHeadlines) {
@@ -2038,12 +2002,13 @@
       /* entrance: A's headline rises once, on load */
       if (heroA) {
         heroA.classList.add('is-enter');
-        window.setTimeout(function () { heroA.classList.remove('is-enter'); }, 2400);
+        window.setTimeout(function () { heroA.classList.remove('is-enter'); }, 2800);
       }
       if (heroA) {
         heroA.style.setProperty('--a-exit-1', '0');
         heroA.style.setProperty('--a-exit-2', '0');
         heroA.style.setProperty('--a-exit-3', '0');
+        heroA.style.setProperty('--a-exit-4', '0');
       }
       if (axisFrame) axisFrame.style.setProperty('--b-reveal', reduce.matches ? '1' : '0');
 
