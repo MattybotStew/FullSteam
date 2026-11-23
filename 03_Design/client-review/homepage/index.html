@@ -968,11 +968,14 @@
     }
     .careers__head {
       margin-bottom: clamp(40px, 5vw, 64px);
-      align-items: center;
+      align-items: last baseline;
     }
-    .careers__intro { grid-column: 1 / 8; }
-    .careers__head .lede { grid-column: 9 / 13; }
-    .careers__cta { margin: 28px 0 0; }
+    .careers__head h2 { grid-column: 1 / 9; }
+    .careers__cta {
+      grid-column: 9 / -1;
+      margin: 0;
+      justify-self: end;
+    }
     .careers__media {
       position: relative;
       /* 16:10 at full wrap width was 1280×800 — nearly a whole viewport for one
@@ -1186,9 +1189,7 @@
     @media (max-width: 1080px) {
       .band__head h2 { grid-column: 1 / 9; }
       .band__head .lede { grid-column: 1 / -1; max-width: 46ch; padding-top: 8px; }
-      /* the careers head wraps h2 + CTA together, so the wrapper has to go
-         full-width too or the headline stays stuck at 5/8 of the page */
-      .careers__intro { grid-column: 1 / -1; }
+      .careers__head h2 { grid-column: 1 / 8; }
     }
     @media (max-height: 560px) {
       .opening__inner { padding-top: calc(var(--bar) + 10px); padding-bottom: 56px; }
@@ -1248,7 +1249,9 @@
       .opening__foot { font-size: 10px; letter-spacing: .1em; }
       .opening__foot .opening__meta { display: none; }
       .band__head h2 { grid-column: 1 / -1; }
-      .careers__intro { grid-column: 1 / -1; }
+      .careers__head h2,
+      .careers__cta { grid-column: 1 / -1; }
+      .careers__cta { justify-self: start; margin-top: 20px; }
       .posts__head { flex-direction: column; align-items: flex-start; }
       .careers__chip { left: 12px; bottom: 12px; }
       .founders__quote { font-size: clamp(23px, 6.6vw, 30px); }
@@ -1622,10 +1625,8 @@
     <section class="band band--paper" id="careers" data-surface="light" aria-labelledby="careersTitle">
       <div class="wrap">
         <header class="band__head careers__head">
-          <div class="careers__intro">
-            <h2 class="display display--l r" id="careersTitle">Real people. Real impact.</h2>
-            <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
-          </div>
+          <h2 class="display display--l r" id="careersTitle">Real people. Real impact.</h2>
+          <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
         </header>
 
         <ol class="voices">
