@@ -92,9 +92,9 @@
     :root {
       /* Homepage-only tokens. Shared tokens live in assets/site.css. */
       --axis-b-travel: 160vh;
-      /* Wide enough that each hero is three lines: "great vertical software"
-         and "industry-defining" stay on one line. */
-      --display-xl: clamp(26px, 7.6vw, 112px);
+      /* Desktop width keeps three lines, with "software companies."
+         together on the last line. "industry-defining" stays one line. */
+      --display-xl: clamp(26px, 7.2vw, 104px);
       --track-display-xl: -.03em;
       --frame-hair: rgba(255, 255, 255, .18);
     }
@@ -339,7 +339,7 @@
     .hero__headlines {
       --title-max: var(--display-xl);
       position: relative;
-      width: min(1480px, calc(100vw - 40px));
+      width: min(1180px, calc(100vw - 48px));
       min-height: clamp(8.4rem, 22.8vw, 18.6rem);
       margin: 0;
       display: flex;
@@ -1360,8 +1360,8 @@
           <div class="hero__headlines">
             <h1 class="hero__title hero__title--portfolio" id="heroTitle">
               <span class="line"><span class="ln">We acquire</span></span>
-              <span class="line"><span class="ln">great vertical software</span></span>
-              <span class="line line--payoff"><span class="ln">companies.</span></span>
+              <span class="line"><span class="ln">great vertical</span></span>
+              <span class="line line--payoff"><span class="ln">software companies.</span></span>
             </h1>
           </div>
         </div>
