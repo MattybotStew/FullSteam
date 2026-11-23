@@ -190,13 +190,13 @@ body.menu-open { overflow: hidden; }
 }
 .factband__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   list-style: none;
   margin: 0;
   padding: 0;
 }
 .factband__cell {
-  padding: clamp(18px, 2vw, 28px) 0;
+  padding: clamp(18px, 2vw, 28px) clamp(18px, 2.2vw, 32px) clamp(18px, 2vw, 28px) 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -206,7 +206,6 @@ body.menu-open { overflow: hidden; }
   border-left: 1px solid var(--line);
   padding-left: clamp(18px, 2.2vw, 32px);
 }
-.factband__cell:first-child { padding-right: clamp(18px, 2.2vw, 32px); }
 .factband__n {
   font-size: clamp(34px, 3.6vw, 48px);
   font-weight: 500;
@@ -221,7 +220,7 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(17px, 1.45vw, 22px);
   line-height: 1.2;
   color: var(--ink);
-  max-width: 28ch;
+  max-width: none;
 }
 
 /* What the network offers (client copy, 2026-11-16) — four value cards on the
@@ -499,6 +498,8 @@ body.menu-open { overflow: hidden; }
 .faq__item[open] summary::after { content: "\2212"; color: var(--ink); }
 .faq__item summary:hover { color: var(--brand); }
 .faq__answer { padding: 0 46px 26px 0; color: var(--muted); max-width: 62ch; }
+.benefits { margin: 0; padding: 0 0 0 1.15em; }
+.benefits li { margin: 0.4em 0; }
 .footer a { transition: color .14s var(--e-quick); }
 
 @media (max-width: 1080px) {
@@ -675,6 +676,10 @@ body.menu-open { overflow: hidden; }
               <p class="factband__n">11</p>
               <p class="factband__c">Verticals, one team and one set of shared services</p>
             </div>
+            <div class="factband__cell">
+              <p class="factband__n">Top 500</p>
+              <p class="factband__c">Fastest-growing technology companies in North America, Deloitte</p>
+            </div>
           </div>
         </div>
       </div>
@@ -719,49 +724,75 @@ body.menu-open { overflow: hidden; }
           <li class="value"><p class="stat__n">2,000+</p><p class="stat__c">Colleagues across our companies</p></li>
           <li class="value"><p class="stat__n">11</p><p class="stat__c">Vertical markets, each a system of record</p></li>
           <li class="value"><p class="stat__n">70,000+</p><p class="stat__c">Business customers teams serve</p></li>
-          <li class="value"><p class="stat__n">100+</p><p class="stat__c">Software businesses in the portfolio</p></li>
+          <li class="value"><p class="stat__n">Top 500</p><p class="stat__c">Fastest-growing technology companies in North America, Deloitte</p></li>
           <li class="value"><p class="stat__n">#28</p><p class="stat__c">Among U.S. merchant acquirers</p></li>
           <li class="value"><p class="stat__n">$75B+</p><p class="stat__c">Processed on Fullsteam Pay</p></li>
         </ol>
       </div>
     </section>
 
+    <section class="band band--paper" id="benefits" data-surface="light" aria-labelledby="benefits-title">
+      <div class="wrap faq__grid">
+        <div class="faq__head">
+          <h2 class="display display--l" id="benefits-title">Our Benefits</h2>
+        </div>
+        <div class="faq__list">
+          <details class="faq__item" open>
+            <summary>Health &amp; Wellness</summary>
+            <div class="faq__answer">
+              <ul class="benefits">
+                <li>Medical, dental, and vision coverage</li>
+                <li>Health Savings Account (HSA) and Flexible Spending Account (FSA)</li>
+                <li>Personal Savings Account (PSA) (Canadian employees)</li>
+                <li>Company-paid life insurance</li>
+                <li>Employee Assistance Program (EAP)</li>
+                <li>Health Advocate support services</li>
+                <li>Discounts through PerkSpot</li>
+              </ul>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary>Financial Support</summary>
+            <div class="faq__answer">
+              <ul class="benefits">
+                <li>Retirement savings plan with company match</li>
+                <li>Short- and long-term incentive programs for eligible roles</li>
+              </ul>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary>Time Away &amp; Flexibility</summary>
+            <div class="faq__answer">
+              <ul class="benefits">
+                <li>Flexible PTO</li>
+                <li>10 paid U.S. holidays (Canadian holidays aligned by province)</li>
+                <li>Paid parental leave</li>
+                <li>Fully remote roles available for many positions</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <section class="band band--ink" id="voices" data-surface="dark" aria-labelledby="voices-title">
       <div class="wrap">
         <div class="band__head">
-          <h2 class="display display--l" id="voices-title">Three voices, not <em>claims.</em></h2>
-          <p class="lede">The founder who sold, the founder who stayed, and the employee who joined normally. People describing the place &mdash; not the company describing itself.</p>
+          <h2 class="display display--l" id="voices-title">People who work here.</h2>
+          <p class="lede">Three people at Fullsteam, in their own words.</p>
         </div>
         <div class="voices-grid">
           <article class="voice-card">
-            <div class="voice-card__top">
-              <span class="voice-card__face" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.5 12.2l1.8 1.8 3.4-3.8"/></svg>
-              </span>
-              <p class="voice-card__role">Ownership</p>
-            </div>
-            <blockquote><p>Take on real problems and move ideas forward without layers of rigid rules.</p></blockquote>
-            <p class="voice-card__attr">Founder, acquired vertical software company</p>
+            <blockquote><p>I&rsquo;ve had the opportunity to take on new challenges and advance professionally in a company that invests in its people. The culture here is rooted in excellence, professionalism, and collaboration across all departments.</p></blockquote>
+            <p class="voice-card__attr">Tim Mckee, Vertical President, BridalLive</p>
           </article>
           <article class="voice-card">
-            <div class="voice-card__top">
-              <span class="voice-card__face" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M4 19h4v-4h4v-4h4V7h4"/></svg>
-              </span>
-              <p class="voice-card__role">Career mobility</p>
-            </div>
-            <blockquote><p>I came in as the founder of a six-person team. The difference was what came next: I stayed, and I now run a business three times the size.</p></blockquote>
-            <p class="voice-card__attr">Across the Fullsteam network</p>
+            <blockquote><p>Fullsteam is a company that cares about their employees. It is refreshing to work at a company where you can feel valued every day in the work that you do. Working with multiple industry verticals on a day to day basis is unique and keeps things exciting.</p></blockquote>
+            <p class="voice-card__attr">Megan Huffman, Senior Talent Acquisition Partner</p>
           </article>
           <article class="voice-card">
-            <div class="voice-card__top">
-              <span class="voice-card__face" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M4 18h16"/><path d="M6 18V9l6-4 6 4v9"/><path d="M10 18v-5h4v5"/></svg>
-              </span>
-              <p class="voice-card__role">Industry impact</p>
-            </div>
-            <blockquote><p>Work on software real industries depend on, close to the customers and problems that shape the product.</p></blockquote>
-            <p class="voice-card__attr">Software with real-world impact</p>
+            <blockquote><p>Fullsteam just feels real. Everyone, no matter their role, treats you with respect and kindness. What I love most is that we&rsquo;re all trying to get better together, not just for ourselves but for the company and our customers too.</p></blockquote>
+            <p class="voice-card__attr">Thomas Fancher, Sr. Sales Development Representative</p>
           </article>
         </div>
       </div>
