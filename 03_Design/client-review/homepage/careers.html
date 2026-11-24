@@ -222,6 +222,15 @@ body.menu-open { overflow: hidden; }
   color: var(--ink);
   max-width: none;
 }
+.factband__c a,
+.stat__c a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: .18em;
+  text-decoration-thickness: 1px;
+}
+.factband__c a:hover,
+.stat__c a:hover { color: var(--brand-ink); }
 
 /* What the network offers (client copy, 2026-11-16) — four value cards on the
    same hairline ledger grid as the stats block below. Replaced the old
@@ -659,7 +668,7 @@ body.menu-open { overflow: hidden; }
         <div class="wrap hero__center">
           <div class="hero__grid">
             <div class="hero__copy">
-              <h1 class="hero__title" id="careers-title"><span class="hero__line">A big company</span><span class="hero__line">that does not</span><span class="hero__line">work like one.</span></h1>
+              <h1 class="hero__title" id="careers-title"><span class="hero__line">A <em>big</em> company</span><span class="hero__line">that does not</span><span class="hero__line">work like one.</span></h1>
               <p class="lede">2,000+ people across 11 verticals &mdash; mostly remote, close to the decisions, and working on software real industries depend on. Careers here move sideways into new verticals, not up a rigid ladder.</p>
             </div>
           </div>
