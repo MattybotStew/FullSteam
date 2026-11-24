@@ -871,14 +871,16 @@
       background: var(--brand-ink);
       color: #fff;
       --focus: #fff;
-      padding: var(--sect) 0;
+      padding: var(--sect) 0 0;
+      overflow: hidden;
     }
     .founders__grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: clamp(36px, 6vw, 88px);
-      align-items: center;
+      grid-template-rows: 1fr auto 1fr;
+      column-gap: clamp(36px, 6vw, 88px);
     }
+    .founders__grid > .r:not(.founders__media) { grid-column: 1; grid-row: 2; align-self: center; }
     .founders__eyebrow {
       margin: 0 0 16px;
       font-family: var(--mono);
@@ -897,22 +899,101 @@
       line-height: 1.55;
       text-wrap: pretty;
     }
-    .founders__cta { margin: 28px 0 0; }
-    .founders__media {
+    .founders__cta { margin: 28px 0 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .founders__grid > .founders__media {
       position: relative;
-      aspect-ratio: 3 / 2;
-      overflow: hidden;
-      background: #0A222C;
+      grid-column: 2;
+      grid-row: 1 / -1;
+      margin: 0;
+      min-height: 760px;
+      aspect-ratio: auto;
+      overflow: visible;
+      background: transparent;
+      color: #fff;
     }
-    .founders__media img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: saturate(.86) contrast(1.05);
+    .client-slide {
+      display: none;
+      position: absolute;
+      inset: 0;
     }
-    .founders__media::after {
+    .client-slide.is-active { display: block; }
+    .client-slide.is-active::before {
       content: "";
-      position: absolute; inset: 0;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 180%;
+      height: 120%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(closest-side, rgba(0, 140, 186, .9) 0%, rgba(0, 88, 124, .5) 46%, transparent 74%);
+      filter: blur(42px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .client-slide__people {
+      position: absolute;
+      right: 0; bottom: 0;
+      height: 100%;
+      width: auto;
+      max-height: 760px;
+      object-fit: contain;
+      object-position: right bottom;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .client-slide__label {
+      grid-column: 2;
+      grid-row: 2;
+      align-self: end;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      padding-left: 28px;
+      width: min(100%, 520px);
+    }
+    .client-slide__copy {
+      display: none;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .client-slide__copy.is-active { display: flex; }
+    .client-slide__nav {
+      display: flex;
+      gap: 8px;
+      flex: none;
+    }
+    .client-slide__btn {
+      width: 44px; height: 44px;
+      display: grid; place-content: center;
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 50%;
+      background: transparent;
+      color: #fff;
+      cursor: pointer; padding: 0;
+    }
+    .client-slide__btn:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+    .client-slide__btn svg { width: 16px; height: 16px; }
+    .client-slide__btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .client-slide__name {
+      margin: 0;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -.01em;
+      line-height: 1.2;
+      color: rgba(255,255,255,.78);
+    }
+    .client-slide__role {
+      margin: 4px 0 0;
+      font-family: var(--sans);
+      font-size: clamp(36px, 3.4vw, 52px);
+      font-weight: 500;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      color: #fff;
     }
     /* Statement under the founders grid — same closer role as .ai__exit, not a quote. */
     .founders__quote {
@@ -1222,8 +1303,15 @@
       .vp__details { max-height: 0; }
       .vp.is-open .vp__details { max-height: 260px; }
       .vp__link { right: 20px; bottom: 18px; }
-      .founders__grid { grid-template-columns: 1fr; }
-      .founders__media { aspect-ratio: 3 / 2; }
+      .founders__grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .founders__grid > .r:not(.founders__media) { grid-column: 1; grid-row: 1; }
+      .founders__grid > .founders__media { grid-column: 1; grid-row: 2; min-height: 560px; }
+      .client-slide__people { height: 560px; }
+      .client-slide__label {
+        grid-column: 1; grid-row: 2;
+        position: absolute; left: 20px; right: auto; bottom: 16px;
+        width: auto; padding-left: 0;
+      }
       .founders__quote { flex-direction: column; align-items: flex-start; gap: 18px; }
       .founders__quote cite { padding-bottom: 0; }
       .voices {
@@ -1300,31 +1388,8 @@
   }
 }
 
-    /* ---- 2026-11-24 brief: after-acquisition spotlight, double-banner close ---- */
-    .after { position: relative; padding: var(--sect) 0; background: var(--paper); }
-    .after h2 { max-width: 18ch; margin-bottom: clamp(32px, 4vw, 56px); }
-    .spot__slide { display: none; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 64px); align-items: center; margin: 0; }
-    .spot__slide.is-active { display: grid; }
-    .spot__photo { margin: 0; aspect-ratio: 4 / 3; background: var(--surface); border: 1px dashed var(--line-strong); display: flex; align-items: center; justify-content: center; }
-    .spot__pending { font-size: 15px; color: var(--muted); }
-    .spot__quote { margin: 0; }
-    .spot__quote p { margin: 0; font-family: var(--serif); font-size: clamp(26px, 3vw, 40px); line-height: 1.2; color: var(--ink); }
-    .spot__who { margin: 20px 0 0; color: var(--muted); font-size: 15px; }
-    .spot__controls { display: flex; align-items: center; gap: 16px; margin-top: 36px; }
-    .spot__btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-strong); background: none; color: var(--ink); font-size: 18px; cursor: pointer; }
-    .spot__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-    .spot__count { margin: 0; font-family: var(--mono); font-size: 13px; color: var(--muted); }
-    @media (max-width: 760px) { .spot__slide.is-active { grid-template-columns: 1fr; } }
-
     .close__actions { width: min(600px, 100%); }
-    .close__banners { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
-    .close__banner { display: flex; flex-direction: column; gap: 10px; padding: 28px; border: 1px solid rgba(255, 255, 255, .28); color: #fff; text-decoration: none; }
-    .close__banner:hover { background: rgba(255, 255, 255, .08); }
-    .close__banner-label { font-family: var(--serif); font-size: clamp(26px, 2.6vw, 36px); line-height: 1.1; }
-    .close__banner-cta { font-size: 15px; color: rgba(255, 255, 255, .84); }
-    .close__careers { margin: 0; color: rgba(255, 255, 255, .84); }
-    .close__careers a { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
-    @media (max-width: 640px) { .close__banners { grid-template-columns: 1fr; } }
+    .close__banners { display: flex; flex-wrap: wrap; gap: 12px; }
 </style>
 </head>
 <body>
@@ -1626,59 +1691,145 @@
          =================================================================== -->
     <section class="founders" id="for-founders" data-surface="dark" aria-labelledby="foundersTitle">
       <div class="wrap">
-        <div class="founders__grid">
+        <div class="founders__grid" data-clients>
           <div class="r">
             <h2 class="display display--l" id="foundersTitle">Acquisition is just the first step</h2>
             <p class="founders__body">Building on great means we work together to grow your business. We believe customers are best served with agentic product development and embedded fintech products.</p>
-            <p class="founders__cta">
+            <div class="founders__cta">
               <a class="btn" href="for-founders.html">Explore an Acquisition</a>
-            </p>
+            </div>
           </div>
           <figure class="founders__media r" style="--d:110ms">
-            <img src="assets/img/founders.jpg" alt="A founder at work in the business they built"
-                 width="1800" height="1200" loading="lazy" decoding="async">
+            <div class="client-slide is-active">
+              <img class="client-slide__people" src="assets/img/clients/standin-bridal.png?v=9" alt="" width="768" height="1024">
+            </div>
+            <div class="client-slide">
+              <img class="client-slide__people" src="assets/img/clients/standin-flora.png?v=9" alt="" width="768" height="1024">
+            </div>
+            <div class="client-slide">
+              <img class="client-slide__people" src="assets/img/clients/standin-wine.png?v=9" alt="" width="768" height="1024">
+            </div>
           </figure>
+          <div class="client-slide__label">
+            <div class="client-slide__copy is-active">
+              <p class="client-slide__name">Founders</p>
+              <p class="client-slide__role">BridalLive</p>
+            </div>
+            <div class="client-slide__copy">
+              <p class="client-slide__name">Founders</p>
+              <p class="client-slide__role">Floranext</p>
+            </div>
+            <div class="client-slide__copy">
+              <p class="client-slide__name">Founders</p>
+              <p class="client-slide__role">Commerce7</p>
+            </div>
+            <div class="client-slide__nav">
+              <button type="button" class="client-slide__btn" data-prev aria-label="Previous client">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+              </button>
+              <button type="button" class="client-slide__btn" data-next aria-label="Next client">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
 
       </div>
     </section>
 
     <!-- ===================================================================
-         05 · After acquisition (spotlight slider)
-         Quotes and photos are placeholders until the client supplies them.
-         Employee testimonials live on the Careers page only.
+         05 · LinkedIn
          =================================================================== -->
-    <section class="after" id="after" data-surface="light" aria-labelledby="afterTitle">
+    <section class="band band--paper" id="linkedin" data-surface="light" aria-labelledby="linkedin-title">
       <div class="wrap">
-        <h2 class="display display--l" id="afterTitle">What happens after acquisition?</h2>
-        <div class="spot" data-spot>
-          <ol class="spot__track">
-            <li class="spot__slide is-active" aria-label="1 of 3">
-              <figure class="spot__photo"><span class="spot__pending">Photo pending</span></figure>
-              <div class="spot__text">
-                <blockquote class="spot__quote"><p>Founder quote pending client approval.</p></blockquote>
-                <p class="spot__who">Founder name, company</p>
+        <header class="band__head careers__head" style="margin-bottom:0">
+          <h2 class="display display--l" id="linkedin-title">Life here, as posted.</h2>
+          <p class="careers__cta"><a class="btn" href="careers.html">See Careers</a></p>
+        </header>
+        <div class="posts" style="margin-top:clamp(28px, 3vw, 40px)">
+          <div class="posts__head">
+            <div>
+              <h3>From the company page</h3>
+              <p>Straight from the Fullsteam page on LinkedIn.</p>
+            </div>
+            <div class="posts__nav">
+              <button class="posts__btn" id="postsPrev" type="button" aria-label="Previous posts" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>
+              </button>
+              <button class="posts__btn" id="postsNext" type="button" aria-label="Next posts">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="posts__scroller" id="postsScroller" tabindex="0" role="region" aria-label="LinkedIn posts, scrollable">
+            <article class="li">
+              <div class="li__head">
+                <span class="li__mark" aria-hidden="true">in</span>
+                <div class="li__who"><p>Fullsteam</p><p>Oct 2026 &middot; Public</p></div>
               </div>
-            </li>
-            <li class="spot__slide" aria-label="2 of 3">
-              <figure class="spot__photo"><span class="spot__pending">Photo pending</span></figure>
-              <div class="spot__text">
-                <blockquote class="spot__quote"><p>Acquired team member quote pending client approval.</p></blockquote>
-                <p class="spot__who">Team member name, role, company</p>
+              <p class="li__text">Supporting our customers starts with our people and the expertise they bring. We&rsquo;re hiring a Senior Information Security &amp; Compliance Business Partner.</p>
+              <div class="li__art">
+                <span class="li__art-kicker">Now hiring</span>
+                <strong>Senior Information Security &amp; Compliance Business Partner</strong>
+                <span>Apply at fullsteam.com/careers</span>
               </div>
-            </li>
-            <li class="spot__slide" aria-label="3 of 3">
-              <figure class="spot__photo"><span class="spot__pending">Photo pending</span></figure>
-              <div class="spot__text">
-                <blockquote class="spot__quote"><p>Founder quote pending client approval.</p></blockquote>
-                <p class="spot__who">Founder name, company</p>
+              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
+            </article>
+            <article class="li">
+              <div class="li__head">
+                <span class="li__mark" aria-hidden="true">in</span>
+                <div class="li__who"><p>Fullsteam</p><p>Oct 2026 &middot; Public</p></div>
               </div>
-            </li>
-          </ol>
-          <div class="spot__controls">
-            <button type="button" class="spot__btn" data-prev aria-label="Previous story">&larr;</button>
-            <p class="spot__count" aria-live="polite">1 / 3</p>
-            <button type="button" class="spot__btn" data-next aria-label="Next story">&rarr;</button>
+              <p class="li__text">Career growth can take many forms. For Xavier Codrington, it has meant taking on new challenges and growing into a leadership role.</p>
+              <div class="li__art li__art--ink">
+                <span class="li__art-kicker">Fullsteam Voices</span>
+                <strong>Xavier Codrington</strong>
+                <span>Manager, Operations &mdash; on ownership, support, and room to build.</span>
+              </div>
+              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
+            </article>
+            <article class="li">
+              <div class="li__head">
+                <span class="li__mark" aria-hidden="true">in</span>
+                <div class="li__who"><p>Fullsteam</p><p>Jul 2026 &middot; Public</p></div>
+              </div>
+              <p class="li__text">We&rsquo;re proud to celebrate our Vice President and CISO, Emily Traylor, on receiving Auburn&rsquo;s 2026 Young Alumni Achievement Award.</p>
+              <div class="li__art li__art--gold">
+                <span class="li__art-kicker">Auburn Alumni Association</span>
+                <strong>2026 Young Alumni Achievement Award</strong>
+                <span>Emily Traylor &rsquo;10 &middot; VP &amp; CISO</span>
+              </div>
+              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
+            </article>
+            <article class="li">
+              <div class="li__head">
+                <span class="li__mark" aria-hidden="true">in</span>
+                <div class="li__who"><p>Fullsteam</p><p>Jun 2026 &middot; Public</p></div>
+              </div>
+              <p class="li__text">Hotels and resorts have long used revenue management to optimize room inventory. With Priswing, golf resort operators can price the same way.</p>
+              <div class="li__art li__art--blue">
+                <span class="li__art-kicker">HITEC 2026 &middot; San Antonio</span>
+                <strong>Bringing golf into the hospitality technology conversation</strong>
+                <span>Booth #1252 &middot; Fullsteam Hospitality</span>
+              </div>
+              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
+            </article>
+            <article class="li">
+              <div class="li__head">
+                <span class="li__mark" aria-hidden="true">in</span>
+                <div class="li__who"><p>Fullsteam</p><p>Apr 2026 &middot; Public</p></div>
+              </div>
+              <p class="li__text">Each year the <a href="https://nilsonreport.com/" rel="noopener">Nilsen Report</a> maps the companies shaping the payments industry. Fullsteam moved up to #28 among top U.S. merchant acquirers, climbing five spots.</p>
+              <div class="li__art">
+                <span class="li__art-kicker">Nilsen Report</span>
+                <strong>Breaking into the top 30</strong>
+                <span>#28 among U.S. merchant acquirers &middot; up five spots</span>
+              </div>
+              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
+            </article>
+          </div>
+          <div class="posts__foot">
+            <a class="btn" href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener">Follow on LinkedIn</a>
           </div>
         </div>
       </div>
@@ -1694,16 +1845,9 @@
         </div>
         <div class="close__actions r" style="--d:100ms">
           <div class="close__banners">
-            <a class="close__banner" href="our-advantage.html">
-              <span class="close__banner-label">Our Advantage</span>
-              <span class="close__banner-cta">How we build on great</span>
-            </a>
-            <a class="close__banner" href="our-story.html">
-              <span class="close__banner-label">Our Story</span>
-              <span class="close__banner-cta">Where we started</span>
-            </a>
+            <a class="btn" href="our-advantage.html">Our Advantage</a>
+            <a class="btn btn--ghost" href="our-story.html">Our Story</a>
           </div>
-          <p class="close__careers">Hiring? <a href="careers.html">See Careers</a></p>
         </div>
       </div>
     </section>
@@ -2201,15 +2345,17 @@
   </script>
   <script>
     (function () {
-      var root = document.querySelector('[data-spot]');
+      var root = document.querySelector('[data-clients]');
       if (!root) return;
-      var slides = root.querySelectorAll('.spot__slide');
-      var count = root.querySelector('.spot__count');
+      var slides = root.querySelectorAll('.client-slide');
+      var copies = root.querySelectorAll('.client-slide__copy');
       var i = 0;
       function show(n) {
         i = (n + slides.length) % slides.length;
-        for (var k = 0; k < slides.length; k++) slides[k].classList.toggle('is-active', k === i);
-        count.textContent = (i + 1) + ' / ' + slides.length;
+        for (var k = 0; k < slides.length; k++) {
+          slides[k].classList.toggle('is-active', k === i);
+          if (copies[k]) copies[k].classList.toggle('is-active', k === i);
+        }
       }
       root.querySelector('[data-prev]').addEventListener('click', function () { show(i - 1); });
       root.querySelector('[data-next]').addEventListener('click', function () { show(i + 1); });
