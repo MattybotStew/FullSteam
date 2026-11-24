@@ -657,7 +657,7 @@
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
-    .stat__n em { font-family: var(--serif); font-style: italic; letter-spacing: -.02em; }
+    .stat__n em { font-family: var(--serif); font-style: normal; letter-spacing: -.02em; }
     .stat__c {
       margin-top: 12px;
       font-size: var(--t-small);
@@ -946,7 +946,7 @@
     .founders__quote cite {
       display: none;
       font-family: var(--mono); font-style: normal;
-      font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      font-size: 11px; 
       color: rgba(255, 255, 255, .58);
       line-height: 1.7;
     }
@@ -999,7 +999,7 @@
       backdrop-filter: blur(8px);
       color: #fff;
       font-family: var(--mono); font-size: 11px;
-      letter-spacing: .1em; text-transform: uppercase;
+      
     }
     .careers__chip::before {
       content: ""; width: 6px; height: 6px; border-radius: 50%;
@@ -1037,7 +1037,7 @@
     }
     .voice__role {
       font-family: var(--mono); font-size: 11px;
-      letter-spacing: .1em; text-transform: uppercase;
+      
       color: var(--muted);
     }
     .voice blockquote {
@@ -1053,7 +1053,7 @@
     .careers__note {
       margin-top: 26px;
       font-family: var(--mono); font-size: 10px;
-      letter-spacing: .06em; text-transform: uppercase;
+      
       color: var(--muted);
     }
 
@@ -1120,7 +1120,7 @@
       display: block;
       margin-top: 0;
       font-family: var(--mono); font-size: 10px;
-      letter-spacing: .12em; text-transform: uppercase;
+      
       opacity: .8; font-weight: 400;
     }
     .li__art strong {
@@ -1144,7 +1144,7 @@
       display: flex; align-items: center; justify-content: space-between; gap: 20px;
       flex-wrap: wrap;
     }
-    .posts__note { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .posts__note { font-family: var(--mono); font-size: 10px; color: var(--muted); }
 
     /* ======================================================================
        06 · Close
@@ -1299,6 +1299,32 @@
     inset: -11px -6px;
   }
 }
+
+    /* ---- 2026-11-24 brief: after-acquisition spotlight, double-banner close ---- */
+    .after { position: relative; padding: var(--sect) 0; background: var(--paper); }
+    .after h2 { max-width: 18ch; margin-bottom: clamp(32px, 4vw, 56px); }
+    .spot__slide { display: none; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 64px); align-items: center; margin: 0; }
+    .spot__slide.is-active { display: grid; }
+    .spot__photo { margin: 0; aspect-ratio: 4 / 3; background: var(--surface); border: 1px dashed var(--line-strong); display: flex; align-items: center; justify-content: center; }
+    .spot__pending { font-size: 15px; color: var(--muted); }
+    .spot__quote { margin: 0; }
+    .spot__quote p { margin: 0; font-family: var(--serif); font-size: clamp(26px, 3vw, 40px); line-height: 1.2; color: var(--ink); }
+    .spot__who { margin: 20px 0 0; color: var(--muted); font-size: 15px; }
+    .spot__controls { display: flex; align-items: center; gap: 16px; margin-top: 36px; }
+    .spot__btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-strong); background: none; color: var(--ink); font-size: 18px; cursor: pointer; }
+    .spot__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    .spot__count { margin: 0; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+    @media (max-width: 760px) { .spot__slide.is-active { grid-template-columns: 1fr; } }
+
+    .close__actions { width: min(600px, 100%); }
+    .close__banners { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
+    .close__banner { display: flex; flex-direction: column; gap: 10px; padding: 28px; border: 1px solid rgba(255, 255, 255, .28); color: #fff; text-decoration: none; }
+    .close__banner:hover { background: rgba(255, 255, 255, .08); }
+    .close__banner-label { font-family: var(--serif); font-size: clamp(26px, 2.6vw, 36px); line-height: 1.1; }
+    .close__banner-cta { font-size: 15px; color: rgba(255, 255, 255, .84); }
+    .close__careers { margin: 0; color: rgba(255, 255, 255, .84); }
+    .close__careers a { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+    @media (max-width: 640px) { .close__banners { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -1369,9 +1395,9 @@
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
             <h1 class="hero__title hero__title--portfolio" id="heroTitle">
-              <span class="line"><span class="ln">We acquire</span></span>
-              <span class="line"><span class="ln">great vertical</span></span>
-              <span class="line line--payoff"><span class="ln">software companies.</span></span>
+              <span class="line"><span class="ln">We Acquire</span></span>
+              <span class="line"><span class="ln"><em>Great</em> Vertical</span></span>
+              <span class="line line--payoff"><span class="ln">Software</span></span>
             </h1>
           </div>
         </div>
@@ -1389,7 +1415,7 @@
         <div class="hero__headlines">
           <h2 class="hero__title hero__title--software" id="axisBTitle">
             <span class="line" data-li="1">And build</span>
-            <span class="line" data-li="2">industry-defining</span>
+            <span class="line" data-li="2"><em>industry-defining</em></span>
             <span class="line" data-li="3">technology.</span>
           </h2>
         </div>
@@ -1461,7 +1487,6 @@
         <div class="ai">
           <div class="ai__left">
             <h2 class="display display--l r" id="aiTitle">Practical <span class="ai-word">AI</span>, from code to customer.</h2>
-            <p class="lede r" style="--d:70ms">We employ AI when it adds real customer value.</p>
             <p class="r" style="--d:140ms">
               <a class="arrow-link" href="our-advantage.html#ai">
                 See AI at Fullsteam
@@ -1495,7 +1520,6 @@
       <div class="wrap">
         <header class="band__head">
           <h2 class="display display--l r" id="vertsTitle">Essential software for key industries.</h2>
-          <p class="lede r" style="--d:80ms">Our software is the system of record for the businesses and industries powering our economy.</p>
         </header>
 
         <div class="verts__stage r" id="vertStage" role="group" aria-label="Featured vertical markets">
@@ -1620,129 +1644,42 @@
     </section>
 
     <!-- ===================================================================
-         05 · Careers
+         05 · After acquisition (spotlight slider)
+         Quotes and photos are placeholders until the client supplies them.
+         Employee testimonials live on the Careers page only.
          =================================================================== -->
-    <section class="band band--paper" id="careers" data-surface="light" aria-labelledby="careersTitle">
+    <section class="after" id="after" data-surface="light" aria-labelledby="afterTitle">
       <div class="wrap">
-        <header class="band__head careers__head">
-          <h2 class="display display--l r" id="careersTitle">Real people. Real impact.</h2>
-          <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
-        </header>
-
-        <ol class="voices">
-          <li class="voice r">
-            <div class="voice__top">
-              <img class="voice__face" src="assets/img/voices/tim-mckee.png" alt="" width="233" height="231">
-              <span class="voice__role">Vertical President, BridalLive</span>
-            </div>
-            <blockquote><p>I&rsquo;ve had the opportunity to take on new challenges and advance professionally in a company that invests in its people. The culture here is rooted in excellence, professionalism, and collaboration across all departments. It&rsquo;s exciting to be part of a company at the forefront of SaaS and payments technology, delivering solutions that shape the future of the industries we serve.</p></blockquote>
-            <p class="voice__attr">Tim Mckee</p>
-          </li>
-          <li class="voice r" style="--d:80ms">
-            <div class="voice__top">
-              <img class="voice__face" src="assets/img/voices/xavier-codrington.png" alt="" width="244" height="244">
-              <span class="voice__role">Manager, Operations</span>
-            </div>
-            <blockquote><p>What I&rsquo;ve enjoyed most at Fullsteam is the ownership I&rsquo;ve had over meaningful work and the genuine support to grow into larger roles. Leadership has been both empowering and impactful, creating an environment where, if you&rsquo;re ready to build something, you truly can.</p></blockquote>
-            <p class="voice__attr">Xavier Codrington</p>
-          </li>
-          <li class="voice r" style="--d:160ms">
-            <div class="voice__top">
-              <img class="voice__face" src="assets/img/voices/taylor-straight.png" alt="" width="770" height="770">
-              <span class="voice__role">Senior Director, Finance</span>
-            </div>
-            <blockquote><p>I&rsquo;ve liked working at Fullsteam because they really believe in investing in their employees, with a big focus on promoting from within. It&rsquo;s also been fun getting to come to work every day and solve unique challenges, in an environment where every team member and department wants each other to win and have successes just as much as they do.</p></blockquote>
-            <p class="voice__attr">Taylor Straight</p>
-          </li>
-        </ol>
-
-        <div class="posts">
-          <div class="posts__head">
-            <div>
-              <h3 id="careersPostsTitle">See what we&rsquo;re building</h3>
-            </div>
-            <div class="posts__nav">
-              <button class="posts__btn" id="postsPrev" type="button" aria-label="Previous posts" disabled>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>
-              </button>
-              <button class="posts__btn" id="postsNext" type="button" aria-label="Next posts">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
-              </button>
-            </div>
+        <h2 class="display display--l" id="afterTitle">What happens after acquisition?</h2>
+        <div class="spot" data-spot>
+          <ol class="spot__track">
+            <li class="spot__slide is-active" aria-label="1 of 3">
+              <figure class="spot__photo"><span class="spot__pending">Photo pending</span></figure>
+              <div class="spot__text">
+                <blockquote class="spot__quote"><p>Founder quote pending client approval.</p></blockquote>
+                <p class="spot__who">Founder name, company</p>
+              </div>
+            </li>
+            <li class="spot__slide" aria-label="2 of 3">
+              <figure class="spot__photo"><span class="spot__pending">Photo pending</span></figure>
+              <div class="spot__text">
+                <blockquote class="spot__quote"><p>Acquired team member quote pending client approval.</p></blockquote>
+                <p class="spot__who">Team member name, role, company</p>
+              </div>
+            </li>
+            <li class="spot__slide" aria-label="3 of 3">
+              <figure class="spot__photo"><span class="spot__pending">Photo pending</span></figure>
+              <div class="spot__text">
+                <blockquote class="spot__quote"><p>Founder quote pending client approval.</p></blockquote>
+                <p class="spot__who">Founder name, company</p>
+              </div>
+            </li>
+          </ol>
+          <div class="spot__controls">
+            <button type="button" class="spot__btn" data-prev aria-label="Previous story">&larr;</button>
+            <p class="spot__count" aria-live="polite">1 / 3</p>
+            <button type="button" class="spot__btn" data-next aria-label="Next story">&rarr;</button>
           </div>
-
-          <div class="posts__scroller" id="postsScroller" tabindex="0" role="region" aria-label="LinkedIn posts, scrollable">
-            <article class="li">
-              <div class="li__head">
-                <span class="li__mark" aria-hidden="true">in</span>
-                <div class="li__who"><p>Fullsteam</p><p>Oct 2026 &middot; Public</p></div>
-              </div>
-              <p class="li__text">Supporting our customers starts with our people and the expertise they bring. We&rsquo;re hiring a Senior Information Security &amp; Compliance Business Partner.</p>
-              <div class="li__art">
-                <span class="li__art-kicker">Now hiring</span>
-                <strong>Senior Information Security &amp; Compliance Business Partner</strong>
-                <span>Apply at fullsteam.com/careers</span>
-              </div>
-              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
-            </article>
-
-            <article class="li">
-              <div class="li__head">
-                <span class="li__mark" aria-hidden="true">in</span>
-                <div class="li__who"><p>Fullsteam</p><p>Oct 2026 &middot; Public</p></div>
-              </div>
-              <p class="li__text">Career growth can take many forms. For Xavier Codrington, it has meant taking on new challenges and growing into a leadership role.</p>
-              <div class="li__art li__art--ink">
-                <span class="li__art-kicker">Fullsteam Voices</span>
-                <strong>Xavier Codrington</strong>
-                <span>Manager, Operations &mdash; on ownership, support, and room to build.</span>
-              </div>
-              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
-            </article>
-
-            <article class="li">
-              <div class="li__head">
-                <span class="li__mark" aria-hidden="true">in</span>
-                <div class="li__who"><p>Fullsteam</p><p>Jul 2026 &middot; Public</p></div>
-              </div>
-              <p class="li__text">We&rsquo;re proud to celebrate our Vice President and CISO, Emily Traylor, on receiving Auburn&rsquo;s 2026 Young Alumni Achievement Award.</p>
-              <div class="li__art li__art--gold">
-                <span class="li__art-kicker">Auburn Alumni Association</span>
-                <strong>2026 Young Alumni Achievement Award</strong>
-                <span>Emily Traylor &rsquo;10 &middot; VP &amp; CISO</span>
-              </div>
-              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
-            </article>
-
-            <article class="li">
-              <div class="li__head">
-                <span class="li__mark" aria-hidden="true">in</span>
-                <div class="li__who"><p>Fullsteam</p><p>Jun 2026 &middot; Public</p></div>
-              </div>
-              <p class="li__text">Hotels and resorts have long used revenue management to optimize room inventory. With Priswing, golf resort operators can price the same way.</p>
-              <div class="li__art li__art--blue">
-                <span class="li__art-kicker">HITEC 2026 &middot; San Antonio</span>
-                <strong>Bringing golf into the hospitality technology conversation</strong>
-                <span>Booth #1252 &middot; Fullsteam Hospitality</span>
-              </div>
-              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
-            </article>
-
-            <article class="li">
-              <div class="li__head">
-                <span class="li__mark" aria-hidden="true">in</span>
-                <div class="li__who"><p>Fullsteam</p><p>Apr 2026 &middot; Public</p></div>
-              </div>
-              <p class="li__text">Each year the <em>Nilsen Report</em> maps the companies shaping the payments industry. Fullsteam moved up to #28 among top U.S. merchant acquirers, climbing five spots &mdash; and was named among the fastest-growing by volume processed.</p>
-              <div class="li__art">
-                <span class="li__art-kicker">Nilsen Report</span>
-                <strong>Breaking into the top 30</strong>
-                <span>#28 among U.S. merchant acquirers &middot; up five spots</span>
-              </div>
-              <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
-            </article>
-          </div>
-
         </div>
       </div>
     </section>
@@ -1756,7 +1693,17 @@
           <h2 class="display display--l" id="closeTitle">See how we build on great.</h2>
         </div>
         <div class="close__actions r" style="--d:100ms">
-          <a class="btn" href="our-advantage.html">Explore Our Advantage</a>
+          <div class="close__banners">
+            <a class="close__banner" href="our-advantage.html">
+              <span class="close__banner-label">Our Advantage</span>
+              <span class="close__banner-cta">How we build on great</span>
+            </a>
+            <a class="close__banner" href="our-story.html">
+              <span class="close__banner-label">Our Story</span>
+              <span class="close__banner-cta">Where we started</span>
+            </a>
+          </div>
+          <p class="close__careers">Hiring? <a href="careers.html">See Careers</a></p>
         </div>
       </div>
     </section>
@@ -2250,6 +2197,22 @@
       window.addEventListener('resize', requestScroll);
       if (reduce.addEventListener) reduce.addEventListener('change', requestScroll);
       requestScroll();
+    })();
+  </script>
+  <script>
+    (function () {
+      var root = document.querySelector('[data-spot]');
+      if (!root) return;
+      var slides = root.querySelectorAll('.spot__slide');
+      var count = root.querySelector('.spot__count');
+      var i = 0;
+      function show(n) {
+        i = (n + slides.length) % slides.length;
+        for (var k = 0; k < slides.length; k++) slides[k].classList.toggle('is-active', k === i);
+        count.textContent = (i + 1) + ' / ' + slides.length;
+      }
+      root.querySelector('[data-prev]').addEventListener('click', function () { show(i - 1); });
+      root.querySelector('[data-next]').addEventListener('click', function () { show(i + 1); });
     })();
   </script>
 </body>
