@@ -966,32 +966,30 @@
     }
     .client-slide__label {
       position: absolute;
-      left: 12.17%;
-      top: 89.2%;
-      width: 86.8%;
+      left: 0;
+      right: 0;
+      top: 100%;
       z-index: 2;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 13px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 30px;
     }
     .client-slide__copy {
       display: none;
-      position: relative;
-      /* Instrument Sans draws this size lower than the Figma text box,
-         so the name is shifted up to sit on the gold rule. */
-      top: -10px;
       flex-direction: column;
       align-items: flex-start;
       text-align: left;
-      padding-left: 28px;
-      width: min(100%, 520px);
+      min-width: 0;
     }
     .client-slide__copy.is-active { display: flex; }
     .client-slide__nav {
       display: flex;
       gap: 8px;
-      padding-left: 28px;
+      flex: none;
+      margin-left: auto;
     }
     .client-slide__btn {
       width: 44px; height: 44px;
@@ -1175,8 +1173,7 @@
       padding-bottom: 20px;
       border-bottom: 1px solid var(--ink);
     }
-    .posts__head h3 { font-size: var(--t-h3); letter-spacing: -.02em; }
-    .posts__head p { margin-top: 8px; font-size: var(--t-small); color: var(--muted); }
+    .posts__head p { margin-top: 0; font-size: var(--t-small); color: var(--muted); }
     .posts__nav { display: flex; gap: 8px; flex: 0 0 auto; }
     .posts__btn {
       width: 44px; height: 44px;
@@ -1345,11 +1342,11 @@
       .founders__frame { height: 86%; bottom: auto; }
       .client-slide__people { height: 176%; }
       .client-slide__label {
-        left: 0; top: auto; bottom: 0;
-        width: auto;
+        left: 0; right: 0; top: 86%; bottom: auto;
+        padding-top: 30px;
       }
       .client-slide__copy,
-      .client-slide__nav { padding-left: 0; width: auto; }
+      .client-slide__nav { padding-left: 0; }
       .founders__quote { flex-direction: column; align-items: flex-start; gap: 18px; }
       .founders__quote cite { padding-bottom: 0; }
       .voices {
@@ -1860,7 +1857,6 @@
         <div class="posts" style="margin-top:clamp(28px, 3vw, 40px)">
           <div class="posts__head">
             <div>
-              <h3>From the company page</h3>
               <p>Straight from the Fullsteam page on LinkedIn.</p>
             </div>
             <div class="posts__nav">
