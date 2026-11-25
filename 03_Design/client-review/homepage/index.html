@@ -871,20 +871,40 @@
       background: var(--brand-ink);
       color: #fff;
       --focus: #fff;
-      padding: var(--sect) 0;
+      padding: clamp(72px, 8vw, 114px) 0;
       overflow: hidden;
     }
+    /* 1280×760 stage from the Figma section (11905:2). Copy is centered in
+       the left half; the portrait is a top-aligned crop with a gold rule
+       at its base, and the client name sits on that rule. */
     .founders__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr auto auto auto 1fr;
-      column-gap: clamp(36px, 6vw, 88px);
+      position: relative;
+      display: flex;
+      align-items: center;
+      aspect-ratio: 1280 / 760;
+      container-type: inline-size;
     }
-    .founders__grid > .r:not(.founders__media) {
-      grid-column: 1;
-      grid-row: 2 / 5;
-      display: grid;
-      grid-template-rows: subgrid;
+    .founders__grid::before {
+      content: "";
+      position: absolute;
+      left: 34.68%;
+      top: -10%;
+      width: 84%;
+      height: 120%;
+      background: radial-gradient(closest-side,
+        rgba(0, 140, 186, .9) 0%,
+        rgba(0, 121, 164, .7) 23%,
+        rgba(0, 108, 147, .6) 34.5%,
+        rgba(0, 88, 124, .5) 46%,
+        rgba(0, 88, 124, 0) 74%);
+      filter: blur(42px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .founders__copy {
+      position: relative;
+      z-index: 2;
+      width: min(597px, 46.64%);
     }
     .founders__eyebrow {
       margin: 0 0 16px;
@@ -895,26 +915,38 @@
       text-transform: uppercase;
       color: rgba(255, 255, 255, .72);
     }
-    .founders h2 { max-width: 16ch; }
+    .founders h2 {
+      max-width: 598px;
+      font-size: clamp(42px, 5.81cqi, 74.36px);
+      line-height: .96;
+      letter-spacing: -.035em;
+    }
     .founders__body {
       margin-top: 28px;
       color: rgba(255, 255, 255, .72);
-      max-width: 44ch;
-      font-size: var(--t-lede);
+      max-width: 598px;
+      font-size: clamp(17px, 1.68cqi, 21.45px);
       line-height: 1.55;
       text-wrap: pretty;
     }
     .founders__cta { margin: 28px 0 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .founders__grid > .founders__media {
-      position: relative;
-      grid-column: 2;
-      grid-row: 1 / -1;
+    .founders__media {
+      position: absolute;
+      left: 46.81%;
+      top: 12.05%;
+      width: 53.71%;
+      height: 79.21%;
       margin: 0;
-      min-height: 760px;
-      aspect-ratio: auto;
       overflow: visible;
       background: transparent;
       color: #fff;
+      z-index: 1;
+    }
+    .founders__frame {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-bottom: 1px solid var(--gold);
     }
     .client-slide {
       display: none;
@@ -922,37 +954,33 @@
       inset: 0;
     }
     .client-slide.is-active { display: block; }
-    .client-slide.is-active::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 180%;
-      height: 120%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(closest-side, rgba(0, 140, 186, .9) 0%, rgba(0, 88, 124, .5) 46%, transparent 74%);
-      filter: blur(42px);
-      pointer-events: none;
-      z-index: 0;
-    }
     .client-slide__people {
       position: absolute;
-      right: 0; bottom: 0;
-      height: 88%;
+      top: -0.1%;
+      right: 0;
       width: auto;
-      max-height: 669px;
-      object-fit: contain;
-      object-position: right bottom;
+      height: 176%;
+      max-width: none;
+      max-height: none;
       pointer-events: none;
-      z-index: 1;
     }
-    .client-slide__label { display: contents; }
+    .client-slide__label {
+      position: absolute;
+      left: 12.17%;
+      top: 89.2%;
+      width: 86.8%;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 13px;
+    }
     .client-slide__copy {
       display: none;
-      grid-column: 2;
-      grid-row: 3;
-      align-self: end;
-      z-index: 2;
+      position: relative;
+      /* Instrument Sans draws this size lower than the Figma text box,
+         so the name is shifted up to sit on the gold rule. */
+      top: -10px;
       flex-direction: column;
       align-items: flex-start;
       text-align: left;
@@ -961,14 +989,9 @@
     }
     .client-slide__copy.is-active { display: flex; }
     .client-slide__nav {
-      grid-column: 2;
-      grid-row: 4;
-      align-self: start;
-      z-index: 2;
       display: flex;
       gap: 8px;
       padding-left: 28px;
-      margin-top: 14px;
     }
     .client-slide__btn {
       width: 44px; height: 44px;
@@ -994,11 +1017,12 @@
     .client-slide__role {
       margin: 4px 0 0;
       font-family: var(--sans);
-      font-size: clamp(36px, 3.4vw, 52px);
+      font-size: clamp(32px, 3.8cqi, 48.62px);
       font-weight: 500;
       letter-spacing: -.03em;
       line-height: 1.05;
       color: #fff;
+      white-space: nowrap;
     }
     /* Statement under the founders grid — same closer role as .ai__exit, not a quote. */
     .founders__quote {
@@ -1308,21 +1332,24 @@
       .vp__details { max-height: 0; }
       .vp.is-open .vp__details { max-height: 260px; }
       .vp__link { right: 20px; bottom: 18px; }
-      .founders__grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-      .founders__grid > .r:not(.founders__media) { grid-column: 1; grid-row: 1; display: block; }
-      .founders__grid > .founders__media { grid-column: 1; grid-row: 2; min-height: 560px; }
-      .client-slide__people { height: 88%; max-height: 493px; }
+      .founders__grid { display: flex; flex-direction: column; align-items: stretch; aspect-ratio: auto; gap: 28px; }
+      .founders__grid::before { left: -10%; top: 42%; width: 130%; height: 70%; }
+      .founders__copy { width: auto; }
+      .founders__media {
+        position: relative;
+        left: auto; top: auto;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 688 / 640;
+      }
+      .founders__frame { height: 86%; bottom: auto; }
+      .client-slide__people { height: 176%; }
       .client-slide__label {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        grid-column: 1; grid-row: 2;
-        position: absolute; left: 20px; right: auto; bottom: 16px;
+        left: 0; top: auto; bottom: 0;
         width: auto;
       }
       .client-slide__copy,
-      .client-slide__nav { grid-column: auto; grid-row: auto; padding-left: 0; margin-top: 0; width: auto; }
+      .client-slide__nav { padding-left: 0; width: auto; }
       .founders__quote { flex-direction: column; align-items: flex-start; gap: 18px; }
       .founders__quote cite { padding-bottom: 0; }
       .voices {
@@ -1774,7 +1801,7 @@
     <section class="founders" id="for-founders" data-surface="dark" aria-labelledby="foundersTitle">
       <div class="wrap">
         <div class="founders__grid" data-clients>
-          <div class="r">
+          <div class="founders__copy r">
             <h2 class="display display--l" id="foundersTitle">Acquisition is just the first step</h2>
             <p class="founders__body">Building on great means we work together to grow your business. We believe customers are best served with agentic product development and embedded fintech products.</p>
             <div class="founders__cta">
@@ -1782,38 +1809,40 @@
             </div>
           </div>
           <figure class="founders__media r" style="--d:110ms">
-            <div class="client-slide is-active">
-              <img class="client-slide__people" src="assets/img/clients/standin-bridal.png?v=9" alt="" width="768" height="1024">
+            <div class="founders__frame">
+              <div class="client-slide is-active">
+                <img class="client-slide__people" src="assets/img/clients/standin-bridal.png?v=9" alt="" width="664" height="1024">
+              </div>
+              <div class="client-slide">
+                <img class="client-slide__people" src="assets/img/clients/standin-flora.png?v=9" alt="" width="295" height="1052">
+              </div>
+              <div class="client-slide">
+                <img class="client-slide__people" src="assets/img/clients/standin-wine.png?v=9" alt="" width="550" height="997">
+              </div>
             </div>
-            <div class="client-slide">
-              <img class="client-slide__people" src="assets/img/clients/standin-flora.png?v=9" alt="" width="768" height="1024">
-            </div>
-            <div class="client-slide">
-              <img class="client-slide__people" src="assets/img/clients/standin-wine.png?v=9" alt="" width="768" height="1024">
+            <div class="client-slide__label">
+              <div class="client-slide__copy is-active">
+                <p class="client-slide__name">Founders</p>
+                <p class="client-slide__role">BridalLive</p>
+              </div>
+              <div class="client-slide__copy">
+                <p class="client-slide__name">Founders</p>
+                <p class="client-slide__role">Floranext</p>
+              </div>
+              <div class="client-slide__copy">
+                <p class="client-slide__name">Founders</p>
+                <p class="client-slide__role">Commerce7</p>
+              </div>
+              <div class="client-slide__nav">
+                <button type="button" class="client-slide__btn" data-prev aria-label="Previous client">
+                  <img src="assets/img/acquisition/figma-icon-prev.svg" alt="" width="16" height="16">
+                </button>
+                <button type="button" class="client-slide__btn" data-next aria-label="Next client">
+                  <img src="assets/img/acquisition/figma-icon-next.svg" alt="" width="16" height="16">
+                </button>
+              </div>
             </div>
           </figure>
-          <div class="client-slide__label">
-            <div class="client-slide__copy is-active">
-              <p class="client-slide__name">Founders</p>
-              <p class="client-slide__role">BridalLive</p>
-            </div>
-            <div class="client-slide__copy">
-              <p class="client-slide__name">Founders</p>
-              <p class="client-slide__role">Floranext</p>
-            </div>
-            <div class="client-slide__copy">
-              <p class="client-slide__name">Founders</p>
-              <p class="client-slide__role">Commerce7</p>
-            </div>
-            <div class="client-slide__nav">
-              <button type="button" class="client-slide__btn" data-prev aria-label="Previous client">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-              </button>
-              <button type="button" class="client-slide__btn" data-next aria-label="Next client">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </button>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -2204,10 +2233,12 @@
         if (scaleBand) scaleBand.classList.add('is-strokes-in');
       }
 
-      /* Chained sequence (client, 2026-11-10): Acquire lights when it scrolls
-         into view; its counters run to completion; only then does Grow light,
-         and Grow's counters finish before Lead lights. Each step is revealed
-         once, and a step with no counters hands off straight away. */
+      /* Chained sequence (client, 2026-11-10; handoff 2026-11-25):
+         Acquire lights when it scrolls into view, then Grow, then Lead.
+         The next card follows after 860ms — halfway between the 320ms beat
+         and the old wait for the previous card's 1400ms counters to finish.
+         Counters still run on the card that just lit. Each step is revealed once. */
+      var STEP_HANDOFF = 860;
       function revealStep(i) {
         var step = modelStepEls[i];
         if (!step || step.classList.contains('in')) return;
@@ -2215,13 +2246,14 @@
         step.classList.add('in');
         if (i === 0) showModelStrokes();
         var nums = $$('[data-count]', step);
-        var next = function () { if (i + 1 < modelStepEls.length) revealStep(i + 1); };
-        if (!nums.length || counted[i]) { next(); return; }
-        counted[i] = true;
-        var pending = nums.length;
-        nums.forEach(function (el) {
-          runCount(el, function () { pending -= 1; if (pending === 0) next(); });
-        });
+        if (nums.length && !counted[i]) {
+          counted[i] = true;
+          nums.forEach(function (el) { runCount(el); });
+        }
+        if (i + 1 < modelStepEls.length) {
+          if (reduce.matches) revealStep(i + 1);
+          else window.setTimeout(function () { revealStep(i + 1); }, STEP_HANDOFF);
+        }
       }
 
       function armSteps() {
