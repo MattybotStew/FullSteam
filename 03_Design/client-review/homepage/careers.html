@@ -85,7 +85,7 @@ body.menu-open { overflow: hidden; }
 #how-it-feels .section-note {
   font-size: 14px;
   font-family: var(--serif);
-  font-style: italic;
+  font-style: normal;
   color: var(--muted);
 }
 #roles { padding-top: 0; }
@@ -111,7 +111,7 @@ body.menu-open { overflow: hidden; }
   margin-bottom: clamp(48px, 6vw, 84px);
 }
 .band__head h2 { grid-column: 1 / 8; }
-.band__head h2 em { color: var(--accent); font-family: var(--serif); font-style: italic; }
+.band__head h2 em { color: var(--accent); font-family: var(--serif); font-style: normal; }
 .band__head .lede { grid-column: 9 / 13; padding-bottom: 8px; }
 
 .band__head--stack {
@@ -216,12 +216,21 @@ body.menu-open { overflow: hidden; }
 }
 .factband__c {
   font-family: var(--serif);
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(17px, 1.45vw, 22px);
   line-height: 1.2;
   color: var(--ink);
   max-width: none;
 }
+.factband__c a,
+.stat__c a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: .18em;
+  text-decoration-thickness: 1px;
+}
+.factband__c a:hover,
+.stat__c a:hover { color: var(--brand-ink); }
 
 /* What the network offers (client copy, 2026-11-16) — four value cards on the
    same hairline ledger grid as the stats block below. Replaced the old
@@ -276,7 +285,7 @@ body.menu-open { overflow: hidden; }
   line-height: .95;
   font-variant-numeric: tabular-nums;
 }
-.stat__n em { font-family: var(--serif); font-style: italic; letter-spacing: -.02em; }
+.stat__n em { font-family: var(--serif); font-style: normal; letter-spacing: -.02em; }
 .stat__c {
   margin-top: 12px;
   font-size: var(--t-small);
@@ -438,14 +447,14 @@ body.menu-open { overflow: hidden; }
 .li__art .li__art-kicker {
   display: block; margin-top: 0;
   font-family: var(--mono); font-size: 10px;
-  letter-spacing: .12em; text-transform: uppercase;
+  
   opacity: .8; font-weight: 400;
 }
 .li__art strong {
   display: block; margin-top: 8px;
   font-size: 17px; font-weight: 600; line-height: 1.3; letter-spacing: -.015em;
 }
-.li__art strong em { font-family: var(--serif); font-style: italic; font-weight: 400; }
+.li__art strong em { font-family: var(--serif); font-style: normal; font-weight: 400; }
 .li__art span { display: block; margin-top: 8px; font-size: 12px; opacity: .82; }
 .li__link { font-size: 13px; font-weight: 600; color: var(--brand); }
 .li__foot {
@@ -659,7 +668,7 @@ body.menu-open { overflow: hidden; }
         <div class="wrap hero__center">
           <div class="hero__grid">
             <div class="hero__copy">
-              <h1 class="hero__title" id="careers-title"><span class="hero__line">A big company</span><span class="hero__line">that does <em>not</em></span><span class="hero__line">work like one.</span></h1>
+              <h1 class="hero__title" id="careers-title"><span class="hero__line">A <em>big</em> company</span><span class="hero__line">that does not</span><span class="hero__line">work like one.</span></h1>
               <p class="lede">2,000+ people across 11 verticals &mdash; mostly remote, close to the decisions, and working on software real industries depend on. Careers here move sideways into new verticals, not up a rigid ladder.</p>
             </div>
           </div>
@@ -678,7 +687,7 @@ body.menu-open { overflow: hidden; }
             </div>
             <div class="factband__cell">
               <p class="factband__n">Top 500</p>
-              <p class="factband__c">Fastest-growing technology companies in North America, Deloitte</p>
+              <p class="factband__c">Fastest-growing technology companies in North America, <a href="https://www.deloitte.com/us/en/Industries/tmt/content/fast500-winners.html" rel="noopener">Deloitte</a></p>
             </div>
           </div>
         </div>
@@ -687,10 +696,8 @@ body.menu-open { overflow: hidden; }
 
     <section class="band band--paper" id="how-it-feels" data-surface="light" aria-labelledby="feels-title">
       <div class="wrap">
-        <p class="eyebrow">Across the Fullsteam network</p>
-        <div class="band__head">
-          <h2 class="display display--l" id="feels-title">Own the work. Keep <em>growing.</em></h2>
-          <p class="lede">Across 100+ business units, people take ownership, learn new industries, and work directly with leaders</p>
+                <div class="band__head">
+          <h2 class="display display--l" id="feels-title">Own the work. Keep growing.</h2>
         </div>
         <div class="value-cards">
           <div class="value-card">
@@ -717,14 +724,13 @@ body.menu-open { overflow: hidden; }
     <section class="band band--surface" id="who-thrives" data-surface="light" aria-labelledby="thrives-title">
       <div class="wrap">
         <div class="band__head">
-          <h2 class="display display--l" id="thrives-title">People who pick up the <em>problem.</em></h2>
-          <p class="lede">Curious about how an industry actually works, comfortable owning an outcome, and willing to learn the domain rather than only the stack. AI is here to take repetitive work off small teams &mdash; never to replace the team.</p>
+          <h2 class="display display--l" id="thrives-title">People who pick up the problem.</h2>
         </div>
         <ol class="values" aria-label="Company scale at a glance">
           <li class="value"><p class="stat__n">2,000+</p><p class="stat__c">Colleagues across our companies</p></li>
           <li class="value"><p class="stat__n">11</p><p class="stat__c">Vertical markets, each a system of record</p></li>
           <li class="value"><p class="stat__n">70,000+</p><p class="stat__c">Business customers teams serve</p></li>
-          <li class="value"><p class="stat__n">Top 500</p><p class="stat__c">Fastest-growing technology companies in North America, Deloitte</p></li>
+          <li class="value"><p class="stat__n">Top 500</p><p class="stat__c">Fastest-growing technology companies in North America, <a href="https://www.deloitte.com/us/en/Industries/tmt/content/fast500-winners.html" rel="noopener">Deloitte</a></p></li>
           <li class="value"><p class="stat__n">#28</p><p class="stat__c">Among U.S. merchant acquirers</p></li>
           <li class="value"><p class="stat__n">$75B+</p><p class="stat__c">Processed on Fullsteam Pay</p></li>
         </ol>
@@ -779,7 +785,6 @@ body.menu-open { overflow: hidden; }
       <div class="wrap">
         <div class="band__head">
           <h2 class="display display--l" id="voices-title">People who work here.</h2>
-          <p class="lede">Three people at Fullsteam, in their own words.</p>
         </div>
         <div class="voices-grid">
           <article class="voice-card">
@@ -801,7 +806,7 @@ body.menu-open { overflow: hidden; }
     <section class="band band--ink" id="roles" data-surface="dark" aria-labelledby="roles-title">
       <div class="wrap roles-layout">
         <div class="roles-layout__main">
-          <h2 class="display display--l" id="roles-title">Open roles live on our <em>job site.</em></h2>
+          <h2 class="display display--l" id="roles-title">Open roles live on our job site.</h2>
           <p class="section-note">Listings change often, so they are not duplicated here. Search by role, team, or location on Workday &mdash; the link opens in a new tab.</p>
         </div>
         <div class="roles-layout__aside">
@@ -813,7 +818,7 @@ body.menu-open { overflow: hidden; }
     <section class="band band--paper" id="linkedin" data-surface="light" aria-labelledby="linkedin-title">
       <div class="wrap">
         <div class="band__head band__head--stack" style="margin-bottom:0;">
-          <h2 class="display display--l" id="linkedin-title">Life here, <em>as posted.</em></h2>
+          <h2 class="display display--l" id="linkedin-title">Life here, as posted.</h2>
         </div>
         <div class="posts">
           <div class="posts__head">
@@ -837,7 +842,7 @@ body.menu-open { overflow: hidden; }
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Oct 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">Supporting our customers starts with our people and the expertise they bring. We&rsquo;re hiring a <em>Senior Information Security &amp; Compliance Business Partner</em>.</p>
+              <p class="li__text">Supporting our customers starts with our people and the expertise they bring. We&rsquo;re hiring a Senior Information Security &amp; Compliance Business Partner.</p>
               <div class="li__art">
                 <span class="li__art-kicker">Now hiring</span>
                 <strong>Senior Information Security &amp; Compliance Business Partner</strong>
@@ -851,7 +856,7 @@ body.menu-open { overflow: hidden; }
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Oct 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">Career growth can take many forms. For <em>Xavier Codrington</em>, it has meant taking on new challenges and growing into a leadership role.</p>
+              <p class="li__text">Career growth can take many forms. For Xavier Codrington, it has meant taking on new challenges and growing into a leadership role.</p>
               <div class="li__art li__art--ink">
                 <span class="li__art-kicker">Fullsteam Voices</span>
                 <strong>Xavier Codrington</strong>
@@ -865,7 +870,7 @@ body.menu-open { overflow: hidden; }
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Jul 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">We&rsquo;re proud to celebrate our Vice President and CISO, <em>Emily Traylor</em>, on receiving Auburn&rsquo;s 2026 Young Alumni Achievement Award.</p>
+              <p class="li__text">We&rsquo;re proud to celebrate our Vice President and CISO, Emily Traylor, on receiving Auburn&rsquo;s 2026 Young Alumni Achievement Award.</p>
               <div class="li__art li__art--gold">
                 <span class="li__art-kicker">Auburn Alumni Association</span>
                 <strong>2026 Young Alumni Achievement Award</strong>
@@ -879,7 +884,7 @@ body.menu-open { overflow: hidden; }
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Jun 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">Hotels and resorts have long used revenue management to optimize room inventory. With <em>Priswing</em>, golf resort operators can price the same way.</p>
+              <p class="li__text">Hotels and resorts have long used revenue management to optimize room inventory. With Priswing, golf resort operators can price the same way.</p>
               <div class="li__art li__art--blue">
                 <span class="li__art-kicker">HITEC 2026 &middot; San Antonio</span>
                 <strong>Bringing golf into the hospitality technology conversation</strong>
@@ -893,10 +898,10 @@ body.menu-open { overflow: hidden; }
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Apr 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">Each year the <em>Nilsen Report</em> maps the companies shaping the payments industry. Fullsteam moved up to #28 among top U.S. merchant acquirers, climbing five spots &mdash; and was named among the fastest-growing by volume processed.</p>
+              <p class="li__text">Each year the <a href="https://nilsonreport.com/" rel="noopener">Nilsen Report</a> maps the companies shaping the payments industry. Fullsteam moved up to #28 among top U.S. merchant acquirers, climbing five spots &mdash; and was named among the fastest-growing by volume processed.</p>
               <div class="li__art">
                 <span class="li__art-kicker">Nilsen Report</span>
-                <strong>Breaking into the top <em>30</em></strong>
+                <strong>Breaking into the top 30</strong>
                 <span>#28 among U.S. merchant acquirers &middot; up five spots</span>
               </div>
               <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
@@ -914,7 +919,7 @@ body.menu-open { overflow: hidden; }
     <section class="faq" id="faq" data-surface="light" aria-labelledby="faq-title">
       <div class="wrap faq__grid">
         <div class="faq__head">
-          <h2 class="display display--l faq__title" id="faq-title"><span class="faq__title-sans">Working here,</span> <em>answered.</em></h2>
+          <h2 class="display display--l faq__title" id="faq-title"><span class="faq__title-sans">Working here,</span> answered.</h2>
         </div>
         <div class="faq__list">
           <details class="faq__item"><summary>Where are Fullsteam people based?</summary><p class="faq__answer">Mostly remote, and close to the decisions. Teams sit across the U.S. and Europe, and each business in the portfolio stays near the industry it serves. Open roles list the location or remote scope on Workday.</p></details>

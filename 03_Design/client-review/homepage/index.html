@@ -657,7 +657,7 @@
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
-    .stat__n em { font-family: var(--serif); font-style: italic; letter-spacing: -.02em; }
+    .stat__n em { font-family: var(--serif); font-style: normal; letter-spacing: -.02em; }
     .stat__c {
       margin-top: 12px;
       font-size: var(--t-small);
@@ -872,12 +872,19 @@
       color: #fff;
       --focus: #fff;
       padding: var(--sect) 0;
+      overflow: hidden;
     }
     .founders__grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: clamp(36px, 6vw, 88px);
-      align-items: center;
+      grid-template-rows: 1fr auto auto auto 1fr;
+      column-gap: clamp(36px, 6vw, 88px);
+    }
+    .founders__grid > .r:not(.founders__media) {
+      grid-column: 1;
+      grid-row: 2 / 5;
+      display: grid;
+      grid-template-rows: subgrid;
     }
     .founders__eyebrow {
       margin: 0 0 16px;
@@ -897,22 +904,101 @@
       line-height: 1.55;
       text-wrap: pretty;
     }
-    .founders__cta { margin: 28px 0 0; }
-    .founders__media {
+    .founders__cta { margin: 28px 0 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .founders__grid > .founders__media {
       position: relative;
-      aspect-ratio: 3 / 2;
-      overflow: hidden;
-      background: #0A222C;
+      grid-column: 2;
+      grid-row: 1 / -1;
+      margin: 0;
+      min-height: 760px;
+      aspect-ratio: auto;
+      overflow: visible;
+      background: transparent;
+      color: #fff;
     }
-    .founders__media img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: saturate(.86) contrast(1.05);
+    .client-slide {
+      display: none;
+      position: absolute;
+      inset: 0;
     }
-    .founders__media::after {
+    .client-slide.is-active { display: block; }
+    .client-slide.is-active::before {
       content: "";
-      position: absolute; inset: 0;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 180%;
+      height: 120%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(closest-side, rgba(0, 140, 186, .9) 0%, rgba(0, 88, 124, .5) 46%, transparent 74%);
+      filter: blur(42px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .client-slide__people {
+      position: absolute;
+      right: 0; bottom: 0;
+      height: 88%;
+      width: auto;
+      max-height: 669px;
+      object-fit: contain;
+      object-position: right bottom;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .client-slide__label { display: contents; }
+    .client-slide__copy {
+      display: none;
+      grid-column: 2;
+      grid-row: 3;
+      align-self: end;
+      z-index: 2;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      padding-left: 28px;
+      width: min(100%, 520px);
+    }
+    .client-slide__copy.is-active { display: flex; }
+    .client-slide__nav {
+      grid-column: 2;
+      grid-row: 4;
+      align-self: start;
+      z-index: 2;
+      display: flex;
+      gap: 8px;
+      padding-left: 28px;
+      margin-top: 14px;
+    }
+    .client-slide__btn {
+      width: 44px; height: 44px;
+      display: grid; place-content: center;
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 50%;
+      background: transparent;
+      color: #fff;
+      cursor: pointer; padding: 0;
+    }
+    .client-slide__btn:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+    .client-slide__btn svg { width: 16px; height: 16px; }
+    .client-slide__btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .client-slide__name {
+      margin: 0;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -.01em;
+      line-height: 1.2;
+      color: rgba(255,255,255,.78);
+    }
+    .client-slide__role {
+      margin: 4px 0 0;
+      font-family: var(--sans);
+      font-size: clamp(36px, 3.4vw, 52px);
+      font-weight: 500;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      color: #fff;
     }
     /* Statement under the founders grid — same closer role as .ai__exit, not a quote. */
     .founders__quote {
@@ -946,7 +1032,7 @@
     .founders__quote cite {
       display: none;
       font-family: var(--mono); font-style: normal;
-      font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      font-size: 11px; 
       color: rgba(255, 255, 255, .58);
       line-height: 1.7;
     }
@@ -999,7 +1085,7 @@
       backdrop-filter: blur(8px);
       color: #fff;
       font-family: var(--mono); font-size: 11px;
-      letter-spacing: .1em; text-transform: uppercase;
+      
     }
     .careers__chip::before {
       content: ""; width: 6px; height: 6px; border-radius: 50%;
@@ -1037,7 +1123,7 @@
     }
     .voice__role {
       font-family: var(--mono); font-size: 11px;
-      letter-spacing: .1em; text-transform: uppercase;
+      
       color: var(--muted);
     }
     .voice blockquote {
@@ -1053,7 +1139,7 @@
     .careers__note {
       margin-top: 26px;
       font-family: var(--mono); font-size: 10px;
-      letter-spacing: .06em; text-transform: uppercase;
+      
       color: var(--muted);
     }
 
@@ -1120,7 +1206,7 @@
       display: block;
       margin-top: 0;
       font-family: var(--mono); font-size: 10px;
-      letter-spacing: .12em; text-transform: uppercase;
+      
       opacity: .8; font-weight: 400;
     }
     .li__art strong {
@@ -1144,7 +1230,7 @@
       display: flex; align-items: center; justify-content: space-between; gap: 20px;
       flex-wrap: wrap;
     }
-    .posts__note { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .posts__note { font-family: var(--mono); font-size: 10px; color: var(--muted); }
 
     /* ======================================================================
        06 · Close
@@ -1222,8 +1308,21 @@
       .vp__details { max-height: 0; }
       .vp.is-open .vp__details { max-height: 260px; }
       .vp__link { right: 20px; bottom: 18px; }
-      .founders__grid { grid-template-columns: 1fr; }
-      .founders__media { aspect-ratio: 3 / 2; }
+      .founders__grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .founders__grid > .r:not(.founders__media) { grid-column: 1; grid-row: 1; display: block; }
+      .founders__grid > .founders__media { grid-column: 1; grid-row: 2; min-height: 560px; }
+      .client-slide__people { height: 88%; max-height: 493px; }
+      .client-slide__label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        grid-column: 1; grid-row: 2;
+        position: absolute; left: 20px; right: auto; bottom: 16px;
+        width: auto;
+      }
+      .client-slide__copy,
+      .client-slide__nav { grid-column: auto; grid-row: auto; padding-left: 0; margin-top: 0; width: auto; }
       .founders__quote { flex-direction: column; align-items: flex-start; gap: 18px; }
       .founders__quote cite { padding-bottom: 0; }
       .voices {
@@ -1299,6 +1398,9 @@
     inset: -11px -6px;
   }
 }
+
+    .close__actions { width: min(600px, 100%); }
+    .close__banners { display: flex; flex-wrap: wrap; gap: 12px; }
 </style>
 </head>
 <body>
@@ -1369,9 +1471,9 @@
         <div class="hero__center" id="heroCenter">
           <div class="hero__headlines">
             <h1 class="hero__title hero__title--portfolio" id="heroTitle">
-              <span class="line"><span class="ln">We acquire</span></span>
-              <span class="line"><span class="ln">great vertical</span></span>
-              <span class="line line--payoff"><span class="ln">software companies.</span></span>
+              <span class="line"><span class="ln">We Acquire</span></span>
+              <span class="line"><span class="ln"><em>Great</em> Vertical</span></span>
+              <span class="line line--payoff"><span class="ln">Software</span></span>
             </h1>
           </div>
         </div>
@@ -1389,7 +1491,7 @@
         <div class="hero__headlines">
           <h2 class="hero__title hero__title--software" id="axisBTitle">
             <span class="line" data-li="1">And build</span>
-            <span class="line" data-li="2">industry-defining</span>
+            <span class="line" data-li="2"><em>industry-defining</em></span>
             <span class="line" data-li="3">technology.</span>
           </h2>
         </div>
@@ -1461,7 +1563,6 @@
         <div class="ai">
           <div class="ai__left">
             <h2 class="display display--l r" id="aiTitle">Practical <span class="ai-word">AI</span>, from code to customer.</h2>
-            <p class="lede r" style="--d:70ms">We employ AI when it adds real customer value.</p>
             <p class="r" style="--d:140ms">
               <a class="arrow-link" href="our-advantage.html#ai">
                 See AI at Fullsteam
@@ -1495,7 +1596,6 @@
       <div class="wrap">
         <header class="band__head">
           <h2 class="display display--l r" id="vertsTitle">Essential software for key industries.</h2>
-          <p class="lede r" style="--d:80ms">Our software is the system of record for the businesses and industries powering our economy.</p>
         </header>
 
         <div class="verts__stage r" id="vertStage" role="group" aria-label="Featured vertical markets">
@@ -1602,64 +1702,66 @@
          =================================================================== -->
     <section class="founders" id="for-founders" data-surface="dark" aria-labelledby="foundersTitle">
       <div class="wrap">
-        <div class="founders__grid">
+        <div class="founders__grid" data-clients>
           <div class="r">
             <h2 class="display display--l" id="foundersTitle">Acquisition is just the first step</h2>
             <p class="founders__body">Building on great means we work together to grow your business. We believe customers are best served with agentic product development and embedded fintech products.</p>
-            <p class="founders__cta">
+            <div class="founders__cta">
               <a class="btn" href="for-founders.html">Explore an Acquisition</a>
-            </p>
+            </div>
           </div>
           <figure class="founders__media r" style="--d:110ms">
-            <img src="assets/img/founders.jpg" alt="A founder at work in the business they built"
-                 width="1800" height="1200" loading="lazy" decoding="async">
+            <div class="client-slide is-active">
+              <img class="client-slide__people" src="assets/img/clients/standin-bridal.png?v=9" alt="" width="768" height="1024">
+            </div>
+            <div class="client-slide">
+              <img class="client-slide__people" src="assets/img/clients/standin-flora.png?v=9" alt="" width="768" height="1024">
+            </div>
+            <div class="client-slide">
+              <img class="client-slide__people" src="assets/img/clients/standin-wine.png?v=9" alt="" width="768" height="1024">
+            </div>
           </figure>
+          <div class="client-slide__label">
+            <div class="client-slide__copy is-active">
+              <p class="client-slide__name">Founders</p>
+              <p class="client-slide__role">BridalLive</p>
+            </div>
+            <div class="client-slide__copy">
+              <p class="client-slide__name">Founders</p>
+              <p class="client-slide__role">Floranext</p>
+            </div>
+            <div class="client-slide__copy">
+              <p class="client-slide__name">Founders</p>
+              <p class="client-slide__role">Commerce7</p>
+            </div>
+            <div class="client-slide__nav">
+              <button type="button" class="client-slide__btn" data-prev aria-label="Previous client">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+              </button>
+              <button type="button" class="client-slide__btn" data-next aria-label="Next client">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
 
       </div>
     </section>
 
     <!-- ===================================================================
-         05 · Careers
+         05 · LinkedIn
          =================================================================== -->
-    <section class="band band--paper" id="careers" data-surface="light" aria-labelledby="careersTitle">
+    <section class="band band--paper" id="linkedin" data-surface="light" aria-labelledby="linkedin-title">
       <div class="wrap">
-        <header class="band__head careers__head">
-          <h2 class="display display--l r" id="careersTitle">Real people. Real impact.</h2>
-          <p class="careers__cta r" style="--d:120ms"><a class="btn" href="careers.html">See Careers</a></p>
+        <header class="band__head careers__head" style="margin-bottom:0">
+          <h2 class="display display--l" id="linkedin-title">Life here, as posted.</h2>
+          <p class="careers__cta"><a class="btn" href="careers.html">See Careers</a></p>
         </header>
-
-        <ol class="voices">
-          <li class="voice r">
-            <div class="voice__top">
-              <img class="voice__face" src="assets/img/voices/tim-mckee.png" alt="" width="233" height="231">
-              <span class="voice__role">Vertical President, BridalLive</span>
-            </div>
-            <blockquote><p>I&rsquo;ve had the opportunity to take on new challenges and advance professionally in a company that invests in its people. The culture here is rooted in excellence, professionalism, and collaboration across all departments. It&rsquo;s exciting to be part of a company at the forefront of SaaS and payments technology, delivering solutions that shape the future of the industries we serve.</p></blockquote>
-            <p class="voice__attr">Tim Mckee</p>
-          </li>
-          <li class="voice r" style="--d:80ms">
-            <div class="voice__top">
-              <img class="voice__face" src="assets/img/voices/xavier-codrington.png" alt="" width="244" height="244">
-              <span class="voice__role">Manager, Operations</span>
-            </div>
-            <blockquote><p>What I&rsquo;ve enjoyed most at Fullsteam is the ownership I&rsquo;ve had over meaningful work and the genuine support to grow into larger roles. Leadership has been both empowering and impactful, creating an environment where, if you&rsquo;re ready to build something, you truly can.</p></blockquote>
-            <p class="voice__attr">Xavier Codrington</p>
-          </li>
-          <li class="voice r" style="--d:160ms">
-            <div class="voice__top">
-              <img class="voice__face" src="assets/img/voices/taylor-straight.png" alt="" width="770" height="770">
-              <span class="voice__role">Senior Director, Finance</span>
-            </div>
-            <blockquote><p>I&rsquo;ve liked working at Fullsteam because they really believe in investing in their employees, with a big focus on promoting from within. It&rsquo;s also been fun getting to come to work every day and solve unique challenges, in an environment where every team member and department wants each other to win and have successes just as much as they do.</p></blockquote>
-            <p class="voice__attr">Taylor Straight</p>
-          </li>
-        </ol>
-
-        <div class="posts">
+        <div class="posts" style="margin-top:clamp(28px, 3vw, 40px)">
           <div class="posts__head">
             <div>
-              <h3 id="careersPostsTitle">See what we&rsquo;re building</h3>
+              <h3>From the company page</h3>
+              <p>Straight from the Fullsteam page on LinkedIn.</p>
             </div>
             <div class="posts__nav">
               <button class="posts__btn" id="postsPrev" type="button" aria-label="Previous posts" disabled>
@@ -1670,7 +1772,6 @@
               </button>
             </div>
           </div>
-
           <div class="posts__scroller" id="postsScroller" tabindex="0" role="region" aria-label="LinkedIn posts, scrollable">
             <article class="li">
               <div class="li__head">
@@ -1685,7 +1786,6 @@
               </div>
               <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
             </article>
-
             <article class="li">
               <div class="li__head">
                 <span class="li__mark" aria-hidden="true">in</span>
@@ -1699,7 +1799,6 @@
               </div>
               <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
             </article>
-
             <article class="li">
               <div class="li__head">
                 <span class="li__mark" aria-hidden="true">in</span>
@@ -1713,7 +1812,6 @@
               </div>
               <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
             </article>
-
             <article class="li">
               <div class="li__head">
                 <span class="li__mark" aria-hidden="true">in</span>
@@ -1727,13 +1825,12 @@
               </div>
               <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
             </article>
-
             <article class="li">
               <div class="li__head">
                 <span class="li__mark" aria-hidden="true">in</span>
                 <div class="li__who"><p>Fullsteam</p><p>Apr 2026 &middot; Public</p></div>
               </div>
-              <p class="li__text">Each year the <em>Nilsen Report</em> maps the companies shaping the payments industry. Fullsteam moved up to #28 among top U.S. merchant acquirers, climbing five spots &mdash; and was named among the fastest-growing by volume processed.</p>
+              <p class="li__text">Each year the <a href="https://nilsonreport.com/" rel="noopener">Nilsen Report</a> maps the companies shaping the payments industry. Fullsteam moved up to #28 among top U.S. merchant acquirers, climbing five spots.</p>
               <div class="li__art">
                 <span class="li__art-kicker">Nilsen Report</span>
                 <strong>Breaking into the top 30</strong>
@@ -1742,7 +1839,9 @@
               <div class="li__foot"><span class="li__link">See the post on LinkedIn <span aria-hidden="true">&rarr;</span></span></div>
             </article>
           </div>
-
+          <div class="posts__foot">
+            <a class="btn" href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener">Follow on LinkedIn</a>
+          </div>
         </div>
       </div>
     </section>
@@ -1756,7 +1855,10 @@
           <h2 class="display display--l" id="closeTitle">See how we build on great.</h2>
         </div>
         <div class="close__actions r" style="--d:100ms">
-          <a class="btn" href="our-advantage.html">Explore Our Advantage</a>
+          <div class="close__banners">
+            <a class="btn" href="our-advantage.html">Our Advantage</a>
+            <a class="btn btn--ghost" href="our-story.html">Our Story</a>
+          </div>
         </div>
       </div>
     </section>
@@ -2128,7 +2230,7 @@
           return;
         }
         var start = null;
-        var dur = 2340;
+        var dur = 1400;
         function step(ts) {
           if (start === null) start = ts;
           var t = clamp01((ts - start) / dur);
@@ -2250,6 +2352,24 @@
       window.addEventListener('resize', requestScroll);
       if (reduce.addEventListener) reduce.addEventListener('change', requestScroll);
       requestScroll();
+    })();
+  </script>
+  <script>
+    (function () {
+      var root = document.querySelector('[data-clients]');
+      if (!root) return;
+      var slides = root.querySelectorAll('.client-slide');
+      var copies = root.querySelectorAll('.client-slide__copy');
+      var i = 0;
+      function show(n) {
+        i = (n + slides.length) % slides.length;
+        for (var k = 0; k < slides.length; k++) {
+          slides[k].classList.toggle('is-active', k === i);
+          if (copies[k]) copies[k].classList.toggle('is-active', k === i);
+        }
+      }
+      root.querySelector('[data-prev]').addEventListener('click', function () { show(i - 1); });
+      root.querySelector('[data-next]').addEventListener('click', function () { show(i + 1); });
     })();
   </script>
 </body>

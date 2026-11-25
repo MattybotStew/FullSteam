@@ -38,7 +38,7 @@
   --wrap: 1280px;
   --gutter: clamp(20px, 4.4vw, 64px);
   --bar: 84px; /* +10% header scale, 2026-11-19 */
-  --sect: clamp(84px, 10vw, 148px);
+  --sect: clamp(72px, 8vw, 120px); /* tightened 2026-11-24 (was 84 / 10vw / 148) */
 
   --t-hero: clamp(38px, min(10.4vw, 12vh), 118px);
   --t-h2: clamp(38px, 5.2vw, 76px);
@@ -119,7 +119,7 @@ button { font: inherit; color: inherit; }
 }
 .display em, .serif-em {
   font-family: var(--serif);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -.015em;
   color: var(--accent);
