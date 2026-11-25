@@ -685,6 +685,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: clamp(28px, 3.4vw, 42px);
   border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
 }
 
 .stat {
@@ -722,7 +723,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 .stats__note {
   grid-column: 1 / -1;
   margin: 10px 0 0;
-  padding-top: 10px;
+  padding: 10px 0 14px;
   border-top: 1px solid var(--line);
   font-family: var(--mono);
   font-size: 10px;
@@ -754,7 +755,7 @@ html:not(.has-js) .story-carousel__controls { display: none; }
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(24px, 3.4vw, 44px);
-  margin-top: clamp(32px, 4vw, 48px);
+  margin-top: clamp(28px, 3.4vw, 42px);
 }
 
 .logos__head {
@@ -779,8 +780,10 @@ html:not(.has-js) .story-carousel__controls { display: none; }
 
 .logos[hidden], .logos__group[hidden] { display: none !important; }
 
-.logos__group[aria-label],
-.screens[aria-label] { margin-top: clamp(32px, 4vw, 48px); }
+/* The group label is already inside a .logos band that carries the gap.
+   The aria-label margin was stacking a second copy of that gap, so the
+   partner row sat twice as far below the stats as the unit row sat above them. */
+.logos .logos__group[aria-label] { margin-top: 0; }
 
 .logos__grid {
   display: grid;
