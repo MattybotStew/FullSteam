@@ -1401,6 +1401,77 @@
 
     .close__actions { width: min(600px, 100%); }
     .close__banners { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* Two doors. Gold and Bio Blue fill each half, inset on the dark field. */
+    .dual-cta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(12px, 1.4vw, 20px);
+      padding: clamp(12px, 1.4vw, 20px);
+      background: var(--brand-ink);
+    }
+    .dual-cta__block {
+      display: flex;
+      min-height: clamp(140px, 16vw, 210px);
+      text-decoration: none;
+      --focus: currentColor;
+    }
+    .dual-cta__block:focus-visible { outline: 2px solid #fff; outline-offset: -6px; }
+    .dual-cta__copy {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      padding: clamp(20px, 2vw, 28px);
+    }
+    .dual-cta__block--advantage .dual-cta__copy { background: var(--gold); color: var(--brand-ink); }
+    .dual-cta__block--story .dual-cta__copy { background: var(--brand); color: #fff; }
+    .dual-cta__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+    }
+    .dual-cta__title {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: clamp(32px, 3.5vw, 56px);
+      line-height: .98;
+      letter-spacing: -0.03em;
+    }
+    .dual-cta__arrow {
+      flex: none;
+      width: 22px;
+      height: 22px;
+      margin-bottom: .08em;
+      transition: transform .18s var(--e);
+    }
+    .dual-cta__block:hover .dual-cta__arrow { transform: translateX(4px); }
+    .dual-cta__lede {
+      max-width: 28ch;
+      margin: 0;
+      font-size: clamp(16px, 1.3vw, 18px);
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    .dual-cta__block--advantage .dual-cta__lede { color: var(--brand-ink); }
+    .dual-cta__block--story .dual-cta__lede { color: rgba(255, 255, 255, .88); }
+    .dual-cta__lede em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: var(--gold);
+    }
+    @media (max-width: 800px) {
+      .dual-cta { grid-template-columns: 1fr; }
+      .dual-cta__block { min-height: 180px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .dual-cta__arrow { transition: none; }
+      .dual-cta__block:hover .dual-cta__arrow { transform: none; }
+    }
 </style>
 </head>
 <body>
@@ -1755,7 +1826,7 @@
       <div class="wrap">
         <header class="band__head careers__head" style="margin-bottom:0">
           <h2 class="display display--l" id="linkedin-title">Life here, as posted.</h2>
-          <p class="careers__cta"><a class="btn" href="careers.html">See Careers</a></p>
+          <p class="careers__cta"><a class="btn" href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener">Follow on LinkedIn</a></p>
         </header>
         <div class="posts" style="margin-top:clamp(28px, 3vw, 40px)">
           <div class="posts__head">
@@ -1840,27 +1911,31 @@
             </article>
           </div>
           <div class="posts__foot">
-            <a class="btn" href="https://www.linkedin.com/company/fullsteam" target="_blank" rel="noopener">Follow on LinkedIn</a>
+            <a class="btn" href="careers.html">See Careers</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================================================================
-         06 · Close
-         =================================================================== -->
-    <section class="close" id="close" data-surface="dark" aria-labelledby="closeTitle">
-      <div class="wrap close__inner">
-        <div class="r">
-          <h2 class="display display--l" id="closeTitle">See how we build on great.</h2>
-        </div>
-        <div class="close__actions r" style="--d:100ms">
-          <div class="close__banners">
-            <a class="btn" href="our-advantage.html">Our Advantage</a>
-            <a class="btn btn--ghost" href="our-story.html">Our Story</a>
-          </div>
-        </div>
-      </div>
+    <section class="dual-cta" data-surface="dark" aria-label="Explore Fullsteam">
+      <a class="dual-cta__block dual-cta__block--advantage" href="our-advantage.html">
+        <span class="dual-cta__copy">
+          <span class="dual-cta__top">
+            <span class="dual-cta__title">Our Advantage</span>
+            <svg class="dual-cta__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </span>
+          <p class="dual-cta__lede">Payments, AI, and how the companies grow.</p>
+        </span>
+      </a>
+      <a class="dual-cta__block dual-cta__block--story" href="our-story.html">
+        <span class="dual-cta__copy">
+          <span class="dual-cta__top">
+            <span class="dual-cta__title">Our Story</span>
+            <svg class="dual-cta__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </span>
+          <p class="dual-cta__lede">The company, building on <em>great.</em></p>
+        </span>
+      </a>
     </section>
   </main>
 
