@@ -80,6 +80,8 @@ jobs:
              03_Design/client-review/homepage/assets/hero-sizzle-mobile.mp4 \
              03_Design/client-review/homepage/assets/site.css \
              03_Design/client-review/homepage/assets/hero.css \
+             03_Design/client-review/homepage/assets/design-notes.css \
+             03_Design/client-review/homepage/assets/design-notes.js \
              _site/03_Design/client-review/homepage/assets/
           cp -R 03_Design/client-review/homepage/assets/img/. \
              _site/03_Design/client-review/homepage/assets/img/

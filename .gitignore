@@ -87,7 +87,16 @@ _site/
 # hero.css is the interior hero, linked after it. Both are staged by pages.yml.
 !03_Design/client-review/homepage/assets/hero.css
 !03_Design/client-review/homepage/assets/site.css
+# Local review tool (inert unless localhost, file://, or ?comments=1). Tracked and
+# staged so the page never 404s its assets; note writes only work against
+# tools/review-server.py, never the static host.
+!03_Design/client-review/homepage/assets/design-notes.css
+!03_Design/client-review/homepage/assets/design-notes.js
 !03_Design/client-review/homepage/assets/credits.json
+# Local comment queue written by tools/review-server.py. These are review notes
+# for the agent, not site content: never commit or stage them for Pages.
+/03_Design/client-review/homepage/design-comments.json
+/03_Design/client-review/homepage/design-comments.md
 !03_Design/client-review/homepage/assets/img/
 !03_Design/client-review/homepage/assets/img/**
 03_Design/client-review/homepage/assets/img/leaders/_source-fullsteam/

@@ -223,9 +223,17 @@ This file is the canonical agent entry point (works with Cursor, which reads
   - **⚠ Exploration palette drift** — the exploration HTML runs on `#003F55` / `#FEC50A`
     / `#00202B`, none of which are KB §15 (**OI-13**). Do not copy those values into
     anything official.
-- Wireframe HTML files are static — preview by opening the file or with a static
-  server from the repo root:
-  `python3 -m http.server 8000` → http://localhost:8000/02_Wireframes/...
+- Wireframe HTML files are static — preview by opening the file or with a server from
+  the repo root. For the hi-fi homepage **use the review server**, not the plain static
+  server, because its comment pointer writes notes into the repo:
+  `python3 tools/review-server.py` → http://127.0.0.1:8000/03_Design/client-review/homepage/
+- **Design-comment queue (2026-11-27):** the homepage's comment pointer writes
+  `03_Design/client-review/homepage/design-comments.md` + `.json` (both gitignored).
+  Treat each note as a **design question or instruction**: answer it or implement it,
+  then clear the queue. Activation is local-only (`localhost` / `127.0.0.1` /
+  `file://`) or `?comments=1`. Detail: `03_Design/client-review/homepage/design-notes.md`
+  §2026-11-27. The plain `python3 -m http.server` still works for wireframes, but not
+  for comment sync.
 - **HTML→Figma converter:** `tools/html2figma/` (`parse.py` → JSON spec → `bundle.py` →
   paste into `figma_execute` via the Desktop Bridge) rebuilds wireframe HTML as editable
   Figma frames on page `⚠️ WF v2`. Structural fidelity only — no images, no animation.

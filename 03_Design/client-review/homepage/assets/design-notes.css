@@ -1,0 +1,573 @@
+/* ============================================================================
+   Design-notes cursor — local review layer
+   ----------------------------------------------------------------------------
+   A Cursor-style comment pointer for the client-review pages: toggle it, then
+   click anywhere to drop a numbered pin and write a note. Notes live in
+   localStorage and can be copied as markdown for the agent.
+
+   Not part of the visual design. Never active unless the page is on localhost
+   or opened with ?comments=1.
+   ========================================================================== */
+
+#dn-root,
+#dn-root * {
+  box-sizing: border-box;
+}
+
+#dn-root {
+  --dn-accent: #00587c;
+  --dn-accent-ink: #ffffff;
+  --dn-gold: #ffc600;
+  --dn-ink: #06171f;
+  --dn-card: #ffffff;
+  --dn-line: #d6e0e3;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+    Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #eef5f7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#dn-root [hidden] {
+  display: none !important;
+}
+
+#dn-root button {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+}
+
+/* Cursor: a speech bubble with a plus, so the mode is legible before you click.
+   PNG first (Safari), then the sharper SVG for browsers that accept it. */
+html.dn-mode body {
+  cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAFNklEQVR4nM1WbYiUVRR+zn0/ZtxZdybdVds0P9rFrEBDM8sSrUwkWJVMSiEki1RCxZRUgrUSIdLMQH9ECP6wXDRTxCjcNPtRmJtUhrq5sprrtrtO66w77ny97z1x774zLeu8oyskHRiG+957z3PP85x7ziV4xsxERNxjXALAxO2bJKJYD3+CiGR2bPYEra4+aq5fP/U1APM6ricrHFfaEKC+IhJDoTjM3Ajg4NlodDsRdfYEp+wgHo/fHQqF9h473/L41gPH8HPjZaQcFzkK+gKsIhKEh4YNwZKZkzFr7MgzAOYS0eksngY+dw5WZSWOba49+eiqTTvTsG0DAVN0u+htDBABQgCSAVYB+JCSzjASKWfZwip76/xnVPQTACj6We9g5iXHm65un7RofdosjdgqSsnsC8oZB0imAduCCFhqf15wQQRDENLN0XTNppX2vIdHbSaiVcysotL20oa9tVLYlqH2u1JqZ71/BAKnMhgxpBRr58/A2IqhkOoA6nue9cqPIyVEOGS+V/ONOt1cZraIyBHM3L+jK1lxsuGSkEFbuIo+H92UM9sycXD1Amx8cToOr1uIgZH+gOOCFP35OJIMaVtU39RKDa1/DwUwTLMBwHakNDOu65crmjLTNGAwEAkX497SCBxXoqwkhPKyCAxmWIbQ6/zM0dGzofCy10mH6LuFCDLjQMYzgOOgDUAq46KkX0BT2RbrhHMtDqRswDJBAdvTPD9r8PAKFggVgUxnMKK8FAueGAd13KKgjeKglZt/e85UXIl1AoaB/SfO4LeGSwXBs+YLrDWVjGDAwldvvYwx95TduIYIb8yYlBuvmPkYRq/4CNGOOMg0CoIL3xmtF0MIgUgoiFsxRb9ldQPerNyZfhNqswLt6kqi6oNdeP3pR2AQELAtPD/xQQQUAID9J04j1tmlC8rnP5xCc0s7RND2qQP/WkGN9eaAjbqzF1D3+/nua1NSjGc/qUDAKoKUjKU7DqKlsVmvU+DUL3BT0CxwYVZU5EEbhhDgjIsB4RBMIfR1MgzSVyraP6TXqCz3qwP5NHYEkSx0B1VkCki1jM54FzoSSZiGQCrt4kosDoeAjFsYVHTnjK7GamwSUQczX3xgeHlZ2+VWJtsy3DxUZTVPJFKYu2U3Xn1qPPb9dBot0RhEwF9TlfmUzvCI8kEYWXZXC4AmDezN71s9e+rEI7U/pu2SkKFyUkWpe4Lwzulpru5oXf1F1J1qAEwDFOzWlHxALdNAqi3urpw1zbJN8xARJVST0G0RQDGAuuWf1VZ+vONAGiVFJoI2CRBJVUpVC+xproQwVQFVMuQeFTea6mLXrjuzn3vS+nLFvHYA47yIKfcQYOYxAA7sOn628sN9R1Df3IY9b87Hut21+OWPixDBQLYgsEqo9niCXJ9erB8CRLhv8EAsnjkZy6aPV5X2BSL6PvcQ8PTTg1gsNiAcDq+RwJxzTW33jh46yK7ecwTv7jyE4MAwku0dWFQ1BdteqcKF1miuCfdSl9UHg8gdPihy2TbNrwFsJKI/mdkgIt2Ncsft+R5iZlWqylX/rL9y7f37F290DdMQoaIiPrNleaI8UlwFoNnb78e1AmgiomRv/zeYevQp4XORcGIUMztj12yTmLY0s/nwSWbmRf6i5vVpeHl0S4u19tVHj5rMXL+25lsevHgTX72eqPHmLTV/C78+v1DhRa7+P/31r6vynS++a2TmSHV1tXbaZ4e3AbxQ8cvMU7yxasv/nbEXFTNPcF13wx0BzXcARTHutPHtJMn/1f4BuPPUESrFVjMAAAAASUVORK5CYII=")
+      4 4,
+    crosshair;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M4 4h19a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-8l-7 5v-5H4a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z' fill='%2300587C' stroke='%23fff' stroke-width='1.5'/%3E%3Cpath d='M14 8v8M10 12h8' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+      4 4,
+    crosshair;
+}
+
+html.dn-mode body * {
+  cursor: inherit;
+}
+
+html.dn-mode #dn-root,
+html.dn-mode #dn-root * {
+  cursor: default;
+}
+
+html.dn-mode #dn-root button,
+html.dn-mode #dn-root .dn-pin {
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Launcher
+   -------------------------------------------------------------------------- */
+
+.dn-pill {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 15px 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: var(--dn-ink);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(4, 20, 27, 0.28);
+  pointer-events: auto;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.dn-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px rgba(4, 20, 27, 0.34);
+}
+
+.dn-pill:focus-visible,
+.dn-btn:focus-visible,
+.dn-pin:focus-visible,
+.dn-input:focus-visible {
+  outline: 2px solid var(--dn-gold);
+  outline-offset: 2px;
+}
+
+.dn-pill svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.dn-pill span {
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+/* A companion badge follows the pointer in comment mode, so the cursor reads
+   as a comment tool even in browsers that ignore the custom cursor image. */
+.dn-cursor {
+  position: fixed;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px 5px 8px;
+  border-radius: 999px;
+  background: rgba(6, 23, 31, 0.94);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(4, 20, 27, 0.28);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.dn-cursor::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--dn-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Toolbar
+   -------------------------------------------------------------------------- */
+
+.dn-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 7;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 24px);
+  padding: 8px 10px 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: var(--dn-ink);
+  color: #fff;
+  box-shadow: 0 18px 50px rgba(4, 20, 27, 0.34);
+  pointer-events: auto;
+}
+
+.dn-bar__dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--dn-gold);
+  box-shadow: 0 0 0 3px rgba(255, 198, 0, 0.18);
+}
+
+.dn-bar__hint {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  padding-right: 6px;
+  line-height: 1.15;
+}
+
+.dn-bar__hint strong {
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.dn-bar__hint span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+.dn-bar__count {
+  flex: none;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.dn-sync {
+  flex: none;
+  max-width: 150px;
+  overflow: hidden;
+  padding: 4px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 10.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dn-sync[data-state="ok"] {
+  border-color: rgba(132, 189, 0, 0.45);
+  color: #d9efb9;
+}
+
+.dn-sync[data-state="busy"] {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.dn-sync[data-state="off"] {
+  border-color: rgba(255, 198, 0, 0.45);
+  color: #ffe08a;
+}
+
+.dn-sync:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.dn-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dn-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dn-btn--gold {
+  background: var(--dn-gold);
+  color: var(--dn-ink);
+}
+
+.dn-btn--gold:hover {
+  background: #ffd633;
+}
+
+.dn-btn--primary {
+  background: var(--dn-accent);
+  color: var(--dn-accent-ink);
+}
+
+.dn-btn--primary:hover {
+  background: #006c99;
+}
+
+.dn-btn--quiet {
+  border-color: var(--dn-line);
+  color: #405258;
+}
+
+.dn-btn--quiet:hover {
+  background: #f2f6f7;
+}
+
+.dn-btn--danger {
+  color: #a12a1e;
+}
+
+.dn-btn--danger:hover {
+  background: #fdf0ee;
+}
+
+/* --------------------------------------------------------------------------
+   Hover target outline
+   -------------------------------------------------------------------------- */
+
+.dn-hover {
+  position: fixed;
+  z-index: 2;
+  border: 1.5px solid rgba(0, 88, 124, 0.9);
+  border-radius: 3px;
+  background: rgba(0, 88, 124, 0.06);
+  pointer-events: none;
+}
+
+.dn-hover__label {
+  position: absolute;
+  left: -1.5px;
+  bottom: calc(100% + 4px);
+  max-width: 340px;
+  padding: 3px 7px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--dn-ink);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   Pins
+   -------------------------------------------------------------------------- */
+
+.dn-pins {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dn-pin {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  border: 2px solid #fff;
+  border-radius: 50% 50% 50% 4px;
+  background: var(--dn-accent);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(4, 20, 27, 0.34);
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  pointer-events: auto;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+/* Keep the visual pin small but give it a thumb-sized hit area. */
+.dn-pin::after {
+  content: "";
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+}
+
+.dn-pin:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: #006c99;
+}
+
+.dn-pin--active {
+  background: var(--dn-gold);
+  color: var(--dn-ink);
+}
+
+.dn-pin--pending {
+  background: var(--dn-gold);
+  color: var(--dn-ink);
+  border-color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Composer
+   -------------------------------------------------------------------------- */
+
+.dn-pop {
+  position: fixed;
+  z-index: 8;
+  width: 340px;
+  max-width: calc(100vw - 24px);
+  padding: 14px;
+  border: 1px solid var(--dn-line);
+  border-radius: 14px;
+  background: var(--dn-card);
+  color: #0e1b20;
+  box-shadow: 0 24px 60px rgba(4, 20, 27, 0.3);
+  pointer-events: auto;
+}
+
+.dn-pop__ctx {
+  margin: 0 0 9px;
+  overflow: hidden;
+  color: #5d7178;
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.dn-pop__text {
+  margin: 0 0 12px;
+  max-height: 34vh;
+  overflow: auto;
+  color: #122329;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.dn-pop__row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.dn-pop__row .dn-spacer {
+  flex: 1;
+}
+
+.dn-pop__hint {
+  flex: 1;
+  color: #7c8c92;
+  font-size: 10.5px;
+}
+
+.dn-pop .dn-btn--quiet {
+  border-color: transparent;
+}
+
+.dn-input {
+  display: block;
+  width: 100%;
+  min-height: 92px;
+  max-height: 38vh;
+  padding: 9px 10px;
+  resize: vertical;
+  border: 1px solid #c9d6da;
+  border-radius: 9px;
+  background: #fff;
+  color: #0e1b20;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.dn-input::placeholder {
+  color: #8a9aa0;
+}
+
+.dn-pop__meta {
+  margin: 8px 0 0;
+  color: #7c8c92;
+  font-size: 10.5px;
+}
+
+/* --------------------------------------------------------------------------
+   Toast
+   -------------------------------------------------------------------------- */
+
+.dn-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 78px;
+  z-index: 9;
+  transform: translateX(-50%) translateY(6px);
+  max-width: calc(100vw - 32px);
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: var(--dn-ink);
+  color: #fff;
+  box-shadow: 0 12px 34px rgba(4, 20, 27, 0.34);
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.dn-toast.is-in {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* A comment composer occupies the bottom edge; keep the confirmation clear. */
+.dn-toast--top {
+  top: 16px;
+  bottom: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Small screens
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .dn-pill {
+    right: 12px;
+    bottom: 12px;
+    min-height: 40px;
+    padding: 0 13px 0 11px;
+  }
+
+  .dn-bar {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 8px 10px;
+    border-radius: 16px;
+  }
+
+  .dn-bar__hint {
+    flex: 1 1 100%;
+    padding: 0 2px 2px;
+  }
+
+  .dn-bar__hint span {
+    white-space: normal;
+  }
+
+  .dn-bar__count {
+    margin-right: auto;
+  }
+
+  .dn-pop {
+    left: 10px !important;
+    right: 10px;
+    bottom: 10px;
+    top: auto !important;
+    width: auto;
+    max-width: none;
+  }
+
+  .dn-toast {
+    bottom: 104px;
+  }
+
+  .dn-toast--top {
+    top: 16px;
+    bottom: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dn-pill,
+  .dn-pin,
+  .dn-toast {
+    transition: none;
+  }
+}

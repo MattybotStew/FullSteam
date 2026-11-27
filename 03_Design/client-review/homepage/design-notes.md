@@ -1527,3 +1527,53 @@ read as they light in sequence with each step's rule. Easing (cubic-out), stagge
 `prefers-reduced-motion` early-out are unchanged — reduced motion still snaps to the final value.
 
 **Follow-up (same day):** 2600ms → **2340ms** (10% faster) at the client's direction.
+
+## 2026-11-27 — comment cursor for design review
+
+A Cursor-style comment pointer on the homepage. The notes are **not** a separate feedback
+document: each one is written into the repo for **DeepSeek to read, then answer or implement**.
+It is **not part of the design** and is never visible to a client by default.
+
+**Run it**
+
+1. Start the review server instead of the plain static server:
+   `python3 tools/review-server.py` (serves the repo on `127.0.0.1:8000` and accepts note writes).
+2. Open `http://127.0.0.1:8000/03_Design/client-review/homepage/index.html`.
+3. Click **Comment** (bottom right). The pointer becomes a speech-bubble cursor with a
+   **Comment** badge following it.
+4. Click anywhere, type a **design question or instruction**, then **Add comment** (`⌘↵` saves).
+   The pin is anchored to the element under the click by selector + a relative x/y, so it follows
+   the layout on scroll and resize.
+5. The toolbar status reads **Saved to repo** when the note is on disk, or **Local only** if the
+   review server is not running (click the status to retry).
+
+**How DeepSeek actions them**
+
+- The queue is [`design-comments.md`](./design-comments.md) (readable) and
+  [`design-comments.json`](./design-comments.json) (structured). Both are gitignored.
+- Each note carries the page, selector, relative position, element text, and the note itself, so
+  the target can still be found after the page is edited.
+- Questions are answered in chat; instructions are implemented on this page. Handled notes are
+  cleared from the queue afterwards.
+- Notes survive reload and are restored from the server, not only from the browser.
+
+**Where it lives**
+
+- [`assets/design-notes.css`](./assets/design-notes.css) and
+  [`assets/design-notes.js`](./assets/design-notes.js); linked from `index.html` only.
+- Endpoint: `GET/POST /__design-notes` in [`tools/review-server.py`](../../../tools/review-server.py).
+- `localStorage` (`fullsteam:comments:v1`) is only the offline cache. The repo files are the
+  source of truth. `window.FullsteamComments.refresh()` re-reads them;
+  `window.FullsteamComments.clear()` empties this page’s queue.
+- The launcher is shown **only on `localhost` / `127.0.0.1`, when the HTML is opened from disk,
+  or on any host with `?comments=1`**. The custom cursor uses an SVG bubble with a **PNG fallback**
+  (Safari), and a companion badge follows the pointer in every browser.
+- Both assets are allow-listed in `.gitignore` and staged by `pages.yml` so the page never 404s
+  them; **auto-save only works against the review server**. Opening without it falls back to
+  **Local only**.
+
+**Verified** at 1440 / 1024 / 800 / 390 / 320: no horizontal overflow, the composer stays inside the
+viewport, the toolbar yields to the composer, the toast moves to the top when a composer is open,
+pins re-anchor across resize/reload, notes hydrate from the server after clearing `localStorage`,
+delete/clear write back to disk, and an offline save retries successfully once the server returns.
+`Esc`, `Alt+Shift+C`, edit, and delete were exercised through CDP (Chromium headless).
