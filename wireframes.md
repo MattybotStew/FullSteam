@@ -73,6 +73,13 @@ python3 -m http.server 8000
 
 ## 2. Current direction — `homepage.html`
 
+> **Track note (2026-11-27).** This section records the **wireframe** structure as of
+> **2026-10-01**; it is not the current hi-fi build. The client-review homepage diverged after
+> 2026-11-18 — copy swap instead of the grow morph, no filmstrip, founders/client slider,
+> dual close — and the built order is in **KB §30**. Do not “fix” the hi-fi back to this
+> order, and do not silently redraw the wireframe to match the build; a wireframe re-lock is
+> a separate decision. The grow-morph references below are historical (§23.10 retired it).
+
 The live file is [`02_Wireframes/active/homepage.html`](./02_Wireframes/active/homepage.html). Earlier notes below still say `homepage-bendingspoons-style.html`; that name is the same direction after the folder move.
 
 **Layout concept:** Homepage as a **long scrolling story**, using

@@ -3182,3 +3182,110 @@ cleared.
 | **OI-16** | **Named-customer and named-product clearance** — five partners, three acquisition products (§29.6.4 / §29.7). Genericize until cleared in writing. | Client |
 | **OI-17** | **Cybersecurity claim** — verify "enterprise-grade cybersecurity expertise and support" is a real centralized offering before it reaches copy. | Client / agency |
 | *(existing)* | **11 vs 13+ sectors** (§22.6.2), **all scale figures** (OI-5 / G-3) | Client |
+
+---
+
+## 30. Current build state — client-review hi-fi (2026-11-27)
+
+> **Status:** snapshot of the working branch `client-review-2026-11-24`. The design build is
+> `39fefd1` (2026-11-26 09:25 ET); the comment tooling is the later commit `214c234`
+> (2026-11-27). **Six design commits are on the branch after `main` last merged `667533e`
+> (2026-11-25)** and are not deployed by Pages until `main` is updated. This section records
+> what the build actually does; it supersedes stale build descriptions in **§28** (which stops
+> at 2026-11-18), **§29.8**, `design.md` §3.1/§4.10, and `wireframes.md` §2 where they
+> conflict. Strategy and IA are unchanged: §14 (sitemap), §23 (opening model), §24 (order).
+
+### 30.1 Page inventory
+
+Seven client-review pages: `index.html`, `vertical-software.html`, `our-advantage.html`,
+`our-story.html`, `careers.html`, `for-founders.html` (on-page label **Acquisitions**), and
+`contact.html`. Figma was not updated for the 2026-11-18 → 26 client notes.
+
+### 30.2 Homepage — current order and copy
+
+1. **Opening** — dark video plate, Axis A → copy swap → Axis B (still §23.10; no grow morph).
+   Axis A is **“We Acquire / *Great* Vertical / Software”**. Axis B is
+   **“And build / *industry-defining* / technology.”** Both use Instrument Serif italic on the
+   emphasised line. The opening carries no CTA; the header pill is the only one.
+2. **Building on Great** — `#scale`; Acquire / Grow / Lead in a chained reveal.
+   Acquire: 70,000+ customers (ticks 70,001, 70,002…); Grow: $75B processed + **28th** largest
+   U.S. processor (Nilsen, counted down from 99); Lead: **19** market-leading products +
+   **100%** AIDLC adoption. Step handoff **860ms**; counters **1400ms**; 70,000 creep **+1 every
+   1500ms**; reduced motion reveals all immediately.
+3. **AI** — “Practical *AI*, from code to customer.” and the three use-case cards. The
+   **Our Advantage AI panel** dropped its three cards on 2026-11-26; the homepage band keeps
+   them.
+4. **Verticals** — “Essential software for key industries.” Five revenue-ordered cards
+   (ERP, Wine, Transportation, Hospitality, Automotive) + “All verticals” cell.
+5. **Founders** — “Acquisition is just the first step” + **client slider** with three
+   placeholder slides labelled **BridalLive / Floranext / Commerce7**. Portraits and quotes are
+   placeholders pending client approval (clearance risk, §29.7 / OI-16).
+6. **LinkedIn** — “Life here, as posted.” + five real posts + **See Careers**. The standalone
+   strip heading was removed on 2026-11-25.
+7. **Close** — two inset **doors**, Our Advantage and Our Story (no single closing headline);
+   hover blooms a brand field into each door (2026-11-26).
+8. **Footer** — Our Advantage carries Embedded FinTech · **AI at Fullsteam** (green) ·
+   Operational Excellence; Building on Great sits under the logo.
+
+### 30.3 What changed after 2026-11-18 (the docs missed these)
+
+- **Italics:** the 2026-11-24 brief reserved italics for hero titles, then 2026-11-25 put
+  **one italic payoff word on each interior hero** (and underlined citation/roles links). Body
+  and heading `<em>` italics were stripped. The current build is the 24–25 Nov state, not the
+  23 Nov rule in `index.html`’s old header comment.
+- **Hero copy:** Axis A changed to “We Acquire / Great Vertical / Software”; Axis B changed to
+  “And build / industry-defining / technology.” The 2026-11-18 Axis B (“Powering our verticals
+  with payments and AI”) is obsolete.
+- **Founders:** the old Real People block became the three-slide after-acquisition client
+  slider (`d9d0db2`), then the founder name moved under the gold rule and the LinkedIn heading
+  was dropped (`6206986`), then the crop and portrait scale were matched to Figma (`7c21352`,
+  `2f8af68`).
+- **Close:** the old single close became the two inset doors and the LinkedIn/Careers buttons
+  were swapped (`667533e`); each door gained the bloom hover (`39fefd1`).
+- **Our Advantage:** the three AI use-case cards were removed so the panel leads with the video
+  (`276254f`); the stats row was closed and the payoff words italicised (`3b34ca5`).
+- **Vertical Software:** logo-band gaps and the stats-row bottom stroke were evened
+  (`1ed8599`).
+- **Model:** Grow and Lead start halfway through the previous counter wait (`7c21352`); the
+  handoff is **860ms**.
+
+### 30.4 Interiors — current state
+
+- **Vertical Software:** single page, sticky sidebar, eleven inline panels. Title + one
+  paragraph; logo bands split business units → stats → customers/partners; screens only on the
+  full tier (Weddings). Sidebar numerals are gone.
+- **Our Advantage:** sticky sidebar groups Embedded Fintech → AI at Fullsteam (gradient
+  shimmer) → Operational Excellence; `#payments` default. AI panel is video-led, no cards.
+- **Our Story / Careers / Contact / Acquisitions:** paper-mesh heroes, each with its own
+  composition; Acquisitions founder films remain a tab filmstrip under the copy. No page
+  structure changed in this pass.
+
+### 30.5 Open items still current
+
+| Item | State |
+|---|---|
+| **OI-5 / G-3** — all scale figures (70,000+, $75B, 28th, 19, 100% AIDLC, 2,000+) | Still awaiting publishability sign-off |
+| **OI-16** — named acquisition products (BridalLive, Floranext, Commerce7) are now visible in the homepage founders slider | Needs written clearance; currently placeholders |
+| **Footer link colour** — three pages set `.86`, four inherit `.62` | Taste call; not a cleanup |
+| **`.vp--all` gradient** — `#006C99/#003F55/#032B39` | Off-palette middle; art-direction decision |
+| **CTA wording** — “Explore our verticals” on builds vs “Explore our vertical solutions” locked label | Global ratification open |
+| **11 vs 13+ sectors** | Client reconciliation; site ships 11 |
+| **OI-15** — investor track | Client decision; no nav/page change |
+
+### 30.6 Documentation drift (as of this snapshot)
+
+- `PROJECT_KNOWLEDGE_BASE.md` §28 stops at **2026-11-18**; §29.8 still calls the opening a
+  “grow morph” even though §23.10 retired it.
+- `design.md` §3.1 and §4.10 were given **2026-11-27 amendment notes**: the grow-morph and
+  MediaDark/EngineLight text remains as history but is explicitly superseded. The UX intent
+  still needs a proper rewrite, not just a banner.
+- `wireframes.md` §2 now carries a **2026-11-27 track note**: it records the 2026-10-01
+  wireframe, not the hi-fi build. A wireframe re-lock is still a separate decision.
+- `03_Design/client-review/homepage/design-notes.md` now records the comment tooling
+  (2026-11-27) but has no 24–26 Nov build entries; this section is the bridge.
+- Root `AGENTS.md` was corrected on 2026-11-27 to point here, but its older “Current state”
+  bullets below this section may still describe the wireframe phase.
+
+**Reconciliation rule:** this section and the built HTML win for *what exists*; §14/§23/§24 win
+for *what is locked*; `design.md`/`wireframes.md` remain the intent and wireframe tracks and
+should be amended deliberately, not silently overwritten from the build.

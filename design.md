@@ -131,7 +131,14 @@ ask the question the *next* block answers.
 > audience paths and company context beneath. Exact ordering and whether certain bands merge is an
 > open wireframe question — see §8 Open Questions.
 
-### 3.1 Opening sequence — Axis A (Portfolio) → grow morph → Axis B (Growth engine)
+### 3.1 Opening sequence — Axis A (Portfolio) → copy swap → Axis B (Growth engine)
+
+> **AMENDED 2026-11-27 — current build.** The transition is the **copy swap** (KB §23.10):
+> Axis A's lines leave upward, Axis B's arrive from below, the media never cuts or expands.
+> **All grow-morph text below is historical.** Current copy: Axis A **“We Acquire / *Great*
+> Vertical / Software”**, Axis B **“And build / *industry-defining* / technology.”** Current
+> homepage order and full build record: **KB §30**. This section remains the UX intent; where
+> it conflicts with §30, §30 wins for what exists.
 
 **Decided 2026-09-24 · Axis A amended 2026-10-01.** The locked two-axis model (KB §14: *portfolio +
 growth engine*) is delivered on the homepage **in sequence**, not side by side. The parallel two-lane
@@ -341,6 +348,13 @@ two states of the pinned opening:
   "Building on Great Starts Here").
 
 ### 4.10 Interior page heroes (hi-fi subpages)
+
+> **AMENDED 2026-11-27 — the table below is superseded as a build instruction.** The shipped
+> interiors use the single **paper-mesh** system with per-page compositions recorded in
+> `AGENTS.md` (“Interior hero archetypes”) and KB §30. Do **not** restore the MediaDark /
+> EngineLight archetypes in the table below; they are the 2026-11-09 record, not the current
+> build. The two-track rule still applies: this file states intent, not a licence to clone one
+> page's hero onto another.
 
 The homepage opening (Axis A → copy swap → Axis B) is **unique** and must not be reused on interior
 pages. Subpages share ledger chrome, type scale (`--t-hero` / `display--xxl`), and locked palette —

@@ -49,10 +49,10 @@ This file is the canonical agent entry point (works with Cursor, which reads
   verticals live in the **filmstrip**. The model, the two headlines, the A→B order, and
   both-states-are-content are **unchanged**.
   **Amended 2026-10-29 (client):** the grow morph and the filmstrip are both gone; the opening is
-  a **framed plate with a copy swap** (KB §28, §23.10). Axis A's copy is
-  **"We acquire / great software / companies."** Axis B is unchanged.
-  The page after the opening was reordered — see KB **§24** and `wireframes.md` §2 (the canonical,
-  up-to-date order).
+  a **framed plate with a copy swap** (KB §28, §23.10). **Amended 2026-11-24:** Axis A is
+  **“We Acquire / *Great* Vertical / Software”** and Axis B is **“And build / *industry-defining*
+  / technology.”** The page after the opening was reordered — the current build order is in
+  **KB §30**; `wireframes.md` §2 is the historical wireframe record, not the hi-fi order.
 - **Inspiration / layout patterns:** read [`inspiration.md`](./inspiration.md) before
   borrowing a layout idea from any reference site. It records what we take from each
   reference and what we explicitly reject, with the guardrails inline so a pattern is
@@ -84,11 +84,16 @@ This file is the canonical agent entry point (works with Cursor, which reads
   Investors removed** (no nav node, no page). Under Our Story: **Leadership**.
   **Newsroom removed** (2026-09-23). For Founders is a single-page leaf; no
   category landing pages. See `plans/sitemap-lock.md` and KB §14.
-- We are in the **Sitemap/Wireframe** milestone; the **homepage** is the active
-  design surface and is still being iterated.
-- **Client review 2026-11-09 (KB §28.10)** is the current hi-fi pass. Read it before
-  changing interior chrome, the Vertical Software hero, vertical panels, the Our Advantage
-  sidebar, the footer, or the Our Story timeline. Wireframes were not redrawn.
+- We are in the **client-review / high-fidelity** phase. The homepage and six interior pages
+  are built; wireframes were not redrawn after 2026-10-30.
+- **Latest build record: KB §30 (2026-11-27).** It supersedes stale build descriptions in
+  §28 (which stops at 2026-11-18), §29.8, `design.md` §3.1/§4.10, and `wireframes.md` §2.
+  The design build is commit `39fefd1` (2026-11-26); six design commits sit after the last
+  `main` merge and are not deployed until `main` is updated.
+- **Client review 2026-11-09 (KB §28.10)** remains the reference for interior chrome, the
+  Vertical Software hero, vertical panels, the Our Advantage sidebar, the footer, and the
+  Our Story timeline; the **2026-11-24 brief** (founder slider, hero copy, italics, dual close)
+  is the later pass recorded in KB §30.
 - **The official high-fidelity homepage is `03_Design/client-review/homepage/`**
   (promoted **2026-11-02** — ledger redesign; prior build frozen at
   `client-review/homepage-2026-10-29-official/`). It is **client-facing and tracked**:
@@ -97,10 +102,10 @@ This file is the canonical agent entry point (works with Cursor, which reads
   **`assets/logos/`** +
   **`manifest.json`** are **tracked and published** as of 2026-11-03, when the client cleared the
   portfolio marks; `pages.yml` copies them and skips the step if the directory is ever absent).
-  Structure: **Axis A → copy swap → Axis B** opening
-  (KB §23.10) → **Building on Great** model steps → AI → verticals gallery
-  → founders → careers → close. Same narrative order as the 2026-10-29 build; new editorial
-  layout and type ladder. Build notes: `client-review/homepage/design-notes.md`.
+  Current structure: **Axis A → copy swap → Axis B** opening (KB §23.10) → **Building on
+  Great** model steps → AI → verticals gallery → founders/client slider → LinkedIn + See
+  Careers → two inset close doors. This is the 2026-11-26 build, not the 2026-10-01 order;
+  record: KB §30. Build notes: `client-review/homepage/design-notes.md`.
 - **Interior hero archetypes (hi-fi, `design.md` §4.10, amended 2026-11-09):** subpages share one **paper-mesh** system (serif-italic payoff, solid white bar, gold as a mark never text on paper) but **each page has its own composition**. Default interior recipe is left type, 90/48/32 content padding, mesh pooled right. Photography is a **CSS background** on `.hero__photo` — a short 8% join into the paper, never a 20% dissolve, never inline furniture (no polaroids, arches, phones, or inset cards). **Photo pages turn the mesh off**; mesh is atmosphere for type-only / filmstrip plates. Do not clone one page’s hero onto another — **Contact is the one sanctioned copy of the Vertical Software composition (2026-11-10, at the user's direction)**. Recipes:
   **Vertical Software** = type only, left-aligned, no photo. **Our Advantage** = till photograph as the field, tighter crop on the work, green payoff. **Our Story** = three industry photographs as a flush triptych (fade only on the wine pane). **Acquisitions** = **10-28 Axis A recipe** — centered type on paper mesh, founder videos as a **filmstrip of tabs under the copy** (`.founder-film`), not a side stage and not a lifestyle still. **Careers** = type-only paper mesh (same left recipe as Vertical Software), then a paper **factband** under the stage — same role as Our Story’s `.story-spine`, not a card inside the mesh. **Contact** = the Vertical Software type-only paper mesh, applied deliberately (2026-11-10; it previously used a quieted corridor photograph) — Direct lines are an in-flow hairline ledger row in the copy column, not a card over a photo. Legal pages remain wireframe.
 - **Vertical Software — second client-review HTML page (2026-11-03):**
@@ -166,13 +171,14 @@ This file is the canonical agent entry point (works with Cursor, which reads
   upward, B's arrive from below, the media never cuts or expands (KB §23.10). **Axis A is one
   visual, not the 11 tiles** (client 2026-10-01). Canonical record: KB **§23** (guardrails
   §23.6) + **§24** (the review) + **§23.10** (the copy swap).
-- **Homepage reordered from client review (2026-10-01).** Order is now Opening → **What we do**
-  (Acquire/Grow/Lead + founder CTA + impressive stats) → **Verticals** filmstrip → **AI** →
-  **Great place to work** → Close. The old persona door, two-up "who we are," **Software** scene,
-  and homepage **Offerings** scene were removed; the **Our Advantage page + nav node stay**.
-  Full record: KB **§24**; canonical section table: `wireframes.md` §2. **The same messaging was
-  applied across all 8 interior pages (2026-10-01, KB §24.6)** — a messaging/UX pass, not a
-  sitemap change.
+- **Homepage reordered from client review (2026-10-01) — historical baseline.** That pass
+  removed the persona door, the two-up "who we are," the **Software** scene, and the homepage
+  **Offerings** scene; the **Our Advantage page + nav node stay**. Its recorded order ("What we
+  do → Verticals filmstrip → AI → Great place to work → Close") is **not the current build** —
+  the 2026-11-26 build is Opening → Building on Great → AI → verticals → founders → LinkedIn →
+  dual close (KB §30). Full 2026-10-01 record: KB **§24**. **The same messaging was applied
+  across all 8 interior pages (2026-10-01, KB §24.6)** — a messaging/UX pass, not a sitemap
+  change.
 - **Homepage opening — pins cut and mosaic fixed (2026-09-28).** *(Historical: the 11-tile
   mosaic described here was replaced by a single Axis A visual on 2026-10-01 — `fitMosaicStage`
   and the `.t1`–`.t11` tiles are gone. The pin-cut math and the morph-ramp fix still stand;

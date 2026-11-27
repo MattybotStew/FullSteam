@@ -1577,3 +1577,11 @@ viewport, the toolbar yields to the composer, the toast moves to the top when a 
 pins re-anchor across resize/reload, notes hydrate from the server after clearing `localStorage`,
 delete/clear write back to disk, and an offline save retries successfully once the server returns.
 `Esc`, `Alt+Shift+C`, edit, and delete were exercised through CDP (Chromium headless).
+
+## 2026-11-27 — build-record bridge for 18–26 November
+
+This log stops at 2026-11-10 and has no entries for the 2026-11-18 → 26 client pass. The
+consolidated record is **KB §30**: current homepage copy, founders/client slider, dual close,
+AI-card removal on Our Advantage, Vertical Software logo/stats spacing, interior payoff italics,
+and the exact commits (`39fefd1` build tip; `214c234` comment tooling). Do not infer the current
+build from the earlier entries in this file where they conflict.
