@@ -6,8 +6,8 @@ does not repeat either of them. It tracks **the decisions and open questions fro
 design cleanup** of the client-review pages (`03_Design/client-review/homepage/`), so a fresh
 session does not silently re-decide them.
 
-Everything below is uncommitted work in the tree. Nothing has been committed, pushed, or
-branched.
+This is a decision log, not a live git status. The 2026-11-10 work and the 2026-11-27
+resolutions below are committed; the branch is `client-review-2026-11-24`.
 
 ---
 
@@ -38,7 +38,7 @@ branched.
 - **Acquisitions film card** — 16:9 thumb (104–140px) with the play badge bottom-right
   (`c23c8db`); the card itself sits under the lede, under the copy column.
 
-### 1. Shared stylesheets can now deploy (needs the files committed)
+### 1. Shared stylesheets can now deploy — resolved
 
 `assets/site.css` and `assets/hero.css` were both unreachable on Pages: `assets/*` deny-lists
 the folder, and `pages.yml` copies only named files.
@@ -48,8 +48,8 @@ Fixed in two places, both outside the design folder:
 - `.github/workflows/pages.yml` — `site.css` and `hero.css` added to the `cp` that stages
   `assets/`.
 
-Both files are now untracked-but-committable (`git status` shows `??`). **They must be
-`git add`-ed with the seven pages**, or the deploy ships HTML that 404s its stylesheets.
+Both files are now tracked and committed; Pages stages them. Keep the allow-list and the
+`pages.yml` `cp` entry together if either is edited.
 
 ### 2. Homepage header: two systems, on purpose
 
@@ -73,21 +73,15 @@ so the token was removed rather than re-pointed. No visual change.
 
 ---
 
-## Still open
+## Resolved 2026-11-27
 
-### 5. Footer link colour — two variants, and the counts are easy to get wrong
+### 5. Footer link colour — unified on `.86`
 
-Three pages set it explicitly (`our-advantage`, `our-story`, `vertical-software`):
-`.footer a { color: rgba(255,255,255,.86) }`. The other **four** (`index`, `contact`, `careers`,
-`for-founders`) only set the transition, so their links inherit `.footer`'s
-`rgba(255,255,255,.62)`.
-
-So the "explicit .86" version is the **minority**, not the majority. Unifying on it brightens
-every footer link on four pages. Unifying on the plain version would dim three. Either way it is
-a taste call with a visible change on one group — not a cleanup. Decision needed before touching.
-
-(The **AI at Fullsteam** label is exempt: those three pages restate `.footer__cat > a { color:
-var(--green) }` locally, because their `.footer a` rule outranks `site.css` on order alone.)
+`assets/site.css` now carries `.footer a { color: rgba(255,255,255,.86) }` above the hover
+rule. The four pages that inherited `.62` (`index`, `contact`, `careers`, `for-founders`) now
+match the three that already set `.86`. `.footer__sub a` stays at `.5` (higher specificity) and
+the **AI at Fullsteam** label stays green (`.footer__cat > a`). This is the brighter, more
+legible variant; the three local `.86` declarations are now redundant but harmless.
 
 ### 6. Hero dye-lot colours — resolved 2026-11-10
 
@@ -96,14 +90,22 @@ interior hero its own `--blob-a/b/c` pair from the brand palette at `opacity: 1`
 (Careers `#2F86B0 / #FFC600 / #C9E88A`, Our Story `#84BD00 / #00587C / #FFC600`). Page
 backgrounds are unchanged. No action needed unless the client wants the mixes back.
 
-### 7. The `.vp--all` gradient — not a one-line fix
+### 7. The `.vp--all` gradient — resolved by the later build
 
-`index.html` paints the sixth verticals index cell with
-`linear-gradient(160deg, #006C99, #003F55, #032B39)`. `#003F55` is the same exploration teal as
-item 4, but replacing only the middle stop leaves `#006C99` and `#032B39` off-palette, so the
-tile would change appearance without the palette actually being clean. Either treat it as art
-direction (same bucket as item 6) or derive all three stops from Bio Blue. `--brand-deep`'s
-deletion does not touch it — this is a literal.
+The gradient described here (`#006C99 → #003F55 → #032B39`) no longer exists. The sixth
+verticals cell is a flat `#032B39` ink field with the brand blue/gold/green cloud animation, so
+the exploration teal is gone from this surface. No palette action remains.
+
+---
+
+## Still open
+
+### 6. CTA wording — client ratification
+
+The builds use **“Explore our verticals”**; the site-wide locked label remains
+**“Explore our vertical solutions”** per AGENTS.md. The 2026-10-29 client note asked for the
+short form on the homepage, and the interior body CTA was aligned on 2026-11-27, but the global
+lock still needs the client call.
 
 ---
 
@@ -116,5 +118,5 @@ deletion does not touch it — this is a literal.
 - **`variants/hero-A-paper-mesh-2026-10-29.html` stays.** It is linked from the review portal
   (`index.html`), staged by `pages.yml`, and tracked — the A/B arm (KB §27.10).
 - **`contact-hero-pilot.html` was deleted** (orphan copy, no inbound links).
-- **No copy, content, or page structure changed** in the cleanup; the seven pages rendered
-  pixel-identical at 1440 and 375 before the two items above were applied.
+- **The 2026-11-10 cleanup changed no copy, content, or page structure**; the seven pages
+  rendered pixel-identical at 1440 and 375. Later client passes did change copy (KB §30).

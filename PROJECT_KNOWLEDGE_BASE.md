@@ -3266,9 +3266,9 @@ Seven client-review pages: `index.html`, `vertical-software.html`, `our-advantag
 |---|---|
 | **OI-5 / G-3** — all scale figures (70,000+, $75B, 28th, 19, 100% AIDLC, 2,000+) | Still awaiting publishability sign-off |
 | **OI-16** — named acquisition products (BridalLive, Floranext, Commerce7) are now visible in the homepage founders slider | Needs written clearance; currently placeholders |
-| **Footer link colour** — three pages set `.86`, four inherit `.62` | Taste call; not a cleanup |
-| **`.vp--all` gradient** — `#006C99/#003F55/#032B39` | Off-palette middle; art-direction decision |
-| **CTA wording** — “Explore our verticals” on builds vs “Explore our vertical solutions” locked label | Global ratification open |
+| **Footer link colour** | **Resolved 2026-11-27:** `.footer a` is `.86` in `site.css`; the three local declarations are redundant but harmless |
+| **`.vp--all` gradient** | **Resolved by the later build:** flat `#032B39` + brand clouds; no `#003F55` left |
+| **CTA wording** — “Explore our verticals” on builds vs “Explore our vertical solutions” locked label | Global ratification open; the last body CTA was aligned 2026-11-27 |
 | **11 vs 13+ sectors** | Client reconciliation; site ships 11 |
 | **OI-15** — investor track | Client decision; no nav/page change |
 
